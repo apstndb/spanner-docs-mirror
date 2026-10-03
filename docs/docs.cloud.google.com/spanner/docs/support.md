@@ -6,8 +6,4 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [](https://docs.cloud.google.com/spanner/docs/getting-support)
-    
-    ### Get support
-    
-    Where to find support when using Spanner.
+- [Get support Where to find support when using Spanner.](https://docs.cloud.google.com/spanner/docs/getting-support)

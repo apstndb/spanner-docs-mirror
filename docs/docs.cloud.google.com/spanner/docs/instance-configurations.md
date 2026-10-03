@@ -12,9 +12,9 @@ This page describes the different types of instance configurations available in 
 
 A Spanner instance configuration defines the geographic placement and replication of the databases in that instance. When you create an instance, you must configure it as either *regional* , *dual-region* , or *multi-region* . You make this choice by selecting an instance configuration, which determines where your data is stored for that instance:
 
-  - [Regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional-configurations) : all the resources reside within a single Google Cloud region
-  - [Dual-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) : all resources span two regions and reside within a single country (available in the [Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) )
-  - [Multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) : the resources span more than two regions (available in the [Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) )
+- [Regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional-configurations) : all the resources reside within a single Google Cloud region
+- [Dual-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) : all resources span two regions and reside within a single country (available in the [Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) )
+- [Multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) : the resources span more than two regions (available in the [Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) )
 
 For more information about region-specific considerations, see [Geography and regions](https://docs.cloud.google.com/docs/geography-and-regions#regions_and_zones) .
 
@@ -32,210 +32,56 @@ For any base regional configuration, Spanner maintains three [read-write replica
 
 Spanner offers the following base regional instance configurations. To request an optional read-only replica region that isn't listed in the following table, [fill out this request form](https://docs.google.com/forms/d/e/1FAIpQLSfw9Rj4p4KA8oLu7MhIpSyPRd-4qxqazwsFZIY-_tkNrpWFcw/viewform) . Note that we use these requests to gauge demand for future regions and may not respond directly to your submission.
 
-Base Configuration Name
-
-Region Description
-
-Optional Region
-
-**Americas**
-
-`regional-northamerica-northeast1`
-
-Montréal ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-northamerica-northeast2`
-
-Toronto ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-northamerica-south1`
-
-Querétaro
-
-`regional-southamerica-east1`
-
-São Paulo ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-southamerica-west1`
-
-Santiago ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-us-central1`
-
-Iowa ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-Read-only: `asia-northeast1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`asia-south1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`europe-west1` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR)  
-`europe-west2` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`europe-west9` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`us-west3` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
-
-`regional-us-east1`
-
-South Carolina
-
-Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`europe-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`europe-west3` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
-
-`regional-us-east4`
-
-Northern Virginia
-
-`regional-us-east5`
-
-Columbus
-
-Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
-
-`regional-us-south1`
-
-Dallas ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-us-west1`
-
-Oregon ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-us-west2`
-
-Los Angeles
-
-`regional-us-west3`
-
-Salt Lake City
-
-`regional-us-west4`
-
-Las Vegas
-
-**Europe**
-
-`regional-europe-central2`
-
-Warsaw ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-europe-north1`
-
-Finland ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-europe-north2`
-
-Stockholm ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-europe-southwest1`
-
-Madrid ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-europe-west1`
-
-Belgium ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)  
-`us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)
-
-`regional-europe-west2`
-
-London ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-europe-west3`
-
-Frankfurt
-
-`regional-europe-west4`
-
-Netherlands ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-europe-west6`
-
-Zürich ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-europe-west8`
-
-Milan ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-europe-west9`
-
-Paris ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-`regional-europe-west10`
-
-Berlin
-
-`regional-europe-west12`
-
-Turin ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)
-
-**Asia Pacific**
-
-`regional-asia-east1`
-
-Taiwan
-
-`regional-asia-east2`
-
-Hong Kong
-
-`regional-asia-northeast1`
-
-Tokyo
-
-`regional-asia-northeast2`
-
-Osaka
-
-`regional-asia-northeast3`
-
-Seoul
-
-`regional-asia-south1`
-
-Mumbai
-
-`regional-asia-south2`
-
-Delhi
-
-`regional-asia-southeast1`
-
-Singapore
-
-`regional-asia-southeast2`
-
-Jakarta
-
-`regional-asia-southeast3`
-
-Bangkok
-
-`regional-australia-southeast1`
-
-Sydney
-
-`regional-australia-southeast2`
-
-Melbourne
-
-**Middle East**
-
-`regional-me-central1`
-
-Doha
-
-`regional-me-central2`
-
-Dammam
-
-`regional-me-west1`
-
-Tel Aviv
-
-**Africa**
-
-`regional-africa-south1`
-
-Johannesburg
+| Base Configuration Name            | Region Description                                                                                                                                                                   | Optional Region                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+|------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Americas**                       |                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-northamerica-northeast1` | Montréal ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-northamerica-northeast2` | Toronto ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-northamerica-south1`     | Querétaro                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-southamerica-east1`      | São Paulo ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-southamerica-west1`      | Santiago ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-us-central1`             | Iowa ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)        | Read-only: `asia-northeast1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `asia-south1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west1` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR) `europe-west2` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west9` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-west3` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) |
+| `regional-us-east1`                | South Carolina                                                                                                                                                                       | Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west3` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                      |
+| `regional-us-east4`                | Northern Virginia                                                                                                                                                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-us-east5`                | Columbus                                                                                                                                                                             | Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `regional-us-south1`               | Dallas ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-us-west1`                | Oregon ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-us-west2`                | Los Angeles                                                                                                                                                                          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-us-west3`                | Salt Lake City                                                                                                                                                                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-us-west4`                | Las Vegas                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Europe**                         |                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-central2`         | Warsaw ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-north1`           | Finland ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-north2`           | Stockholm ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-southwest1`       | Madrid ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-west1`            | Belgium ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)     | Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `regional-europe-west2`            | London ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-west3`            | Frankfurt                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-west4`            | Netherlands ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker) |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-west6`            | Zürich ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-west8`            | Milan ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-west9`            | Paris ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-west10`           | Berlin                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-europe-west12`           | Turin ![leaf icon](https://cloud.google.com/sustainability/region-carbon/gleaf.svg) [Low CO <sub>2</sub>](https://cloud.google.com/sustainability/region-carbon#region-picker)       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Asia Pacific**                   |                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-east1`              | Taiwan                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-east2`              | Hong Kong                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-northeast1`         | Tokyo                                                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-northeast2`         | Osaka                                                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-northeast3`         | Seoul                                                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-south1`             | Mumbai                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-south2`             | Delhi                                                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-southeast1`         | Singapore                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-southeast2`         | Jakarta                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-asia-southeast3`         | Bangkok                                                                                                                                                                              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-australia-southeast1`    | Sydney                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-australia-southeast2`    | Melbourne                                                                                                                                                                            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Middle East**                    |                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-me-central1`             | Doha                                                                                                                                                                                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-me-central2`             | Dammam                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-me-west1`                | Tel Aviv                                                                                                                                                                             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| **Africa**                         |                                                                                                                                                                                      |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `regional-africa-south1`           | Johannesburg                                                                                                                                                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ### Replication
 
@@ -247,10 +93,10 @@ You can [create a custom regional instance configuration](https://docs.cloud.goo
 
 For optimal performance, follow these best practices:
 
-  - [Design a schema](https://docs.cloud.google.com/spanner/docs/schema-design) that prevents hotspots and other performance issues.
-  - Place critical compute resources within the same region as your Spanner instance.
-  - Provision enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to keep high priority total CPU utilization under 65%.
-  - For information about the amount of throughput per Spanner node, see [Performance for regional configurations](https://docs.cloud.google.com/spanner/docs/performance) .
+- [Design a schema](https://docs.cloud.google.com/spanner/docs/schema-design) that prevents hotspots and other performance issues.
+- Place critical compute resources within the same region as your Spanner instance.
+- Provision enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to keep high priority total CPU utilization under 65%.
+- For information about the amount of throughput per Spanner node, see [Performance for regional configurations](https://docs.cloud.google.com/spanner/docs/performance) .
 
 ## Dual-region configurations
 
@@ -260,9 +106,9 @@ Dual-region configurations let you replicate the database's data in multiple zon
 
 Dual-region configurations do the following:
 
-  - Serve reads from two regions in a single country.
-  - Meet data residency requirements.
-  - Provide higher availability and SLAs than regional configurations.
+- Serve reads from two regions in a single country.
+- Meet data residency requirements.
+- Provide higher availability and SLAs than regional configurations.
 
 Spanner offers dual-region configurations in Australia, Germany, India, and Japan.
 
@@ -272,62 +118,23 @@ For information about the amount of throughput per Spanner node, see [Performanc
 
 Spanner offers the following base dual-region instance configurations:
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Base Configuration Name</th>
-<th>Resource Location</th>
-<th>Regions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">dual-region-australia1</code></td>
-<td>au (Australia)</td>
-<td>Sydney: <code dir="ltr" translate="no">australia-southeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Melbourne: <code dir="ltr" translate="no">australia-southeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">dual-region-canada1</code></td>
-<td>ca (Canada)</td>
-<td>Toronto: <code dir="ltr" translate="no">northamerica-northeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Montréal: <code dir="ltr" translate="no">northamerica-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">dual-region-germany1</code></td>
-<td>de (Germany)</td>
-<td>Berlin: <code dir="ltr" translate="no">europe-west10</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Frankfurt: <code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">dual-region-india1</code></td>
-<td>in (India)</td>
-<td>Mumbai: <code dir="ltr" translate="no">asia-south1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Delhi: <code dir="ltr" translate="no">asia-south2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">dual-region-japan1</code></td>
-<td>jp (Japan)</td>
-<td>Tokyo: <code dir="ltr" translate="no">asia-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a><br />
-Osaka: <code dir="ltr" translate="no">asia-northeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW"><em>2RW+1W</em></a></td>
-</tr>
-</tbody>
-</table>
+| Base Configuration Name  | Resource Location | Regions                                                                                                                                                                                                                                                                                                                    |
+|--------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `dual-region-australia1` | au (Australia)    | Sydney: `australia-southeast1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW) Melbourne: `australia-southeast2` [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW)       |
+| `dual-region-canada1`    | ca (Canada)       | Toronto: `northamerica-northeast2` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW) Montréal: `northamerica-northeast1` [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW) |
+| `dual-region-germany1`   | de (Germany)      | Berlin: `europe-west10` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW) Frankfurt: `europe-west3` [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW)                      |
+| `dual-region-india1`     | in (India)        | Mumbai: `asia-south1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW) Delhi: `asia-south2` [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW)                             |
+| `dual-region-japan1`     | jp (Japan)        | Tokyo: `asia-northeast1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW) Osaka: `asia-northeast2` [*2RW+1W*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2RW)                      |
 
 ### Benefits
 
 Dual-region instances offer these primary benefits:
 
-  - **99.999% availability** : across two regions in the same country, which is greater than the 99.99% availability that Spanner regional configurations provide.
+- **99.999% availability** : across two regions in the same country, which is greater than the 99.99% availability that Spanner regional configurations provide.
 
-  - **Data distribution** : automatically replicates your data between the two regions with strong consistency guarantees.
+- **Data distribution** : automatically replicates your data between the two regions with strong consistency guarantees.
 
-  - **Data residency requirements** : Meets data residency requirements in the countries listed under dual-region [Available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) .
+- **Data residency requirements** : Meets data residency requirements in the countries listed under dual-region [Available configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) .
 
 ### Replication
 
@@ -337,8 +144,8 @@ A dual-region contains six replicas, three in each region. One of the regions is
 
 After you create a dual-region configuration, you can view the *Dual-region quorum health timeline* metric on the [System insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) dashboard. This metric is only available for dual-region configurations. It shows the health of three quorums:
 
-  - The dual-region quorum: `Global`
-  - The single region quorum in each region (for example, `Sydney` and `Melbourne` )
+- The dual-region quorum: `Global`
+- The single region quorum in each region (for example, `Sydney` and `Melbourne` )
 
 It shows an orange bar in the timeline when there is service disruption. You can hover over it to see the start and end times of the disruption.
 
@@ -350,11 +157,11 @@ To failover and failback manually, see [Change dual-region quorum](https://docs.
 
 Consider the following when making manual failover and failback decisions:
 
-  - If all three quorums are healthy, then no action is needed.
+- If all three quorums are healthy, then no action is needed.
 
-  - If one of the regions shows disruption, then there is probably a regional service disruption. This might cause the databases running in your dual-region quorum to experience less availability. Writes might also fail because a quorum can't be established and transactions eventually time out. Using the System insights dashboard, observe error rates and latency in your database. If there are increased error rates or latency, then we recommend that you *failover* , which means changing the dual-region quorum from dual-region to the region that is still healthy. After the disrupted region is healthy again, you must *failback* , changing the dual-region quorum from single region to dual-region. Google automatically performs failover and failback when it detects a regional outage. You can also manually failover if you detect a disruption. However, you must remember to manually failback if you performed a manual failover.
+- If one of the regions shows disruption, then there is probably a regional service disruption. This might cause the databases running in your dual-region quorum to experience less availability. Writes might also fail because a quorum can't be established and transactions eventually time out. Using the System insights dashboard, observe error rates and latency in your database. If there are increased error rates or latency, then we recommend that you *failover* , which means changing the dual-region quorum from dual-region to the region that is still healthy. After the disrupted region is healthy again, you must *failback* , changing the dual-region quorum from single region to dual-region. Google automatically performs failover and failback when it detects a regional outage. You can also manually failover if you detect a disruption. However, you must remember to manually failback if you performed a manual failover.
 
-  - If the dual-region quorum shows disruption even though both single regions are healthy, then there is a network partitioning issue. The two regions are no longer able to communicate with each other so they each show healthy even though the overall system is not. In this scenario, we recommend that you failover to the default leader region. After the network partition issue is resolved and the dual-region quorum returns to healthy, you must manually failback.
+- If the dual-region quorum shows disruption even though both single regions are healthy, then there is a network partitioning issue. The two regions are no longer able to communicate with each other so they each show healthy even though the overall system is not. In this scenario, we recommend that you failover to the default leader region. After the network partition issue is resolved and the dual-region quorum returns to healthy, you must manually failback.
 
 Dual-region provides zero recovery point objective (RPO) because there is no data loss during a regional outage or when a network partition issue arises.
 
@@ -364,10 +171,10 @@ To check the mode (single or dual) of your dual-region quorum, see [Check dual-r
 
 Failover and failback best practices include:
 
-  - Don't failover to a single region if no region failures or disruptions occur. Failing over to a single region increases the possibility of overall system unavailability if that single region fails.
-  - Be mindful when selecting the region to failover. Choosing a wrong region to failover results in database unavailability, which is unrecoverable before the region is back online. To verify, you can use a [bash script](https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum#rest-gcloud) to check the health of your single region, before performing the failover.
-  - If the unhealthy region is the default leader region, [change the default leader region](https://docs.cloud.google.com/spanner/docs/modifying-leader-region#change-leader-region) to the failover region after performing the failover. After confirming both regions are healthy again, perform failback, then change the leader region back to your original leader region.
-  - Remember to manually failback if you performed a manual failover.
+- Don't failover to a single region if no region failures or disruptions occur. Failing over to a single region increases the possibility of overall system unavailability if that single region fails.
+- Be mindful when selecting the region to failover. Choosing a wrong region to failover results in database unavailability, which is unrecoverable before the region is back online. To verify, you can use a [bash script](https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum#rest-gcloud) to check the health of your single region, before performing the failover.
+- If the unhealthy region is the default leader region, [change the default leader region](https://docs.cloud.google.com/spanner/docs/modifying-leader-region#change-leader-region) to the failover region after performing the failover. After confirming both regions are healthy again, perform failback, then change the leader region back to your original leader region.
+- Remember to manually failback if you performed a manual failover.
 
 ### Limitations
 
@@ -379,14 +186,14 @@ You can't create a custom dual-region instance configuration. You can't add read
 
 Spanner regional configurations replicate data between multiple zones within a single region. However, a regional configuration might not be optimal if:
 
-  - Your application often needs to read data from multiple geographic locations (for example, to serve data to users in both North America and Asia).
-  - Your writes originate from a different location than your reads (for example, if you have large write workloads in North America and large read workloads in Europe).
+- Your application often needs to read data from multiple geographic locations (for example, to serve data to users in both North America and Asia).
+- Your writes originate from a different location than your reads (for example, if you have large write workloads in North America and large read workloads in Europe).
 
 Multi-region configurations can:
 
-  - Serve writes from multiple regions.
-  - Maintain availability in the case of regional failures.
-  - Provide higher availability and SLAs than regional configurations.
+- Serve writes from multiple regions.
+- Maintain availability in the case of regional failures.
+- Provide higher availability and SLAs than regional configurations.
 
 Multi-region configurations let you replicate your databases in multiple zones across multiple regions, as defined by the instance configuration. Each multi-region configuration contains two read-write regions. A read-write region contains two read-write replicas located in separate zones. These replicas let you read data with lower latency from multiple locations close to or within the regions in the configuration.
 
@@ -398,310 +205,49 @@ Spanner offers the following base multi-region instance configurations. To reque
 
 #### One continent
 
-<table style="width:100%;">
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Base Configuration Name</th>
-<th>Resource Location</th>
-<th>Read-Write Regions</th>
-<th>Read-Only Regions</th>
-<th>Witness Region</th>
-<th>Optional Region</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">asia1</code></td>
-<td>global</td>
-<td>Tokyo: <code dir="ltr" translate="no">asia-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Osaka: <code dir="ltr" translate="no">asia-northeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Seoul: <code dir="ltr" translate="no">asia-northeast3</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-east5</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">asia2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#A"><em>A</em></a></td>
-<td>global</td>
-<td>Mumbai: <code dir="ltr" translate="no">asia-south1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Delhi: <code dir="ltr" translate="no">asia-south2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Singapore: <code dir="ltr" translate="no">asia-southeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a></td>
-<td>None</td>
-<td>None</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">eur3</code></td>
-<td>eu (European Union)</td>
-<td>Belgium: <code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Netherlands: <code dir="ltr" translate="no">europe-west4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Finland: <code dir="ltr" translate="no">europe-north1</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">eur5</code></td>
-<td>global</td>
-<td>London: <code dir="ltr" translate="no">europe-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Belgium: <code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Netherlands: <code dir="ltr" translate="no">europe-west4</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">eur6</code></td>
-<td>global</td>
-<td>Netherlands: <code dir="ltr" translate="no">europe-west4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Frankfurt: <code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Zurich: <code dir="ltr" translate="no">europe-west6</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">eur7</code></td>
-<td>eu (European Union)</td>
-<td>Milan: <code dir="ltr" translate="no">europe-west8</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Frankfurt: <code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Turin: <code dir="ltr" translate="no">europe-west12</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">nam3</code></td>
-<td>us (United States)</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">asia-south1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">asia-southeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">asia-southeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west9</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-east5</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-west4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-west8</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">nam6</code></td>
-<td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oregon: <code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
-Los Angeles: <code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a></td>
-<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">nam7</code></td>
-<td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">us-south1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">nam8</code></td>
-<td>us (United States)</td>
-<td>Los Angeles: <code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Oregon: <code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Salt Lake City: <code dir="ltr" translate="no">us-west3</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">asia-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">asia-southeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a><br />
-<code dir="ltr" translate="no">us-east5</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">nam9</code></td>
-<td>us (United States)</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oregon: <code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>South Carolina: <code dir="ltr" translate="no">us-east1</code></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">nam10</code></td>
-<td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Salt Lake City: <code dir="ltr" translate="no">us-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">nam11</code></td>
-<td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">nam12</code></td>
-<td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oregon: <code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">nam13</code></td>
-<td>us (United States)</td>
-<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Salt Lake City: <code dir="ltr" translate="no">us-west3</code></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">nam14</code></td>
-<td>global</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Montréal: <code dir="ltr" translate="no">northamerica-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>South Carolina: <code dir="ltr" translate="no">us-east1</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">nam15</code></td>
-<td>us (United States)</td>
-<td>Dallas: <code dir="ltr" translate="no">us-south1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">us-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">nam16</code></td>
-<td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Northern Virginia: <code dir="ltr" translate="no">us-east4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Columbus: <code dir="ltr" translate="no">us-east5</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR"><em>2-OR</em></a></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">nam22</code></td>
-<td>us (United States)</td>
-<td>Columbus: <code dir="ltr" translate="no">us-east5</code> ( <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a> )<br />
-South Carolina: <code dir="ltr" translate="no">us-east1</code> ( <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a> )</td>
-<td>None</td>
-<td>Northern Virginia: <code dir="ltr" translate="no">us-east4</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">nam23</code></td>
-<td>us (United States)</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Las Vegas: <code dir="ltr" translate="no">us-west4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>None</td>
-<td>Dallas: <code dir="ltr" translate="no">us-south1</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">asia-northeast1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">australia-southeast2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a><br />
-<code dir="ltr" translate="no">europe-west3</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-</tbody>
-</table>
+| Base Configuration Name                                                             | Resource Location   | Read-Write Regions                                                                                                                                                                                                                                                                                                                                                                              | Read-Only Regions                                                                                                                                                                                      | Witness Region                | Optional Region                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+|-------------------------------------------------------------------------------------|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `asia1`                                                                             | global              | Tokyo: `asia-northeast1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Osaka: `asia-northeast2` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                     | None                                                                                                                                                                                                   | Seoul: `asia-northeast3`      | Read-only: `us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-east5` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `asia2` [*A*](https://docs.cloud.google.com/spanner/docs/instance-configurations#A) | global              | Mumbai: `asia-south1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Delhi: `asia-south2` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Singapore: `asia-southeast1` [*1R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1R) | None                                                                                                                                                                                                   | None                          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `eur3`                                                                              | eu (European Union) | Belgium: `europe-west1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Netherlands: `europe-west4` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                   | None                                                                                                                                                                                                   | Finland: `europe-north1`      | Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-east4` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `eur5`                                                                              | global              | London: `europe-west2` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Belgium: `europe-west1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                        | None                                                                                                                                                                                                   | Netherlands: `europe-west4`   | Read-only: `us-central1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-east1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `eur6`                                                                              | global              | Netherlands: `europe-west4` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Frankfurt: `europe-west3` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                 | None                                                                                                                                                                                                   | Zurich: `europe-west6`        | Read-only: `us-east1` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `eur7`                                                                              | eu (European Union) | Milan: `europe-west8` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Frankfurt: `europe-west3` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                       | None                                                                                                                                                                                                   | Turin: `europe-west12`        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `nam3`                                                                              | us (United States)  | Northern Virginia: `us-east4` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) South Carolina: `us-east1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                              | None                                                                                                                                                                                                   | Iowa: `us-central1`           | Read-only: `asia-south1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `asia-southeast1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `asia-southeast2` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west2` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west4` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west9` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-east5` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-west2` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-west4` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-west8` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) |
+| `nam6`                                                                              | us (United States)  | Iowa: `us-central1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) South Carolina: `us-east1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                        | Oregon: `us-west1` [*1R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1R) Los Angeles: `us-west2` [*1R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1R) | Oklahoma: `us-central2`       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `nam7`                                                                              | us (United States)  | Iowa: `us-central1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Northern Virginia: `us-east4` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                     | None                                                                                                                                                                                                   | Oklahoma: `us-central2`       | Read-only: `us-east1` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR) `us-south1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west1` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| `nam8`                                                                              | us (United States)  | Los Angeles: `us-west2` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Oregon: `us-west1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                            | None                                                                                                                                                                                                   | Salt Lake City: `us-west3`    | Read-only: `asia-northeast1` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR) `asia-southeast1` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR) `europe-west2` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR) `europe-west3` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR) `us-east5` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `nam9`                                                                              | us (United States)  | Northern Virginia: `us-east4` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Iowa: `us-central1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                     | Oregon: `us-west1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                       | South Carolina: `us-east1`    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `nam10`                                                                             | us (United States)  | Iowa: `us-central1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Salt Lake City: `us-west3` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                        | None                                                                                                                                                                                                   | Oklahoma: `us-central2`       | Read-only: `us-east4` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `nam11`                                                                             | us (United States)  | Iowa: `us-central1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) South Carolina: `us-east1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                        | None                                                                                                                                                                                                   | Oklahoma: `us-central2`       | Read-only: `us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `nam12`                                                                             | us (United States)  | Iowa: `us-central1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Northern Virginia: `us-east4` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                     | Oregon: `us-west1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                       | Oklahoma: `us-central2`       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `nam13`                                                                             | us (United States)  | Oklahoma: `us-central2` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Iowa: `us-central1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                           | None                                                                                                                                                                                                   | Salt Lake City: `us-west3`    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `nam14`                                                                             | global              | Northern Virginia: `us-east4` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Montréal: `northamerica-northeast1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                     | None                                                                                                                                                                                                   | South Carolina: `us-east1`    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `nam15`                                                                             | us (United States)  | Dallas: `us-south1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Northern Virginia: `us-east4` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                     | None                                                                                                                                                                                                   | Iowa: `us-central1`           | Read-only: `us-east1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `us-west3` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `nam16`                                                                             | us (United States)  | Iowa: `us-central1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Northern Virginia: `us-east4` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                     | None                                                                                                                                                                                                   | Columbus: `us-east5`          | Read-only: `us-west2` [*2-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `nam22`                                                                             | us (United States)  | Columbus: `us-east5` ( [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) ) South Carolina: `us-east1` ( [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) )                                                                                               | None                                                                                                                                                                                                   | Northern Virginia: `us-east4` | Read-only: `us-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `nam23`                                                                             | us (United States)  | Iowa: `us-central1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Las Vegas: `us-west4` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                             | None                                                                                                                                                                                                   | Dallas: `us-south1`           | Read-only: `asia-northeast1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `australia-southeast2` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west1` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) `europe-west3` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 
 #### Three continents
 
-<table style="width:100%;">
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Base Configuration Name</th>
-<th>Resource Location</th>
-<th>Read-Write Regions</th>
-<th>Read-Only Regions</th>
-<th>Witness Region</th>
-<th>Optional Region</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">nam-eur-asia1</code></td>
-<td>global</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Oklahoma: <code dir="ltr" translate="no">us-central2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Belgium: <code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-Taiwan: <code dir="ltr" translate="no">asia-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>South Carolina: <code dir="ltr" translate="no">us-east1</code></td>
-<td>Read-only:<br />
-<code dir="ltr" translate="no">us-west2</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR"><em>1-OR</em></a></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">nam-eur-asia3</code></td>
-<td>global</td>
-<td>Iowa: <code dir="ltr" translate="no">us-central1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#L"><em>L</em></a> , <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a><br />
-South Carolina: <code dir="ltr" translate="no">us-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Belgium: <code dir="ltr" translate="no">europe-west1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
-Netherlands: <code dir="ltr" translate="no">europe-west4</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#1R"><em>1R</em></a><br />
-Taiwan: <code dir="ltr" translate="no">asia-east1</code> <a href="https://docs.cloud.google.com/spanner/docs/instance-configurations#2R"><em>2R</em></a></td>
-<td>Oklahoma: <code dir="ltr" translate="no">us-central2</code></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+| Base Configuration Name | Resource Location | Read-Write Regions                                                                                                                                                                                                                                                                       | Read-Only Regions                                                                                                                                                                                                                                                                                                  | Witness Region             | Optional Region                                                                                         |
+|-------------------------|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------|---------------------------------------------------------------------------------------------------------|
+| `nam-eur-asia1`         | global            | Iowa: `us-central1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Oklahoma: `us-central2` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)    | Belgium: `europe-west1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) Taiwan: `asia-east1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R)                                                                                                           | South Carolina: `us-east1` | Read-only: `us-west2` [*1-OR*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1-OR) |
+| `nam-eur-asia3`         | global            | Iowa: `us-central1` [*L*](https://docs.cloud.google.com/spanner/docs/instance-configurations#L) , [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) South Carolina: `us-east1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) | Belgium: `europe-west1` [*1R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1R) Netherlands: `europe-west4` [*1R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#1R) Taiwan: `asia-east1` [*2R*](https://docs.cloud.google.com/spanner/docs/instance-configurations#2R) | Oklahoma: `us-central2`    |                                                                                                         |
 
-  - *L* : default leader region. For more information, see [Modify the leader region of a database](https://docs.cloud.google.com/spanner/docs/modifying-leader-region) .
+- *L* : default leader region. For more information, see [Modify the leader region of a database](https://docs.cloud.google.com/spanner/docs/modifying-leader-region) .
 
-  - *1R* : one replica in the region.
+- *1R* : one replica in the region.
 
-  - *2R* : two replicas in the region.
+- *2R* : two replicas in the region.
 
-  - *2RW+1W* : two read-write replicas and one witness replica in the region.
+- *2RW+1W* : two read-write replicas and one witness replica in the region.
 
-  - *1-OR* : one optional replica. You can create a custom regional instance configuration and add one optional read-only replica. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
+- *1-OR* : one optional replica. You can create a custom regional instance configuration and add one optional read-only replica. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
 
-  - *2-OR* : up to two optional replicas. You can create a custom regional instance configuration and add one or two optional read-only replicas. We recommend adding two (where possible) to help maintain low read latency. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
+- *2-OR* : up to two optional replicas. You can create a custom regional instance configuration and add one or two optional read-only replicas. We recommend adding two (where possible) to help maintain low read latency. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
 
-  - *A* : This instance configuration is restricted with an allow-list. To get access, reach out to your Technical Account Manager.
+- *A* : This instance configuration is restricted with an allow-list. To get access, reach out to your Technical Account Manager.
 
 The resource location for a multi-region instance configuration determines the disaster recovery zone guarantee for the configuration. It defines where data is stored at-rest.
 
@@ -709,11 +255,11 @@ The resource location for a multi-region instance configuration determines the d
 
 Multi-region instances offer these primary benefits:
 
-  - **99.999% availability** , which is greater than the 99.99% availability that Spanner regional configurations provide.
+- **99.999% availability** , which is greater than the 99.99% availability that Spanner regional configurations provide.
 
-  - **Data distribution** : Spanner automatically replicates your data between regions with strong consistency guarantees. This allows your data to be stored where it's used, which can reduce latency and improve the user experience.
+- **Data distribution** : Spanner automatically replicates your data between regions with strong consistency guarantees. This allows your data to be stored where it's used, which can reduce latency and improve the user experience.
 
-  - **External consistency** : Even though Spanner replicates across geographically distant locations, you can still use Spanner as if it were a database running on a single machine. Transactions are guaranteed to be serializable, and the order of transactions within the database is the same as the order in which clients observe the transactions to have been committed. External consistency is a stronger guarantee than "strong consistency," which is offered by some other products. Read more about this property in [TrueTime and external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) .
+- **External consistency** : Even though Spanner replicates across geographically distant locations, you can still use Spanner as if it were a database running on a single machine. Transactions are guaranteed to be serializable, and the order of transactions within the database is the same as the order in which clients observe the transactions to have been committed. External consistency is a stronger guarantee than "strong consistency," which is offered by some other products. Read more about this property in [TrueTime and external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) .
 
 ### Replication
 
@@ -731,12 +277,12 @@ You can [create a custom multi-region instance configuration](https://docs.cloud
 
 For optimal performance, follow these best practices:
 
-  - [Design a schema](https://docs.cloud.google.com/spanner/docs/schema-design) that prevents hotspots and other performance issues.
-  - For optimal write latency, place compute resources for write-heavy workloads within or close to the default leader region.
-  - For optimal read performance outside of the default leader region, use staleness of at least 15 seconds.
-  - To avoid single-region dependency for your workloads, place critical compute resources in at least two regions. A good option is to place them next to the two different read-write regions so that any single region outage won't impact all of your application.
-  - Provision enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to keep high priority total CPU utilization under 45% in each region.
-  - For information about the amount of throughput per Spanner node, see [Performance for multi-region configurations](https://docs.cloud.google.com/spanner/docs/performance#multi-region-performance) .
+- [Design a schema](https://docs.cloud.google.com/spanner/docs/schema-design) that prevents hotspots and other performance issues.
+- For optimal write latency, place compute resources for write-heavy workloads within or close to the default leader region.
+- For optimal read performance outside of the default leader region, use staleness of at least 15 seconds.
+- To avoid single-region dependency for your workloads, place critical compute resources in at least two regions. A good option is to place them next to the two different read-write regions so that any single region outage won't impact all of your application.
+- Provision enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to keep high priority total CPU utilization under 45% in each region.
+- For information about the amount of throughput per Spanner node, see [Performance for multi-region configurations](https://docs.cloud.google.com/spanner/docs/performance#multi-region-performance) .
 
 ## Move an instance
 
@@ -757,12 +303,12 @@ Changing the default leader region is a [schema change](https://docs.cloud.googl
 ## Trade-offs: regional versus dual-region versus multi-region configurations
 
 | Configuration | Availability | Latency                                                                                   | Cost                                                                        | Data Locality                                                      |
-| ------------- | ------------ | ----------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+|---------------|--------------|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
 | Regional      | 99.99%       | Lower write latencies within region.                                                      | Lower cost; see [pricing](https://docs.cloud.google.com/spanner/pricing) .  | Enables geographic data governance.                                |
 | Dual-region   | 99.999%      | Lower read latencies from two geographic regions; a small increase in write latency.      | Higher cost; see [pricing](https://docs.cloud.google.com/spanner/pricing) . | Distributes data across two regions in a single country.           |
 | Multi-region  | 99.999%      | Lower read latencies from multiple geographic regions; a small increase in write latency. | Higher cost; see [pricing](https://docs.cloud.google.com/spanner/pricing) . | Distributes data across multiple regions within the configuration. |
 
 ## What's next
 
-  - Learn how to [create a Spanner instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) .
-  - Learn more about [Google Cloud geography and regions](https://docs.cloud.google.com/docs/geography-and-regions) .
+- Learn how to [create a Spanner instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) .
+- Learn more about [Google Cloud geography and regions](https://docs.cloud.google.com/docs/geography-and-regions) .

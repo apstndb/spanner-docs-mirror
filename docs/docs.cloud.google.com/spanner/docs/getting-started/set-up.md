@@ -14,8 +14,8 @@ If you want to use Spanner with the Google Cloud console, see [Quickstart using 
 
 To get the permissions that you need to use and interact with Spanner databases, ask your administrator to grant you the following IAM roles:
 
-  - Read and write data: [Cloud Spanner Database User](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `roles/spanner.databaseUser` ) on the instance
-  - Read-only access to databases: [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` ) on the instance
+- Read and write data: [Cloud Spanner Database User](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `roles/spanner.databaseUser` ) on the instance
+- Read-only access to databases: [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` ) on the instance
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
@@ -27,14 +27,22 @@ You might also be able to get the required permissions through [custom roles](ht
 
 2.  Create a new Google Cloud project, or open an existing project by clicking on the project name.
 
-3.  Open a terminal window, and set your project as the default project for the Google Cloud CLI, replacing `MY_PROJECT_ID` with your project ID (not your project name):
-    
-        gcloud config set project MY_PROJECT_ID
+> **Important:** The name you use must be between 4 and 30 characters. When you type the name, the form will suggest a project ID, which you can edit. The project ID you use must be between 6 and 30 characters, with a lowercase letter as the first character. You can use a dash, lowercase letter, or digit for the remaining characters, but the last character cannot be a dash. You should be aware that some resource identifiers (such as project IDs) might be retained beyond the life of your project. For this reason, avoid storing sensitive information in resource identifiers.
 
-4.  [Verify that billing is enabled for your Google Cloud project](https://docs.cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project) .
+...see naming guidelines
 
-5.  Enable the Cloud Spanner API for the project.
-    
+1.  Open a terminal window, and set your project as the default project for the Google Cloud CLI, replacing `MY_PROJECT_ID` with your project ID (not your project name):
+
+    ```
+    gcloud config set project MY_PROJECT_ID
+    ```
+
+2.  [Verify that billing is enabled for your Google Cloud project](https://docs.cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project) .
+
+You can also [learn about Spanner pricing](https://cloud.google.com/spanner/pricing) .
+
+1.  Enable the Cloud Spanner API for the project.
+
     Note: If you use a service account in a different project to access your Spanner instance, you need to enable the Spanner API in both projects.
 
 ## Set up authentication
@@ -49,13 +57,17 @@ When you use the Google Cloud console to access Google Cloud services and APIs, 
 
 [Install](https://docs.cloud.google.com/sdk/docs/install) the Google Cloud CLI. After installation, [initialize](https://docs.cloud.google.com/sdk/docs/initializing) the Google Cloud CLI by running the following command:
 
-    gcloud init
+```
+gcloud init
+```
 
 If you're using an external identity provider (IdP), you must first [sign in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) .
 
 To set up the gcloud CLI to use service account impersonation to authenticate to Google APIs, rather than your user credentials, run the following command:
 
-    gcloud config set auth/impersonate_service_account SERVICE_ACCT_EMAIL
+```
+gcloud config set auth/impersonate_service_account SERVICE_ACCT_EMAIL
+```
 
 For more information, see [Service account impersonation](https://docs.cloud.google.com/spanner/docs/authentication#sa-impersonation) .
 
@@ -68,11 +80,13 @@ To use Terraform code in a local development environment, install and initialize
 2.  If you're using an external identity provider (IdP), you must first [sign in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) .
 
 3.  If you're using a local shell, then create local authentication credentials for your user account:
-    
-        gcloud auth application-default login
-    
+
+    ```
+    gcloud auth application-default login
+    ```
+
     You don't need to do this if you're using Cloud Shell.
-    
+
     If an authentication error is returned, and you are using an external identity provider (IdP), confirm that you have [signed in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) .
 
 For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/spanner/docs/authentication#local-development) .
@@ -86,24 +100,32 @@ To use client libraries in a local development environment, install and initiali
 2.  If you're using an external identity provider (IdP), you must first [sign in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) .
 
 3.  If you're using a local shell, then create local authentication credentials for your user account:
-    
-        gcloud auth application-default login
-    
+
+    ```
+    gcloud auth application-default login
+    ```
+
     You don't need to do this if you're using Cloud Shell.
-    
+
     If an authentication error is returned, and you are using an external identity provider (IdP), confirm that you have [signed in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) .
 
 For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/spanner/docs/authentication#local-development) .
 
 To set up your local ADC file to use service account impersonation to authenticate to Google APIs, rather than your user credentials, run the following command:
 
-    gcloud auth application-default login --impersonate-service-account=SERVICE_ACCT_EMAIL
+```
+gcloud auth application-default login --impersonate-service-account=SERVICE_ACCT_EMAIL
+```
 
 For more information, see [Service account impersonation](https://docs.cloud.google.com/spanner/docs/authentication#sa-impersonation) .
 
 ### REST
 
 To use the REST API in a local development environment, you use the credentials you provide to the gcloud CLI.
+
+[Install](https://docs.cloud.google.com/sdk/docs/install) the Google Cloud CLI.
+
+If you're using an external identity provider (IdP), you must first [sign in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) .
 
 For more information, see [Authenticate for using REST](https://docs.cloud.google.com/docs/authentication/rest) in the Google Cloud authentication documentation.
 
@@ -113,24 +135,26 @@ You can use service account impersonation to generate an access token for REST A
 
 Now that you've set up your development environment and authentication, run the [`gcloud` command-line](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) tool to interact with Spanner:
 
-    gcloud spanner instance-configs list
+```
+gcloud spanner instance-configs list
+```
 
 You should see a list of the Spanner instance configurations that your project can access, including regional, dual-region, and multi-region configurations. For more information, see the [Instances overview](https://docs.cloud.google.com/spanner/docs/instances) .
 
-You've completed the setup\!
+You've completed the setup!
 
 ## What's next
 
 Learn how to use the Cloud Client Libraries and drivers to create a Spanner instance, database, tables, and indexes. Then store, query, and read data in Spanner.
 
-  - [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
-  - [Getting started with Spanner in C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
-  - [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
-  - [Getting started with Spanner in Java](https://docs.cloud.google.com/spanner/docs/getting-started/java)
-  - [Getting started with Spanner in JDBC](https://docs.cloud.google.com/spanner/docs/getting-started/jdbc)
-  - [Getting started with Spanner in Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs)
-  - [Getting started with Spanner in PHP](https://docs.cloud.google.com/spanner/docs/getting-started/php)
-  - [Getting started with Spanner in Python](https://docs.cloud.google.com/spanner/docs/getting-started/python)
-  - [Getting started with Spanner in Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby)
-  - [Getting started with Spanner in REST](https://docs.cloud.google.com/spanner/docs/getting-started/rest)
-  - [Getting started with Spanner in gcloud](https://docs.cloud.google.com/spanner/docs/getting-started/gcloud)
+- [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
+- [Getting started with Spanner in C#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
+- [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
+- [Getting started with Spanner in Java](https://docs.cloud.google.com/spanner/docs/getting-started/java)
+- [Getting started with Spanner in JDBC](https://docs.cloud.google.com/spanner/docs/getting-started/jdbc)
+- [Getting started with Spanner in Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs)
+- [Getting started with Spanner in PHP](https://docs.cloud.google.com/spanner/docs/getting-started/php)
+- [Getting started with Spanner in Python](https://docs.cloud.google.com/spanner/docs/getting-started/python)
+- [Getting started with Spanner in Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby)
+- [Getting started with Spanner in REST](https://docs.cloud.google.com/spanner/docs/getting-started/rest)
+- [Getting started with Spanner in gcloud](https://docs.cloud.google.com/spanner/docs/getting-started/gcloud)

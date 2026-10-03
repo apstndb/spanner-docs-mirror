@@ -12,117 +12,33 @@ This page shows how to migrate your MySQL schema to Spanner schema. We recommend
 
 Map the following list of MySQL data types to their Spanner equivalent:
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>MySQL data type</th>
-<th>Spanner equivalent</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">INTEGER</code> , <code dir="ltr" translate="no">INT</code> , <code dir="ltr" translate="no">BIGINT</code> , <code dir="ltr" translate="no">MEDIUMINT</code> , <code dir="ltr" translate="no">SMALLINT</code> , <code dir="ltr" translate="no">TINYINT</code></td>
-<td><code dir="ltr" translate="no">INT64</code></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">TINYINT</code> , <code dir="ltr" translate="no">BOOL</code> , <code dir="ltr" translate="no">BOOLEAN</code> ,</td>
-<td><code dir="ltr" translate="no">BOOLEAN</code></td>
-<td><code dir="ltr" translate="no">TINYINT(1)</code> values are used to represent boolean values of 'true' (nonzero) or 'false' (0).</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">BIT</code></td>
-<td><code dir="ltr" translate="no">BOOLEAN</code> , <code dir="ltr" translate="no">INT64</code></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">CHAR</code> , <code dir="ltr" translate="no">VARCHAR</code> , <code dir="ltr" translate="no">TINYTEXT</code> , <code dir="ltr" translate="no">TEXT</code> , <code dir="ltr" translate="no">MEDIUMTEXT</code> , <code dir="ltr" translate="no">LONGTEXT</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Spanner uses Unicode UTF8 strings throughout and doesn't have configurable collations.<br />
-<code dir="ltr" translate="no">VARCHAR</code> supports a maximum length of 65,535 bytes, while Spanner supports up to 2,621,440 characters.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">FLOAT</code></td>
-<td><code dir="ltr" translate="no">FLOAT32</code></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">DOUBLE</code></td>
-<td><code dir="ltr" translate="no">FLOAT64</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">DECIMAL</code> , <code dir="ltr" translate="no">NUMERIC</code></td>
-<td><code dir="ltr" translate="no">NUMERIC</code></td>
-<td>In MySQL, the <code dir="ltr" translate="no">NUMERIC</code> and <code dir="ltr" translate="no">DECIMAL</code> data types support up to a total 65 digits of precision and scale, as defined in the column declaration. The Spanner <code dir="ltr" translate="no">NUMERIC</code> data type supports up to 38 digits of precision and 9 decimal digits of scale.<br />
-If you require greater precision, see <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">Store arbitrary precision numeric data</a> for alternative mechanisms.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">BINARY</code> , <code dir="ltr" translate="no">VARBINARY</code> , <code dir="ltr" translate="no">TINYBLOB</code> , <code dir="ltr" translate="no">BLOB</code> , <code dir="ltr" translate="no">MEDIUMBLOB</code> , <code dir="ltr" translate="no">LONGBLOB</code></td>
-<td><code dir="ltr" translate="no">BYTES</code></td>
-<td>Small objects (less than 10 MiB) can be stored as <code dir="ltr" translate="no">BYTES</code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">DATE</code></td>
-<td><code dir="ltr" translate="no">DATE</code></td>
-<td>Both Spanner and MySQL use the ' <code dir="ltr" translate="no">yyyy-mm-dd</code> ' format for dates, so no transformation is necessary. SQL functions are provided to convert dates to a formatted string.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">DATETIME</code> , <code dir="ltr" translate="no">TIMESTAMP</code></td>
-<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
-<td>Spanner stores time independent of time zone. If you need to store a time zone, you must use a separate <code dir="ltr" translate="no">STRING</code> column. SQL functions are provided to convert timestamps to a formatted string using time zones.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">TEXT</code> , <code dir="ltr" translate="no">TINYTEXT</code> , <code dir="ltr" translate="no">ENUM</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Small <code dir="ltr" translate="no">TEXT</code> values (less than 10 MiB) can be stored as <code dir="ltr" translate="no">STRING</code> . Consider using alternative Google Cloud offerings such as Cloud Storage to support larger <code dir="ltr" translate="no">TEXT</code> values.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">ENUM</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Validation of <code dir="ltr" translate="no">ENUM</code> values must be performed in the application.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">SET</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;STRING&gt;</code></td>
-<td>Validation of <code dir="ltr" translate="no">SET</code> element values must be performed in the application.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">LONGBLOB</code> , <code dir="ltr" translate="no">MEDIUMBLOB</code></td>
-<td><code dir="ltr" translate="no">BYTES</code> or <code dir="ltr" translate="no">STRING</code> containing URI to object.</td>
-<td>Small objects (less than 10 MiB) can be stored as <code dir="ltr" translate="no">BYTES</code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">LONGTEXT</code> , <code dir="ltr" translate="no">MEDIUMTEXT</code></td>
-<td><code dir="ltr" translate="no">STRING</code> (either containing data or URI to external object)</td>
-<td>Small objects (less than 2,621,440 characters) can be stored as <code dir="ltr" translate="no">STRING</code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">JSON</code></td>
-<td><code dir="ltr" translate="no">JSON</code></td>
-<td>Small JSON strings (less than 2,621,440 characters) can be stored as <code dir="ltr" translate="no">JSON</code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">GEOMETRY</code> , <code dir="ltr" translate="no">POINT</code> , <code dir="ltr" translate="no">LINESTRING</code> , <code dir="ltr" translate="no">POLYGON</code> , <code dir="ltr" translate="no">MULTIPOINT</code> , <code dir="ltr" translate="no">MULTIPOLYGON</code> , <code dir="ltr" translate="no">GEOMETRYCOLLECTION</code></td>
-<td><code dir="ltr" translate="no">STRING</code> , <code dir="ltr" translate="no">ARRAY</code></td>
-<td>Spanner doesn't support geospatial data types. You must store this data using standard data types, and implement any searching or filtering logic in the application.</td>
-</tr>
-</tbody>
-</table>
+| MySQL data type                                                                                        | Spanner equivalent                                          | Notes                                                                                                                                                                                                                                                                                                                                                                                                                           |
+|--------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `INTEGER` , `INT` , `BIGINT` , `MEDIUMINT` , `SMALLINT` , `TINYINT`                                    | `INT64`                                                     |                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `TINYINT` , `BOOL` , `BOOLEAN` ,                                                                       | `BOOLEAN`                                                   | `TINYINT(1)` values are used to represent boolean values of 'true' (nonzero) or 'false' (0).                                                                                                                                                                                                                                                                                                                                    |
+| `BIT`                                                                                                  | `BOOLEAN` , `INT64`                                         |                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `CHAR` , `VARCHAR` , `TINYTEXT` , `TEXT` , `MEDIUMTEXT` , `LONGTEXT`                                   | `STRING`                                                    | Spanner uses Unicode UTF8 strings throughout and doesn't have configurable collations. `VARCHAR` supports a maximum length of 65,535 bytes, while Spanner supports up to 2,621,440 characters.                                                                                                                                                                                                                                  |
+| `FLOAT`                                                                                                | `FLOAT32`                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `DOUBLE`                                                                                               | `FLOAT64`                                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `DECIMAL` , `NUMERIC`                                                                                  | `NUMERIC`                                                   | In MySQL, the `NUMERIC` and `DECIMAL` data types support up to a total 65 digits of precision and scale, as defined in the column declaration. The Spanner `NUMERIC` data type supports up to 38 digits of precision and 9 decimal digits of scale. If you require greater precision, see [Store arbitrary precision numeric data](https://docs.cloud.google.com/spanner/docs/storing-numeric-data) for alternative mechanisms. |
+| `BINARY` , `VARBINARY` , `TINYBLOB` , `BLOB` , `MEDIUMBLOB` , `LONGBLOB`                               | `BYTES`                                                     | Small objects (less than 10 MiB) can be stored as `BYTES` . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.                                                                                                                                                                                                                                                                    |
+| `DATE`                                                                                                 | `DATE`                                                      | Both Spanner and MySQL use the ' `yyyy-mm-dd` ' format for dates, so no transformation is necessary. SQL functions are provided to convert dates to a formatted string.                                                                                                                                                                                                                                                         |
+| `DATETIME` , `TIMESTAMP`                                                                               | `TIMESTAMP`                                                 | Spanner stores time independent of time zone. If you need to store a time zone, you must use a separate `STRING` column. SQL functions are provided to convert timestamps to a formatted string using time zones.                                                                                                                                                                                                               |
+| `TEXT` , `TINYTEXT` , `ENUM`                                                                           | `STRING`                                                    | Small `TEXT` values (less than 10 MiB) can be stored as `STRING` . Consider using alternative Google Cloud offerings such as Cloud Storage to support larger `TEXT` values.                                                                                                                                                                                                                                                     |
+| `ENUM`                                                                                                 | `STRING`                                                    | Validation of `ENUM` values must be performed in the application.                                                                                                                                                                                                                                                                                                                                                               |
+| `SET`                                                                                                  | `ARRAY<STRING>`                                             | Validation of `SET` element values must be performed in the application.                                                                                                                                                                                                                                                                                                                                                        |
+| `LONGBLOB` , `MEDIUMBLOB`                                                                              | `BYTES` or `STRING` containing URI to object.               | Small objects (less than 10 MiB) can be stored as `BYTES` . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.                                                                                                                                                                                                                                                                    |
+| `LONGTEXT` , `MEDIUMTEXT`                                                                              | `STRING` (either containing data or URI to external object) | Small objects (less than 2,621,440 characters) can be stored as `STRING` . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.                                                                                                                                                                                                                                                     |
+| `JSON`                                                                                                 | `JSON`                                                      | Small JSON strings (less than 2,621,440 characters) can be stored as `JSON` . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.                                                                                                                                                                                                                                                  |
+| `GEOMETRY` , `POINT` , `LINESTRING` , `POLYGON` , `MULTIPOINT` , `MULTIPOLYGON` , `GEOMETRYCOLLECTION` | `STRING` , `ARRAY`                                          | Spanner doesn't support geospatial data types. You must store this data using standard data types, and implement any searching or filtering logic in the application.                                                                                                                                                                                                                                                           |
 
 In many cases, multiple MySQL types map into a single Spanner type. This is because MySQL has a set of types for the same concept that have different length limits, and in Spanner there is one overall type that has a single, relatively large limit.
 
 Consider the following examples:
 
-  - MySQL has `TEXT` , `TINYTEXT` , `MEDIUMTEXT` , `LONGTEXT` . In Spanner, there is a single type `STRING` with a character-length parameter that can be set to any value up to 2,621,440 characters.
+- MySQL has `TEXT` , `TINYTEXT` , `MEDIUMTEXT` , `LONGTEXT` . In Spanner, there is a single type `STRING` with a character-length parameter that can be set to any value up to 2,621,440 characters.
 
-  - MySQL has `INTEGER` , `INT` , `BIGINT` , `MEDIUMINT` , `SMALLINT` and `TINYINT` . Spanner has a single type `INT64` that stores 8-byte signed integer values. The main difference is that Spanner's `INT64` consumes more storage than `MEDIUMINT` , `SMALLINT` and `TINYINT` . In addition, `INT64` doesn't capture the range limitations of `MEDIUMINT` , `SMALLINT` and `TINYINT` , although these can be enforced by adding `CHECK` constraints.
+- MySQL has `INTEGER` , `INT` , `BIGINT` , `MEDIUMINT` , `SMALLINT` and `TINYINT` . Spanner has a single type `INT64` that stores 8-byte signed integer values. The main difference is that Spanner's `INT64` consumes more storage than `MEDIUMINT` , `SMALLINT` and `TINYINT` . In addition, `INT64` doesn't capture the range limitations of `MEDIUMINT` , `SMALLINT` and `TINYINT` , although these can be enforced by adding `CHECK` constraints.
 
 Spanner doesn't support geospatial types. You can store values of these types by encoding them as strings, bytes, or arrays. Any filtering, operations, and functions must be performed at the application level.
 
@@ -148,4 +64,4 @@ For more information, see [primary key default value strategies](https://docs.cl
 
 ## What's next
 
-  - [Use SMT to migrate schema from MySQL](https://docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema) .
+- [Use SMT to migrate schema from MySQL](https://docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema) .

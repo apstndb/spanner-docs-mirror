@@ -6,14 +6,14 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.HTTP_TEMPLATE)
-  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.PATH_PARAMETERS)
-  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.request_body)
-  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.response_body)
-  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.aspect)
-  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#try-it)
+- [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.HTTP_TEMPLATE)
+- [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.PATH_PARAMETERS)
+- [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.request_body)
+- [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.response_body)
+- [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#body.aspect)
+- [Try it!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#try-it)
 
-Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED` . Clients can use `  Operations.GetOperation  ` or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an `  Operation.error  ` value with a `  google.rpc.Status.code  ` of `1` , corresponding to `Code.CANCELLED` .
+Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns `google.rpc.Code.UNIMPLEMENTED` . Clients can use [`Operations.GetOperation`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/get#google.longrunning.Operations.GetOperation) or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an [`Operation.error`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations#Operation.FIELDS.error) value with a [`google.rpc.Status.code`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Status#FIELDS.code) of `1` , corresponding to `Code.CANCELLED` .
 
 ### HTTP request
 
@@ -26,13 +26,9 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 ### Path parameters
 
-Parameters
-
-`name`
-
-`string`
-
-The name of the operation resource to be cancelled.
+| Parameters |                                                              |
+|------------|--------------------------------------------------------------|
+| `name`     | `string` The name of the operation resource to be cancelled. |
 
 ### Request body
 
@@ -46,7 +42,7 @@ If successful, the response body is an empty JSON object.
 
 Requires one of the following OAuth scopes:
 
-  - `https://www.googleapis.com/auth/spanner.admin`
-  - `https://www.googleapis.com/auth/cloud-platform`
+- `https://www.googleapis.com/auth/spanner.admin`
+- `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

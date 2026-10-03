@@ -16,15 +16,15 @@ Spanner query engine analyzes queries and automatically selects the columnar for
 
 ### GoogleSQL
 
-  - `@{scan_method=columnar} SELECT COUNT(*) FROM Singers;`
-  - `SELECT COUNT(*) FROM Singers @{scan_method=columnar};`
-  - `@{scan_method=columnar} SELECT MsgBlob FROM Messages WHERE id='1234';`
+- `@{scan_method=columnar} SELECT COUNT(*) FROM Singers;`
+- `SELECT COUNT(*) FROM Singers @{scan_method=columnar};`
+- `@{scan_method=columnar} SELECT MsgBlob FROM Messages WHERE id='1234';`
 
 ### Postgres
 
-  - `/*@ scan_method=columnar */ SELECT COUNT(*) FROM "Singers";`
-  - `SELECT COUNT(*) FROM "Singers" /*@ scan_method=columnar*/;`
-  - `/*@ scan_method=columnar */ SELECT "MsgBlob" FROM "Messages" WHERE id ='1234';`
+- `/*@ scan_method=columnar */ SELECT COUNT(*) FROM "Singers";`
+- `SELECT COUNT(*) FROM "Singers" /*@ scan_method=columnar*/;`
+- `/*@ scan_method=columnar */ SELECT "MsgBlob" FROM "Messages" WHERE id ='1234';`
 
 In addition, you can disable the automatic selection of columnar explicitly by using the query hint `@{scan_method=no_columnar}` .
 
@@ -38,22 +38,22 @@ If you use the `EXTERNAL_QUERY` function, Spanner automatically uses the columna
 
 In the following example for using the query hint:
 
-  - The first argument to `EXTERNAL_QUERY` specifies the external connection and dataset, `my-project.us.albums` .
-  - The second argument is a SQL query that selects `MarketingBudget` from the `AlbumInfo` table where `MarketingBudget` is less than 500,000.
-  - The `@{scan_method=columnar}` hint optimizes the external query for columnar scanning.
-  - The outer `SELECT` statement calculates the sum of the `MarketingBudget` values returned by the external query.
-  - The `AS total_marketing_spend` clause assigns an alias to the calculated sum.
+- The first argument to `EXTERNAL_QUERY` specifies the external connection and dataset, `my-project.us.albums` .
+- The second argument is a SQL query that selects `MarketingBudget` from the `AlbumInfo` table where `MarketingBudget` is less than 500,000.
+- The `@{scan_method=columnar}` hint optimizes the external query for columnar scanning.
+- The outer `SELECT` statement calculates the sum of the `MarketingBudget` values returned by the external query.
+- The `AS total_marketing_spend` clause assigns an alias to the calculated sum.
 
-<!-- end list -->
-
-    SELECT SUM(MarketingBudget) AS total_marketing_spend
-    FROM
-      EXTERNAL_QUERY(
-        'my-project.us.albums',
-        '@{scan_method=columnar} SELECT AlbumInfo.MarketingBudget FROM AlbumInfo WHERE AlbumInfo.MarketingBudget < 500000;');
+```
+SELECT SUM(MarketingBudget) AS total_marketing_spend
+FROM
+  EXTERNAL_QUERY(
+    'my-project.us.albums',
+    '@{scan_method=columnar} SELECT AlbumInfo.MarketingBudget FROM AlbumInfo WHERE AlbumInfo.MarketingBudget < 500000;');
+```
 
 ## What's next
 
-  - Learn about [columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine) .
-  - Learn how to [enable columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine) .
-  - Learn how to [monitor columnar engine](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine) .
+- Learn about [columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine) .
+- Learn how to [enable columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine) .
+- Learn how to [monitor columnar engine](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine) .

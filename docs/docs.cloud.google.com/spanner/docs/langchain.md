@@ -7,7 +7,7 @@ data_source: docs.cloud.google.com
 ---
 
 > **Preview — LangChain**
-> 
+>
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 This page introduces how to build LLM-powered applications using [LangChain](https://www.langchain.com/) . The overviews on this page link to procedure guides in GitHub.
@@ -22,11 +22,11 @@ For more information about LangChain, see the [Google LangChain](https://python.
 
 Spanner offers the following LangChain interfaces:
 
-  - [Vector store](https://docs.cloud.google.com/spanner/docs/langchain#vector-store)
-  - [Document loader](https://docs.cloud.google.com/spanner/docs/langchain#document-loader)
-  - [Chat message history](https://docs.cloud.google.com/spanner/docs/langchain#chat-message-history)
-  - [Graph store](https://docs.cloud.google.com/spanner/docs/langchain#graph-store)
-  - [Graph QA](https://docs.cloud.google.com/spanner/docs/langchain#graph-qa)
+- [Vector store](https://docs.cloud.google.com/spanner/docs/langchain#vector-store)
+- [Document loader](https://docs.cloud.google.com/spanner/docs/langchain#document-loader)
+- [Chat message history](https://docs.cloud.google.com/spanner/docs/langchain#chat-message-history)
+- [Graph store](https://docs.cloud.google.com/spanner/docs/langchain#graph-store)
+- [Graph QA](https://docs.cloud.google.com/spanner/docs/langchain#graph-qa)
 
 Learn how to use these components in an application with the [LangChain Quickstart for Spanner](https://github.com/googleapis/langchain-google-spanner-python/blob/main/samples/langchain_quick_start.ipynb) .
 
@@ -42,13 +42,13 @@ For more information, see the [LangChain Vector Stores](https://python.langchain
 
 The [Spanner guide for vector store](https://github.com/googleapis/langchain-google-spanner-python/blob/main/docs/vector_store.ipynb) shows you how to do the following:
 
-  - Install the integration package and LangChain
-  - Initialize a table for the vector store
-  - Set up an embedding service using `VertexAIEmbeddings`
-  - Initialize `SpannerVectorStore`
-  - Add and delete documents
-  - Search for similar documents
-  - Create a custom vector store to connect to a pre-existing Spanner database that has a table with vector embeddings
+- Install the integration package and LangChain
+- Initialize a table for the vector store
+- Set up an embedding service using `VertexAIEmbeddings`
+- Initialize `SpannerVectorStore`
+- Add and delete documents
+- Search for similar documents
+- Create a custom vector store to connect to a pre-existing Spanner database that has a table with vector embeddings
 
 ## Document loader for Spanner
 
@@ -62,12 +62,12 @@ For more information, see the [LangChain Document loaders](https://python.langch
 
 The [Spanner guide for document loader](https://github.com/googleapis/langchain-google-spanner-python/blob/main/docs/document_loader.ipynb) shows you how to do the following:
 
-  - Install the integration package and LangChain
-  - Load documents from a table
-  - Add a filter to the loader
-  - Customize the connection and authentication
-  - Customize document construction by specifying customer content and metadata
-  - How to use and customize a `SpannerDocumentSaver` to store and delete documents
+- Install the integration package and LangChain
+- Load documents from a table
+- Add a filter to the loader
+- Customize the connection and authentication
+- Customize document construction by specifying customer content and metadata
+- How to use and customize a `SpannerDocumentSaver` to store and delete documents
 
 ## Chat message history for Spanner
 
@@ -79,19 +79,19 @@ Spanner extends this class with `SpannerChatMessageHistory` .
 
 The [Spanner guide for chat message history](https://github.com/googleapis/langchain-google-spanner-python/blob/main/docs/chat_message_history.ipynb) shows you how to do the following:
 
-  - Install LangChain and authenticate to Google Cloud
-  - Initialize a table
-  - Initialize the `SpannerChatMessageHistory` class to add and delete messages
-  - Use a client to customize the connection and authentication
-  - Delete the `SpannerChatMessageHistory` session
+- Install LangChain and authenticate to Google Cloud
+- Initialize a table
+- Initialize the `SpannerChatMessageHistory` class to add and delete messages
+- Use a client to customize the connection and authentication
+- Delete the `SpannerChatMessageHistory` session
 
 ## Graph store for Spanner
 
 Graph store retrieves and stores nodes and edges from a graph database. Use graph store to let an application do the following:
 
-  - Add nodes and edges into a graph
-  - Perform traversals and analysis on a graph
-  - Inspect the schema of a graph
+- Add nodes and edges into a graph
+- Perform traversals and analysis on a graph
+- Inspect the schema of a graph
 
 You can also use graph store with graph QA chain to create an application that can chat with a graph.
 
@@ -101,13 +101,13 @@ To use graph store with Spanner Graph, use the [`SpannerGraphStore`](https://doc
 
 The [Spanner guide for graph store](https://github.com/googleapis/langchain-google-spanner-python/blob/main/docs/graph_store.ipynb) shows you how to do the following:
 
-  - Install the integration package and LangChain
-  - Prepare graphs from various data sources
-  - Initialize `SpannerGraphStore` with an existing Spanner Graph database
-  - Add nodes and edges into Spanner Graph
-  - Perform traversals using a [GQL](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) query
-  - Visualize the graph query results
-  - Clean up the graph
+- Install the integration package and LangChain
+- Prepare graphs from various data sources
+- Initialize `SpannerGraphStore` with an existing Spanner Graph database
+- Add nodes and edges into Spanner Graph
+- Perform traversals using a [GQL](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) query
+- Visualize the graph query results
+- Clean up the graph
 
 ## Graph QA chain for Spanner
 
@@ -122,7 +122,7 @@ Graph QA chain for Spanner uses a Spanner graph to answer questions. The graph Q
 
 The [Spanner guide for graph QA](https://github.com/googleapis/langchain-google-spanner-python/blob/main/docs/graph_qa_chain.ipynb) demonstrates how to use Spanner and graph QA to answer a question by showing you how to do the following:
 
-  - Create a graph from unstructured text blobs using `LLMGraphTransformer` .
-  - Store the graph in Spanner Graph using the `SpannerGraphStore` class.
-  - Initialize a `SpannerGraphQAChain` instance.
-  - Generate an answer to a natural language question using the graph store in Spanner Graph.
+- Create a graph from unstructured text blobs using `LLMGraphTransformer` .
+- Store the graph in Spanner Graph using the `SpannerGraphStore` class.
+- Initialize a `SpannerGraphQAChain` instance.
+- Generate an answer to a natural language question using the graph store in Spanner Graph.

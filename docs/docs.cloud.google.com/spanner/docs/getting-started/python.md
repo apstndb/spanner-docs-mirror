@@ -10,13 +10,13 @@ data_source: docs.cloud.google.com
 
 This tutorial walks you through the following steps using the Spanner client library for Python:
 
-  - Create a Spanner instance and database.
-  - Write, read, and execute SQL queries on data in the database.
-  - Update the database schema.
-  - Update data using a read-write transaction.
-  - Add a secondary index to the database.
-  - Use the index to read and execute SQL queries on data.
-  - Retrieve data using a read-only transaction.
+- Create a Spanner instance and database.
+- Write, read, and execute SQL queries on data in the database.
+- Update the database schema.
+- Update data using a read-write transaction.
+- Add a secondary index to the database.
+- Use the index to read and execute SQL queries on data.
+- Retrieve data using a read-only transaction.
 
 ## Costs
 
@@ -35,20 +35,26 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 1.  Follow the instructions in [Setting Up a Python Development Environment](https://docs.cloud.google.com/python/docs/setup) .
 
 2.  Clone the sample app repository to your local machine:
-    
-        git clone https://github.com/googleapis/google-cloud-python.git
-    
+
+    ```
+    git clone https://github.com/googleapis/google-cloud-python.git
+    ```
+
     Alternatively, you can [download the sample](https://github.com/googleapis/google-cloud-python/archive/main.zip) as a zip file and extract it.
 
 3.  Change to the directory that contains the Spanner sample code:
-    
-        cd google-cloud-python/packages/google-cloud-spanner/samples/samples
+
+    ```
+    cd google-cloud-python/packages/google-cloud-spanner/samples/samples
+    ```
 
 4.  Create an isolated Python environment, and install dependencies:
-    
-        python3 -m venv env
-        source env/bin/activate
-        pip install -r requirements.txt
+
+    ```
+    python3 -m venv env
+    source env/bin/activate
+    pip install -r requirements.txt
+    ```
 
 ## Create an instance
 
@@ -56,9 +62,9 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
-  - The Google Cloud CLI
-  - The Google Cloud console
-  - A client library (C++, C\#, Go, Java, Node.js, PHP, Python, or Ruby)
+- The Google Cloud CLI
+- The Google Cloud console
+- A client library (C++, C#, Go, Java, Node.js, PHP, Python, or Ruby)
 
 ## Look through sample files
 
@@ -70,15 +76,21 @@ Take a look through the `snippets.py` file, which shows how to use Spanner. The 
 
 ### GoogleSQL
 
-    python snippets.py test-instance --database-id example-db create_database
+```
+python snippets.py test-instance --database-id example-db create_database
+```
 
 ### PostgreSQL
 
-    python pg_snippets.py test-instance --database-id example-db create_database
+```
+python pg_snippets.py test-instance --database-id example-db create_database
+```
 
 You should see:
 
-    Created database example-db on instance test-instance
+```
+Created database example-db on instance test-instance
+```
 
 The following code creates a database and two tables in the database.
 
@@ -86,98 +98,102 @@ The following code creates a database and two tables in the database.
 
 ### GoogleSQL
 
-    def create_database(instance_id, database_id):
-        """Creates a database and tables for sample data."""
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
-        spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
-    
-        request = spanner_database_admin.CreateDatabaseRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            create_statement=f"CREATE DATABASE `{database_id}`",
-            extra_statements=[
-                """CREATE TABLE Singers (
-                SingerId     INT64 NOT NULL,
-                FirstName    STRING(1024),
-                LastName     STRING(1024),
-                SingerInfo   BYTES(MAX),
-                FullName   STRING(2048) AS (
-                    ARRAY_TO_STRING([FirstName, LastName], " ")
-                ) STORED
-            ) PRIMARY KEY (SingerId)""",
-                """CREATE TABLE Albums (
-                SingerId     INT64 NOT NULL,
-                AlbumId      INT64 NOT NULL,
-                AlbumTitle   STRING(MAX)
-            ) PRIMARY KEY (SingerId, AlbumId),
-            INTERLEAVE IN PARENT Singers ON DELETE CASCADE""",
-            ],
+```python
+def create_database(instance_id, database_id):
+    """Creates a database and tables for sample data."""
+    from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
+
+    spanner_client = spanner.Client()
+    database_admin_api = spanner_client.database_admin_api
+
+    request = spanner_database_admin.CreateDatabaseRequest(
+        parent=database_admin_api.instance_path(spanner_client.project, instance_id),
+        create_statement=f"CREATE DATABASE `{database_id}`",
+        extra_statements=[
+            """CREATE TABLE Singers (
+            SingerId     INT64 NOT NULL,
+            FirstName    STRING(1024),
+            LastName     STRING(1024),
+            SingerInfo   BYTES(MAX),
+            FullName   STRING(2048) AS (
+                ARRAY_TO_STRING([FirstName, LastName], " ")
+            ) STORED
+        ) PRIMARY KEY (SingerId)""",
+            """CREATE TABLE Albums (
+            SingerId     INT64 NOT NULL,
+            AlbumId      INT64 NOT NULL,
+            AlbumTitle   STRING(MAX)
+        ) PRIMARY KEY (SingerId, AlbumId),
+        INTERLEAVE IN PARENT Singers ON DELETE CASCADE""",
+        ],
+    )
+
+    operation = database_admin_api.create_database(request=request)
+
+    print("Waiting for operation to complete...")
+    database = operation.result(OPERATION_TIMEOUT_SECONDS)
+
+    print(
+        "Created database {} on instance {}".format(
+            database.name,
+            database_admin_api.instance_path(spanner_client.project, instance_id),
         )
-    
-        operation = database_admin_api.create_database(request=request)
-    
-        print("Waiting for operation to complete...")
-        database = operation.result(OPERATION_TIMEOUT_SECONDS)
-    
-        print(
-            "Created database {} on instance {}".format(
-                database.name,
-                database_admin_api.instance_path(spanner_client.project, instance_id),
-            )
-        )
+    )
+```
 
 ### PostgreSQL
 
-    def create_database(instance_id, database_id):
-        """Creates a PostgreSql database and tables for sample data."""
-    
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
-        spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
-    
-        request = spanner_database_admin.CreateDatabaseRequest(
-            parent=database_admin_api.instance_path(spanner_client.project, instance_id),
-            create_statement=f'CREATE DATABASE "{database_id}"',
-            database_dialect=DatabaseDialect.POSTGRESQL,
-        )
-    
-        operation = database_admin_api.create_database(request=request)
-    
-        print("Waiting for operation to complete...")
-        database = operation.result(OPERATION_TIMEOUT_SECONDS)
-    
-        create_table_using_ddl(database.name)
-        print("Created database {} on instance {}".format(database_id, instance_id))
-    
-    
-    def create_table_using_ddl(database_name):
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
-        spanner_client = spanner.Client()
-        request = spanner_database_admin.UpdateDatabaseDdlRequest(
-            database=database_name,
-            statements=[
-                """CREATE TABLE Singers (
-      SingerId   bigint NOT NULL,
-      FirstName  character varying(1024),
-      LastName   character varying(1024),
-      SingerInfo bytea,
-      FullName   character varying(2048)
-        GENERATED ALWAYS AS (FirstName || ' ' || LastName) STORED,
-      PRIMARY KEY (SingerId)
-      )""",
-                """CREATE TABLE Albums (
-      SingerId     bigint NOT NULL,
-      AlbumId      bigint NOT NULL,
-      AlbumTitle   character varying(1024),
-      PRIMARY KEY (SingerId, AlbumId)
-      ) INTERLEAVE IN PARENT Singers ON DELETE CASCADE""",
-            ],
-        )
-        operation = spanner_client.database_admin_api.update_database_ddl(request)
-        operation.result(OPERATION_TIMEOUT_SECONDS)
+```python
+def create_database(instance_id, database_id):
+    """Creates a PostgreSql database and tables for sample data."""
+
+    from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
+
+    spanner_client = spanner.Client()
+    database_admin_api = spanner_client.database_admin_api
+
+    request = spanner_database_admin.CreateDatabaseRequest(
+        parent=database_admin_api.instance_path(spanner_client.project, instance_id),
+        create_statement=f'CREATE DATABASE "{database_id}"',
+        database_dialect=DatabaseDialect.POSTGRESQL,
+    )
+
+    operation = database_admin_api.create_database(request=request)
+
+    print("Waiting for operation to complete...")
+    database = operation.result(OPERATION_TIMEOUT_SECONDS)
+
+    create_table_using_ddl(database.name)
+    print("Created database {} on instance {}".format(database_id, instance_id))
+
+
+def create_table_using_ddl(database_name):
+    from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
+
+    spanner_client = spanner.Client()
+    request = spanner_database_admin.UpdateDatabaseDdlRequest(
+        database=database_name,
+        statements=[
+            """CREATE TABLE Singers (
+  SingerId   bigint NOT NULL,
+  FirstName  character varying(1024),
+  LastName   character varying(1024),
+  SingerInfo bytea,
+  FullName   character varying(2048)
+    GENERATED ALWAYS AS (FirstName || ' ' || LastName) STORED,
+  PRIMARY KEY (SingerId)
+  )""",
+            """CREATE TABLE Albums (
+  SingerId     bigint NOT NULL,
+  AlbumId      bigint NOT NULL,
+  AlbumTitle   character varying(1024),
+  PRIMARY KEY (SingerId, AlbumId)
+  ) INTERLEAVE IN PARENT Singers ON DELETE CASCADE""",
+        ],
+    )
+    operation = spanner_client.database_admin_api.update_database_ddl(request)
+    operation.result(OPERATION_TIMEOUT_SECONDS)
+```
 
 The next step is to write data to your database.
 
@@ -185,33 +201,33 @@ The next step is to write data to your database.
 
 Before you can do reads or writes, you must create a [`Client`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/client-api) . You can think of a `Client` as a database connection: all of your interactions with Spanner must go through a `Client` . Typically you create a `Client` when your application starts up, then you re-use that `Client` to read, write, and execute transactions. The following code shows how to create a client.
 
-    # Imports the Google Cloud Client Library.
-    from google.cloud import spanner
-    
-    # Your Cloud Spanner instance ID.
-    # instance_id = "my-instance-id"
-    #
-    # Your Cloud Spanner database ID.
-    # database_id = "my-database-id"
-    # Instantiate a client.
-    spanner_client = spanner.Client()
-    
-    # Get a Cloud Spanner instance by ID.
-    instance = spanner_client.instance(instance_id)
-    
-    # Get a Cloud Spanner database by ID.
-    database = instance.database(database_id)
-    
-    # Execute a simple SQL statement.
-    with database.snapshot() as snapshot:
-        results = snapshot.execute_sql("SELECT 1")
-    
-        for row in results:
-            print(row)
+```python
+# Imports the Google Cloud Client Library.
+from google.cloud import spanner
+
+# Your Cloud Spanner instance ID.
+# instance_id = "my-instance-id"
+#
+# Your Cloud Spanner database ID.
+# database_id = "my-database-id"
+# Instantiate a client.
+spanner_client = spanner.Client()
+
+# Get a Cloud Spanner instance by ID.
+instance = spanner_client.instance(instance_id)
+
+# Get a Cloud Spanner database by ID.
+database = instance.database(database_id)
+
+# Execute a simple SQL statement.
+with database.snapshot() as snapshot:
+    results = snapshot.execute_sql("SELECT 1")
+
+    for row in results:
+        print(row)
+```
 
 Read more in the [`Client`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/client-api) reference.
-
-<span id="write_data"></span>
 
 ## Write data with DML
 
@@ -219,35 +235,39 @@ You can insert data using Data Manipulation Language (DML) in a read-write trans
 
 You use the `execute_update()` method to execute a DML statement.
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    spanner_client = spanner.Client()
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    def insert_singers(transaction):
-        row_ct = transaction.execute_update(
-            "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES "
-            "(12, 'Melissa', 'Garcia'), "
-            "(13, 'Russell', 'Morales'), "
-            "(14, 'Jacqueline', 'Long'), "
-            "(15, 'Dylan', 'Shaw')"
-        )
-        print("{} record(s) inserted.".format(row_ct))
-    
-    database.run_in_transaction(insert_singers)
+```python
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+spanner_client = spanner.Client()
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
+
+def insert_singers(transaction):
+    row_ct = transaction.execute_update(
+        "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES "
+        "(12, 'Melissa', 'Garcia'), "
+        "(13, 'Russell', 'Morales'), "
+        "(14, 'Jacqueline', 'Long'), "
+        "(15, 'Dylan', 'Shaw')"
+    )
+    print("{} record(s) inserted.".format(row_ct))
+
+database.run_in_transaction(insert_singers)
+```
 
 Run the sample using the `insert_with_dml` argument.
 
-    python snippets.py test-instance --database-id example-db insert_with_dml
+```
+python snippets.py test-instance --database-id example-db insert_with_dml
+```
 
 You should see:
 
-    4 record(s) inserted.
+```
+4 record(s) inserted.
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
-
-<span id="write_data_with_mutations"></span>
 
 ## Write data with mutations
 
@@ -259,50 +279,56 @@ The [`insert()`](https://docs.cloud.google.com/python/docs/reference/spanner/lat
 
 This code shows how to write the data using mutations:
 
-    def insert_data(instance_id, database_id):
-        """Inserts sample data into the given database.
-    
-        The database and table must already exist and can be created using
-        `create_database`.
-        """
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.batch() as batch:
-            batch.insert(
-                table="Singers",
-                columns=("SingerId", "FirstName", "LastName"),
-                values=[
-                    (1, "Marc", "Richards"),
-                    (2, "Catalina", "Smith"),
-                    (3, "Alice", "Trentor"),
-                    (4, "Lea", "Martin"),
-                    (5, "David", "Lomond"),
-                ],
-            )
-    
-            batch.insert(
-                table="Albums",
-                columns=("SingerId", "AlbumId", "AlbumTitle"),
-                values=[
-                    (1, 1, "Total Junk"),
-                    (1, 2, "Go, Go, Go"),
-                    (2, 1, "Green"),
-                    (2, 2, "Forever Hold Your Peace"),
-                    (2, 3, "Terrified"),
-                ],
-            )
-    
-        print("Inserted data.")
+```python
+def insert_data(instance_id, database_id):
+    """Inserts sample data into the given database.
+
+    The database and table must already exist and can be created using
+    `create_database`.
+    """
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    with database.batch() as batch:
+        batch.insert(
+            table="Singers",
+            columns=("SingerId", "FirstName", "LastName"),
+            values=[
+                (1, "Marc", "Richards"),
+                (2, "Catalina", "Smith"),
+                (3, "Alice", "Trentor"),
+                (4, "Lea", "Martin"),
+                (5, "David", "Lomond"),
+            ],
+        )
+
+        batch.insert(
+            table="Albums",
+            columns=("SingerId", "AlbumId", "AlbumTitle"),
+            values=[
+                (1, 1, "Total Junk"),
+                (1, 2, "Go, Go, Go"),
+                (2, 1, "Green"),
+                (2, 2, "Forever Hold Your Peace"),
+                (2, 3, "Terrified"),
+            ],
+        )
+
+    print("Inserted data.")
+```
 
 Run the sample using the `insert_data` argument.
 
-    python snippets.py test-instance --database-id example-db insert_data
+```
+python snippets.py test-instance --database-id example-db insert_data
+```
 
 You should see:
 
-    Inserted data.
+```
+Inserted data.
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
@@ -316,24 +342,30 @@ Execute the following SQL statement to read the values of all columns from the `
 
 ### GoogleSQL
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
 
 ### GoogleSQL Pipe syntax
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
 
 > **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
-    SingerId AlbumId AlbumTitle
-    1        1       Total Junk
-    1        2       Go, Go, Go
-    2        1       Green
-    2        2       Forever Hold Your Peace
-    2        3       Terrified
+```
+SingerId AlbumId AlbumTitle
+1        1       Total Junk
+1        2       Go, Go, Go
+2        1       Green
+2        2       Forever Hold Your Peace
+2        3       Terrified
+```
 
 ### Use the Spanner client library for Python
 
@@ -343,31 +375,37 @@ Use the [`execute_sql()`](https://docs.cloud.google.com/python/docs/reference/sp
 
 Here's how to issue the query and access the data:
 
-    def query_data(instance_id, database_id):
-        """Queries sample data from the database using SQL."""
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.snapshot() as snapshot:
-            results = snapshot.execute_sql(
-                "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
-            )
-    
-            for row in results:
-                print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+```python
+def query_data(instance_id, database_id):
+    """Queries sample data from the database using SQL."""
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    with database.snapshot() as snapshot:
+        results = snapshot.execute_sql(
+            "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
+        )
+
+        for row in results:
+            print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+```
 
 Run the sample using the `query_data` argument.
 
-    python snippets.py test-instance --database-id example-db query_data
+```
+python snippets.py test-instance --database-id example-db query_data
+```
 
 You should see the following result:
 
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+```
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+```
 
 ### Query using a SQL parameter
 
@@ -377,54 +415,60 @@ Here is an example of using a parameter in the `WHERE` clause to query records c
 
 ### GoogleSQL
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    spanner_client = spanner.Client()
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    with database.snapshot() as snapshot:
-        results = snapshot.execute_sql(
-            "SELECT SingerId, FirstName, LastName FROM Singers "
-            "WHERE LastName = @lastName",
-            params={"lastName": "Garcia"},
-            param_types={"lastName": spanner.param_types.STRING},
-        )
-    
-        for row in results:
-            print("SingerId: {}, FirstName: {}, LastName: {}".format(*row))
+```python
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+spanner_client = spanner.Client()
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
+
+with database.snapshot() as snapshot:
+    results = snapshot.execute_sql(
+        "SELECT SingerId, FirstName, LastName FROM Singers "
+        "WHERE LastName = @lastName",
+        params={"lastName": "Garcia"},
+        param_types={"lastName": spanner.param_types.STRING},
+    )
+
+    for row in results:
+        print("SingerId: {}, FirstName: {}, LastName: {}".format(*row))
+```
 
 ### PostgreSQL
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    spanner_client = spanner.Client()
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    with database.snapshot() as snapshot:
-        results = snapshot.execute_sql(
-            "SELECT SingerId, FirstName, LastName FROM Singers " "WHERE LastName = $1",
-            params={"p1": "Garcia"},
-            param_types={"p1": spanner.param_types.STRING},
-        )
-    
-        for row in results:
-            print("SingerId: {}, FirstName: {}, LastName: {}".format(*row))
+```python
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+spanner_client = spanner.Client()
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
 
-Run the sample using the query\_data\_with\_parameter argument.
+with database.snapshot() as snapshot:
+    results = snapshot.execute_sql(
+        "SELECT SingerId, FirstName, LastName FROM Singers " "WHERE LastName = $1",
+        params={"p1": "Garcia"},
+        param_types={"p1": spanner.param_types.STRING},
+    )
+
+    for row in results:
+        print("SingerId: {}, FirstName: {}, LastName: {}".format(*row))
+```
+
+Run the sample using the query_data_with_parameter argument.
 
 ### GoogleSQL
 
-python snippets.py test-instance --database-id example-db query\_data\_with\_parameter
+python snippets.py test-instance --database-id example-db query_data_with_parameter
 
 ### PostgreSQL
 
-python pg\_snippets.py test-instance --database-id example-db query\_data\_with\_parameter
+python pg_snippets.py test-instance --database-id example-db query_data_with_parameter
 
 You should see the following result:
 
-    SingerId: 12, FirstName: Melissa, LastName: Garcia
+```
+SingerId: 12, FirstName: Melissa, LastName: Garcia
+```
 
 ## Read data using the read API
 
@@ -434,32 +478,38 @@ Use the [`read()`](https://docs.cloud.google.com/python/docs/reference/spanner/l
 
 Here's how to read the data:
 
-    def read_data(instance_id, database_id):
-        """Reads sample data from the database."""
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.snapshot() as snapshot:
-            keyset = spanner.KeySet(all_=True)
-            results = snapshot.read(
-                table="Albums", columns=("SingerId", "AlbumId", "AlbumTitle"), keyset=keyset
-            )
-    
-            for row in results:
-                print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+```python
+def read_data(instance_id, database_id):
+    """Reads sample data from the database."""
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    with database.snapshot() as snapshot:
+        keyset = spanner.KeySet(all_=True)
+        results = snapshot.read(
+            table="Albums", columns=("SingerId", "AlbumId", "AlbumTitle"), keyset=keyset
+        )
+
+        for row in results:
+            print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+```
 
 Run the sample using the `read_data` argument.
 
-    python snippets.py test-instance --database-id example-db read_data
+```
+python snippets.py test-instance --database-id example-db read_data
+```
 
 You should see output similar to:
 
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
 
 ## Update the database schema
 
@@ -475,17 +525,23 @@ Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/ref
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Use the Spanner client library for Python
 
@@ -493,133 +549,149 @@ Use the [`update_ddl()`](https://docs.cloud.google.com/python/docs/reference/spa
 
 ### GoogleSQL
 
-    def add_column(instance_id, database_id):
-        """Adds a new column to the Albums table in the example database."""
-    
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
-        spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
-    
-        request = spanner_database_admin.UpdateDatabaseDdlRequest(
-            database=database_admin_api.database_path(
-                spanner_client.project, instance_id, database_id
-            ),
-            statements=[
-                "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64",
-            ],
-        )
-    
-        operation = database_admin_api.update_database_ddl(request)
-    
-        print("Waiting for operation to complete...")
-        operation.result(OPERATION_TIMEOUT_SECONDS)
-        print("Added the MarketingBudget column.")
+```python
+def add_column(instance_id, database_id):
+    """Adds a new column to the Albums table in the example database."""
+
+    from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
+
+    spanner_client = spanner.Client()
+    database_admin_api = spanner_client.database_admin_api
+
+    request = spanner_database_admin.UpdateDatabaseDdlRequest(
+        database=database_admin_api.database_path(
+            spanner_client.project, instance_id, database_id
+        ),
+        statements=[
+            "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64",
+        ],
+    )
+
+    operation = database_admin_api.update_database_ddl(request)
+
+    print("Waiting for operation to complete...")
+    operation.result(OPERATION_TIMEOUT_SECONDS)
+    print("Added the MarketingBudget column.")
+```
 
 ### PostgreSQL
 
-    def add_column(instance_id, database_id):
-        """Adds a new column to the Albums table in the example database."""
-    
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
-        spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
-    
-        request = spanner_database_admin.UpdateDatabaseDdlRequest(
-            database=database_admin_api.database_path(
-                spanner_client.project, instance_id, database_id
-            ),
-            statements=["ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT"],
-        )
-        operation = database_admin_api.update_database_ddl(request)
-    
-        print("Waiting for operation to complete...")
-        operation.result(OPERATION_TIMEOUT_SECONDS)
-    
-        print("Added the MarketingBudget column.")
+```python
+def add_column(instance_id, database_id):
+    """Adds a new column to the Albums table in the example database."""
+
+    from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
+
+    spanner_client = spanner.Client()
+    database_admin_api = spanner_client.database_admin_api
+
+    request = spanner_database_admin.UpdateDatabaseDdlRequest(
+        database=database_admin_api.database_path(
+            spanner_client.project, instance_id, database_id
+        ),
+        statements=["ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT"],
+    )
+    operation = database_admin_api.update_database_ddl(request)
+
+    print("Waiting for operation to complete...")
+    operation.result(OPERATION_TIMEOUT_SECONDS)
+
+    print("Added the MarketingBudget column.")
+```
 
 Run the sample using the `add_column` argument.
 
 ### GoogleSQL
 
-python snippets.py test-instance --database-id example-db add\_column
+python snippets.py test-instance --database-id example-db add_column
 
 ### PostgreSQL
 
-python pg\_snippets.py test-instance --database-id example-db add\_column
+python pg_snippets.py test-instance --database-id example-db add_column
 
 You should see:
 
-    Added the MarketingBudget column.
+```
+Added the MarketingBudget column.
+```
 
 ### Write data to the new column
 
 The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
-    def update_data(instance_id, database_id):
-        """Updates sample data in the database.
-    
-        This updates the `MarketingBudget` column which must be created before
-        running this sample. You can add the column by running the `add_column`
-        sample or by running this DDL statement against your database:
-    
-            ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
-    
-        """
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.batch() as batch:
-            batch.update(
-                table="Albums",
-                columns=("SingerId", "AlbumId", "MarketingBudget"),
-                values=[(1, 1, 100000), (2, 2, 500000)],
-            )
-    
-        print("Updated data.")
+```python
+def update_data(instance_id, database_id):
+    """Updates sample data in the database.
+
+    This updates the `MarketingBudget` column which must be created before
+    running this sample. You can add the column by running the `add_column`
+    sample or by running this DDL statement against your database:
+
+        ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
+
+    """
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    with database.batch() as batch:
+        batch.update(
+            table="Albums",
+            columns=("SingerId", "AlbumId", "MarketingBudget"),
+            values=[(1, 1, 100000), (2, 2, 500000)],
+        )
+
+    print("Updated data.")
+```
 
 Run the sample using the `update_data` argument.
 
-    python snippets.py test-instance --database-id example-db update_data
+```
+python snippets.py test-instance --database-id example-db update_data
+```
 
 You can also execute a SQL query or a read call to fetch the values that you just wrote.
 
 Here's the code to execute the query:
 
-    def query_data_with_new_column(instance_id, database_id):
-        """Queries sample data from the database using SQL.
-    
-        This sample uses the `MarketingBudget` column. You can add the column
-        by running the `add_column` sample or by running this DDL statement against
-        your database:
-    
-            ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
-        """
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.snapshot() as snapshot:
-            results = snapshot.execute_sql(
-                "SELECT SingerId, AlbumId, MarketingBudget FROM Albums"
-            )
-    
-            for row in results:
-                print("SingerId: {}, AlbumId: {}, MarketingBudget: {}".format(*row))
+```python
+def query_data_with_new_column(instance_id, database_id):
+    """Queries sample data from the database using SQL.
+
+    This sample uses the `MarketingBudget` column. You can add the column
+    by running the `add_column` sample or by running this DDL statement against
+    your database:
+
+        ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
+    """
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    with database.snapshot() as snapshot:
+        results = snapshot.execute_sql(
+            "SELECT SingerId, AlbumId, MarketingBudget FROM Albums"
+        )
+
+        for row in results:
+            print("SingerId: {}, AlbumId: {}, MarketingBudget: {}".format(*row))
+```
 
 To execute this query, run the sample using the `query_data_with_new_column` argument.
 
-    python snippets.py test-instance --database-id example-db query_data_with_new_column
+```
+python snippets.py test-instance --database-id example-db query_data_with_new_column
+```
 
 You should see:
 
-    SingerId: 2, AlbumId: 2, MarketingBudget: 500000
-    SingerId: 1, AlbumId: 2, MarketingBudget: None
-    SingerId: 2, AlbumId: 1, MarketingBudget: None
-    SingerId: 2, AlbumId: 3, MarketingBudget: None
-    SingerId: 1, AlbumId: 1, MarketingBudget: 100000
+```
+SingerId: 2, AlbumId: 2, MarketingBudget: 500000
+SingerId: 1, AlbumId: 2, MarketingBudget: None
+SingerId: 2, AlbumId: 1, MarketingBudget: None
+SingerId: 2, AlbumId: 3, MarketingBudget: None
+SingerId: 1, AlbumId: 1, MarketingBudget: 100000
+```
 
 ## Update data
 
@@ -627,71 +699,77 @@ You can update data using DML in a read-write transaction.
 
 You use the `execute_update()` method to execute a DML statement.
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    
-    spanner_client = spanner.Client()
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    def transfer_budget(transaction):
-        # Transfer marketing budget from one album to another. Performed in a
-        # single transaction to ensure that the transfer is atomic.
-        second_album_result = transaction.execute_sql(
-            "SELECT MarketingBudget from Albums " "WHERE SingerId = 2 and AlbumId = 2"
+```python
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+
+spanner_client = spanner.Client()
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
+
+def transfer_budget(transaction):
+    # Transfer marketing budget from one album to another. Performed in a
+    # single transaction to ensure that the transfer is atomic.
+    second_album_result = transaction.execute_sql(
+        "SELECT MarketingBudget from Albums " "WHERE SingerId = 2 and AlbumId = 2"
+    )
+    second_album_row = list(second_album_result)[0]
+    second_album_budget = second_album_row[0]
+
+    transfer_amount = 200000
+
+    # Transaction will only be committed if this condition still holds at
+    # the time of commit. Otherwise it will be aborted and the callable
+    # will be rerun by the client library
+    if second_album_budget >= transfer_amount:
+        first_album_result = transaction.execute_sql(
+            "SELECT MarketingBudget from Albums "
+            "WHERE SingerId = 1 and AlbumId = 1"
         )
-        second_album_row = list(second_album_result)[0]
-        second_album_budget = second_album_row[0]
-    
-        transfer_amount = 200000
-    
-        # Transaction will only be committed if this condition still holds at
-        # the time of commit. Otherwise it will be aborted and the callable
-        # will be rerun by the client library
-        if second_album_budget >= transfer_amount:
-            first_album_result = transaction.execute_sql(
-                "SELECT MarketingBudget from Albums "
-                "WHERE SingerId = 1 and AlbumId = 1"
+        first_album_row = list(first_album_result)[0]
+        first_album_budget = first_album_row[0]
+
+        second_album_budget -= transfer_amount
+        first_album_budget += transfer_amount
+
+        # Update first album
+        transaction.execute_update(
+            "UPDATE Albums "
+            "SET MarketingBudget = @AlbumBudget "
+            "WHERE SingerId = 1 and AlbumId = 1",
+            params={"AlbumBudget": first_album_budget},
+            param_types={"AlbumBudget": spanner.param_types.INT64},
+        )
+
+        # Update second album
+        transaction.execute_update(
+            "UPDATE Albums "
+            "SET MarketingBudget = @AlbumBudget "
+            "WHERE SingerId = 2 and AlbumId = 2",
+            params={"AlbumBudget": second_album_budget},
+            param_types={"AlbumBudget": spanner.param_types.INT64},
+        )
+
+        print(
+            "Transferred {} from Album2's budget to Album1's".format(
+                transfer_amount
             )
-            first_album_row = list(first_album_result)[0]
-            first_album_budget = first_album_row[0]
-    
-            second_album_budget -= transfer_amount
-            first_album_budget += transfer_amount
-    
-            # Update first album
-            transaction.execute_update(
-                "UPDATE Albums "
-                "SET MarketingBudget = @AlbumBudget "
-                "WHERE SingerId = 1 and AlbumId = 1",
-                params={"AlbumBudget": first_album_budget},
-                param_types={"AlbumBudget": spanner.param_types.INT64},
-            )
-    
-            # Update second album
-            transaction.execute_update(
-                "UPDATE Albums "
-                "SET MarketingBudget = @AlbumBudget "
-                "WHERE SingerId = 2 and AlbumId = 2",
-                params={"AlbumBudget": second_album_budget},
-                param_types={"AlbumBudget": spanner.param_types.INT64},
-            )
-    
-            print(
-                "Transferred {} from Album2's budget to Album1's".format(
-                    transfer_amount
-                )
-            )
-    
-    database.run_in_transaction(transfer_budget)
+        )
+
+database.run_in_transaction(transfer_budget)
+```
 
 Run the sample using the `write_with_dml_transaction` argument.
 
-    python snippets.py test-instance --database-id example-db write_with_dml_transaction
+```
+python snippets.py test-instance --database-id example-db write_with_dml_transaction
+```
 
 You should see:
 
-    Transferred 200000 from Album2's budget to Album1's
+```
+Transferred 200000 from Album2's budget to Album1's
+```
 
 > **Note:** You can also [update data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api#updating_rows_in_a_table) .
 
@@ -711,46 +789,56 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for Python
 
 Use the [`update_ddl()`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api#google.cloud.spanner_v1.database.Database.update_ddl) method of the [`Database`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api) class to add an index:
 
-    def add_index(instance_id, database_id):
-        """Adds a simple index to the example database."""
-    
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
-        spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
-    
-        request = spanner_database_admin.UpdateDatabaseDdlRequest(
-            database=database_admin_api.database_path(
-                spanner_client.project, instance_id, database_id
-            ),
-            statements=["CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"],
-        )
-    
-        operation = database_admin_api.update_database_ddl(request)
-    
-        print("Waiting for operation to complete...")
-        operation.result(OPERATION_TIMEOUT_SECONDS)
-    
-        print("Added the AlbumsByAlbumTitle index.")
+```python
+def add_index(instance_id, database_id):
+    """Adds a simple index to the example database."""
+
+    from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
+
+    spanner_client = spanner.Client()
+    database_admin_api = spanner_client.database_admin_api
+
+    request = spanner_database_admin.UpdateDatabaseDdlRequest(
+        database=database_admin_api.database_path(
+            spanner_client.project, instance_id, database_id
+        ),
+        statements=["CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"],
+    )
+
+    operation = database_admin_api.update_database_ddl(request)
+
+    print("Waiting for operation to complete...")
+    operation.result(OPERATION_TIMEOUT_SECONDS)
+
+    print("Added the AlbumsByAlbumTitle index.")
+```
 
 Run the sample using the `add_index` argument.
 
-    python snippets.py test-instance --database-id example-db add_index
+```
+python snippets.py test-instance --database-id example-db add_index
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Added the AlbumsByAlbumTitle index.
+```
+Added the AlbumsByAlbumTitle index.
+```
 
 ### Read using the index
 
@@ -758,43 +846,49 @@ For SQL queries, Spanner automatically uses an appropriate index. In the read in
 
 To use the index in the read interface, provide an `Index` argument to the [`read()`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/snapshot-api#google.cloud.spanner_v1.snapshot.Snapshot.read) method of a [`Snapshot`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/snapshot-api) object. To get a `Snapshot` object, call the [`snapshot()`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api#google.cloud.spanner_v1.database.Database.snapshot) method of the [`Database`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api) class in a `with` statement.
 
-    def read_data_with_index(instance_id, database_id):
-        """Reads sample data from the database using an index.
-    
-        The index must exist before running this sample. You can add the index
-        by running the `add_index` sample or by running this DDL statement against
-        your database:
-    
-            CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)
-    
-        """
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.snapshot() as snapshot:
-            keyset = spanner.KeySet(all_=True)
-            results = snapshot.read(
-                table="Albums",
-                columns=("AlbumId", "AlbumTitle"),
-                keyset=keyset,
-                index="AlbumsByAlbumTitle",
-            )
-    
-            for row in results:
-                print("AlbumId: {}, AlbumTitle: {}".format(*row))
+```python
+def read_data_with_index(instance_id, database_id):
+    """Reads sample data from the database using an index.
+
+    The index must exist before running this sample. You can add the index
+    by running the `add_index` sample or by running this DDL statement against
+    your database:
+
+        CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)
+
+    """
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    with database.snapshot() as snapshot:
+        keyset = spanner.KeySet(all_=True)
+        results = snapshot.read(
+            table="Albums",
+            columns=("AlbumId", "AlbumTitle"),
+            keyset=keyset,
+            index="AlbumsByAlbumTitle",
+        )
+
+        for row in results:
+            print("AlbumId: {}, AlbumTitle: {}".format(*row))
+```
 
 Run the sample using the `read_data_with_index` argument.
 
-    python snippets.py test-instance --database-id example-db read_data_with_index
+```
+python snippets.py test-instance --database-id example-db read_data_with_index
+```
 
 You should see:
 
-    AlbumId: 2, AlbumTitle: Forever Hold Your Peace
-    AlbumId: 2, AlbumTitle: Go, Go, Go
-    AlbumId: 1, AlbumTitle: Green
-    AlbumId: 3, AlbumTitle: Terrified
-    AlbumId: 1, AlbumTitle: Total Junk
+```
+AlbumId: 2, AlbumTitle: Forever Hold Your Peace
+AlbumId: 2, AlbumTitle: Go, Go, Go
+AlbumId: 1, AlbumTitle: Green
+AlbumId: 3, AlbumTitle: Terrified
+AlbumId: 1, AlbumTitle: Total Junk
+```
 
 ### Add an index for index-only reads
 
@@ -806,96 +900,114 @@ Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `Ma
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for Python
 
 Use the [`update_ddl()`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api#google.cloud.spanner_v1.database.Database.update_ddl) method of the [`Database`](https://docs.cloud.google.com/python/docs/reference/spanner/latest/database-api) class to add an index with a `STORING` clause:
 
-    def add_storing_index(instance_id, database_id):
-        """Adds an storing index to the example database."""
-    
-        from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
-    
-        spanner_client = spanner.Client()
-        database_admin_api = spanner_client.database_admin_api
-    
-        request = spanner_database_admin.UpdateDatabaseDdlRequest(
-            database=database_admin_api.database_path(
-                spanner_client.project, instance_id, database_id
-            ),
-            statements=[
-                "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)"
-                "STORING (MarketingBudget)"
-            ],
-        )
-    
-        operation = database_admin_api.update_database_ddl(request)
-    
-        print("Waiting for operation to complete...")
-        operation.result(OPERATION_TIMEOUT_SECONDS)
-    
-        print("Added the AlbumsByAlbumTitle2 index.")
+```python
+def add_storing_index(instance_id, database_id):
+    """Adds an storing index to the example database."""
+
+    from google.cloud.spanner_admin_database_v1.types import spanner_database_admin
+
+    spanner_client = spanner.Client()
+    database_admin_api = spanner_client.database_admin_api
+
+    request = spanner_database_admin.UpdateDatabaseDdlRequest(
+        database=database_admin_api.database_path(
+            spanner_client.project, instance_id, database_id
+        ),
+        statements=[
+            "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)"
+            "STORING (MarketingBudget)"
+        ],
+    )
+
+    operation = database_admin_api.update_database_ddl(request)
+
+    print("Waiting for operation to complete...")
+    operation.result(OPERATION_TIMEOUT_SECONDS)
+
+    print("Added the AlbumsByAlbumTitle2 index.")
+```
 
 Run the sample using the `add_storing_index` argument.
 
-    python snippets.py test-instance --database-id example-db add_storing_index
+```
+python snippets.py test-instance --database-id example-db add_storing_index
+```
 
 You should see:
 
-    Added the AlbumsByAlbumTitle2 index.
+```
+Added the AlbumsByAlbumTitle2 index.
+```
 
 Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
-    def read_data_with_storing_index(instance_id, database_id):
-        """Reads sample data from the database using an index with a storing
-        clause.
-    
-        The index must exist before running this sample. You can add the index
-        by running the `add_scoring_index` sample or by running this DDL statement
-        against your database:
-    
-            CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)
-            STORING (MarketingBudget)
-    
-        """
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.snapshot() as snapshot:
-            keyset = spanner.KeySet(all_=True)
-            results = snapshot.read(
-                table="Albums",
-                columns=("AlbumId", "AlbumTitle", "MarketingBudget"),
-                keyset=keyset,
-                index="AlbumsByAlbumTitle2",
-            )
-    
-            for row in results:
-                print("AlbumId: {}, AlbumTitle: {}, " "MarketingBudget: {}".format(*row))
+```python
+def read_data_with_storing_index(instance_id, database_id):
+    """Reads sample data from the database using an index with a storing
+    clause.
+
+    The index must exist before running this sample. You can add the index
+    by running the `add_scoring_index` sample or by running this DDL statement
+    against your database:
+
+        CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)
+        STORING (MarketingBudget)
+
+    """
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    with database.snapshot() as snapshot:
+        keyset = spanner.KeySet(all_=True)
+        results = snapshot.read(
+            table="Albums",
+            columns=("AlbumId", "AlbumTitle", "MarketingBudget"),
+            keyset=keyset,
+            index="AlbumsByAlbumTitle2",
+        )
+
+        for row in results:
+            print("AlbumId: {}, AlbumTitle: {}, " "MarketingBudget: {}".format(*row))
+```
 
 Run the sample using the `read_data_with_storing_index` argument.
 
-    python snippets.py test-instance --database-id example-db read_data_with_storing_index
+```
+python snippets.py test-instance --database-id example-db read_data_with_storing_index
+```
 
 You should see output similar to:
 
-    AlbumId: 2, AlbumTitle: Forever Hold Your Peace, MarketingBudget: 300000
-    AlbumId: 2, AlbumTitle: Go, Go, Go, MarketingBudget: None
-    AlbumId: 1, AlbumTitle: Green, MarketingBudget: None
-    AlbumId: 3, AlbumTitle: Terrified, MarketingBudget: None
-    AlbumId: 1, AlbumTitle: Total Junk, MarketingBudget: 300000
+```
+AlbumId: 2, AlbumTitle: Forever Hold Your Peace, MarketingBudget: 300000
+AlbumId: 2, AlbumTitle: Go, Go, Go, MarketingBudget: None
+AlbumId: 1, AlbumTitle: Green, MarketingBudget: None
+AlbumId: 3, AlbumTitle: Terrified, MarketingBudget: None
+AlbumId: 1, AlbumTitle: Total Junk, MarketingBudget: 300000
+```
 
 ## Retrieve data using read-only transactions
 
@@ -903,56 +1015,62 @@ Suppose you want to execute more than one read at the same timestamp. [Read-only
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
-    def read_only_transaction(instance_id, database_id):
-        """Reads data inside of a read-only transaction.
-    
-        Within the read-only transaction, or "snapshot", the application sees
-        consistent view of the database at a particular timestamp.
-        """
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.snapshot(multi_use=True) as snapshot:
-            # Read using SQL.
-            results = snapshot.execute_sql(
-                "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
-            )
-    
-            print("Results from first read:")
-            for row in results:
-                print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
-    
-            # Perform another read using the `read` method. Even if the data
-            # is updated in-between the reads, the snapshot ensures that both
-            # return the same data.
-            keyset = spanner.KeySet(all_=True)
-            results = snapshot.read(
-                table="Albums", columns=("SingerId", "AlbumId", "AlbumTitle"), keyset=keyset
-            )
-    
-            print("Results from second read:")
-            for row in results:
-                print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+```python
+def read_only_transaction(instance_id, database_id):
+    """Reads data inside of a read-only transaction.
+
+    Within the read-only transaction, or "snapshot", the application sees
+    consistent view of the database at a particular timestamp.
+    """
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    with database.snapshot(multi_use=True) as snapshot:
+        # Read using SQL.
+        results = snapshot.execute_sql(
+            "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
+        )
+
+        print("Results from first read:")
+        for row in results:
+            print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+
+        # Perform another read using the `read` method. Even if the data
+        # is updated in-between the reads, the snapshot ensures that both
+        # return the same data.
+        keyset = spanner.KeySet(all_=True)
+        results = snapshot.read(
+            table="Albums", columns=("SingerId", "AlbumId", "AlbumTitle"), keyset=keyset
+        )
+
+        print("Results from second read:")
+        for row in results:
+            print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+```
 
 Run the sample using the `read_only_transaction` argument.
 
-    python snippets.py test-instance --database-id example-db read_only_transaction
+```
+python snippets.py test-instance --database-id example-db read_only_transaction
+```
 
 You should see output similar to:
 
-    Results from first read:
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    Results from second read:
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
+Results from first read:
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+Results from second read:
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
 
 ## Cleanup
 
@@ -964,7 +1082,9 @@ If you delete an instance, all databases within it are automatically deleted. Th
 
 #### On the command line
 
-    gcloud spanner databases delete example-db --instance=test-instance
+```
+gcloud spanner databases delete example-db --instance=test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -984,7 +1104,9 @@ Deleting an instance automatically drops all databases created in that instance.
 
 #### On the command line
 
-    gcloud spanner instances delete test-instance
+```
+gcloud spanner instances delete test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -998,8 +1120,8 @@ Deleting an instance automatically drops all databases created in that instance.
 
 ## What's next
 
-  - Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
+- Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
 
-  - Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
 
-  - Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .

@@ -40,9 +40,9 @@ The default isolation level of transactions in Spanner is [serializable isolatio
 
 Spanner offers [read or write and read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions) . Additionally, read transactions can have [Timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) applied, where you are reading a consistent version of the data either:
 
-  - at an exact time in the past (up to 1 hour ago).
-  - in the future (where the read will block until that time arrives).
-  - with an acceptable amount of bounded staleness, which will return a consistent view up to some time in the past without needing to check that later data is available on another replica. This can give performance benefits at the expense of possibly stale data.
+- at an exact time in the past (up to 1 hour ago).
+- in the future (where the read will block until that time arrives).
+- with an acceptable amount of bounded staleness, which will return a consistent view up to some time in the past without needing to check that later data is available on another replica. This can give performance benefits at the expense of possibly stale data.
 
 ## Load sample data to Spanner
 
@@ -88,6 +88,6 @@ The reverse replication flow involves the following steps, performed by the [`Sp
 
 ## What's next
 
-  - [Best practices in schema design](https://docs.cloud.google.com/spanner/docs/schema-design) .
-  - [Optimize your Spanner schema](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .
-  - Learn how to use [Dataflow](https://docs.cloud.google.com/dataflow/docs/how-to) for more complex situations.
+- [Best practices in schema design](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- [Optimize your Spanner schema](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .
+- Learn how to use [Dataflow](https://docs.cloud.google.com/dataflow/docs/how-to) for more complex situations.

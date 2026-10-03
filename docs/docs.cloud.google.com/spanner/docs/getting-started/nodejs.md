@@ -10,13 +10,13 @@ data_source: docs.cloud.google.com
 
 This tutorial walks you through the following steps using the Spanner client library for Node.js:
 
-  - Create a Spanner instance and database.
-  - Write, read, and execute SQL queries on data in the database.
-  - Update the database schema.
-  - Update data using a read-write transaction.
-  - Add a secondary index to the database.
-  - Use the index to read and execute SQL queries on data.
-  - Retrieve data using a read-only transaction.
+- Create a Spanner instance and database.
+- Write, read, and execute SQL queries on data in the database.
+- Update the database schema.
+- Update data using a read-write transaction.
+- Add a secondary index to the database.
+- Use the index to read and execute SQL queries on data.
+- Retrieve data using a read-only transaction.
 
 ## Costs
 
@@ -35,18 +35,24 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 1.  Follow the steps to [Set Up a Node.js Development Environment](https://docs.cloud.google.com/nodejs/docs/setup)
 
 2.  Clone the sample app repository to your local machine:
-    
-        git clone https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git
-    
+
+    ```
+    git clone https://github.com/GoogleCloudPlatform/nodejs-docs-samples.git
+    ```
+
     Alternatively, you can [download the sample](https://github.com/GoogleCloudPlatform/nodejs-docs-samples/archive/main.zip) as a zip file and extract it.
 
 3.  Change to the directory that contains the Spanner sample code:
-    
-        cd nodejs-docs-samples/spanner/
+
+    ```
+    cd nodejs-docs-samples/spanner/
+    ```
 
 4.  Install dependencies using `npm` :
-    
-        npm install
+
+    ```
+    npm install
+    ```
 
 ## Create an instance
 
@@ -54,9 +60,9 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
-  - The Google Cloud CLI
-  - The Google Cloud console
-  - A client library (C++, C\#, Go, Java, Node.js, PHP, Python, or Ruby)
+- The Google Cloud CLI
+- The Google Cloud console
+- A client library (C++, C#, Go, Java, Node.js, PHP, Python, or Ruby)
 
 ## Look through sample files
 
@@ -68,15 +74,21 @@ Take a look through the `samples/schema.js` file, which shows how to create a da
 
 ### GoogleSQL
 
-    node schema.js createDatabase test-instance example-db MY_PROJECT_ID
+```
+node schema.js createDatabase test-instance example-db MY_PROJECT_ID
+```
 
 ### PostgreSQL
 
-    node schema.js createPgDatabase test-instance example-db MY_PROJECT_ID
+```
+node schema.js createPgDatabase test-instance example-db MY_PROJECT_ID
+```
 
 You should see:
 
-    Created database example-db on instance test-instance.
+```
+Created database example-db on instance test-instance.
+```
 
 The following code creates a database and two tables in the database.
 
@@ -84,126 +96,130 @@ The following code creates a database and two tables in the database.
 
 ### GoogleSQL
 
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    // creates a client
-    const spanner = new Spanner({
-      projectId: projectID,
-    });
-    
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    const createSingersTableStatement = `
-    CREATE TABLE Singers (
-      SingerId    INT64 NOT NULL,
-      FirstName   STRING(1024),
-      LastName    STRING(1024),
-      SingerInfo  BYTES(MAX),
-      FullName    STRING(2048) AS (ARRAY_TO_STRING([FirstName, LastName], " ")) STORED,
-    ) PRIMARY KEY (SingerId)`;
-    const createAlbumsTableStatement = `
-    CREATE TABLE Albums (
-      SingerId    INT64 NOT NULL,
-      AlbumId     INT64 NOT NULL,
-      AlbumTitle  STRING(MAX)
-    ) PRIMARY KEY (SingerId, AlbumId),
-    INTERLEAVE IN PARENT Singers ON DELETE CASCADE`;
-    
-    // Creates a new database
-    try {
-      const [operation] = await databaseAdminClient.createDatabase({
-        createStatement: 'CREATE DATABASE `' + databaseID + '`',
-        extraStatements: [
-          createSingersTableStatement,
-          createAlbumsTableStatement,
-        ],
-        parent: databaseAdminClient.instancePath(projectID, instanceID),
-      });
-    
-      console.log(`Waiting for creation of ${databaseID} to complete...`);
-      await operation.promise();
-    
-      console.log(`Created database ${databaseID} on instance ${instanceID}.`);
-    } catch (err) {
-      console.error('ERROR:', err);
-    }
+```
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+// creates a client
+const spanner = new Spanner({
+  projectId: projectID,
+});
+
+const databaseAdminClient = spanner.getDatabaseAdminClient();
+
+const createSingersTableStatement = `
+CREATE TABLE Singers (
+  SingerId    INT64 NOT NULL,
+  FirstName   STRING(1024),
+  LastName    STRING(1024),
+  SingerInfo  BYTES(MAX),
+  FullName    STRING(2048) AS (ARRAY_TO_STRING([FirstName, LastName], " ")) STORED,
+) PRIMARY KEY (SingerId)`;
+const createAlbumsTableStatement = `
+CREATE TABLE Albums (
+  SingerId    INT64 NOT NULL,
+  AlbumId     INT64 NOT NULL,
+  AlbumTitle  STRING(MAX)
+) PRIMARY KEY (SingerId, AlbumId),
+INTERLEAVE IN PARENT Singers ON DELETE CASCADE`;
+
+// Creates a new database
+try {
+  const [operation] = await databaseAdminClient.createDatabase({
+    createStatement: 'CREATE DATABASE `' + databaseID + '`',
+    extraStatements: [
+      createSingersTableStatement,
+      createAlbumsTableStatement,
+    ],
+    parent: databaseAdminClient.instancePath(projectID, instanceID),
+  });
+
+  console.log(`Waiting for creation of ${databaseID} to complete...`);
+  await operation.promise();
+
+  console.log(`Created database ${databaseID} on instance ${instanceID}.`);
+} catch (err) {
+  console.error('ERROR:', err);
+}
+```
 
 ### PostgreSQL
 
-    /**
-     * TODO(developer): Uncomment these variables before running the sample.
-     */
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const projectId = 'my-project-id';
-    
-    // Imports the Google Cloud client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
-    
-    // creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    async function createPgDatabase() {
-      // Creates a PostgreSQL database. PostgreSQL create requests may not contain any additional
-      // DDL statements. We need to execute these separately after the database has been created.
-      const [operationCreate] = await databaseAdminClient.createDatabase({
-        createStatement: 'CREATE DATABASE "' + databaseId + '"',
-        parent: databaseAdminClient.instancePath(projectId, instanceId),
-        databaseDialect:
-          protos.google.spanner.admin.database.v1.DatabaseDialect.POSTGRESQL,
-      });
-    
-      console.log(`Waiting for operation on ${databaseId} to complete...`);
-      await operationCreate.promise();
-      const [metadata] = await databaseAdminClient.getDatabase({
-        name: databaseAdminClient.databasePath(projectId, instanceId, databaseId),
-      });
-      console.log(
-        `Created database ${databaseId} on instance ${instanceId} with dialect ${metadata.databaseDialect}.`,
+```
+/**
+ * TODO(developer): Uncomment these variables before running the sample.
+ */
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+// const projectId = 'my-project-id';
+
+// Imports the Google Cloud client library
+const {Spanner, protos} = require('@google-cloud/spanner');
+
+// creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+const databaseAdminClient = spanner.getDatabaseAdminClient();
+
+async function createPgDatabase() {
+  // Creates a PostgreSQL database. PostgreSQL create requests may not contain any additional
+  // DDL statements. We need to execute these separately after the database has been created.
+  const [operationCreate] = await databaseAdminClient.createDatabase({
+    createStatement: 'CREATE DATABASE "' + databaseId + '"',
+    parent: databaseAdminClient.instancePath(projectId, instanceId),
+    databaseDialect:
+      protos.google.spanner.admin.database.v1.DatabaseDialect.POSTGRESQL,
+  });
+
+  console.log(`Waiting for operation on ${databaseId} to complete...`);
+  await operationCreate.promise();
+  const [metadata] = await databaseAdminClient.getDatabase({
+    name: databaseAdminClient.databasePath(projectId, instanceId, databaseId),
+  });
+  console.log(
+    `Created database ${databaseId} on instance ${instanceId} with dialect ${metadata.databaseDialect}.`,
+  );
+
+  // Create a couple of tables using a separate request. We must use PostgreSQL style DDL as the
+  // database has been created with the PostgreSQL dialect.
+  const statements = [
+    `CREATE TABLE Singers 
+      (SingerId   bigint NOT NULL,
+      FirstName   varchar(1024),
+      LastName    varchar(1024),
+      SingerInfo  bytea,
+      FullName    character varying(2048) GENERATED ALWAYS AS (FirstName || ' ' || LastName) STORED,
+      PRIMARY KEY (SingerId)
       );
-    
-      // Create a couple of tables using a separate request. We must use PostgreSQL style DDL as the
-      // database has been created with the PostgreSQL dialect.
-      const statements = [
-        `CREATE TABLE Singers 
-          (SingerId   bigint NOT NULL,
-          FirstName   varchar(1024),
-          LastName    varchar(1024),
-          SingerInfo  bytea,
-          FullName    character varying(2048) GENERATED ALWAYS AS (FirstName || ' ' || LastName) STORED,
-          PRIMARY KEY (SingerId)
-          );
-          CREATE TABLE Albums 
-          (AlbumId    bigint NOT NULL,
-          SingerId    bigint NOT NULL REFERENCES Singers (SingerId),
-          AlbumTitle  text,
-          PRIMARY KEY (AlbumId)
-          );`,
-      ];
-      const [operationUpdateDDL] = await databaseAdminClient.updateDatabaseDdl({
-        database: databaseAdminClient.databasePath(
-          projectId,
-          instanceId,
-          databaseId,
-        ),
-        statements: [statements],
-      });
-      await operationUpdateDDL.promise();
-      console.log('Updated schema');
-    }
-    createPgDatabase();
+      CREATE TABLE Albums 
+      (AlbumId    bigint NOT NULL,
+      SingerId    bigint NOT NULL REFERENCES Singers (SingerId),
+      AlbumTitle  text,
+      PRIMARY KEY (AlbumId)
+      );`,
+  ];
+  const [operationUpdateDDL] = await databaseAdminClient.updateDatabaseDdl({
+    database: databaseAdminClient.databasePath(
+      projectId,
+      instanceId,
+      databaseId,
+    ),
+    statements: [statements],
+  });
+  await operationUpdateDDL.promise();
+  console.log('Updated schema');
+}
+createPgDatabase();
+```
 
 The next step is to write data to your database.
 
@@ -211,25 +227,27 @@ The next step is to write data to your database.
 
 Before you can do reads or writes, you must create a [`Database`](https://googleapis.dev/nodejs/spanner/latest/Database.html) :
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    // Creates a client
-    const spanner = new Spanner({projectId});
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    // The query to execute
-    const query = {
-      sql: 'SELECT 1',
-    };
-    
-    // Execute a simple SQL statement
-    const [rows] = await database.run(query);
-    console.log(`Query: ${rows.length} found.`);
-    rows.forEach(row => console.log(row));
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+// Creates a client
+const spanner = new Spanner({projectId});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+// The query to execute
+const query = {
+  sql: 'SELECT 1',
+};
+
+// Execute a simple SQL statement
+const [rows] = await database.run(query);
+console.log(`Query: ${rows.length} found.`);
+rows.forEach(row => console.log(row));
+```
 
 You can think of a `Database` as a database connection: all of your interactions with Spanner must go through a `Database` . Typically you create a `Database` when your application starts up, then you re-use that `Database` to read, write, and execute transactions. Each client uses resources in Spanner.
 
@@ -237,67 +255,69 @@ If you create multiple clients in the same app, you should call [`Database.close
 
 Read more in the [`Database`](https://googleapis.dev/nodejs/spanner/latest/Database.html) reference.
 
-<span id="write_data"></span>
-
 ## Write data with DML
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
 You use the `runUpdate()` method to execute a DML statement.
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+database.runTransaction(async (err, transaction) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  try {
+    const [rowCount] = await transaction.runUpdate({
+      sql: `INSERT Singers (SingerId, FirstName, LastName) VALUES
+      (12, 'Melissa', 'Garcia'),
+      (13, 'Russell', 'Morales'),
+      (14, 'Jacqueline', 'Long'),
+      (15, 'Dylan', 'Shaw')`,
     });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    database.runTransaction(async (err, transaction) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      try {
-        const [rowCount] = await transaction.runUpdate({
-          sql: `INSERT Singers (SingerId, FirstName, LastName) VALUES
-          (12, 'Melissa', 'Garcia'),
-          (13, 'Russell', 'Morales'),
-          (14, 'Jacqueline', 'Long'),
-          (15, 'Dylan', 'Shaw')`,
-        });
-        console.log(`${rowCount} records inserted.`);
-        await transaction.commit();
-      } catch (err) {
-        console.error('ERROR:', err);
-      } finally {
-        // Close the database when finished.
-        database.close();
-      }
-    });
+    console.log(`${rowCount} records inserted.`);
+    await transaction.commit();
+  } catch (err) {
+    console.error('ERROR:', err);
+  } finally {
+    // Close the database when finished.
+    database.close();
+  }
+});
+```
 
 Run the sample using the `writeUsingDml` argument.
 
-    node dml.js writeUsingDml test-instance example-db MY_PROJECT_ID
+```
+node dml.js writeUsingDml test-instance example-db MY_PROJECT_ID
+```
 
 You should see:
 
-    4 records inserted.
+```
+4 records inserted.
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
-
-<span id="write_data_with_mutations"></span>
 
 ## Write data with mutations
 
@@ -307,63 +327,69 @@ You write data using a [`Table`](https://googleapis.dev/nodejs/spanner/latest/Ta
 
 This code shows how to write the data using mutations:
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    // Instantiate Spanner table objects
-    const singersTable = database.table('Singers');
-    const albumsTable = database.table('Albums');
-    
-    // Inserts rows into the Singers table
-    // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so
-    // they must be converted to strings before being inserted as INT64s
-    try {
-      await singersTable.insert([
-        {SingerId: '1', FirstName: 'Marc', LastName: 'Richards'},
-        {SingerId: '2', FirstName: 'Catalina', LastName: 'Smith'},
-        {SingerId: '3', FirstName: 'Alice', LastName: 'Trentor'},
-        {SingerId: '4', FirstName: 'Lea', LastName: 'Martin'},
-        {SingerId: '5', FirstName: 'David', LastName: 'Lomond'},
-      ]);
-    
-      await albumsTable.insert([
-        {SingerId: '1', AlbumId: '1', AlbumTitle: 'Total Junk'},
-        {SingerId: '1', AlbumId: '2', AlbumTitle: 'Go, Go, Go'},
-        {SingerId: '2', AlbumId: '1', AlbumTitle: 'Green'},
-        {SingerId: '2', AlbumId: '2', AlbumTitle: 'Forever Hold your Peace'},
-        {SingerId: '2', AlbumId: '3', AlbumTitle: 'Terrified'},
-      ]);
-    
-      console.log('Inserted data.');
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      await database.close();
-    }
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+// Instantiate Spanner table objects
+const singersTable = database.table('Singers');
+const albumsTable = database.table('Albums');
+
+// Inserts rows into the Singers table
+// Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so
+// they must be converted to strings before being inserted as INT64s
+try {
+  await singersTable.insert([
+    {SingerId: '1', FirstName: 'Marc', LastName: 'Richards'},
+    {SingerId: '2', FirstName: 'Catalina', LastName: 'Smith'},
+    {SingerId: '3', FirstName: 'Alice', LastName: 'Trentor'},
+    {SingerId: '4', FirstName: 'Lea', LastName: 'Martin'},
+    {SingerId: '5', FirstName: 'David', LastName: 'Lomond'},
+  ]);
+
+  await albumsTable.insert([
+    {SingerId: '1', AlbumId: '1', AlbumTitle: 'Total Junk'},
+    {SingerId: '1', AlbumId: '2', AlbumTitle: 'Go, Go, Go'},
+    {SingerId: '2', AlbumId: '1', AlbumTitle: 'Green'},
+    {SingerId: '2', AlbumId: '2', AlbumTitle: 'Forever Hold your Peace'},
+    {SingerId: '2', AlbumId: '3', AlbumTitle: 'Terrified'},
+  ]);
+
+  console.log('Inserted data.');
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  await database.close();
+}
+```
 
 Run the sample using the `insert` argument.
 
-    node crud.js insert test-instance example-db MY_PROJECT_ID
+```
+node crud.js insert test-instance example-db MY_PROJECT_ID
+```
 
 You should see:
 
-    Inserted data.
+```
+Inserted data.
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
@@ -377,24 +403,30 @@ Execute the following SQL statement to read the values of all columns from the `
 
 ### GoogleSQL
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
 
 ### GoogleSQL Pipe syntax
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
 
 > **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
-    SingerId AlbumId AlbumTitle
-    1        1       Total Junk
-    1        2       Go, Go, Go
-    2        1       Green
-    2        2       Forever Hold Your Peace
-    2        3       Terrified
+```
+SingerId AlbumId AlbumTitle
+1        1       Total Junk
+1        2       Go, Go, Go
+2        1       Green
+2        2       Forever Hold Your Peace
+2        3       Terrified
+```
 
 ### Use the Spanner client library for Node.js
 
@@ -402,57 +434,63 @@ In addition to executing a SQL statement on the command line, you can issue the 
 
 Use [`Database.run()`](https://googleapis.dev/nodejs/spanner/latest/Database.html#run) to run the SQL query.
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const query = {
-      sql: 'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
-    };
-    
-    // Queries rows from the Albums table
-    try {
-      const [rows] = await database.run(query);
-    
-      rows.forEach(row => {
-        const json = row.toJSON();
-        console.log(
-          `SingerId: ${json.SingerId}, AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`,
-        );
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the database when finished.
-      await database.close();
-    }
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+const query = {
+  sql: 'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
+};
+
+// Queries rows from the Albums table
+try {
+  const [rows] = await database.run(query);
+
+  rows.forEach(row => {
+    const json = row.toJSON();
+    console.log(
+      `SingerId: ${json.SingerId}, AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`,
+    );
+  });
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the database when finished.
+  await database.close();
+}
+```
 
 Here's how to issue the query and access the data:
 
-    node crud.js query test-instance example-db MY_PROJECT_ID
+```
+node crud.js query test-instance example-db MY_PROJECT_ID
+```
 
 You should see the following result:
 
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
 
 ### Query using a SQL parameter
 
@@ -462,114 +500,122 @@ Here is an example of using a parameter in the `WHERE` clause to query records c
 
 ### GoogleSQL
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const query = {
-      sql: `SELECT SingerId, FirstName, LastName
-            FROM Singers WHERE LastName = @lastName`,
-      params: {
-        lastName: 'Garcia',
-      },
-    };
-    
-    // Queries rows from the Albums table
-    try {
-      const [rows] = await database.run(query);
-    
-      rows.forEach(row => {
-        const json = row.toJSON();
-        console.log(
-          `SingerId: ${json.SingerId}, FirstName: ${json.FirstName}, LastName: ${json.LastName}`,
-        );
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the database when finished.
-      database.close();
-    }
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+const query = {
+  sql: `SELECT SingerId, FirstName, LastName
+        FROM Singers WHERE LastName = @lastName`,
+  params: {
+    lastName: 'Garcia',
+  },
+};
+
+// Queries rows from the Albums table
+try {
+  const [rows] = await database.run(query);
+
+  rows.forEach(row => {
+    const json = row.toJSON();
+    console.log(
+      `SingerId: ${json.SingerId}, FirstName: ${json.FirstName}, LastName: ${json.LastName}`,
+    );
+  });
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the database when finished.
+  database.close();
+}
+```
 
 ### PostgreSQL
 
-    /**
-     * TODO(developer): Uncomment these variables before running the sample.
-     */
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const projectId = 'my-project-id';
-    
-    // Imports the Google Cloud Spanner client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    // Instantiates a client
-    const spanner = new Spanner({
-      projectId: projectId,
+```
+/**
+ * TODO(developer): Uncomment these variables before running the sample.
+ */
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+// const projectId = 'my-project-id';
+
+// Imports the Google Cloud Spanner client library
+const {Spanner} = require('@google-cloud/spanner');
+
+// Instantiates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+async function queryWithPgParameter() {
+  // Gets a reference to a Cloud Spanner instance and database.
+  const instance = spanner.instance(instanceId);
+  const database = instance.database(databaseId);
+
+  const fieldType = {
+    type: 'string',
+  };
+
+  const query = {
+    sql: `SELECT singerid, firstname, lastname
+          FROM singers
+          WHERE firstname LIKE $1`,
+    params: {
+      p1: 'A%',
+    },
+    types: {
+      p1: fieldType,
+    },
+  };
+
+  // Queries rows from the Singers table.
+  try {
+    const [rows] = await database.run(query);
+
+    rows.forEach(row => {
+      const json = row.toJSON();
+      console.log(
+        `SingerId: ${json.singerid}, FirstName: ${json.firstname}, LastName: ${json.lastname}`,
+      );
     });
-    
-    async function queryWithPgParameter() {
-      // Gets a reference to a Cloud Spanner instance and database.
-      const instance = spanner.instance(instanceId);
-      const database = instance.database(databaseId);
-    
-      const fieldType = {
-        type: 'string',
-      };
-    
-      const query = {
-        sql: `SELECT singerid, firstname, lastname
-              FROM singers
-              WHERE firstname LIKE $1`,
-        params: {
-          p1: 'A%',
-        },
-        types: {
-          p1: fieldType,
-        },
-      };
-    
-      // Queries rows from the Singers table.
-      try {
-        const [rows] = await database.run(query);
-    
-        rows.forEach(row => {
-          const json = row.toJSON();
-          console.log(
-            `SingerId: ${json.singerid}, FirstName: ${json.firstname}, LastName: ${json.lastname}`,
-          );
-        });
-      } catch (err) {
-        console.error('ERROR:', err);
-      } finally {
-        // Close the database when finished.
-        database.close();
-      }
-    }
-    queryWithPgParameter();
+  } catch (err) {
+    console.error('ERROR:', err);
+  } finally {
+    // Close the database when finished.
+    database.close();
+  }
+}
+queryWithPgParameter();
+```
 
 Here's how to issue the query and access the data:
 
-    node dml.js queryWithParameter test-instance example-db MY_PROJECT_ID
+```
+node dml.js queryWithParameter test-instance example-db MY_PROJECT_ID
+```
 
 You should see the following result:
 
-    SingerId: 12, FirstName: Melissa, LastName: Garcia
+```
+SingerId: 12, FirstName: Melissa, LastName: Garcia
+```
 
 ## Read data using the read API
 
@@ -579,62 +625,68 @@ Use [`Table.read()`](https://googleapis.dev/nodejs/spanner/latest/Table.html#rea
 
 Here's how to read the data:
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    // Reads rows from the Albums table
-    const albumsTable = database.table('Albums');
-    
-    const query = {
-      columns: ['SingerId', 'AlbumId', 'AlbumTitle'],
-      keySet: {
-        all: true,
-      },
-    };
-    
-    try {
-      const [rows] = await albumsTable.read(query);
-    
-      rows.forEach(row => {
-        const json = row.toJSON();
-        console.log(
-          `SingerId: ${json.SingerId}, AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`,
-        );
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the database when finished.
-      await database.close();
-    }
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+// Reads rows from the Albums table
+const albumsTable = database.table('Albums');
+
+const query = {
+  columns: ['SingerId', 'AlbumId', 'AlbumTitle'],
+  keySet: {
+    all: true,
+  },
+};
+
+try {
+  const [rows] = await albumsTable.read(query);
+
+  rows.forEach(row => {
+    const json = row.toJSON();
+    console.log(
+      `SingerId: ${json.SingerId}, AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`,
+    );
+  });
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the database when finished.
+  await database.close();
+}
+```
 
 Run the sample using the `read` argument.
 
-    node crud.js read test-instance example-db MY_PROJECT_ID
+```
+node crud.js read test-instance example-db MY_PROJECT_ID
+```
 
 You should see output similar to:
 
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
 
 ## Update the database schema
 
@@ -650,17 +702,23 @@ Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/ref
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Use the Spanner client library for Node.js
 
@@ -668,210 +726,230 @@ Use [`Database.updateSchema`](https://googleapis.dev/nodejs/spanner/latest/Datab
 
 ### GoogleSQL
 
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    // creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    // Creates a new index in the database
-    try {
-      const [operation] = await databaseAdminClient.updateDatabaseDdl({
-        database: databaseAdminClient.databasePath(
-          projectId,
-          instanceId,
-          databaseId,
-        ),
-        statements: ['ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'],
-      });
-    
-      console.log('Waiting for operation to complete...');
-      await operation.promise();
-    
-      console.log('Added the MarketingBudget column.');
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the spanner client when finished.
-      // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
-      spanner.close();
-    }
+```
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+// creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+const databaseAdminClient = spanner.getDatabaseAdminClient();
+
+// Creates a new index in the database
+try {
+  const [operation] = await databaseAdminClient.updateDatabaseDdl({
+    database: databaseAdminClient.databasePath(
+      projectId,
+      instanceId,
+      databaseId,
+    ),
+    statements: ['ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'],
+  });
+
+  console.log('Waiting for operation to complete...');
+  await operation.promise();
+
+  console.log('Added the MarketingBudget column.');
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the spanner client when finished.
+  // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
+  spanner.close();
+}
+```
 
 ### PostgreSQL
 
-    /**
-     * TODO(developer): Uncomment these variables before running the sample.
-     */
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const projectId = 'my-project-id';
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    // creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    async function pgAddColumn() {
-      const request = ['ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'];
-    
-      // Alter existing table to add a column.
-      const [operation] = await databaseAdminClient.updateDatabaseDdl({
-        database: databaseAdminClient.databasePath(
-          projectId,
-          instanceId,
-          databaseId,
-        ),
-        statements: request,
-      });
-    
-      console.log(`Waiting for operation on ${databaseId} to complete...`);
-    
-      await operation.promise();
-    
-      console.log(
-        `Added MarketingBudget column to Albums table in database ${databaseId}.`,
-      );
-    }
-    pgAddColumn();
+```
+/**
+ * TODO(developer): Uncomment these variables before running the sample.
+ */
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+// const projectId = 'my-project-id';
+
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+// creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+const databaseAdminClient = spanner.getDatabaseAdminClient();
+
+async function pgAddColumn() {
+  const request = ['ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'];
+
+  // Alter existing table to add a column.
+  const [operation] = await databaseAdminClient.updateDatabaseDdl({
+    database: databaseAdminClient.databasePath(
+      projectId,
+      instanceId,
+      databaseId,
+    ),
+    statements: request,
+  });
+
+  console.log(`Waiting for operation on ${databaseId} to complete...`);
+
+  await operation.promise();
+
+  console.log(
+    `Added MarketingBudget column to Albums table in database ${databaseId}.`,
+  );
+}
+pgAddColumn();
+```
 
 Run the sample using the `addColumn` argument.
 
-    node schema.js addColumn test-instance example-db MY_PROJECT_ID
+```
+node schema.js addColumn test-instance example-db MY_PROJECT_ID
+```
 
 You should see:
 
-    Added the MarketingBudget column.
+```
+Added the MarketingBudget column.
+```
 
 ### Write data to the new column
 
 The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    // Update a row in the Albums table
-    // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so they
-    // must be converted to strings before being inserted as INT64s
-    const albumsTable = database.table('Albums');
-    
-    try {
-      await albumsTable.update([
-        {SingerId: '1', AlbumId: '1', MarketingBudget: '100000'},
-        {SingerId: '2', AlbumId: '2', MarketingBudget: '500000'},
-      ]);
-      console.log('Updated data.');
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the database when finished.
-      database.close();
-    }
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+// Update a row in the Albums table
+// Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so they
+// must be converted to strings before being inserted as INT64s
+const albumsTable = database.table('Albums');
+
+try {
+  await albumsTable.update([
+    {SingerId: '1', AlbumId: '1', MarketingBudget: '100000'},
+    {SingerId: '2', AlbumId: '2', MarketingBudget: '500000'},
+  ]);
+  console.log('Updated data.');
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the database when finished.
+  database.close();
+}
+```
 
 Run the sample using the `update` argument.
 
-    node crud.js update test-instance example-db MY_PROJECT_ID
+```
+node crud.js update test-instance example-db MY_PROJECT_ID
+```
 
 You should see:
 
-    Updated data.
+```
+Updated data.
+```
 
 You can also execute a SQL query or a read call to fetch the values that you just wrote.
 
 Here's the code to execute the query:
 
-    // This sample uses the `MarketingBudget` column. You can add the column
-    // by running the `add_column` sample or by running this DDL statement against
-    // your database:
-    //    ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const query = {
-      sql: 'SELECT SingerId, AlbumId, MarketingBudget FROM Albums',
-    };
-    
-    // Queries rows from the Albums table
-    try {
-      const [rows] = await database.run(query);
-    
-      rows.forEach(async row => {
-        const json = row.toJSON();
-    
-        console.log(
-          `SingerId: ${json.SingerId}, AlbumId: ${
-            json.AlbumId
-          }, MarketingBudget: ${
-            json.MarketingBudget ? json.MarketingBudget : null
-          }`,
-        );
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the database when finished.
-      database.close();
-    }
+```
+// This sample uses the `MarketingBudget` column. You can add the column
+// by running the `add_column` sample or by running this DDL statement against
+// your database:
+//    ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
+
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+const query = {
+  sql: 'SELECT SingerId, AlbumId, MarketingBudget FROM Albums',
+};
+
+// Queries rows from the Albums table
+try {
+  const [rows] = await database.run(query);
+
+  rows.forEach(async row => {
+    const json = row.toJSON();
+
+    console.log(
+      `SingerId: ${json.SingerId}, AlbumId: ${
+        json.AlbumId
+      }, MarketingBudget: ${
+        json.MarketingBudget ? json.MarketingBudget : null
+      }`,
+    );
+  });
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the database when finished.
+  database.close();
+}
+```
 
 To execute this query, run the sample using the `queryNewColumn` argument.
 
-    node schema.js queryNewColumn test-instance example-db MY_PROJECT_ID
+```
+node schema.js queryNewColumn test-instance example-db MY_PROJECT_ID
+```
 
 You should see:
 
-    SingerId: 1, AlbumId: 1, MarketingBudget: 100000
-    SingerId: 1, AlbumId: 2, MarketingBudget: null
-    SingerId: 2, AlbumId: 1, MarketingBudget: null
-    SingerId: 2, AlbumId: 2, MarketingBudget: 500000
-    SingerId: 2, AlbumId: 3, MarketingBudget: null
+```
+SingerId: 1, AlbumId: 1, MarketingBudget: 100000
+SingerId: 1, AlbumId: 2, MarketingBudget: null
+SingerId: 2, AlbumId: 1, MarketingBudget: null
+SingerId: 2, AlbumId: 2, MarketingBudget: 500000
+SingerId: 2, AlbumId: 3, MarketingBudget: null
+```
 
 ## Update data
 
@@ -881,170 +959,178 @@ You use the `runUpdate()` method to execute a DML statement.
 
 ### GoogleSQL
 
-    // This sample transfers 200,000 from the MarketingBudget field
-    // of the second Album to the first Album, as long as the second
-    // Album has enough money in its budget. Make sure to run the
-    // addColumn and updateData samples first (in that order).
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const transferAmount = 200000;
-    
-    database.runTransaction((err, transaction) => {
-      if (err) {
-        console.error(err);
-        return;
+```
+// This sample transfers 200,000 from the MarketingBudget field
+// of the second Album to the first Album, as long as the second
+// Album has enough money in its budget. Make sure to run the
+// addColumn and updateData samples first (in that order).
+
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+const transferAmount = 200000;
+
+database.runTransaction((err, transaction) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  let firstBudget, secondBudget;
+  const queryOne = `SELECT MarketingBudget FROM Albums
+    WHERE SingerId = 2 AND AlbumId = 2`;
+
+  const queryTwo = `SELECT MarketingBudget FROM Albums
+  WHERE SingerId = 1 AND AlbumId = 1`;
+
+  Promise.all([
+    // Reads the second album's budget
+    transaction.run(queryOne).then(results => {
+      // Gets second album's budget
+      const rows = results[0].map(row => row.toJSON());
+      secondBudget = rows[0].MarketingBudget;
+      console.log(`The second album's marketing budget: ${secondBudget}`);
+
+      // Makes sure the second album's budget is large enough
+      if (secondBudget < transferAmount) {
+        throw new Error(
+          `The second album's budget (${secondBudget}) is less than the transfer amount (${transferAmount}).`,
+        );
       }
-      let firstBudget, secondBudget;
-      const queryOne = `SELECT MarketingBudget FROM Albums
-        WHERE SingerId = 2 AND AlbumId = 2`;
-    
-      const queryTwo = `SELECT MarketingBudget FROM Albums
-      WHERE SingerId = 1 AND AlbumId = 1`;
-    
-      Promise.all([
-        // Reads the second album's budget
-        transaction.run(queryOne).then(results => {
-          // Gets second album's budget
-          const rows = results[0].map(row => row.toJSON());
-          secondBudget = rows[0].MarketingBudget;
-          console.log(`The second album's marketing budget: ${secondBudget}`);
-    
-          // Makes sure the second album's budget is large enough
-          if (secondBudget < transferAmount) {
-            throw new Error(
-              `The second album's budget (${secondBudget}) is less than the transfer amount (${transferAmount}).`,
-            );
-          }
-        }),
-    
-        // Reads the first album's budget
-        transaction.run(queryTwo).then(results => {
-          // Gets first album's budget
-          const rows = results[0].map(row => row.toJSON());
-          firstBudget = rows[0].MarketingBudget;
-          console.log(`The first album's marketing budget: ${firstBudget}`);
-        }),
-      ])
-        .then(() => {
-          // Transfers the budgets between the albums
-          console.log(firstBudget, secondBudget);
-          firstBudget += transferAmount;
-          secondBudget -= transferAmount;
-    
-          console.log(firstBudget, secondBudget);
-    
-          // Updates the database
-          // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so they
-          // must be converted (back) to strings before being inserted as INT64s.
-    
-          return transaction
-            .runUpdate({
-              sql: `UPDATE Albums SET MarketingBudget = @Budget
-                  WHERE SingerId = 1 and AlbumId = 1`,
-              params: {
-                Budget: firstBudget,
-              },
-            })
-            .then(() =>
-              transaction.runUpdate({
-                sql: `UPDATE Albums SET MarketingBudget = @Budget
-                      WHERE SingerId = 2 and AlbumId = 2`,
-                params: {
-                  Budget: secondBudget,
-                },
-              }),
-            );
+    }),
+
+    // Reads the first album's budget
+    transaction.run(queryTwo).then(results => {
+      // Gets first album's budget
+      const rows = results[0].map(row => row.toJSON());
+      firstBudget = rows[0].MarketingBudget;
+      console.log(`The first album's marketing budget: ${firstBudget}`);
+    }),
+  ])
+    .then(() => {
+      // Transfers the budgets between the albums
+      console.log(firstBudget, secondBudget);
+      firstBudget += transferAmount;
+      secondBudget -= transferAmount;
+
+      console.log(firstBudget, secondBudget);
+
+      // Updates the database
+      // Note: Cloud Spanner interprets Node.js numbers as FLOAT64s, so they
+      // must be converted (back) to strings before being inserted as INT64s.
+
+      return transaction
+        .runUpdate({
+          sql: `UPDATE Albums SET MarketingBudget = @Budget
+              WHERE SingerId = 1 and AlbumId = 1`,
+          params: {
+            Budget: firstBudget,
+          },
         })
-        .then(() => {
-          // Commits the transaction and send the changes to the database
-          return transaction.commit();
-        })
-        .then(() => {
-          console.log(
-            `Successfully executed read-write transaction using DML to transfer ${transferAmount} from Album 2 to Album 1.`,
-          );
-        })
-        .then(() => {
-          // Closes the database when finished
-          database.close();
-        });
+        .then(() =>
+          transaction.runUpdate({
+            sql: `UPDATE Albums SET MarketingBudget = @Budget
+                  WHERE SingerId = 2 and AlbumId = 2`,
+            params: {
+              Budget: secondBudget,
+            },
+          }),
+        );
+    })
+    .then(() => {
+      // Commits the transaction and send the changes to the database
+      return transaction.commit();
+    })
+    .then(() => {
+      console.log(
+        `Successfully executed read-write transaction using DML to transfer ${transferAmount} from Album 2 to Album 1.`,
+      );
+    })
+    .then(() => {
+      // Closes the database when finished
+      database.close();
     });
+});
+```
 
 ### PostgreSQL
 
-    /**
-     * TODO(developer): Uncomment these variables before running the sample.
-     */
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const projectId = 'my-project-id';
-    
-    // Imports the Google Cloud Spanner client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    // Instantiates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    function updateUsingDml() {
-      // Gets a reference to a Cloud Spanner instance and database
-      const instance = spanner.instance(instanceId);
-      const database = instance.database(databaseId);
-    
-      database.runTransaction(async (err, transaction) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        try {
-          const [rowCount] = await transaction.runUpdate({
-            sql: 'UPDATE singers SET FirstName = $1 WHERE singerid = 1',
-            params: {
-              p1: 'Virginia',
-            },
-          });
-    
-          console.log(
-            `Successfully updated ${rowCount} record in the Singers table.`,
-          );
-    
-          await transaction.commit();
-        } catch (err) {
-          console.error('ERROR:', err);
-        } finally {
-          // Close the database when finished.
-          await database.close();
-        }
-      });
+```
+/**
+ * TODO(developer): Uncomment these variables before running the sample.
+ */
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+// const projectId = 'my-project-id';
+
+// Imports the Google Cloud Spanner client library
+const {Spanner} = require('@google-cloud/spanner');
+
+// Instantiates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+function updateUsingDml() {
+  // Gets a reference to a Cloud Spanner instance and database
+  const instance = spanner.instance(instanceId);
+  const database = instance.database(databaseId);
+
+  database.runTransaction(async (err, transaction) => {
+    if (err) {
+      console.error(err);
+      return;
     }
-    updateUsingDml();
+    try {
+      const [rowCount] = await transaction.runUpdate({
+        sql: 'UPDATE singers SET FirstName = $1 WHERE singerid = 1',
+        params: {
+          p1: 'Virginia',
+        },
+      });
+
+      console.log(
+        `Successfully updated ${rowCount} record in the Singers table.`,
+      );
+
+      await transaction.commit();
+    } catch (err) {
+      console.error('ERROR:', err);
+    } finally {
+      // Close the database when finished.
+      await database.close();
+    }
+  });
+}
+updateUsingDml();
+```
 
 Run the sample using the `writeWithTransactionUsingDml` argument.
 
-    node dml.js writeWithTransactionUsingDml test-instance example-db MY_PROJECT_ID
+```
+node dml.js writeWithTransactionUsingDml test-instance example-db MY_PROJECT_ID
+```
 
 You should see:
 
-    Successfully executed read-write transaction using DML to transfer $200000 from Album 2 to Album 1.
+```
+Successfully executed read-write transaction using DML to transfer $200000 from Album 2 to Album 1.
+```
 
 > **Note:** You can also [update data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api#updating_rows_in_a_table) .
 
@@ -1064,66 +1150,76 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for Node.js
 
 Use [`Database.updateSchema()`](https://googleapis.dev/nodejs/spanner/latest/Database.html#updateSchema) to add an index:
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    const request = ['CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'];
-    
-    // Creates a new index in the database
-    try {
-      const [operation] = await databaseAdminClient.updateDatabaseDdl({
-        database: databaseAdminClient.databasePath(
-          projectId,
-          instanceId,
-          databaseId,
-        ),
-        statements: request,
-      });
-    
-      console.log('Waiting for operation to complete...');
-      await operation.promise();
-    
-      console.log('Added the AlbumsByAlbumTitle index.');
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the spanner client when finished.
-      // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
-      spanner.close();
-    }
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+const databaseAdminClient = spanner.getDatabaseAdminClient();
+
+const request = ['CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'];
+
+// Creates a new index in the database
+try {
+  const [operation] = await databaseAdminClient.updateDatabaseDdl({
+    database: databaseAdminClient.databasePath(
+      projectId,
+      instanceId,
+      databaseId,
+    ),
+    statements: request,
+  });
+
+  console.log('Waiting for operation to complete...');
+  await operation.promise();
+
+  console.log('Added the AlbumsByAlbumTitle index.');
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the spanner client when finished.
+  // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
+  spanner.close();
+}
+```
 
 Run the sample using the `createIndex` argument.
 
-    node indexing.js createIndex test-instance example-db MY_PROJECT_ID
+```
+node indexing.js createIndex test-instance example-db MY_PROJECT_ID
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Added the AlbumsByAlbumTitle index.
+```
+Added the AlbumsByAlbumTitle index.
+```
 
 ### Read using the index
 
@@ -1131,61 +1227,67 @@ For SQL queries, Spanner automatically uses an appropriate index. In the read in
 
 To use the index in the read interface, use the [`Table.read()`](https://googleapis.dev/nodejs/spanner/latest/Table.html#read) method.
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const albumsTable = database.table('Albums');
-    
-    const query = {
-      columns: ['AlbumId', 'AlbumTitle'],
-      keySet: {
-        all: true,
-      },
-      index: 'AlbumsByAlbumTitle',
-    };
-    
-    // Reads the Albums table using an index
-    try {
-      const [rows] = await albumsTable.read(query);
-    
-      rows.forEach(row => {
-        const json = row.toJSON();
-        console.log(`AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`);
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the database when finished.
-      database.close();
-    }
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+const albumsTable = database.table('Albums');
+
+const query = {
+  columns: ['AlbumId', 'AlbumTitle'],
+  keySet: {
+    all: true,
+  },
+  index: 'AlbumsByAlbumTitle',
+};
+
+// Reads the Albums table using an index
+try {
+  const [rows] = await albumsTable.read(query);
+
+  rows.forEach(row => {
+    const json = row.toJSON();
+    console.log(`AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`);
+  });
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the database when finished.
+  database.close();
+}
+```
 
 Run the sample using the `readIndex` argument.
 
-    node indexing.js readIndex test-instance example-db MY_PROJECT_ID
+```
+node indexing.js readIndex test-instance example-db MY_PROJECT_ID
+```
 
 You should see:
 
-    AlbumId: 2, AlbumTitle: Forever Hold your Peace
-    AlbumId: 2, AlbumTitle: Go, Go, Go
-    AlbumId: 1, AlbumTitle: Green
-    AlbumId: 3, AlbumTitle: Terrified
-    AlbumId: 1, AlbumTitle: Total Junk
+```
+AlbumId: 2, AlbumTitle: Forever Hold your Peace
+AlbumId: 2, AlbumTitle: Go, Go, Go
+AlbumId: 1, AlbumTitle: Green
+AlbumId: 3, AlbumTitle: Terrified
+AlbumId: 1, AlbumTitle: Total Junk
+```
 
 ### Add an index for index-only reads
 
@@ -1197,146 +1299,164 @@ Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `Ma
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for Node.js
 
 Use [`Database.updateSchema()`](https://googleapis.dev/nodejs/spanner/latest/Database.html#updateSchema) to add an index with a `STORING` clause:
 
-    // "Storing" indexes store copies of the columns they index
-    // This speeds up queries, but takes more space compared to normal indexes
-    // See the link below for more information:
-    // https://cloud.google.com/spanner/docs/secondary-indexes#storing_clause
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    const databaseAdminClient = spanner.getDatabaseAdminClient();
-    
-    const request = [
-      'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)',
-    ];
-    
-    // Creates a new index in the database
-    try {
-      const [operation] = await databaseAdminClient.updateDatabaseDdl({
-        database: databaseAdminClient.databasePath(
-          projectId,
-          instanceId,
-          databaseId,
-        ),
-        statements: request,
-      });
-    
-      console.log('Waiting for operation to complete...');
-      await operation.promise();
-    
-      console.log('Added the AlbumsByAlbumTitle2 index.');
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the spanner client when finished.
-      // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
-      spanner.close();
-    }
+```
+// "Storing" indexes store copies of the columns they index
+// This speeds up queries, but takes more space compared to normal indexes
+// See the link below for more information:
+// https://cloud.google.com/spanner/docs/secondary-indexes#storing_clause
+
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+const databaseAdminClient = spanner.getDatabaseAdminClient();
+
+const request = [
+  'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)',
+];
+
+// Creates a new index in the database
+try {
+  const [operation] = await databaseAdminClient.updateDatabaseDdl({
+    database: databaseAdminClient.databasePath(
+      projectId,
+      instanceId,
+      databaseId,
+    ),
+    statements: request,
+  });
+
+  console.log('Waiting for operation to complete...');
+  await operation.promise();
+
+  console.log('Added the AlbumsByAlbumTitle2 index.');
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the spanner client when finished.
+  // The databaseAdminClient does not require explicit closure. The closure of the Spanner client will automatically close the databaseAdminClient.
+  spanner.close();
+}
+```
 
 Run the sample using the `createStoringIndex` argument.
 
-    node indexing.js createStoringIndex test-instance example-db MY_PROJECT_ID
+```
+node indexing.js createStoringIndex test-instance example-db MY_PROJECT_ID
+```
 
 You should see:
 
-    Added the AlbumsByAlbumTitle2 index.
+```
+Added the AlbumsByAlbumTitle2 index.
+```
 
 Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
-    // "Storing" indexes store copies of the columns they index
-    // This speeds up queries, but takes more space compared to normal indexes
-    // See the link below for more information:
-    // https://cloud.google.com/spanner/docs/secondary-indexes#storing_clause
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const albumsTable = database.table('Albums');
-    
-    const query = {
-      columns: ['AlbumId', 'AlbumTitle', 'MarketingBudget'],
-      keySet: {
-        all: true,
-      },
-      index: 'AlbumsByAlbumTitle2',
-    };
-    
-    // Reads the Albums table using a storing index
-    try {
-      const [rows] = await albumsTable.read(query);
-    
-      rows.forEach(row => {
-        const json = row.toJSON();
-        let rowString = `AlbumId: ${json.AlbumId}`;
-        rowString += `, AlbumTitle: ${json.AlbumTitle}`;
-        if (json.MarketingBudget) {
-          rowString += `, MarketingBudget: ${json.MarketingBudget}`;
-        }
-        console.log(rowString);
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the database when finished.
-      database.close();
+```
+// "Storing" indexes store copies of the columns they index
+// This speeds up queries, but takes more space compared to normal indexes
+// See the link below for more information:
+// https://cloud.google.com/spanner/docs/secondary-indexes#storing_clause
+
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+const albumsTable = database.table('Albums');
+
+const query = {
+  columns: ['AlbumId', 'AlbumTitle', 'MarketingBudget'],
+  keySet: {
+    all: true,
+  },
+  index: 'AlbumsByAlbumTitle2',
+};
+
+// Reads the Albums table using a storing index
+try {
+  const [rows] = await albumsTable.read(query);
+
+  rows.forEach(row => {
+    const json = row.toJSON();
+    let rowString = `AlbumId: ${json.AlbumId}`;
+    rowString += `, AlbumTitle: ${json.AlbumTitle}`;
+    if (json.MarketingBudget) {
+      rowString += `, MarketingBudget: ${json.MarketingBudget}`;
     }
+    console.log(rowString);
+  });
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the database when finished.
+  database.close();
+}
+```
 
 Run the sample using the `readStoringIndex` argument.
 
-    node indexing.js readStoringIndex test-instance example-db MY_PROJECT_ID
+```
+node indexing.js readStoringIndex test-instance example-db MY_PROJECT_ID
+```
 
 You should see output similar to:
 
-    AlbumId: 2, AlbumTitle: Forever Hold your Peace, MarketingBudget: 300000
-    AlbumId: 2, AlbumTitle: Go, Go, Go, MarketingBudget: null
-    AlbumId: 1, AlbumTitle: Green, MarketingBudget: null
-    AlbumId: 3, AlbumTitle: Terrified, MarketingBudget: null
-    AlbumId: 1, AlbumTitle: Total Junk, MarketingBudget: 300000
+```
+AlbumId: 2, AlbumTitle: Forever Hold your Peace, MarketingBudget: 300000
+AlbumId: 2, AlbumTitle: Go, Go, Go, MarketingBudget: null
+AlbumId: 1, AlbumTitle: Green, MarketingBudget: null
+AlbumId: 3, AlbumTitle: Terrified, MarketingBudget: null
+AlbumId: 1, AlbumTitle: Total Junk, MarketingBudget: 300000
+```
 
 ## Retrieve data using read-only transactions
 
@@ -1344,88 +1464,94 @@ Suppose you want to execute more than one read at the same timestamp. [Read-only
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+// Gets a transaction object that captures the database state
+// at a specific point in time
+database.getSnapshot(async (err, transaction) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  const queryOne = 'SELECT SingerId, AlbumId, AlbumTitle FROM Albums';
+
+  try {
+    // Read #1, using SQL
+    const [qOneRows] = await transaction.run(queryOne);
+
+    qOneRows.forEach(row => {
+      const json = row.toJSON();
+      console.log(
+        `SingerId: ${json.SingerId}, AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`,
+      );
     });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    // Gets a transaction object that captures the database state
-    // at a specific point in time
-    database.getSnapshot(async (err, transaction) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      const queryOne = 'SELECT SingerId, AlbumId, AlbumTitle FROM Albums';
-    
-      try {
-        // Read #1, using SQL
-        const [qOneRows] = await transaction.run(queryOne);
-    
-        qOneRows.forEach(row => {
-          const json = row.toJSON();
-          console.log(
-            `SingerId: ${json.SingerId}, AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`,
-          );
-        });
-    
-        const queryTwo = {
-          columns: ['SingerId', 'AlbumId', 'AlbumTitle'],
-        };
-    
-        // Read #2, using the `read` method. Even if changes occur
-        // in-between the reads, the transaction ensures that both
-        // return the same data.
-        const [qTwoRows] = await transaction.read('Albums', queryTwo);
-    
-        qTwoRows.forEach(row => {
-          const json = row.toJSON();
-          console.log(
-            `SingerId: ${json.SingerId}, AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`,
-          );
-        });
-    
-        console.log('Successfully executed read-only transaction.');
-      } catch (err) {
-        console.error('ERROR:', err);
-      } finally {
-        transaction.end();
-        // Close the database when finished.
-        await database.close();
-      }
+
+    const queryTwo = {
+      columns: ['SingerId', 'AlbumId', 'AlbumTitle'],
+    };
+
+    // Read #2, using the `read` method. Even if changes occur
+    // in-between the reads, the transaction ensures that both
+    // return the same data.
+    const [qTwoRows] = await transaction.read('Albums', queryTwo);
+
+    qTwoRows.forEach(row => {
+      const json = row.toJSON();
+      console.log(
+        `SingerId: ${json.SingerId}, AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`,
+      );
     });
+
+    console.log('Successfully executed read-only transaction.');
+  } catch (err) {
+    console.error('ERROR:', err);
+  } finally {
+    transaction.end();
+    // Close the database when finished.
+    await database.close();
+  }
+});
+```
 
 Run the sample using the `readOnly` argument.
 
-    node transaction.js readOnly test-instance example-db MY_PROJECT_ID
+```
+node transaction.js readOnly test-instance example-db MY_PROJECT_ID
+```
 
 You should see output similar to:
 
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
-    Successfully executed read-only transaction.
+```
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+Successfully executed read-only transaction.
+```
 
 ## Cleanup
 
@@ -1437,7 +1563,9 @@ If you delete an instance, all databases within it are automatically deleted. Th
 
 #### On the command line
 
-    gcloud spanner databases delete example-db --instance=test-instance
+```
+gcloud spanner databases delete example-db --instance=test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1457,7 +1585,9 @@ Deleting an instance automatically drops all databases created in that instance.
 
 #### On the command line
 
-    gcloud spanner instances delete test-instance
+```
+gcloud spanner instances delete test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1471,8 +1601,8 @@ Deleting an instance automatically drops all databases created in that instance.
 
 ## What's next
 
-  - Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
+- Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
 
-  - Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
 
-  - Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .

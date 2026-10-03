@@ -14,9 +14,9 @@ You can view storage metrics using the Spanner Omni console. For more informatio
 
 Spanner Omni provides the following storage metrics:
 
-  - **Storage Capacity** : The total and available file system storage capacity. You view this in the **Overview** dashboard in the Spanner Omni console. The Spanner Omni file system dashboard provides a breakdown by zone.
+- **Storage Capacity** : The total and available file system storage capacity. You view this in the **Overview** dashboard in the Spanner Omni console. The Spanner Omni file system dashboard provides a breakdown by zone.
 
-  - **Storage Used By Database** : The non-replicated physical bytes each database uses. You view this in the **System Insights** dashboard in the Spanner Omni console.
+- **Storage Used By Database** : The non-replicated physical bytes each database uses. You view this in the **System Insights** dashboard in the Spanner Omni console.
 
 ### Multi-version storage
 
@@ -42,11 +42,11 @@ This happens because ingested data, except for a copy logged during commit for d
 
 For Spanner Omni deployments, Prometheus alerts use the following storage utilization thresholds:
 
-  - `SpannerStorageUtilizationWarning` : Warns of high storage (80%) on a server.
+- `SpannerStorageUtilizationWarning` : Warns of high storage (80%) on a server.
 
-  - `SpannerStorageUtilizationCritical` : Alerts for critical storage (90%) on a server.
+- `SpannerStorageUtilizationCritical` : Alerts for critical storage (90%) on a server.
 
-  - `SpannerStoragePerVCPUTooHigh` : Warns when storage per vCPU exceeds 500 GB.
+- `SpannerStoragePerVCPUTooHigh` : Warns when storage per vCPU exceeds 500 GB.
 
 ### Recommendations for database storage utilization
 
@@ -54,11 +54,11 @@ We recommend that you keep your database storage less than 500 GB per vCPU. This
 
 If you are approaching the limit, Spanner Omni might prevent you from performing operations that put you over the limit, such as:
 
-  - Restoring a database from a backup.
+- Restoring a database from a backup.
 
-  - Modifying the database's schema (for example, adding an index).
+- Modifying the database's schema (for example, adding an index).
 
-  - Reducing the compute capacity of your deployment.
+- Reducing the compute capacity of your deployment.
 
 If you are over the storage limit, Spanner Omni attempts to operate normally, but you might experience degraded performance or failure due to resource pressure.
 
@@ -66,11 +66,11 @@ If you are over the storage limit, Spanner Omni attempts to operate normally, bu
 
 To reduce a deployment's database storage utilization, perform the following actions:
 
-  - Add more compute capacity.
+- Add more compute capacity.
 
-  - Use the [Spanner Omni CLI](https://docs.cloud.google.com/spanner-omni/cli-quickstart) to delete unused databases.
+- Use the [Spanner Omni CLI](https://docs.cloud.google.com/spanner-omni/cli-quickstart) to delete unused databases.
 
-  - Use the [Spanner Omni CLI](https://docs.cloud.google.com/spanner-omni/cli-quickstart) to delete data from a database. Although data deletion takes effect immediately from a data-visibility perspective, it might not affect the storage utilization metric until Spanner Omni compacts the data. Compaction typically occurs within 12 hours for significant data deletions, or within a week otherwise. Therefore, you might notice a delay between when you delete data and when the changes appear in the metric.
+- Use the [Spanner Omni CLI](https://docs.cloud.google.com/spanner-omni/cli-quickstart) to delete data from a database. Although data deletion takes effect immediately from a data-visibility perspective, it might not affect the storage utilization metric until Spanner Omni compacts the data. Compaction typically occurs within 12 hours for significant data deletions, or within a week otherwise. Therefore, you might notice a delay between when you delete data and when the changes appear in the metric.
 
 Perform these operations using the Spanner Omni CLI.
 

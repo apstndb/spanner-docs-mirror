@@ -20,11 +20,11 @@ When you configure the managed autoscaler, you can use either processing units f
 
 The Spanner managed autoscaler determines how much compute capacity is required, based on the following:
 
-  - High priority CPU utilization target
-  - Total CPU utilization target
-  - Storage utilization target
-  - Minimum limit
-  - Maximum limit
+- High priority CPU utilization target
+- Total CPU utilization target
+- Storage utilization target
+- Minimum limit
+- Maximum limit
 
 Each scaling dimension generates a recommended instance size, and Spanner automatically uses the highest one. This means, for example, that if your instance needs 10 nodes to meet your storage utilization target but 12 nodes to meet your CPU utilization target, Spanner scales the instance to 12 nodes.
 
@@ -52,17 +52,17 @@ You might see an increase in compute capacity used and therefore an increase in 
 
 The following limitations apply when you enable or change the managed autoscaling feature on an instance or instance partition:
 
-  - You can't [move an instance](https://docs.cloud.google.com/spanner/docs/move-instance) when the managed autoscaler feature is enabled. You must first disable the managed autoscaler, and then move the instance. After you move the instance, you can re-enable the managed autoscaler.
-  - You must set the minimum limit on the autoscaling instance to 1000 processing units or greater, or 1 node or greater.
-  - When you enable autoscaling on an existing instance, the existing instance capacity can be lower than the minimum limit value you [configure on the managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#configure_the_managed_autoscaler) . However, the instance automatically scales up to the configured minimum value when you start it. For example, if your instance has one node but you set the minimum value to two nodes, when you start your instance, it automatically scales up to two nodes.
-  - You can't asymmetrically autoscale instance partitions.
+- You can't [move an instance](https://docs.cloud.google.com/spanner/docs/move-instance) when the managed autoscaler feature is enabled. You must first disable the managed autoscaler, and then move the instance. After you move the instance, you can re-enable the managed autoscaler.
+- You must set the minimum limit on the autoscaling instance to 1000 processing units or greater, or 1 node or greater.
+- When you enable autoscaling on an existing instance, the existing instance capacity can be lower than the minimum limit value you [configure on the managed autoscaler](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#configure_the_managed_autoscaler) . However, the instance automatically scales up to the configured minimum value when you start it. For example, if your instance has one node but you set the minimum value to two nodes, when you start your instance, it automatically scales up to two nodes.
+- You can't asymmetrically autoscale instance partitions.
 
 ## Managed autoscaler parameters
 
 When you create or edit an instance or instance partition and choose to enable the managed autoscaler, you define the values shown in the following table.
 
 | Parameter                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | High priority CPU utilization target | A percentage of the instance's CPU capacity to use for high priority tasks. This value must be from 10% to 90%. When an instance's high priority CPU utilization exceeds the target that you have set, Spanner immediately adds compute capacity to the instance. When CPU utilization is substantially lower than the target, Spanner removes compute capacity. For more information, see [Determine the high priority CPU utilization target](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-high-priority-cpu) .        |
 | Total CPU utilization target         | A percentage of the instance's total CPU capacity to use for high-, medium-, and low-priority tasks. This value must be from 10% to 90%. When an instance's total CPU utilization exceeds the target that you have set, Spanner immediately adds compute capacity to the instance. When total CPU utilization is substantially lower than the target, Spanner removes compute capacity. For more information, see [Determine the total CPU utilization target](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-total-cpu) . |
 | Storage utilization target           | The percentage of storage on a node that you can use before Spanner scales up. This target ensures that you always have enough compute capacity to handle fluctuations in the amount of data that you store. This value must be between 10-99%. For more information, see [Determine the storage utilization target](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#determine-storage) .                                                                                                                                             |
@@ -109,47 +109,17 @@ In general, if you observe unacceptably high latency, you should lower the CPU u
 Generally, we recommend the following CPU utilization targets for reliable failover:
 
 | Instance type         | Total CPU utilization target | High priority CPU utilization target |
-| :-------------------- | :--------------------------- | :----------------------------------- |
+|-----------------------|------------------------------|--------------------------------------|
 | Regional instance     | 70%                          | 65%                                  |
 | Multi-region instance | 50%                          | 45%                                  |
 
 Depending on your workload, we also recommend the following more specific CPU utilization targets:
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Workload type</th>
-<th style="text-align: left;">Recommended CPU targets</th>
-<th style="text-align: left;">Trade-off</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Throughput sensitive, write-heavy workload</td>
-<td style="text-align: left;">Total CPU utilization target: 70%</td>
-<td style="text-align: left;">Higher throughput at the expense of latency</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Latency sensitive, read-heavy workload</td>
-<td style="text-align: left;">Total CPU utilization target: 80%<br />
-<br />
-High priority CPU utilization target: 65% (regional) or 45% (multi-region)</td>
-<td style="text-align: left;">Predictable tail latency at higher cost</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Workload prioritizing cost efficiency</td>
-<td style="text-align: left;">Total CPU utilization target: 85%<br />
-<br />
-High priority CPU utilization target: 65% (regional) or 45% (multi-region)</td>
-<td style="text-align: left;">Reasonable cost and performance with potentially delayed index creation</td>
-</tr>
-</tbody>
-</table>
+| Workload type                              | Recommended CPU targets                                                                                      | Trade-off                                                               |
+|--------------------------------------------|--------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| Throughput sensitive, write-heavy workload | Total CPU utilization target: 70%                                                                            | Higher throughput at the expense of latency                             |
+| Latency sensitive, read-heavy workload     | Total CPU utilization target: 80% High priority CPU utilization target: 65% (regional) or 45% (multi-region) | Predictable tail latency at higher cost                                 |
+| Workload prioritizing cost efficiency      | Total CPU utilization target: 85% High priority CPU utilization target: 65% (regional) or 45% (multi-region) | Reasonable cost and performance with potentially delayed index creation |
 
 #### Determine the storage utilization target
 
@@ -161,11 +131,11 @@ The value that you choose as the maximum amount of compute capacity is equal to 
 
 The maximum limit must allow for both the CPU utilization target and the storage utilization target that you set for autoscaling.
 
-  - If you're changing an instance from manual allocation to managed autoscaling, find the highest amount of compute capacity that the instance has had over the last one or two months. Your managed autoscaler maximum limit should be at least that high.
+- If you're changing an instance from manual allocation to managed autoscaling, find the highest amount of compute capacity that the instance has had over the last one or two months. Your managed autoscaler maximum limit should be at least that high.
 
-  - If you are enabling the managed autoscaler for a new instance, look at metrics from other instances and use them as a guide when you set the maximum limit.
+- If you are enabling the managed autoscaler for a new instance, look at metrics from other instances and use them as a guide when you set the maximum limit.
 
-  - If you have a new workload and you're not sure how it's going to grow, you can estimate the amount of compute capacity that you need to meet the built-in storage utilization target and then adjust the number later.
+- If you have a new workload and you're not sure how it's going to grow, you can estimate the amount of compute capacity that you need to meet the built-in storage utilization target and then adjust the number later.
 
 You also need to know how much quota is remaining on your node because the managed autoscaler can't configure your instance to have more compute capacity than your quota. For more information, see [Node limits](https://docs.cloud.google.com/spanner/quotas#node_limits) .
 
@@ -183,9 +153,9 @@ For more information about accepted values, see [Managed autoscaler parameters](
 
 In many cases you want to set the minimum value to more than one. Choose a higher number or raise the minimum limit for the following situations:
 
-  - You have an upcoming peak scale event when you expect your traffic to temporarily increase, and you want to make sure you have enough compute capacity.
-  - Your application sends spiky traffic. When you add new compute capacity, Spanner automatically rebalances to use the new nodes or processing units. Because this process can take several minutes, you might want to consider taking a conservative approach and choosing a higher minimum. That way, your instance seamlessly accommodate the spikes.
-  - You increase the maximum compute capacity. The minimum must always be ten percent or more of the maximum compute capacity target. For example, if you set the maximum number of nodes to `30` , you must set the minimum number of nodes to at least `3` .
+- You have an upcoming peak scale event when you expect your traffic to temporarily increase, and you want to make sure you have enough compute capacity.
+- Your application sends spiky traffic. When you add new compute capacity, Spanner automatically rebalances to use the new nodes or processing units. Because this process can take several minutes, you might want to consider taking a conservative approach and choosing a higher minimum. That way, your instance seamlessly accommodate the spikes.
+- You increase the maximum compute capacity. The minimum must always be ten percent or more of the maximum compute capacity target. For example, if you set the maximum number of nodes to `30` , you must set the minimum number of nodes to at least `3` .
 
 If you increase the value for the minimum compute capacity on an instance, Spanner immediately tries to scale the instance to the new minimum. The [standard constraints](https://docs.cloud.google.com/spanner/quotas#node_limits) apply. When you're out of quota, your request to change the managed autoscaler configuration fails and the configuration isn't updated.
 
@@ -195,35 +165,35 @@ After you first configure managed autoscaler, and periodically thereafter, test 
 
 When you use Google Cloud CLI to configure the managed autoscaler, there are some required flags you must set. There are optional flags that you use to indicate whether you want to use nodes or processing units. For more information about creating a new instance or instance partition with the managed autoscaler, or enabling managed autoscaler on an existing instance or instance partition, see the following how-to guides:
 
-  - [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#gcloud)
-  - [Enable or modify the managed autoscaler on an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#gcloud_4)
-  - [Create an instance partition](https://docs.cloud.google.com/spanner/docs/create-manage-partitions#create-instance-partition)
-  - [Enable or modify the managed autoscaler on an instance partition](https://docs.cloud.google.com/spanner/docs/create-manage-partitions#enable-modify-managed-autoscaler)
+- [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#gcloud)
+- [Enable or modify the managed autoscaler on an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#gcloud_4)
+- [Create an instance partition](https://docs.cloud.google.com/spanner/docs/create-manage-partitions#create-instance-partition)
+- [Enable or modify the managed autoscaler on an instance partition](https://docs.cloud.google.com/spanner/docs/create-manage-partitions#enable-modify-managed-autoscaler)
 
 The following flags are required when enabling the managed autoscaler on your instance:
 
-  - `autoscaling-high-priority-cpu-percent`
-  - `autoscaling-total-cpu-percent`
-  - `autoscaling-storage-percent`
+- `autoscaling-high-priority-cpu-percent`
+- `autoscaling-total-cpu-percent`
+- `autoscaling-storage-percent`
 
 When setting the CPU percent, you can select either one or both options.
 
 If you choose to use nodes, you must also use both of the following flags when you enable the managed autoscaler:
 
-  - `autoscaling-min-nodes`
-  - `autoscaling-max-nodes`
+- `autoscaling-min-nodes`
+- `autoscaling-max-nodes`
 
 If you choose to use processing units, you must also use both of the following flags when you enable the managed autoscaler:
 
-  - `autoscaling-min-processing-units`
-  - `autoscaling-max-processing-units`
+- `autoscaling-min-processing-units`
+- `autoscaling-max-processing-units`
 
 You can use the `--disable-downscaling` boolean flag to prevent the autoscaler from reducing the number of nodes or processing units. When setting this flag to `true` , upscaling continues to function normally to meet increased demand. To enable downscaling after disabling it, use the `--no-disable-downscaling flag` .
 
 The following limitations apply when adding the managed autoscaler to an existing instance using Google Cloud CLI:
 
-  - You can't use the `--nodes` flag with the `--autoscaling-min-nodes` or `--autoscaling-max-nodes` flags because using `--nodes` sets a specific number of nodes rather than a scaling range. Similarly, you can't use the `--processing-units` flag with the `autoscaling-min-processing-units` or `autoscaling-max-processing-units` flags because using `--processing-units` sets a specific number of processing units rather than a scaling range.
-  - You can't mix the flags for nodes and processing units together. For example, you can't use `--autoscaling-max-nodes` with `autoscaling-min-processing-units` .
+- You can't use the `--nodes` flag with the `--autoscaling-min-nodes` or `--autoscaling-max-nodes` flags because using `--nodes` sets a specific number of nodes rather than a scaling range. Similarly, you can't use the `--processing-units` flag with the `autoscaling-min-processing-units` or `autoscaling-max-processing-units` flags because using `--processing-units` sets a specific number of processing units rather than a scaling range.
+- You can't mix the flags for nodes and processing units together. For example, you can't use `--autoscaling-max-nodes` with `autoscaling-min-processing-units` .
 
 ### Fine-tune your settings
 
@@ -235,21 +205,21 @@ Keep an eye on your compute capacity usage and adjust your settings, if necessar
 
 After you enable managed autoscaler, you can also enable and autoscale your read-only replicas independently from other replicas. Asymmetric read-only autoscaling lets you control the compute capacity limits and CPU utilization targets of your read-only regions based on their usage. This optimizes local read traffic patterns and improves cost efficiency. The following autoscaling configuration parameters are configurable for each read-only replica region:
 
-  - Minimum compute capacity limit
-  - Maximum compute capacity limit
-  - High priority CPU utilization target
-  - Total CPU utilization target
-  - Disable total CPU
-  - Disable high priority CPU
+- Minimum compute capacity limit
+- Maximum compute capacity limit
+- High priority CPU utilization target
+- Total CPU utilization target
+- Disable total CPU
+- Disable high priority CPU
 
 You can enable asymmetric autoscaling and configure these parameters by [creating a new instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) or by [updating an existing instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#modify-managed-autoscaler) .
 
 For each replica, the following rules apply when you enable asymmetric autoscaling on an existing instance:
 
-  - If the current compute capacity of the replica is between the autoscaling minimum and maximum that is set for the region, then the compute capacity of the replica doesn't change.
-  - If the current compute capacity of the replica is below the autoscaling minimum that is set for the region, then the compute capacity is adjusted to match the autoscaling minimum.
-  - If the current compute capacity of the replica is above the autoscaling maximum that is set for the region, then the compute capacity is adjusted to match the autoscaling maximum.
-  - If both CPU targets are set at the base level and you want to disable the CPU target at the replica level, you must explicitly use `disable_total_cpu_autoscaling` or `disable_high_priority_cpu_autoscaling` .
+- If the current compute capacity of the replica is between the autoscaling minimum and maximum that is set for the region, then the compute capacity of the replica doesn't change.
+- If the current compute capacity of the replica is below the autoscaling minimum that is set for the region, then the compute capacity is adjusted to match the autoscaling minimum.
+- If the current compute capacity of the replica is above the autoscaling maximum that is set for the region, then the compute capacity is adjusted to match the autoscaling maximum.
+- If both CPU targets are set at the base level and you want to disable the CPU target at the replica level, you must explicitly use `disable_total_cpu_autoscaling` or `disable_high_priority_cpu_autoscaling` .
 
 In addition, when using the asymmetric autoscaler, we recommend setting the same set of targets across all replicas to ensure consistent autoscaling behavior during failover events. For more information, see [Failover concerns](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#failover-concerns) .
 
@@ -261,16 +231,16 @@ When using the asymmetric autoscaler, it's critical to apply the same utilizatio
 
 Consider the following scenario:
 
-  - Replica A is configured with both high-priority and total CPU targets.
-  - Replica B is configured with only a high-priority CPU target.
+- Replica A is configured with both high-priority and total CPU targets.
+- Replica B is configured with only a high-priority CPU target.
 
 If a failover shifts traffic from Replica A to Replica B, Replica B only scales based on high-priority requests. Consequently, medium and low-priority tasks (such as background system processes or analytical queries) don't trigger the necessary autoscaling on Replica B, potentially leading to task starvation or increased latency for non-critical workloads.
 
 To prevent problems, we recommend the following:
 
-  - Always define identical autoscaler targets across all replicas to ensure consistent autoscaling behavior. For example, consider a scenario where you configure a read-only replica with both a high-priority CPU target and a total CPU target. If the read-write replica only sets the high-priority CPU target, then during failover, medium- and low-priority traffic won't trigger autoscaling on the read-write replica.
-  - Ensure your target utilization has capacity for traffic bursts that occur when one replica must suddenly absorb the load of a failed peer.
-  - Periodically review your Cloud Monitoring metrics to verify that secondary replicas have the capacity required to support the combined traffic of your primary deployment.
+- Always define identical autoscaler targets across all replicas to ensure consistent autoscaling behavior. For example, consider a scenario where you configure a read-only replica with both a high-priority CPU target and a total CPU target. If the read-write replica only sets the high-priority CPU target, then during failover, medium- and low-priority traffic won't trigger autoscaling on the read-write replica.
+- Ensure your target utilization has capacity for traffic bursts that occur when one replica must suddenly absorb the load of a failed peer.
+- Periodically review your Cloud Monitoring metrics to verify that secondary replicas have the capacity required to support the combined traffic of your primary deployment.
 
 ## Access control
 
@@ -282,13 +252,13 @@ Spanner provides several metrics to help you understand how well the managed aut
 
 The following metrics are [displayed in graphs](https://docs.cloud.google.com/spanner/docs/monitoring-console) on the **System insights** page in the Google Cloud console. You can also view these metrics using [Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
-  - `spanner.googleapis.com/instance/autoscaling/min_node_count`
-  - `spanner.googleapis.com/instance/autoscaling/max_node_count`
-  - `spanner.googleapis.com/instance/autoscaling/min_processing_units`
-  - `spanner.googleapis.com/instance/autoscaling/max_processing_units`
-  - `spanner.googleapis.com/instance/autoscaling/high_priority_cpu_target_utilization`
-  - `spanner.googleapis.com/instance/autoscaling/total_cpu_target_utilization`
-  - `spanner.googleapis.com/instance/autoscaling/storage_target_utilization`
+- `spanner.googleapis.com/instance/autoscaling/min_node_count`
+- `spanner.googleapis.com/instance/autoscaling/max_node_count`
+- `spanner.googleapis.com/instance/autoscaling/min_processing_units`
+- `spanner.googleapis.com/instance/autoscaling/max_processing_units`
+- `spanner.googleapis.com/instance/autoscaling/high_priority_cpu_target_utilization`
+- `spanner.googleapis.com/instance/autoscaling/total_cpu_target_utilization`
+- `spanner.googleapis.com/instance/autoscaling/storage_target_utilization`
 
 ## Logging
 
@@ -307,9 +277,9 @@ You can view the managed autoscaler system event logs in the Google Cloud consol
 4.  On the System insights page, navigate to the **Compute capacity** metric.
 
 5.  Click **View logs** to open the log panel.
-    
+
     The **Compute capacity logs** pane displays the logs for the last hour.
-    
+
     If asymmetric read-only autoscaling is enabled for your instance, then the log summary provides a description and location of every replica's compute capacity changes. For example, `Increased from 1 to 2 nodes in us-central1 to maintain high priority CPU utilization at 80%` . If you're not using asymmetric autoscaling, location information isn't provided in the log summary. For example, `Increased from 9 to 10 nodes to maintain high priority CPU utilization at 65%` . You can also see when nodes are increased to maintain the total CPU utilization target.
 
 ### View logs using Logs Explorer
@@ -321,26 +291,30 @@ You can also view logs using Logs Explorer:
 2.  Select the appropriate Google Cloud project.
 
 3.  In the **Query** field, enter the following:
-    
-    ``` 
+
+    ```
      protoPayload.methodName="AutoscaleInstance"
     ```
-    
+
     You can add the following query to filter down further into the logs:
-    
-        resource.type="spanner_instance"
-        resource.labels.instance_id=INSTANCE_ID
-        resource.labels.project_id=PROJECT_ID
-        logName="projects/PROJECT_ID/logs/cloudaudit.googleapis.com%2Fsystem_event"
-        protoPayload.methodName="AutoscaleInstance"
-    
+
+    ```
+    resource.type="spanner_instance"
+    resource.labels.instance_id=INSTANCE_ID
+    resource.labels.project_id=PROJECT_ID
+    logName="projects/PROJECT_ID/logs/cloudaudit.googleapis.com%2Fsystem_event"
+    protoPayload.methodName="AutoscaleInstance"
+    ```
+
     To view logs for queries run in an non-default instance partition, enter:
-    
-        resource.type="spanner_instance"
-        resource.labels.instance_id=INSTANCE_ID
-        resource.labels.project_id=PROJECT_ID
-        logName="projects/PROJECT_ID/logs/cloudaudit.googleapis.com%2Fsystem_event"
-        protoPayload.methodName="AutoscaleInstancePartition"
+
+    ```
+    resource.type="spanner_instance"
+    resource.labels.instance_id=INSTANCE_ID
+    resource.labels.project_id=PROJECT_ID
+    logName="projects/PROJECT_ID/logs/cloudaudit.googleapis.com%2Fsystem_event"
+    protoPayload.methodName="AutoscaleInstancePartition"
+    ```
 
 4.  Click **Run query** .
 
@@ -350,8 +324,8 @@ To learn more about viewing logs, see [Cloud Logging](https://docs.cloud.google.
 
 ## What's next
 
-  - Learn how to [create an instance with the managed autoscaler enabled](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance)
-  - Learn how to [modify an instance to use autoscaling or change autoscaling settings](https://docs.cloud.google.com/spanner/docs/create-manage-instances#modify-managed-autoscaler)
-  - Learn how to [change an instance from using autoscaling to manual scaling](https://docs.cloud.google.com/spanner/docs/create-manage-instances#remove-managed-autoscaler)
-  - Learn how to [create an instance partition with the managed autoscaler enabled](https://docs.cloud.google.com/spanner/docs/create-manage-partitions#create-instance-partition)
-  - Learn how to [modify an instance partition to use autoscaling or change autoscaling settings](https://docs.cloud.google.com/spanner/docs/create-manage-partitions#enable-modify-managed-autoscaler)
+- Learn how to [create an instance with the managed autoscaler enabled](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance)
+- Learn how to [modify an instance to use autoscaling or change autoscaling settings](https://docs.cloud.google.com/spanner/docs/create-manage-instances#modify-managed-autoscaler)
+- Learn how to [change an instance from using autoscaling to manual scaling](https://docs.cloud.google.com/spanner/docs/create-manage-instances#remove-managed-autoscaler)
+- Learn how to [create an instance partition with the managed autoscaler enabled](https://docs.cloud.google.com/spanner/docs/create-manage-partitions#create-instance-partition)
+- Learn how to [modify an instance partition to use autoscaling or change autoscaling settings](https://docs.cloud.google.com/spanner/docs/create-manage-partitions#enable-modify-managed-autoscaler)

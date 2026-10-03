@@ -7,17 +7,17 @@ data_source: docs.cloud.google.com
 ---
 
 > **Preview — [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview)**
-> 
+>
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Spanner Graph, in close collaboration with [Google Research Graph Mining](https://research.google/teams/graph-mining/) , offers a suite of algorithms covering graph analysis needs for the following use cases:
 
-  - [Centrality](https://docs.cloud.google.com/spanner/docs/graph/algorithms#centrality)
-  - [Clustering](https://docs.cloud.google.com/spanner/docs/graph/algorithms#clustering)
-  - [Similarity](https://docs.cloud.google.com/spanner/docs/graph/algorithms#similarity)
-  - [Path Finding](https://docs.cloud.google.com/spanner/docs/graph/algorithms#path-finding)
+- [Centrality](https://docs.cloud.google.com/spanner/docs/graph/algorithms#centrality)
+- [Clustering](https://docs.cloud.google.com/spanner/docs/graph/algorithms#clustering)
+- [Similarity](https://docs.cloud.google.com/spanner/docs/graph/algorithms#similarity)
+- [Path Finding](https://docs.cloud.google.com/spanner/docs/graph/algorithms#path-finding)
 
 ## Centrality
 
@@ -35,37 +35,39 @@ Centrality algorithms rank nodes by their structural importance within a graph. 
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name              | Type                 | Required | Default | Description                                                                                                                                                               |
-| ----------------- | -------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| source\_nodes     | Array of graph nodes | No       | (none)  | If present, source for personalized PageRank.                                                                                                                             |
-| damping\_factor   | double               | No       | 0.85    | The probability that, at any given iteration, the algorithm chooses to traverse one of the outgoing edges of the current node. Must be in the range of \[0, 1).           |
-| max\_iterations   | int                  | No       | 10      | The maximum number of iterations of the algorithm. Must be positive. A higher number of iterations tends to produce more precise results at the cost of a longer runtime. |
-| approx\_precision | double               | No       | 1e-2    | Approximation precision threshold for the algorithm. Must be non-negative. Smaller values tends to produce more precise results at the cost of longer runtime.            |
+| Name             | Type                 | Required | Default | Description                                                                                                                                                               |
+|------------------|----------------------|----------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| source_nodes     | Array of graph nodes | No       | (none)  | If present, source for personalized PageRank.                                                                                                                             |
+| damping_factor   | double               | No       | 0.85    | The probability that, at any given iteration, the algorithm chooses to traverse one of the outgoing edges of the current node. Must be in the range of \[0, 1).           |
+| max_iterations   | int                  | No       | 10      | The maximum number of iterations of the algorithm. Must be positive. A higher number of iterations tends to produce more precise results at the cost of a longer runtime. |
+| approx_precision | double               | No       | 1e-2    | Approximation precision threshold for the algorithm. Must be non-negative. Smaller values tends to produce more precise results at the cost of longer runtime.            |
 
 #### Output
 
 Function yields:
 
-| Name  | Type                                                                                                                           | Description                     |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
-| node  | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.            |
-| score | FLOAT64                                                                                                                        | The PageRank score of the node. |
+| Name  | Type                                                                                                                          | Description                     |
+|-------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| node  | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.            |
+| score | FLOAT64                                                                                                                       | The PageRank score of the node. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/my-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL PageRank(
-        node_labels => ['Account'], edge_labels => ['Transfers'],
-        source_nodes => ARRAY {
-                          MATCH (n:Account {id:7})
-                          RETURN n
-                        }
-      ) YIELD node, score
-    RETURN node.id, score;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/my-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL PageRank(
+    node_labels => ['Account'], edge_labels => ['Transfers'],
+    source_nodes => ARRAY {
+                      MATCH (n:Account {id:7})
+                      RETURN n
+                    }
+  ) YIELD node, score
+RETURN node.id, score;
+```
 
 ### BetweennessCentrality
 
@@ -79,30 +81,32 @@ Function yields:
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name               | Type  | Required | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                        |
-| ------------------ | ----- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| num\_source\_nodes | INT64 | No       | (none)  | If set, must be positive, and specifies how many source nodes the algorithm should select for computing approximate betweenness centralities. If not set, or set to a number larger than the number of nodes in the graph, then all nodes are used as source nodes, that is, the algorithm computes exact betweenness centralities. Higher values lead to better approximations, but also to larger running times. |
+| Name             | Type  | Required | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                        |
+|------------------|-------|----------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| num_source_nodes | INT64 | No       | (none)  | If set, must be positive, and specifies how many source nodes the algorithm should select for computing approximate betweenness centralities. If not set, or set to a number larger than the number of nodes in the graph, then all nodes are used as source nodes, that is, the algorithm computes exact betweenness centralities. Higher values lead to better approximations, but also to larger running times. |
 
 #### Output
 
 Function yields:
 
-| Name       | Type                                                                                                                           | Description                       |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------- |
-| node       | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.              |
-| centrality | FLOAT64                                                                                                                        | The centrality score of the node. |
+| Name       | Type                                                                                                                          | Description                       |
+|------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| node       | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.              |
+| centrality | FLOAT64                                                                                                                       | The centrality score of the node. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/my-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL BetweennessCentrality(
-        node_labels => ['Account'], edge_labels => ['Transfers'], num_source_nodes => 5
-      ) YIELD node, centrality
-    RETURN node.id, centrality;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/my-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL BetweennessCentrality(
+    node_labels => ['Account'], edge_labels => ['Transfers'], num_source_nodes => 5
+  ) YIELD node, centrality
+RETURN node.id, centrality;
+```
 
 ### ClosenessCentrality
 
@@ -116,34 +120,36 @@ Function yields:
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name                  | Type    | Required | Default | Description                                                                                                                                                                                                                                                                   |
-| --------------------- | ------- | -------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| mode                  | STRING  | No       | EXACT   | The algorithm mode. Supported values are `EXACT` and `HYBRID` .                                                                                                                                                                                                               |
-| use\_wasserman\_faust | BOOL    | No       | FALSE   | If \`false\`, compute standard closeness centralities. If \`true\`, compute Wasserman-Faust closeness centralities.                                                                                                                                                           |
-| epsilon               | FLOAT64 | No       | 0.1     | Used only for the \`HYBRID\` algorithm. Must be in the range (0.0, 1.0). Smaller values generally means higher precision. Larger values generally allows the algorithm to execute faster.                                                                                     |
-| sample\_size          | INT64   | No       | 0       | Used only for the \`HYBRID\` algorithm. The number of pivot nodes to use for approximately computing the centrality values. Must be non-negative. If not set or zero, a default value of min(100 \* ln( `N` ), `N` ) is used, where `N` is the node count of the input graph. |
+| Name                | Type    | Required | Default | Description                                                                                                                                                                                                                                                                   |
+|---------------------|---------|----------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| mode                | STRING  | No       | EXACT   | The algorithm mode. Supported values are `EXACT` and `HYBRID` .                                                                                                                                                                                                               |
+| use_wasserman_faust | BOOL    | No       | FALSE   | If \`false\`, compute standard closeness centralities. If \`true\`, compute Wasserman-Faust closeness centralities.                                                                                                                                                           |
+| epsilon             | FLOAT64 | No       | 0.1     | Used only for the \`HYBRID\` algorithm. Must be in the range (0.0, 1.0). Smaller values generally means higher precision. Larger values generally allows the algorithm to execute faster.                                                                                     |
+| sample_size         | INT64   | No       | 0       | Used only for the \`HYBRID\` algorithm. The number of pivot nodes to use for approximately computing the centrality values. Must be non-negative. If not set or zero, a default value of min(100 \* ln( `N` ), `N` ) is used, where `N` is the node count of the input graph. |
 
 #### Output
 
 Function yields:
 
-| Name       | Type                                                                                                                           | Description                                 |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------- |
-| node       | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                        |
-| centrality | FLOAT64                                                                                                                        | The closeness centrality score of the node. |
+| Name       | Type                                                                                                                          | Description                                 |
+|------------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| node       | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                        |
+| centrality | FLOAT64                                                                                                                       | The closeness centrality score of the node. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/my-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL ClosenessCentrality(
-        node_labels => ['Account'], edge_labels => ['Transfers'],
-        mode => 'EXACT'
-      ) YIELD node, centrality
-    RETURN node.id, centrality;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/my-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL ClosenessCentrality(
+    node_labels => ['Account'], edge_labels => ['Transfers'],
+    mode => 'EXACT'
+  ) YIELD node, centrality
+RETURN node.id, centrality;
+```
 
 ## Clustering
 
@@ -165,22 +171,24 @@ All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/r
 
 Function yields:
 
-| Name    | Type                                                                                                                           | Description                                                                                                                               |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| node    | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                                                                                                                      |
-| cluster | INT64                                                                                                                          | The ID of the connected component/cluster the node belongs to. In the range of \[0, `N` ), where `N` is the number of nodes in the graph. |
+| Name    | Type                                                                                                                          | Description                                                                                                                               |
+|---------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| node    | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                                                                                                                      |
+| cluster | INT64                                                                                                                         | The ID of the connected component/cluster the node belongs to. In the range of \[0, `N` ), where `N` is the number of nodes in the graph. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/wcc-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL WeaklyConnectedComponents(
-        node_labels => ['Account'], edge_labels => ['Transfers']
-      ) YIELD node, cluster
-    RETURN node.id, cluster;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/wcc-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL WeaklyConnectedComponents(
+    node_labels => ['Account'], edge_labels => ['Transfers']
+  ) YIELD node, cluster
+RETURN node.id, cluster;
+```
 
 ### ModularityClustering
 
@@ -194,33 +202,35 @@ Function yields:
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name                   | Type   | Required | Default | Description                                                                                                                                                                                                                                                                                                                                                |
-| ---------------------- | ------ | -------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| resolution             | double | No       | 1.0     | Controls the granularity of the clustering. Must be finite and non-negative. Smaller resolution values tend to lead to larger clusters. Typical values are in the range \[0.5, 5\]. When the resolution is zero, the algorithm (with a sufficient number of iterations) finds the connected components of the graph (ignoring edges whose weight is zero). |
-| max\_iterations        | int    | No       | 10      | Maximum number of outer iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                                             |
-| max\_inner\_iterations | int    | No       | 10      | Maximum number of inner iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                                             |
+| Name                 | Type   | Required | Default | Description                                                                                                                                                                                                                                                                                                                                                |
+|----------------------|--------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| resolution           | double | No       | 1.0     | Controls the granularity of the clustering. Must be finite and non-negative. Smaller resolution values tend to lead to larger clusters. Typical values are in the range \[0.5, 5\]. When the resolution is zero, the algorithm (with a sufficient number of iterations) finds the connected components of the graph (ignoring edges whose weight is zero). |
+| max_iterations       | int    | No       | 10      | Maximum number of outer iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                                             |
+| max_inner_iterations | int    | No       | 10      | Maximum number of inner iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                                             |
 
 #### Output
 
 Function yields:
 
-| Name    | Type                                                                                                                           | Description                                                                                                                     |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| node    | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                                                                                                            |
-| cluster | INT64                                                                                                                          | The ID of the community/cluster the node belongs to. In the range of \[0, `N` ), where `N` is the number of nodes in the graph. |
+| Name    | Type                                                                                                                          | Description                                                                                                                     |
+|---------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| node    | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                                                                                                            |
+| cluster | INT64                                                                                                                         | The ID of the community/cluster the node belongs to. In the range of \[0, `N` ), where `N` is the number of nodes in the graph. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/modularity-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL ModularityClustering(
-        node_labels => ['Account'], edge_labels => ['Transfers'],
-        resolution => 1.0, max_iterations => 10
-      ) YIELD node, cluster
-    RETURN node.id, cluster;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/modularity-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL ModularityClustering(
+    node_labels => ['Account'], edge_labels => ['Transfers'],
+    resolution => 1.0, max_iterations => 10
+  ) YIELD node, cluster
+RETURN node.id, cluster;
+```
 
 ### CorrelationClustering
 
@@ -234,33 +244,35 @@ Function yields:
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name                   | Type   | Required | Default | Description                                                                                                                                                                                                                                                                                                                           |
-| ---------------------- | ------ | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| resolution             | double | Yes      | (none)  | Controls the granularity of the clustering. Must be explicitly defined by client. Must be finite and non-negative. Smaller values tend to lead to larger clusters. When the resolution is zero and all edge weights are positive, the algorithm (with a sufficient number of iterations) finds the connected components of the graph. |
-| max\_iterations        | int    | No       | 10      | Maximum number of outer iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                        |
-| max\_inner\_iterations | int    | No       | 10      | Maximum number of inner iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                        |
+| Name                 | Type   | Required | Default | Description                                                                                                                                                                                                                                                                                                                           |
+|----------------------|--------|----------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| resolution           | double | Yes      | (none)  | Controls the granularity of the clustering. Must be explicitly defined by client. Must be finite and non-negative. Smaller values tend to lead to larger clusters. When the resolution is zero and all edge weights are positive, the algorithm (with a sufficient number of iterations) finds the connected components of the graph. |
+| max_iterations       | int    | No       | 10      | Maximum number of outer iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                        |
+| max_inner_iterations | int    | No       | 10      | Maximum number of inner iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                        |
 
 #### Output
 
 Function yields:
 
-| Name    | Type                                                                                                                           | Description                                                                                                                     |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| node    | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                                                                                                            |
-| cluster | INT64                                                                                                                          | The ID of the community/cluster the node belongs to. In the range of \[0, `N` ), where `N` is the number of nodes in the graph. |
+| Name    | Type                                                                                                                          | Description                                                                                                                     |
+|---------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| node    | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                                                                                                            |
+| cluster | INT64                                                                                                                         | The ID of the community/cluster the node belongs to. In the range of \[0, `N` ), where `N` is the number of nodes in the graph. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/correlation-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL CorrelationClustering(
-        node_labels => ['Account'], edge_labels => ['Transfers'],
-        resolution => 0.5
-      ) YIELD node, cluster
-    RETURN node.id, cluster;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/correlation-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL CorrelationClustering(
+    node_labels => ['Account'], edge_labels => ['Transfers'],
+    resolution => 0.5
+  ) YIELD node, cluster
+RETURN node.id, cluster;
+```
 
 ### LabelPropagation
 
@@ -274,32 +286,34 @@ Function yields:
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name                  | Type   | Required | Default | Description                                                                                                     |
-| --------------------- | ------ | -------- | ------- | --------------------------------------------------------------------------------------------------------------- |
-| seed\_label\_property | string | No       | (none)  | The node property name for the seed label.                                                                      |
-| max\_iterations       | int    | No       | 10      | The maximum number of iterations of label propagation that the algorithm performs. Must be finite and positive. |
+| Name                | Type   | Required | Default | Description                                                                                                     |
+|---------------------|--------|----------|---------|-----------------------------------------------------------------------------------------------------------------|
+| seed_label_property | string | No       | (none)  | The node property name for the seed label.                                                                      |
+| max_iterations      | int    | No       | 10      | The maximum number of iterations of label propagation that the algorithm performs. Must be finite and positive. |
 
 #### Output
 
 Function yields:
 
-| Name    | Type                                                                                                                           | Description                                  |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- |
-| node    | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                         |
-| cluster | INT64                                                                                                                          | The propagated cluster/label ID of the node. |
+| Name    | Type                                                                                                                          | Description                                  |
+|---------|-------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
+| node    | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                         |
+| cluster | INT64                                                                                                                         | The propagated cluster/label ID of the node. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/lp-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL LabelPropagation(
-        node_labels => ['Account'], edge_labels => ['Transfers'],
-        max_iterations => 10
-      ) YIELD node, cluster
-    RETURN node.id, cluster;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/lp-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL LabelPropagation(
+    node_labels => ['Account'], edge_labels => ['Transfers'],
+    max_iterations => 10
+  ) YIELD node, cluster
+RETURN node.id, cluster;
+```
 
 ### CliqueFinding
 
@@ -315,31 +329,33 @@ Function yields:
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name         | Type   | Required | Default | Description                                                              |
-| ------------ | ------ | -------- | ------- | ------------------------------------------------------------------------ |
-| min\_density | double | No       | 0.9     | The minimum density of the clusters to be returned. Must be in \[0, 1\]. |
+| Name        | Type   | Required | Default | Description                                                              |
+|-------------|--------|----------|---------|--------------------------------------------------------------------------|
+| min_density | double | No       | 0.9     | The minimum density of the clusters to be returned. Must be in \[0, 1\]. |
 
 #### Output
 
 Function yields:
 
-| Name   | Type                                                                                                                           | Description                               |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------- |
-| node   | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                      |
-| clique | INT64                                                                                                                          | The ID of the clique the node belongs to. |
+| Name   | Type                                                                                                                          | Description                               |
+|--------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------|
+| node   | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                      |
+| clique | INT64                                                                                                                         | The ID of the clique the node belongs to. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/clique-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL CliqueFinding(
-        node_labels => ['Account'], edge_labels => ['Transfers'],
-        min_density => 0.9
-      ) YIELD node, clique
-    RETURN node.id, clique;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/clique-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL CliqueFinding(
+    node_labels => ['Account'], edge_labels => ['Transfers'],
+    min_density => 0.9
+  ) YIELD node, clique
+RETURN node.id, clique;
+```
 
 ## Similarity
 
@@ -347,10 +363,10 @@ Similarity algorithms quantify how alike pairs of nodes are based on the structu
 
 Spanner Graph supports the following pairwise node similarities where similarity scores are computed based on neighborhoods of the nodes.
 
-  - `JaccardSimilarity` : Based on ratio of common neighbors to total neighbors
-  - `CosineSimilarity` : Based on edge weights of common neighbors
-  - `CommonNeighborsSimilarity` : Based on number of shared neighbors
-  - `TotalNeighborsSimilarity` : Based on number of neighbors of at least one of the two nodes
+- `JaccardSimilarity` : Based on ratio of common neighbors to total neighbors
+- `CosineSimilarity` : Based on edge weights of common neighbors
+- `CommonNeighborsSimilarity` : Based on number of shared neighbors
+- `TotalNeighborsSimilarity` : Based on number of neighbors of at least one of the two nodes
 
 See [pairwise node similarity](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/node-similarity/pairwise-node-similarity) for algorithm details.
 
@@ -364,40 +380,42 @@ These four algorithms share the same arguments and output structure.
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name          | Type           | Required | Default | Description |
-| ------------- | -------------- | -------- | ------- | ----------- |
-| source\_nodes | Array of nodes | Yes      | N/A     |             |
-| target\_nodes | Array of nodes | Yes      | N/A     |             |
+| Name         | Type           | Required | Default | Description |
+|--------------|----------------|----------|---------|-------------|
+| source_nodes | Array of nodes | Yes      | N/A     |             |
+| target_nodes | Array of nodes | Yes      | N/A     |             |
 
 #### Output
 
 Function yields:
 
-| Name         | Type                                                                                                                           | Description                                                     |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
-| source\_node | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | The source node used in the similarity calculation.             |
-| target\_node | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | The target node used in the similarity calculation.             |
-| similarity   | FLOAT64                                                                                                                        | The calculated similarity score between source and target node. |
+| Name        | Type                                                                                                                          | Description                                                     |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| source_node | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | The source node used in the similarity calculation.             |
+| target_node | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | The target node used in the similarity calculation.             |
+| similarity  | FLOAT64                                                                                                                       | The calculated similarity score between source and target node. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/jaccard-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL JaccardSimilarity(
-        source_nodes => ARRAY {
-                          MATCH (n:Account {id: 7})
-                          RETURN n
-                        },
-        target_nodes => ARRAY {
-                          MATCH (n:Account)
-                          WHERE n.id != 7
-                          RETURN n
-                        }
-      ) YIELD source_node, target_node, similarity
-    RETURN source_node.id AS source_id, target_node.id AS target_id, similarity;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/jaccard-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL JaccardSimilarity(
+    source_nodes => ARRAY {
+                      MATCH (n:Account {id: 7})
+                      RETURN n
+                    },
+    target_nodes => ARRAY {
+                      MATCH (n:Account)
+                      WHERE n.id != 7
+                      RETURN n
+                    }
+  ) YIELD source_node, target_node, similarity
+RETURN source_node.id AS source_id, target_node.id AS target_id, similarity;
+```
 
 ## Path Finding
 
@@ -415,43 +433,45 @@ Path finding algorithms compute optimal routes between nodes. This is useful for
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name          | Type           | Required | Default | Description |
-| ------------- | -------------- | -------- | ------- | ----------- |
-| source\_nodes | Array of nodes | Yes      | N/A     |             |
-| target\_nodes | Array of nodes | Yes      | N/A     |             |
+| Name         | Type           | Required | Default | Description |
+|--------------|----------------|----------|---------|-------------|
+| source_nodes | Array of nodes | Yes      | N/A     |             |
+| target_nodes | Array of nodes | Yes      | N/A     |             |
 
 #### Output
 
 Function yields:
 
-| Name         | Type                                                                                                                           | Description                    |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ |
-| source\_node | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | The source node of the path.   |
-| target\_node | [GRAPH\_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | The target node of the path.   |
-| path         | GRAPH\_PATH                                                                                                                    | The shortest path found.       |
-| cost         | FLOAT64                                                                                                                        | The cost of the shortest path. |
+| Name        | Type                                                                                                                          | Description                    |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| source_node | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | The source node of the path.   |
+| target_node | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | The target node of the path.   |
+| path        | GRAPH_PATH                                                                                                                    | The shortest path found.       |
+| cost        | FLOAT64                                                                                                                       | The cost of the shortest path. |
 
 #### Example
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/shortest-path-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL ShortestPath(
-        source_nodes => ARRAY {
-                          MATCH (n:Account {id: 7})
-                          RETURN n
-                        },
-        target_nodes => ARRAY {
-                          MATCH (n:Account {id: 16})
-                          RETURN n
-                        }
-      ) YIELD source_node, target_node, path, cost
-    RETURN source_node.id AS source_id, target_node.id AS target_id, PATH_LENGTH(path) AS length, cost;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/shortest-path-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL ShortestPath(
+    source_nodes => ARRAY {
+                      MATCH (n:Account {id: 7})
+                      RETURN n
+                    },
+    target_nodes => ARRAY {
+                      MATCH (n:Account {id: 16})
+                      RETURN n
+                    }
+  ) YIELD source_node, target_node, path, cost
+RETURN source_node.id AS source_id, target_node.id AS target_id, PATH_LENGTH(path) AS length, cost;
+```
 
 ## What's next
 
-  - [Spanner Graph run algorithms](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms) .
-  - [Spanner Graph algorithm schema requirements and feature compatibility](https://docs.cloud.google.com/spanner/docs/graph/algorithm-schema-requirements-and-feature-compatibility) .
-  - [Spanner Graph algorithm best practices](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices) .
+- [Spanner Graph run algorithms](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms) .
+- [Spanner Graph algorithm schema requirements and feature compatibility](https://docs.cloud.google.com/spanner/docs/graph/algorithm-schema-requirements-and-feature-compatibility) .
+- [Spanner Graph algorithm best practices](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices) .

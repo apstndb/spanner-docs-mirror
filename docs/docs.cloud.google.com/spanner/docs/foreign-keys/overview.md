@@ -8,14 +8,14 @@ data_source: docs.cloud.google.com
 
 This document describes foreign keys in Spanner, and how you can use them to enforce referential integrity in your database. The following topics help you learn about foreign keys and how to use them:
 
-  - [Overview of foreign keys in Spanner](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#foreign-key-overview)
-  - [Types of foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#types-of-foreign-keys)
-  - [Comparison of foreign key types](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#comparison-of-foreign-keys-types)
-  - [Choose which foreign key type to use](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#choose-foreign-key-type)
-  - [Use enforced foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#use-enforced-foreign-keys)
-  - [Use informational foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#use-informational-foreign-keys)
-  - [Backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes)
-  - [Long-running schema changes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#long-running-schema-changes)
+- [Overview of foreign keys in Spanner](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#foreign-key-overview)
+- [Types of foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#types-of-foreign-keys)
+- [Comparison of foreign key types](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#comparison-of-foreign-keys-types)
+- [Choose which foreign key type to use](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#choose-foreign-key-type)
+- [Use enforced foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#use-enforced-foreign-keys)
+- [Use informational foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#use-informational-foreign-keys)
+- [Backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes)
+- [Long-running schema changes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#long-running-schema-changes)
 
 ## Overview of foreign keys in Spanner
 
@@ -31,15 +31,15 @@ You define a `Customers` table to store customer information, an `Orders` table 
 
 Figure 1 also shows links between the tables that map to the following real-world relationships:
 
-  - A customer places an order.
+- A customer places an order.
 
-  - An order is placed for a product.
+- An order is placed for a product.
 
 You decide that your database enforces the following rules to ensure that orders in your system are valid.
 
-  - You can't create an order for a customer that doesn't exist.
+- You can't create an order for a customer that doesn't exist.
 
-  - A customer can't place an order for a product you don't carry.
+- A customer can't place an order for a product you don't carry.
 
 When you enforce these rules, or *constraints* , you're maintaining the *referential integrity* of your data. When a database maintains referential integrity, all attempts to add invalid data, which would result in invalid links or references between data, fail. Referential integrity prevents user errors. By default, Spanner uses foreign keys to enforce referential integrity.
 
@@ -53,10 +53,10 @@ The following examines the order processing example again, with more detail adde
 
 The design now shows column names and types in each table. The `Orders` table also defines two foreign key relationships. `FK_CustomerOrder` expects that all rows in `Orders` have a valid `CustomerId` . The `FK_ProductOrder` foreign key expects that all `ProductId` values in the `Orders` table are valid. The following table maps these constraints back to the real-world rules that you want to enforce.
 
-| Foreign Key Name  | Constraint                                                  | Real-world description                  |
-| ----------------- | ----------------------------------------------------------- | --------------------------------------- |
-| FK\_CustomerOrder | Expects that all rows in `Orders` have a valid `CustomerId` | A valid customer places an order        |
-| FK\_ProductOrder  | Expects that all rows in `Orders` have a valid `ProductId`  | An order was placed for a valid product |
+| Foreign Key Name | Constraint                                                  | Real-world description                  |
+|------------------|-------------------------------------------------------------|-----------------------------------------|
+| FK_CustomerOrder | Expects that all rows in `Orders` have a valid `CustomerId` | A valid customer places an order        |
+| FK_ProductOrder  | Expects that all rows in `Orders` have a valid `ProductId`  | An order was placed for a valid product |
 
 Spanner enforces constraints that are specified using [enforced foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#enforced-foreign-keys) . This means that Spanner fails any transaction that attempts to insert or update a row in the `Orders` table that has a `CustomerId` or `ProductId` not found in the `Customers` and `Products` tables. It also fails transactions that attempt to update or delete rows in the `Customers` and `Products` tables that would invalidate the IDs in the `Orders` table. For more details about how Spanner validates constraints, refer to the [Transaction constraint validation](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#constraint_validation) section.
 
@@ -66,29 +66,29 @@ Unlike enforced foreign keys, Spanner doesn't validate constraints on [informati
 
 The following is a list of characteristics of foreign keys in Spanner.
 
-  - The table that defines the foreign key is the *referencing* table, and the foreign key columns are the *referencing* columns.
+- The table that defines the foreign key is the *referencing* table, and the foreign key columns are the *referencing* columns.
 
-  - The foreign key references the *referenced* columns of the *referenced* table.
+- The foreign key references the *referenced* columns of the *referenced* table.
 
-  - As in the example, you can name each foreign key constraint. If you don't specify a name, Spanner generates a name for you. You can query the generated name from Spanner's [`INFORMATION_SCHEMA`](https://docs.cloud.google.com/spanner/docs/information-schema#referential-constraints) . Constraint names are scoped to the schema, along with the names for tables and indexes, and must be unique within the schema.
+- As in the example, you can name each foreign key constraint. If you don't specify a name, Spanner generates a name for you. You can query the generated name from Spanner's [`INFORMATION_SCHEMA`](https://docs.cloud.google.com/spanner/docs/information-schema#referential-constraints) . Constraint names are scoped to the schema, along with the names for tables and indexes, and must be unique within the schema.
 
-  - The number of referencing and referenced columns must be the same. Order is important. For example, the first referencing column refers to the first referenced column and the second referencing column refers to the second referenced column.
+- The number of referencing and referenced columns must be the same. Order is important. For example, the first referencing column refers to the first referenced column and the second referencing column refers to the second referenced column.
 
-  - A referencing column and its referenced counterpart must be the same type. You must be able to index the columns.
+- A referencing column and its referenced counterpart must be the same type. You must be able to index the columns.
 
-  - You can't create foreign keys on columns with the `allow_commit_timestamp=true` option.
+- You can't create foreign keys on columns with the `allow_commit_timestamp=true` option.
 
-  - Array columns are not supported.
+- Array columns are not supported.
 
-  - JSON columns are not supported.
+- JSON columns are not supported.
 
-  - A foreign key can reference columns of the same table (a *self-referencing* foreign key). An example is an `Employee` table with a `ManagerId` column that references the table's `EmployeeId` column.
+- A foreign key can reference columns of the same table (a *self-referencing* foreign key). An example is an `Employee` table with a `ManagerId` column that references the table's `EmployeeId` column.
 
-  - Foreign keys can also form circular relationships between tables where two tables reference each other, either directly or indirectly. The referenced table must exist before creating a foreign key. This means that at least one of the foreign keys must be added using the `ALTER TABLE` statement.
+- Foreign keys can also form circular relationships between tables where two tables reference each other, either directly or indirectly. The referenced table must exist before creating a foreign key. This means that at least one of the foreign keys must be added using the `ALTER TABLE` statement.
 
-  - The referenced keys must be unique. Spanner uses the `PRIMARY KEY` of the referenced table if the referenced columns for a foreign key match the referenced table's primary key columns. If Spanner can't use the referenced table's primary key, it creates a `UNIQUE NULL_FILTERED INDEX` over the referenced columns.
+- The referenced keys must be unique. Spanner uses the `PRIMARY KEY` of the referenced table if the referenced columns for a foreign key match the referenced table's primary key columns. If Spanner can't use the referenced table's primary key, it creates a `UNIQUE NULL_FILTERED INDEX` over the referenced columns.
 
-  - Foreign keys don't use secondary indexes that you have created. Instead, they create their own backing indexes. Backing indexes are usable in query evaluations, including in explicit `force_index` directives. You can query the names of the backing indexes from Spanner's [`INFORMATION_SCHEMA`](https://docs.cloud.google.com/spanner/docs/information-schema#indexes) . For more information, see [Backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes) .
+- Foreign keys don't use secondary indexes that you have created. Instead, they create their own backing indexes. Backing indexes are usable in query evaluations, including in explicit `force_index` directives. You can query the names of the backing indexes from Spanner's [`INFORMATION_SCHEMA`](https://docs.cloud.google.com/spanner/docs/information-schema#indexes) . For more information, see [Backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes) .
 
 ## Types of foreign keys
 
@@ -98,9 +98,9 @@ There are two types of foreign keys, *enforced* and *informational* . Enforced f
 
 *Enforced* foreign keys, the default foreign key type in Spanner, enforce referential integrity. Because enforced foreign keys enforce referential integrity, they cause attempts to do the following to fail:
 
-  - Adding a row to a referencing table that has a foreign key value that doesn't exist in the referenced table fails.
+- Adding a row to a referencing table that has a foreign key value that doesn't exist in the referenced table fails.
 
-  - Deleting a row from a referenced table that's referenced by rows in the referencing table fails.
+- Deleting a row from a referenced table that's referenced by rows in the referencing table fails.
 
 All PostgreSQL foreign keys are enforced. GoogleSQL foreign keys are enforced by default. Because foreign keys are enforced by default, using the `ENFORCED` keyword to specify that a GoogleSQL foreign key is enforced is optional.
 
@@ -118,20 +118,20 @@ Both [enforced](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview
 
 At a high level, the following are some of the differences between *enforced* and *informational* foreign keys:
 
-  - **Enforcement** . Enforced foreign keys validate and guarantee referential integrity on writes. Informational foreign keys don't validate or guarantee referential integrity.
+- **Enforcement** . Enforced foreign keys validate and guarantee referential integrity on writes. Informational foreign keys don't validate or guarantee referential integrity.
 
-  - **Storage** . Enforced foreign keys might require additional storage for the backing index on the constrained table.
+- **Storage** . Enforced foreign keys might require additional storage for the backing index on the constrained table.
 
-  - **Write throughput** . Enforced foreign keys might incur more overhead in the write path than informational foreign keys.
+- **Write throughput** . Enforced foreign keys might incur more overhead in the write path than informational foreign keys.
 
-  - **Query optimization** . Both types of foreign keys can be used for query optimization. When the [optimizer is allowed to use informational foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-fk-query-optimization) , query results might not reflect the actual data if the data doesn't match the informational foreign key relationships (for example, if some constrained keys don't have matching referenced keys in the referenced table).
+- **Query optimization** . Both types of foreign keys can be used for query optimization. When the [optimizer is allowed to use informational foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-fk-query-optimization) , query results might not reflect the actual data if the data doesn't match the informational foreign key relationships (for example, if some constrained keys don't have matching referenced keys in the referenced table).
 
 ### Foreign key differences table
 
 The following table lists detailed differences between enforced and informational foreign keys:
 
 |                                                                                                                                                      | Enforced foreign keys                                                | Informational foreign keys                                                                                                                                                                                                                                                                                                                                 |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Keywords                                                                                                                                             | `ENFORCED`                                                           | `NOT ENFORCED`                                                                                                                                                                                                                                                                                                                                             |
 | Supported by GoogleSQL                                                                                                                               | Yes. Foreign keys in GoogleSQL are enforced by default.              | Yes.                                                                                                                                                                                                                                                                                                                                                       |
 | Supported by PostgreSQL                                                                                                                              | Yes. Foreign keys in PostgreSQL can only be enforced.                | No.                                                                                                                                                                                                                                                                                                                                                        |
@@ -149,22 +149,22 @@ We recommend that you start with enforced foreign keys. Enforced foreign keys ke
 
 We recommend that you consider informational foreign keys if each of the following is true:
 
-  - You want to use the logical data model described by informational foreign key in query optimization.
+- You want to use the logical data model described by informational foreign key in query optimization.
 
-  - Maintaining strict referential integrity is impractical or impacts performance significantly. The following are examples of when you might want to consider using an informational foreign key:
-    
-      - Your upstream data source follows an eventual-consistency model. In this case, updates made in the source system might not be reflected immediately in Spanner. Because updates might not be immediate, brief inconsistencies in foreign key relationships might occur.
-    
-      - Your data contains referenced rows that have a large number of referencing relationships. Updates to these rows can use a lot of resources because Spanner must validate or, in some cases, delete all rows that are related to maintaining referential integrity. In this scenario, updates might impact Spanner performance and slow down concurrent transactions.
+- Maintaining strict referential integrity is impractical or impacts performance significantly. The following are examples of when you might want to consider using an informational foreign key:
 
-  - Your application can handle potential data inconsistencies and their impact on query results.
+  - Your upstream data source follows an eventual-consistency model. In this case, updates made in the source system might not be reflected immediately in Spanner. Because updates might not be immediate, brief inconsistencies in foreign key relationships might occur.
+
+  - Your data contains referenced rows that have a large number of referencing relationships. Updates to these rows can use a lot of resources because Spanner must validate or, in some cases, delete all rows that are related to maintaining referential integrity. In this scenario, updates might impact Spanner performance and slow down concurrent transactions.
+
+- Your application can handle potential data inconsistencies and their impact on query results.
 
 ## Use informational foreign keys
 
 The following topics are for informational foreign keys only. For topics that apply to both informational and enforced foreign keys, see the following:
 
-  - [Long-running schema changes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#long-running-schema-changes)
-  - [Backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes)
+- [Long-running schema changes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#long-running-schema-changes)
+- [Backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes)
 
 ### Create a new table with an informational foreign key
 
@@ -174,23 +174,27 @@ The following example creates a new table with an informational foreign key usin
 
 ### GoogleSQL
 
-    CREATE TABLE Customers (
-      CustomerId INT64 NOT NULL,
-      CustomerName STRING(MAX) NOT NULL,
-    ) PRIMARY KEY(CustomerId);
-    
-    CREATE TABLE Orders (
-      OrderId INT64 NOT NULL,
-      CustomerId INT64 NOT NULL,
-      Quantity INT64 NOT NULL,
-      ProductId INT64 NOT NULL,
-      CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerId)
-       REFERENCES Customers (CustomerId) NOT ENFORCED
-     ) PRIMARY KEY (OrderId);
+```
+CREATE TABLE Customers (
+  CustomerId INT64 NOT NULL,
+  CustomerName STRING(MAX) NOT NULL,
+) PRIMARY KEY(CustomerId);
+
+CREATE TABLE Orders (
+  OrderId INT64 NOT NULL,
+  CustomerId INT64 NOT NULL,
+  Quantity INT64 NOT NULL,
+  ProductId INT64 NOT NULL,
+  CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerId)
+   REFERENCES Customers (CustomerId) NOT ENFORCED
+ ) PRIMARY KEY (OrderId);
+```
 
 ### PostgreSQL
 
-    Not Supported
+```
+Not Supported
+```
 
 For more examples of how to create and manage foreign keys, see [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) . For more information about DDL statements, see the [DDL reference](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) .
 
@@ -204,22 +208,26 @@ If you enable the query optimizer to utilize informational foreign keys informat
 
 By default, the query optimizer uses `NOT ENFORCED` foreign keys. To change this, set the database option `use_unenforced_foreign_key_for_query_optimization` to false. The following is a GoogleSQL example that demonstrates this (informational foreign keys aren't available in PostgreSQL):
 
-    SET DATABASE OPTIONS (
-        use_unenforced_foreign_key_for_query_optimization = false
-    );
+```
+SET DATABASE OPTIONS (
+    use_unenforced_foreign_key_for_query_optimization = false
+);
+```
 
 The boolean query statement hint `@{use_unenforced_foreign_key}` overrides the database option on a per-query basis that controls whether the optimizer uses `NOT ENFORCED` foreign keys. Disabling this hint or the database option can be useful when troubleshooting unexpected query results. The following shows how to use `@{use_unenforced_foreign_key}` :
 
-    @{use_unenforced_foreign_key=false} SELECT Orders.CustomerId
-        FROM Orders
-        INNER JOIN Customers ON Customers.CustomerId = Orders.CustomerId;
+```
+@{use_unenforced_foreign_key=false} SELECT Orders.CustomerId
+    FROM Orders
+    INNER JOIN Customers ON Customers.CustomerId = Orders.CustomerId;
+```
 
 ## Use enforced foreign keys
 
 The following topics are for enforced foreign keys only. For topics that apply to both informational and enforced foreign keys, see the following:
 
-  - [Long-running schema changes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#long-running-schema-changes)
-  - [Backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes)
+- [Long-running schema changes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#long-running-schema-changes)
+- [Backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes)
 
 ### Create a new table with an enforced foreign key
 
@@ -231,37 +239,41 @@ The following is an example of creating a new table with an enforced foreign key
 
 ### GoogleSQL
 
-    CREATE TABLE Customers (
-    CustomerId INT64 NOT NULL,
-    CustomerName STRING(MAX) NOT NULL,
-    ) PRIMARY KEY(CustomerId);
-    
-    CREATE TABLE Orders (
-    OrderId INT64 NOT NULL,
-    CustomerId INT64 NOT NULL,
-    Quantity INT64 NOT NULL,
-    ProductId INT64 NOT NULL,
-    CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerId)
-      REFERENCES Customers (CustomerId) ENFORCED
-    ) PRIMARY KEY (OrderId);
+```
+CREATE TABLE Customers (
+CustomerId INT64 NOT NULL,
+CustomerName STRING(MAX) NOT NULL,
+) PRIMARY KEY(CustomerId);
+
+CREATE TABLE Orders (
+OrderId INT64 NOT NULL,
+CustomerId INT64 NOT NULL,
+Quantity INT64 NOT NULL,
+ProductId INT64 NOT NULL,
+CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerId)
+  REFERENCES Customers (CustomerId) ENFORCED
+) PRIMARY KEY (OrderId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE Customers (
-    CustomerId bigint NOT NULL,
-    CustomerName character varying(1024) NOT NULL,
-    PRIMARY KEY(CustomerId)
-    );
-    
-    CREATE TABLE Orders (
-    OrderId BIGINT NOT NULL,
-    CustomerId BIGINT NOT NULL,
-    Quantity BIGINT NOT NULL,
-    ProductId BIGINT NOT NULL,
-    CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerId)
-      REFERENCES Customers (CustomerId),
-    PRIMARY KEY (OrderId)
-    );
+```
+CREATE TABLE Customers (
+CustomerId bigint NOT NULL,
+CustomerName character varying(1024) NOT NULL,
+PRIMARY KEY(CustomerId)
+);
+
+CREATE TABLE Orders (
+OrderId BIGINT NOT NULL,
+CustomerId BIGINT NOT NULL,
+Quantity BIGINT NOT NULL,
+ProductId BIGINT NOT NULL,
+CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerId)
+  REFERENCES Customers (CustomerId),
+PRIMARY KEY (OrderId)
+);
+```
 
 For more examples of how to create and manage foreign keys, see [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) .
 
@@ -277,32 +289,36 @@ You can add a foreign key with an action when you create your database using DDL
 
 ### GoogleSQL
 
-    CREATE TABLE ShoppingCarts (
-    CartId INT64 NOT NULL,
-    CustomerId INT64 NOT NULL,
-    CustomerName STRING(MAX) NOT NULL,
-    CONSTRAINT FKShoppingCartsCustomers FOREIGN KEY(CustomerId, CustomerName)
-      REFERENCES Customers(CustomerId, CustomerName) ON DELETE CASCADE,
-    ) PRIMARY KEY(CartId);
+```
+CREATE TABLE ShoppingCarts (
+CartId INT64 NOT NULL,
+CustomerId INT64 NOT NULL,
+CustomerName STRING(MAX) NOT NULL,
+CONSTRAINT FKShoppingCartsCustomers FOREIGN KEY(CustomerId, CustomerName)
+  REFERENCES Customers(CustomerId, CustomerName) ON DELETE CASCADE,
+) PRIMARY KEY(CartId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE ShoppingCarts (
-    CartId bigint NOT NULL,
-    CustomerId bigint NOT NULL,
-    CustomerName character varying(1024) NOT NULL,
-    PRIMARY KEY(CartId),
-    CONSTRAINT fkshoppingcartscustomers FOREIGN KEY (CustomerId, CustomerName)
-      REFERENCES Customers(CustomerId, CustomerName) ON DELETE CASCADE
-    );
+```
+CREATE TABLE ShoppingCarts (
+CartId bigint NOT NULL,
+CustomerId bigint NOT NULL,
+CustomerName character varying(1024) NOT NULL,
+PRIMARY KEY(CartId),
+CONSTRAINT fkshoppingcartscustomers FOREIGN KEY (CustomerId, CustomerName)
+  REFERENCES Customers(CustomerId, CustomerName) ON DELETE CASCADE
+);
+```
 
 The following is a list of characteristics of foreign key actions in Spanner.
 
-  - Foreign key actions are either `ON DELETE CASCADE` or `ON DELETE NO ACTION` .
+- Foreign key actions are either `ON DELETE CASCADE` or `ON DELETE NO ACTION` .
 
-  - You can query the [`INFORMATION_SCHEMA`](https://docs.cloud.google.com/spanner/docs/information-schema#referential-constraints) to find foreign key constraints that have an action.
+- You can query the [`INFORMATION_SCHEMA`](https://docs.cloud.google.com/spanner/docs/information-schema#referential-constraints) to find foreign key constraints that have an action.
 
-  - Adding a foreign key action on an existing foreign key constraint isn't supported. You must add a new foreign key constraint with an action.
+- Adding a foreign key action on an existing foreign key constraint isn't supported. You must add a new foreign key constraint with an action.
 
 ### Constraint validation
 
@@ -346,36 +362,40 @@ Here's how you define the `OrderItems` table, interleaved with `Orders` .
 
 ### GoogleSQL
 
-    CREATE TABLE Products (
-    ProductId INT64 NOT NULL,
-    Name STRING(256) NOT NULL,
-    Price FLOAT64
-    ) PRIMARY KEY(ProductId);
-    
-    CREATE TABLE OrderItems (
-    OrderId INT64 NOT NULL,
-    ProductId INT64 NOT NULL,
-    Quantity INT64 NOT NULL,
-    FOREIGN KEY (ProductId) REFERENCES Products (ProductId)
-    ) PRIMARY KEY (OrderId, ProductId),
-    INTERLEAVE IN PARENT Orders ON DELETE CASCADE;
+```
+CREATE TABLE Products (
+ProductId INT64 NOT NULL,
+Name STRING(256) NOT NULL,
+Price FLOAT64
+) PRIMARY KEY(ProductId);
+
+CREATE TABLE OrderItems (
+OrderId INT64 NOT NULL,
+ProductId INT64 NOT NULL,
+Quantity INT64 NOT NULL,
+FOREIGN KEY (ProductId) REFERENCES Products (ProductId)
+) PRIMARY KEY (OrderId, ProductId),
+INTERLEAVE IN PARENT Orders ON DELETE CASCADE;
+```
 
 ### PostgreSQL
 
-    CREATE TABLE Products (
-    ProductId BIGINT NOT NULL,
-    Name varchar(256) NOT NULL,
-    Price float8,
-    PRIMARY KEY(ProductId)
-    );
-    
-    CREATE TABLE OrderItems (
-    OrderId BIGINT NOT NULL,
-    ProductId BIGINT NOT NULL,
-    Quantity BIGINT NOT NULL,
-    FOREIGN KEY (ProductId) REFERENCES Products (ProductId),
-    PRIMARY KEY (OrderId, ProductId)
-    ) INTERLEAVE IN PARENT Orders ON DELETE CASCADE;
+```
+CREATE TABLE Products (
+ProductId BIGINT NOT NULL,
+Name varchar(256) NOT NULL,
+Price float8,
+PRIMARY KEY(ProductId)
+);
+
+CREATE TABLE OrderItems (
+OrderId BIGINT NOT NULL,
+ProductId BIGINT NOT NULL,
+Quantity BIGINT NOT NULL,
+FOREIGN KEY (ProductId) REFERENCES Products (ProductId),
+PRIMARY KEY (OrderId, ProductId)
+) INTERLEAVE IN PARENT Orders ON DELETE CASCADE;
+```
 
 Figure 4 is a visual representation of the updated database schema as a result of introducing this new table, `OrderItems` , interleaved with `Orders` . Here you can also see the one-to-many relationship between those two tables.
 
@@ -395,75 +415,24 @@ If you have a user table with a foreign key relationship to another table, and d
 
 The following table summarizes how enforced foreign keys and table interleaving compare. You can use this information to decide what is right for your design.
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Parent-child relationship type</th>
-<th>Table Interleaving</th>
-<th>Enforced foreign keys</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Can use primary keys</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td>Can use non-primary-key columns</td>
-<td>No</td>
-<td>Yes</td>
-</tr>
-<tr class="odd">
-<td>Number of parents supported</td>
-<td>0 .. 1</td>
-<td>0 .. N</td>
-</tr>
-<tr class="even">
-<td>Stores parent and child data together</td>
-<td>Yes</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<td>Supports cascade delete</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td>Null matching mode</td>
-<td>Passes if all referencing values are not distinct from the referenced values.<br />
-Null values are not distinct from null values; null values are distinct from non-null values.</td>
-<td>Passes if any referencing values are null.<br />
-Passes if all referencing values are non-null, and the referenced table has a row with values equal to the referencing values.<br />
-Fails if no matching row was found.</td>
-</tr>
-<tr class="odd">
-<td>Enforcement Timing</td>
-<td>Per operation when using the mutation API.<br />
-Per statement when using DML.</td>
-<td>Per transaction when using the mutation API.<br />
-Per statement when using DML.</td>
-</tr>
-<tr class="even">
-<td>Can be removed</td>
-<td>No. Table interleaving can't be removed after it's created, unless you delete the whole child table.</td>
-<td>Yes</td>
-</tr>
-</tbody>
-</table>
+| Parent-child relationship type        | Table Interleaving                                                                                                                                                          | Enforced foreign keys                                                                                                                                                                                         |
+|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Can use primary keys                  | Yes                                                                                                                                                                         | Yes                                                                                                                                                                                                           |
+| Can use non-primary-key columns       | No                                                                                                                                                                          | Yes                                                                                                                                                                                                           |
+| Number of parents supported           | 0 .. 1                                                                                                                                                                      | 0 .. N                                                                                                                                                                                                        |
+| Stores parent and child data together | Yes                                                                                                                                                                         | No                                                                                                                                                                                                            |
+| Supports cascade delete               | Yes                                                                                                                                                                         | Yes                                                                                                                                                                                                           |
+| Null matching mode                    | Passes if all referencing values are not distinct from the referenced values. Null values are not distinct from null values; null values are distinct from non-null values. | Passes if any referencing values are null. Passes if all referencing values are non-null, and the referenced table has a row with values equal to the referencing values. Fails if no matching row was found. |
+| Enforcement Timing                    | Per operation when using the mutation API. Per statement when using DML.                                                                                                    | Per transaction when using the mutation API. Per statement when using DML.                                                                                                                                    |
+| Can be removed                        | No. Table interleaving can't be removed after it's created, unless you delete the whole child table.                                                                        | Yes                                                                                                                                                                                                           |
 
 ## Backing indexes
 
 Foreign keys don't use user-created indexes. Instead, they create their own backing indexes. [Enforced](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#enforced-foreign-keys) and [informational](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys) foreign keys create backing indexes differently in Spanner:
 
-  - For enforced foreign keys, Spanner can create up to two secondary backing indexes for each foreign key, one for the referencing columns, and a second for the referenced columns.
+- For enforced foreign keys, Spanner can create up to two secondary backing indexes for each foreign key, one for the referencing columns, and a second for the referenced columns.
 
-  - For informational foreign keys, Spanner can create up to one backing index when needed for the referenced columns. Informational foreign keys don't create a backing index for the referencing columns.
+- For informational foreign keys, Spanner can create up to one backing index when needed for the referenced columns. Informational foreign keys don't create a backing index for the referencing columns.
 
 For both enforced and informational foreign keys, a foreign key usually references the primary keys of the referenced table, so an index for the referenced table is typically not needed. Because of this, informational foreign keys typically have zero backing indexes. When needed, the backing index created for the *referenced* table is a `UNIQUE NULL_FILTERED` index. The creation of the foreign key fails if any existing data violates the index's uniqueness constraint.
 
@@ -482,14 +451,14 @@ Adding an enforced foreign key to an existing table, or creating a new table wit
 The following table shows what happens in Spanner when an enforced and an informational foreign key is in a new or an existing table:
 
 | Table type | Enforced foreign key                                                                                                                                                                                                                                           | Informational foreign key                                                                         |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
 | New        | Spanner backfills referenced indexes as needed for each foreign key.                                                                                                                                                                                           | Spanner backfills referenced indexes as needed for each foreign key.                              |
 | Existing   | Spanner backfills the referencing and referenced indexes as needed. Spanner also validates existing data in the table to ensure that it complies with the referential integrity constraint of the foreign key. The schema change fails if any data is invalid. | Spanner backfills the referenced index as needed and doesn't validate existing data in the table. |
 
 The following aren't supported:
 
-  - Adding a foreign key action to an existing enforced foreign key constraint.
-  - Changing the enforcement of an existing foreign key.
+- Adding a foreign key action to an existing enforced foreign key constraint.
+- Changing the enforcement of an existing foreign key.
 
 For both cases, we recommend that you instead do the following:
 
@@ -506,6 +475,6 @@ You can query [`INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.SPANNER_STATE`](https
 
 ## What's next
 
-  - Learn about [Creating and managing foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) .
+- Learn about [Creating and managing foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) .
 
-  - Learn more about the [information schema](https://docs.cloud.google.com/spanner/docs/information-schema) .
+- Learn more about the [information schema](https://docs.cloud.google.com/spanner/docs/information-schema) .

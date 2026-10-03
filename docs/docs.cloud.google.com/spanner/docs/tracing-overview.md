@@ -10,11 +10,11 @@ This page offers overview information about trace collection with OpenTelemetry.
 
 Traces provide relevant information for every request from a client, such as the following:
 
-  - Spans with timestamps of when the client sent an RPC request and when the client received the RPC response, including latency caused by the network and client system.
+- Spans with timestamps of when the client sent an RPC request and when the client received the RPC response, including latency caused by the network and client system.
 
-  - Attributes (key-value pairs) that provide information about the client and its configuration.
+- Attributes (key-value pairs) that provide information about the client and its configuration.
 
-  - Annotations with important events in the spans.
+- Annotations with important events in the spans.
 
 For more information about spans and attributes, see [Spans](https://opentelemetry.io/docs/concepts/observability-primer/#spans) and [Attributes](https://opentelemetry.io/docs/concepts/signals/traces/#attributes) in the OpenTelemetry documentation.
 
@@ -22,9 +22,9 @@ For more information about spans and attributes, see [Spans](https://opentelemet
 
 In addition to client-side tracing, you can opt in for end-to-end tracing. End-to-end tracing helps you understand and debug latency issues that are specific to Spanner such as the following:
 
-  - Identify whether the latency is due to network latency between your application and Spanner, or if the latency is occurring within Spanner.
+- Identify whether the latency is due to network latency between your application and Spanner, or if the latency is occurring within Spanner.
 
-  - Identify the Google Cloud regions that your application requests are being routed through and if there is a cross-region request. A cross-region request usually means higher latencies between your application and Spanner.
+- Identify the Google Cloud regions that your application requests are being routed through and if there is a cross-region request. A cross-region request usually means higher latencies between your application and Spanner.
 
 To prevent overloading Cloud Trace and help manage costs effectively, end-to-end tracing has a limit on the number of trace spans you can export. There's no impact on using end-to-end tracing for troubleshooting because of this limit.
 
@@ -40,8 +40,8 @@ As part of your OpenTelemetry configuration, you use an exporter to send trace d
 
 Spanner traces have the following limitations:
 
-  - Trace spans are available only for the Java, Go, Node, and Python client libraries.
-  - End-to-end traces can only be exported to Cloud Trace.
+- Trace spans are available only for the Java, Go, Node, and Python client libraries.
+- End-to-end traces can only be exported to Cloud Trace.
 
 ## Pricing
 

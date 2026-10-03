@@ -21,7 +21,7 @@ You can install SMT using a Linux shell command or Google Cloud CLI:
 
 To install SMT, run the following command:
 
-``` 
+```
   sudo apt-get install google-cloud-sdk-spanner-migration-tool
 ```
 
@@ -29,7 +29,7 @@ To install SMT, run the following command:
 
 You can install SMT by using the [`gcloud components install`](https://docs.cloud.google.com/sdk/gcloud/reference/components/install) command:
 
-``` 
+```
   gcloud components install spanner-migration-tool
 ```
 
@@ -41,7 +41,7 @@ You can use the [`gcloud alpha spanner migrate`](https://docs.cloud.google.com/s
 
 To launch the SMT web UI, you can run the following command:
 
-``` 
+```
   gcloud alpha spanner migrate web
 ```
 
@@ -56,9 +56,9 @@ To connect to Spanner using the SMT web UI, do the following:
 1.  Click the edit button to configure the connection to Spanner.
 
 2.  Specify the following information to connect to Spanner:
-    
-      - **Project ID** : the project ID where your Spanner instance is.
-      - **Instance ID** : the Spanner instance ID.
+
+    - **Project ID** : the project ID where your Spanner instance is.
+    - **Instance ID** : the Spanner instance ID.
 
 3.  Click **Save** .
 
@@ -66,16 +66,16 @@ To connect to Spanner using the SMT web UI, do the following:
 
 You need to connect to the source database using the SMT web UI by providing the following information:
 
-  - **Database Engine** : specify whether your source database is MySQL, SQL Server, Oracle, or PostgreSQL.
-  - **Hostname** : the IP address of your source database.
-  - **Port** : the port where your source database is accessible.
-  - **User name** : the username of the source database.
-  - **Password** : the password of the source database.
-  - **Spanner Dialect** : specify whether you want to use [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview) .
+- **Database Engine** : specify whether your source database is MySQL, SQL Server, Oracle, or PostgreSQL.
+- **Hostname** : the IP address of your source database.
+- **Port** : the port where your source database is accessible.
+- **User name** : the username of the source database.
+- **Password** : the password of the source database.
+- **Spanner Dialect** : specify whether you want to use [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/overview) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview) .
 
 After entering the information you can connect to the source database by clicking **Test Connection** , and then clicking **Connect** .
 
 ## What's next?
 
-  - [Migrate schema from MySQL](https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema) .
-  - [Use Spanner migration tool for MySQL schema migration](https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema) .
+- [Migrate schema from MySQL](https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema) .
+- [Use Spanner migration tool for MySQL schema migration](https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema) .

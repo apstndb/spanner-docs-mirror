@@ -28,7 +28,7 @@ When you create a property graph schema, be sure to consider the [best practices
 
 The following creates two node input tables, `Person` and `Account` , which serve as input for the node definitions in the example property graph:
 
-``` 
+```
   CREATE TABLE Person (
     id               INT64 NOT NULL,
     name             STRING(MAX),
@@ -49,7 +49,7 @@ The following creates two node input tables, `Person` and `Account` , which serv
 
 The following code creates two edge input tables, `PersonOwnAccount` and `AccountTransferAccount` , as input for the edge definitions in the example property graph:
 
-``` 
+```
   CREATE TABLE PersonOwnAccount (
     id               INT64 NOT NULL,
     account_id       INT64 NOT NULL,
@@ -73,7 +73,7 @@ The following code creates two edge input tables, `PersonOwnAccount` and `Accoun
 
 The following code uses tables and the `CREATE PROPERTY GRAPH` statement to define a property graph. This statement defines a property graph named `FinGraph` with `Account` and `Person` nodes, and `PersonOwnAccount` and `AccountTransferAccount` edges:
 
-``` 
+```
   CREATE PROPERTY GRAPH FinGraph
     NODE TABLES (
       Account,
@@ -97,52 +97,56 @@ After you create a property graph schema, you update it by using the `CREATE OR 
 
 You can make the following changes to a property graph schema:
 
-  - [Add a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#add-new-node-or-edge) : Create the new input tables for the nodes and edges, and then use the `CREATE OR REPLACE PROPERTY GRAPH` statement to add the new definitions to the graph.
+- [Add a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#add-new-node-or-edge) : Create the new input tables for the nodes and edges, and then use the `CREATE OR REPLACE PROPERTY GRAPH` statement to add the new definitions to the graph.
 
-  - [Update a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-node-or-edge) : Update the underlying input table with new node and edge definitions. Then, use the `CREATE OR REPLACE PROPERTY GRAPH` statement to update the definitions in the graph.
+- [Update a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#update-node-or-edge) : Update the underlying input table with new node and edge definitions. Then, use the `CREATE OR REPLACE PROPERTY GRAPH` statement to update the definitions in the graph.
 
-  - [Remove a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#remove-node-or-edge) : Use the `CREATE OR REPLACE PROPERTY GRAPH` statement and omit the definitions that you want to remove from the graph.
+- [Remove a node or edge definition](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema#remove-node-or-edge) : Use the `CREATE OR REPLACE PROPERTY GRAPH` statement and omit the definitions that you want to remove from the graph.
 
 ### Add new node or edge definitions
 
 To add a new node and a new edge definition, follow these steps:
 
 1.  Add a new node definition input table, `Company` , and a new edge definition input table, `PersonInvestCompany` .
-    
-        CREATE TABLE Company (
-          id               INT64 NOT NULL,
-          name             STRING(MAX),
-        ) PRIMARY KEY (id);
-        
-        CREATE TABLE PersonInvestCompany (
-          id               INT64 NOT NULL,
-          company_id       INT64 NOT NULL,
-          FOREIGN KEY (company_id) REFERENCES Company (id)
-        ) PRIMARY KEY (id, company_id),
-          INTERLEAVE IN PARENT Person ON DELETE CASCADE;
+
+    ```
+    CREATE TABLE Company (
+      id               INT64 NOT NULL,
+      name             STRING(MAX),
+    ) PRIMARY KEY (id);
+
+    CREATE TABLE PersonInvestCompany (
+      id               INT64 NOT NULL,
+      company_id       INT64 NOT NULL,
+      FOREIGN KEY (company_id) REFERENCES Company (id)
+    ) PRIMARY KEY (id, company_id),
+      INTERLEAVE IN PARENT Person ON DELETE CASCADE;
+    ```
 
 2.  Update the `FinGraph` schema by adding the new `Company` node definition and the new `PersonInvestCompany` edge definition.
-    
-        CREATE OR REPLACE PROPERTY GRAPH FinGraph
-          NODE TABLES (
-            Person,
-            Account,
-            Company
-          )
-          EDGE TABLES (
-            AccountTransferAccount
-              SOURCE KEY (id) REFERENCES Account
-              DESTINATION KEY (to_id) REFERENCES Account
-              LABEL Transfers,
-            PersonOwnAccount
-              SOURCE KEY (id) REFERENCES Person
-              DESTINATION KEY (account_id) REFERENCES Account
-              LABEL Owns,
-            PersonInvestCompany
-              SOURCE KEY (id) REFERENCES Person
-              DESTINATION KEY (company_id) REFERENCES Company
-              LABEL Invests
-          );
+
+    ```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person,
+        Account,
+        Company
+      )
+      EDGE TABLES (
+        AccountTransferAccount
+          SOURCE KEY (id) REFERENCES Account
+          DESTINATION KEY (to_id) REFERENCES Account
+          LABEL Transfers,
+        PersonOwnAccount
+          SOURCE KEY (id) REFERENCES Person
+          DESTINATION KEY (account_id) REFERENCES Account
+          LABEL Owns,
+        PersonInvestCompany
+          SOURCE KEY (id) REFERENCES Person
+          DESTINATION KEY (company_id) REFERENCES Company
+          LABEL Invests
+      );
+    ```
 
 ### Update node or edge definitions
 
@@ -151,27 +155,31 @@ To update an existing node or edge definition, you first alter the underlying in
 The following steps show how to update the underlying table of a schema, then apply the update to the schema.
 
 1.  Add the `mailing_address` column to the `Person` underlying input table.
-    
-        ALTER TABLE Person
-        ADD COLUMN mailing_address STRING(MAX);
+
+    ```
+    ALTER TABLE Person
+    ADD COLUMN mailing_address STRING(MAX);
+    ```
 
 2.  Apply the changes to the `Person` table to the schema. Use the `CREATE OR REPLACE PROPERTY GRAPH` statement. The `Person` node definition reflects the updated `Person` table definition because the input table schema changed.
-    
-        CREATE OR REPLACE PROPERTY GRAPH FinGraph
-          NODE TABLES (
-            Person,
-            Account
-          )
-          EDGE TABLES (
-            AccountTransferAccount
-              SOURCE KEY (id) REFERENCES Account
-              DESTINATION KEY (to_id) REFERENCES Account
-              LABEL Transfers,
-            PersonOwnAccount
-              SOURCE KEY (id) REFERENCES Person
-              DESTINATION KEY (account_id) REFERENCES Account
-              LABEL Owns
-          );
+
+    ```
+    CREATE OR REPLACE PROPERTY GRAPH FinGraph
+      NODE TABLES (
+        Person,
+        Account
+      )
+      EDGE TABLES (
+        AccountTransferAccount
+          SOURCE KEY (id) REFERENCES Account
+          DESTINATION KEY (to_id) REFERENCES Account
+          LABEL Transfers,
+        PersonOwnAccount
+          SOURCE KEY (id) REFERENCES Person
+          DESTINATION KEY (account_id) REFERENCES Account
+          LABEL Owns
+      );
+    ```
 
 ### Remove node or edge definitions
 
@@ -179,7 +187,7 @@ To remove existing node or edge definitions, recreate the property graph without
 
 The following removes the `Person` node definition and the `PersonOwnAccount` edge definition by omitting them in the `CREATE OR REPLACE PROPERTY GRAPH` statement.
 
-``` 
+```
   CREATE OR REPLACE PROPERTY GRAPH FinGraph
     NODE TABLES (
       Account
@@ -198,7 +206,9 @@ To drop a graph schema from the underlying input tables, use the `DROP PROPERTY 
 
 The following code drops the `FinGraph` property graph schema:
 
-    DROP PROPERTY GRAPH FinGraph;
+```
+DROP PROPERTY GRAPH FinGraph;
+```
 
 ## Create a property graph in a named schema
 
@@ -206,46 +216,48 @@ Spanner Graph supports creating property graphs within a [named schema](https://
 
 The following example creates two named schemas `sch1` and `sch2` , a node and edge table in the `sch1` schema, and a node and property graph in the `sch2` schema:
 
-    CREATE SCHEMA sch1;
-    CREATE SCHEMA sch2;
-    
-    CREATE TABLE sch1.Person (
-      id               INT64 NOT NULL,
-      name             STRING(MAX),
-      birthday         TIMESTAMP,
-      country          STRING(MAX),
-      city             STRING(MAX),
-    ) PRIMARY KEY (id);
-    
-    CREATE TABLE sch2.Account (
-      id               INT64 NOT NULL,
-      create_time      TIMESTAMP,
-      is_blocked       BOOL,
-      nick_name        STRING(MAX),
-    ) PRIMARY KEY (id);
-    
-    CREATE TABLE sch1.PersonOwnAccount (
-      id               INT64 NOT NULL,
-      account_id       INT64 NOT NULL,
-      create_time      TIMESTAMP,
-      FOREIGN KEY (account_id) REFERENCES sch2.Account (id)
-    ) PRIMARY KEY (id, account_id),
-      INTERLEAVE IN PARENT sch1.Person ON DELETE CASCADE;
-    
-    CREATE OR REPLACE PROPERTY GRAPH sch2.FinGraph
-      NODE TABLES (
-        sch1.Person,
-        sch2.Account
-      )
-      EDGE TABLES (
-        sch1.PersonOwnAccount
-          SOURCE KEY (id) REFERENCES Person (id)
-          DESTINATION KEY (account_id) REFERENCES Account (id)
-          LABEL Owns
-      );
+```
+CREATE SCHEMA sch1;
+CREATE SCHEMA sch2;
+
+CREATE TABLE sch1.Person (
+  id               INT64 NOT NULL,
+  name             STRING(MAX),
+  birthday         TIMESTAMP,
+  country          STRING(MAX),
+  city             STRING(MAX),
+) PRIMARY KEY (id);
+
+CREATE TABLE sch2.Account (
+  id               INT64 NOT NULL,
+  create_time      TIMESTAMP,
+  is_blocked       BOOL,
+  nick_name        STRING(MAX),
+) PRIMARY KEY (id);
+
+CREATE TABLE sch1.PersonOwnAccount (
+  id               INT64 NOT NULL,
+  account_id       INT64 NOT NULL,
+  create_time      TIMESTAMP,
+  FOREIGN KEY (account_id) REFERENCES sch2.Account (id)
+) PRIMARY KEY (id, account_id),
+  INTERLEAVE IN PARENT sch1.Person ON DELETE CASCADE;
+
+CREATE OR REPLACE PROPERTY GRAPH sch2.FinGraph
+  NODE TABLES (
+    sch1.Person,
+    sch2.Account
+  )
+  EDGE TABLES (
+    sch1.PersonOwnAccount
+      SOURCE KEY (id) REFERENCES Person (id)
+      DESTINATION KEY (account_id) REFERENCES Account (id)
+      LABEL Owns
+  );
+```
 
 ## What's next
 
-  - [Manage Spanner Graph data](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data) .
-  - [Learn about Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
-  - [Learn best practices for tuning Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries) .
+- [Manage Spanner Graph data](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data) .
+- [Learn about Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
+- [Learn best practices for tuning Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries) .

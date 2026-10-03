@@ -16,57 +16,57 @@ If your transactions use [optimistic concurrency control](https://docs.cloud.goo
 
 Spanner provides the lock statistics in the `SPANNER_SYS` schema. You can use the following ways to access `SPANNER_SYS` data:
 
-  - A database's Spanner Studio page in the Google Cloud console
+- A database's Spanner Studio page in the Google Cloud console
 
-  - The [`gcloud spanner databases execute-sql`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command.
+- The [`gcloud spanner databases execute-sql`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command.
 
-  - The [Lock insights](https://docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights#lock-insights) dashboard.
+- The [Lock insights](https://docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights#lock-insights) dashboard.
 
-  - The [`executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
-    
-    The following single read methods that Spanner provides don't support `SPANNER_SYS` :
-    
-      - Performing a strong read from a single row or multiple rows in a table.
-      - Performing a stale read from a single row or multiple rows in a table.
-      - Reading from a single row or multiple rows in a secondary index.
+- The [`executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
+
+  The following single read methods that Spanner provides don't support `SPANNER_SYS` :
+
+  - Performing a strong read from a single row or multiple rows in a table.
+  - Performing a stale read from a single row or multiple rows in a table.
+  - Reading from a single row or multiple rows in a secondary index.
 
 ## Lock statistics by row key
 
 The following tables track the row key with the highest wait time:
 
-  - `SPANNER_SYS.LOCK_STATS_TOP_MINUTE` : Row keys with the highest lock wait times during 1 minute intervals.
+- `SPANNER_SYS.LOCK_STATS_TOP_MINUTE` : Row keys with the highest lock wait times during 1 minute intervals.
 
-  - `SPANNER_SYS.LOCK_STATS_TOP_10MINUTE` : Row keys with the highest lock wait times during 10 minute intervals.
+- `SPANNER_SYS.LOCK_STATS_TOP_10MINUTE` : Row keys with the highest lock wait times during 10 minute intervals.
 
-  - `SPANNER_SYS.LOCK_STATS_TOP_HOUR` : Row keys with the highest lock wait times during 1 hour intervals
+- `SPANNER_SYS.LOCK_STATS_TOP_HOUR` : Row keys with the highest lock wait times during 1 hour intervals
 
 These tables have the following properties:
 
-  - Each table contains data for non-overlapping time intervals of the length the table name specifies.
+- Each table contains data for non-overlapping time intervals of the length the table name specifies.
 
-  - Intervals are based on clock times. 1 minute intervals end on the minute, 10 minute intervals end every 10 minutes starting on the hour, and 1 hour intervals end on the hour. After each interval, Spanner collects data from all servers and then makes the data available in the SPANNER\_SYS tables shortly thereafter.
-    
-    For example, at 11:59:30 AM, the most recent intervals available to SQL queries are:
-    
-      - **1 minute** : 11:58:00–11:58:59 AM
-      - **10 minute** : 11:40:00–11:49:59 AM
-      - **1 hour** : 10:00:00–10:59:59 AM
+- Intervals are based on clock times. 1 minute intervals end on the minute, 10 minute intervals end every 10 minutes starting on the hour, and 1 hour intervals end on the hour. After each interval, Spanner collects data from all servers and then makes the data available in the SPANNER_SYS tables shortly thereafter.
 
-  - Spanner groups the statistics by starting row key range.
+  For example, at 11:59:30 AM, the most recent intervals available to SQL queries are:
 
-  - Each row contains statistics for total lock wait time of a particular starting row key range that Spanner captures statistics for during the specified interval.
+  - **1 minute** : 11:58:00–11:58:59 AM
+  - **10 minute** : 11:40:00–11:49:59 AM
+  - **1 hour** : 10:00:00–10:59:59 AM
 
-  - If Spanner is unable to store information about every row key range for lock waits during the interval, the system prioritizes row key range with the highest lock wait time during the specified interval.
+- Spanner groups the statistics by starting row key range.
 
-  - All columns in the tables are nullable.
+- Each row contains statistics for total lock wait time of a particular starting row key range that Spanner captures statistics for during the specified interval.
+
+- If Spanner is unable to store information about every row key range for lock waits during the interval, the system prioritizes row key range with the highest lock wait time during the specified interval.
+
+- All columns in the tables are nullable.
 
 ### Table schema
 
 <table>
 <colgroup>
-<col style="width: 22%" />
-<col style="width: 28%" />
-<col style="width: 50%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -77,39 +77,39 @@ These tables have the following properties:
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">INTERVAL_END</code></td>
-<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
+<td><code>INTERVAL_END</code></td>
+<td><code>TIMESTAMP</code></td>
 <td>End of the time interval in which the included lock conflicts occurred.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">ROW_RANGE_START_KEY</code></td>
-<td><code dir="ltr" translate="no">BYTES(MAX)</code></td>
-<td>The row key where the lock conflict occurred. When the conflict involves a range of rows, this value represents the starting key of that range. A plus sign, <code dir="ltr" translate="no">+</code> , signifies a range. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-row-range">What's a row range start key</a> .</td>
+<td><code>ROW_RANGE_START_KEY</code></td>
+<td><code>BYTES(MAX)</code></td>
+<td>The row key where the lock conflict occurred. When the conflict involves a range of rows, this value represents the starting key of that range. A plus sign, <code>+</code> , signifies a range. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-row-range">What's a row range start key</a> .</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">LOCK_WAIT_SECONDS</code></td>
-<td><code dir="ltr" translate="no">FLOAT64</code></td>
+<td><code>LOCK_WAIT_SECONDS</code></td>
+<td><code>FLOAT64</code></td>
 <td>The cumulative lock wait time of lock conflicts recorded for all the columns in the row key range, in seconds.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">SAMPLE_LOCK_REQUESTS</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;  column STRING,  lock_mode STRING,  transaction_tag STRING&gt;&gt;</code></td>
+<td><code>SAMPLE_LOCK_REQUESTS</code></td>
+<td><code>ARRAY&lt;STRUCT&lt; column STRING, lock_mode STRING, transaction_tag STRING&gt;&gt;</code></td>
 <td>Each entry in this array corresponds to a sample lock request that contributed to the lock conflict by either waiting for a lock or blocking other transactions from taking the lock, on the given row key (range). The maximum number of samples in this array is 20.
 <blockquote>
-<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#sample-lock-requests"><code dir="ltr" translate="no">SAMPLE_LOCK_REQUESTS_JSON_STRING</code></a> column instead for PostgreSQL-dialect databases.
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#sample-lock-requests"><code>SAMPLE_LOCK_REQUESTS_JSON_STRING</code></a> column instead for PostgreSQL-dialect databases.
 </blockquote>
 Each sample contains the following three fields:
 <ul>
-<li><code dir="ltr" translate="no">lock_mode</code> : The lock mode that was requested. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes">Lock modes</a> .</li>
-<li><code dir="ltr" translate="no">column</code> : The column which encountered the lock conflict. The format of this value is <code dir="ltr" translate="no">tablename.columnname</code> .</li>
-<li><code dir="ltr" translate="no">transaction_tag</code> : The tag of the transaction that issued the request. For more information about using tags, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#transaction_tags">Troubleshooting with transaction tags</a> .</li>
+<li><code>lock_mode</code> : The lock mode that was requested. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes">Lock modes</a> .</li>
+<li><code>column</code> : The column which encountered the lock conflict. The format of this value is <code>tablename.columnname</code> .</li>
+<li><code>transaction_tag</code> : The tag of the transaction that issued the request. For more information about using tags, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags#transaction_tags">Troubleshooting with transaction tags</a> .</li>
 </ul>
 All lock requests that contributed to lock conflicts are sampled uniformly at random, so it's possible that only one half of a conflict (either the holder or the waiter) is recorded in this array.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">SAMPLE_LOCK_REQUESTS_JSON_STRING</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#sample-lock-requests"><code dir="ltr" translate="no">SAMPLE_LOCK_REQUESTS</code></a> column. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#sample-lock-requests"><code dir="ltr" translate="no">SAMPLE_LOCK_REQUESTS</code></a> column.
+<td><code>SAMPLE_LOCK_REQUESTS_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#sample-lock-requests"><code>SAMPLE_LOCK_REQUESTS</code></a> column. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#sample-lock-requests"><code>SAMPLE_LOCK_REQUESTS</code></a> column.
 <p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p></td>
 </tr>
 </tbody>
@@ -121,13 +121,13 @@ Spanner operations acquire locks when the operations are part of a [read-write](
 
 A lock conflict can occur when you attempt to acquire one of the following lock modes in a transaction.
 
-  - `ReaderShared` Lock - A lock which allows other reads to still access the data until your transaction is ready to commit. This shared lock is acquired when a read-write transaction reads data.
+- `ReaderShared` Lock - A lock which allows other reads to still access the data until your transaction is ready to commit. This shared lock is acquired when a read-write transaction reads data.
 
-  - `WriterShared` Lock - This lock is acquired when a read-write transaction tries to commit a write.
+- `WriterShared` Lock - This lock is acquired when a read-write transaction tries to commit a write.
 
-  - `Exclusive` Lock - an exclusive lock is acquired when a read-write transaction, which has already acquired a ReaderShared lock, tries to write data after the completion of read. An exclusive lock is an upgrade from a `ReaderShared` lock. An exclusive lock is a special case of a transaction holding both the `ReaderShared` lock and the `WriterShared` lock at the same time. No other transaction can acquire any lock on the same cell.
+- `Exclusive` Lock - an exclusive lock is acquired when a read-write transaction, which has already acquired a ReaderShared lock, tries to write data after the completion of read. An exclusive lock is an upgrade from a `ReaderShared` lock. An exclusive lock is a special case of a transaction holding both the `ReaderShared` lock and the `WriterShared` lock at the same time. No other transaction can acquire any lock on the same cell.
 
-  - `WriterSharedTimestamp` Lock - a special type of `WriterShared` lock which is acquired when inserting new rows into a table that has a [commit timestamp](https://docs.cloud.google.com/spanner/docs/commit-timestamp) as part of the primary key. This type of lock prevents transaction participants from creating the exact same row and, therefore, conflicting with each other. Spanner updates the key of the inserted row to match the commit timestamp of the transaction that performed the insert.
+- `WriterSharedTimestamp` Lock - a special type of `WriterShared` lock which is acquired when inserting new rows into a table that has a [commit timestamp](https://docs.cloud.google.com/spanner/docs/commit-timestamp) as part of the primary key. This type of lock prevents transaction participants from creating the exact same row and, therefore, conflicting with each other. Spanner updates the key of the inserted row to match the commit timestamp of the transaction that performed the insert.
 
 For more information on transaction types and the kinds of locks that are available, see [Transactions](https://docs.cloud.google.com/spanner/docs/transactions) .
 
@@ -135,12 +135,12 @@ For more information on transaction types and the kinds of locks that are availa
 
 The following table shows the possible conflicts between different lock modes.
 
-| Lock Modes              | `ReaderShared` | `WriterShared` |  `Exclusive`   | `WriterSharedTimestamp` |
-| ----------------------- | :------------: | :------------: | :------------: | :---------------------: |
-| `ReaderShared`          |       No       |      Yes       |      Yes       |           Yes           |
-| `WriterShared`          |      Yes       |       No       |      Yes       |     Not applicable      |
-| `Exclusive`             |      Yes       |      Yes       |      Yes       |     Not applicable      |
-| `WriterSharedTimestamp` |      Yes       | Not applicable | Not applicable |           Yes           |
+| Lock Modes              | `ReaderShared` | `WriterShared` | `Exclusive`    | `WriterSharedTimestamp` |
+|-------------------------|----------------|----------------|----------------|-------------------------|
+| `ReaderShared`          | No             | Yes            | Yes            | Yes                     |
+| `WriterShared`          | Yes            | No             | Yes            | Not applicable          |
+| `Exclusive`             | Yes            | Yes            | Yes            | Not applicable          |
+| `WriterSharedTimestamp` | Yes            | Not applicable | Not applicable | Yes                     |
 
 `WriterSharedTimestamp` locks are only used when inserting new rows with a timestamp as part of its primary key. `WriterShared` and `Exclusive` locks are used when writing to existing cells or inserting new rows without timestamps. As a result, `WriterSharedTimestamp` can't conflict with other types of locks, and those scenarios are shown as **Not applicable** in the preceding table.
 
@@ -150,83 +150,85 @@ The only exception is `ReaderShared` , which can be applied to non-existing rows
 
 The `ROW_RANGE_START_KEY` column identifies the composite primary key, or starting primary key of a row range, that has lock conflicts. The following schema is used to illustrate an example.
 
-    CREATE TABLE Singers (
-      SingerId   INT64 NOT NULL,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-      SingerInfo BYTES(MAX),
-    ) PRIMARY KEY (SingerId);
-    
-    CREATE TABLE Albums (
-      SingerId     INT64 NOT NULL,
-      AlbumId      INT64 NOT NULL,
-      AlbumTitle   STRING(MAX),
-    ) PRIMARY KEY (SingerId, AlbumId),
-      INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
-    
-    CREATE TABLE Songs (
-      SingerId     INT64 NOT NULL,
-      AlbumId      INT64 NOT NULL,
-      TrackId      INT64 NOT NULL,
-      SongName     STRING(MAX),
-    ) PRIMARY KEY (SingerId, AlbumId, TrackId),
-      INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
-    
-    CREATE TABLE Users (
-      UserId     INT64 NOT NULL,
-      LastAccess TIMESTAMP NOT NULL OPTIONS (allow_commit_timestamp=true),
-      ...
-    ) PRIMARY KEY (UserId, LastAccess);
+```
+CREATE TABLE Singers (
+  SingerId   INT64 NOT NULL,
+  FirstName  STRING(1024),
+  LastName   STRING(1024),
+  SingerInfo BYTES(MAX),
+) PRIMARY KEY (SingerId);
+
+CREATE TABLE Albums (
+  SingerId     INT64 NOT NULL,
+  AlbumId      INT64 NOT NULL,
+  AlbumTitle   STRING(MAX),
+) PRIMARY KEY (SingerId, AlbumId),
+  INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+
+CREATE TABLE Songs (
+  SingerId     INT64 NOT NULL,
+  AlbumId      INT64 NOT NULL,
+  TrackId      INT64 NOT NULL,
+  SongName     STRING(MAX),
+) PRIMARY KEY (SingerId, AlbumId, TrackId),
+  INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
+
+CREATE TABLE Users (
+  UserId     INT64 NOT NULL,
+  LastAccess TIMESTAMP NOT NULL OPTIONS (allow_commit_timestamp=true),
+  ...
+) PRIMARY KEY (UserId, LastAccess);
+```
 
 As the following table of row key and row key ranges shows, a range is represented with a plus, '+', sign in the key. The key in those cases represents the starting key of a key range in which a lock conflict occurred.
 
-| ROW\_RANGE\_START\_KEY                     | Explanation                                                      |
-| ------------------------------------------ | ---------------------------------------------------------------- |
+| ROW_RANGE_START_KEY                        | Explanation                                                      |
+|--------------------------------------------|------------------------------------------------------------------|
 | singers(2)                                 | Singers table at key SingerId=2                                  |
 | albums(2,1)                                | Albums table at key SingerId=2,AlbumId=1                         |
 | songs(2,1,5)                               | Songs table at key SingerId=2,AlbumId=1,TrackId=5                |
 | songs(2,1,5+)                              | Songs table key range starting at SingerId=2,AlbumId=1,TrackId=5 |
 | albums(2,1+)                               | Albums table key range starting at SingerId=2,AlbumId=1          |
-| users(3, 2020-11-01 12:34:56.426426+00:00) | Users table at key UserId=3, LastAccess=commit\_timestamp        |
+| users(3, 2020-11-01 12:34:56.426426+00:00) | Users table at key UserId=3, LastAccess=commit_timestamp         |
 
 ## Aggregate statistics
 
 `SPANNER_SYS` also contains tables to store aggregate data for lock statistics captured by Spanner in a specific time period:
 
-  - `SPANNER_SYS.LOCK_STATS_TOTAL_MINUTE` : Aggregate statistics for all lock waits during 1 minute intervals.
+- `SPANNER_SYS.LOCK_STATS_TOTAL_MINUTE` : Aggregate statistics for all lock waits during 1 minute intervals.
 
-  - `SPANNER_SYS.LOCK_STATS_TOTAL_10MINUTE` : Aggregate statistics for all lock waits during 10 minute intervals.
+- `SPANNER_SYS.LOCK_STATS_TOTAL_10MINUTE` : Aggregate statistics for all lock waits during 10 minute intervals.
 
-  - `SPANNER_SYS.LOCK_STATS_TOTAL_HOUR` : Aggregate statistics for all lock waits during 1 hour intervals.
+- `SPANNER_SYS.LOCK_STATS_TOTAL_HOUR` : Aggregate statistics for all lock waits during 1 hour intervals.
 
 Aggregate statistics tables have the following properties:
 
-  - Each table contains data for non-overlapping time intervals of the length the table name specifies.
+- Each table contains data for non-overlapping time intervals of the length the table name specifies.
 
-  - Intervals are based on clock times. 1 minute intervals end on the minute, 10 minute intervals end every 10 minutes starting on the hour, and 1 hour intervals end on the hour.
-    
-    For example, at 11:59:30 AM, the most recent intervals available to SQL queries on aggregate lock statistics are:
-    
-      - **1 minute** : 11:58:00–11:58:59 AM
-      - **10 minute** : 11:40:00–11:49:59 AM
-      - **1 hour** : 10:00:00–10:59:59 AM
+- Intervals are based on clock times. 1 minute intervals end on the minute, 10 minute intervals end every 10 minutes starting on the hour, and 1 hour intervals end on the hour.
 
-  - Each row contains statistics for **all** lock waits on the database during the specified interval, aggregated together. There is only one row per time interval.
+  For example, at 11:59:30 AM, the most recent intervals available to SQL queries on aggregate lock statistics are:
 
-  - The statistics captured in the `SPANNER_SYS.LOCK_STATS_TOTAL_*` tables include lock waits that Spanner did not capture in the `SPANNER_SYS.LOCK_STATS_TOP_*` tables.
+  - **1 minute** : 11:58:00–11:58:59 AM
+  - **10 minute** : 11:40:00–11:49:59 AM
+  - **1 hour** : 10:00:00–10:59:59 AM
 
-  - Some columns in these tables are exposed as metrics in Cloud Monitoring. The exposed metrics are:
-    
-      - Lock wait time
-    
-    For more information, see [Spanner metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
+- Each row contains statistics for **all** lock waits on the database during the specified interval, aggregated together. There is only one row per time interval.
+
+- The statistics captured in the `SPANNER_SYS.LOCK_STATS_TOTAL_*` tables include lock waits that Spanner did not capture in the `SPANNER_SYS.LOCK_STATS_TOP_*` tables.
+
+- Some columns in these tables are exposed as metrics in Cloud Monitoring. The exposed metrics are:
+
+  - Lock wait time
+
+  For more information, see [Spanner metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
 
 ### Table schema
 
 > **Note:** An increase in total lock wait time without corresponding entries in the [topN queries table](https://docs.cloud.google.com/spanner/docs/using-query-insights) , might be caused by locks from internal Spanner system tables (for example, for session management operations).
 
 | Column name               | Type        | Description                                                                           |
-| ------------------------- | ----------- | ------------------------------------------------------------------------------------- |
+|---------------------------|-------------|---------------------------------------------------------------------------------------|
 | `INTERVAL_END`            | `TIMESTAMP` | End of the time interval in which the lock conflict occurred.                         |
 | `TOTAL_LOCK_WAIT_SECONDS` | `FLOAT64`   | Total lock wait time for lock conflicts recorded for the entire database, in seconds. |
 
@@ -238,62 +240,28 @@ The following is an example of a SQL statement that you can use to retrieve lock
 
 The following query returns the lock wait information for each row key with a lock conflict, including the fraction of total lock conflicts, during the most recent 1-minute time interval.
 
-The [`CAST()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#casting) function converts the row\_range\_start\_key BYTES field to a STRING.
+The [`CAST()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#casting) function converts the row_range_start_key BYTES field to a STRING.
 
-    SELECT CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
-           t.total_lock_wait_seconds,
-           s.lock_wait_seconds,
-           s.lock_wait_seconds/t.total_lock_wait_seconds frac_of_total,
-           s.sample_lock_requests
-    FROM spanner_sys.lock_stats_total_minute t, spanner_sys.lock_stats_top_minute s
-    WHERE t.interval_end =
-      (SELECT MAX(interval_end)
-       FROM spanner_sys.lock_stats_total_minute)
-    AND s.interval_end = t.interval_end
-    ORDER BY s.lock_wait_seconds DESC;
+```
+SELECT CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
+       t.total_lock_wait_seconds,
+       s.lock_wait_seconds,
+       s.lock_wait_seconds/t.total_lock_wait_seconds frac_of_total,
+       s.sample_lock_requests
+FROM spanner_sys.lock_stats_total_minute t, spanner_sys.lock_stats_top_minute s
+WHERE t.interval_end =
+  (SELECT MAX(interval_end)
+   FROM spanner_sys.lock_stats_total_minute)
+AND s.interval_end = t.interval_end
+ORDER BY s.lock_wait_seconds DESC;
+```
 
 ##### Query output
 
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>row_range_start_key</th>
-<th style="text-align: center;">total_lock_wait_seconds</th>
-<th style="text-align: center;">lock_wait_seconds</th>
-<th style="text-align: center;">frac_of_total</th>
-<th style="text-align: center;">sample_lock_requests</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Songs(2,1,1)</td>
-<td style="text-align: center;">2.37</td>
-<td style="text-align: center;">1.76</td>
-<td style="text-align: center;">0.7426</td>
-<td style="text-align: center;">LOCK_MODE: ReaderShared
-<p>COLUMN: Singers.SingerInfo</p>
-<p>LOCK_MODE: WriterShared</p>
-COLUMN: Singers.SingerInfo</td>
-</tr>
-<tr class="even">
-<td>Users(3, 2020-11-01 12:34:56.426426+00:00)</td>
-<td style="text-align: center;">2.37</td>
-<td style="text-align: center;">0.61</td>
-<td style="text-align: center;">0.2573</td>
-<td style="text-align: center;">LOCK_MODE: ReaderShared
-<p>COLUMN: users._exists <sup>1</sup></p>
-<p>LOCK_MODE: WriterShared</p>
-COLUMN: users._exists <sup>1</sup></td>
-</tr>
-</tbody>
-</table>
+| row_range_start_key                        | total_lock_wait_seconds | lock_wait_seconds | frac_of_total | sample_lock_requests                                                                                                    |
+|--------------------------------------------|-------------------------|-------------------|---------------|-------------------------------------------------------------------------------------------------------------------------|
+| Songs(2,1,1)                               | 2.37                    | 1.76              | 0.7426        | LOCK_MODE: ReaderShared COLUMN: Singers.SingerInfo LOCK_MODE: WriterShared COLUMN: Singers.SingerInfo                   |
+| Users(3, 2020-11-01 12:34:56.426426+00:00) | 2.37                    | 0.61              | 0.2573        | LOCK_MODE: ReaderShared COLUMN: users.\_exists <sup>1</sup> LOCK_MODE: WriterShared COLUMN: users.\_exists <sup>1</sup> |
 
 <sup>1</sup> `_exists` is an internal field that is used to check whether a certain row exists or not.
 
@@ -301,11 +269,11 @@ COLUMN: users._exists <sup>1</sup></td>
 
 At a minimum, Spanner keeps data for each table for the following time periods:
 
-  - `SPANNER_SYS.LOCK_STATS_TOP_MINUTE` and `SPANNER_SYS.LOCK_STATS_TOTAL_MINUTE` : Intervals covering the previous 6 hours.
+- `SPANNER_SYS.LOCK_STATS_TOP_MINUTE` and `SPANNER_SYS.LOCK_STATS_TOTAL_MINUTE` : Intervals covering the previous 6 hours.
 
-  - `SPANNER_SYS.LOCK_STATS_TOP_10MINUTE` and `SPANNER_SYS.LOCK_STATS_TOTAL_10MINUTE` : Intervals covering the previous 4 days.
+- `SPANNER_SYS.LOCK_STATS_TOP_10MINUTE` and `SPANNER_SYS.LOCK_STATS_TOTAL_10MINUTE` : Intervals covering the previous 4 days.
 
-  - `SPANNER_SYS.LOCK_STATS_TOP_HOUR` and `SPANNER_SYS.LOCK_STATS_TOTAL_HOUR` : Intervals covering the previous 30 days.
+- `SPANNER_SYS.LOCK_STATS_TOP_HOUR` and `SPANNER_SYS.LOCK_STATS_TOTAL_HOUR` : Intervals covering the previous 30 days.
 
 > **Note:** You can't prevent Spanner from collecting lock statistics. To delete the data in these tables, you must delete the database associated with the tables or wait until Spanner removes the data automatically. The retention period for these tables is fixed. If you want to keep statistics for longer periods of time, we recommend that you periodically copy data out of these tables.
 
@@ -327,31 +295,33 @@ Locks are acquired by transactions so, if lock conflicts cause long wait times, 
 
 Having selected a time period to start our investigation, we'll join the transaction statistics [`TXN_STATS_TOTAL_10MINUTE`](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#transaction-stats-total) with lock statistics `LOCK_STATS_TOTAL_10MINUTE` around that time to help us understand if the increase of the average commit latency is contributed to by the increase of the lock waiting time.
 
-    SELECT t.interval_end, t.avg_commit_latency_seconds, l.total_lock_wait_seconds
-    FROM spanner_sys.txn_stats_total_10minute t
-    LEFT JOIN spanner_sys.lock_stats_total_10minute l
-    ON t.interval_end = l.interval_end
-    WHERE
-      t.interval_end >= "2020-11-12T21:50:00Z"
-      AND t.interval_end <= "2020-11-12T23:50:00Z"
-    ORDER BY interval_end;
+```
+SELECT t.interval_end, t.avg_commit_latency_seconds, l.total_lock_wait_seconds
+FROM spanner_sys.txn_stats_total_10minute t
+LEFT JOIN spanner_sys.lock_stats_total_10minute l
+ON t.interval_end = l.interval_end
+WHERE
+  t.interval_end >= "2020-11-12T21:50:00Z"
+  AND t.interval_end <= "2020-11-12T23:50:00Z"
+ORDER BY interval_end;
+```
 
 Take the following data as an example of the results we get back from our query.
 
-|         interval\_end         | avg\_commit\_latency\_seconds | total\_lock\_wait\_seconds |
-| :---------------------------: | :---------------------------: | :------------------------: |
-|   2020-11-12 21:40:00-07:00   |             0.002             |           0.090            |
-|   2020-11-12 21:50:00-07:00   |             0.003             |           0.110            |
-|   2020-11-12 22:00:00-07:00   |             0.002             |           0.100            |
-|   2020-11-12 22:10:00-07:00   |             0.002             |           0.080            |
-|   2020-11-12 22:20:00-07:00   |             0.030             |           0.240            |
-|   2020-11-12 22:30:00-07:00   |             0.034             |           0.220            |
-|   2020-11-12 22:40:00-07:00   |             0.034             |           0.218            |
-| **2020-11-12 22:50:00-07:00** |           **3.741**           |        **780.193**         |
-|   2020-11-12 23:00:00-07:00   |             0.042             |           0.240            |
-|   2020-11-12 23:10:00-07:00   |             0.038             |           0.129            |
-|   2020-11-12 23:20:00-07:00   |             0.021             |           0.128            |
-|   2020-11-12 23:30:00-07:00   |             0.038             |           0.231            |
+| interval_end                  | avg_commit_latency_seconds | total_lock_wait_seconds |
+|-------------------------------|----------------------------|-------------------------|
+| 2020-11-12 21:40:00-07:00     | 0.002                      | 0.090                   |
+| 2020-11-12 21:50:00-07:00     | 0.003                      | 0.110                   |
+| 2020-11-12 22:00:00-07:00     | 0.002                      | 0.100                   |
+| 2020-11-12 22:10:00-07:00     | 0.002                      | 0.080                   |
+| 2020-11-12 22:20:00-07:00     | 0.030                      | 0.240                   |
+| 2020-11-12 22:30:00-07:00     | 0.034                      | 0.220                   |
+| 2020-11-12 22:40:00-07:00     | 0.034                      | 0.218                   |
+| **2020-11-12 22:50:00-07:00** | **3.741**                  | **780.193**             |
+| 2020-11-12 23:00:00-07:00     | 0.042                      | 0.240                   |
+| 2020-11-12 23:10:00-07:00     | 0.038                      | 0.129                   |
+| 2020-11-12 23:20:00-07:00     | 0.021                      | 0.128                   |
+| 2020-11-12 23:30:00-07:00     | 0.038                      | 0.231                   |
 
 This preceding results show a dramatic increase in `avg_commit_latency_seconds` and `total_lock_wait_seconds` during the same time period from **2020-11-12 22:40:00** to **2020-11-12 22:50:00** , and dropped after that. One thing to note is that the `avg_commit_latency_seconds` is the *average* time spent for only the commit step. On the other hand, `total_lock_wait_seconds` is the *aggregate* lock time for the period, so the time looks much longer than the transaction commit time.
 
@@ -361,47 +331,22 @@ Now that we've confirmed the lock wait time is closely related to the increase i
 
 To find out which row keys and columns experienced the high lock wait times during the period we are investigating, we query the `LOCK_STAT_TOP_10MINUTE` table, which lists the row keys and columns that contribute the most to lock wait.
 
-The [`CAST()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#casting) function in the following query converts the row\_range\_start\_key BYTES field to a STRING.
+The [`CAST()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#casting) function in the following query converts the row_range_start_key BYTES field to a STRING.
 
-    SELECT CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
-           t.total_lock_wait_seconds,
-           s.lock_wait_seconds,
-           s.lock_wait_seconds/t.total_lock_wait_seconds frac_of_total,
-           s.sample_lock_requests
-    FROM spanner_sys.lock_stats_total_10minute t, spanner_sys.lock_stats_top_10minute s
-    WHERE
-      t.interval_end = "2020-11-12T22:50:00Z" and s.interval_end = t.interval_end;
+```
+SELECT CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
+       t.total_lock_wait_seconds,
+       s.lock_wait_seconds,
+       s.lock_wait_seconds/t.total_lock_wait_seconds frac_of_total,
+       s.sample_lock_requests
+FROM spanner_sys.lock_stats_total_10minute t, spanner_sys.lock_stats_top_10minute s
+WHERE
+  t.interval_end = "2020-11-12T22:50:00Z" and s.interval_end = t.interval_end;
+```
 
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>row_range_start_key</th>
-<th style="text-align: center;">total_lock_wait_seconds</th>
-<th style="text-align: center;">lock_wait_seconds</th>
-<th style="text-align: center;">frac_of_total</th>
-<th style="text-align: center;">sample_lock_requests</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Singers(32)</td>
-<td style="text-align: center;">780.193</td>
-<td style="text-align: center;">780.193</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">LOCK_MODE: WriterShared
-<p>COLUMN: Singers.SingerInfo</p>
-<p>LOCK_MODE: ReaderShared</p>
-COLUMN: Singers.SingerInfo</td>
-</tr>
-</tbody>
-</table>
+| row_range_start_key | total_lock_wait_seconds | lock_wait_seconds | frac_of_total | sample_lock_requests                                                                                  |
+|---------------------|-------------------------|-------------------|---------------|-------------------------------------------------------------------------------------------------------|
+| Singers(32)         | 780.193                 | 780.193           | 1             | LOCK_MODE: WriterShared COLUMN: Singers.SingerInfo LOCK_MODE: ReaderShared COLUMN: Singers.SingerInfo |
 
 From this table of results, we can see the conflict happened on the `Singers` table at key **SingerId=32** . The `Singers.SingerInfo` is the column where the lock conflict happened between `ReaderShared` and `WriterShared` .
 
@@ -411,79 +356,47 @@ This is a common type of the conflict when there's one transaction trying to rea
 
 To identify the transactions that are experiencing significant commit latency within a specific time interval due to lock conflicts, you need to query for the following columns from the [`SPANNER_SYS.TXN_STATS_TOTAL_10MINUTE`](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#transaction-stats-total) table:
 
-  - `fprint`
-  - `read_columns`
-  - `write_constructive_columns`
-  - `avg_commit_latency_seconds`
+- `fprint`
+- `read_columns`
+- `write_constructive_columns`
+- `avg_commit_latency_seconds`
 
 You need to filter for locked columns identified from the [`SPANNER_SYS.LOCK_STATS_TOP_10MINUTE`](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#locks-by-row-key) table:
 
-  - Transactions that read any column that incurred a lock conflict when attempting to acquire the `ReaderShared` lock.
+- Transactions that read any column that incurred a lock conflict when attempting to acquire the `ReaderShared` lock.
 
-  - Transactions that write to any column that incurred a lock conflict when attempting to acquire a `WriterShared` lock.
+- Transactions that write to any column that incurred a lock conflict when attempting to acquire a `WriterShared` lock.
 
-<!-- end list -->
-
-    SELECT
-      fprint,
-      read_columns,
-      write_constructive_columns,
-      avg_commit_latency_seconds
-    FROM spanner_sys.txn_stats_top_10minute t2
-    WHERE (
-      EXISTS (
-        SELECT * FROM t2.read_columns columns WHERE columns IN (
-          SELECT DISTINCT(req.COLUMN)
-          FROM spanner_sys.lock_stats_top_10minute t, t.SAMPLE_LOCK_REQUESTS req
-          WHERE req.LOCK_MODE = "ReaderShared" AND t.interval_end ="2020-11-12T23:50:00Z"))
-    OR
-      EXISTS (
-        SELECT * FROM t2.write_constructive_columns columns WHERE columns IN (
-          SELECT DISTINCT(req.COLUMN)
-          FROM spanner_sys.lock_stats_top_10minute t, t.SAMPLE_LOCK_REQUESTS req
-          WHERE req.LOCK_MODE = "WriterShared" AND t.interval_end ="2020-11-12T23:50:00Z"))
-    )
-    AND t2.interval_end ="2020-11-12T23:50:00Z"
-    ORDER BY avg_commit_latency_seconds DESC;
+```
+SELECT
+  fprint,
+  read_columns,
+  write_constructive_columns,
+  avg_commit_latency_seconds
+FROM spanner_sys.txn_stats_top_10minute t2
+WHERE (
+  EXISTS (
+    SELECT * FROM t2.read_columns columns WHERE columns IN (
+      SELECT DISTINCT(req.COLUMN)
+      FROM spanner_sys.lock_stats_top_10minute t, t.SAMPLE_LOCK_REQUESTS req
+      WHERE req.LOCK_MODE = "ReaderShared" AND t.interval_end ="2020-11-12T23:50:00Z"))
+OR
+  EXISTS (
+    SELECT * FROM t2.write_constructive_columns columns WHERE columns IN (
+      SELECT DISTINCT(req.COLUMN)
+      FROM spanner_sys.lock_stats_top_10minute t, t.SAMPLE_LOCK_REQUESTS req
+      WHERE req.LOCK_MODE = "WriterShared" AND t.interval_end ="2020-11-12T23:50:00Z"))
+)
+AND t2.interval_end ="2020-11-12T23:50:00Z"
+ORDER BY avg_commit_latency_seconds DESC;
+```
 
 The query result is sorted by the `avg_commit_latency_seconds` column so that you see the transaction experiencing the highest commit latency first.
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>fprint</th>
-<th>read_columns</th>
-<th>write_constructive_columns</th>
-<th>avg_commit_latency_seconds</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1866043996151916800<br />
-<br />
-<br />
-</td>
-<td>['Singers.SingerInfo',<br />
-'Singers.FirstName',<br />
-'Singers.LastName',<br />
-'Singers._exists']</td>
-<td>['Singers.SingerInfo']</td>
-<td>4.89</td>
-</tr>
-<tr class="even">
-<td>4168578515815911936</td>
-<td>[]</td>
-<td>['Singers.SingerInfo']</td>
-<td>3.65</td>
-</tr>
-</tbody>
-</table>
+| fprint              | read_columns                                                                          | write_constructive_columns | avg_commit_latency_seconds |
+|---------------------|---------------------------------------------------------------------------------------|----------------------------|----------------------------|
+| 1866043996151916800 | \['Singers.SingerInfo', 'Singers.FirstName', 'Singers.LastName', 'Singers.\_exists'\] | \['Singers.SingerInfo'\]   | 4.89                       |
+| 4168578515815911936 | \[\]                                                                                  | \['Singers.SingerInfo'\]   | 3.65                       |
 
 The query results show that two transactions tried to access the `Singers.SingerInfo` column, which is the column that had lock conflicts during the time period. Once you identify the transactions causing the lock conflicts, you can analyze the transactions using their fingerprint, `fprint` , to identify potential issues that contributed to the lock conflict.
 
@@ -500,30 +413,30 @@ In our example scenario, we used lock statistics and transaction statistics to n
 
 When looking at potential issues in your solution, or even when designing your solution, consider these best practices to reduce the number of lock conflicts in your database.
 
-  - [Avoid large reads inside read-write transactions](https://docs.cloud.google.com/spanner/docs/sql-best-practices#avoid_large_reads_inside_read-write_transactions) .
+- [Avoid large reads inside read-write transactions](https://docs.cloud.google.com/spanner/docs/sql-best-practices#avoid_large_reads_inside_read-write_transactions) .
 
-  - Use read-only transactions whenever possible, because they don't acquire any locks.
+- Use read-only transactions whenever possible, because they don't acquire any locks.
 
-  - Avoid full table scans in a read-write transaction. This includes writing a DML conditional on the primary key or assigning a specific key range when using the Read API.
+- Avoid full table scans in a read-write transaction. This includes writing a DML conditional on the primary key or assigning a specific key range when using the Read API.
 
-  - Keep the locking period short by committing the change as soon after you read the data as possible in a read-write transaction. A Read-write transaction guarantees that the data remains unchanged after you read the data until you successfully commit the change. To achieve this, the transaction requires locking the data cells during the read and during the commit. As a result, if you can keep the locking period short, transactions are less likely to have lock conflicts.
+- Keep the locking period short by committing the change as soon after you read the data as possible in a read-write transaction. A Read-write transaction guarantees that the data remains unchanged after you read the data until you successfully commit the change. To achieve this, the transaction requires locking the data cells during the read and during the commit. As a result, if you can keep the locking period short, transactions are less likely to have lock conflicts.
 
-  - Favor small transactions over large transactions, or consider [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) for long running DML transactions. A long running transaction acquires a lock for a long time, so consider breaking a transaction which touches thousands of rows into multiple smaller transactions which update hundreds of rows whenever possible.
+- Favor small transactions over large transactions, or consider [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) for long running DML transactions. A long running transaction acquires a lock for a long time, so consider breaking a transaction which touches thousands of rows into multiple smaller transactions which update hundreds of rows whenever possible.
 
-  - If you don't need the guarantee provided by a read-write transaction, avoid reading any data in the read-write transaction before committing the change, for example, by reading the data in a separate read-only transaction. Most lock conflicts occur due to the strong guarantee, to ensure data remain unchanged between the read and commit. So, if the read-write transaction doesn't read any data, it doesn't need to lock the cells for a long time.
+- If you don't need the guarantee provided by a read-write transaction, avoid reading any data in the read-write transaction before committing the change, for example, by reading the data in a separate read-only transaction. Most lock conflicts occur due to the strong guarantee, to ensure data remain unchanged between the read and commit. So, if the read-write transaction doesn't read any data, it doesn't need to lock the cells for a long time.
 
-  - Specify only the minimal set of columns required in a read-write transaction. As Spanner locks are per data cell, when a read-write transaction reads excessive columns, it acquires a `ReaderShared` lock on these cells. This might cause lock conflicts when other transactions acquire a `WriterShared` lock on writes to the excessive columns. For example, consider specifying a set of columns instead of `*` on read.
+- Specify only the minimal set of columns required in a read-write transaction. As Spanner locks are per data cell, when a read-write transaction reads excessive columns, it acquires a `ReaderShared` lock on these cells. This might cause lock conflicts when other transactions acquire a `WriterShared` lock on writes to the excessive columns. For example, consider specifying a set of columns instead of `*` on read.
 
-  - Minimize API calls in a read-write transaction. The latency of API calls might lead to lock contention in Spanner, as API calls are subject to network delays as well as service-side delays. We recommend making API calls outside of read-write transactions whenever possible. If you must execute API calls inside a read-write transaction, make sure to monitor the latency of your API calls to minimize the impact on the lock acquisition period.
+- Minimize API calls in a read-write transaction. The latency of API calls might lead to lock contention in Spanner, as API calls are subject to network delays as well as service-side delays. We recommend making API calls outside of read-write transactions whenever possible. If you must execute API calls inside a read-write transaction, make sure to monitor the latency of your API calls to minimize the impact on the lock acquisition period.
 
-  - Follow [schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- Follow [schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
 
-  - If the possibility of write-skew isn't an issue for your application, consider using repeatable read isolation with its default optimistic concurrency to avoid read-write contentions. For more information, see [Repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) .
+- If the possibility of write-skew isn't an issue for your application, consider using repeatable read isolation with its default optimistic concurrency to avoid read-write contentions. For more information, see [Repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) .
 
-  - For workloads that have low read-write contention, consider using serializable isolation with optimistic concurrency control to avoid acquiring locks in transactions until commit time, while enforcing that all reads of the transaction are valid at commit time. For more information about the suitability of this option, see [Optimistic concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control#optimistic_concurrency_control) .
+- For workloads that have low read-write contention, consider using serializable isolation with optimistic concurrency control to avoid acquiring locks in transactions until commit time, while enforcing that all reads of the transaction are valid at commit time. For more information about the suitability of this option, see [Optimistic concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control#optimistic_concurrency_control) .
 
 ## What's next
 
-  - Learn about other [Introspection tools](https://docs.cloud.google.com/spanner/docs/introspection) .
-  - Learn about other information Spanner stores for each database in the databases [information schema](https://docs.cloud.google.com/spanner/docs/information-schema) table.
-  - Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) for Spanner.
+- Learn about other [Introspection tools](https://docs.cloud.google.com/spanner/docs/introspection) .
+- Learn about other information Spanner stores for each database in the databases [information schema](https://docs.cloud.google.com/spanner/docs/information-schema) table.
+- Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) for Spanner.

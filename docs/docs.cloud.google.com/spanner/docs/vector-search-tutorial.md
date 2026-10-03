@@ -39,11 +39,11 @@ You must create a Google Cloud project that is connected to a billing account.
 1.  The Spanner API should be auto-enabled. If not, enable it manually:
 2.  The Agent Platform API should be auto-enabled. If not, enable it manually:
 
-<!-- end list -->
+<!-- -->
 
 4.  To get the permissions that you need to create instances and databases, ask your administrator to grant you the [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `roles/spanner.admin` ) IAM role on your project.
 
-<!-- end list -->
+<!-- -->
 
 5.  To get the permissions that you need to query Spanner graphs if you're not granted the Cloud Spanner Admin role, ask your administrator to grant you the [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` ) IAM role on your project.
 
@@ -56,12 +56,12 @@ When you first use Spanner, you must create an [instance](https://docs.cloud.goo
 2.  Select or create a Google Cloud project if you haven't done so already.
 
 3.  Do one of the following:
-    
+
     1.  If you haven't created a Spanner instance before, on the **Welcome to Spanner** page, click **Create a provisioned instance** .
     2.  If you've created a Spanner instance, on the **Instances** page, click **Create instance** .
 
 4.  On the **Select an edition** page, select **Enterprise Plus** or **Enterprise** .
-    
+
     Spanner vector search is available only in the Enterprise edition or Enterprise Plus edition. To compare the different editions, click **Compare editions** . For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 5.  Click **Continue** .
@@ -73,13 +73,13 @@ When you first use Spanner, you must create an [instance](https://docs.cloud.goo
 8.  Click **Continue** .
 
 9.  In **Choose a configuration** , do the following:
-    
+
     1.  Keep **Regional** selected.
     2.  In **Select a configuration** , select a region. The region you select is where your instances are stored and replicated.
     3.  Click **Continue** .
 
 10. In **Configure compute capacity** , do the following:
-    
+
     1.  In **Select unit** , select **Processing units (PUs)** .
     2.  In **Choose a scaling mode** , keep **Manual allocation** selected and in **Quantity** keep 1000 processing units.
 
@@ -98,12 +98,12 @@ After your instance starts running, you can create your database. You define you
 4.  In **Database name** , enter a database name. For example, `example-db` .
 
 5.  In **Select database dialect** , choose Google Standard SQL.
-    
+
     Spanner vector search isn't available in the PostgreSQL dialect.
 
 6.  Copy and paste the following schema into the **DDL Templates** editor tab. The schema defines a `Products` table.
-    
-    ``` 
+
+    ```
       CREATE TABLE products (
         categoryId INT64 NOT NULL,
         productId INT64 NOT NULL,
@@ -134,22 +134,24 @@ The following example demonstrates how to register an Agent Platform [text embed
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 3.  Enter:
-    
-        CREATE MODEL EmbeddingsModel INPUT(
-        content STRING(MAX),
-        ) OUTPUT(
-        embeddings STRUCT<values ARRAY<FLOAT32>>,
-        ) REMOTE OPTIONS (
-        endpoint = '//aiplatform.googleapis.com/projects/PROJECT_ID/locations/us-central1/publishers/google/models/TEXT_EMBEDDING_MODEL'
-        );
-    
+
+    ```
+    CREATE MODEL EmbeddingsModel INPUT(
+    content STRING(MAX),
+    ) OUTPUT(
+    embeddings STRUCT<values ARRAY<FLOAT32>>,
+    ) REMOTE OPTIONS (
+    endpoint = '//aiplatform.googleapis.com/projects/PROJECT_ID/locations/us-central1/publishers/google/models/TEXT_EMBEDDING_MODEL'
+    );
+    ```
+
     Replace the following:
-    
-      - PROJECT\_ID : a permanent identifier that is unique for your Google Cloud project.
-      - TEXT\_EMBEDDING\_MODEL : the name of the text embedding model. For a list of the Agent Platform text embedding models, see [Supported models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) .
+
+    - ` PROJECT_ID ` : a permanent identifier that is unique for your Google Cloud project.
+    - ` TEXT_EMBEDDING_MODEL ` : the name of the text embedding model. For a list of the Agent Platform text embedding models, see [Supported models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) .
 
 4.  Click **Run** to create the model.
-    
+
     After the model is added successfully, you'll see it displayed in the **Explorer** pane.
 
 ## Load data
@@ -157,18 +159,20 @@ The following example demonstrates how to register an Agent Platform [text embed
 To load the Cymbal sample data into the `products` table, do the following:
 
 1.  In a new tab in **Spanner Studio** , copy and paste the following insert statement:
-    
-        INSERT INTO products (categoryId, productId, productName, productDescription, createTime, inventoryCount, priceInCents)
-        VALUES (1, 1, "Cymbal Helios Helmet", "Safety meets style with the Cymbal children's bike helmet. Its lightweight design, superior ventilation, and adjustable fit ensure comfort and protection on every ride. Stay bright and keep your child safe under the sun with Cymbal Helios!", PENDING_COMMIT_TIMESTAMP(), 100, 10999),
-              (1, 2, "Cymbal Sprout", "Let their cycling journey begin with the Cymbal Sprout, the ideal balance bike for beginning riders ages 2-4 years. Its lightweight frame, low seat height, and puncture-proof tires promote stability and confidence as little ones learn to balance and steer. Watch them sprout into cycling enthusiasts with Cymbal Sprout!", PENDING_COMMIT_TIMESTAMP(), 10, 13999),
-              (1, 3, "Cymbal Spark Jr.", "Light, vibrant, and ready for adventure, the Spark Jr. is the perfect first bike for young riders (ages 5-8). Its sturdy frame, easy-to-use brakes, and puncture-resistant tires inspire confidence and endless playtime. Let the spark of cycling ignite with Cymbal!", PENDING_COMMIT_TIMESTAMP(), 34, 13900),
-              (1, 4, "Cymbal Summit", "Conquering trails is a breeze with the Summit mountain bike. Its lightweight aluminum frame, responsive suspension, and powerful disc brakes provide exceptional control and comfort for experienced bikers navigating rocky climbs or shredding downhill. Reach new heights with Cymbal Summit!", PENDING_COMMIT_TIMESTAMP(), 0, 79999),
-              (1, 5, "Cymbal Breeze", "Cruise in style and embrace effortless pedaling with the Breeze electric bike. Its whisper-quiet motor and long-lasting battery let you conquer hills and distances with ease. Enjoy scenic rides, commutes, or errands with a boost of confidence from Cymbal Breeze!", PENDING_COMMIT_TIMESTAMP(), 72, 129999),
-              (1, 6, "Cymbal Trailblazer Backpack", "Carry all your essentials in style with the Trailblazer backpack. Its water-resistant material, multiple compartments, and comfortable straps keep your gear organized and accessible, allowing you to focus on the adventure. Blaze new trails with Cymbal Trailblazer!", PENDING_COMMIT_TIMESTAMP(), 24, 7999),
-              (1, 7, "Cymbal Phoenix Lights", "See and be seen with the Phoenix bike lights. Powerful LEDs and multiple light modes ensure superior visibility, enhancing your safety and enjoyment during day or night rides. Light up your journey with Cymbal Phoenix!", PENDING_COMMIT_TIMESTAMP(), 87, 3999),
-              (1, 8, "Cymbal Windstar Pump", "Flat tires are no match for the Windstar pump. Its compact design, lightweight construction, and high-pressure capacity make inflating tires quick and effortless. Get back on the road in no time with Cymbal Windstar!", PENDING_COMMIT_TIMESTAMP(), 36, 24999),
-              (1, 9,"Cymbal Odyssey Multi-Tool","Be prepared for anything with the Odyssey multi-tool. This handy gadget features essential tools like screwdrivers, hex wrenches, and tire levers, keeping you ready for minor repairs and adjustments on the go. Conquer your journey with Cymbal Odyssey!", PENDING_COMMIT_TIMESTAMP(), 52, 999),
-              (1, 10,"Cymbal Nomad Water Bottle","Stay hydrated on every ride with the Nomad water bottle. Its sleek design, BPA-free construction, and secure lock lid make it the perfect companion for staying refreshed and motivated throughout your adventures. Hydrate and explore with Cymbal Nomad!", PENDING_COMMIT_TIMESTAMP(), 42, 1299);
+
+    ```
+    INSERT INTO products (categoryId, productId, productName, productDescription, createTime, inventoryCount, priceInCents)
+    VALUES (1, 1, "Cymbal Helios Helmet", "Safety meets style with the Cymbal children's bike helmet. Its lightweight design, superior ventilation, and adjustable fit ensure comfort and protection on every ride. Stay bright and keep your child safe under the sun with Cymbal Helios!", PENDING_COMMIT_TIMESTAMP(), 100, 10999),
+          (1, 2, "Cymbal Sprout", "Let their cycling journey begin with the Cymbal Sprout, the ideal balance bike for beginning riders ages 2-4 years. Its lightweight frame, low seat height, and puncture-proof tires promote stability and confidence as little ones learn to balance and steer. Watch them sprout into cycling enthusiasts with Cymbal Sprout!", PENDING_COMMIT_TIMESTAMP(), 10, 13999),
+          (1, 3, "Cymbal Spark Jr.", "Light, vibrant, and ready for adventure, the Spark Jr. is the perfect first bike for young riders (ages 5-8). Its sturdy frame, easy-to-use brakes, and puncture-resistant tires inspire confidence and endless playtime. Let the spark of cycling ignite with Cymbal!", PENDING_COMMIT_TIMESTAMP(), 34, 13900),
+          (1, 4, "Cymbal Summit", "Conquering trails is a breeze with the Summit mountain bike. Its lightweight aluminum frame, responsive suspension, and powerful disc brakes provide exceptional control and comfort for experienced bikers navigating rocky climbs or shredding downhill. Reach new heights with Cymbal Summit!", PENDING_COMMIT_TIMESTAMP(), 0, 79999),
+          (1, 5, "Cymbal Breeze", "Cruise in style and embrace effortless pedaling with the Breeze electric bike. Its whisper-quiet motor and long-lasting battery let you conquer hills and distances with ease. Enjoy scenic rides, commutes, or errands with a boost of confidence from Cymbal Breeze!", PENDING_COMMIT_TIMESTAMP(), 72, 129999),
+          (1, 6, "Cymbal Trailblazer Backpack", "Carry all your essentials in style with the Trailblazer backpack. Its water-resistant material, multiple compartments, and comfortable straps keep your gear organized and accessible, allowing you to focus on the adventure. Blaze new trails with Cymbal Trailblazer!", PENDING_COMMIT_TIMESTAMP(), 24, 7999),
+          (1, 7, "Cymbal Phoenix Lights", "See and be seen with the Phoenix bike lights. Powerful LEDs and multiple light modes ensure superior visibility, enhancing your safety and enjoyment during day or night rides. Light up your journey with Cymbal Phoenix!", PENDING_COMMIT_TIMESTAMP(), 87, 3999),
+          (1, 8, "Cymbal Windstar Pump", "Flat tires are no match for the Windstar pump. Its compact design, lightweight construction, and high-pressure capacity make inflating tires quick and effortless. Get back on the road in no time with Cymbal Windstar!", PENDING_COMMIT_TIMESTAMP(), 36, 24999),
+          (1, 9,"Cymbal Odyssey Multi-Tool","Be prepared for anything with the Odyssey multi-tool. This handy gadget features essential tools like screwdrivers, hex wrenches, and tire levers, keeping you ready for minor repairs and adjustments on the go. Conquer your journey with Cymbal Odyssey!", PENDING_COMMIT_TIMESTAMP(), 52, 999),
+          (1, 10,"Cymbal Nomad Water Bottle","Stay hydrated on every ride with the Nomad water bottle. Its sleek design, BPA-free construction, and secure lock lid make it the perfect companion for staying refreshed and motivated throughout your adventures. Hydrate and explore with Cymbal Nomad!", PENDING_COMMIT_TIMESTAMP(), 42, 1299);
+    ```
 
 2.  Click **Run** to insert the data.
 
@@ -179,15 +183,17 @@ After you register a model and load data into Spanner, you can generate vector e
 In this step, you'll populate the `productDescriptionEmbedding` column by generating embeddings from the `productDescription` column using `ML.PREDICT` . This lets you perform a vector similarity search in the next step.
 
 1.  In a new tab in **Spanner Studio** , copy and paste the following update statement:
-    
-        UPDATE products p1
-        SET productDescriptionEmbedding =
-          (SELECT embeddings.values
-            FROM ML.PREDICT(MODEL EmbeddingsModel,
-              (SELECT p1.productDescription as content)
-            )
-          )
-        WHERE categoryId=1;
+
+    ```
+    UPDATE products p1
+    SET productDescriptionEmbedding =
+      (SELECT embeddings.values
+        FROM ML.PREDICT(MODEL EmbeddingsModel,
+          (SELECT p1.productDescription as content)
+        )
+      )
+    WHERE categoryId=1;
+    ```
 
 2.  Click **Run** to generate the embeddings.
 
@@ -195,64 +201,66 @@ In this step, you'll populate the `productDescriptionEmbedding` column by genera
 
 In the following example, you provide a natural language search request using a SQL query. The SQL query performs a vector similarity search using the vector embeddings you generated previously. The query performs the search by doing the following:
 
-  - Uses `ML.PREDICT` to generate an embedding for the given search query ("I'd like to buy a starter bike for my 3 year old child").
-  - Calculates the [`COSINE_DISTANCE`](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) between this query embedding and the `productDescriptionEmbedding` of each product in the products table to find similar results in your Cymbal store.
-  - Filters the results to only include products with an `inventoryCount` greater than 0.
-  - Orders the results by the calculated distance and returns the top five closest matches, along with the `productName` , `productDescription` , and `inventoryCount` .
-
-<!-- end list -->
+- Uses `ML.PREDICT` to generate an embedding for the given search query ("I'd like to buy a starter bike for my 3 year old child").
+- Calculates the [`COSINE_DISTANCE`](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) between this query embedding and the `productDescriptionEmbedding` of each product in the products table to find similar results in your Cymbal store.
+- Filters the results to only include products with an `inventoryCount` greater than 0.
+- Orders the results by the calculated distance and returns the top five closest matches, along with the `productName` , `productDescription` , and `inventoryCount` .
 
 1.  In a new tab in **Spanner Studio** , copy and paste the following query:
-    
-        SELECT productName, productDescription, inventoryCount,
-          COSINE_DISTANCE(
-            productDescriptionEmbedding,
-            (
-              SELECT embeddings.values
-              FROM
-                ML.PREDICT(
-                  MODEL EmbeddingsModel,
-                  (SELECT "I'd like to buy a starter bike for my 3 year old child" AS content))
-            )) AS distance
-        FROM products
-        WHERE inventoryCount > 0
-        ORDER BY distance
-        LIMIT 5;
+
+    ```
+    SELECT productName, productDescription, inventoryCount,
+      COSINE_DISTANCE(
+        productDescriptionEmbedding,
+        (
+          SELECT embeddings.values
+          FROM
+            ML.PREDICT(
+              MODEL EmbeddingsModel,
+              (SELECT "I'd like to buy a starter bike for my 3 year old child" AS content))
+        )) AS distance
+    FROM products
+    WHERE inventoryCount > 0
+    ORDER BY distance
+    LIMIT 5;
+    ```
 
 2.  Click **Run** to return the products that best match your search text.
-    
+
     Example output:
-    
-        /*-----------------+--------------------+----------------+--------------------*
-        | productName      | productDescription | inventoryCount | distance           |
-        +------------------+--------------------+----------------+--------------------+
-        | Cymbal Sprout    | Let their cycling  | 10             | 0.3094387191860244 |
-        |                  | journey begin with |                |                    |
-        |                  | the Cymbal Sprout, |                |                    |
-        |                  | the ideal balance  |                |                    |
-        |                  | bike for beginning |                |                    |
-        |                  | riders ages 2-4    |                |                    |
-        |                  | years...           |                |                    |
-        | Cymbal Spark Jr  | Light, vibrant,    | 34             | 0.3412342902117166 |
-        |                  | and ready for      |                |                    |
-        |                  | adventure, the     |                |                    |
-        |                  | Spark Jr. is the   |                |                    |
-        |                  | perfect first bike |                |                    |
-        |                  | for young riders   |                |                    |
-        |                  | (ages 5-8)...      |                |                    |
-        | Cymbal Helios    | Safety meets style | 100            | 0.4197863319656684 |
-        | Helmet           | with the Cymbal    |                |                    |
-        |                  | children's bike    |                |                    |
-        |                  | helmet...          |                |                    |
-        | Cymbal Breeze    | Cruise in style and| 72             | 0.485231776523978  |
-        |                  | embrace effortless |                |                    |
-        |                  | pedaling with the  |                |                    |
-        |                  | Breeze electric    |                |                    |
-        |                  | bike...            |                |                    |
-        | Cymbal Phoenix   | See and be seen    | 87             | 0.525101413779242  |
-        | Lights           | with the Phoenix   |                |                    |
-        |                  | bike lights...     |                |                    |
-        *------------------+--------------------+----------------+--------------------*/
+
+    ```
+    /*-----------------+--------------------+----------------+--------------------*
+    | productName      | productDescription | inventoryCount | distance           |
+    +------------------+--------------------+----------------+--------------------+
+    | Cymbal Sprout    | Let their cycling  | 10             | 0.3094387191860244 |
+    |                  | journey begin with |                |                    |
+    |                  | the Cymbal Sprout, |                |                    |
+    |                  | the ideal balance  |                |                    |
+    |                  | bike for beginning |                |                    |
+    |                  | riders ages 2-4    |                |                    |
+    |                  | years...           |                |                    |
+    | Cymbal Spark Jr  | Light, vibrant,    | 34             | 0.3412342902117166 |
+    |                  | and ready for      |                |                    |
+    |                  | adventure, the     |                |                    |
+    |                  | Spark Jr. is the   |                |                    |
+    |                  | perfect first bike |                |                    |
+    |                  | for young riders   |                |                    |
+    |                  | (ages 5-8)...      |                |                    |
+    | Cymbal Helios    | Safety meets style | 100            | 0.4197863319656684 |
+    | Helmet           | with the Cymbal    |                |                    |
+    |                  | children's bike    |                |                    |
+    |                  | helmet...          |                |                    |
+    | Cymbal Breeze    | Cruise in style and| 72             | 0.485231776523978  |
+    |                  | embrace effortless |                |                    |
+    |                  | pedaling with the  |                |                    |
+    |                  | Breeze electric    |                |                    |
+    |                  | bike...            |                |                    |
+    | Cymbal Phoenix   | See and be seen    | 87             | 0.525101413779242  |
+    | Lights           | with the Phoenix   |                |                    |
+    |                  | bike lights...     |                |                    |
+    *------------------+--------------------+----------------+--------------------*/
+    ```
 
 ## Scale vector search to use approximate nearest neighbors
 
@@ -262,8 +270,8 @@ If your workloads aren't partitionable, and you have a large amount of data, you
 
 To scale and use ANN vector search in Spanner, do the following:
 
-  - [Create a vector index](https://docs.cloud.google.com/spanner/docs/vector-search-tutorial#create-vector-index)
-  - [Modify your query to use an ANN distance function](https://docs.cloud.google.com/spanner/docs/vector-search-tutorial#use-ANN-function)
+- [Create a vector index](https://docs.cloud.google.com/spanner/docs/vector-search-tutorial#create-vector-index)
+- [Modify your query to use an ANN distance function](https://docs.cloud.google.com/spanner/docs/vector-search-tutorial#use-ANN-function)
 
 ### Create a vector index
 
@@ -272,33 +280,39 @@ Spanner accelerates ANN vector searches by using a specialized vector index that
 To create a vector index in your dataset, you need to modify the `productDescriptionEmbeddings` column to define a `vector_length` annotation. The `vector_length` annotation indicates the dimension of each vector. The following DDL statements drops the `productDescriptionEmbedding` column, and re-creates it with the `vector_length` . The maximum length (dimension) of the vector varies depending on the [embedding model](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) you've chosen.
 
 1.  In a new tab in **Spanner Studio** , copy and paste the following DDL statement to re-create the `productDescriptionEmbedding` column:
-    
-        ALTER TABLE products DROP COLUMN productDescriptionEmbedding;
-        ALTER TABLE products
-          ADD COLUMN productDescriptionEmbedding ARRAY<FLOAT32>(vector_length=>VECTOR_LENGTH_VALUE);
-    
-    Replace `  VECTOR_LENGTH_VALUE  ` with the maximum output dimensions of the embedding model you've chosen.
+
+    ```
+    ALTER TABLE products DROP COLUMN productDescriptionEmbedding;
+    ALTER TABLE products
+      ADD COLUMN productDescriptionEmbedding ARRAY<FLOAT32>(vector_length=>VECTOR_LENGTH_VALUE);
+    ```
+
+    Replace `VECTOR_LENGTH_VALUE` with the maximum output dimensions of the embedding model you've chosen.
 
 2.  Click **Run** .
 
 3.  Copy and paste the following insert statement to re-generate the vector embeddings:
-    
-        UPDATE products p1
-        SET productDescriptionEmbedding =
-        (SELECT embeddings.values from ML.PREDICT(MODEL EmbeddingsModel,
-        (SELECT p1.productDescription as content)))
-        WHERE categoryId=1;
+
+    ```
+    UPDATE products p1
+    SET productDescriptionEmbedding =
+    (SELECT embeddings.values from ML.PREDICT(MODEL EmbeddingsModel,
+    (SELECT p1.productDescription as content)))
+    WHERE categoryId=1;
+    ```
 
 4.  Click **Run** .
 
 5.  Copy and paste the following DDL statement to create the vector index:
-    
-        CREATE VECTOR INDEX ProductDescriptionEmbeddingIndex
-            ON products(productDescriptionEmbedding)
-            WHERE productDescriptionEmbedding IS NOT NULL
-        OPTIONS (
-        distance_type = 'COSINE'
-        );
+
+    ```
+    CREATE VECTOR INDEX ProductDescriptionEmbeddingIndex
+        ON products(productDescriptionEmbedding)
+        WHERE productDescriptionEmbedding IS NOT NULL
+    OPTIONS (
+    distance_type = 'COSINE'
+    );
+    ```
 
 6.  Click **Run** .
 
@@ -308,70 +322,72 @@ To create a vector index in your dataset, you need to modify the `productDescrip
 
 To use ANN vector search in Spanner, modify the following in your SQL query:
 
-  - Generate the prompt embedding separately, instead of within the SQL query.
-  - Copy the results of the embeddings into the query.
-  - Use the `FORCE_INDEX` hint to reference the new vector index: `@{force_index=ProductDescriptionEmbeddingIndex}`
-  - Use the `APPROX_COSINE_DISTANCE` vector distance function instead of `COSINE_DISTANCE` . The `JSON '{"num_leaves_to_search": num_leaves }'` option is required.
-
-<!-- end list -->
+- Generate the prompt embedding separately, instead of within the SQL query.
+- Copy the results of the embeddings into the query.
+- Use the `FORCE_INDEX` hint to reference the new vector index: `@{force_index=ProductDescriptionEmbeddingIndex}`
+- Use the `APPROX_COSINE_DISTANCE` vector distance function instead of `COSINE_DISTANCE` . The `JSON '{"num_leaves_to_search": `` num_leaves `` }'` option is required.
 
 1.  In a new tab in **Spanner Studio** , copy and paste the following query to generate the prompt embedding and perform vector search:
-    
-        -- Generate the prompt embedding
-        WITH embedding AS (
-          SELECT embeddings.values
-          FROM ML.PREDICT(
-            MODEL EmbeddingsModel,
-              (SELECT "I'd like to buy a starter bike for my 3 year old child" as content)
-          )
-        )
-        -- Use embedding to find the most similar entries in the database
-        SELECT productName, productDescription, inventoryCount,
-          (APPROX_COSINE_DISTANCE(productDescriptionEmbedding,
-           embedding.values,
-          options => JSON '{"num_leaves_to_search": 10}')) as distance
-        FROM products @{force_index=ProductDescriptionEmbeddingIndex}, embedding
-        WHERE productDescriptionEmbedding IS NOT NULL AND inventoryCount > 0
-        ORDER BY distance
-        LIMIT 5;
+
+    ```
+    -- Generate the prompt embedding
+    WITH embedding AS (
+      SELECT embeddings.values
+      FROM ML.PREDICT(
+        MODEL EmbeddingsModel,
+          (SELECT "I'd like to buy a starter bike for my 3 year old child" as content)
+      )
+    )
+    -- Use embedding to find the most similar entries in the database
+    SELECT productName, productDescription, inventoryCount,
+      (APPROX_COSINE_DISTANCE(productDescriptionEmbedding,
+       embedding.values,
+      options => JSON '{"num_leaves_to_search": 10}')) as distance
+    FROM products @{force_index=ProductDescriptionEmbeddingIndex}, embedding
+    WHERE productDescriptionEmbedding IS NOT NULL AND inventoryCount > 0
+    ORDER BY distance
+    LIMIT 5;
+    ```
 
 2.  Click **Run** .
-    
+
     Example output:
-    
-        /*-----------------+--------------------+----------------+--------------------*
-        | productName      | productDescription | inventoryCount | distance           |
-        +------------------+--------------------+----------------+--------------------+
-        | Cymbal Sprout    | Let their cycling  | 10             | 0.30935457151661594|
-        |                  | journey begin with |                |                    |
-        |                  | the Cymbal Sprout, |                |                    |
-        |                  | the ideal balance  |                |                    |
-        |                  | bike for beginning |                |                    |
-        |                  | riders ages 2-4    |                |                    |
-        |                  | years...           |                |                    |
-        | Cymbal Spark Jr  | Light, vibrant,    | 34             | 0.34116496551593656|
-        |                  | and ready for      |                |                    |
-        |                  | adventure, the     |                |                    |
-        |                  | Spark Jr. is the   |                |                    |
-        |                  | perfect first bike |                |                    |
-        |                  | for young riders   |                |                    |
-        |                  | (ages 5-8)...      |                |                    |
-        | Cymbal Helios    | Safety meets style | 100            | 0.4198014303921187 |
-        | Helmet           | with the Cymbal    |                |                    |
-        |                  | children's bike    |                |                    |
-        |                  | helmet...          |                |                    |
-        | Cymbal Breeze    | Cruise in style and| 72             | 0.4850674854267337 |
-        |                  | embrace effortless |                |                    |
-        |                  | pedaling with the  |                |                    |
-        |                  | Breeze electric    |                |                    |
-        |                  | bike...            |                |                    |
-        | Cymbal Phoenix   | See and be seen    | 87             | 0.525101413779242  |
-        | Lights           | with the Phoenix   |                |                    |
-        |                  | bike lights...     |                |                    |
-        *------------------+--------------------+----------------+--------------------*/
-    
+
+    ```
+    /*-----------------+--------------------+----------------+--------------------*
+    | productName      | productDescription | inventoryCount | distance           |
+    +------------------+--------------------+----------------+--------------------+
+    | Cymbal Sprout    | Let their cycling  | 10             | 0.30935457151661594|
+    |                  | journey begin with |                |                    |
+    |                  | the Cymbal Sprout, |                |                    |
+    |                  | the ideal balance  |                |                    |
+    |                  | bike for beginning |                |                    |
+    |                  | riders ages 2-4    |                |                    |
+    |                  | years...           |                |                    |
+    | Cymbal Spark Jr  | Light, vibrant,    | 34             | 0.34116496551593656|
+    |                  | and ready for      |                |                    |
+    |                  | adventure, the     |                |                    |
+    |                  | Spark Jr. is the   |                |                    |
+    |                  | perfect first bike |                |                    |
+    |                  | for young riders   |                |                    |
+    |                  | (ages 5-8)...      |                |                    |
+    | Cymbal Helios    | Safety meets style | 100            | 0.4198014303921187 |
+    | Helmet           | with the Cymbal    |                |                    |
+    |                  | children's bike    |                |                    |
+    |                  | helmet...          |                |                    |
+    | Cymbal Breeze    | Cruise in style and| 72             | 0.4850674854267337 |
+    |                  | embrace effortless |                |                    |
+    |                  | pedaling with the  |                |                    |
+    |                  | Breeze electric    |                |                    |
+    |                  | bike...            |                |                    |
+    | Cymbal Phoenix   | See and be seen    | 87             | 0.525101413779242  |
+    | Lights           | with the Phoenix   |                |                    |
+    |                  | bike lights...     |                |                    |
+    *------------------+--------------------+----------------+--------------------*/
+    ```
+
     The Cymbal Sprout, with its `APPROX_COSINE_DISTANCE` of 0.30935457151661594, has the highest degree of similarity to the original query.
-    
+
     For more information about interpreting the relationship between vector functions and similarity, see [Choose among vector distance functions to measure vector embeddings similarity](https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function) .
 
 ## Clean up
@@ -404,6 +420,6 @@ This section shows you how to use the Google Cloud console to clean up your reso
 
 ## What's next?
 
-  - Learn more about Spanner's [k-nearest neighbor (KNN) feature](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
-  - Learn more about Spanner's [approximate nearest neighbor (ANN) feature](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
-  - Learn more about how to [perform online predictions with SQL using Agent Platform](https://docs.cloud.google.com/spanner/docs/ml) .
+- Learn more about Spanner's [k-nearest neighbor (KNN) feature](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
+- Learn more about Spanner's [approximate nearest neighbor (ANN) feature](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
+- Learn more about how to [perform online predictions with SQL using Agent Platform](https://docs.cloud.google.com/spanner/docs/ml) .

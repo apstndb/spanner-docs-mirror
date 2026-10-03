@@ -14,30 +14,30 @@ The PostgreSQL interface supports the following `psql` meta-commands categories:
 
 > **Note: Enter the `\?` command to see the commands under each category.**
 
-  - General
-  - Help
-  - Query Buffer
-  - Input/Output
-  - Conditional
-  - Informational (some \\d commands only)
-  - Formatting
-  - Operating System
-  - Variables
+- General
+- Help
+- Query Buffer
+- Input/Output
+- Conditional
+- Informational (some \d commands only)
+- Formatting
+- Operating System
+- Variables
 
 The following categories are not supported:
 
-  - Connection
-  - Large Objects
+- Connection
+- Large Objects
 
 The following informational commands are supported:
 
-| Command    | Description                           |
-| ---------- | ------------------------------------- |
-| \\d        | List tables (excluding system tables) |
-| \\d table  | List table columns                    |
-| \\dt       | List tables in all schemas (detailed) |
-| \\dt table | List table (detailed)                 |
-| \\dn       | List schemas                          |
+| Command       | Description                           |
+|---------------|---------------------------------------|
+| \d            | List tables (excluding system tables) |
+| \d ` table `  | List table columns                    |
+| \dt           | List tables in all schemas (detailed) |
+| \dt ` table ` | List table (detailed)                 |
+| \dn           | List schemas                          |
 
 ## Session management statements
 
@@ -57,20 +57,26 @@ Explicit `BEGIN` and `COMMIT` transaction controls are supported, but an explici
 
 The following example shows how to submit a batch of `INSERT` statements.
 
-    psql -h localhost -p 5432 -c "INSERT INTO users (id, age, firstname) VALUES (1, 25, 'Alex'); \
-     INSERT INTO users (id, age, firstname) VALUES (2, 31, 'Dana'); \
-     INSERT INTO users (id, age, firstname) VALUES (3, 54, 'Izumi');"
+```
+psql -h localhost -p 5432 -c "INSERT INTO users (id, age, firstname) VALUES (1, 25, 'Alex'); \
+ INSERT INTO users (id, age, firstname) VALUES (2, 31, 'Dana'); \
+ INSERT INTO users (id, age, firstname) VALUES (3, 54, 'Izumi');"
+```
 
 The next example shows how to execute the SQL statements in the file `insert_contacts.sql` .
 
-    psql -h localhost -c "$(cat contacts_insert.sql)"
+```
+psql -h localhost -c "$(cat contacts_insert.sql)"
+```
 
 #### DDL
 
 This example submits a batch of `ALTER TABLE` statements.
 
-    psql -h localhost -p 5432 test-db -c "ALTER TABLE users ADD col1 integer; \
-     ALTER TABLE users ADD col2 text; ALTER TABLE users ADD col3 float8;"
+```
+psql -h localhost -p 5432 test-db -c "ALTER TABLE users ADD col1 integer; \
+ ALTER TABLE users ADD col2 text; ALTER TABLE users ADD col3 float8;"
+```
 
 ## COPY command for importing data
 
@@ -78,15 +84,15 @@ Use the `COPY FROM STDIN` command to import data from a text or CSV file into a 
 
 There are two ways to execute the `COPY` command:
 
-  - Atomic `COPY`
-    
-    Data is copied in a single transaction. This is the default. Standard transaction limits of Spanner apply to the transaction. This means that at most 80,000 mutations or 100MB of data can be included in one `COPY` operation.
+- Atomic `COPY`
 
-  - Non-atomic `COPY`
-    
-    `COPY` automatically splits the data over multiple transactions if the file contains more than 80,000 mutations or more than 100MB.
-    
-    If an error is encountered during the `COPY` and the operation aborts, some rows might already be persisted to the database. No rollback occurs. The transactions are executed in parallel, so data after the row in the import file that caused the error might be imported to the database before the `COPY` operation is halted.
+  Data is copied in a single transaction. This is the default. Standard transaction limits of Spanner apply to the transaction. This means that at most 80,000 mutations or 100MB of data can be included in one `COPY` operation.
+
+- Non-atomic `COPY`
+
+  `COPY` automatically splits the data over multiple transactions if the file contains more than 80,000 mutations or more than 100MB.
+
+  If an error is encountered during the `COPY` and the operation aborts, some rows might already be persisted to the database. No rollback occurs. The transactions are executed in parallel, so data after the row in the import file that caused the error might be imported to the database before the `COPY` operation is halted.
 
 ### Enable non-atomic `COPY`
 
@@ -96,44 +102,46 @@ To enable non-atomic `COPY` , submit the following command before executing the 
 
 ### Syntax
 
-    COPY table_name [ ( column_name [, ...] ) ]
-        FROM STDIN
-        [ [ WITH ] ( option [, ...] ) ]
-    
-    where option is one of:
-    
-        FORMAT format_name
-        DELIMITER 'delimiter_character'
-        NULL 'null_string'
-        QUOTE 'quote_character'
-        ESCAPE 'escape_character'
-        HEADER [boolean]
-    
-    and format_name is:
-        {text|csv}
-    
-    and delimiter_character is:
-        [!-~] except ' " \
-    
-    and null_string is:
-        {a—z|A—Z|0—9|_}+
-    
-    and quote_character is:
-        [!-~] except ' " \
-    
-    and escape_character is:
-        [!-~] except ' " \
-    
-    and boolean is:
-        {TRUE|ON|1|FALSE|OFF|0}
+```
+COPY table_name [ ( column_name [, ...] ) ]
+    FROM STDIN
+    [ [ WITH ] ( option [, ...] ) ]
+
+where option is one of:
+
+    FORMAT format_name
+    DELIMITER 'delimiter_character'
+    NULL 'null_string'
+    QUOTE 'quote_character'
+    ESCAPE 'escape_character'
+    HEADER [boolean]
+
+and format_name is:
+    {text|csv}
+
+and delimiter_character is:
+    [!-~] except ' " \
+
+and null_string is:
+    {a—z|A—Z|0—9|_}+
+
+and quote_character is:
+    [!-~] except ' " \
+
+and escape_character is:
+    [!-~] except ' " \
+
+and boolean is:
+    {TRUE|ON|1|FALSE|OFF|0}
+```
 
 The table must already exist. If no column list is specified, all columns of the table are copied.
 
 The default for `FORMAT` is `text` .
 
-***delimiter\_character*** must be a one-byte character. The default is the Tab character for text format and a comma for CSV format.
+***delimiter_character*** must be a one-byte character. The default is the Tab character for text format and a comma for CSV format.
 
-`NULL` specifies the string that represents a null value. The default is \\N (backslash+N) in text format, and an unquoted empty string in CSV format. You might prefer an empty string even in text format for cases where you don't want to distinguish nulls from empty strings.
+`NULL` specifies the string that represents a null value. The default is \N (backslash+N) in text format, and an unquoted empty string in CSV format. You might prefer an empty string even in text format for cases where you don't want to distinguish nulls from empty strings.
 
 `QUOTE` specifies the quoting character to use when a data value is quoted. The default is double quote. This must be a single one-byte character. This option is allowed only when using the CSV format.
 
@@ -145,17 +153,23 @@ The default for `FORMAT` is `text` .
 
 This example imports data from the text-formatted file named `mydata.txt` into table `mytable` . PGAdapter must be running. For more information, see [Starting PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
-    cat mydata.txt | psql -h localhost -c "COPY mytable FROM STDIN;"
+```
+cat mydata.txt | psql -h localhost -c "COPY mytable FROM STDIN;"
+```
 
 In this next example, `mydata.csv` is in CSV format and its first row is a header with comma-separated column names.
 
-    cat mydata.csv | psql -h localhost \
-      -c "COPY mytable FROM STDIN WITH (FORMAT csv, ESCAPE '~', HEADER TRUE);"
+```
+cat mydata.csv | psql -h localhost \
+  -c "COPY mytable FROM STDIN WITH (FORMAT csv, ESCAPE '~', HEADER TRUE);"
+```
 
 This next example shows how to start a non-atomic `COPY` operation.
 
-    cat mydata.txt | psql -h localhost \ 
-      -c "SET SPANNER.AUTOCOMMIT_DML_MODE='PARTITIONED_NON_ATOMIC'" -c "COPY mytable FROM STDIN;"
+```
+cat mydata.txt | psql -h localhost \ 
+  -c "SET SPANNER.AUTOCOMMIT_DML_MODE='PARTITIONED_NON_ATOMIC'" -c "COPY mytable FROM STDIN;"
+```
 
 ### Troubleshooting
 
@@ -179,5 +193,5 @@ This error occurs when a row in the input file doesn't include a value (or null)
 
 ## What's next
 
-  - Learn how to [connect to a PostgreSQL-dialect database with `psql`](https://docs.cloud.google.com/spanner/docs/psql-connect) .
-  - Learn about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
+- Learn how to [connect to a PostgreSQL-dialect database with `psql`](https://docs.cloud.google.com/spanner/docs/psql-connect) .
+- Learn about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .

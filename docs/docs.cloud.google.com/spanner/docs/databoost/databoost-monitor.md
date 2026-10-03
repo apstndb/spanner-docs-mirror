@@ -23,20 +23,20 @@ Follow these steps to track overall Data Boost usage:
 4.  In the **Metric** drop-down list, in the **Filter by resource or metric name** field, enter `spanner` and press `Enter` to narrow the search.
 
 5.  In the **Metric** list, select **Cloud Spanner Instance \> Instance \> Processing unit second** , and then click **Apply** .
-    
+
     This creates a line chart of aggregate Data Boost usage across all Spanner instances.
 
 6.  To view usage for a particular instance, follow these steps:
-    
+
     1.  Use the **Filter** field to add filters, such as the instance ID.
     2.  Click **+** to add other attributes.
 
 7.  To view a breakdown of usage by all instances, follow these steps:
-    
-    1.  Clear any filters by clicking the **X** icon next to the filter fields.
-    2.  In the **Aggregation** operator drop-down list, select **Sum** , and then select by **instance\_id** .
 
-8.  To break down usage by principal, in the **Aggregation** operator drop-down, select **Sum** , and then select by **credential\_id** .
+    1.  Clear any filters by clicking the **X** icon next to the filter fields.
+    2.  In the **Aggregation** operator drop-down list, select **Sum** , and then select by **instance_id** .
+
+8.  To break down usage by principal, in the **Aggregation** operator drop-down, select **Sum** , and then select by **credential_id** .
 
 ## Use audit logs to analyze Data Boost usage
 
@@ -61,21 +61,23 @@ To query the audit logs to view Data Boost usage by user, follow these steps:
 2.  In the navigation menu, click **Log Analytics** .
 
 3.  To show usage by user and database over the past 7 days, run the following query. To change the timespan for which usage is shown, modify the `timestamp` expression in the `WHERE` clause.
-    
-        SELECT
-          SUM(CAST(JSON_VALUE(labels.data_boost_usage) AS INT64)) AS usage,
-          REGEXP_EXTRACT(
-            proto_payload.audit_log.resource_name,
-            'projects/[^/]+/instances/[^/]+/databases/[^/]+') AS database,
-          proto_payload.audit_log.authentication_info.principal_email AS principal_email
-        FROM `PROJECT_NAME.global._Default._AllLogs`
-        WHERE
-          timestamp > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
-          AND resource.type = 'spanner_instance' AND operation.last IS NULL
-          AND JSON_VALUE(labels.data_boost_usage) != ''
-        GROUP BY database, principal_email;
-    
-    Replace `  PROJECT_NAME  ` with your project name.
+
+    ```
+    SELECT
+      SUM(CAST(JSON_VALUE(labels.data_boost_usage) AS INT64)) AS usage,
+      REGEXP_EXTRACT(
+        proto_payload.audit_log.resource_name,
+        'projects/[^/]+/instances/[^/]+/databases/[^/]+') AS database,
+      proto_payload.audit_log.authentication_info.principal_email AS principal_email
+    FROM `PROJECT_NAME.global._Default._AllLogs`
+    WHERE
+      timestamp > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+      AND resource.type = 'spanner_instance' AND operation.last IS NULL
+      AND JSON_VALUE(labels.data_boost_usage) != ''
+    GROUP BY database, principal_email;
+    ```
+
+    Replace `PROJECT_NAME` with your project name.
 
 The following example shows usage in processing units for 4 principals.
 
@@ -90,22 +92,24 @@ To query the audit logs to view Data Boost usage broken down by database, user, 
 2.  In the navigation menu, click **Log Analytics** .
 
 3.  Run the following query:
-    
-        SELECT
-          SUM(CAST(JSON_VALUE(labels.data_boost_usage) AS INT64)) AS usage,
-          REGEXP_EXTRACT(
-            proto_payload.audit_log.resource_name,
-            'projects/[^/]+/instances/[^/]+/databases/[^/]+') AS database,
-          proto_payload.audit_log.authentication_info.principal_email AS principal_email,
-          IFNULL(JSON_VALUE(labels.data_boost_workload_id), 'not from BigQuery') AS job_id
-        FROM `PROJECT_NAME.global._Default._AllLogs`
-        WHERE
-          timestamp > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
-          AND resource.type = 'spanner_instance' AND operation.last IS NULL
-          AND JSON_VALUE(labels.data_boost_usage) != ''
-        GROUP BY database, principal_email, job_id;
-    
-    Replace `  PROJECT_NAME  ` with your project name.
+
+    ```
+    SELECT
+      SUM(CAST(JSON_VALUE(labels.data_boost_usage) AS INT64)) AS usage,
+      REGEXP_EXTRACT(
+        proto_payload.audit_log.resource_name,
+        'projects/[^/]+/instances/[^/]+/databases/[^/]+') AS database,
+      proto_payload.audit_log.authentication_info.principal_email AS principal_email,
+      IFNULL(JSON_VALUE(labels.data_boost_workload_id), 'not from BigQuery') AS job_id
+    FROM `PROJECT_NAME.global._Default._AllLogs`
+    WHERE
+      timestamp > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+      AND resource.type = 'spanner_instance' AND operation.last IS NULL
+      AND JSON_VALUE(labels.data_boost_usage) != ''
+    GROUP BY database, principal_email, job_id;
+    ```
+
+    Replace `PROJECT_NAME` with your project name.
 
 The following example shows usage by BigQuery job ID.
 
@@ -120,38 +124,40 @@ To view Data Boost usage for multiple BigQuery jobs aggregated by the SQL text o
 2.  In the navigation menu, click **Log Analytics** .
 
 3.  Run the following query:
-    
-        SELECT
-          SUM(
-            CAST(
-              JSON_VALUE(db.labels.data_boost_usage)
-              AS INT64)) AS usage,
-          JSON_VALUE(
-            bq.proto_payload.audit_log.metadata.jobInsertion.job.jobConfig.queryConfig.query)
-            AS bq_query
-        FROM
-          `PROJECT_NAME.global._Default._AllLogs` db,
-          `PROJECT_NAME.global._Default._AllLogs` bq
-        WHERE
-          db.timestamp > TIMESTAMP_SUB(
-            CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
-          AND db.resource.type = 'spanner_instance'
-          AND JSON_VALUE(db.labels.data_boost_usage) != ''
-          AND db.operation.last IS NULL
-          AND bq.timestamp > TIMESTAMP_SUB(
-            CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
-          AND bq.proto_payload.audit_log.method_name
-            = 'google.cloud.bigquery.v2.JobService.InsertJob'
-          AND bq.resource.type = 'bigquery_project'
-          AND JSON_VALUE(
-            bq.proto_payload.audit_log.metadata.jobInsertion.job.jobConfig.queryConfig.query)
-            IS NOT NULL
-          AND JSON_VALUE(db.labels.data_boost_workload_id)
-            = REGEXP_EXTRACT(bq.proto_payload.audit_log.resource_name, '[^/]*$')
-        GROUP BY bq_query
-        ORDER BY usage DESC
-    
-    Replace `  PROJECT_NAME  ` with your project name.
+
+    ```
+    SELECT
+      SUM(
+        CAST(
+          JSON_VALUE(db.labels.data_boost_usage)
+          AS INT64)) AS usage,
+      JSON_VALUE(
+        bq.proto_payload.audit_log.metadata.jobInsertion.job.jobConfig.queryConfig.query)
+        AS bq_query
+    FROM
+      `PROJECT_NAME.global._Default._AllLogs` db,
+      `PROJECT_NAME.global._Default._AllLogs` bq
+    WHERE
+      db.timestamp > TIMESTAMP_SUB(
+        CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+      AND db.resource.type = 'spanner_instance'
+      AND JSON_VALUE(db.labels.data_boost_usage) != ''
+      AND db.operation.last IS NULL
+      AND bq.timestamp > TIMESTAMP_SUB(
+        CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+      AND bq.proto_payload.audit_log.method_name
+        = 'google.cloud.bigquery.v2.JobService.InsertJob'
+      AND bq.resource.type = 'bigquery_project'
+      AND JSON_VALUE(
+        bq.proto_payload.audit_log.metadata.jobInsertion.job.jobConfig.queryConfig.query)
+        IS NOT NULL
+      AND JSON_VALUE(db.labels.data_boost_workload_id)
+        = REGEXP_EXTRACT(bq.proto_payload.audit_log.resource_name, '[^/]*$')
+    GROUP BY bq_query
+    ORDER BY usage DESC
+    ```
+
+    Replace `PROJECT_NAME` with your project name.
 
 The following example shows Data Boost usage by SQL text.
 
@@ -163,4 +169,4 @@ To create an alert that is issued when Data Boost usage exceeds a predefined thr
 
 ## What's next
 
-  - Learn about Data Boost in [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
+- Learn about Data Boost in [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .

@@ -10,5 +10,5 @@ Hibernate is an object-relational mapping tool for the Java programming language
 
 For more information about integrating databases with Hibernate, see the following:
 
-  - [Integrate Spanner with Hibernate ORM (GoogleSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-hibernate)
-  - [Integrate Spanner with Hibernate ORM (PostgreSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-hibernate-postgresql)
+- [Integrate Spanner with Hibernate ORM (GoogleSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-hibernate)
+- [Integrate Spanner with Hibernate ORM (PostgreSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-hibernate-postgresql)

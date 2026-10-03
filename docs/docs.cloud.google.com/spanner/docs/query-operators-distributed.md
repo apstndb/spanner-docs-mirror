@@ -10,14 +10,14 @@ data_source: docs.cloud.google.com
 
 The following operators are distributed operators:
 
-  - [Distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union)
-  - [Distributed apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-apply)
-      - [Distributed cross apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-cross-apply)
-      - [Distributed outer apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-outer-apply)
-      - [Distributed semi apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-semi-apply)
-      - [Distributed anti-semi apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-anti-semi-apply)
-  - [Distributed merge union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-merge-union)
-  - [Push broadcast hash join](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#push-broadcast-hash-join)
+- [Distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union)
+- [Distributed apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-apply)
+  - [Distributed cross apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-cross-apply)
+  - [Distributed outer apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-outer-apply)
+  - [Distributed semi apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-semi-apply)
+  - [Distributed anti-semi apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-anti-semi-apply)
+- [Distributed merge union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-merge-union)
+- [Push broadcast hash join](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#push-broadcast-hash-join)
 
 > **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
@@ -25,79 +25,83 @@ The following operators are distributed operators:
 
 The queries and execution plans on this page are based on the following database schema:
 
-    CREATE TABLE Singers (
-      SingerId   INT64 NOT NULL,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-      SingerInfo BYTES(MAX),
-      BirthDate  DATE
-    ) PRIMARY KEY(SingerId);
-    
-    CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
-    
-    CREATE TABLE Albums (
-      SingerId        INT64 NOT NULL,
-      AlbumId         INT64 NOT NULL,
-      AlbumTitle      STRING(MAX),
-      MarketingBudget INT64
-    ) PRIMARY KEY(SingerId, AlbumId),
-      INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
-    
-    CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
-    
-    CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget);
-    
-    CREATE TABLE Songs (
-      SingerId  INT64 NOT NULL,
-      AlbumId   INT64 NOT NULL,
-      TrackId   INT64 NOT NULL,
-      SongName  STRING(MAX),
-      Duration  INT64,
-      SongGenre STRING(25)
-    ) PRIMARY KEY(SingerId, AlbumId, TrackId),
-      INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
-    
-    CREATE INDEX SongsBySingerAlbumSongNameDesc ON Songs(SingerId, AlbumId, SongName DESC), INTERLEAVE IN Albums;
-    
-    CREATE INDEX SongsBySongName ON Songs(SongName);
-    
-    CREATE TABLE Concerts (
-      VenueId      INT64 NOT NULL,
-      SingerId     INT64 NOT NULL,
-      ConcertDate  DATE NOT NULL,
-      BeginTime    TIMESTAMP,
-      EndTime      TIMESTAMP,
-      TicketPrices ARRAY<INT64>
-    ) PRIMARY KEY(VenueId, SingerId, ConcertDate);
+```
+CREATE TABLE Singers (
+  SingerId   INT64 NOT NULL,
+  FirstName  STRING(1024),
+  LastName   STRING(1024),
+  SingerInfo BYTES(MAX),
+  BirthDate  DATE
+) PRIMARY KEY(SingerId);
+
+CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
+
+CREATE TABLE Albums (
+  SingerId        INT64 NOT NULL,
+  AlbumId         INT64 NOT NULL,
+  AlbumTitle      STRING(MAX),
+  MarketingBudget INT64
+) PRIMARY KEY(SingerId, AlbumId),
+  INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+
+CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
+
+CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget);
+
+CREATE TABLE Songs (
+  SingerId  INT64 NOT NULL,
+  AlbumId   INT64 NOT NULL,
+  TrackId   INT64 NOT NULL,
+  SongName  STRING(MAX),
+  Duration  INT64,
+  SongGenre STRING(25)
+) PRIMARY KEY(SingerId, AlbumId, TrackId),
+  INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
+
+CREATE INDEX SongsBySingerAlbumSongNameDesc ON Songs(SingerId, AlbumId, SongName DESC), INTERLEAVE IN Albums;
+
+CREATE INDEX SongsBySongName ON Songs(SongName);
+
+CREATE TABLE Concerts (
+  VenueId      INT64 NOT NULL,
+  SingerId     INT64 NOT NULL,
+  ConcertDate  DATE NOT NULL,
+  BeginTime    TIMESTAMP,
+  EndTime      TIMESTAMP,
+  TicketPrices ARRAY<INT64>
+) PRIMARY KEY(VenueId, SingerId, ConcertDate);
+```
 
 You can use the following Data Manipulation Language (DML) statements to add data to these tables:
 
-    INSERT INTO Singers (SingerId, FirstName, LastName, BirthDate)
-    VALUES (1, "Marc", "Richards", "1970-09-03"),
-           (2, "Catalina", "Smith", "1990-08-17"),
-           (3, "Alice", "Trentor", "1991-10-02"),
-           (4, "Lea", "Martin", "1991-11-09"),
-           (5, "David", "Lomond", "1977-01-29");
-    
-    INSERT INTO Albums (SingerId, AlbumId, AlbumTitle)
-    VALUES (1, 1, "Total Junk"),
-           (1, 2, "Go, Go, Go"),
-           (2, 1, "Green"),
-           (2, 2, "Forever Hold Your Peace"),
-           (2, 3, "Terrified"),
-           (3, 1, "Nothing To Do With Me"),
-           (4, 1, "Play");
-    
-    INSERT INTO Songs (SingerId, AlbumId, TrackId, SongName, Duration, SongGenre)
-    VALUES (2, 1, 1, "Let's Get Back Together", 182, "COUNTRY"),
-           (2, 1, 2, "Starting Again", 156, "ROCK"),
-           (2, 1, 3, "I Knew You Were Magic", 294, "BLUES"),
-           (2, 1, 4, "42", 185, "CLASSICAL"),
-           (2, 1, 5, "Blue", 238, "BLUES"),
-           (2, 1, 6, "Nothing Is The Same", 303, "BLUES"),
-           (2, 1, 7, "The Second Time", 255, "ROCK"),
-           (2, 3, 1, "Fight Story", 194, "ROCK"),
-           (3, 1, 1, "Not About The Guitar", 278, "BLUES");
+```
+INSERT INTO Singers (SingerId, FirstName, LastName, BirthDate)
+VALUES (1, "Marc", "Richards", "1970-09-03"),
+       (2, "Catalina", "Smith", "1990-08-17"),
+       (3, "Alice", "Trentor", "1991-10-02"),
+       (4, "Lea", "Martin", "1991-11-09"),
+       (5, "David", "Lomond", "1977-01-29");
+
+INSERT INTO Albums (SingerId, AlbumId, AlbumTitle)
+VALUES (1, 1, "Total Junk"),
+       (1, 2, "Go, Go, Go"),
+       (2, 1, "Green"),
+       (2, 2, "Forever Hold Your Peace"),
+       (2, 3, "Terrified"),
+       (3, 1, "Nothing To Do With Me"),
+       (4, 1, "Play");
+
+INSERT INTO Songs (SingerId, AlbumId, TrackId, SongName, Duration, SongGenre)
+VALUES (2, 1, 1, "Let's Get Back Together", 182, "COUNTRY"),
+       (2, 1, 2, "Starting Again", 156, "ROCK"),
+       (2, 1, 3, "I Knew You Were Magic", 294, "BLUES"),
+       (2, 1, 4, "42", 185, "CLASSICAL"),
+       (2, 1, 5, "Blue", 238, "BLUES"),
+       (2, 1, 6, "Nothing Is The Same", 303, "BLUES"),
+       (2, 1, 7, "The Second Time", 255, "ROCK"),
+       (2, 3, 1, "Fight Story", 194, "ROCK"),
+       (3, 1, 1, "Not About The Guitar", 278, "BLUES");
+```
 
 > **Note:** You can run queries and retrieve execution plans even if the tables have no data.
 
@@ -115,19 +119,21 @@ A *distributed union* operator conceptually divides one or more tables into mult
 
 The following query demonstrates this operator:
 
-    SELECT s.songname,
-           s.songgenre
-    FROM   songs AS s
-    WHERE  s.singerid = 2
-           AND s.songgenre = 'ROCK';
-    
-    /*-----------------+-----------+
-     | SongName        | SongGenre |
-     +-----------------+-----------+
-     | Starting Again  | ROCK      |
-     | The Second Time | ROCK      |
-     | Fight Story     | ROCK      |
-     +-----------------+-----------*/
+```
+SELECT s.songname,
+       s.songgenre
+FROM   songs AS s
+WHERE  s.singerid = 2
+       AND s.songgenre = 'ROCK';
+
+/*-----------------+-----------+
+ | SongName        | SongGenre |
+ +-----------------+-----------+
+ | Starting Again  | ROCK      |
+ | The Second Time | ROCK      |
+ | Fight Story     | ROCK      |
+ +-----------------+-----------*/
+```
 
 The execution plan appears as follows:
 
@@ -144,13 +150,13 @@ The **Distributed union** operator has additional distinct execution statistics.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                      | Description                                                                         |
-| ------------------------- | ----------------------------------------------------------------------------------- |
+|---------------------------|-------------------------------------------------------------------------------------|
 | Local parallel executions | The number of subqueries executed in parallel.                                      |
 | Remote calls              | The number of remote subqueries executed.                                           |
 | Latency                   | Elapsed time of all the executions done in the operator.                            |
@@ -161,7 +167,7 @@ Execution statistics
 | Rows returned             | The number of rows output by this operator                                          |
 | Number of executions      | The number of times the operator was executed. Some executions can run in parallel. |
 
-Generally, executions are in parallel, unlike cross apply executions. Because of this, latency numbers on distributed operators are cumulative, unlike most operators, which report how much latency that operator added. The number of executions under a distributed union is based on the table's split boundaries, which in turn depend on data size and load, and potentially include the *use\_additional\_parallelism* statement hint. This approach to statistics applies to all distributed operators.
+Generally, executions are in parallel, unlike cross apply executions. Because of this, latency numbers on distributed operators are cumulative, unlike most operators, which report how much latency that operator added. The number of executions under a distributed union is based on the table's split boundaries, which in turn depend on data size and load, and potentially include the *use_additional_parallelism* statement hint. This approach to statistics applies to all distributed operators.
 
 ## Distributed apply
 
@@ -176,13 +182,13 @@ The **Distributed apply** operator has additional distinct execution statistics.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                      | Description                                                                                                                                                                  |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Local parallel executions | The number of subqueries executed in parallel.                                                                                                                               |
 | Remote calls              | The number of remote subqueries executed.                                                                                                                                    |
 | Number of batches         | A batch is a dynamic collection of rows that are processed at the same time. This shows the number of batches a distributed cross apply sent from the input to the map side. |
@@ -198,20 +204,22 @@ Execution statistics
 
 The following query demonstrates this operator:
 
-    SELECT albumtitle
-    FROM   songs
-           JOIN albums
-             ON albums.albumid = songs.albumid;
-    
-    /*-----------------------+
-     | AlbumTitle            |
-     +-----------------------+
-     | Green                 |
-     | Nothing To Do With Me |
-     | Play                  |
-     | Total Junk            |
-     | Green                 |
-     +-----------------------*/
+```
+SELECT albumtitle
+FROM   songs
+       JOIN albums
+         ON albums.albumid = songs.albumid;
+
+/*-----------------------+
+ | AlbumTitle            |
+ +-----------------------+
+ | Green                 |
+ | Nothing To Do With Me |
+ | Play                  |
+ | Total Junk            |
+ | Green                 |
+ +-----------------------*/
+```
 
 The execution plan appears as follows:
 
@@ -227,21 +235,23 @@ A *Distributed outer apply* is a DA with left outer join semantics. See [outer a
 
 The following query demonstrates this operator:
 
-    SELECT lastname,
-           concertdate
-    FROM   singers LEFT OUTER join@{JOIN_TYPE=APPLY_JOIN} concerts
-    ON singers.singerid=concerts.singerid;
-    
-    /*----------+-------------+
-     | LastName | ConcertDate |
-     +----------+-------------+
-     | Trentor  | 2014-02-18  |
-     | Smith    | 2011-09-03  |
-     | Smith    | 2010-06-06  |
-     | Lomond   | 2005-04-30  |
-     | Martin   | 2015-11-04  |
-     | Richards |             |
-     +----------+-------------*/
+```
+SELECT lastname,
+       concertdate
+FROM   singers LEFT OUTER join@{JOIN_TYPE=APPLY_JOIN} concerts
+ON singers.singerid=concerts.singerid;
+
+/*----------+-------------+
+ | LastName | ConcertDate |
+ +----------+-------------+
+ | Trentor  | 2014-02-18  |
+ | Smith    | 2011-09-03  |
+ | Smith    | 2010-06-06  |
+ | Lomond   | 2005-04-30  |
+ | Martin   | 2015-11-04  |
+ | Richards |             |
+ +----------+-------------*/
+```
 
 The execution plan appears as follows:
 
@@ -278,13 +288,13 @@ The **Distributed apply** operator has additional distinct execution statistics.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                      | Description                                                                                                                                                                  |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Local parallel executions | The number of subqueries executed in parallel.                                                                                                                               |
 | Remote calls              | The number of remote subqueries executed.                                                                                                                                    |
 | Number of batches         | A batch is a dynamic collection of rows that are processed at the same time. This shows the number of batches a distributed cross apply sent from the input to the map side. |
@@ -302,30 +312,32 @@ A *push broadcast hash join* operator is a distributed hash-join-based implement
 
 *Push broadcast hash join* has the following advantages:
 
-  - If the build table is small, it can be sent to all map side splits.
-  - The map side table can be scanned, with or without residual filters. This occurs when the join keys are not the same as the map table's primary keys.
+- If the build table is small, it can be sent to all map side splits.
+- The map side table can be scanned, with or without residual filters. This occurs when the join keys are not the same as the map table's primary keys.
 
 *Push broadcast hash join* isn't selected automatically by the optimizer. To use this operator, set the join method to [`PUSH_BROADCAST_HASH_JOIN`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join-methods) on the query hint, as shown in the following example:
 
-    SELECT a.albumtitle,
-           s.songname
-    FROM   albums AS a join@{join_method=push_broadcast_hash_join} songs AS s
-    ON     a.singerid = s.singerid
-    AND    a.albumid = s.albumid;
-    
-    /*-----------------------+--------------------------+
-     | AlbumTitle            | SongName                 |
-     +-----------------------+--------------------------+
-     | Green                 | The Second Time          |
-     | Green                 | Starting Again           |
-     | Green                 | Nothing Is The Same      |
-     | Green                 | Let's Get Back Together  |
-     | Green                 | I Knew You Were Magic    |
-     | Green                 | Blue                     |
-     | Green                 | 42                       |
-     | Terrified             | Fight Story              |
-     | Nothing To Do With Me | Not About The Guitar     |
-     +-----------------------+--------------------------*/
+```
+SELECT a.albumtitle,
+       s.songname
+FROM   albums AS a join@{join_method=push_broadcast_hash_join} songs AS s
+ON     a.singerid = s.singerid
+AND    a.albumid = s.albumid;
+
+/*-----------------------+--------------------------+
+ | AlbumTitle            | SongName                 |
+ +-----------------------+--------------------------+
+ | Green                 | The Second Time          |
+ | Green                 | Starting Again           |
+ | Green                 | Nothing Is The Same      |
+ | Green                 | Let's Get Back Together  |
+ | Green                 | I Knew You Were Magic    |
+ | Green                 | Blue                     |
+ | Green                 | 42                       |
+ | Terrified             | Fight Story              |
+ | Nothing To Do With Me | Not About The Guitar     |
+ +-----------------------+--------------------------*/
+```
 
 The execution plan appears as follows:
 
@@ -344,13 +356,13 @@ The **Distributed apply** operator has additional distinct execution statistics.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                      | Description                                                                                                                                                                  |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Local parallel executions | The number of subqueries executed in parallel.                                                                                                                               |
 | Remote calls              | The number of remote subqueries executed.                                                                                                                                    |
 | Number of batches         | A batch is a dynamic collection of rows that are processed at the same time. This shows the number of batches a distributed cross apply sent from the input to the map side. |

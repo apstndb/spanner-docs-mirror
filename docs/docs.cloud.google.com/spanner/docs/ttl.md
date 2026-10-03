@@ -8,9 +8,9 @@ data_source: docs.cloud.google.com
 
 Time to live (TTL) lets you set policies to periodically delete data from Spanner tables. Removing unneeded data:
 
-  - Decreases storage and backup costs.
-  - Reduces the number of rows the database has to scan for some queries, potentially increasing query performance.
-  - Helps to adhere to regulations or industry guidelines that limit the retention time on certain types of data.
+- Decreases storage and backup costs.
+- Reduces the number of rows the database has to scan for some queries, potentially increasing query performance.
+- Helps to adhere to regulations or industry guidelines that limit the retention time on certain types of data.
 
 TTL is ideal for regular clean-up activities. It runs continuously in the background, periodically deleting eligible data in batches. Data is typically deleted within 72 hours after its expiration date. Each delete requires a primary key replication across the database's replicas that leads to replication costs. For more information, see [Data replication pricing](https://cloud.google.com/spanner/pricing#data-replication) . TTL doesn't immediately invalidate data or hide it from queries when it becomes eligible for deletion. TTL also doesn't check data while it is inserted, thus it doesn't block you from inserting a row with an expired timestamp.
 
@@ -22,11 +22,11 @@ Another background compaction process reclaims storage from deleted rows, typica
 
 You can set TTL on Spanner tables by defining a row deletion policy in the database schema. This policy allows Spanner to periodically delete unneeded data. TTL policies have the following characteristics:
 
-  - Each table can have its own policy.
-  - Only one TTL policy can be specified per table.
-  - You set up TTL differently for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
-  - The TTL policy doesn't delete rows that have the timestamp set to `NULL` .
-  - Data inserted with expired timestamps is cleaned up when detected in the next TTL deletion cycle.
+- Each table can have its own policy.
+- Only one TTL policy can be specified per table.
+- You set up TTL differently for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
+- The TTL policy doesn't delete rows that have the timestamp set to `NULL` .
+- Data inserted with expired timestamps is cleaned up when detected in the next TTL deletion cycle.
 
 ### TTL with GoogleSQL
 
@@ -66,5 +66,5 @@ TTL supports auditing its deletions through [change streams](https://docs.cloud.
 
 ## What's next
 
-  - Learn [how to manage data retention with TTL](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl) .
-  - Learn about [TTL metrics and monitoring](https://docs.cloud.google.com/spanner/docs/ttl/monitoring-and-metrics) .
+- Learn [how to manage data retention with TTL](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl) .
+- Learn about [TTL metrics and monitoring](https://docs.cloud.google.com/spanner/docs/ttl/monitoring-and-metrics) .

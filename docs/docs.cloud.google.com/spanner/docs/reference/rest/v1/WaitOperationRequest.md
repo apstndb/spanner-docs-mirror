@@ -6,41 +6,20 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/WaitOperationRequest#SCHEMA_REPRESENTATION)
+- [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/WaitOperationRequest#SCHEMA_REPRESENTATION)
 
 The request message for `Operations.WaitOperation` .
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;name&quot;: string,
-  &quot;timeout&quot;: string
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "name": string,
+  "timeout": string
+}
+```
 
-`name`
-
-`string`
-
-The name of the operation resource to wait on.
-
-`timeout`
-
-` string ( Duration  ` format)
-
-The maximum duration to wait before timing out. If left blank, the wait will be at most the time permitted by the underlying HTTP/RPC protocol. If RPC context deadline is also specified, the shorter one will be used.
-
-A duration in seconds with up to nine fractional digits, ending with ' `s` '. Example: `"3.5s"` .
+| Fields    |                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `name`    | `string` The name of the operation resource to wait on.                                                                                                                                                                                                                                                                                                                                                                         |
+| `timeout` | `string ( `[`Duration`](https://protobuf.dev/reference/protobuf/google.protobuf/#duration)` format)` The maximum duration to wait before timing out. If left blank, the wait will be at most the time permitted by the underlying HTTP/RPC protocol. If RPC context deadline is also specified, the shorter one will be used. A duration in seconds with up to nine fractional digits, ending with ' `s` '. Example: `"3.5s"` . |

@@ -12,15 +12,15 @@ Read data by using an index.
 
 For detailed documentation that includes this code sample, see the following:
 
-  - [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
-  - [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
-  - [Getting started with Spanner in Java](https://docs.cloud.google.com/spanner/docs/getting-started/java)
-  - [Getting started with Spanner in Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs)
-  - [Getting started with Spanner in PHP](https://docs.cloud.google.com/spanner/docs/getting-started/php)
-  - [Getting started with Spanner in Python](https://docs.cloud.google.com/spanner/docs/getting-started/python)
-  - [Getting started with Spanner in Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby)
-  - [Reads outside of transactions](https://docs.cloud.google.com/spanner/docs/reads)
-  - [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes)
+- [Getting started with Spanner in C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp)
+- [Getting started with Spanner in Go](https://docs.cloud.google.com/spanner/docs/getting-started/go)
+- [Getting started with Spanner in Java](https://docs.cloud.google.com/spanner/docs/getting-started/java)
+- [Getting started with Spanner in Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs)
+- [Getting started with Spanner in PHP](https://docs.cloud.google.com/spanner/docs/getting-started/php)
+- [Getting started with Spanner in Python](https://docs.cloud.google.com/spanner/docs/getting-started/python)
+- [Getting started with Spanner in Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby)
+- [Reads outside of transactions](https://docs.cloud.google.com/spanner/docs/reads)
+- [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes)
 
 ## Code sample
 
@@ -30,72 +30,76 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    void ReadDataWithIndex(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-    
-      auto rows =
-          client.Read("Albums", google::cloud::spanner::KeySet::All(),
-                      {"AlbumId", "AlbumTitle"},
-                      google::cloud::Options{}.set<spanner::ReadIndexNameOption>(
-                          "AlbumsByAlbumTitle"));
-      using RowType = std::tuple<std::int64_t, std::string>;
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "AlbumId: " << std::get<0>(*row) << "\t";
-        std::cout << "AlbumTitle: " << std::get<1>(*row) << "\n";
-      }
-      std::cout << "Read completed for [spanner_read_data_with_index]\n";
-    }
+```cpp
+void ReadDataWithIndex(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
 
-### C\#
+  auto rows =
+      client.Read("Albums", google::cloud::spanner::KeySet::All(),
+                  {"AlbumId", "AlbumTitle"},
+                  google::cloud::Options{}.set<spanner::ReadIndexNameOption>(
+                      "AlbumsByAlbumTitle"));
+  using RowType = std::tuple<std::int64_t, std::string>;
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "AlbumId: " << std::get<0>(*row) << "\t";
+    std::cout << "AlbumTitle: " << std::get<1>(*row) << "\n";
+  }
+  std::cout << "Read completed for [spanner_read_data_with_index]\n";
+}
+```
+
+### C#
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    using Google.Cloud.Spanner.Data;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class QueryDataWithIndexAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class QueryDataWithIndexAsyncSample
+{
+    public class Album
     {
-        public class Album
-        {
-            public int AlbumId { get; set; }
-            public string AlbumTitle { get; set; }
-            public long MarketingBudget { get; set; }
-        }
-    
-        public async Task<List<Album>> QueryDataWithIndexAsync(string projectId, string instanceId, string databaseId,
-            string startTitle, string endTitle)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            using var connection = new SpannerConnection(connectionString);
-            using var cmd = connection.CreateSelectCommand(
-                "SELECT AlbumId, AlbumTitle, MarketingBudget FROM Albums@ "
-                + "{FORCE_INDEX=AlbumsByAlbumTitle} "
-                + $"WHERE AlbumTitle >= @startTitle "
-                + $"AND AlbumTitle < @endTitle",
-                new SpannerParameterCollection
-                {
-                    { "startTitle", SpannerDbType.String, startTitle },
-                    { "endTitle", SpannerDbType.String, endTitle }
-                });
-    
-            var albums = new List<Album>();
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                albums.Add(new Album
-                {
-                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle"),
-                    MarketingBudget = reader.IsDBNull(reader.GetOrdinal("MarketingBudget")) ? 0 : reader.GetFieldValue<long>("MarketingBudget")
-                });
-            }
-            return albums;
-        }
+        public int AlbumId { get; set; }
+        public string AlbumTitle { get; set; }
+        public long MarketingBudget { get; set; }
     }
+
+    public async Task<List<Album>> QueryDataWithIndexAsync(string projectId, string instanceId, string databaseId,
+        string startTitle, string endTitle)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+        using var connection = new SpannerConnection(connectionString);
+        using var cmd = connection.CreateSelectCommand(
+            "SELECT AlbumId, AlbumTitle, MarketingBudget FROM Albums@ "
+            + "{FORCE_INDEX=AlbumsByAlbumTitle} "
+            + $"WHERE AlbumTitle >= @startTitle "
+            + $"AND AlbumTitle < @endTitle",
+            new SpannerParameterCollection
+            {
+                { "startTitle", SpannerDbType.String, startTitle },
+                { "endTitle", SpannerDbType.String, endTitle }
+            });
+
+        var albums = new List<Album>();
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            albums.Add(new Album
+            {
+                AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                AlbumTitle = reader.GetFieldValue<string>("AlbumTitle"),
+                MarketingBudget = reader.IsDBNull(reader.GetOrdinal("MarketingBudget")) ? 0 : reader.GetFieldValue<long>("MarketingBudget")
+            });
+        }
+        return albums;
+    }
+}
+```
 
 ### Go
 
@@ -103,42 +107,44 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func readUsingIndex(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     iter := client.Single().ReadUsingIndex(ctx, "Albums", "AlbumsByAlbumTitle", spanner.AllKeys(),
-         []string{"AlbumId", "AlbumTitle"})
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var albumID int64
-         var albumTitle string
-         if err := row.Columns(&albumID, &albumTitle); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %s\n", albumID, albumTitle)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+func readUsingIndex(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    iter := client.Single().ReadUsingIndex(ctx, "Albums", "AlbumsByAlbumTitle", spanner.AllKeys(),
+        []string{"AlbumId", "AlbumTitle"})
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var albumID int64
+        var albumTitle string
+        if err := row.Columns(&albumID, &albumTitle); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %s\n", albumID, albumTitle)
+    }
+}
+```
 
 ### Java
 
@@ -146,20 +152,22 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    static void readUsingIndex(DatabaseClient dbClient) {
-      try (ResultSet resultSet =
-          dbClient
-              .singleUse()
-              .readUsingIndex(
-                  "Albums",
-                  "AlbumsByAlbumTitle",
-                  KeySet.all(),
-                  Arrays.asList("AlbumId", "AlbumTitle"))) {
-        while (resultSet.next()) {
-          System.out.printf("%d %s\n", resultSet.getLong(0), resultSet.getString(1));
-        }
-      }
+```java
+static void readUsingIndex(DatabaseClient dbClient) {
+  try (ResultSet resultSet =
+      dbClient
+          .singleUse()
+          .readUsingIndex(
+              "Albums",
+              "AlbumsByAlbumTitle",
+              KeySet.all(),
+              Arrays.asList("AlbumId", "AlbumTitle"))) {
+    while (resultSet.next()) {
+      System.out.printf("%d %s\n", resultSet.getLong(0), resultSet.getString(1));
     }
+  }
+}
+```
 
 ### Node.js
 
@@ -167,52 +175,54 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    /**
-     * TODO(developer): Uncomment these variables before running the sample.
-     */
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    // const projectId = 'my-project-id';
-    
-    // Imports the Google Cloud Spanner client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    // Instantiates a client
-    const spanner = new Spanner({
-      projectId: projectId,
+```javascript
+/**
+ * TODO(developer): Uncomment these variables before running the sample.
+ */
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+// const projectId = 'my-project-id';
+
+// Imports the Google Cloud Spanner client library
+const {Spanner} = require('@google-cloud/spanner');
+
+// Instantiates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+async function readDataWithIndex() {
+  // Gets a reference to a Cloud Spanner instance and database
+  const instance = spanner.instance(instanceId);
+  const database = instance.database(databaseId);
+
+  const albumsTable = database.table('Albums');
+
+  const query = {
+    columns: ['AlbumId', 'AlbumTitle'],
+    keySet: {
+      all: true,
+    },
+    index: 'AlbumsByAlbumTitle',
+  };
+
+  // Reads the Albums table using an index
+  try {
+    const [rows] = await albumsTable.read(query);
+
+    rows.forEach(row => {
+      const json = row.toJSON();
+      console.log(`AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`);
     });
-    
-    async function readDataWithIndex() {
-      // Gets a reference to a Cloud Spanner instance and database
-      const instance = spanner.instance(instanceId);
-      const database = instance.database(databaseId);
-    
-      const albumsTable = database.table('Albums');
-    
-      const query = {
-        columns: ['AlbumId', 'AlbumTitle'],
-        keySet: {
-          all: true,
-        },
-        index: 'AlbumsByAlbumTitle',
-      };
-    
-      // Reads the Albums table using an index
-      try {
-        const [rows] = await albumsTable.read(query);
-    
-        rows.forEach(row => {
-          const json = row.toJSON();
-          console.log(`AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}`);
-        });
-      } catch (err) {
-        console.error('ERROR:', err);
-      } finally {
-        // Close the database when finished.
-        await database.close();
-      }
-    }
-    readDataWithIndex();
+  } catch (err) {
+    console.error('ERROR:', err);
+  } finally {
+    // Close the database when finished.
+    await database.close();
+  }
+}
+readDataWithIndex();
+```
 
 ### PHP
 
@@ -220,44 +230,46 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Reads sample data from the database using an index.
-     *
-     * The index must exist before running this sample. You can add the index
-     * by running the `add_index` sample or by running this DDL statement against
-     * your database:
-     *
-     *     CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)
-     *
-     * Example:
-     * ```
-     * read_data_with_index($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function read_data_with_index(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $keySet = $spanner->keySet(['all' => true]);
-        $results = $database->read(
-            'Albums',
-            $keySet,
-            ['AlbumId', 'AlbumTitle'],
-            ['index' => 'AlbumsByAlbumTitle']
-        );
-    
-        foreach ($results->rows() as $row) {
-            printf('AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
-                $row['AlbumId'], $row['AlbumTitle']);
-        }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Reads sample data from the database using an index.
+ *
+ * The index must exist before running this sample. You can add the index
+ * by running the `add_index` sample or by running this DDL statement against
+ * your database:
+ *
+ *     CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)
+ *
+ * Example:
+ * ```
+ * read_data_with_index($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function read_data_with_index(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $keySet = $spanner->keySet(['all' => true]);
+    $results = $database->read(
+        'Albums',
+        $keySet,
+        ['AlbumId', 'AlbumTitle'],
+        ['index' => 'AlbumsByAlbumTitle']
+    );
+
+    foreach ($results->rows() as $row) {
+        printf('AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+            $row['AlbumId'], $row['AlbumTitle']);
     }
+}
+```
 
 ### Python
 
@@ -265,31 +277,33 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    def read_data_with_index(instance_id, database_id):
-        """Reads sample data from the database using an index.
-    
-        The index must exist before running this sample. You can add the index
-        by running the `add_index` sample or by running this DDL statement against
-        your database:
-    
-            CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)
-    
-        """
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        with database.snapshot() as snapshot:
-            keyset = spanner.KeySet(all_=True)
-            results = snapshot.read(
-                table="Albums",
-                columns=("AlbumId", "AlbumTitle"),
-                keyset=keyset,
-                index="AlbumsByAlbumTitle",
-            )
-    
-            for row in results:
-                print("AlbumId: {}, AlbumTitle: {}".format(*row))
+```python
+def read_data_with_index(instance_id, database_id):
+    """Reads sample data from the database using an index.
+
+    The index must exist before running this sample. You can add the index
+    by running the `add_index` sample or by running this DDL statement against
+    your database:
+
+        CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)
+
+    """
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    with database.snapshot() as snapshot:
+        keyset = spanner.KeySet(all_=True)
+        results = snapshot.read(
+            table="Albums",
+            columns=("AlbumId", "AlbumTitle"),
+            keyset=keyset,
+            index="AlbumsByAlbumTitle",
+        )
+
+        for row in results:
+            print("AlbumId: {}, AlbumTitle: {}".format(*row))
+```
 
 ### Ruby
 
@@ -297,44 +311,48 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    result = client.read "Albums", [:AlbumId, :AlbumTitle],
-                         index: "AlbumsByAlbumTitle"
-    
-    result.rows.each do |row|
-      puts "#{row[:AlbumId]} #{row[:AlbumTitle]}"
-    end
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+result = client.read "Albums", [:AlbumId, :AlbumTitle],
+                     index: "AlbumsByAlbumTitle"
+
+result.rows.each do |row|
+  puts "#{row[:AlbumId]} #{row[:AlbumTitle]}"
+end
+```
 
 ### Rust
 
-    use google_cloud_spanner::client::DatabaseClient;
-    use google_cloud_spanner::key::KeySet;
-    use google_cloud_spanner::read::ReadRequest;
-    
-    pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
-        let read_request = ReadRequest::builder("Albums", ["AlbumId", "AlbumTitle"])
-            .with_index("AlbumsByAlbumTitle", KeySet::all())
-            .build();
-    
-        let transaction = client.single_use().build();
-        let mut result_set = transaction.execute_read(read_request).await?;
-    
-        while let Some(row) = result_set.next().await.transpose()? {
-            let album_id: i64 = row.get(0);
-            let album_title: String = row.get(1);
-            println!("{album_id} {album_title}");
-        }
-    
-        Ok(())
+```rust
+use google_cloud_spanner::client::DatabaseClient;
+use google_cloud_spanner::key::KeySet;
+use google_cloud_spanner::read::ReadRequest;
+
+pub async fn sample(client: &DatabaseClient) -> anyhow::Result<()> {
+    let read_request = ReadRequest::builder("Albums", ["AlbumId", "AlbumTitle"])
+        .with_index("AlbumsByAlbumTitle", KeySet::all())
+        .build();
+
+    let transaction = client.single_use().build();
+    let mut result_set = transaction.execute_read(read_request).await?;
+
+    while let Some(row) = result_set.next().await.transpose()? {
+        let album_id: i64 = row.get(0);
+        let album_title: String = row.get(1);
+        println!("{album_id} {album_title}");
     }
+
+    Ok(())
+}
+```
 
 ## What's next
 

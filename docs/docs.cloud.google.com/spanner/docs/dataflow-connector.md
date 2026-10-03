@@ -12,9 +12,9 @@ This page describes how to use the Dataflow connector for Spanner to import, exp
 
 The Dataflow connector is the recommended method for efficiently moving data into and out of Spanner in bulk. It's also the recommended method for performing large transformations to a database which are not supported by [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) , such as table moves and bulk deletes that require a JOIN. When working with individual databases, there are other methods you can use to import and export data:
 
-  - Use the Google Cloud console to [export](https://docs.cloud.google.com/spanner/docs/export) an individual database from Spanner to Cloud Storage in [Avro](https://en.wikipedia.org/wiki/Apache_Avro) format.
-  - Use the Google Cloud console to [import](https://docs.cloud.google.com/spanner/docs/import) a database back into Spanner from files you exported to Cloud Storage.
-  - Use the REST API or Google Cloud CLI to run [export](https://docs.cloud.google.com/dataflow/docs/templates/provided-templates#cloud_spanner_to_gcs_avro) or [import](https://docs.cloud.google.com/dataflow/docs/templates/provided-templates#gcs_avro_to_cloud_spanner) jobs from Spanner to Cloud Storage and back also using Avro format.
+- Use the Google Cloud console to [export](https://docs.cloud.google.com/spanner/docs/export) an individual database from Spanner to Cloud Storage in [Avro](https://en.wikipedia.org/wiki/Apache_Avro) format.
+- Use the Google Cloud console to [import](https://docs.cloud.google.com/spanner/docs/import) a database back into Spanner from files you exported to Cloud Storage.
+- Use the REST API or Google Cloud CLI to run [export](https://docs.cloud.google.com/dataflow/docs/templates/provided-templates#cloud_spanner_to_gcs_avro) or [import](https://docs.cloud.google.com/dataflow/docs/templates/provided-templates#gcs_avro_to_cloud_spanner) jobs from Spanner to Cloud Storage and back also using Avro format.
 
 The Dataflow connector for Spanner is part of the [Apache Beam Java SDK](https://beam.apache.org/documentation/sdks/javadoc/current/) , and it provides an API for performing the previous actions. For more information about some of the concepts discussed in this page, such as `PCollection` objects and transforms, see the [Apache Beam programming guide](https://beam.apache.org/documentation/programming-guide/) .
 
@@ -26,11 +26,13 @@ To add the Google Cloud Dataflow connector to a Maven project, add the `beam-sdk
 
 For example, assuming that your `pom.xml` file sets `beam.version` to the appropriate version number, you would add the following dependency:
 
-    <dependency>
-        <groupId>org.apache.beam</groupId>
-        <artifactId>beam-sdks-java-io-google-cloud-platform</artifactId>
-        <version>${beam.version}</version>
-    </dependency>
+```
+<dependency>
+    <groupId>org.apache.beam</groupId>
+    <artifactId>beam-sdks-java-io-google-cloud-platform</artifactId>
+    <version>${beam.version}</version>
+</dependency>
+```
 
 ## Read data from Spanner
 
@@ -42,12 +44,14 @@ Applying the `SpannerIO.read` transform returns a consistent view of data by per
 
 To read a specific set of data from Spanner, configure the transform using the [`SpannerIO.Read.withQuery`](https://beam.apache.org/documentation/sdks/javadoc/current/org/apache/beam/sdk/io/gcp/spanner/SpannerIO.Read.html#withQuery-java.lang.String-) method to specify a SQL query. For example:
 
-    // Query for all the columns and rows in the specified Spanner table
-    PCollection<Struct> records = pipeline.apply(
-        SpannerIO.read()
-            .withInstanceId(instanceId)
-            .withDatabaseId(databaseId)
-            .withQuery("SELECT * FROM " + options.getTable()));
+```
+// Query for all the columns and rows in the specified Spanner table
+PCollection<Struct> records = pipeline.apply(
+    SpannerIO.read()
+        .withInstanceId(instanceId)
+        .withDatabaseId(databaseId)
+        .withQuery("SELECT * FROM " + options.getTable()));
+```
 
 ### Read data without specifying a query
 
@@ -55,23 +59,27 @@ To read from a database without using a query, you can specify a table name usin
 
 ### GoogleSQL
 
-    // Query for all the columns and rows in the specified Spanner table
-    PCollection<Struct> records = pipeline.apply(
-        SpannerIO.read()
-            .withInstanceId(instanceId)
-            .withDatabaseId(databaseId)
-            .withTable("Singers")
-            .withColumns("singerId", "firstName", "lastName"));
+```
+// Query for all the columns and rows in the specified Spanner table
+PCollection<Struct> records = pipeline.apply(
+    SpannerIO.read()
+        .withInstanceId(instanceId)
+        .withDatabaseId(databaseId)
+        .withTable("Singers")
+        .withColumns("singerId", "firstName", "lastName"));
+```
 
 ### PostgreSQL
 
-    // Query for all the columns and rows in the specified Spanner table
-    PCollection<Struct> records = pipeline.apply(
-        SpannerIO.read()
-            .withInstanceId(instanceId)
-            .withDatabaseId(databaseId)
-            .withTable("singers")
-            .withColumns("singer_id", "first_name", "last_name"));
+```
+// Query for all the columns and rows in the specified Spanner table
+PCollection<Struct> records = pipeline.apply(
+    SpannerIO.read()
+        .withInstanceId(instanceId)
+        .withDatabaseId(databaseId)
+        .withTable("singers")
+        .withColumns("singer_id", "first_name", "last_name"));
+```
 
 To limit the rows read, you can specify a set of primary keys to read using the [`SpannerIO.Read.withKeySet`](https://beam.apache.org/releases/javadoc/current/org/apache/beam/sdk/io/gcp/spanner/SpannerIO.Read.html#withKeySet-com.google.cloud.spanner.KeySet-) method.
 
@@ -81,31 +89,35 @@ To do so, specify the table as shown in the previous example, and specify the [i
 
 ### GoogleSQL
 
-    // Read the indexed columns from all rows in the specified index.
-    PCollection<Struct> records =
-        pipeline.apply(
-            SpannerIO.read()
-                .withInstanceId(instanceId)
-                .withDatabaseId(databaseId)
-                .withTable("Songs")
-                .withIndex("SongsBySongName")
-                // Can only read columns that are either indexed, STORED in the index or
-                // part of the primary key of the Songs table,
-                .withColumns("SingerId", "AlbumId", "TrackId", "SongName"));
+```
+// Read the indexed columns from all rows in the specified index.
+PCollection<Struct> records =
+    pipeline.apply(
+        SpannerIO.read()
+            .withInstanceId(instanceId)
+            .withDatabaseId(databaseId)
+            .withTable("Songs")
+            .withIndex("SongsBySongName")
+            // Can only read columns that are either indexed, STORED in the index or
+            // part of the primary key of the Songs table,
+            .withColumns("SingerId", "AlbumId", "TrackId", "SongName"));
+```
 
 ### PostgreSQL
 
-    // // Read the indexed columns from all rows in the specified index.
-    PCollection<Struct> records =
-        pipeline.apply(
-            SpannerIO.read()
-                .withInstanceId(instanceId)
-                .withDatabaseId(databaseId)
-                .withTable("Songs")
-                .withIndex("SongsBySongName")
-                // Can only read columns that are either indexed, STORED in the index or
-                // part of the primary key of the songs table,
-                .withColumns("singer_id", "album_id", "track_id", "song_name"));
+```
+// // Read the indexed columns from all rows in the specified index.
+PCollection<Struct> records =
+    pipeline.apply(
+        SpannerIO.read()
+            .withInstanceId(instanceId)
+            .withDatabaseId(databaseId)
+            .withTable("Songs")
+            .withIndex("SongsBySongName")
+            // Can only read columns that are either indexed, STORED in the index or
+            // part of the primary key of the songs table,
+            .withColumns("singer_id", "album_id", "track_id", "song_name"));
+```
 
 > **Note:** You can't use the `SpannerIO.Read` `withQuery` and `withTable` methods together. This is because `withQuery` overrides values that you pass into the `withTable` method.
 
@@ -119,47 +131,51 @@ If you want to read data from multiple tables at the same point in time to ensur
 
 ### GoogleSQL
 
-    SpannerConfig spannerConfig =
-        SpannerConfig.create().withInstanceId(instanceId).withDatabaseId(databaseId);
-    PCollectionView<Transaction> tx =
-        pipeline.apply(
-            SpannerIO.createTransaction()
-                .withSpannerConfig(spannerConfig)
-                .withTimestampBound(TimestampBound.strong()));
-    PCollection<Struct> singers =
-        pipeline.apply(
-            SpannerIO.read()
-                .withSpannerConfig(spannerConfig)
-                .withQuery("SELECT SingerID, FirstName, LastName FROM Singers")
-                .withTransaction(tx));
-    PCollection<Struct> albums =
-        pipeline.apply(
-            SpannerIO.read()
-                .withSpannerConfig(spannerConfig)
-                .withQuery("SELECT SingerId, AlbumId, AlbumTitle FROM Albums")
-                .withTransaction(tx));
+```
+SpannerConfig spannerConfig =
+    SpannerConfig.create().withInstanceId(instanceId).withDatabaseId(databaseId);
+PCollectionView<Transaction> tx =
+    pipeline.apply(
+        SpannerIO.createTransaction()
+            .withSpannerConfig(spannerConfig)
+            .withTimestampBound(TimestampBound.strong()));
+PCollection<Struct> singers =
+    pipeline.apply(
+        SpannerIO.read()
+            .withSpannerConfig(spannerConfig)
+            .withQuery("SELECT SingerID, FirstName, LastName FROM Singers")
+            .withTransaction(tx));
+PCollection<Struct> albums =
+    pipeline.apply(
+        SpannerIO.read()
+            .withSpannerConfig(spannerConfig)
+            .withQuery("SELECT SingerId, AlbumId, AlbumTitle FROM Albums")
+            .withTransaction(tx));
+```
 
 ### PostgreSQL
 
-    SpannerConfig spannerConfig =
-        SpannerConfig.create().withInstanceId(instanceId).withDatabaseId(databaseId);
-    PCollectionView<Transaction> tx =
-        pipeline.apply(
-            SpannerIO.createTransaction()
-                .withSpannerConfig(spannerConfig)
-                .withTimestampBound(TimestampBound.strong()));
-    PCollection<Struct> singers =
-        pipeline.apply(
-            SpannerIO.read()
-                .withSpannerConfig(spannerConfig)
-                .withQuery("SELECT singer_id, first_name, last_name FROM singers")
-                .withTransaction(tx));
-    PCollection<Struct> albums =
-        pipeline.apply(
-            SpannerIO.read()
-                .withSpannerConfig(spannerConfig)
-                .withQuery("SELECT singer_id, album_id, album_title FROM albums")
-                .withTransaction(tx));
+```
+SpannerConfig spannerConfig =
+    SpannerConfig.create().withInstanceId(instanceId).withDatabaseId(databaseId);
+PCollectionView<Transaction> tx =
+    pipeline.apply(
+        SpannerIO.createTransaction()
+            .withSpannerConfig(spannerConfig)
+            .withTimestampBound(TimestampBound.strong()));
+PCollection<Struct> singers =
+    pipeline.apply(
+        SpannerIO.read()
+            .withSpannerConfig(spannerConfig)
+            .withQuery("SELECT singer_id, first_name, last_name FROM singers")
+            .withTransaction(tx));
+PCollection<Struct> albums =
+    pipeline.apply(
+        SpannerIO.read()
+            .withSpannerConfig(spannerConfig)
+            .withQuery("SELECT singer_id, album_id, album_title FROM albums")
+            .withTransaction(tx));
+```
 
 ### Read data from all available tables
 
@@ -167,52 +183,56 @@ You can read data from all available tables in a Spanner database.
 
 ### GoogleSQL
 
-    PCollection<Struct> allRecords =
-        pipeline
-            .apply(
-                SpannerIO.read()
-                    .withSpannerConfig(spannerConfig)
-                    .withBatching(false)
-                    .withQuery(
-                        "SELECT t.table_name FROM information_schema.tables AS t WHERE t"
-                            + ".table_catalog = '' AND t.table_schema = ''"))
-            .apply(
-                MapElements.into(TypeDescriptor.of(ReadOperation.class))
-                    .via(
-                        (SerializableFunction<Struct, ReadOperation>)
-                            input -> {
-                              String tableName = input.getString(0);
-                              return ReadOperation.create().withQuery("SELECT * FROM " + tableName);
-                            }))
-            .apply(SpannerIO.readAll().withSpannerConfig(spannerConfig));
+```
+PCollection<Struct> allRecords =
+    pipeline
+        .apply(
+            SpannerIO.read()
+                .withSpannerConfig(spannerConfig)
+                .withBatching(false)
+                .withQuery(
+                    "SELECT t.table_name FROM information_schema.tables AS t WHERE t"
+                        + ".table_catalog = '' AND t.table_schema = ''"))
+        .apply(
+            MapElements.into(TypeDescriptor.of(ReadOperation.class))
+                .via(
+                    (SerializableFunction<Struct, ReadOperation>)
+                        input -> {
+                          String tableName = input.getString(0);
+                          return ReadOperation.create().withQuery("SELECT * FROM " + tableName);
+                        }))
+        .apply(SpannerIO.readAll().withSpannerConfig(spannerConfig));
+```
 
 ### PostgreSQL
 
-    PCollection<Struct> allRecords =
-        pipeline
-            .apply(
-                SpannerIO.read()
-                    .withSpannerConfig(spannerConfig)
-                    .withBatching(false)
-                    .withQuery(
-                        Statement.newBuilder(
-                                "SELECT t.table_name FROM information_schema.tables AS t "
-                                    + "WHERE t.table_catalog = $1 AND t.table_schema = $2")
-                            .bind("p1")
-                            .to(spannerConfig.getDatabaseId().get())
-                            .bind("p2")
-                            .to("public")
-                            .build()))
-            .apply(
-                MapElements.into(TypeDescriptor.of(ReadOperation.class))
-                    .via(
-                        (SerializableFunction<Struct, ReadOperation>)
-                            input -> {
-                              String tableName = input.getString(0);
-                              return ReadOperation.create()
-                                  .withQuery("SELECT * FROM \"" + tableName + "\"");
-                            }))
-            .apply(SpannerIO.readAll().withSpannerConfig(spannerConfig));
+```
+PCollection<Struct> allRecords =
+    pipeline
+        .apply(
+            SpannerIO.read()
+                .withSpannerConfig(spannerConfig)
+                .withBatching(false)
+                .withQuery(
+                    Statement.newBuilder(
+                            "SELECT t.table_name FROM information_schema.tables AS t "
+                                + "WHERE t.table_catalog = $1 AND t.table_schema = $2")
+                        .bind("p1")
+                        .to(spannerConfig.getDatabaseId().get())
+                        .bind("p2")
+                        .to("public")
+                        .build()))
+        .apply(
+            MapElements.into(TypeDescriptor.of(ReadOperation.class))
+                .via(
+                    (SerializableFunction<Struct, ReadOperation>)
+                        input -> {
+                          String tableName = input.getString(0);
+                          return ReadOperation.create()
+                              .withQuery("SELECT * FROM \"" + tableName + "\"");
+                        }))
+        .apply(SpannerIO.readAll().withSpannerConfig(spannerConfig));
+```
 
 ### Troubleshoot unsupported queries
 
@@ -232,46 +252,50 @@ The following example shows how to apply a write transform to a `PCollection` of
 
 ### GoogleSQL
 
-    albums
-        // Spanner expects a Mutation object, so create it using the Album's data
-        .apply("CreateAlbumMutation", ParDo.of(new DoFn<Album, Mutation>() {
-          @ProcessElement
-          public void processElement(ProcessContext c) {
-            Album album = c.element();
-            c.output(Mutation.newInsertOrUpdateBuilder("albums")
-                .set("singerId").to(album.singerId)
-                .set("albumId").to(album.albumId)
-                .set("albumTitle").to(album.albumTitle)
-                .build());
-          }
-        }))
-        // Write mutations to Spanner
-        .apply("WriteAlbums", SpannerIO.write()
-            .withInstanceId(instanceId)
-            .withDatabaseId(databaseId));
+```
+albums
+    // Spanner expects a Mutation object, so create it using the Album's data
+    .apply("CreateAlbumMutation", ParDo.of(new DoFn<Album, Mutation>() {
+      @ProcessElement
+      public void processElement(ProcessContext c) {
+        Album album = c.element();
+        c.output(Mutation.newInsertOrUpdateBuilder("albums")
+            .set("singerId").to(album.singerId)
+            .set("albumId").to(album.albumId)
+            .set("albumTitle").to(album.albumTitle)
+            .build());
+      }
+    }))
+    // Write mutations to Spanner
+    .apply("WriteAlbums", SpannerIO.write()
+        .withInstanceId(instanceId)
+        .withDatabaseId(databaseId));
+```
 
 ### PostgreSQL
 
-    PCollectionView<Dialect> dialectView =
-        pipeline.apply(Create.of(Dialect.POSTGRESQL)).apply(View.asSingleton());
-    albums
-        // Spanner expects a Mutation object, so create it using the Album's data
-        .apply("CreateAlbumMutation", ParDo.of(new DoFn<Album, Mutation>() {
-          @ProcessElement
-          public void processElement(ProcessContext c) {
-            Album album = c.element();
-            c.output(Mutation.newInsertOrUpdateBuilder("albums")
-                .set("singerId").to(album.singerId)
-                .set("albumId").to(album.albumId)
-                .set("albumTitle").to(album.albumTitle)
-                .build());
-          }
-        }))
-        // Write mutations to Spanner
-        .apply("WriteAlbums", SpannerIO.write()
-            .withInstanceId(instanceId)
-            .withDatabaseId(databaseId)
-            .withDialectView(dialectView));
+```
+PCollectionView<Dialect> dialectView =
+    pipeline.apply(Create.of(Dialect.POSTGRESQL)).apply(View.asSingleton());
+albums
+    // Spanner expects a Mutation object, so create it using the Album's data
+    .apply("CreateAlbumMutation", ParDo.of(new DoFn<Album, Mutation>() {
+      @ProcessElement
+      public void processElement(ProcessContext c) {
+        Album album = c.element();
+        c.output(Mutation.newInsertOrUpdateBuilder("albums")
+            .set("singerId").to(album.singerId)
+            .set("albumId").to(album.albumId)
+            .set("albumTitle").to(album.albumTitle)
+            .build());
+      }
+    }))
+    // Write mutations to Spanner
+    .apply("WriteAlbums", SpannerIO.write()
+        .withInstanceId(instanceId)
+        .withDatabaseId(databaseId)
+        .withDialectView(dialectView));
+```
 
 If a transform unexpectedly stops before completion, mutations that have already been applied aren't rolled back.
 
@@ -291,94 +315,98 @@ For example, imagine that your application monitors behavior and flags problemat
 
 ### GoogleSQL
 
-    PCollection<MutationGroup> mutations =
-        suspiciousUserIds.apply(
-            MapElements.via(
-                new SimpleFunction<>() {
-    
-                  @Override
-                  public MutationGroup apply(String userId) {
-                    // Immediately block the user.
-                    Mutation userMutation =
-                        Mutation.newUpdateBuilder("Users")
-                            .set("id")
-                            .to(userId)
-                            .set("state")
-                            .to("BLOCKED")
-                            .build();
-                    long generatedId =
-                        Hashing.sha1()
-                            .newHasher()
-                            .putString(userId, Charsets.UTF_8)
-                            .putLong(timestamp.getSeconds())
-                            .putLong(timestamp.getNanos())
-                            .hash()
-                            .asLong();
-    
-                    // Add an entry to pending review requests.
-                    Mutation pendingReview =
-                        Mutation.newInsertOrUpdateBuilder("PendingReviews")
-                            .set("id")
-                            .to(generatedId) // Must be deterministically generated.
-                            .set("userId")
-                            .to(userId)
-                            .set("action")
-                            .to("REVIEW ACCOUNT")
-                            .set("note")
-                            .to("Suspicious activity detected.")
-                            .build();
-    
-                    return MutationGroup.create(userMutation, pendingReview);
-                  }
-                }));
-    
-    mutations.apply(SpannerIO.write()
-        .withInstanceId(instanceId)
-        .withDatabaseId(databaseId)
-        .grouped());
+```
+PCollection<MutationGroup> mutations =
+    suspiciousUserIds.apply(
+        MapElements.via(
+            new SimpleFunction<>() {
+
+              @Override
+              public MutationGroup apply(String userId) {
+                // Immediately block the user.
+                Mutation userMutation =
+                    Mutation.newUpdateBuilder("Users")
+                        .set("id")
+                        .to(userId)
+                        .set("state")
+                        .to("BLOCKED")
+                        .build();
+                long generatedId =
+                    Hashing.sha1()
+                        .newHasher()
+                        .putString(userId, Charsets.UTF_8)
+                        .putLong(timestamp.getSeconds())
+                        .putLong(timestamp.getNanos())
+                        .hash()
+                        .asLong();
+
+                // Add an entry to pending review requests.
+                Mutation pendingReview =
+                    Mutation.newInsertOrUpdateBuilder("PendingReviews")
+                        .set("id")
+                        .to(generatedId) // Must be deterministically generated.
+                        .set("userId")
+                        .to(userId)
+                        .set("action")
+                        .to("REVIEW ACCOUNT")
+                        .set("note")
+                        .to("Suspicious activity detected.")
+                        .build();
+
+                return MutationGroup.create(userMutation, pendingReview);
+              }
+            }));
+
+mutations.apply(SpannerIO.write()
+    .withInstanceId(instanceId)
+    .withDatabaseId(databaseId)
+    .grouped());
+```
 
 ### PostgreSQL
 
-    PCollectionView<Dialect> dialectView =
-        pipeline.apply(Create.of(Dialect.POSTGRESQL)).apply(View.asSingleton());
-    PCollection<MutationGroup> mutations = suspiciousUserIds
-        .apply(MapElements.via(new SimpleFunction<String, MutationGroup>() {
-    
-          @Override
-          public MutationGroup apply(String userId) {
-            // Immediately block the user.
-            Mutation userMutation = Mutation.newUpdateBuilder("Users")
-                .set("id").to(userId)
-                .set("state").to("BLOCKED")
-                .build();
-            long generatedId = Hashing.sha1().newHasher()
-                .putString(userId, Charsets.UTF_8)
-                .putLong(timestamp.getSeconds())
-                .putLong(timestamp.getNanos())
-                .hash()
-                .asLong();
-    
-            // Add an entry to pending review requests.
-            Mutation pendingReview = Mutation.newInsertOrUpdateBuilder("PendingReviews")
-                .set("id").to(generatedId)  // Must be deterministically generated.
-                .set("userId").to(userId)
-                .set("action").to("REVIEW ACCOUNT")
-                .set("note").to("Suspicious activity detected.")
-                .build();
-    
-            return MutationGroup.create(userMutation, pendingReview);
-          }
-        }));
-    
-    mutations.apply(SpannerIO.write()
-        .withInstanceId(instanceId)
-        .withDatabaseId(databaseId)
-        .withDialectView(dialectView)
-        .grouped());
+```
+PCollectionView<Dialect> dialectView =
+    pipeline.apply(Create.of(Dialect.POSTGRESQL)).apply(View.asSingleton());
+PCollection<MutationGroup> mutations = suspiciousUserIds
+    .apply(MapElements.via(new SimpleFunction<String, MutationGroup>() {
+
+      @Override
+      public MutationGroup apply(String userId) {
+        // Immediately block the user.
+        Mutation userMutation = Mutation.newUpdateBuilder("Users")
+            .set("id").to(userId)
+            .set("state").to("BLOCKED")
+            .build();
+        long generatedId = Hashing.sha1().newHasher()
+            .putString(userId, Charsets.UTF_8)
+            .putLong(timestamp.getSeconds())
+            .putLong(timestamp.getNanos())
+            .hash()
+            .asLong();
+
+        // Add an entry to pending review requests.
+        Mutation pendingReview = Mutation.newInsertOrUpdateBuilder("PendingReviews")
+            .set("id").to(generatedId)  // Must be deterministically generated.
+            .set("userId").to(userId)
+            .set("action").to("REVIEW ACCOUNT")
+            .set("note").to("Suspicious activity detected.")
+            .build();
+
+        return MutationGroup.create(userMutation, pendingReview);
+      }
+    }));
+
+mutations.apply(SpannerIO.write()
+    .withInstanceId(instanceId)
+    .withDatabaseId(databaseId)
+    .withDialectView(dialectView)
+    .grouped());
+```
 
 When creating a mutation group, the first mutation supplied as an argument becomes the primary mutation. In this case, the two tables are unrelated, so there is no clear primary mutation. We've selected `userMutation` as primary by placing it first. Applying the two mutations separately would be faster, but wouldn't guarantee atomicity, so the mutation group is the best choice in this situation.
 
 ## What's next
 
-  - Learn more about [designing an Apache Beam data pipeline](https://beam.apache.org/documentation/pipelines/design-your-pipeline/) .
-  - [Export](https://docs.cloud.google.com/spanner/docs/export) and [import](https://docs.cloud.google.com/spanner/docs/import) Spanner databases in the Google Cloud console using Dataflow.
+- Learn more about [designing an Apache Beam data pipeline](https://beam.apache.org/documentation/pipelines/design-your-pipeline/) .
+- [Export](https://docs.cloud.google.com/spanner/docs/export) and [import](https://docs.cloud.google.com/spanner/docs/import) Spanner databases in the Google Cloud console using Dataflow.

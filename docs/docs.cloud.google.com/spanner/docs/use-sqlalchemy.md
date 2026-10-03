@@ -16,13 +16,17 @@ The [Spanner dialect for SQLAlchemy](https://github.com/googleapis/google-cloud-
 
 To set up the Spanner dialect for SQLAlchemy in your application, install the [`sqlalchemy-spanner package`](https://pypi.org/project/sqlalchemy-spanner/) .
 
-    pip3 install sqlalchemy-spanner
+```
+pip3 install sqlalchemy-spanner
+```
 
 Alternatively, you can install from source.
 
-    git clone https://github.com/googleapis/google-cloud-python.git
-    cd google-cloud-python/packages/sqlalchemy-spanner
-    python setup.py install
+```
+git clone https://github.com/googleapis/google-cloud-python.git
+cd google-cloud-python/packages/sqlalchemy-spanner
+python setup.py install
+```
 
 As authentication for the Spanner dialect for SQLAlchemy, provide the [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location in the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. Otherwise, the dialect can also use the default credentials set in the gcloud CLI application.
 
@@ -32,9 +36,9 @@ For more information about the available features, limitations of the dialect, r
 
 ## What's next
 
-  - Check out the [code examples](https://github.com/googleapis/google-cloud-python/blob/main/packages/sqlalchemy-spanner/samples/snippets.py) on how to use the Spanner dialect for SQLAlchemy.
-  - View the repository for the Spanner dialect for SQLAlchemy on [GitHub](https://github.com/googleapis/google-cloud-python/tree/main/packages/sqlalchemy-spanner) .
-  - File a [GitHub issue](https://github.com/googleapis/google-cloud-python/issues) to report a bug or ask a question about the Spanner dialect for SQLAlchemy.
-  - Learn more about [SQLAlchemy](https://www.sqlalchemy.org/) .
-  - Learn more about [PyPI](https://pypi.org/) .
-  - Learn about authorization and authentication credentials in [Getting started with authentication](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Check out the [code examples](https://github.com/googleapis/google-cloud-python/blob/main/packages/sqlalchemy-spanner/samples/snippets.py) on how to use the Spanner dialect for SQLAlchemy.
+- View the repository for the Spanner dialect for SQLAlchemy on [GitHub](https://github.com/googleapis/google-cloud-python/tree/main/packages/sqlalchemy-spanner) .
+- File a [GitHub issue](https://github.com/googleapis/google-cloud-python/issues) to report a bug or ask a question about the Spanner dialect for SQLAlchemy.
+- Learn more about [SQLAlchemy](https://www.sqlalchemy.org/) .
+- Learn more about [PyPI](https://pypi.org/) .
+- Learn about authorization and authentication credentials in [Getting started with authentication](https://docs.cloud.google.com/docs/authentication/getting-started) .

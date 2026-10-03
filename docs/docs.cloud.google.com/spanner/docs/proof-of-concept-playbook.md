@@ -10,8 +10,8 @@ This page provides a strategy for planning and running a proof of concept (POC) 
 
 In addition to validating Spanner's technical capabilities, a POC serves two purposes:
 
-  - To help you understand the benefits that Spanner offers for your use case
-  - To help you identify the risks associated with adopting Spanner
+- To help you understand the benefits that Spanner offers for your use case
+- To help you identify the risks associated with adopting Spanner
 
 A Spanner POC encompasses a variety of evaluation facets, each customized to address your specific business and technical objectives, as shown in the following diagram.
 
@@ -19,26 +19,26 @@ A Spanner POC encompasses a variety of evaluation facets, each customized to add
 
 The guidelines in this document help you evaluate each of these areas.
 
-  - **Performance and scalability** helps you understand how Spanner handles specific workloads, latency requirements, and the impact of various instance configurations. These tests can demonstrate Spanner's ability to seamlessly scale.
+- **Performance and scalability** helps you understand how Spanner handles specific workloads, latency requirements, and the impact of various instance configurations. These tests can demonstrate Spanner's ability to seamlessly scale.
 
-  - **Monitoring capabilities** helps you assess whether Spanner provides the insights needed for effective database operations. This evaluation includes:
-    
-      - Options for analyzing query execution plans
-      - System resource utilization
-      - Options for configuring alerts
-    
-    A POC can reveal gaps that need to be addressed to fully optimize operational efficiency.
+- **Monitoring capabilities** helps you assess whether Spanner provides the insights needed for effective database operations. This evaluation includes:
 
-  - **Security and compliance** are key to determining Spanner's suitability for your organization. This includes assessments to ensure Spanner can mitigate security risks while delivering robust compliance benefits, such as the following:
-    
-      - Encryption options, such as [CMEK or EKM](https://docs.cloud.google.com/spanner/docs/cmek) for data that's in-transit and at-rest
-      - Least-privilege access control posture
-      - Audit logging
-      - Adherence to regulatory requirements
+  - Options for analyzing query execution plans
+  - System resource utilization
+  - Options for configuring alerts
 
-  - **Backup and disaster recovery (DR) capabilities** are essential to ensure operational and data resilience. A POC can validate Spanner's DR features, such as [point-in-time recovery](https://docs.cloud.google.com/spanner/docs/pitr) and availability.
+  A POC can reveal gaps that need to be addressed to fully optimize operational efficiency.
 
-  - **Migration feasibility** involves understanding the complexity of transitioning from your current database solution to Spanner. Evaluating schema compatibility, migration tools, and application changes help you quantify required investments, and determine the risks and benefits of Spanner adoption.
+- **Security and compliance** are key to determining Spanner's suitability for your organization. This includes assessments to ensure Spanner can mitigate security risks while delivering robust compliance benefits, such as the following:
+
+  - Encryption options, such as [CMEK or EKM](https://docs.cloud.google.com/spanner/docs/cmek) for data that's in-transit and at-rest
+  - Least-privilege access control posture
+  - Audit logging
+  - Adherence to regulatory requirements
+
+- **Backup and disaster recovery (DR) capabilities** are essential to ensure operational and data resilience. A POC can validate Spanner's DR features, such as [point-in-time recovery](https://docs.cloud.google.com/spanner/docs/pitr) and availability.
+
+- **Migration feasibility** involves understanding the complexity of transitioning from your current database solution to Spanner. Evaluating schema compatibility, migration tools, and application changes help you quantify required investments, and determine the risks and benefits of Spanner adoption.
 
 During your evaluation, you might want to explore Spanner's feature set to ensure it meets your application's functional requirements. This might include testing its global consistency, SQL query capabilities, or integration with other Google Cloud services.
 
@@ -58,9 +58,9 @@ The foundation of a successful POC lies in defining clear, measurable goals that
 
 Spanner's unique architecture is ideal for workloads requiring massive scalability, so assessing scalability for your use case is a good starting point. Test scenarios should include:
 
-  - Handling typical operational loads
-  - Managing traffic surges
-  - Scaling back down efficiently
+- Handling typical operational loads
+- Managing traffic surges
+- Scaling back down efficiently
 
 These tests help you understand how Spanner performs under different conditions and whether it meets your technical requirements for scalability. Specific, actionable goals not only help structure the POC but also create a solid basis for evaluating success.
 
@@ -68,16 +68,16 @@ These tests help you understand how Spanner performs under different conditions 
 
 A rubric consisting of clear, measurable metrics and discrete success criteria is essential to conclude whether the POC met its objectives. For example, rather than only testing performance, you should also specify goals such as:
 
-  - Serve specific production-level QPS (queries per second)
-  - Maintain sub-20ms latencies under predefined peak loads
-  - Handle clearly-defined traffic bursts with no performance degradation
+- Serve specific production-level QPS (queries per second)
+- Maintain sub-20ms latencies under predefined peak loads
+- Handle clearly-defined traffic bursts with no performance degradation
 
 Well-defined criteria help you evaluate Spanner objectively for your workload and provide actionable insights for next steps. Be specific and define percentile targets for read and write operation latency (such as p50 and p95). A clear definition of acceptable latency thresholds help you design tests of Spanner performance that align with your business needs.
 
 An example for an evaluation rubric might look something like the following:
 
 |                                                                       |                                                                                                                                                                        |
-| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Evaluation Facet**                                                  | **Success Criteria**                                                                                                                                                   |
 | Availability                                                          | 99.999%                                                                                                                                                                |
 | Security                                                              | CMEK with an EKM required                                                                                                                                              |
@@ -96,9 +96,9 @@ A POC shouldn't require a full-scale migration. Instead, focus on testing repres
 
 When you create a Spanner instance for evaluation purposes, choose an [instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations) that meets your business requirements for geographic location and service availability SLA. Spanner offers various configurations, including single-region, multi-region, and dual-region. Each configuration is designed to meet different latency, availability, and redundancy requirements.
 
-  - **Single-region configurations** store data in one Google Cloud region, offering low latency within that region and cost effectiveness. These topologies are ideal for workloads that require intra-region zonal redundancy that provides availability of 99.99%.
-  - **Dual-region configurations** replicate data across two regions in a single country with a witness replica in each region for failovers. This configuration provides higher availability (99.999%) and fault tolerance than a single-region setup. These topologies are well-suited for workloads with tight compliance (such as [data residency](https://docs.cloud.google.com/spanner/docs/data-residency) ) or geographic proximity requirements.
-  - **Multi-region configurations** replicate data across multiple regions, ensuring a very high availability and resilience to regional outages. These topologies are ideal for applications requiring geo-redundancy with an availability up to 99.999%.
+- **Single-region configurations** store data in one Google Cloud region, offering low latency within that region and cost effectiveness. These topologies are ideal for workloads that require intra-region zonal redundancy that provides availability of 99.99%.
+- **Dual-region configurations** replicate data across two regions in a single country with a witness replica in each region for failovers. This configuration provides higher availability (99.999%) and fault tolerance than a single-region setup. These topologies are well-suited for workloads with tight compliance (such as [data residency](https://docs.cloud.google.com/spanner/docs/data-residency) ) or geographic proximity requirements.
+- **Multi-region configurations** replicate data across multiple regions, ensuring a very high availability and resilience to regional outages. These topologies are ideal for applications requiring geo-redundancy with an availability up to 99.999%.
 
 ### Latency considerations in cross-region instances
 
@@ -136,9 +136,9 @@ A well-designed schema is foundational for demonstrating Spanner's capabilities 
 
 When you create a database schema for Spanner, it's essential to take its distributed architecture into account. Some key considerations and optimizations include the following:
 
-  - **Primary keys:** choose primary keys that distribute data evenly over the key space, avoiding monotonically increasing keys like timestamps that might cause hotspots on splits.
-  - **Indexes:** design indexes to optimize query performance while being mindful of their impact on write performance and storage costs. Too many or poorly planned indexes might introduce unnecessary overhead.
-  - **Table interleaving:** use table interleaving to optimize access patterns for related data. This might reduce cross-process communication and improve query efficiency.
+- **Primary keys:** choose primary keys that distribute data evenly over the key space, avoiding monotonically increasing keys like timestamps that might cause hotspots on splits.
+- **Indexes:** design indexes to optimize query performance while being mindful of their impact on write performance and storage costs. Too many or poorly planned indexes might introduce unnecessary overhead.
+- **Table interleaving:** use table interleaving to optimize access patterns for related data. This might reduce cross-process communication and improve query efficiency.
 
 See the [Spanner schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) to avoid common pitfalls and design a schema that supports high performance and scalability.
 
@@ -158,9 +158,9 @@ While an initial schema provides a starting point, it's unlikely to be perfect. 
 
 A successful Spanner POC relies on loading representative data into the database to validate schema design and simulate application workflows. There are several recommended tools that can streamline this process. To load your own data, Spanner provides the following options:
 
-  - [BigQuery's reverse extract, transform, and load (ETL)](https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook#bq-reverse-etl) to Spanner is an easy-to-use, integrated data loading mechanism that lets you use SQL-based transformations to load data into Spanner. This method is ideal for a wide range of data formats, including semi-structured data like JSON.
-  - For relational databases like MySQL and PostgreSQL, the [Spanner migration tool (SMT)](https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook#smt) automates schema creation, data type mapping, and bulk data loading.
-  - For flat-file formats, Google provides [Dataflow templates](https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook#dataflow-templates) for CSV to Spanner and Avro to Spanner to create manual schema definitions for bulk data loading. For JDBC-compatible databases, Google provides the JDBC to Spanner Dataflow template.
+- [BigQuery's reverse extract, transform, and load (ETL)](https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook#bq-reverse-etl) to Spanner is an easy-to-use, integrated data loading mechanism that lets you use SQL-based transformations to load data into Spanner. This method is ideal for a wide range of data formats, including semi-structured data like JSON.
+- For relational databases like MySQL and PostgreSQL, the [Spanner migration tool (SMT)](https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook#smt) automates schema creation, data type mapping, and bulk data loading.
+- For flat-file formats, Google provides [Dataflow templates](https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook#dataflow-templates) for CSV to Spanner and Avro to Spanner to create manual schema definitions for bulk data loading. For JDBC-compatible databases, Google provides the JDBC to Spanner Dataflow template.
 
 For more information about these options, see [Bring your own data](https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook#bring-your-own-data) .
 
@@ -173,7 +173,7 @@ If no sample data is available, you can use synthetic data generation tools such
 If you have available sample data that you want to use for the POC, you have several options for loading that data into Spanner.
 
 |                |                                                                                                                        |                     |                                   |               |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------- | --------------------------------- | ------------- |
+|----------------|------------------------------------------------------------------------------------------------------------------------|---------------------|-----------------------------------|---------------|
 | **Source**     | **Tool**                                                                                                               | **Schema creation** | **Transformations**               | **Data Size** |
 | **MySQL**      | [SMT](https://googlecloudplatform.github.io/spanner-migration-tool/)                                                   | automatic           | Data type conversion only         | small         |
 | **PostgreSQL** | [SMT](https://googlecloudplatform.github.io/spanner-migration-tool/)                                                   | automatic           | Data type conversion only         | small         |
@@ -200,16 +200,16 @@ The SMT provides a user interface that guides you through the migration process.
 
 Google provides the following open source templates for common loading patterns:
 
-  - [CSV to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) loads data from CSV files stored in Cloud Storage into Spanner.
-  - [Avro to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/avro-to-cloud-spanner) loads existing Avro data files from Cloud Storage.
-  - [JDBC to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/sourcedb-to-spanner) loads data from databases that support JDBC.
+- [CSV to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) loads data from CSV files stored in Cloud Storage into Spanner.
+- [Avro to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/avro-to-cloud-spanner) loads existing Avro data files from Cloud Storage.
+- [JDBC to Spanner](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/sourcedb-to-spanner) loads data from databases that support JDBC.
 
 Each of these templates requires that you manually create the Spanner schema before starting the data load.
 
 Dataflow automatically scales out to accommodate datasets of any size, ensuring high-performance data ingestion into Spanner, even for terabyte-scale datasets. This scalability is provided at the expense of a few tradeoffs:
 
-  - Dataflow pipelines require manual configuration to define the schema, data mapping, and execution parameters for optimal execution.
-  - Dataflow provides the flexibility and power needed for large-scale data migrations, but it might require more effort to set up and manage than other tools.
+- Dataflow pipelines require manual configuration to define the schema, data mapping, and execution parameters for optimal execution.
+- Dataflow provides the flexibility and power needed for large-scale data migrations, but it might require more effort to set up and manage than other tools.
 
 ### Generate sample data
 
@@ -243,10 +243,10 @@ For more information and example configurations, see the [Machmeter repository](
 
 When conducting load tests, it's critical to follow Spanner's best practices to ensure accurate and actionable results.
 
-  - **Warm-up period:** allow a warm-up period (typically 30 minutes or more) for Spanner to reach a steady state after scaling nodes or introducing a new workload.
-  - **Measure relevant metrics:** focus on metrics, such as throughput (operations per second), latencies percentiles (for example, p50, p95), and CPU utilization to understand how Spanner serves your workload.
-  - **Run long benchmarks:** for more representative results, run your load tests for extended periods (for example, over one hour) to account for system behaviors like rebalancing and background maintenance tasks.
-  - **Scaling tests:** test both scale-up and scale-down scenarios to observe Spanner behavior under different node configurations and peak loads.
+- **Warm-up period:** allow a warm-up period (typically 30 minutes or more) for Spanner to reach a steady state after scaling nodes or introducing a new workload.
+- **Measure relevant metrics:** focus on metrics, such as throughput (operations per second), latencies percentiles (for example, p50, p95), and CPU utilization to understand how Spanner serves your workload.
+- **Run long benchmarks:** for more representative results, run your load tests for extended periods (for example, over one hour) to account for system behaviors like rebalancing and background maintenance tasks.
+- **Scaling tests:** test both scale-up and scale-down scenarios to observe Spanner behavior under different node configurations and peak loads.
 
 You can use tools like JMeter Machmeter and QuickPerf, along with best practices for load testing, to effectively evaluate Spanner's performance, identify bottlenecks, and optimize your database to meet the demands of your workload.
 
@@ -266,9 +266,9 @@ To effectively demonstrate the performance and scalability of Spanner during a P
 
 **[Hotspot insights](https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database)** identifies performance bottlenecks, specifically increased latency, that result from hotspotting conditions. Hotspots typically occur when there is a high and uneven load. Often, the cause for hotspots are:
 
-  - Suboptimal schema design
-  - Primary key selection
-  - Access patterns that concentrate operations on a small subset of data rather than distributing them evenly across nodes
+- Suboptimal schema design
+- Primary key selection
+- Access patterns that concentrate operations on a small subset of data rather than distributing them evenly across nodes
 
 During a POC load test, hotspot insights help you decide where to optimize your schema. For example, you might need to [adjust the primary keys](https://docs.cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots) or modify the [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) to prevent hotspots.
 
@@ -288,9 +288,9 @@ While an initial schema design is informed by best practices for scalability and
 
 Optimization focuses on fine-tuning the following areas to align with your application's workload characteristics.
 
-  - **Primary key adjustments:** if load tests reveal hotspots or imbalanced data distribution, review the [primary key design](https://docs.cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots) . Consider, for example, adding randomness in the key prefix to distribute data more evenly across nodes while preserving query efficiency.
-  - **Index refinements:** load tests can reveal whether redundant indexes or over-indexing is adversely affecting write throughput. Remove unnecessary indexes or restructure existing ones for better query performance. Evaluate index selectivity and ensure they align with typical query patterns.
-  - **Interleaved tables and hierarchies:** analyze whether related tables can benefit from [table interleaving](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) to reduce query latency. Adjust interleaving decisions based on the access patterns observed during testing. Conversely, consider modeling those tables separately if the hierarchical structure causes unexpected overhead.
+- **Primary key adjustments:** if load tests reveal hotspots or imbalanced data distribution, review the [primary key design](https://docs.cloud.google.com/spanner/docs/schema-design#primary-key-prevent-hotspots) . Consider, for example, adding randomness in the key prefix to distribute data more evenly across nodes while preserving query efficiency.
+- **Index refinements:** load tests can reveal whether redundant indexes or over-indexing is adversely affecting write throughput. Remove unnecessary indexes or restructure existing ones for better query performance. Evaluate index selectivity and ensure they align with typical query patterns.
+- **Interleaved tables and hierarchies:** analyze whether related tables can benefit from [table interleaving](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) to reduce query latency. Adjust interleaving decisions based on the access patterns observed during testing. Conversely, consider modeling those tables separately if the hierarchical structure causes unexpected overhead.
 
 For information about building scalable schemas, see the [Spanner schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
 
@@ -298,9 +298,9 @@ For information about building scalable schemas, see the [Spanner schema design 
 
 Load tests often highlight inefficiencies in transaction and query execution, such as high contention or locking issues. Optimize transaction semantics and query structures to maximize throughput and minimize latency:
 
-  - **Transaction modes:** use the appropriate [transaction mode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions) for each workload operation. For example, use read-only transactions for queries that don't modify data, or partitioned DML for bulk updates and deletes.
-  - **Batching:** where possible, use [batch write operations](https://docs.cloud.google.com/spanner/docs/batch-write) to reduce the overhead incurred by multiple round-trips.
-  - **Query optimization:** refactor queries to include only necessary columns and rows, take advantage of indexes, and use query parameters in your application to reduce overhead.
+- **Transaction modes:** use the appropriate [transaction mode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/TransactionOptions) for each workload operation. For example, use read-only transactions for queries that don't modify data, or partitioned DML for bulk updates and deletes.
+- **Batching:** where possible, use [batch write operations](https://docs.cloud.google.com/spanner/docs/batch-write) to reduce the overhead incurred by multiple round-trips.
+- **Query optimization:** refactor queries to include only necessary columns and rows, take advantage of indexes, and use query parameters in your application to reduce overhead.
 
 For information about optimization strategies, see the [Transactions overview](https://docs.cloud.google.com/spanner/docs/transactions) and [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
 
@@ -316,4 +316,4 @@ Track key metrics such as latency (p50, p99), throughput, and CPU utilization du
 
 ## What's next
 
-  - Watch [How to plan and run a Spanner POC](https://www.youtube.com/watch?v=TwpzMFsdKe8) to learn the essential steps, best practices, and tooling you need to effectively evaluate Spanner's capabilities.
+- Watch [How to plan and run a Spanner POC](https://www.youtube.com/watch?v=TwpzMFsdKe8) to learn the essential steps, best practices, and tooling you need to effectively evaluate Spanner's capabilities.

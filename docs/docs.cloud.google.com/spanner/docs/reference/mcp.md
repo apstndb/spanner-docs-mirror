@@ -12,12 +12,12 @@ For more information, see [MCP architecture](https://modelcontextprotocol.io/doc
 
 Spanner supports two remote servers for usage with MCP:
 
-  - **Spanner server** : Provides tools for managing Spanner instances and databases, and executing SQL queries.
-    
-      - Learn how to [Use the Spanner remote MCP server](https://docs.cloud.google.com/spanner/docs/use-spanner-mcp) .
-      - View the detailed [Spanner MCP tool reference](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp) .
+- **Spanner server** : Provides tools for managing Spanner instances and databases, and executing SQL queries.
 
-  - **Database insights server** : Provides tools for querying and analyzing database performance and system metrics.
-    
-      - Learn how to [Use the Database Insights MCP server](https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp) .
-      - View the detailed [Database insights MCP tool reference](https://docs.cloud.google.com/spanner/docs/reference/mcp/databaseinsights/mcp) .
+  - Learn how to [Use the Spanner remote MCP server](https://docs.cloud.google.com/spanner/docs/use-spanner-mcp) .
+  - View the detailed [Spanner MCP tool reference](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp) .
+
+- **Database insights server** : Provides tools for querying and analyzing database performance and system metrics.
+
+  - Learn how to [Use the Database Insights MCP server](https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp) .
+  - View the detailed [Database insights MCP tool reference](https://docs.cloud.google.com/spanner/docs/reference/mcp/databaseinsights/mcp) .

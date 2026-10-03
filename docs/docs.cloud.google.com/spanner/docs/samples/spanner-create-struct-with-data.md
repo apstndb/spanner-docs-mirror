@@ -12,7 +12,7 @@ Create a STRUCT object populated with data.
 
 For detailed documentation that includes this code sample, see the following:
 
-  - [Working with STRUCT objects](https://docs.cloud.google.com/spanner/docs/structs)
+- [Working with STRUCT objects](https://docs.cloud.google.com/spanner/docs/structs)
 
 ## Code sample
 
@@ -22,22 +22,26 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    // Cloud Spanner STRUCT<> types are represented by std::tuple<...>. The
-    // following represents a STRUCT<> with two unnamed STRING fields.
-    using NameType = std::tuple<std::string, std::string>;
-    auto singer_info = NameType{"Elena", "Campbell"};
+```cpp
+// Cloud Spanner STRUCT<> types are represented by std::tuple<...>. The
+// following represents a STRUCT<> with two unnamed STRING fields.
+using NameType = std::tuple<std::string, std::string>;
+auto singer_info = NameType{"Elena", "Campbell"};
+```
 
-### C\#
+### C#
 
 To learn how to install and use the client library for Spanner, see [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    var nameStruct = new SpannerStruct
-    {
-        { "FirstName", SpannerDbType.String, "Elena" },
-        { "LastName", SpannerDbType.String, "Campbell" },
-    };
+```csharp
+var nameStruct = new SpannerStruct
+{
+    { "FirstName", SpannerDbType.String, "Elena" },
+    { "LastName", SpannerDbType.String, "Campbell" },
+};
+```
 
 ### Go
 
@@ -45,11 +49,13 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    type name struct {
-     FirstName string
-     LastName  string
-    }
-    var singerInfo = name{"Elena", "Campbell"}
+```go
+type name struct {
+    FirstName string
+    LastName  string
+}
+var singerInfo = name{"Elena", "Campbell"}
+```
 
 ### Java
 
@@ -57,8 +63,10 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    Struct name =
-        Struct.newBuilder().set("FirstName").to("Elena").set("LastName").to("Campbell").build();
+```java
+Struct name =
+    Struct.newBuilder().set("FirstName").to("Elena").set("LastName").to("Campbell").build();
+```
 
 ### Node.js
 
@@ -66,13 +74,15 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    const nameStruct = Spanner.struct({
-      FirstName: 'Elena',
-      LastName: 'Campbell',
-    });
+```javascript
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+const nameStruct = Spanner.struct({
+  FirstName: 'Elena',
+  LastName: 'Campbell',
+});
+```
 
 ### PHP
 
@@ -80,12 +90,14 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    $nameValue = (new StructValue)
-        ->add('FirstName', 'Elena')
-        ->add('LastName', 'Campbell');
-    $nameType = (new StructType)
-        ->add('FirstName', Database::TYPE_STRING)
-        ->add('LastName', Database::TYPE_STRING);
+```php
+$nameValue = (new StructValue)
+    ->add('FirstName', 'Elena')
+    ->add('LastName', 'Campbell');
+$nameType = (new StructType)
+    ->add('FirstName', Database::TYPE_STRING)
+    ->add('LastName', Database::TYPE_STRING);
+```
 
 ### Python
 
@@ -93,13 +105,15 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    record_type = param_types.Struct(
-        [
-            param_types.StructField("FirstName", param_types.STRING),
-            param_types.StructField("LastName", param_types.STRING),
-        ]
-    )
-    record_value = ("Elena", "Campbell")
+```python
+record_type = param_types.Struct(
+    [
+        param_types.StructField("FirstName", param_types.STRING),
+        param_types.StructField("LastName", param_types.STRING),
+    ]
+)
+record_value = ("Elena", "Campbell")
+```
 
 ### Ruby
 
@@ -107,7 +121,9 @@ To learn how to install and use the client library for Spanner, see [Spanner cli
 
 To authenticate to Spanner, set up Application Default Credentials. For more information, see [Set up authentication for a local development environment](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) .
 
-    name_struct = { FirstName: "Elena", LastName: "Campbell" }
+```ruby
+name_struct = { FirstName: "Elena", LastName: "Campbell" }
+```
 
 ## What's next
 

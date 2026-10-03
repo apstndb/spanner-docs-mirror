@@ -24,88 +24,96 @@ To calculate the request latency of a streaming request, filter the audit logs b
 
 ### Sample audit logs for streaming requests
 
-To find all log entries for a streaming request, run the following query in the [Logs Explorer](https://docs.cloud.google.com/logging/docs/view/logs-explorer-interface) , replacing the OPERATION\_ID variable with the desired value:
+To find all log entries for a streaming request, run the following query in the [Logs Explorer](https://docs.cloud.google.com/logging/docs/view/logs-explorer-interface) , replacing the ` OPERATION_ID ` variable with the desired value:
 
-    operation.id="OPERATION_ID"
+```
+operation.id="OPERATION_ID"
+```
 
 The following example finds log entries for a streaming request with the `operation.id` of `15327696495839874591` :
 
-    operation.id="15327696495839874591"
+```
+operation.id="15327696495839874591"
+```
 
 #### Returned first log
 
-    {
-      "protoPayload": {
-        "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
-        "authenticationInfo": {...},
-        "requestMetadata": {
-          "requestAttributes": {
-            "time": "2023-02-27T16:57:40.552952297Z",
-          },
-          "destinationAttributes": {}
-        },
-        "serviceName": "spanner.googleapis.com",
-        "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
-        "authorizationInfo": [{...}],
-        "resourceName": "projects/example-project/instances/example-instance/databases/example-database/sessions/example-session",
-        "request": {
-          "session": "projects/example-project/instances/example-instance/databases/example-database/sessions/example-session",
-          "requestOptions": {},
-          "sql": "SELECT COUNT(*) as count FROM Example_table WHERE Example_Column > @timestamp",
-          "@type": "type.googleapis.com/google.spanner.v1.ExecuteSqlRequest",
-          "queryOptions": {}
-        },
-        "metadata": {
-          "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata",
-          "responseTimestamp": "2023-02-27T16:57:40.555730699Z"
-        }
+```
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {...},
+    "requestMetadata": {
+      "requestAttributes": {
+        "time": "2023-02-27T16:57:40.552952297Z",
       },
-      "insertId": "h7fj0jei6597",
-      "resource": {...},
-      "timestamp": "2023-02-27T16:57:40.552391554Z",
-      "severity": "INFO",
-      "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
-      "operation": {
-        "id": "15327696495839874591",
-        "producer": "spanner.googleapis.com",
-        "first": true
-      },
-      "receiveTimestamp": "2023-02-27T16:57:41.507770020Z"
+      "destinationAttributes": {}
+    },
+    "serviceName": "spanner.googleapis.com",
+    "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
+    "authorizationInfo": [{...}],
+    "resourceName": "projects/example-project/instances/example-instance/databases/example-database/sessions/example-session",
+    "request": {
+      "session": "projects/example-project/instances/example-instance/databases/example-database/sessions/example-session",
+      "requestOptions": {},
+      "sql": "SELECT COUNT(*) as count FROM Example_table WHERE Example_Column > @timestamp",
+      "@type": "type.googleapis.com/google.spanner.v1.ExecuteSqlRequest",
+      "queryOptions": {}
+    },
+    "metadata": {
+      "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata",
+      "responseTimestamp": "2023-02-27T16:57:40.555730699Z"
     }
+  },
+  "insertId": "h7fj0jei6597",
+  "resource": {...},
+  "timestamp": "2023-02-27T16:57:40.552391554Z",
+  "severity": "INFO",
+  "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
+  "operation": {
+    "id": "15327696495839874591",
+    "producer": "spanner.googleapis.com",
+    "first": true
+  },
+  "receiveTimestamp": "2023-02-27T16:57:41.507770020Z"
+}
+```
 
 #### Returned last log
 
-    {
-      "protoPayload": {
-        "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
-        "authenticationInfo": {...},
-        "requestMetadata": {
-          "requestAttributes": {
-            "time": "2023-02-27T16:57:40.552952297Z",
-          },
-          "destinationAttributes": {}
-        },
-        "serviceName": "spanner.googleapis.com",
-        "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
-        "authorizationInfo": [{...}],
-        "resourceName": "projects/example-project/instances/example-instance/databases/example-database/sessions/example-session",
-        "metadata": {
-          "responseTimestamp": "2023-02-27T16:57:40.556138125Z",
-          "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata"
-        }
+```
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {...},
+    "requestMetadata": {
+      "requestAttributes": {
+        "time": "2023-02-27T16:57:40.552952297Z",
       },
-      "insertId": "h7fj0jei6598",
-      "resource": {...},
-      "timestamp": "2023-02-27T16:57:40.552391554Z",
-      "severity": "INFO",
-      "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
-      "operation": {
-        "id": "15327696495839874591",
-        "producer": "spanner.googleapis.com",
-        "last": true
-      },
-      "receiveTimestamp": "2023-02-27T16:57:41.507770020Z"
+      "destinationAttributes": {}
+    },
+    "serviceName": "spanner.googleapis.com",
+    "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
+    "authorizationInfo": [{...}],
+    "resourceName": "projects/example-project/instances/example-instance/databases/example-database/sessions/example-session",
+    "metadata": {
+      "responseTimestamp": "2023-02-27T16:57:40.556138125Z",
+      "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata"
     }
+  },
+  "insertId": "h7fj0jei6598",
+  "resource": {...},
+  "timestamp": "2023-02-27T16:57:40.552391554Z",
+  "severity": "INFO",
+  "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
+  "operation": {
+    "id": "15327696495839874591",
+    "producer": "spanner.googleapis.com",
+    "last": true
+  },
+  "receiveTimestamp": "2023-02-27T16:57:41.507770020Z"
+}
+```
 
 The request latency is the latest `metadata.responseTimestamp` minus the earliest `requestAttributes.time` . The result is 2023-02-27T16:57:40.556138125Z-2023-02 - 2023-02-27T16:57:40.552952297Z, which equals 0.003185828 seconds.
 
@@ -123,105 +131,115 @@ To calculate the request latency of a partition request, you can filter the audi
 
 ### Sample audit logs for partition requests
 
-To find all log entries for a partition request, run the following query in the [Logs Explorer](https://docs.cloud.google.com/logging/docs/view/logs-explorer-interface) , replacing the PARTITION\_BATCH\_ID variable with the desired value:
+To find all log entries for a partition request, run the following query in the [Logs Explorer](https://docs.cloud.google.com/logging/docs/view/logs-explorer-interface) , replacing the ` PARTITION_BATCH_ID ` variable with the desired value:
 
-    metadata.partitionBatchIdentifier="PARTITION_BATCH_ID"
+```
+metadata.partitionBatchIdentifier="PARTITION_BATCH_ID"
+```
 
 The following example finds log entries for a partition request with the `metadata.partitionBatchIdentifier` of `15327696495839874591` :
 
-    metadata.partitionBatchIdentifier="15327696495839874591"
+```
+metadata.partitionBatchIdentifier="15327696495839874591"
+```
 
 #### Returned first log
 
-    {
-      "protoPayload": {
-        "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
-        "authenticationInfo": {...},
-        "requestMetadata": {
-          "requestAttributes": {
-            "time": "2023-02-15T18:13:39.341584693Z",
-            },
+```
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {...},
+    "requestMetadata": {
+      "requestAttributes": {
+        "time": "2023-02-15T18:13:39.341584693Z",
         },
-        "serviceName": "spanner.googleapis.com",
-        "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
-        "authorizationInfo": [{...}],
-        "resourceName": "projects/example-project/instances/example-instance/databases/example-db/sessions/example-session",
-        "request": {...},
-        "metadata": {
-          "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata",
-          "partitionBatchIdentifier": "4841471066190013455",
-          "responseTimestamp": "2023-02-15T18:13:39.343693061Z"
-        }
-      },
-      "insertId": "4fug42dqke5",
-      "resource": {...},
-      "timestamp": "2023-02-15T18:13:39.341069413Z",
-      "severity": "INFO",
-      "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
-      "operation": {...},
-      "receiveTimestamp": "2023-02-15T18:13:39.983812511Z"
+    },
+    "serviceName": "spanner.googleapis.com",
+    "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
+    "authorizationInfo": [{...}],
+    "resourceName": "projects/example-project/instances/example-instance/databases/example-db/sessions/example-session",
+    "request": {...},
+    "metadata": {
+      "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata",
+      "partitionBatchIdentifier": "4841471066190013455",
+      "responseTimestamp": "2023-02-15T18:13:39.343693061Z"
     }
+  },
+  "insertId": "4fug42dqke5",
+  "resource": {...},
+  "timestamp": "2023-02-15T18:13:39.341069413Z",
+  "severity": "INFO",
+  "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
+  "operation": {...},
+  "receiveTimestamp": "2023-02-15T18:13:39.983812511Z"
+}
+```
 
 #### Returned second log
 
-    {
-      "protoPayload": {
-        "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
-        "authenticationInfo": {...},
-        "requestMetadata": {
-          "requestAttributes": {
-            "time": "2023-02-15T18:13:39.341584693Z",
-            },
-          },
-        "serviceName": "spanner.googleapis.com",
-        "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
-        "authorizationInfo": [{...}],
-        "resourceName": "projects/example-project/instances/example-instance/databases/example-db/sessions/example-session",
-        "metadata": {
-          "responseTimestamp": "2023-02-15T18:13:39.344256101Z",
-          "partitionBatchIdentifier": "4841471066190013455",
-          "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata"
-        }
+```
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {...},
+    "requestMetadata": {
+      "requestAttributes": {
+        "time": "2023-02-15T18:13:39.341584693Z",
+        },
       },
-      "insertId": "4fug42dqke6",
-      "resource": {...},
-      "timestamp": "2023-02-15T18:13:39.341069413Z",
-      "severity": "INFO",
-      "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
-      "operation": {...},
-      "receiveTimestamp": "2023-02-15T18:13:39.983812511Z"
+    "serviceName": "spanner.googleapis.com",
+    "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
+    "authorizationInfo": [{...}],
+    "resourceName": "projects/example-project/instances/example-instance/databases/example-db/sessions/example-session",
+    "metadata": {
+      "responseTimestamp": "2023-02-15T18:13:39.344256101Z",
+      "partitionBatchIdentifier": "4841471066190013455",
+      "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata"
     }
+  },
+  "insertId": "4fug42dqke6",
+  "resource": {...},
+  "timestamp": "2023-02-15T18:13:39.341069413Z",
+  "severity": "INFO",
+  "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
+  "operation": {...},
+  "receiveTimestamp": "2023-02-15T18:13:39.983812511Z"
+}
+```
 
 Depending on the number of partitions, Spanner might record more logs than in this example.
 
 #### Returned last log
 
-    {
-      "protoPayload": {
-        "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
-        "authenticationInfo": {...},
-        "requestMetadata": {
-          "requestAttributes": {
-            "time": "2023-02-15T18:13:39.439207331Z",
-            },
+```
+{
+  "protoPayload": {
+    "@type": "type.googleapis.com/google.cloud.audit.AuditLog",
+    "authenticationInfo": {...},
+    "requestMetadata": {
+      "requestAttributes": {
+        "time": "2023-02-15T18:13:39.439207331Z",
         },
-        "serviceName": "spanner.googleapis.com",
-        "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
-        "authorizationInfo": [{...}],
-        "resourceName": "projects/example-project/instances/example-instance/databases/example-db/sessions/example-session",
-        "metadata": {
-          "partitionBatchIdentifier": "4841471066190013455",
-          "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata",
-          "responseTimestamp": "2023-02-15T18:13:39.441692339Z"
-        }
-      },
-      "insertId": "4fug42dqkec",
-      "resource": {...},
-      "timestamp": "2023-02-15T18:13:39.438607931Z",
-      "severity": "INFO",
-      "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
-      "operation": {...},
-      "receiveTimestamp": "2023-02-15T18:13:39.983812511Z"
+    },
+    "serviceName": "spanner.googleapis.com",
+    "methodName": "google.spanner.v1.Spanner.ExecuteStreamingSql",
+    "authorizationInfo": [{...}],
+    "resourceName": "projects/example-project/instances/example-instance/databases/example-db/sessions/example-session",
+    "metadata": {
+      "partitionBatchIdentifier": "4841471066190013455",
+      "@type": "type.googleapis.com/spanner.cloud.instance_v1.QueryPerformanceMetadata",
+      "responseTimestamp": "2023-02-15T18:13:39.441692339Z"
     }
+  },
+  "insertId": "4fug42dqkec",
+  "resource": {...},
+  "timestamp": "2023-02-15T18:13:39.438607931Z",
+  "severity": "INFO",
+  "logName": "projects/example-project/logs/cloudaudit.googleapis.com%2Fdata_access",
+  "operation": {...},
+  "receiveTimestamp": "2023-02-15T18:13:39.983812511Z"
+}
+```
 
 The request latency is the latest `metadata.responseTimestamp` minus the earliest `requestAttributes.time` . The result is 2023-02-15T18:13:39.441692339Z - 2023-02-15T18:13:39.341584693Z, which equals 0.100107646 seconds.

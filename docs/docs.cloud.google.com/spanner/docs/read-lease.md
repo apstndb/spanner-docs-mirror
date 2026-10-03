@@ -20,8 +20,8 @@ To learn how to enable read leases, see [Use read leases](https://docs.cloud.goo
 
 Enable read leases if your application and workload meet the following criteria:
 
-  - Low latency for strong reads is more important than low latency for writes.
-  - Your workload can tolerate longer write [lock](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) durations, or has low write contention.
+- Low latency for strong reads is more important than low latency for writes.
+- Your workload can tolerate longer write [lock](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) durations, or has low write contention.
 
 When there are concurrent writes, the choice between using the [query APIs](https://docs.cloud.google.com/spanner/docs/samples/spanner-query-data) or the [read APIs](https://docs.cloud.google.com/spanner/docs/samples/spanner-read-data) affects the performance of a database that uses read lease regions.
 
@@ -37,12 +37,12 @@ When you enable read lease in the `europe-west1` and `asia-east1` read-only regi
 
 Spanner read leases have the following limitations:
 
-  - Read leases don't reduce latency for reads that are part of a read-write transaction. If you want to achieve intra-region latency for reads inside read-write transactions, then you must use the [repeatable read isolation level](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) and disable [leader aware routing](https://docs.cloud.google.com/spanner/docs/leader-aware-routing#disable) to use read leases. Even when using repeatable read isolation, reads in read-write transactions might still be directed to the leader region, particularly after a write has occurred within the transaction, to ensure read-your-writes consistency.
-  - If you [move your instance](https://docs.cloud.google.com/spanner/docs/move-instance) to a different instance configuration, the read lease settings aren't preserved. You must re-enable read lease on the database after the move completes.
-  - You can't disable or change the read lease region on an existing placement. This limitation is subject to change or removal upon the [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) GA release or after. If you want to disable read lease in an existing placement, do the following:
-      - [Create a new placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#create-placement) without specifying the read lease option or with a different read lease region that you want to use.
-      - Use [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) to update the placement of your data to the new placement. This update initiates a background process to [move](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#move-row) the data. Spanner can move approximately 10 placement rows per second for every node in your destination instance partition. Your CPU usage might be impacted during this period due to the move.
-      - [Drop the original placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#drop-placement) after the data move is complete.
+- Read leases don't reduce latency for reads that are part of a read-write transaction. If you want to achieve intra-region latency for reads inside read-write transactions, then you must use the [repeatable read isolation level](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) and disable [leader aware routing](https://docs.cloud.google.com/spanner/docs/leader-aware-routing#disable) to use read leases. Even when using repeatable read isolation, reads in read-write transactions might still be directed to the leader region, particularly after a write has occurred within the transaction, to ensure read-your-writes consistency.
+- If you [move your instance](https://docs.cloud.google.com/spanner/docs/move-instance) to a different instance configuration, the read lease settings aren't preserved. You must re-enable read lease on the database after the move completes.
+- You can't disable or change the read lease region on an existing placement. This limitation is subject to change or removal upon the [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) GA release or after. If you want to disable read lease in an existing placement, do the following:
+  - [Create a new placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#create-placement) without specifying the read lease option or with a different read lease region that you want to use.
+  - Use [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) to update the placement of your data to the new placement. This update initiates a background process to [move](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#move-row) the data. Spanner can move approximately 10 placement rows per second for every node in your destination instance partition. Your CPU usage might be impacted during this period due to the move.
+  - [Drop the original placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#drop-placement) after the data move is complete.
 
 ## Use read leases
 
@@ -58,27 +58,31 @@ For information on how to grant permissions, see [Apply IAM permissions](https:/
 
 If you want to use read lease in a PostgreSQL database, make one of the following configuration changes to your database. Otherwise, your reads are still served by the leader region even if you have set read lease regions.
 
-  - If you only use read-only transactions, configure your PostgreSQL connection so that the default status of each new transaction in the database is set to read-only. To do so, set the [`default_transaction_read_only`](https://www.postgresql.org/docs/current/runtime-config-client.html#GUC-DEFAULT-TRANSACTION-READ-ONLY) option to `true` .
-    
-        postgres://USER_ID:PASSWORD@localhost:5432/DATABASE_ID?sslmode=disable&options=-c \
-          default_transaction_read_only=true
-        host=/tmp port=5432 database=DATABASE_ID \
-          options='-c default_transaction_read_only=true'
-    
-    Replace the following:
-    
-      - USER\_ID with the unique identifier of your user.
-    
-      - PASSWORD with your password.
-    
-      - DATABASE\_ID with the unique identifier of your database.
+- If you only use read-only transactions, configure your PostgreSQL connection so that the default status of each new transaction in the database is set to read-only. To do so, set the [`default_transaction_read_only`](https://www.postgresql.org/docs/current/runtime-config-client.html#GUC-DEFAULT-TRANSACTION-READ-ONLY) option to `true` .
 
-  - If you want to achieve intra-region latency read within read-write transactions or you can't always switch your connection option, use the [repeatable read isolation level](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) and disable [leader aware routing](https://docs.cloud.google.com/spanner/docs/leader-aware-routing#disable) . These settings are required even if your read-write transaction only has reads. Otherwise the reads inside read-write transactions are always directed to the leader region. In such a transaction, read lease is disabled after the first write DML statement appears. This is because writes are always directed at the leader region. Therefore, in order to read your write, subsequent reads need to go to the leader region, too.
-    
-        postgres://USER_ID:PASSWORD@localhost:5432/DATABASE_ID?sslmode=disable&options=-c \
-          default_isolation_level=REPEATABLE_READ -c routeToLeader=false
-        host=/tmp port=5432 database=DATABASE_ID \
-          options='-c default_isolation_level=REPEATABLE_READ -c routeToLeader=false'
+  ```
+  postgres://USER_ID:PASSWORD@localhost:5432/DATABASE_ID?sslmode=disable&options=-c \
+    default_transaction_read_only=true
+  host=/tmp port=5432 database=DATABASE_ID \
+    options='-c default_transaction_read_only=true'
+  ```
+
+  Replace the following:
+
+  - ` USER_ID ` with the unique identifier of your user.
+
+  - ` PASSWORD ` with your password.
+
+  - ` DATABASE_ID ` with the unique identifier of your database.
+
+- If you want to achieve intra-region latency read within read-write transactions or you can't always switch your connection option, use the [repeatable read isolation level](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) and disable [leader aware routing](https://docs.cloud.google.com/spanner/docs/leader-aware-routing#disable) . These settings are required even if your read-write transaction only has reads. Otherwise the reads inside read-write transactions are always directed to the leader region. In such a transaction, read lease is disabled after the first write DML statement appears. This is because writes are always directed at the leader region. Therefore, in order to read your write, subsequent reads need to go to the leader region, too.
+
+  ```
+  postgres://USER_ID:PASSWORD@localhost:5432/DATABASE_ID?sslmode=disable&options=-c \
+    default_isolation_level=REPEATABLE_READ -c routeToLeader=false
+  host=/tmp port=5432 database=DATABASE_ID \
+    options='-c default_isolation_level=REPEATABLE_READ -c routeToLeader=false'
+  ```
 
 ### Enable read leases
 
@@ -97,7 +101,7 @@ To enable read leases when you create a new database, set the `read_lease_region
 5.  Select a database dialect.
 
 6.  Click **Create** .
-    
+
     The Google Cloud console displays the **Overview** page for the database you created.
 
 7.  In the navigation menu, click **Spanner Studio** .
@@ -105,28 +109,32 @@ To enable read leases when you create a new database, set the `read_lease_region
 8.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 9.  Enter the following `ALTER DATABASE` DDL statement.
-    
+
     ### GoogleSQL
-    
-        ALTER DATABASE DATABASE_ID
-        SET OPTIONS (read_lease_regions = 'READ_LEASE_REGION');
-    
+
+    ```
+    ALTER DATABASE DATABASE_ID
+    SET OPTIONS (read_lease_regions = 'READ_LEASE_REGION');
+    ```
+
     Replace the following:
-    
-      - DATABASE\_ID with the unique identifier of your database.
-    
-      - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
-    
+
+    - ` DATABASE_ID ` with the unique identifier of your database.
+
+    - ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+
     ### PostgreSQL
-    
-        ALTER DATABASE DATABASE_ID
-        SET "spanner.read_lease_regions" = 'READ_LEASE_REGION';
-    
+
+    ```
+    ALTER DATABASE DATABASE_ID
+    SET "spanner.read_lease_regions" = 'READ_LEASE_REGION';
+    ```
+
     Replace the following:
-    
-      - DATABASE\_ID with the unique identifier of your database.
-    
-      - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+
+    - ` DATABASE_ID ` with the unique identifier of your database.
+
+    - ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
 
 10. Click **Run** .
 
@@ -136,28 +144,32 @@ To set the `read_lease_regions` database option when creating your database, use
 
 ### GoogleSQL
 
-    gcloud spanner databases create DATABASE_ID \
-      --instance=INSTANCE_ID \
-      --ddl="ALTER DATABASE DATABASE_ID SET OPTIONS (read_lease_regions = 'READ_LEASE_REGION');"
+```
+gcloud spanner databases create DATABASE_ID \
+  --instance=INSTANCE_ID \
+  --ddl="ALTER DATABASE DATABASE_ID SET OPTIONS (read_lease_regions = 'READ_LEASE_REGION');"
+```
 
 Replace the following:
 
-  - `DATABASE_ID` : the identifier for your Spanner database.
-  - `INSTANCE_ID` : the identifier for your Spanner instance.
-  - `READ_LEASE_REGION` : the region where you want to enable read lease. For example, `europe-west1` . You can enable read lease for multiple regions. Separate each region with a comma.
+- ` ``DATABASE_ID`` ` : the identifier for your Spanner database.
+- ` ``INSTANCE_ID`` ` : the identifier for your Spanner instance.
+- ` ``READ_LEASE_REGION`` ` : the region where you want to enable read lease. For example, `europe-west1` . You can enable read lease for multiple regions. Separate each region with a comma.
 
 ### PostgreSQL
 
-    gcloud spanner databases create DATABASE_ID \
-      --instance=INSTANCE_ID \
-      --ddl="ALTER DATABASE DATABASE_ID \
-        SET "spanner.read_lease_regions" = 'READ_LEASE_REGION';"
+```
+gcloud spanner databases create DATABASE_ID \
+  --instance=INSTANCE_ID \
+  --ddl="ALTER DATABASE DATABASE_ID \
+    SET "spanner.read_lease_regions" = 'READ_LEASE_REGION';"
+```
 
 Replace the following:
 
-  - `DATABASE_ID` : the identifier for your Spanner database.
-  - `INSTANCE_ID` : the identifier for your Spanner instance.
-  - `READ_LEASE_REGION` : the region where you want to enable read lease. For example, `europe-west1` . You can enable read lease for multiple regions. Separate each region with a comma.
+- ` ``DATABASE_ID`` ` : the identifier for your Spanner database.
+- ` ``INSTANCE_ID`` ` : the identifier for your Spanner instance.
+- ` ``READ_LEASE_REGION`` ` : the region where you want to enable read lease. For example, `europe-west1` . You can enable read lease for multiple regions. Separate each region with a comma.
 
 To enable read lease when you update an existing database, set the `read_lease_regions` option in the `ALTER DATABASE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_database) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) ) DDL statement:
 
@@ -174,28 +186,32 @@ To enable read lease when you update an existing database, set the `read_lease_r
 5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 6.  Enter the following `ALTER DATABASE` DDL statement.
-    
+
     ### GoogleSQL
-    
-        ALTER DATABASE DATABASE_ID \
-        SET OPTIONS (read_lease_regions = 'READ_LEASE_REGION');
-    
+
+    ```
+    ALTER DATABASE DATABASE_ID \
+    SET OPTIONS (read_lease_regions = 'READ_LEASE_REGION');
+    ```
+
     Replace the following:
-    
-      - DATABASE\_ID with the unique identifier of your database.
-    
-      - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
-    
+
+    - ` DATABASE_ID ` with the unique identifier of your database.
+
+    - ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+
     ### PostgreSQL
-    
-        ALTER DATABASE DATABASE_ID \
-        SET "spanner.read_lease_regions" = 'READ_LEASE_REGION';
-    
+
+    ```
+    ALTER DATABASE DATABASE_ID \
+    SET "spanner.read_lease_regions" = 'READ_LEASE_REGION';
+    ```
+
     Replace the following:
-    
-      - DATABASE\_ID with the unique identifier of your database.
-    
-      - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+
+    - ` DATABASE_ID ` with the unique identifier of your database.
+
+    - ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
 
 7.  Click **Run** .
 
@@ -205,34 +221,38 @@ To set the `read_lease_regions` database option, use [`gcloud spanner databases 
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update DATABASE_ID \
-      --instance=INSTANCE_ID \
-      --ddl="ALTER DATABASE DATABASE_ID \
-        SET OPTIONS (read_lease_regions = 'READ_LEASE_REGION');"
+```
+gcloud spanner databases ddl update DATABASE_ID \
+  --instance=INSTANCE_ID \
+  --ddl="ALTER DATABASE DATABASE_ID \
+    SET OPTIONS (read_lease_regions = 'READ_LEASE_REGION');"
+```
 
 Replace the following:
 
-  - `DATABASE_ID` : the identifier for your Spanner database.
-  - `INSTANCE_ID` : the identifier for your Spanner instance.
-  - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+- ` ``DATABASE_ID`` ` : the identifier for your Spanner database.
+- ` ``INSTANCE_ID`` ` : the identifier for your Spanner instance.
+- ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update DATABASE_ID \
-      --instance=INSTANCE_ID \
-      --ddl="ALTER DATABASE DATABASE_ID \
-        SET "spanner.read_lease_regions" = 'READ_LEASE_REGION';"
+```
+gcloud spanner databases ddl update DATABASE_ID \
+  --instance=INSTANCE_ID \
+  --ddl="ALTER DATABASE DATABASE_ID \
+    SET "spanner.read_lease_regions" = 'READ_LEASE_REGION';"
+```
 
 Replace the following:
 
-  - `DATABASE_ID` : the identifier for your Spanner database.
-  - `INSTANCE_ID` : the identifier for your Spanner instance.
-  - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+- ` ``DATABASE_ID`` ` : the identifier for your Spanner database.
+- ` ``INSTANCE_ID`` ` : the identifier for your Spanner instance.
+- ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
 
 To enable read lease when you create a new placement, use the `read_lease_regions` option in the `CREATE PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement to set one or more regions where you want to use read lease:
 
 > **Preview — [Geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning)**
-> 
+>
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 ### Console
@@ -248,30 +268,34 @@ To enable read lease when you create a new placement, use the `read_lease_region
 5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 6.  Enter the following `CREATE PLACEMENT` DDL statement.
-    
+
     ### GoogleSQL
-    
-        CREATE PLACEMENT PLACEMENT_NAME
-        OPTIONS (instance_partition="PARTITION_ID",
-        read_lease_regions = 'READ_LEASE_REGION');
-    
+
+    ```
+    CREATE PLACEMENT PLACEMENT_NAME
+    OPTIONS (instance_partition="PARTITION_ID",
+    read_lease_regions = 'READ_LEASE_REGION');
+    ```
+
     Replace the following:
-    
-      - PLACEMENT\_NAME with the name of your placement.
-      - PARTITION\_ID with the unique identifier of the partition to associate with the placement.
-      - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
-    
+
+    - ` PLACEMENT_NAME ` with the name of your placement.
+    - ` PARTITION_ID ` with the unique identifier of the partition to associate with the placement.
+    - ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+
     ### PostgreSQL
-    
-        CREATE PLACEMENT PLACEMENT_NAME
-        WITH (instance_partition='PARTITION_ID',
-              read_lease_regions = 'READ_LEASE_REGION';
-    
+
+    ```
+    CREATE PLACEMENT PLACEMENT_NAME
+    WITH (instance_partition='PARTITION_ID',
+          read_lease_regions = 'READ_LEASE_REGION';
+    ```
+
     Replace the following:
-    
-      - PLACEMENT\_NAME with the name of your placement.
-      - PARTITION\_ID with the unique identifier of the partition to associate with the placement.
-      - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+
+    - ` PLACEMENT_NAME ` with the name of your placement.
+    - ` PARTITION_ID ` with the unique identifier of the partition to associate with the placement.
+    - ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
 
 7.  Click **Run** .
 
@@ -281,31 +305,35 @@ To set the `read_lease_regions` database option for a placement, use [`gcloud sp
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update DATABASE_ID \
-      --instance=INSTANCE_ID \
-      --ddl="CREATE PLACEMENT PLACEMENT_NAME OPTIONS (instance_partition=\"PARTITION_ID\", read_lease_regions = 'READ_LEASE_REGION');"`
+```
+gcloud spanner databases ddl update DATABASE_ID \
+  --instance=INSTANCE_ID \
+  --ddl="CREATE PLACEMENT PLACEMENT_NAME OPTIONS (instance_partition=\"PARTITION_ID\", read_lease_regions = 'READ_LEASE_REGION');"`
+```
 
 Replace the following:
 
-  - `DATABASE_ID` : the identifier for your Spanner database.
-  - `INSTANCE_ID` : the identifier for your Spanner instance.
-  - `PLACEMENT_NAME` : the name of your placement.
-  - `PARTITION_ID` : the unique identifier of the partition to associate with the placement.
-  - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+- ` ``DATABASE_ID`` ` : the identifier for your Spanner database.
+- ` ``INSTANCE_ID`` ` : the identifier for your Spanner instance.
+- ` ``PLACEMENT_NAME`` ` : the name of your placement.
+- ` ``PARTITION_ID`` ` : the unique identifier of the partition to associate with the placement.
+- ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update DATABASE_ID \
-      --instance=INSTANCE_ID \
-      --ddl="CREATE PLACEMENT PLACEMENT_NAME WITH (instance_partition='PARTITION_ID', read_lease_regions = 'READ_LEASE_REGION';"
+```
+gcloud spanner databases ddl update DATABASE_ID \
+  --instance=INSTANCE_ID \
+  --ddl="CREATE PLACEMENT PLACEMENT_NAME WITH (instance_partition='PARTITION_ID', read_lease_regions = 'READ_LEASE_REGION';"
+```
 
 Replace the following:
 
-  - `DATABASE_ID` : the identifier for your Spanner database.
-  - `INSTANCE_ID` : the identifier for your Spanner instance.
-  - `PLACEMENT_NAME` : the name of your placement.
-  - `PARTITION_ID` : the unique identifier of the partition to associate with the placement.
-  - READ\_LEASE\_REGION with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
+- ` ``DATABASE_ID`` ` : the identifier for your Spanner database.
+- ` ``INSTANCE_ID`` ` : the identifier for your Spanner instance.
+- ` ``PLACEMENT_NAME`` ` : the name of your placement.
+- ` ``PARTITION_ID`` ` : the unique identifier of the partition to associate with the placement.
+- ` READ_LEASE_REGION ` with one or more regions where you want to enable read lease. For example, `europe-west1, europe-west4` .
 
 ### Disable read leases
 
@@ -328,18 +356,22 @@ To update and disable the feature on an existing database, set the `read_lease_r
 5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 6.  Enter the following `ALTER DATABASE` DDL statement.
-    
+
     ### GoogleSQL
-    
-        ALTER DATABASE DATABASE_ID SET OPTIONS (read_lease_regions = NULL);
-    
-    Replace DATABASE\_ID with the unique identifier of your database.
-    
+
+    ```
+    ALTER DATABASE DATABASE_ID SET OPTIONS (read_lease_regions = NULL);
+    ```
+
+    Replace ` DATABASE_ID ` with the unique identifier of your database.
+
     ### PostgreSQL
-    
-        ALTER DATABASE DATABASE_ID SET "spanner.read_lease_regions" = NULL;
-    
-    Replace DATABASE\_ID with the unique identifier of your database.
+
+    ```
+    ALTER DATABASE DATABASE_ID SET "spanner.read_lease_regions" = NULL;
+    ```
+
+    Replace ` DATABASE_ID ` with the unique identifier of your database.
 
 7.  Click **Run** .
 
@@ -349,25 +381,29 @@ To set the `read_lease_regions` database option, use [`gcloud spanner databases 
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update DATABASE_ID \
-      --instance=INSTANCE_ID \
-      --ddl="ALTER DATABASE DATABASE_ID SET OPTIONS (read_lease_regions = NULL);"
+```
+gcloud spanner databases ddl update DATABASE_ID \
+  --instance=INSTANCE_ID \
+  --ddl="ALTER DATABASE DATABASE_ID SET OPTIONS (read_lease_regions = NULL);"
+```
 
 Replace the following:
 
-  - `DATABASE_ID` : the identifier for your Spanner database.
-  - `INSTANCE_ID` : the identifier for your Spanner instance.
+- ` ``DATABASE_ID`` ` : the identifier for your Spanner database.
+- ` ``INSTANCE_ID`` ` : the identifier for your Spanner instance.
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update DATABASE_ID \
-      --instance=INSTANCE_ID \
-      --ddl="ALTER DATABASE DATABASE_ID SET "spanner.read_lease_regions" = NULL;"
+```
+gcloud spanner databases ddl update DATABASE_ID \
+  --instance=INSTANCE_ID \
+  --ddl="ALTER DATABASE DATABASE_ID SET "spanner.read_lease_regions" = NULL;"
+```
 
 Replace the following:
 
-  - `DATABASE_ID` : the identifier for your Spanner database.
-  - `INSTANCE_ID` : the identifier for your Spanner instance.
+- ` ``DATABASE_ID`` ` : the identifier for your Spanner database.
+- ` ``INSTANCE_ID`` ` : the identifier for your Spanner instance.
 
 ## Best practices
 
@@ -379,7 +415,7 @@ After enabling read lease, it's important to monitor latency to confirm that the
 
 You can also use the following Spanner latency metric to help you monitor read request latencies in your instances:
 
-  - `spanner.googleapis.com/api/read_request_latencies_by_serving_location`
+- `spanner.googleapis.com/api/read_request_latencies_by_serving_location`
 
 You can filter this metric using the `/serving_location` field. The `/serving location` field indicates the location of the Spanner server where the request is served from.
 
@@ -393,5 +429,5 @@ The feature doesn't impact other pricing components such as storage and network.
 
 ## What's next
 
-  - Learn more about [Spanner replication](https://docs.cloud.google.com/spanner/docs/replication) .
-  - Learn more about [Reads outside of transactions](https://docs.cloud.google.com/spanner/docs/reads) .
+- Learn more about [Spanner replication](https://docs.cloud.google.com/spanner/docs/replication) .
+- Learn more about [Reads outside of transactions](https://docs.cloud.google.com/spanner/docs/reads) .

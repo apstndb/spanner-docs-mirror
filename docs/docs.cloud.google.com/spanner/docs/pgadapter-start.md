@@ -10,11 +10,11 @@ This page explains how to start PGAdapter in Spanner. To learn about PGAdapter, 
 
 You can start PGAdapter in the following ways:
 
-  - As a standalone process
-  - Within a Docker container
-  - On Cloud Run
-  - Using PGAdapter as a sidecar proxy (for example, in a Kubernetes cluster)
-  - In-process with your Java application
+- As a standalone process
+- Within a Docker container
+- On Cloud Run
+- Using PGAdapter as a sidecar proxy (for example, in a Kubernetes cluster)
+- In-process with your Java application
 
 ## Before you begin
 
@@ -22,8 +22,8 @@ Before starting PGAdapter, ensure that you have authenticated with either a user
 
 For more information, see:
 
-  - [Authenticate to Spanner](https://docs.cloud.google.com/spanner/docs/authentication)
-  - [How Application Default Credentials works](https://docs.cloud.google.com/docs/authentication/application-default-credentials)
+- [Authenticate to Spanner](https://docs.cloud.google.com/spanner/docs/authentication)
+- [How Application Default Credentials works](https://docs.cloud.google.com/docs/authentication/application-default-credentials)
 
 ## Choose a method for running PGAdapter
 
@@ -33,60 +33,60 @@ You can start PGAdapter as a standalone process, within a Docker container, on C
 
 Download PGAdapter with the following command.
 
-``` 
-    wget https://storage.googleapis.com/pgadapter-jar-releases/pgadapter.tar.gz \
+```
+wget https://storage.googleapis.com/pgadapter-jar-releases/pgadapter.tar.gz \
     && tar -xzvf pgadapter.tar.gz
-    
 ```
 
 Start PGAdapter with the following command.
 
-``` 
-    java -jar pgadapter.jar -p PROJECT_ID -i INSTANCE_ID -d DATABASE_ID \
+```
+java -jar pgadapter.jar -p PROJECT_ID -i INSTANCE_ID -d DATABASE_ID \
     -c CREDENTIALS_FILE_PATH \
     ADDITIONAL_OPTIONS
-    
 ```
 
 The following options are required:
 
-  - ` -p project_id  `  
-    ID of the project that the Spanner database is running in.
-  - ` -i instance_id  `  
-    Spanner instance ID.
-  - ` -d database_ID  `  
-    ID of the Spanner database to connect to.
+`-p `` project_id`  
+ID of the project that the Spanner database is running in.
+
+`-i `` instance_id`  
+Spanner instance ID.
+
+`-d `` database_ID`  
+ID of the Spanner database to connect to.
 
 The following options are optional:
 
-  - ` -r databaseRole= database_role  `  
-    Database role to use for the session. For more information, see [Authorization with PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter#pgadapter-authorization) .
+`-r databaseRole= `` database_role`  
+Database role to use for the session. For more information, see [Authorization with PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter#pgadapter-authorization) .
 
-  - ` -c credentials_file_path  `  
-    Full path for the keys file containing the service account credentials in JSON format. If this option is not set, credentials are read from the path specified by the `GOOGLE_APPLICATION_CREDENTIALS` environment variable.
-    
-    To learn how to create a service account and download a JSON-formatted key file, see [Creating a service account](https://cloud.google.com/docs/authentication/production#create_service_account) .
-    
-    Ensure that you grant the service account sufficient credentials to access the database.
-    
-    You can omit this option if you first authenticate with the Google Cloud CLI with the following command:
-    
-    `gcloud auth application-default login`
-    
-    For more information, see [Set up authentication and authorization.](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_authentication_and_authorization)
+`-c `` credentials_file_path`  
+Full path for the keys file containing the service account credentials in JSON format. If this option is not set, credentials are read from the path specified by the `GOOGLE_APPLICATION_CREDENTIALS` environment variable.
 
-  - ` -s port  `  
-    Port that PGAdapter listens on. Defaults to 5432 (the default PostgreSQL port).
+To learn how to create a service account and download a JSON-formatted key file, see [Creating a service account](https://cloud.google.com/docs/authentication/production#create_service_account) .
 
-  - ` -v version_number  `  
-    Version number of PostgreSQL to expose to the client during connection. Default value is 14.1
-    
-    Some PostgreSQL applications and drivers enable additional features depending on this version number. Spanner might not support these features. See [Drivers and Clients](https://github.com/GoogleCloudPlatform/pgadapter#drivers-and-clients) for a full list of supported clients.
+Ensure that you grant the service account sufficient credentials to access the database.
 
-  - `-x`  
-    Enable connections from hosts other than localhost. *Don't use when starting PGAdapter in standalone mode. Use only when starting within a Docker container* .
-    
-    By default, as a security measure, PGAdapter accepts connections only from localhost.
+You can omit this option if you first authenticate with the Google Cloud CLI with the following command:
+
+`gcloud auth application-default login`
+
+For more information, see [Set up authentication and authorization.](https://docs.cloud.google.com/spanner/docs/getting-started/set-up#set_up_authentication_and_authorization)
+
+`-s `` port`  
+Port that PGAdapter listens on. Defaults to 5432 (the default PostgreSQL port).
+
+`-v `` version_number`  
+Version number of PostgreSQL to expose to the client during connection. Default value is 14.1
+
+Some PostgreSQL applications and drivers enable additional features depending on this version number. Spanner might not support these features. See [Drivers and Clients](https://github.com/GoogleCloudPlatform/pgadapter#drivers-and-clients) for a full list of supported clients.
+
+`-x`  
+Enable connections from hosts other than localhost. *Don't use when starting PGAdapter in standalone mode. Use only when starting within a Docker container* .
+
+By default, as a security measure, PGAdapter accepts connections only from localhost.
 
 The following example starts PGAdapter in standalone mode on port 5432 using the default application credentials.
 
@@ -102,41 +102,45 @@ java -jar pgadapter.jar \
 
 Start PGAdapter with the following command.
 
-    docker run -d -p HOST-PORT:DOCKER-PORT \
-    -v CREDENTIALS_FILE_PATH:/acct_credentials.json \
-    gcr.io/cloud-spanner-pg-adapter/pgadapter:latest \
-    -p PROJECT_ID -i INSTANCE_ID -d DATABASE_ID  \
-    -c /acct_credentials.json -x OTHER_PGAdapter_OPTIONS
+```
+docker run -d -p HOST-PORT:DOCKER-PORT \
+-v CREDENTIALS_FILE_PATH:/acct_credentials.json \
+gcr.io/cloud-spanner-pg-adapter/pgadapter:latest \
+-p PROJECT_ID -i INSTANCE_ID -d DATABASE_ID  \
+-c /acct_credentials.json -x OTHER_PGAdapter_OPTIONS
+```
 
 In addition to the PGAdapter options to specify project, instance, database, and credentials, the following options are required:
 
-  - ` -p 127.0.0.1: HOST-PORT : DOCKER-PORT  `  
-    This Docker option maps the port `DOCKER-PORT` inside the Docker container to the port `HOST-PORT` outside the container. `DOCKER-PORT` must match how PGAdapter is configured inside the container. It defaults to 5432. `HOST-PORT` is the port that Docker should listen on outside the container for connection requests. It must always be an available port on localhost.
-    
-    For more information, see [Publish or expose port (-p, --expose)](https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port--p---expose) in the Docker documentation.
+`-p 127.0.0.1: `` HOST-PORT `` : `` DOCKER-PORT`  
+This Docker option maps the port `DOCKER-PORT` inside the Docker container to the port `HOST-PORT` outside the container. `DOCKER-PORT` must match how PGAdapter is configured inside the container. It defaults to 5432. `HOST-PORT` is the port that Docker should listen on outside the container for connection requests. It must always be an available port on localhost.
 
-  - ` -v CREDENTIALS_FILE_PATH : in_container_mount_point  `  
-    This Docker option bind mounts a shared volume. It maps the host path outside the container to a volume (mount point) inside the container. The host and container paths are separated by a colon (:).
-    
-    This option lets PGAdapter access the JSON credentials file that is outside the container. In the preceding example, the `-c` option references the in-container mount point. This example names the in-container mount point `/acct_credentials.json` . You can name it whatever you want.
-    
-    For more information, see [VOLUME (shared filesystems)](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) in the Docker documentation.
+For more information, see [Publish or expose port (-p, --expose)](https://docs.docker.com/engine/reference/commandline/run/#publish-or-expose-port--p---expose) in the Docker documentation.
 
-  - `-x`  
-    Enable connections from hosts other than localhost. This is needed because the port insider the container that is mapped to the host port does not appear to PGAdapter as localhost.
+`-v `` CREDENTIALS_FILE_PATH `` : `` in_container_mount_point`  
+This Docker option bind mounts a shared volume. It maps the host path outside the container to a volume (mount point) inside the container. The host and container paths are separated by a colon (:).
+
+This option lets PGAdapter access the JSON credentials file that is outside the container. In the preceding example, the `-c` option references the in-container mount point. This example names the in-container mount point `/acct_credentials.json` . You can name it whatever you want.
+
+For more information, see [VOLUME (shared filesystems)](https://docs.docker.com/engine/reference/run/#volume-shared-filesystems) in the Docker documentation.
+
+`-x`  
+Enable connections from hosts other than localhost. This is needed because the port insider the container that is mapped to the host port does not appear to PGAdapter as localhost.
 
 The following options are optional:
 
-  - ` -r databaseRole= database_role  `  
-    Database role to use for the session. For more information, see [Authorization with PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter#pgadapter-authorization) .
+`-r databaseRole= `` database_role`  
+Database role to use for the session. For more information, see [Authorization with PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter#pgadapter-authorization) .
 
 In the following example, the Docker port and host port are both set to the PostgreSQL database service default port 5432.
 
-    docker run -d -p 127.0.0.1:5432:5432 \
-    -v /tmp/credentials.json:/acct_credentials.json \
-    gcr.io/cloud-spanner-pg-adapter/pgadapter:latest \
-    -p my_project -i my_instance -d my_database \
-    -c /acct_credentials.json -x
+```
+docker run -d -p 127.0.0.1:5432:5432 \
+-v /tmp/credentials.json:/acct_credentials.json \
+gcr.io/cloud-spanner-pg-adapter/pgadapter:latest \
+-p my_project -i my_instance -d my_database \
+-c /acct_credentials.json -x
+```
 
 ### Cloud Run
 
@@ -144,15 +148,15 @@ You can't deploy PGAdapter as a standalone service on Cloud Run, but you can dep
 
 Running PGAdapter in a sidecar pattern is recommended over running it as a separate service for the following reasons:
 
-  - Prevents a single point of failure. Each application's access to your database is independent of the others, making them more resilient.
-  - The number of PGAdapter instances automatically scales linearly with the number of application instances.
+- Prevents a single point of failure. Each application's access to your database is independent of the others, making them more resilient.
+- The number of PGAdapter instances automatically scales linearly with the number of application instances.
 
 The PGAdapter GitHub repository contains several [working sample applications using Cloud Run and PGAdapter as a sidecar proxy](https://github.com/GoogleCloudPlatform/pgadapter/tree/postgresql-dialect/samples/cloud-run) for various programming languages.
 
 The following configuration file shows how to add PGAdapter as a sidecar proxy to Cloud Run:
 
-``` 
-  apiVersion: serving.knative.dev/v1
+```
+apiVersion: serving.knative.dev/v1
   kind: Service
   metadata:
   annotations:
@@ -217,7 +221,6 @@ The following configuration file shows how to add PGAdapter as a sidecar proxy t
             failureThreshold: 3
             tcpSocket:
               port: 5432
-  
 ```
 
 ### Sidecar Proxy
@@ -226,31 +229,33 @@ You can use PGAdapter as a sidecar proxy in, for example, a Kubernetes cluster. 
 
 Running PGAdapter in a sidecar pattern is recommended over running it as a separate service for the following reasons:
 
-  - Prevents a single point of failure. Each application's access to your database is independent of the others, making them more resilient.
-  - Because PGAdapter consumes resources in a linear relation to usage, this pattern lets you more accurately scope and request resources to match your applications as they scale.
+- Prevents a single point of failure. Each application's access to your database is independent of the others, making them more resilient.
+- Because PGAdapter consumes resources in a linear relation to usage, this pattern lets you more accurately scope and request resources to match your applications as they scale.
 
 The following configuration file shows how to add PGAdapter as a sidecar proxy to your Kubernetes cluster:
 
-    containers:
-    - name: pgadapter
-    image: gcr.io/cloud-spanner-pg-adapter/pgadapter
-    ports:
-      - containerPort: 5432
-    args:
-      - "-p my-project"
-      - "-i my-instance"
-      - "-d my-database"
-      - "-x"
-    resources:
-      requests:
-        # PGAdapter's memory use scales linearly with the number of active
-        # connections. Fewer open connections will use less memory. Adjust
-        # this value based on your application's requirements.
-        memory: "512Mi"
-        # PGAdapter's CPU use scales linearly with the amount of IO between
-        # the database and the application. Adjust this value based on your
-        # application's requirements.
-        cpu: "1"
+```
+containers:
+- name: pgadapter
+image: gcr.io/cloud-spanner-pg-adapter/pgadapter
+ports:
+  - containerPort: 5432
+args:
+  - "-p my-project"
+  - "-i my-instance"
+  - "-d my-database"
+  - "-x"
+resources:
+  requests:
+    # PGAdapter's memory use scales linearly with the number of active
+    # connections. Fewer open connections will use less memory. Adjust
+    # this value based on your application's requirements.
+    memory: "512Mi"
+    # PGAdapter's CPU use scales linearly with the amount of IO between
+    # the database and the application. Adjust this value based on your
+    # application's requirements.
+    cpu: "1"
+```
 
 The PGAdapter GitHub repository contains a [step-by-step guide and a sample application](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/sidecar-proxy) . This sample includes instructions for using [Workload Identity Federation for GKE](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/workload-identity) with PGAdapter.
 
@@ -262,6 +267,34 @@ If you are using a service account for authentication, ensure that the `GOOGLE_A
 
 1.  Add `google-cloud-spanner-pgadapter` as a dependency to your project. For details, see [Get PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-get) .
 2.  Build a server using the `com.google.cloud.spanner.pgadapter.ProxyServer` class.
+
+```
+/**
+* Starts PGAdapter in-process and returns a reference to the server. Use this reference to
+* gracefully shut down the server when your application shuts down.
+*
+* @param project the Google Cloud project that PGAdapter should connect to
+* @param instance the Spanner instance that PGAdapter should connect to
+* @param credentialsFile the full path of a credentials file that PGAdapter should use, or 
+*     null if PGAdapter should use the application default credentials
+*/
+static Server startPGAdapter(String project, String instance, String credentialsFile) {
+OptionsMetadata.Builder builder =
+    OptionsMetadata.newBuilder()
+        .setProject(project)
+        .setInstance(instance)
+        // Start PGAdapter on any available port.
+        .setPort(0);
+if (credentialsFile != null) {
+  builder.setCredentialsFile(credentialsFile);
+}
+ProxyServer server = new ProxyServer(builder.build());
+server.startServer();
+server.awaitRunning();
+
+return new PGAdapter(server);
+}
+```
 
 The PGAdapter GitHub repository contains a [full sample application](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/jdbc) .
 
@@ -275,7 +308,7 @@ Because PGAdapter doesn't cache much data, it requires memory to convert query r
 
 To determine how much memory to allocate, use the following formula for memory allocation, where `<var>number of concurrent connections</var>` is the number of simultaneous connections your application handles:
 
-384 MB + (2 MB \* number of concurrent connections )
+384 MB + (2 MB \* ` number of concurrent connections ` )
 
 For example, if your application handles 200 concurrent connections, allocate approximately 784 MB of memory:
 
@@ -289,17 +322,17 @@ PGAdapter isn't CPU-intensive. This is because its primary role is to act as a p
 
 Consider the following factors when allocating CPU:
 
-  - **Workload:** Applications that execute queries returning large amounts of data require more CPU power per connection than those that return only a few rows and columns.
-  - **Application access pattern:** If your application accesses Spanner synchronously, it is idle while waiting for data from the proxy. In this case, the application and the proxy are less likely to compete for CPU resources.
+- **Workload:** Applications that execute queries returning large amounts of data require more CPU power per connection than those that return only a few rows and columns.
+- **Application access pattern:** If your application accesses Spanner synchronously, it is idle while waiting for data from the proxy. In this case, the application and the proxy are less likely to compete for CPU resources.
 
 Start with a baseline CPU allocation. Monitor its usage under a realistic load to fine-tune the value for your specific needs.
 
 ## What's next
 
-  - [Connect `psql` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/psql-connect)
-  - [Connect `JDBC` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-jdbc-connect)
-  - [Connect `pgx` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-pgx-connect)
-  - [Connect `psycopg2` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-psycopg2-connect)
-  - [Connect `psycopg3` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-psycopg3-connect)
-  - [Connect `node-postgres` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-node-postgres-connect)
-  - [See an overview of drivers and ORMs supported for Spanner](https://docs.cloud.google.com/spanner/docs/drivers-overview)
+- [Connect `psql` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/psql-connect)
+- [Connect `JDBC` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-jdbc-connect)
+- [Connect `pgx` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-pgx-connect)
+- [Connect `psycopg2` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-psycopg2-connect)
+- [Connect `psycopg3` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-psycopg3-connect)
+- [Connect `node-postgres` to a PostgreSQL database](https://docs.cloud.google.com/spanner/docs/pg-node-postgres-connect)
+- [See an overview of drivers and ORMs supported for Spanner](https://docs.cloud.google.com/spanner/docs/drivers-overview)

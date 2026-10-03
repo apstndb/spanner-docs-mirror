@@ -14,8 +14,8 @@ Using the Google Cloud console, you can view active queries on the Spanner **Que
 
 To get the permissions that you need to view active queries, ask your administrator to grant you the following IAM roles on the instance:
 
-  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
-  - [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
+- [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+- [Cloud Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
@@ -40,7 +40,7 @@ To view active queries for each database, do the following:
 The following table describes the default columns in the **Longest running queries** table on the **Active queries** tab:
 
 | Column name    | Description                                                                       |
-| -------------- | --------------------------------------------------------------------------------- |
+|----------------|-----------------------------------------------------------------------------------|
 | Query ID       | The unique identifier for the query.                                              |
 | Query          | The SQL query text.                                                               |
 | Fingerprint    | Hash of the request tag, or if a tag isn't present, a hash of the SQL query text. |
@@ -53,7 +53,7 @@ When the **Auto refresh** toggle is on, the display refreshes every 60 seconds.
 You can use the **Column display options** button to select any of the following optional columns to show up in the Longest running queries table:
 
 | Column name       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Client IP address | The IP address of the client that requested the query. Sometimes, the client IP address might be redacted. The IP address shown here is consistent with audit logs and follows the same redaction guidelines. For more information, see [IP address of the caller in audit logs](https://docs.cloud.google.com/logging/docs/audit#caller-ip) . Spanner recommends requesting the client IP address only when the client IP is required, as requests for client IP addresses might incur additional latency. |
 | Server region     | The region where the Spanner root server processes the query. For more information, see [Life of a query](https://docs.cloud.google.com/spanner/docs/query-execution-plans#life-of-query) .                                                                                                                                                                                                                                                                                                                 |
 | Transaction type  | The query's transaction type. Possible values are `READ_ONLY` , `READ_WRITE` , and `NONE` .                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -87,5 +87,5 @@ To terminate multiple queries, do the following:
 
 ## What's next
 
-  - Learn more about [Analyze query performance](https://docs.cloud.google.com/spanner/docs/using-query-insights) .
-  - Learn more about [Oldest active queries statistics](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries) .
+- Learn more about [Analyze query performance](https://docs.cloud.google.com/spanner/docs/using-query-insights) .
+- Learn more about [Oldest active queries statistics](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries) .

@@ -11,7 +11,7 @@ Spanner provides a set of built-in statistics tables to help you gain insight in
 Spanner supports two types of tags; ***request*** tags and ***transaction*** tags. As their names suggest, you can add transaction tags to transactions, and request tags to individual queries and reads APIs. You can set a transaction tag at the transaction scope and set individual request tags for each applicable API request within the transaction. Request tags and transaction tags that are set in the application code are populated in the columns of following statistics tables.
 
 | Statistics Table                                                                                                            | Type of Tags populated in the statistics table |
-| --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+|-----------------------------------------------------------------------------------------------------------------------------|------------------------------------------------|
 | [TopN Query Statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#table_schema)             | Request tags                                   |
 | [TopN Read Statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics#table_schema)               | Request tags                                   |
 | [TopN Transaction Statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#table_schema) | Transaction tags                               |
@@ -27,10 +27,10 @@ You can add an optional request tag to a query or a read request. Spanner groups
 
 The following are some of the scenarios that benefit from using request tags.
 
-  - **Finding the source of a problematic query or read:** Spanner collects statistics for reads and queries in built-in statistics tables. When you find the slow queries or high cpu consuming reads in the statistics table, if you have already assigned tags to those, then you can identify the source (application/microservice) that is calling these operations based on the information in the tag.
-  - **Identifying reads or queries in statistics tables:** Assigning request tags helps to filter rows in the statistics table based on the tags that you are interested in.
-  - **Finding if queries from a particular application or microservice are slow** : Request tags can help identify if queries from a particular application or microservice have higher latencies.
-  - **Grouping statistics for a set of reads or queries:** You can use request tags to track, compare, and report performance across a set of similar reads or queries. For example, if multiple queries are accessing a table or a set of tables with the same access pattern, you can consider adding the same tag to all those queries to track them together.
+- **Finding the source of a problematic query or read:** Spanner collects statistics for reads and queries in built-in statistics tables. When you find the slow queries or high cpu consuming reads in the statistics table, if you have already assigned tags to those, then you can identify the source (application/microservice) that is calling these operations based on the information in the tag.
+- **Identifying reads or queries in statistics tables:** Assigning request tags helps to filter rows in the statistics table based on the tags that you are interested in.
+- **Finding if queries from a particular application or microservice are slow** : Request tags can help identify if queries from a particular application or microservice have higher latencies.
+- **Grouping statistics for a set of reads or queries:** You can use request tags to track, compare, and report performance across a set of similar reads or queries. For example, if multiple queries are accessing a table or a set of tables with the same access pattern, you can consider adding the same tag to all those queries to track them together.
 
 ### How to assign request tags
 
@@ -38,255 +38,273 @@ The following sample shows how to set request tags using the Spanner client libr
 
 ### C++
 
-    void SetRequestTag(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-      spanner::SqlStatement select(
-          "SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
-      using RowType = std::tuple<std::int64_t, std::int64_t, std::string>;
-    
-      auto opts = google::cloud::Options{}.set<spanner::RequestTagOption>(
-          "app=concert,env=dev,action=select");
-      auto rows = client.ExecuteQuery(std::move(select), std::move(opts));
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row)
-                  << " AlbumId: " << std::get<1>(*row)
-                  << " AlbumTitle: " << std::get<2>(*row) << "\n";
-      }
-    }
+```
+void SetRequestTag(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+  spanner::SqlStatement select(
+      "SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
+  using RowType = std::tuple<std::int64_t, std::int64_t, std::string>;
 
-### C\#
+  auto opts = google::cloud::Options{}.set<spanner::RequestTagOption>(
+      "app=concert,env=dev,action=select");
+  auto rows = client.ExecuteQuery(std::move(select), std::move(opts));
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "SingerId: " << std::get<0>(*row)
+              << " AlbumId: " << std::get<1>(*row)
+              << " AlbumTitle: " << std::get<2>(*row) << "\n";
+  }
+}
+```
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class RequestTagAsyncSample
+### C#
+
+```
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class RequestTagAsyncSample
+{
+    public class Album
     {
-        public class Album
-        {
-            public int SingerId { get; set; }
-            public int AlbumId { get; set; }
-            public string AlbumTitle { get; set; }
-        }
-    
-        public async Task<List<Album>> RequestTagAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            using var connection = new SpannerConnection(connectionString);
-            using var cmd = connection.CreateSelectCommand(
-                $"SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
-            // Sets the request tag to "app=concert,env=dev,action=select".
-            // This request tag will only be set on this request.
-            cmd.Tag = "app=concert,env=dev,action=select";
-    
-            var albums = new List<Album>();
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                var album = new Album
-                {
-                    SingerId = reader.GetFieldValue<int>("SingerId"),
-                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
-                };
-                albums.Add(album);
-                Console.WriteLine($"SingerId: {album.SingerId}, AlbumId: {album.AlbumId}, AlbumTitle: {album.AlbumTitle}");
-            }
-            return albums;
-        }
+        public int SingerId { get; set; }
+        public int AlbumId { get; set; }
+        public string AlbumTitle { get; set; }
     }
+
+    public async Task<List<Album>> RequestTagAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        using var connection = new SpannerConnection(connectionString);
+        using var cmd = connection.CreateSelectCommand(
+            $"SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
+        // Sets the request tag to "app=concert,env=dev,action=select".
+        // This request tag will only be set on this request.
+        cmd.Tag = "app=concert,env=dev,action=select";
+
+        var albums = new List<Album>();
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            var album = new Album
+            {
+                SingerId = reader.GetFieldValue<int>("SingerId"),
+                AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
+            };
+            albums.Add(album);
+            Console.WriteLine($"SingerId: {album.SingerId}, AlbumId: {album.AlbumId}, AlbumTitle: {album.AlbumTitle}");
+        }
+        return albums;
+    }
+}
+```
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    // queryWithTag reads from a database with request tag set
-    func queryWithTag(w io.Writer, db string) error {
-     // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, AlbumTitle FROM Albums`}
-     iter := client.Single().QueryWithOptions(ctx, stmt, spanner.QueryOptions{RequestTag: "app=concert,env=dev,action=select"})
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var singerID, albumID int64
-         var albumTitle string
-         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
-     }
+```
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+// queryWithTag reads from a database with request tag set
+func queryWithTag(w io.Writer, db string) error {
+    // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, AlbumTitle FROM Albums`}
+    iter := client.Single().QueryWithOptions(ctx, stmt, spanner.QueryOptions{RequestTag: "app=concert,env=dev,action=select"})
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var singerID, albumID int64
+        var albumTitle string
+        if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
+    }
+}
+```
 
 ### Java
 
-    static void setRequestTag(DatabaseClient databaseClient) {
-      // Sets the request tag to "app=concert,env=dev,action=select".
-      // This request tag will only be set on this request.
-      try (ResultSet resultSet = databaseClient
-          .singleUse()
-          .executeQuery(
-              Statement.of("SELECT SingerId, AlbumId, AlbumTitle FROM Albums"),
-              Options.tag("app=concert,env=dev,action=select"))) {
-        while (resultSet.next()) {
-          System.out.printf(
-              "SingerId: %d, AlbumId: %d, AlbumTitle: %s\n",
-              resultSet.getLong(0),
-              resultSet.getLong(1),
-              resultSet.getString(2));
-        }
-      }
+```
+static void setRequestTag(DatabaseClient databaseClient) {
+  // Sets the request tag to "app=concert,env=dev,action=select".
+  // This request tag will only be set on this request.
+  try (ResultSet resultSet = databaseClient
+      .singleUse()
+      .executeQuery(
+          Statement.of("SELECT SingerId, AlbumId, AlbumTitle FROM Albums"),
+          Options.tag("app=concert,env=dev,action=select"))) {
+    while (resultSet.next()) {
+      System.out.printf(
+          "SingerId: %d, AlbumId: %d, AlbumTitle: %s\n",
+          resultSet.getLong(0),
+          resultSet.getLong(1),
+          resultSet.getString(2));
     }
+  }
+}
+```
 
 ### Node.js
 
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    async function queryTags() {
-      // Gets a reference to a Cloud Spanner instance and database.
-      const instance = spanner.instance(instanceId);
-      const database = instance.database(databaseId);
-    
-      // Execute a query with a request tag.
-      const [albums] = await database.run({
-        sql: 'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
-        requestOptions: {requestTag: 'app=concert,env=dev,action=select'},
-        json: true,
-      });
-      albums.forEach(album => {
-        console.log(
-          `SingerId: ${album.SingerId}, AlbumId: ${album.AlbumId}, AlbumTitle: ${album.AlbumTitle}`,
-        );
-      });
-      await database.close();
-    }
-    queryTags();
+```
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+async function queryTags() {
+  // Gets a reference to a Cloud Spanner instance and database.
+  const instance = spanner.instance(instanceId);
+  const database = instance.database(databaseId);
+
+  // Execute a query with a request tag.
+  const [albums] = await database.run({
+    sql: 'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
+    requestOptions: {requestTag: 'app=concert,env=dev,action=select'},
+    json: true,
+  });
+  albums.forEach(album => {
+    console.log(
+      `SingerId: ${album.SingerId}, AlbumId: ${album.AlbumId}, AlbumTitle: ${album.AlbumTitle}`,
+    );
+  });
+  await database.close();
+}
+queryTags();
+```
 
 ### PHP
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Executes a read with a request tag.
-     * Example:
-     * ```
-     * spanner_set_request_tag($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function set_request_tag(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $snapshot = $database->snapshot();
-        $results = $snapshot->execute(
-            'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
-            [
-                'requestOptions' => [
-                    'requestTag' => 'app=concert,env=dev,action=select'
-                ]
+```
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Executes a read with a request tag.
+ * Example:
+ * ```
+ * spanner_set_request_tag($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function set_request_tag(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $snapshot = $database->snapshot();
+    $results = $snapshot->execute(
+        'SELECT SingerId, AlbumId, AlbumTitle FROM Albums',
+        [
+            'requestOptions' => [
+                'requestTag' => 'app=concert,env=dev,action=select'
             ]
-        );
-        foreach ($results as $row) {
-            printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
-                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
-        }
+        ]
+    );
+    foreach ($results as $row) {
+        printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+            $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
     }
+}
+```
 
 ### Python
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    spanner_client = spanner.Client()
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    with database.snapshot() as snapshot:
-        results = snapshot.execute_sql(
-            "SELECT SingerId, AlbumId, AlbumTitle FROM Albums",
-            request_options={"request_tag": "app=concert,env=dev,action=select"},
-        )
-    
-        for row in results:
-            print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+```
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+spanner_client = spanner.Client()
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
+
+with database.snapshot() as snapshot:
+    results = snapshot.execute_sql(
+        "SELECT SingerId, AlbumId, AlbumTitle FROM Albums",
+        request_options={"request_tag": "app=concert,env=dev,action=select"},
+    )
+
+    for row in results:
+        print("SingerId: {}, AlbumId: {}, AlbumTitle: {}".format(*row))
+```
 
 ### Ruby
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client = spanner.client instance_id, database_id
-    
-    client.execute(
-      "SELECT SingerId, AlbumId, MarketingBudget FROM Albums",
-      request_options: { tag: "app=concert,env=dev,action=select" }
-    ).rows.each do |row|
-      puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:MarketingBudget]}"
-    end
+```
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client = spanner.client instance_id, database_id
+
+client.execute(
+  "SELECT SingerId, AlbumId, MarketingBudget FROM Albums",
+  request_options: { tag: "app=concert,env=dev,action=select" }
+).rows.each do |row|
+  puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:MarketingBudget]}"
+end
+```
 
 ### How to view request tags in statistics table
 
 The following query returns the query statistics over 10 minute intervals.
 
-    SELECT t.text,
-           t.request_tag,
-           t.execution_count,
-           t.avg_latency_seconds,
-           t.avg_rows,
-           t.avg_bytes
-    FROM SPANNER_SYS.QUERY_STATS_TOP_10MINUTE AS t
-    LIMIT 3;
+```
+SELECT t.text,
+       t.request_tag,
+       t.execution_count,
+       t.avg_latency_seconds,
+       t.avg_rows,
+       t.avg_bytes
+FROM SPANNER_SYS.QUERY_STATS_TOP_10MINUTE AS t
+LIMIT 3;
+```
 
 The following data is an example of the results returned by the query.
 
-| **text**                                           | **request\_tag**                      | **execution\_count** | **avg\_latency\_seconds** | **avg\_rows** | **avg\_bytes** |
-| -------------------------------------------------- | ------------------------------------- | -------------------- | ------------------------- | ------------- | -------------- |
-| SELECT SingerId, AlbumId, AlbumTitle FROM Albums   | app=concert,env=dev,action=select     | 212                  | 0.025                     | 21            | 2365           |
-| select \* from orders;                             | app=catalogsearch,env=dev,action=list | 55                   | 0.02                      | 16            | 33.35          |
-| SELECT SingerId, FirstName, LastName FROM Singers; | \[empty string\]                      | 154                  | 0.048                     | 42            | 486.33         |
+| **text**                                           | **request_tag**                       | **execution_count** | **avg_latency_seconds** | **avg_rows** | **avg_bytes** |
+|----------------------------------------------------|---------------------------------------|---------------------|-------------------------|--------------|---------------|
+| SELECT SingerId, AlbumId, AlbumTitle FROM Albums   | app=concert,env=dev,action=select     | 212                 | 0.025                   | 21           | 2365          |
+| select \* from orders;                             | app=catalogsearch,env=dev,action=list | 55                  | 0.02                    | 16           | 33.35         |
+| SELECT SingerId, FirstName, LastName FROM Singers; | \[empty string\]                      | 154                 | 0.048                   | 42           | 486.33        |
 
 From this table of results, we can see that if you have assigned a `REQUEST_TAG` for a query, then it gets populated in the statistics table. If there is no request tag assigned, it is displayed as an empty string.
 
@@ -300,12 +318,12 @@ An optional transaction tag can be added to individual transactions. Spanner gro
 
 The following are some of the scenarios that benefit from using transaction tags.
 
-  - **Finding the source of a problematic transaction:** Spanner collects statistics for read-write transactions in the transaction statistics table. When you find slow transactions in the transaction statistics table, if you have already assigned tags to them, then you can identify the source (application/microservice) that is calling these transactions based on the information in the tag.
-  - **Identifying transactions in statistics tables:** Assigning transaction tags helps to filter rows in the transaction statistics table based on the tags that you are interested in. Without transaction tags, discovering what operations are represented by a statistic can be a cumbersome process. For example, for transaction statistics, you would have to examine the tables and columns involved in order to identify the untagged transaction.
-  - **Finding if transactions from a particular application or microservice are slow** : Transaction tags can help identify if transactions from a particular application or microservice have higher latencies.
-  - **Grouping statistics for a set of transactions:** You can use transaction tags to track, compare, and report performance for a set of similar transactions.
-  - **Finding which transactions are accessing the columns involved in the lock conflict:** Transaction tags can help pinpoint individual transactions causing lock conflicts in the [Lock statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) tables.
-  - **Streaming user change data out of Spanner using [change streams](https://docs.cloud.google.com/spanner/docs/change-streams/details) :** Change streams data records contain transaction tags for the transactions that modified the user data. This allows the reader of a change stream to associate changes with the transaction type based on tags.
+- **Finding the source of a problematic transaction:** Spanner collects statistics for read-write transactions in the transaction statistics table. When you find slow transactions in the transaction statistics table, if you have already assigned tags to them, then you can identify the source (application/microservice) that is calling these transactions based on the information in the tag.
+- **Identifying transactions in statistics tables:** Assigning transaction tags helps to filter rows in the transaction statistics table based on the tags that you are interested in. Without transaction tags, discovering what operations are represented by a statistic can be a cumbersome process. For example, for transaction statistics, you would have to examine the tables and columns involved in order to identify the untagged transaction.
+- **Finding if transactions from a particular application or microservice are slow** : Transaction tags can help identify if transactions from a particular application or microservice have higher latencies.
+- **Grouping statistics for a set of transactions:** You can use transaction tags to track, compare, and report performance for a set of similar transactions.
+- **Finding which transactions are accessing the columns involved in the lock conflict:** Transaction tags can help pinpoint individual transactions causing lock conflicts in the [Lock statistics](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics) tables.
+- **Streaming user change data out of Spanner using [change streams](https://docs.cloud.google.com/spanner/docs/change-streams/details) :** Change streams data records contain transaction tags for the transactions that modified the user data. This allows the reader of a change stream to associate changes with the transaction type based on tags.
 
 ### How to assign transaction tags
 
@@ -313,441 +331,420 @@ The following sample shows how to set transaction tags using the Spanner client 
 
 ### C++
 
-    void SetTransactionTag(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-      using ::google::cloud::StatusOr;
-    
-      // Sets the transaction tag to "app=concert,env=dev". This will be
-      // applied to all the individual operations inside this transaction.
-      auto commit_options =
-          google::cloud::Options{}.set<spanner::TransactionTagOption>(
-              "app=concert,env=dev");
-      auto commit = client.Commit(
-          [&client](
-              spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
-            spanner::SqlStatement update_statement(
-                "UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64)"
-                "  WHERE OutdoorVenue = false");
-            // Sets the request tag to "app=concert,env=dev,action=update".
-            // This will only be set on this request.
-            auto update = client.ExecuteDml(
-                txn, std::move(update_statement),
-                google::cloud::Options{}.set<spanner::RequestTagOption>(
-                    "app=concert,env=dev,action=update"));
-            if (!update) return std::move(update).status();
-    
-            spanner::SqlStatement insert_statement(
-                "INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, "
-                "                    LastUpdateTime)"
-                " VALUES (@venueId, @venueName, @capacity, @outdoorVenue, "
-                "         PENDING_COMMIT_TIMESTAMP())",
-                {
-                    {"venueId", spanner::Value(81)},
-                    {"venueName", spanner::Value("Venue 81")},
-                    {"capacity", spanner::Value(1440)},
-                    {"outdoorVenue", spanner::Value(true)},
-                });
-            // Sets the request tag to "app=concert,env=dev,action=insert".
-            // This will only be set on this request.
-            auto insert = client.ExecuteDml(
-                txn, std::move(insert_statement),
-                google::cloud::Options{}.set<spanner::RequestTagOption>(
-                    "app=concert,env=dev,action=select"));
-            if (!insert) return std::move(insert).status();
-            return spanner::Mutations{};
-          },
-          commit_options);
-      if (!commit) throw std::move(commit).status();
-    }
+```
+void SetTransactionTag(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+  using ::google::cloud::StatusOr;
 
-### C\#
+  // Sets the transaction tag to "app=concert,env=dev". This will be
+  // applied to all the individual operations inside this transaction.
+  auto commit_options =
+      google::cloud::Options{}.set<spanner::TransactionTagOption>(
+          "app=concert,env=dev");
+  auto commit = client.Commit(
+      [&client](
+          spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
+        spanner::SqlStatement update_statement(
+            "UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64)"
+            "  WHERE OutdoorVenue = false");
+        // Sets the request tag to "app=concert,env=dev,action=update".
+        // This will only be set on this request.
+        auto update = client.ExecuteDml(
+            txn, std::move(update_statement),
+            google::cloud::Options{}.set<spanner::RequestTagOption>(
+                "app=concert,env=dev,action=update"));
+        if (!update) return std::move(update).status();
 
-    using Google.Cloud.Spanner.Data;
-    using System.Threading.Tasks;
-    
-    public class TransactionTagAsyncSample
-    {
-        public async Task<int> TransactionTagAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            return await connection.RunWithRetriableTransactionAsync(async transaction =>
+        spanner::SqlStatement insert_statement(
+            "INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, "
+            "                    LastUpdateTime)"
+            " VALUES (@venueId, @venueName, @capacity, @outdoorVenue, "
+            "         PENDING_COMMIT_TIMESTAMP())",
             {
-                // Sets the transaction tag to "app=concert,env=dev".
-                // This transaction tag will be applied to all the individual operations inside
-                // the transaction.
-                transaction.TransactionOptions.Tag = "app=concert,env=dev";
-    
-                // Sets the request tag to "app=concert,env=dev,action=update".
-                // This request tag will only be set on this request.
-                var updateCommand =
-                    connection.CreateDmlCommand("UPDATE Venues SET Capacity = DIV(Capacity, 4) WHERE OutdoorVenue = false");
-                updateCommand.Tag = "app=concert,env=dev,action=update";
-                updateCommand.Transaction = transaction;
-                int rowsModified = await updateCommand.ExecuteNonQueryAsync();
-    
-                var insertCommand = connection.CreateDmlCommand(
-                    @"INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime)
-                        VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())",
-                    new SpannerParameterCollection
-                    {
-                        {"venueId", SpannerDbType.Int64, 81},
-                        {"venueName", SpannerDbType.String, "Venue 81"},
-                        {"capacity", SpannerDbType.Int64, 1440},
-                        {"outdoorVenue", SpannerDbType.Bool, true}
-                    }
-                );
-                // Sets the request tag to "app=concert,env=dev,action=insert".
-                // This request tag will only be set on this request.
-                insertCommand.Tag = "app=concert,env=dev,action=insert";
-                insertCommand.Transaction = transaction;
-                rowsModified += await insertCommand.ExecuteNonQueryAsync();
-                return rowsModified;
+                {"venueId", spanner::Value(81)},
+                {"venueName", spanner::Value("Venue 81")},
+                {"capacity", spanner::Value(1440)},
+                {"outdoorVenue", spanner::Value(true)},
             });
-        }
+        // Sets the request tag to "app=concert,env=dev,action=insert".
+        // This will only be set on this request.
+        auto insert = client.ExecuteDml(
+            txn, std::move(insert_statement),
+            google::cloud::Options{}.set<spanner::RequestTagOption>(
+                "app=concert,env=dev,action=select"));
+        if (!insert) return std::move(insert).status();
+        return spanner::Mutations{};
+      },
+      commit_options);
+  if (!commit) throw std::move(commit).status();
+}
+```
+
+### C#
+
+```
+using Google.Cloud.Spanner.Data;
+using System.Threading.Tasks;
+
+public class TransactionTagAsyncSample
+{
+    public async Task<int> TransactionTagAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        return await connection.RunWithRetriableTransactionAsync(async transaction =>
+        {
+            // Sets the transaction tag to "app=concert,env=dev".
+            // This transaction tag will be applied to all the individual operations inside
+            // the transaction.
+            transaction.TransactionOptions.Tag = "app=concert,env=dev";
+
+            // Sets the request tag to "app=concert,env=dev,action=update".
+            // This request tag will only be set on this request.
+            var updateCommand =
+                connection.CreateDmlCommand("UPDATE Venues SET Capacity = DIV(Capacity, 4) WHERE OutdoorVenue = false");
+            updateCommand.Tag = "app=concert,env=dev,action=update";
+            updateCommand.Transaction = transaction;
+            int rowsModified = await updateCommand.ExecuteNonQueryAsync();
+
+            var insertCommand = connection.CreateDmlCommand(
+                @"INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime)
+                    VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())",
+                new SpannerParameterCollection
+                {
+                    {"venueId", SpannerDbType.Int64, 81},
+                    {"venueName", SpannerDbType.String, "Venue 81"},
+                    {"capacity", SpannerDbType.Int64, 1440},
+                    {"outdoorVenue", SpannerDbType.Bool, true}
+                }
+            );
+            // Sets the request tag to "app=concert,env=dev,action=insert".
+            // This request tag will only be set on this request.
+            insertCommand.Tag = "app=concert,env=dev,action=insert";
+            insertCommand.Transaction = transaction;
+            rowsModified += await insertCommand.ExecuteNonQueryAsync();
+            return rowsModified;
+        });
     }
+}
+```
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    // readWriteTransactionWithTag executes the update and insert queries on venues table with appropriate transaction and requests tag
-    func readWriteTransactionWithTag(w io.Writer, db string) error {
-     // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     _, err = client.ReadWriteTransactionWithOptions(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{
-             SQL: `UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64) WHERE OutdoorVenue = false`,
-         }
-         _, err := txn.UpdateWithOptions(ctx, stmt, spanner.QueryOptions{RequestTag: "app=concert,env=dev,action=update"})
-         if err != nil {
-             return err
-         }
-         fmt.Fprint(w, "Venue capacities updated.")
-         stmt = spanner.Statement{
-             SQL: `INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime) 
-                       VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())`,
-             Params: map[string]interface{}{
-                 "venueId":      81,
-                 "venueName":    "Venue 81",
-                 "capacity":     1440,
-                 "outdoorVenue": true,
-             },
-         }
-         _, err = txn.UpdateWithOptions(ctx, stmt, spanner.QueryOptions{RequestTag: "app=concert,env=dev,action=insert"})
-         if err != nil {
-             return err
-         }
-         fmt.Fprint(w, "New venue inserted.")
-         return nil
-     }, spanner.TransactionOptions{TransactionTag: "app=concert,env=dev"})
-     return err
+```
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+// readWriteTransactionWithTag executes the update and insert queries on venues table with appropriate transaction and requests tag
+func readWriteTransactionWithTag(w io.Writer, db string) error {
+    // db = `projects/<project>/instances/<instance-id>/database/<database-id>`
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    _, err = client.ReadWriteTransactionWithOptions(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{
+            SQL: `UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64) WHERE OutdoorVenue = false`,
+        }
+        _, err := txn.UpdateWithOptions(ctx, stmt, spanner.QueryOptions{RequestTag: "app=concert,env=dev,action=update"})
+        if err != nil {
+            return err
+        }
+        fmt.Fprint(w, "Venue capacities updated.")
+        stmt = spanner.Statement{
+            SQL: `INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime) 
+                   VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())`,
+            Params: map[string]interface{}{
+                "venueId":      81,
+                "venueName":    "Venue 81",
+                "capacity":     1440,
+                "outdoorVenue": true,
+            },
+        }
+        _, err = txn.UpdateWithOptions(ctx, stmt, spanner.QueryOptions{RequestTag: "app=concert,env=dev,action=insert"})
+        if err != nil {
+            return err
+        }
+        fmt.Fprint(w, "New venue inserted.")
+        return nil
+    }, spanner.TransactionOptions{TransactionTag: "app=concert,env=dev"})
+    return err
+}
+```
 
 ### Java
 
-    static void setTransactionTag(DatabaseClient databaseClient) {
-      // Sets the transaction tag to "app=concert,env=dev".
-      // This transaction tag will be applied to all the individual operations inside this
-      // transaction.
-      databaseClient
-          .readWriteTransaction(Options.tag("app=concert,env=dev"))
-          .run(transaction -> {
-            // Sets the request tag to "app=concert,env=dev,action=update".
-            // This request tag will only be set on this request.
-            transaction.executeUpdate(
-                Statement.of("UPDATE Venues"
-                    + " SET Capacity = CAST(Capacity/4 AS INT64)"
-                    + " WHERE OutdoorVenue = false"),
-                Options.tag("app=concert,env=dev,action=update"));
-            System.out.println("Venue capacities updated.");
-    
-            Statement insertStatement = Statement.newBuilder(
-                "INSERT INTO Venues"
-                    + " (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime)"
-                    + " VALUES ("
-                    + " @venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP()"
-                    + " )")
-                .bind("venueId")
-                .to(81)
-                .bind("venueName")
-                .to("Venue 81")
-                .bind("capacity")
-                .to(1440)
-                .bind("outdoorVenue")
-                .to(true)
-                .build();
-    
-            // Sets the request tag to "app=concert,env=dev,action=insert".
-            // This request tag will only be set on this request.
-            transaction.executeUpdate(
-                insertStatement,
-                Options.tag("app=concert,env=dev,action=insert"));
-            System.out.println("New venue inserted.");
-    
-            return null;
-          });
-    }
+```
+static void setTransactionTag(DatabaseClient databaseClient) {
+  // Sets the transaction tag to "app=concert,env=dev".
+  // This transaction tag will be applied to all the individual operations inside this
+  // transaction.
+  databaseClient
+      .readWriteTransaction(Options.tag("app=concert,env=dev"))
+      .run(transaction -> {
+        // Sets the request tag to "app=concert,env=dev,action=update".
+        // This request tag will only be set on this request.
+        transaction.executeUpdate(
+            Statement.of("UPDATE Venues"
+                + " SET Capacity = CAST(Capacity/4 AS INT64)"
+                + " WHERE OutdoorVenue = false"),
+            Options.tag("app=concert,env=dev,action=update"));
+        System.out.println("Venue capacities updated.");
+
+        Statement insertStatement = Statement.newBuilder(
+            "INSERT INTO Venues"
+                + " (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime)"
+                + " VALUES ("
+                + " @venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP()"
+                + " )")
+            .bind("venueId")
+            .to(81)
+            .bind("venueName")
+            .to("Venue 81")
+            .bind("capacity")
+            .to(1440)
+            .bind("outdoorVenue")
+            .to(true)
+            .build();
+
+        // Sets the request tag to "app=concert,env=dev,action=insert".
+        // This request tag will only be set on this request.
+        transaction.executeUpdate(
+            insertStatement,
+            Options.tag("app=concert,env=dev,action=insert"));
+        System.out.println("New venue inserted.");
+
+        return null;
+      });
+}
+```
 
 ### Node.js
 
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    async function transactionTag() {
-      // Gets a reference to a Cloud Spanner instance and database.
-      const instance = spanner.instance(instanceId);
-      const database = instance.database(databaseId);
-    
-      // Run a transaction with a transaction tag that will automatically be
-      // included with each request in the transaction.
-      try {
-        await database.runTransactionAsync(
-          {requestOptions: {transactionTag: 'app=cart,env=dev'}},
-          async tx => {
-            // Set the request tag to "app=concert,env=dev,action=update".
-            // This request tag will only be set on this request.
-            await tx.runUpdate({
-              sql: 'UPDATE Venues SET Capacity = DIV(Capacity, 4) WHERE OutdoorVenue = false',
-              requestOptions: {requestTag: 'app=concert,env=dev,action=update'},
-            });
-            console.log('Updated capacity of all indoor venues to 1/4.');
-    
-            await tx.runUpdate({
-              sql: `INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime)
-                    VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())`,
-              params: {
-                venueId: 81,
-                venueName: 'Venue 81',
-                capacity: 1440,
-                outdoorVenue: true,
-              },
-              types: {
-                venueId: {type: 'int64'},
-                venueName: {type: 'string'},
-                capacity: {type: 'int64'},
-                outdoorVenue: {type: 'bool'},
-              },
-              requestOptions: {requestTag: 'app=concert,env=dev,action=update'},
-            });
-            console.log('Inserted new outdoor venue');
-    
-            await tx.commit();
+```
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+async function transactionTag() {
+  // Gets a reference to a Cloud Spanner instance and database.
+  const instance = spanner.instance(instanceId);
+  const database = instance.database(databaseId);
+
+  // Run a transaction with a transaction tag that will automatically be
+  // included with each request in the transaction.
+  try {
+    await database.runTransactionAsync(
+      {requestOptions: {transactionTag: 'app=cart,env=dev'}},
+      async tx => {
+        // Set the request tag to "app=concert,env=dev,action=update".
+        // This request tag will only be set on this request.
+        await tx.runUpdate({
+          sql: 'UPDATE Venues SET Capacity = DIV(Capacity, 4) WHERE OutdoorVenue = false',
+          requestOptions: {requestTag: 'app=concert,env=dev,action=update'},
+        });
+        console.log('Updated capacity of all indoor venues to 1/4.');
+
+        await tx.runUpdate({
+          sql: `INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime)
+                VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())`,
+          params: {
+            venueId: 81,
+            venueName: 'Venue 81',
+            capacity: 1440,
+            outdoorVenue: true,
           },
-        );
-      } catch (err) {
-        console.error('ERROR:', err);
-      } finally {
-        await database.close();
-      }
-    }
-    transactionTag();
+          types: {
+            venueId: {type: 'int64'},
+            venueName: {type: 'string'},
+            capacity: {type: 'int64'},
+            outdoorVenue: {type: 'bool'},
+          },
+          requestOptions: {requestTag: 'app=concert,env=dev,action=update'},
+        });
+        console.log('Inserted new outdoor venue');
+
+        await tx.commit();
+      },
+    );
+  } catch (err) {
+    console.error('ERROR:', err);
+  } finally {
+    await database.close();
+  }
+}
+transactionTag();
+```
 
 ### PHP
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use Google\Cloud\Spanner\Transaction;
-    
-    /**
-     * Executes a transaction with a transaction tag.
-     * Example:
-     * ```
-     * spanner_set_transaction_tag($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function set_transaction_tag(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $database->runTransaction(function (Transaction $t) {
-            $t->executeUpdate(
-                'UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64) WHERE OutdoorVenue = false',
-                [
-                    'requestOptions' => ['requestTag' => 'app=concert,env=dev,action=update']
-                ]
-            );
-            print('Venue capacities updated.' . PHP_EOL);
-            $t->executeUpdate(
-                'INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime) '
-                . 'VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())',
-                [
-                    'parameters' => [
-                        'venueId' => 81,
-                        'venueName' => 'Venue 81',
-                        'capacity' => 1440,
-                        'outdoorVenue' => true,
-                    ],
-                    'requestOptions' => ['requestTag' => 'app=concert,env=dev,action=insert']
-                ]
-            );
-            print('New venue inserted.' . PHP_EOL);
-            $t->commit();
-        }, [
-            'requestOptions' => ['transactionTag' => 'app=concert,env=dev']
-        ]);
-    }
+```
+use Google\Cloud\Spanner\SpannerClient;
+use Google\Cloud\Spanner\Transaction;
+
+/**
+ * Executes a transaction with a transaction tag.
+ * Example:
+ * ```
+ * spanner_set_transaction_tag($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function set_transaction_tag(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $database->runTransaction(function (Transaction $t) {
+        $t->executeUpdate(
+            'UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64) WHERE OutdoorVenue = false',
+            [
+                'requestOptions' => ['requestTag' => 'app=concert,env=dev,action=update']
+            ]
+        );
+        print('Venue capacities updated.' . PHP_EOL);
+        $t->executeUpdate(
+            'INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime) '
+            . 'VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())',
+            [
+                'parameters' => [
+                    'venueId' => 81,
+                    'venueName' => 'Venue 81',
+                    'capacity' => 1440,
+                    'outdoorVenue' => true,
+                ],
+                'requestOptions' => ['requestTag' => 'app=concert,env=dev,action=insert']
+            ]
+        );
+        print('New venue inserted.' . PHP_EOL);
+        $t->commit();
+    }, [
+        'requestOptions' => ['transactionTag' => 'app=concert,env=dev']
+    ]);
+}
+```
 
 ### Python
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    spanner_client = spanner.Client()
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    def update_venues(transaction):
-        # Sets the request tag to "app=concert,env=dev,action=update".
-        #  This request tag will only be set on this request.
-        transaction.execute_update(
-            "UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64) WHERE OutdoorVenue = false",
-            request_options={"request_tag": "app=concert,env=dev,action=update"},
-        )
-        print("Venue capacities updated.")
-    
-        # Sets the request tag to "app=concert,env=dev,action=insert".
-        # This request tag will only be set on this request.
-        transaction.execute_update(
-            "INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime) "
-            "VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())",
-            params={
-                "venueId": 81,
-                "venueName": "Venue 81",
-                "capacity": 1440,
-                "outdoorVenue": True,
-            },
-            param_types={
-                "venueId": param_types.INT64,
-                "venueName": param_types.STRING,
-                "capacity": param_types.INT64,
-                "outdoorVenue": param_types.BOOL,
-            },
-            request_options={"request_tag": "app=concert,env=dev,action=insert"},
-        )
-        print("New venue inserted.")
-    
-    database.run_in_transaction(update_venues, transaction_tag="app=concert,env=dev")
+```
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+spanner_client = spanner.Client()
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
+
+def update_venues(transaction):
+    # Sets the request tag to "app=concert,env=dev,action=update".
+    #  This request tag will only be set on this request.
+    transaction.execute_update(
+        "UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64) WHERE OutdoorVenue = false",
+        request_options={"request_tag": "app=concert,env=dev,action=update"},
+    )
+    print("Venue capacities updated.")
+
+    # Sets the request tag to "app=concert,env=dev,action=insert".
+    # This request tag will only be set on this request.
+    transaction.execute_update(
+        "INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue, LastUpdateTime) "
+        "VALUES (@venueId, @venueName, @capacity, @outdoorVenue, PENDING_COMMIT_TIMESTAMP())",
+        params={
+            "venueId": 81,
+            "venueName": "Venue 81",
+            "capacity": 1440,
+            "outdoorVenue": True,
+        },
+        param_types={
+            "venueId": param_types.INT64,
+            "venueName": param_types.STRING,
+            "capacity": param_types.INT64,
+            "outdoorVenue": param_types.BOOL,
+        },
+        request_options={"request_tag": "app=concert,env=dev,action=insert"},
+    )
+    print("New venue inserted.")
+
+database.run_in_transaction(update_venues, transaction_tag="app=concert,env=dev")
+```
 
 ### Ruby
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client = spanner.client instance_id, database_id
-    
-    client.transaction request_options: { tag: "app=cart,env=dev" } do |tx|
-      tx.execute_update \
-        "UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64) WHERE OutdoorVenue = false",
-        request_options: { tag: "app=concert,env=dev,action=update" }
-    
-      puts "Venue capacities updated."
-    
-      tx.execute_update \
-        "INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue) " \
-        "VALUES (@venue_id, @venue_name, @capacity, @outdoor_venue)",
-        params: {
-          venue_id: 81,
-          venue_name: "Venue 81",
-          capacity: 1440,
-          outdoor_venue: true
-        },
-        request_options: { tag: "app=concert,env=dev,action=insert" }
-    
-      puts "New venue inserted."
-    end
+```
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client = spanner.client instance_id, database_id
+
+client.transaction request_options: { tag: "app=cart,env=dev" } do |tx|
+  tx.execute_update \
+    "UPDATE Venues SET Capacity = CAST(Capacity/4 AS INT64) WHERE OutdoorVenue = false",
+    request_options: { tag: "app=concert,env=dev,action=update" }
+
+  puts "Venue capacities updated."
+
+  tx.execute_update \
+    "INSERT INTO Venues (VenueId, VenueName, Capacity, OutdoorVenue) " \
+    "VALUES (@venue_id, @venue_name, @capacity, @outdoor_venue)",
+    params: {
+      venue_id: 81,
+      venue_name: "Venue 81",
+      capacity: 1440,
+      outdoor_venue: true
+    },
+    request_options: { tag: "app=concert,env=dev,action=insert" }
+
+  puts "New venue inserted."
+end
+```
 
 ### How to view transaction tags in Transaction Statistics table
 
 The following query returns the transaction statistics over 10 minute intervals.
 
-    SELECT t.fprint,
-           t.transaction_tag,
-           t.read_columns,
-           t.commit_attempt_count,
-           t.avg_total_latency_seconds
-    FROM SPANNER_SYS.TXN_STATS_TOP_10MINUTE AS t
-    LIMIT 3;
+```
+SELECT t.fprint,
+       t.transaction_tag,
+       t.read_columns,
+       t.commit_attempt_count,
+       t.avg_total_latency_seconds
+FROM SPANNER_SYS.TXN_STATS_TOP_10MINUTE AS t
+LIMIT 3;
+```
 
 The following data is an example of the results returned by the query.
 
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>fprint</strong></th>
-<th><strong>transaction_tag</strong></th>
-<th><strong>read_columns</strong></th>
-<th><strong>commit_attempt_count</strong></th>
-<th><strong>avg_total_latency_seconds</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>40015598317</td>
-<td>app=concert,env=dev</td>
-<td>[Venues._exists,<br />
-Venues.VenueId,<br />
-Venues.VenueName,<br />
-Venues.Capacity]</td>
-<td>278802</td>
-<td>0.3508</td>
-</tr>
-<tr class="even">
-<td>20524969030</td>
-<td>app=product,service=payment</td>
-<td>[Singers.SingerInfo]</td>
-<td>129012</td>
-<td>0.0142</td>
-</tr>
-<tr class="odd">
-<td>77848338483</td>
-<td>[empty string]</td>
-<td>[Singers.FirstName, Singers.LastName, Singers._exists]</td>
-<td>5357</td>
-<td>0.048</td>
-</tr>
-</tbody>
-</table>
+| **fprint**  | **transaction_tag**         | **read_columns**                                                       | **commit_attempt_count** | **avg_total_latency_seconds** |
+|-------------|-----------------------------|------------------------------------------------------------------------|--------------------------|-------------------------------|
+| 40015598317 | app=concert,env=dev         | \[Venues.\_exists, Venues.VenueId, Venues.VenueName, Venues.Capacity\] | 278802                   | 0.3508                        |
+| 20524969030 | app=product,service=payment | \[Singers.SingerInfo\]                                                 | 129012                   | 0.0142                        |
+| 77848338483 | \[empty string\]            | \[Singers.FirstName, Singers.LastName, Singers.\_exists\]              | 5357                     | 0.048                         |
 
 From this table of results, we can see that if you have assigned a `TRANSACTION_TAG` to a transaction, then it gets populated in the transaction statistics table. If there is no transaction tag assigned, it is displayed as an empty string.
 
@@ -759,53 +756,21 @@ The following query returns the lock statistics over 10 minute intervals.
 
 The [`CAST()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#casting) function converts the `row_range_start_key` BYTES field to a STRING.
 
-    SELECT
-       CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
-       s.lock_wait_seconds,
-       s.sample_lock_requests
-    FROM SPANNER_SYS.LOCK_STATS_TOP_10MINUTE s
-    LIMIT 2;
+```
+SELECT
+   CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
+   s.lock_wait_seconds,
+   s.sample_lock_requests
+FROM SPANNER_SYS.LOCK_STATS_TOP_10MINUTE s
+LIMIT 2;
+```
 
 The following data is an example of the results returned by the query.
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>row_range_start_key</strong></th>
-<th><strong>lock_wait_seconds</strong></th>
-<th><strong>sample_lock_requests</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Songs(2,1,1)</td>
-<td>0.61</td>
-<td>LOCK_MODE: ReaderShared<br />
-COLUMN: Singers.SingerInfo<br />
-TRANSACTION_TAG: app=product,service=shipping<br />
-<br />
-LOCK_MODE: WriterShared<br />
-COLUMN: Singers.SingerInfo<br />
-TRANSACTION_TAG: app=product,service=payment</td>
-</tr>
-<tr class="even">
-<td>albums(2,1+)</td>
-<td>0.48</td>
-<td>LOCK_MODE: ReaderShared<br />
-COLUMN: users._exists1<br />
-TRANSACTION_TAG: [empty string]<br />
-<br />
-LOCK_MODE: WriterShared<br />
-COLUMN: users._exists<br />
-TRANSACTION_TAG: [empty string]</td>
-</tr>
-</tbody>
-</table>
+| **row_range_start_key** | **lock_wait_seconds** | **sample_lock_requests**                                                                                                                                                                         |
+|-------------------------|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Songs(2,1,1)            | 0.61                  | LOCK_MODE: ReaderShared COLUMN: Singers.SingerInfo TRANSACTION_TAG: app=product,service=shipping LOCK_MODE: WriterShared COLUMN: Singers.SingerInfo TRANSACTION_TAG: app=product,service=payment |
+| albums(2,1+)            | 0.48                  | LOCK_MODE: ReaderShared COLUMN: users.\_exists1 TRANSACTION_TAG: \[empty string\] LOCK_MODE: WriterShared COLUMN: users.\_exists TRANSACTION_TAG: \[empty string\]                               |
 
 From this table of results, we can see that if you have assigned a `TRANSACTION_TAG` to a transaction, then it gets populated in the lock statistics table. If there is no transaction tag assigned, it is displayed as an empty string.
 
@@ -815,17 +780,17 @@ Spanner client libraries support automated call-stack autotagging. When autotagg
 
 Autotagging is supported in the following client libraries:
 
-  - Java in version 6.118.0 and later.
-  - Go in version 1.92.0 and later.
+- Java in version 6.118.0 and later.
+- Go in version 1.92.0 and later.
 
 ### Considerations for autotagging
 
 Consider the following before using autotagging:
 
-  - **CPU and latency overhead:** Inspecting runtime call stacks using reflection or runtime caller walking on every request and transaction introduces CPU and latency overhead. Before force-enabling autotagging globally in high-QPS production environments, evaluate the performance impact on your services.
-  - **Differences from key-value tagging:** Autogenerated tags (such as `OrderDao.placeOrder` ) identify code origin symbols rather than structured key-value metadata (such as `app=cart,env=dev` ). If your monitoring queries filter statistics tables using key prefixes like `STARTS_WITH(request_tag, "app=")` , autotagged operations won't match those filters.
-  - **Tag cardinality:** Dynamic or heavily overloaded method names can increase tag cardinality in statistics tables. If the number of unique tags exceeds the tracking capacity of Spanner during an interval, Spanner prioritizes tracking operations with the highest resource consumption.
-  - **Information disclosure:** Because tags are stored in plaintext in `SPANNER_SYS` statistics tables, internal class and method names are visible to anyone with access to query database statistics. Avoid using sensitive business terminology in method or class names if monitoring access is shared across boundaries.
+- **CPU and latency overhead:** Inspecting runtime call stacks using reflection or runtime caller walking on every request and transaction introduces CPU and latency overhead. Before force-enabling autotagging globally in high-QPS production environments, evaluate the performance impact on your services.
+- **Differences from key-value tagging:** Autogenerated tags (such as `OrderDao.placeOrder` ) identify code origin symbols rather than structured key-value metadata (such as `app=cart,env=dev` ). If your monitoring queries filter statistics tables using key prefixes like `STARTS_WITH(request_tag, "app=")` , autotagged operations won't match those filters.
+- **Tag cardinality:** Dynamic or heavily overloaded method names can increase tag cardinality in statistics tables. If the number of unique tags exceeds the tracking capacity of Spanner during an interval, Spanner prioritizes tracking operations with the highest resource consumption.
+- **Information disclosure:** Because tags are stored in plaintext in `SPANNER_SYS` statistics tables, internal class and method names are visible to anyone with access to query database statistics. Avoid using sensitive business terminology in method or class names if monitoring access is shared across boundaries.
 
 ### Enable and disable autotagging
 
@@ -844,11 +809,13 @@ If you manually assign a `request_tag` or `transaction_tag` on a request or tran
 
 To force-enable or force-disable autotagging globally without modifying application code, set environment variables in your runtime environment:
 
-    # Force-enable globally
-    export SPANNER_ENABLE_AUTO_TAGGING=true
-    
-    # Force-disable globally (overrides code configuration)
-    export SPANNER_DISABLE_AUTO_TAGGING=true
+```
+# Force-enable globally
+export SPANNER_ENABLE_AUTO_TAGGING=true
+
+# Force-disable globally (overrides code configuration)
+export SPANNER_DISABLE_AUTO_TAGGING=true
+```
 
 #### Programmatic configuration
 
@@ -856,111 +823,63 @@ The following samples show how to enable call-stack autotagging using the Spanne
 
 ### Go
 
-    package main
-    
-    import (
-        "context"
-        "cloud.google.com/go/spanner"
-    )
-    
-    func main() {
-        ctx := context.Background()
-        config := spanner.ClientConfig{
-            // Enable call-stack autotagging
-            EnableAutoTagging: true,
-            // Optional: Specify target application package prefixes
-            AutoTaggingPackages: []string{"github.com/mycompany/orderingservice"},
-            // Optional: Set maximum stack depth to inspect (default is 50)
-            AutoTaggingTracerLimit: 50,
-        }
-        client, err := spanner.NewClientWithConfig(ctx, "projects/p/instances/i/databases/d", config)
-        if err != nil {
-            panic(err)
-        }
-        defer client.Close()
+```
+package main
+
+import (
+    "context"
+    "cloud.google.com/go/spanner"
+)
+
+func main() {
+    ctx := context.Background()
+    config := spanner.ClientConfig{
+        // Enable call-stack autotagging
+        EnableAutoTagging: true,
+        // Optional: Specify target application package prefixes
+        AutoTaggingPackages: []string{"github.com/mycompany/orderingservice"},
+        // Optional: Set maximum stack depth to inspect (default is 50)
+        AutoTaggingTracerLimit: 50,
     }
+    client, err := spanner.NewClientWithConfig(ctx, "projects/p/instances/i/databases/d", config)
+    if err != nil {
+        panic(err)
+    }
+    defer client.Close()
+}
+```
 
 ### Java
 
-    import com.google.cloud.spanner.Spanner;
-    import com.google.cloud.spanner.SpannerOptions;
-    import java.util.Arrays;
-    
-    SpannerOptions options = SpannerOptions.newBuilder()
-        // Enable call-stack autotagging
-        .enableAutoTagging()
-        // Optional: Specify target application package prefixes
-        .setAutoTaggingPackages(Arrays.asList("com.mycompany.orderingservice."))
-        // Optional: Set maximum stack depth to inspect (default is 50)
-        .setAutoTaggingTracerLimit(100)
-        .build();
-    Spanner spanner = options.getService();
+```
+import com.google.cloud.spanner.Spanner;
+import com.google.cloud.spanner.SpannerOptions;
+import java.util.Arrays;
+
+SpannerOptions options = SpannerOptions.newBuilder()
+    // Enable call-stack autotagging
+    .enableAutoTagging()
+    // Optional: Specify target application package prefixes
+    .setAutoTaggingPackages(Arrays.asList("com.mycompany.orderingservice."))
+    // Optional: Set maximum stack depth to inspect (default is 50)
+    .setAutoTaggingTracerLimit(100)
+    .build();
+Spanner spanner = options.getService();
+```
 
 ## Mapping between API methods and the request and transaction tags
 
 Request tags and transaction tags are applicable to specific API methods based on whether the transaction mode is a read-only transaction or a read-write transaction. Generally, transaction tags are applicable to read-write transactions whereas request tags are applicable to read-only transactions. The following table shows the mapping from API methods to applicable types of tags.
 
-**API Methods**
-
-**Transaction Modes**
-
-**Request Tag**
-
-**Transaction Tag**
-
-Read,  
-StreamingRead
-
-Read-only transaction
-
-Yes
-
-No
-
-Read-write transaction
-
-Yes
-
-Yes
-
-ExecuteSql,  
-ExecuteStreamingSql <sup>1</sup>
-
-Read-only transaction <sup>1</sup>
-
-Yes <sup>1</sup>
-
-No
-
-Read-write transaction
-
-Yes
-
-Yes
-
-ExecuteBatchDml
-
-Read-write transaction
-
-Yes
-
-Yes
-
-BeginTransaction
-
-Read-write transaction
-
-No
-
-Yes
-
-Commit
-
-Read-write transaction
-
-No
-
-Yes
+| **API Methods**                              | **Transaction Modes**              | **Request Tag**  | **Transaction Tag** |
+|----------------------------------------------|------------------------------------|------------------|---------------------|
+| Read, StreamingRead                          | Read-only transaction              | Yes              | No                  |
+| Read-write transaction                       | Yes                                | Yes              |                     |
+| ExecuteSql, ExecuteStreamingSql <sup>1</sup> | Read-only transaction <sup>1</sup> | Yes <sup>1</sup> | No                  |
+| Read-write transaction                       | Yes                                | Yes              |                     |
+| ExecuteBatchDml                              | Read-write transaction             | Yes              | Yes                 |
+| BeginTransaction                             | Read-write transaction             | No               | Yes                 |
+| Commit                                       | Read-write transaction             | No               | Yes                 |
 
 <sup>1</sup> For change stream queries executed using the Apache Beam SpannerIO Dataflow connector, the `REQUEST_TAG` contains a Dataflow job name.
 
@@ -970,17 +889,17 @@ Yes
 
 When adding tags to your reads, queries, and transactions, consider the following limitations:
 
-  - The length of a tag string is limited to 50 characters. Strings that exceed this limit are truncated.
+- The length of a tag string is limited to 50 characters. Strings that exceed this limit are truncated.
 
-  - Only ASCII characters (32-126) are allowed in a tag. Arbitrary unicode characters are replaced by underscores.
+- Only ASCII characters (32-126) are allowed in a tag. Arbitrary unicode characters are replaced by underscores.
 
-  - Any leading underscore (\_) characters are removed from the string.
+- Any leading underscore (\_) characters are removed from the string.
 
-  - Tags are case-sensitive. For example, if you add the request tag `APP=cart,ENV=dev` to one set of queries, and add `app=cart,env=dev` to another set of queries, Spanner aggregates statistics separately for each tag.
+- Tags are case-sensitive. For example, if you add the request tag `APP=cart,ENV=dev` to one set of queries, and add `app=cart,env=dev` to another set of queries, Spanner aggregates statistics separately for each tag.
 
-  - Tags may be missing from the statistics tables under the following circumstance:
-    
-      - If Spanner is unable to store statistics for all tagged operations run during the interval in tables, the system prioritizes operations with the highest consuming resources during the specified interval.
+- Tags may be missing from the statistics tables under the following circumstance:
+
+  - If Spanner is unable to store statistics for all tagged operations run during the interval in tables, the system prioritizes operations with the highest consuming resources during the specified interval.
 
 ## Tag naming
 
@@ -994,63 +913,19 @@ Suppose you have another query from a catalog search application and you assign 
 
 Here are some examples of how a tagging pattern can be used to organize your operation statistics. These examples are not meant to be exhaustive; you can also combine them in your tag string using a delimiter such as a comma.
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Tag keys</strong></th>
-<th><strong>Examples of Tag-value pair</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Application</td>
-<td>app=cart<br />
-app=frontend<br />
-app=catalogsearch</td>
-<td>Helps in identifying the application that is calling the operation.</td>
-</tr>
-<tr class="even">
-<td>Environment</td>
-<td>env=prod<br />
-env=dev<br />
-env=test<br />
-env=staging</td>
-<td>Helps in identifying the environment that is associated with the operation.</td>
-</tr>
-<tr class="odd">
-<td>Framework</td>
-<td>framework=spring<br />
-framework=django<br />
-framework=jetty</td>
-<td>Helps in identifying the framework that is associated with the operation.</td>
-</tr>
-<tr class="even">
-<td>Action</td>
-<td>action=list<br />
-action=retrieve<br />
-action=update</td>
-<td>Helps in identifying the action taken by the operation.</td>
-</tr>
-<tr class="odd">
-<td>Service</td>
-<td>service=payment<br />
-service=shipping</td>
-<td>Helps in identifying the microservice that is calling the operation.</td>
-</tr>
-</tbody>
-</table>
+| **Tag keys** | **Examples of Tag-value pair**                    | **Description**                                                             |
+|--------------|---------------------------------------------------|-----------------------------------------------------------------------------|
+| Application  | app=cart app=frontend app=catalogsearch           | Helps in identifying the application that is calling the operation.         |
+| Environment  | env=prod env=dev env=test env=staging             | Helps in identifying the environment that is associated with the operation. |
+| Framework    | framework=spring framework=django framework=jetty | Helps in identifying the framework that is associated with the operation.   |
+| Action       | action=list action=retrieve action=update         | Helps in identifying the action taken by the operation.                     |
+| Service      | service=payment service=shipping                  | Helps in identifying the microservice that is calling the operation.        |
 
 ## Things to Note
 
-  - When you assign a `REQUEST_TAG` , statistics for multiple queries that have the same tag string are grouped in a single row in [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) table. Only the text of one of those queries is shown in the `TEXT` field.
-  - When you assign a `REQUEST_TAG` , statistics for multiple reads that have the same tag string are grouped in a single row in [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) table. The set of all columns that are read are added to the `READ_COLUMNS` field.
-  - When you assign a `TRANSACTION_TAG` , statistics for transactions that have the same tag string are grouped in a single row in [transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) table. The set of all columns that are written by the transactions are added to the `WRITE_CONSTRUCTIVE_COLUMNS` field and the set of all columns that are read are added to the `READ_COLUMNS` field.
+- When you assign a `REQUEST_TAG` , statistics for multiple queries that have the same tag string are grouped in a single row in [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) table. Only the text of one of those queries is shown in the `TEXT` field.
+- When you assign a `REQUEST_TAG` , statistics for multiple reads that have the same tag string are grouped in a single row in [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) table. The set of all columns that are read are added to the `READ_COLUMNS` field.
+- When you assign a `TRANSACTION_TAG` , statistics for transactions that have the same tag string are grouped in a single row in [transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) table. The set of all columns that are written by the transactions are added to the `WRITE_CONSTRUCTIVE_COLUMNS` field and the set of all columns that are read are added to the `READ_COLUMNS` field.
 
 > **Note:** Avoid using personally identifiable information (PII) or other user data in a tag. Tags are not designed to handle sensitive information.
 
@@ -1062,29 +937,31 @@ The following scenarios describe how to use tags to troubleshoot performance iss
 
 The following query returns the raw data for the top transactions in the selected time period.
 
-    SELECT
-     fprint,
-     transaction_tag,
-     ROUND(avg_total_latency_seconds,4) as avg_total_latency_sec,
-     ROUND(avg_commit_latency_seconds,4) as avg_commit_latency_sec,
-     commit_attempt_count,
-     commit_abort_count
-    FROM SPANNER_SYS.TXN_STATS_TOP_10MINUTE
-    WHERE interval_end = "2020-05-17T18:40:00"
-    ORDER BY avg_total_latency_seconds DESC;
+```
+SELECT
+ fprint,
+ transaction_tag,
+ ROUND(avg_total_latency_seconds,4) as avg_total_latency_sec,
+ ROUND(avg_commit_latency_seconds,4) as avg_commit_latency_sec,
+ commit_attempt_count,
+ commit_abort_count
+FROM SPANNER_SYS.TXN_STATS_TOP_10MINUTE
+WHERE interval_end = "2020-05-17T18:40:00"
+ORDER BY avg_total_latency_seconds DESC;
+```
 
 The following table lists example data returned from our query, where we have three applications, namely **cart** , **product** and **frontend** , that own or query the same database.
 
 Once you identify the transactions experiencing high latency, you can use the associated tags to identify the relevant part of your application code, and troubleshoot further using [transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics) .
 
-| **fprint**           | **transaction\_tag**         | **avg\_total\_latency\_sec** | **avg\_commit\_latency\_sec** | **commit\_attempt\_count** | **commit\_abort\_count** |
-| -------------------- | ---------------------------- | ---------------------------- | ----------------------------- | -------------------------- | ------------------------ |
-| 7129109266372596045  | app=cart,service=order       | 0.3508                       | 0.0139                        | 278802                     | 142205                   |
-| 9353100217060788102  | app=cart,service=redis       | 0.1633                       | 0.0142                        | 129012                     | 27177                    |
-| 9353100217060788102  | app=product,service=payment  | 0.1423                       | 0.0133                        | 5357                       | 636                      |
-| 898069986622520747   | app=product,service=shipping | 0.0159                       | 0.0118                        | 4269                       | 1                        |
-| 9521689070912159706  | app=frontend,service=ads     | 0.0093                       | 0.0045                        | 164                        | 0                        |
-| 11079878968512225881 | \[empty string\]             | 0.031                        | 0.015                         | 14                         | 0                        |
+| **fprint**           | **transaction_tag**          | **avg_total_latency_sec** | **avg_commit_latency_sec** | **commit_attempt_count** | **commit_abort_count** |
+|----------------------|------------------------------|---------------------------|----------------------------|--------------------------|------------------------|
+| 7129109266372596045  | app=cart,service=order       | 0.3508                    | 0.0139                     | 278802                   | 142205                 |
+| 9353100217060788102  | app=cart,service=redis       | 0.1633                    | 0.0142                     | 129012                   | 27177                  |
+| 9353100217060788102  | app=product,service=payment  | 0.1423                    | 0.0133                     | 5357                     | 636                    |
+| 898069986622520747   | app=product,service=shipping | 0.0159                    | 0.0118                     | 4269                     | 1                      |
+| 9521689070912159706  | app=frontend,service=ads     | 0.0093                    | 0.0045                     | 164                      | 0                      |
+| 11079878968512225881 | \[empty string\]             | 0.031                     | 0.015                      | 14                       | 0                      |
 
 Similarly, Request Tag can be used to find the source of a problematic query from [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) table and source of problematic read from [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) table.
 
@@ -1096,23 +973,25 @@ Suppose you have added new transactions to the **payment** app and you want to l
 
 The following query returns the transaction statistics for payment app over 10 minute intervals.
 
-    SELECT
-      transaction_tag,
-      avg_total_latency_sec,
-      avg_commit_latency_sec,
-      commit_attempt_count,
-      commit_abort_count
-    FROM SPANNER_SYS.TXN_STATS_TOP_10MINUTE
-    WHERE STARTS_WITH(transaction_tag, "app=payment")
-    LIMIT 3;
+```
+SELECT
+  transaction_tag,
+  avg_total_latency_sec,
+  avg_commit_latency_sec,
+  commit_attempt_count,
+  commit_abort_count
+FROM SPANNER_SYS.TXN_STATS_TOP_10MINUTE
+WHERE STARTS_WITH(transaction_tag, "app=payment")
+LIMIT 3;
+```
 
 Here's some example output:
 
-| **transaction\_tag**         | **avg\_total\_latency\_sec** | **avg\_commit\_latency\_sec** | **commit\_attempt\_count** | **commit\_abort\_count** |
-| ---------------------------- | ---------------------------- | ----------------------------- | -------------------------- | ------------------------ |
-| app=payment,action=update    | 0.3508                       | 0.0139                        | 278802                     | 142205                   |
-| app=payment,action=transfer  | 0.1633                       | 0.0142                        | 129012                     | 27177                    |
-| app=payment, action=retrieve | 0.1423                       | 0.0133                        | 5357                       | 636                      |
+| **transaction_tag**          | **avg_total_latency_sec** | **avg_commit_latency_sec** | **commit_attempt_count** | **commit_abort_count** |
+|------------------------------|---------------------------|----------------------------|--------------------------|------------------------|
+| app=payment,action=update    | 0.3508                    | 0.0139                     | 278802                   | 142205                 |
+| app=payment,action=transfer  | 0.1633                    | 0.0142                     | 129012                   | 27177                  |
+| app=payment, action=retrieve | 0.1423                    | 0.0133                     | 5357                     | 636                    |
 
 Similarly, you can find queries or reads from a specific application in [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) or [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) table using request tags.
 
@@ -1120,52 +999,22 @@ Similarly, you can find queries or reads from a specific application in [query s
 
 To find out which transactions and row keys experienced the high lock wait times, we query the `LOCK_STAT_TOP_10MINUTE` table, which lists the row keys, columns, and corresponding transactions that are involved in the lock conflict.
 
-    SELECT CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
-           t.total_lock_wait_seconds,
-           s.lock_wait_seconds,
-           s.lock_wait_seconds/t.total_lock_wait_seconds frac_of_total,
-           s.sample_lock_requests
-    FROM spanner_sys.lock_stats_total_10minute t, spanner_sys.lock_stats_top_10minute s
-    WHERE
-      t.interval_end = "2020-05-17T18:40:00" and s.interval_end = t.interval_end;
+```
+SELECT CAST(s.row_range_start_key AS STRING) AS row_range_start_key,
+       t.total_lock_wait_seconds,
+       s.lock_wait_seconds,
+       s.lock_wait_seconds/t.total_lock_wait_seconds frac_of_total,
+       s.sample_lock_requests
+FROM spanner_sys.lock_stats_total_10minute t, spanner_sys.lock_stats_top_10minute s
+WHERE
+  t.interval_end = "2020-05-17T18:40:00" and s.interval_end = t.interval_end;
+```
 
 Here's some example output from our query:
 
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>row_range_start_key</strong></th>
-<th><strong>total_lock_wait_seconds</strong></th>
-<th><strong>lock_wait_seconds</strong></th>
-<th><strong>frac_of_total</strong></th>
-<th><strong>sample_lock_requests</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Singers(32)</td>
-<td>2.37</td>
-<td>1.76</td>
-<td>1</td>
-<td>LOCK_MODE: WriterShared<br />
-COLUMN: Singers.SingerInfo<br />
-TRANSACTION_TAG:<br />
-app=cart,service=order<br />
-<br />
-LOCK_MODE: ReaderShared<br />
-COLUMN: Singers.SingerInfo<br />
-TRANSACTION_TAG:<br />
-app=cart,service=redis</td>
-</tr>
-</tbody>
-</table>
+| **row_range_start_key** | **total_lock_wait_seconds** | **lock_wait_seconds** | **frac_of_total** | **sample_lock_requests**                                                                                                                                                              |
+|-------------------------|-----------------------------|-----------------------|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Singers(32)             | 2.37                        | 1.76                  | 1                 | LOCK_MODE: WriterShared COLUMN: Singers.SingerInfo TRANSACTION_TAG: app=cart,service=order LOCK_MODE: ReaderShared COLUMN: Singers.SingerInfo TRANSACTION_TAG: app=cart,service=redis |
 
 From this table of results, we can see the conflict happened on the `Singers` table at key **SingerId=32** . The `Singers.SingerInfo` is the column where the lock conflict happened between `ReaderShared` and `WriterShared` . You can also identify corresponding transactions ( `app=cart,service=order` and `app=cart,service=redis` ) that are experiencing the conflict.
 
@@ -1173,7 +1022,7 @@ Once the transactions causing the lock conflicts are identified, you can now foc
 
 ## What's next
 
-  - Learn about other [Introspection tools](https://docs.cloud.google.com/spanner/docs/introspection) .
-  - Learn about other information Spanner stores for each database in the database's [information schema](https://docs.cloud.google.com/spanner/docs/information-schema) tables.
-  - Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) for Spanner.
-  - Learn more about [Investigating high CPU utilization](https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization) .
+- Learn about other [Introspection tools](https://docs.cloud.google.com/spanner/docs/introspection) .
+- Learn about other information Spanner stores for each database in the database's [information schema](https://docs.cloud.google.com/spanner/docs/information-schema) tables.
+- Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) for Spanner.
+- Learn more about [Investigating high CPU utilization](https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization) .

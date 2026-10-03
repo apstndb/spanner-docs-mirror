@@ -26,31 +26,33 @@ Spanner supports two isolation levels for database transactions: **serializable*
 
 The read and write locking behavior depends on the transaction type and isolation level:
 
-  - **Read-only transactions:** These are always lock-free regardless of the isolation level. They perform reads from a consistent snapshot of the database, so they don't block concurrent writes and aren't blocked by them.
-  - **Read-write transactions under serializable isolation:** Spanner uses pessimistic concurrency control. Transactions proactively acquire shared read locks during execution, which blocks concurrent transactions from writing to the same data.
-  - **Read-write transactions under repeatable read isolation:** Spanner uses optimistic concurrency control by default. Reads don't acquire locks and run on a consistent snapshot. This eliminates read-write blocking during execution. If conflict detection detects that concurrent transactions modified the written data since the snapshot timestamp, the transaction aborts at commit time (first-committer-wins). Optional pessimistic concurrency control is available under repeatable read if you use locking hints (like `SELECT ... FOR UPDATE` ), which acquire exclusive locks during execution.
+- **Read-only transactions:** These are always lock-free regardless of the isolation level. They perform reads from a consistent snapshot of the database, so they don't block concurrent writes and aren't blocked by them.
+- **Read-write transactions under serializable isolation:** Spanner uses pessimistic concurrency control. Transactions proactively acquire shared read locks during execution, which blocks concurrent transactions from writing to the same data.
+- **Read-write transactions under repeatable read isolation:** Spanner uses optimistic concurrency control by default. Reads don't acquire locks and run on a consistent snapshot. This eliminates read-write blocking during execution. If conflict detection detects that concurrent transactions modified the written data since the snapshot timestamp, the transaction aborts at commit time (first-committer-wins). Optional pessimistic concurrency control is available under repeatable read if you use locking hints (like `SELECT ... FOR UPDATE` ), which acquire exclusive locks during execution.
 
-Many previous distributed database systems have elected not to provide strong consistency guarantees because of the costly cross-machine communication that is usually required. Spanner is able to provide strongly consistent snapshots across the entire database using a Google-developed technology called [TrueTime](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) . Like the Flux Capacitor in a circa-1985 time machine, **TrueTime** is what makes Spanner possible. It is an API that allows any machine in Google data centers to know the exact global time with a high degree of accuracy (that is, within a few milliseconds). This allows different Spanner machines to reason about the ordering of transactional operations (and have that ordering match what the client has observed) often without any communication at all. Google had to outfit its data centers with special hardware (atomic clocks\!) in order to make TrueTime work. The resulting time precision and accuracy is much higher than can be achieved by other protocols (such as NTP). In particular, Spanner assigns a timestamp to all reads and writes. A transaction at timestamp `T1` reflects the results of all writes that happened before `T1` . If a machine wants to satisfy a read at `T2` , it must ensure that its view of the data is up-to-date through at least `T2` . Because of TrueTime, this determination is usually very cheap. The protocols for ensuring data consistency are complicated, but they're discussed more in the original Spanner [paper](https://research.google.com/archive/spanner.html) and in this [paper](https://research.google/pubs/spanner-truetime-and-the-cap-theorem/) about Spanner and consistency.
+Many previous distributed database systems have elected not to provide strong consistency guarantees because of the costly cross-machine communication that is usually required. Spanner is able to provide strongly consistent snapshots across the entire database using a Google-developed technology called [TrueTime](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) . Like the Flux Capacitor in a circa-1985 time machine, **TrueTime** is what makes Spanner possible. It is an API that allows any machine in Google data centers to know the exact global time with a high degree of accuracy (that is, within a few milliseconds). This allows different Spanner machines to reason about the ordering of transactional operations (and have that ordering match what the client has observed) often without any communication at all. Google had to outfit its data centers with special hardware (atomic clocks!) in order to make TrueTime work. The resulting time precision and accuracy is much higher than can be achieved by other protocols (such as NTP). In particular, Spanner assigns a timestamp to all reads and writes. A transaction at timestamp `T1` reflects the results of all writes that happened before `T1` . If a machine wants to satisfy a read at `T2` , it must ensure that its view of the data is up-to-date through at least `T2` . Because of TrueTime, this determination is usually very cheap. The protocols for ensuring data consistency are complicated, but they're discussed more in the original Spanner [paper](https://research.google.com/archive/spanner.html) and in this [paper](https://research.google/pubs/spanner-truetime-and-the-cap-theorem/) about Spanner and consistency.
 
 > ### Aside: Distributed Filesystems
-> 
+>
 > When you save a file on your laptop, the file is typically written to the hard drive on that laptop. But what happens if that hard drive breaks? Do you lose your file? Can your laptop save any more files (or even be used for anything) until that hard drive is fixed? These are some of the problems that distributed file systems try to solve. Over a decade ago, Google created a system called [Google File System](https://research.google.com/archive/gfs.html) (GFS) that addresses some of these problems. Files were replicated across multiple machines. If one machine went bad, other machines would still be available to serve reads and writes to the file. We have made many advances since GFS, but the fundamental concept remains the same: File storage is decoupled from the machines that create, read, update, and delete them. This enables the creation of more robust systems; a single bad disk cannot result in the loss or corruption of data. The combination of Spanner's Paxos-based replication, and the robustness of the underlying distributed file system, provides extremely good data reliability.
-> 
+>
 > To ensure durable writes, Spanner transactions commit by writing mutations to at least a majority of the replicas of the affected splits. And the machines hosting those splits write these mutations durably in a **distributed file system** . Spanner is a "shared nothing" architecture (which provides high scalability), but because any server in a cluster can read from this distributed file system, we can recover quickly from whole-machine failures. Because Google owns the entire software-hardware stack for Spanner, we are able to make additional optimizations to ensure maximum performance and robustness. For example, all Spanner machines employ battery- backed RAM, so that writes can be synced to disk even in the (unlikely) event of data center power loss. This also allows the file system to acknowledge writes without waiting for the latency of writing to disk.
 
 ## Practical example
 
 Let's work through a few practical examples to see how it all works:
 
-    CREATE TABLE ExampleTable (
-     Id INT64 NOT NULL,
-     Value STRING(MAX),
-    ) PRIMARY KEY(Id);
+```
+CREATE TABLE ExampleTable (
+ Id INT64 NOT NULL,
+ Value STRING(MAX),
+) PRIMARY KEY(Id);
+```
 
 In this example, we have a table with a simple integer primary key.
 
 | Split | KeyRange     |
-| ----- | ------------ |
+|-------|--------------|
 | 0     | \[-∞,3)      |
 | 1     | \[3,224)     |
 | 2     | \[224,712)   |
@@ -63,7 +65,7 @@ In this example, we have a table with a simple integer primary key.
 
 Given the schema for `ExampleTable` above, the primary key space is partitioned into splits. For example: If there is a row in `ExampleTable` with an `Id` of `3700` , it will live in Split 8. As detailed above, Split 8 itself is replicated across multiple machines.
 
-<https://docs.cloud.google.com/spanner/docs/images/api_layer.png>
+[![Table illustrating distribution of splits across multiple zones and machines](https://docs.cloud.google.com/spanner/docs/images/api_layer.png)](https://docs.cloud.google.com/spanner/docs/images/api_layer.png)
 
 In this example Spanner instance, the customer has five nodes, and the instance is replicated across three zones. The nine splits are numbered 0-8, with Paxos leaders for each split being darkly shaded. The splits also have replicas in each zone (lightly shaded). The distribution of splits among the nodes may be different in each zone, and the Paxos leaders do not all reside in the same zone. This flexibility helps Spanner to be more robust to certain kinds of load profiles and failure modes.
 
@@ -78,13 +80,11 @@ Suppose the client wants to insert a new row `(7, "Seven")` into `ExampleTable` 
 3.  Leader begins a **transaction** .
 
 4.  Leader handles locking and concurrency control based on the isolation level:
-    
-      - **Serializable isolation (and repeatable read with pessimistic locking):** The leader attempts to get a **write lock** on the row `Id=7` . This is a local operation. If another concurrent transaction is reading this row (holding a shared **read lock** ), or writing it, the current transaction blocks until it can acquire the write lock.
-        1.  It's possible that transaction A is waiting for a lock held by transaction B, and transaction B is waiting for a lock held by transaction A. Because neither transaction releases locks until it acquires all locks, this can lead to deadlock. Spanner uses a standard "wound-wait" deadlock prevention algorithm to ensure that transactions make progress. A "younger" transaction waits for a lock held by an "older" transaction, but an "older" transaction "wounds" (aborts) a younger transaction holding a lock requested by the older transaction. Therefore, Spanner doesn't have deadlock cycles of lock waiters.
-      - **Repeatable read isolation (default optimistic locking):** The transaction doesn't acquire locks during the execution phase. Instead, write concurrency conflicts are checked and validated at commit time. Because transactions under repeatable read (optimistic locking) don't block on locks during execution, they can't deadlock during this phase.
+    - **Serializable isolation (and repeatable read with pessimistic locking):** The leader attempts to get a **write lock** on the row `Id=7` . This is a local operation. If another concurrent transaction is reading this row (holding a shared **read lock** ), or writing it, the current transaction blocks until it can acquire the write lock.
+      1.  It's possible that transaction A is waiting for a lock held by transaction B, and transaction B is waiting for a lock held by transaction A. Because neither transaction releases locks until it acquires all locks, this can lead to deadlock. Spanner uses a standard "wound-wait" deadlock prevention algorithm to ensure that transactions make progress. A "younger" transaction waits for a lock held by an "older" transaction, but an "older" transaction "wounds" (aborts) a younger transaction holding a lock requested by the older transaction. Therefore, Spanner doesn't have deadlock cycles of lock waiters.
+    - **Repeatable read isolation (default optimistic locking):** The transaction doesn't acquire locks during the execution phase. Instead, write concurrency conflicts are checked and validated at commit time. Because transactions under repeatable read (optimistic locking) don't block on locks during execution, they can't deadlock during this phase.
 
 5.  After the lock is acquired, Leader assigns a timestamp to the transaction based on **TrueTime** .
-    
     1.  This timestamp is guaranteed to be greater than that of any previously committed transaction which touched the data. This is what ensures that the order of transactions (as perceived by the client) matches the order of changes to the data.
 
 6.  Leader tells the Split 1 replicas about the transaction and its timestamp. Once a majority of those replicas have stored the transaction mutation in stable storage (in the distributed file system), the transaction commits. This ensures that the transaction is recoverable, even if there is a failure in a minority of machines. (The replicas don't yet apply the mutations to their copy of the data.)
@@ -94,7 +94,7 @@ Suppose the client wants to insert a new row `(7, "Seven")` into `ExampleTable` 
 8.  The Leader replies to the client to say that the transaction has been committed, optionally reporting the commit timestamp of the transaction.
 
 9.  In parallel to replying to the client, the transaction mutations are applied to the data.
-    
+
     1.  The leader applies the mutations to its copy of the data and then releases its transaction locks.
     2.  The leader also informs the other Split 1 replicas to apply the mutation to their copies of the data.
     3.  Any read-write or read-only transaction that should see the effects of the mutations waits until the mutations are applied before attempting to read the data. For read-write transactions under serializable isolation, this is enforced because the transaction must take a read lock. For read-write transactions under repeatable read isolation, reads run on a snapshot and don't block-wait for locks. For read-only transactions, this is enforced by comparing the read's timestamp with that of the latest applied data.
@@ -108,7 +108,7 @@ If multiple splits are involved, an extra layer of coordination (using the stand
 Suppose the table contains four thousand rows:
 
 |      |                 |
-| ---- | --------------- |
+|------|-----------------|
 | 1    | "one"           |
 | 2    | "two"           |
 | ...  | ...             |
@@ -125,25 +125,25 @@ Now suppose the client wants to read the value for row `1000` and write a value 
 4.  API Layer sends a read request to the Leader of Split 4 and tags it as part of *t* .
 
 5.  Leader of Split 4 handles reads based on the isolation level:
-    
-      - **Serializable isolation (and repeatable read with pessimistic locking):** The leader attempts to get a **read lock** on the row `Id=1000` . It's a local operation. If another concurrent transaction has a write lock on this row, the current transaction blocks until it can acquire the lock. However, this read lock doesn't prevent other transactions from getting read locks. Deadlock is prevented using "wound-wait".
-      - **Repeatable read isolation (default optimistic locking):** Reads are lock-free and run on a snapshot. The transaction doesn't acquire a read lock and isn't blocked by concurrent write locks during execution.
+
+    - **Serializable isolation (and repeatable read with pessimistic locking):** The leader attempts to get a **read lock** on the row `Id=1000` . It's a local operation. If another concurrent transaction has a write lock on this row, the current transaction blocks until it can acquire the lock. However, this read lock doesn't prevent other transactions from getting read locks. Deadlock is prevented using "wound-wait".
+    - **Repeatable read isolation (default optimistic locking):** Reads are lock-free and run on a snapshot. The transaction doesn't acquire a read lock and isn't blocked by concurrent write locks during execution.
 
 6.  Leader looks up the value for `Id` `1000` ("One Thousand") and returns the read result to the client.
-    
+
       
     ***Later...***  
 
 7.  Client issues a Commit request for transaction t. This commit request contains 3 mutations: ( `[2000, "Dos Mil"]` , `[3000, "Tres Mil"]` , and `[4000, "Quatro Mil"]` ).
-    
+
     1.  All of the splits involved in a transaction become **participants** in the transaction. In this case, Split 4 (which served the read for key `1000` ), Split 7 (which will handle the mutation for key `2000` ) and Split 8 (which will handle the mutations for key `3000` and key `4000` ) are participants.
 
 8.  One participant becomes the coordinator. In this case perhaps the leader for Split 7 becomes the coordinator. The job of the coordinator is to make sure the transaction either commits or aborts atomically across all participants. That is, it won't commit at one participant and abort at another.
-    
+
     1.  The work done by participants and coordinators is actually done by the leader machines of those splits.
 
 9.  Participants acquire locks. (It's the first phase of two-phase commit.)
-    
+
     1.  Split 7 acquires a write lock on key `2000` .
     2.  Split 8 acquires a write lock on key `3000` and key `4000` .
     3.  Under serializable isolation, Split 4 verifies it still holds a read lock on key `1000` (meaning, the lock wasn't lost due to a machine crash or the wound-wait algorithm). Under repeatable read isolation (optimistic locking), standard reads don't acquire locks, so Split 4 doesn't need to verify a read lock. Instead, participants validate that mutations don't conflict with concurrent transactions (first-committer-wins). They check that the written keys haven't changed since the transaction's snapshot timestamp. If you use a locking hint (like `SELECT ... FOR UPDATE` ) on the read key `1000` , Split 4 also acquires a lock and validates that it hasn't changed.
@@ -152,19 +152,19 @@ Now suppose the client wants to read the value for row `1000` and write a value 
     6.  If locks can't be acquired or a repeatable read validation conflict is detected, the transaction aborts.
 
 10. If all participants, and the coordinator, successfully acquire locks, Coordinator (Split 7) decides to commit the transaction. It assigns a timestamp to the transaction based on **TrueTime** .
-    
+
     1.  This commit decision, as well as the mutations for key `2000` , are replicated to the members of Split 7. After a majority of the Split 7 replicas record the commit decision to stable storage, the transaction is committed.
 
 11. The Coordinator communicates the transaction outcome to all of the Participants. (This is the second phase of two-phase commit.)
-    
+
     1.  Each participant leader replicates the commit decision to the replicas of the participant split.
 
 12. If the transaction is committed, the Coordinator and all of the Participants apply the mutations to the data.
-    
+
     1.  As in the single split case, subsequent readers of data at the Coordinator or Participants must wait until data is applied.
 
 13. Coordinator leader replies to the client to say that the transaction has been committed, optionally returning the commit timestamp of the transaction
-    
+
     1.  As in the single split case, the outcome is communicated to the client after a commit wait, to ensure strong consistency.
 
 All of this happens in typically a handful of milliseconds, though typically a few more than in the single split case because of the extra cross-split coordination.
@@ -176,7 +176,6 @@ Let's say the client wants to read all rows where `Id >= 0` and `Id < 700` as pa
 1.  API Layer looks up the splits that own any keys in the range `[0, 700)` . These rows are owned by Split 0, Split 1, and Split 2.
 
 2.  Since this is a strong read across multiple machines, API Layer picks the read timestamp by using the current TrueTime. This ensures that both reads return data from the same snapshot of the database.
-    
     1.  Other types of reads, such as stale reads, also pick a timestamp to read at (but the timestamp may be in the past).
 
 3.  API Layer sends the read request to some replica of Split 0, some replica of Split 1, and some replica of Split 2. It also includes the read-timestamp it has selected in the step above.
@@ -188,13 +187,13 @@ Let's say the client wants to read all rows where `Id >= 0` and `Id < 700` as pa
 Note that reads do not acquire any locks in read-only transactions. And because reads can potentially be served by any up-to-date replica of a given split, the read throughput of the system is potentially very high. If the client is able to tolerate reads that are at least ten seconds stale, read throughput can be even higher. Because the leader typically updates the replicas with the latest safe timestamp every ten seconds, reads at a stale timestamp may avoid an extra RPC to the leader.
 
 > ### Aside: Locking in Spanner
-> 
+>
 > Usually, write locks in databases are **exclusive** —only one writer at a time is allowed to update data. This prevents data corruption by preventing race conditions on the same data. However, it limits throughput, since only one transaction at a time can make progress. In Spanner, we are able to leverage the timestamps assigned to transactions to allow write locks to be **shared** in many cases. In particular, for blind writes (writing data without previously reading it in the same transaction) in a single split transaction, we can allow multiple transactions writing the same data to proceed in parallel. Because the timestamps assigned from TrueTime to each write are guaranteed to be different, we avoid race conditions—data at different timestamps is applied separately and in order of timestamp, avoiding data corruption. We've found this to be a significant throughput win for blind-writes done to Spanner by Google's internal systems.
-> 
+>
 > Note: Under repeatable read isolation (optimistic locking), writes don't acquire proactive locks during the execution phase. Instead, conflict detection detects and aborts conflicting writes at commit time.
 
 > ### Aside: What's the Catch? Don't powerful database primitives come at a performance cost?
-> 
+>
 > One principle we try to adhere to is "you don't pay (performance-wise) for what you don't use". An example of this is the Spanner concurrency model: while Spanner uses multiple mechanisms to ensure strong consistency, an application doesn't pay for the mechanisms it doesn't use. We implement two- phase commit (2PC) for transactions that span splits, but a transaction to a single split bypasses 2PC and uses a simpler, faster protocol. "Strong" reads of the latest data may spend some latency verifying whether a replica is up-to-date enough; but a read that can be satisfied with stale data does not pay this latency. Another example is our data layout, where we use range sharding. Applications that do range scans can use this layout to get high performance. But some applications don't need range scans; and if those applications don't want to worry about the performance cost of potential row-range hotspots, they can put a hash value in their primary key, effectively causing Spanner to use hash sharding. In general, Spanner has been designed to offer powerful tools to application builders, but to give those builders a high degree of control over any tradeoffs between powerful functionality and performance.
 
 ## Conclusion

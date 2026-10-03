@@ -12,7 +12,7 @@ gcloud spanner backup-schedules delete - delete a Cloud Spanner backup schedule
 
 SYNOPSIS
 
-`gcloud spanner backup-schedules delete` ( `  BACKUP_SCHEDULE  ` : `  --database  ` = `  DATABASE  ` `  --instance  ` = `  INSTANCE  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner backup-schedules delete` ( [`BACKUP_SCHEDULE`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/delete#BACKUP_SCHEDULE) : [`--database`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/delete#--database) = `DATABASE` [`--instance`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/delete#--instance) = `INSTANCE` ) \[ [`GCLOUD_WIDE_FLAG`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/delete#GCLOUD-WIDE-FLAGS)` …` \]
 
 DESCRIPTION
 
@@ -22,7 +22,9 @@ EXAMPLES
 
 To delete a Cloud Spanner backup schedule, run:
 
-    gcloud spanner backup-schedules delete backup-schedule-id --instance=instance-id --database=database-id
+```
+gcloud spanner backup-schedules delete backup-schedule-id --instance=instance-id --database=database-id
+```
 
 POSITIONAL ARGUMENTS
 
@@ -30,48 +32,52 @@ Backup schedule resource - The Cloud Spanner backup schedule to delete. The argu
 
 To set the `project` attribute:
 
-  - provide the argument `backup_schedule` on the command line with a fully specified name;
-  - provide the argument `--project` on the command line;
-  - set the property `core/project` .
+- provide the argument `backup_schedule` on the command line with a fully specified name;
+- provide the argument `--project` on the command line;
+- set the property `core/project` .
 
 This must be specified.
 
-  - `  BACKUP_SCHEDULE  `  
-    ID of the backup-schedule or fully qualified identifier for the backup-schedule.
-    
-    To set the `backup-schedule` attribute:
-    
-      - provide the argument `backup_schedule` on the command line.
-    
-    This positional argument must be specified if any of the other arguments in this group are specified.
+`BACKUP_SCHEDULE`  
+ID of the backup-schedule or fully qualified identifier for the backup-schedule.
 
-  - `--database` = `  DATABASE  `  
-    The Cloud Spanner database for the backup-schedule.
-    
-    To set the `database` attribute:
-    
-      - provide the argument `backup_schedule` on the command line with a fully specified name;
-      - provide the argument `--database` on the command line.
+To set the `backup-schedule` attribute:
 
-  - `--instance` = `  INSTANCE  `  
-    The Cloud Spanner instance for the backup-schedule.
-    
-    To set the `instance` attribute:
-    
-      - provide the argument `backup_schedule` on the command line with a fully specified name;
-      - provide the argument `--instance` on the command line;
-      - set the property `spanner/instance` .
+- provide the argument `backup_schedule` on the command line.
+
+This positional argument must be specified if any of the other arguments in this group are specified.
+
+`--database` = `DATABASE`  
+The Cloud Spanner database for the backup-schedule.
+
+To set the `database` attribute:
+
+- provide the argument `backup_schedule` on the command line with a fully specified name;
+- provide the argument `--database` on the command line.
+
+`--instance` = `INSTANCE`  
+The Cloud Spanner instance for the backup-schedule.
+
+To set the `instance` attribute:
+
+- provide the argument `backup_schedule` on the command line with a fully specified name;
+- provide the argument `--instance` on the command line;
+- set the property `spanner/instance` .
 
 GCLOUD WIDE FLAGS
 
-These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+These flags are available to all commands: [`--access-token-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--access-token-file) , [`--account`](https://docs.cloud.google.com/sdk/gcloud/reference#--account) , [`--billing-project`](https://docs.cloud.google.com/sdk/gcloud/reference#--billing-project) , [`--configuration`](https://docs.cloud.google.com/sdk/gcloud/reference#--configuration) , [`--flags-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--flags-file) , [`--flatten`](https://docs.cloud.google.com/sdk/gcloud/reference#--flatten) , [`--format`](https://docs.cloud.google.com/sdk/gcloud/reference#--format) , [`--help`](https://docs.cloud.google.com/sdk/gcloud/reference#--help) , [`--impersonate-service-account`](https://docs.cloud.google.com/sdk/gcloud/reference#--impersonate-service-account) , [`--log-http`](https://docs.cloud.google.com/sdk/gcloud/reference#--log-http) , [`--project`](https://docs.cloud.google.com/sdk/gcloud/reference#--project) , [`--quiet`](https://docs.cloud.google.com/sdk/gcloud/reference#--quiet) , [`--trace-token`](https://docs.cloud.google.com/sdk/gcloud/reference#--trace-token) , [`--user-output-enabled`](https://docs.cloud.google.com/sdk/gcloud/reference#--user-output-enabled) , [`--verbosity`](https://docs.cloud.google.com/sdk/gcloud/reference#--verbosity) .
 
-Run ` $ gcloud help  ` for details.
+Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for details.
 
 NOTES
 
 These variants are also available:
 
-    gcloud alpha spanner backup-schedules delete
+```
+gcloud alpha spanner backup-schedules delete
+```
 
-    gcloud beta spanner backup-schedules delete
+```
+gcloud beta spanner backup-schedules delete
+```

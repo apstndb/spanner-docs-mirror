@@ -8,50 +8,64 @@ data_source: docs.cloud.google.com
 
 This document describes best practices for using Spanner as the primary backend database for game state storage. You can use [Spanner](https://docs.cloud.google.com/spanner) in place of common databases to store player authentication data and inventory data. This document is intended for game backend engineers working on long-term state storage, and game infrastructure operators and admins who support those systems and are interested in hosting their backend database on Google Cloud.
 
-Multiplayer and online games have evolved to require increasingly complex database structures for tracking player entitlements, state, and inventory data. Growing player bases and increasing game complexity have led to database solutions that are a challenge to scale and manage, frequently requiring the use of [sharding](https://wikipedia.org/wiki/Shard_\(database_architecture\)) or [clustering](https://wikipedia.org/wiki/MySQL_Cluster) . Tracking valuable in-game items or critical player progress typically requires transactions and is challenging to work around in many types of distributed databases.
+Multiplayer and online games have evolved to require increasingly complex database structures for tracking player entitlements, state, and inventory data. Growing player bases and increasing game complexity have led to database solutions that are a challenge to scale and manage, frequently requiring the use of [sharding](https://wikipedia.org/wiki/Shard_(database_architecture)) or [clustering](https://wikipedia.org/wiki/MySQL_Cluster) . Tracking valuable in-game items or critical player progress typically requires transactions and is challenging to work around in many types of distributed databases.
 
 Spanner is the first scalable, enterprise-grade, globally distributed, and strongly consistent database service built for the cloud to combine the benefits of relational database structure with non-relational horizontal scale. Many game companies have found it to be well-suited to replace both game state and authentication databases in production-scale systems. You can scale for additional performance or storage by using the Google Cloud console to add nodes. Spanner can transparently handle global replication with strong consistency, eliminating your need to manage regional replicas.
 
 This best practices document discusses the following:
 
-  - Important Spanner concepts and differences from databases commonly used in games.
-  - When Spanner is the right database for your game.
-  - Patterns to avoid when using Spanner for games.
-  - Designing your database operations with Spanner as your game's database.
-  - Modeling your data and creating a schema to get the best performance with Spanner.
+- Important Spanner concepts and differences from databases commonly used in games.
+- When Spanner is the right database for your game.
+- Patterns to avoid when using Spanner for games.
+- Designing your database operations with Spanner as your game's database.
+- Modeling your data and creating a schema to get the best performance with Spanner.
 
 ## Terminology
 
-  - Entitlements  
-    Games, expansions, or in-app purchases belonging to a player.
-  - Personally identifiable information (PII)  
-    In games, information that typically includes email address and payment account information, such as a credit card number and billing address. In some markets, this information might include a national ID number.
-  - Game database (game DB)  
-    A database that holds player progress and inventory for a game.
-  - Authentication database (auth DB)  
-    A database that includes player entitlements and the PII that the players use when making a purchase. The auth DB is also known as the account DB or player DB. This database is sometimes combined with the game DB, but they are frequently separated in studios or publishers that have multiple titles.
-  - Transaction  
-    A [database transaction](https://wikipedia.org/wiki/Database_transaction) —a set of write operations that have an all-or-nothing effect. Either the transaction succeeds and all updates take effect, or the database is returned to a state that doesn't include any of the updates of the transaction. In games, database transactions are most critical when processing payments, and when assigning the ownership of valuable in-game inventory or currency.
-  - Relational database management system (RDBMS)  
-    A database system based on tables and rows that reference one another. SQL Server, MySQL, and (less commonly) Oracle® are examples of relational databases used in games. These are frequently used because they can provide familiar methodologies and [strong guarantees around transactions](https://docs.oracle.com/cd/E17275_01/html/programmer_reference/rep_trans.html) .
-  - NoSQL database (NoSQL DB)  
-    Databases that are not structured relationally. These databases are becoming more popular in games because they have a lot of flexibility when the data model changes. NoSQL databases include MongoDB and Cassandra.
-  - Primary key  
-    Usually the column that contains the unique ID for inventory items, player accounts, and purchase transactions.
-  - Instance  
-    A single database. For example, a cluster runs multiple copies of the database software, but appears as a single instance to the game backend.
-  - Node  
-    For the purposes of this document, a single machine running a copy of the database software.
-  - Replica  
-    A second copy of a database. Replicas are frequently used for data recovery and high availability, or to help increase read throughput.
-  - Cluster  
-    Multiple copies of the software running on many machines that together appear as a single instance to the game backend. Clustering is used for scalability and availability.
-  - Shard  
-    An instance of a database. Many game studios run multiple homogeneous database instances, each of which holds a subset of the game data. Each of these instances is commonly referred to as a *shard* . Sharding is typically done for performance or scalability, sacrificing management efficiency while increasing app complexity. Sharding in Spanner is implemented using *splits* .
-  - Split  
-    Spanner divides your data into chunks called [*splits*](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) , where individual splits can move independently from each other and get assigned to different servers. A split is defined as a range of rows in a top-level (in other words, non-interleaved) table, where the rows are ordered by primary key. The start and end keys of this range are called "split boundaries". Spanner automatically adds and removes split boundaries, which changes the number of splits in the database. Spanner splits data based on load: it adds split boundaries automatically when it detects high read or write load spread among many keys in a split.
-  - Hotspot  
-    When a single split in a distributed database like Spanner contains records receiving a large portion of all the queries going to the database. This scenario is undesirable because it degrades performance.
+Entitlements  
+Games, expansions, or in-app purchases belonging to a player.
+
+Personally identifiable information (PII)  
+In games, information that typically includes email address and payment account information, such as a credit card number and billing address. In some markets, this information might include a national ID number.
+
+Game database (game DB)  
+A database that holds player progress and inventory for a game.
+
+Authentication database (auth DB)  
+A database that includes player entitlements and the PII that the players use when making a purchase. The auth DB is also known as the account DB or player DB. This database is sometimes combined with the game DB, but they are frequently separated in studios or publishers that have multiple titles.
+
+Transaction  
+A [database transaction](https://wikipedia.org/wiki/Database_transaction) —a set of write operations that have an all-or-nothing effect. Either the transaction succeeds and all updates take effect, or the database is returned to a state that doesn't include any of the updates of the transaction. In games, database transactions are most critical when processing payments, and when assigning the ownership of valuable in-game inventory or currency.
+
+Relational database management system (RDBMS)  
+A database system based on tables and rows that reference one another. SQL Server, MySQL, and (less commonly) Oracle® are examples of relational databases used in games. These are frequently used because they can provide familiar methodologies and [strong guarantees around transactions](https://docs.oracle.com/cd/E17275_01/html/programmer_reference/rep_trans.html) .
+
+NoSQL database (NoSQL DB)  
+Databases that are not structured relationally. These databases are becoming more popular in games because they have a lot of flexibility when the data model changes. NoSQL databases include MongoDB and Cassandra.
+
+Primary key  
+Usually the column that contains the unique ID for inventory items, player accounts, and purchase transactions.
+
+Instance  
+A single database. For example, a cluster runs multiple copies of the database software, but appears as a single instance to the game backend.
+
+Node  
+For the purposes of this document, a single machine running a copy of the database software.
+
+Replica  
+A second copy of a database. Replicas are frequently used for data recovery and high availability, or to help increase read throughput.
+
+Cluster  
+Multiple copies of the software running on many machines that together appear as a single instance to the game backend. Clustering is used for scalability and availability.
+
+Shard  
+An instance of a database. Many game studios run multiple homogeneous database instances, each of which holds a subset of the game data. Each of these instances is commonly referred to as a *shard* . Sharding is typically done for performance or scalability, sacrificing management efficiency while increasing app complexity. Sharding in Spanner is implemented using *splits* .
+
+Split  
+Spanner divides your data into chunks called [*splits*](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) , where individual splits can move independently from each other and get assigned to different servers. A split is defined as a range of rows in a top-level (in other words, non-interleaved) table, where the rows are ordered by primary key. The start and end keys of this range are called "split boundaries". Spanner automatically adds and removes split boundaries, which changes the number of splits in the database. Spanner splits data based on load: it adds split boundaries automatically when it detects high read or write load spread among many keys in a split.
+
+Hotspot  
+When a single split in a distributed database like Spanner contains records receiving a large portion of all the queries going to the database. This scenario is undesirable because it degrades performance.
 
 ## Using Spanner for games
 
@@ -63,7 +77,7 @@ Spanner can operate as a single worldwide transactional authority, which makes i
 
 To help mitigate this complexity, one common strategy is to run completely separate game regions with no way to move data between them. In this case, items and currency cannot be traded between players in different game regions, because inventories in each region are segregated into separate databases. However, this setup sacrifices the preferred player experience, in favor of developer and operational simplicity.
 
-On the other hand, you can allow cross-region trades in a geographically sharded database, but often at a high complexity cost. This setup requires that transactions span multiple database instances, leading to complex, error-prone application-side logic. Trying to get transaction locks on multiple databases can have significant performance impacts. In addition, not being able to rely on [atomic transactions](https://wikipedia.org/wiki/Atomicity_\(database_systems\)) can lead to player exploits such as in-game currency or item duplication, which harm the game's ecosystem and community.
+On the other hand, you can allow cross-region trades in a geographically sharded database, but often at a high complexity cost. This setup requires that transactions span multiple database instances, leading to complex, error-prone application-side logic. Trying to get transaction locks on multiple databases can have significant performance impacts. In addition, not being able to rely on [atomic transactions](https://wikipedia.org/wiki/Atomicity_(database_systems)) can lead to player exploits such as in-game currency or item duplication, which harm the game's ecosystem and community.
 
 Spanner can simplify your approach to inventory and currency transactions. Even when using Spanner to hold all of your game data worldwide, it offers read-write transactions with even [stronger than conventional atomicity, consistency, isolation, and durability (ACID)](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_semantics) properties. With the scalability of Spanner, it means that data doesn't need to be sharded into separate database instances when more performance or storage is needed; instead, you can add more nodes. Additionally, the high availability and data resiliency for which games often cluster their databases are handled transparently by Spanner, requiring no additional setup or management.
 
@@ -90,7 +104,7 @@ The inventory table often holds in-game items, such as character equipment, card
 Similar to other relational databases, an inventory table in Spanner has a primary key that is a globally unique identifier for the item, as illustrated in the following table.
 
 | `itemID`        | `type` | `playerID`      |
-| --------------- | ------ | --------------- |
+|-----------------|--------|-----------------|
 | `7c14887e-8d45` | `1`    | `6f1ede3b-25e2` |
 | `8ca83609-bb93` | `40`   | `6f1ede3b-25e2` |
 | `33fedada-3400` | `1`    | `5fa0aa7d-16da` |
@@ -102,7 +116,7 @@ In the example inventory table, `itemID` and `playerID` are truncated for readab
 
 A typical approach in an RDBMS for tracking item ownership is to use a column as a foreign key that holds the current owner's player ID. This column is the primary key of a separate database table. In Spanner, you can use [interleaving](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) , which stores the inventory rows near the associated player table row for better performance. When using interleaved tables, keep the following in mind:
 
-  - You cannot generate an object without an owner. You can avoid ownerless objects in the game design provided the limitation is known ahead of time.
+- You cannot generate an object without an owner. You can avoid ownerless objects in the game design provided the limitation is known ahead of time.
 
 ### Design indexing to avoid hotspots
 
@@ -110,11 +124,13 @@ Many game developers implement indexes on many of the inventory fields to optimi
 
 In the following example, there is a table for long-term player high-score records:
 
-    CREATE TABLE Ranking (
-            PlayerID STRING(36) NOT NULL,
-            GameMode INT64 NOT NULL,
-            Score INT64 NOT NULL
-    ) PRIMARY KEY (PlayerID, GameMode)
+```
+CREATE TABLE Ranking (
+        PlayerID STRING(36) NOT NULL,
+        GameMode INT64 NOT NULL,
+        Score INT64 NOT NULL
+) PRIMARY KEY (PlayerID, GameMode)
+```
 
 This table contains the player ID (UUIDv4), a number representing a game mode, stage, or season, and the player's score.
 
@@ -122,32 +138,38 @@ This table contains the player ID (UUIDv4), a number representing a game mode, s
 
 In order to speed up queries that filter for the game mode, consider the following index:
 
-    CREATE INDEX idx_score_ranking ON Ranking (
-            GameMode,
-            Score DESC
-    )
+```
+CREATE INDEX idx_score_ranking ON Ranking (
+        GameMode,
+        Score DESC
+)
+```
 
 If everyone plays the same game mode called `1` , this index creates a hotspot where `GameMode=1` . If you want to get a ranking for this game mode, the index only scans the rows containing `GameMode=1` , returning the ranking quickly.
 
 If you change the order of the previous index, you can solve this hotspot problem:
 
-    CREATE INDEX idx_score_ranking ON Ranking (
-            Score DESC,
-            GameMode
-    )
+```
+CREATE INDEX idx_score_ranking ON Ranking (
+        Score DESC,
+        GameMode
+)
+```
 
 This index won't create a significant hotspot from players competing in the same game mode, provided their scores are distributed across the possible range. However, getting scores won't be as fast as with the previous index because the query scans all scores from all modes in order to determine if `GameMode=1` .
 
 As a result, the reordered index solves the previous hotspot on game mode but still has room for improvement, as illustrated in the following design.
 
-    CREATE TABLE GameMode1Ranking (
-            PlayerID STRING(36) NOT NULL,
-            Score INT64 NOT NULL
-    ) PRIMARY KEY (PlayerID)
-    
-    CREATE INDEX idx_score_ranking ON Ranking (
-            Score DESC
-    )
+```
+CREATE TABLE GameMode1Ranking (
+        PlayerID STRING(36) NOT NULL,
+        Score INT64 NOT NULL
+) PRIMARY KEY (PlayerID)
+
+CREATE INDEX idx_score_ranking ON Ranking (
+        Score DESC
+)
+```
 
 We recommend moving the game mode out of the table schema, and use one table per mode, if possible. By using this method, when you retrieve the scores for a mode, you only query a table with scores for that mode in it. This table can be indexed by score for fast retrieval of score ranges without significant danger of hotspots (provided the scores are well distributed). As of the writing of this document, [the maximum number of tables per database](https://docs.cloud.google.com/spanner/quotas#tables) in Spanner is 2560, which is more than enough for most games.
 
@@ -197,19 +219,23 @@ The studio wants to index this attribute in order to speed up important queries 
 
 Based on this data, the studio created the following Spanner table, with a primary key using the `PlayerID` and a secondary index on `Attribute` .
 
-    CREATE TABLE Player (
-            PlayerID STRING(36) NOT NULL,
-            Attribute INT64 NOT NULL
-    ) PRIMARY KEY (PlayerID)
-    
-    CREATE INDEX idx_attribute ON Player(Attribute)
+```
+CREATE TABLE Player (
+        PlayerID STRING(36) NOT NULL,
+        Attribute INT64 NOT NULL
+) PRIMARY KEY (PlayerID)
+
+CREATE INDEX idx_attribute ON Player(Attribute)
+```
 
 And the index was queried to find up to ten players with `Attribute=23` , like this:
 
-    SELECT PlayerID
-            FROM Player@{force_index=idx_attribute}
-            WHERE Attribute = 23
-            LIMIT 10
+```
+SELECT PlayerID
+        FROM Player@{force_index=idx_attribute}
+        WHERE Attribute = 23
+        LIMIT 10
+```
 
 According to the documentation on [optimizing schema design](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design#index-options) , Spanner stores index data in the same way as tables, with one row per index entry. In load tests, this model does an acceptable job of distributing the secondary index read and write load across multiple Spanner splits, as illustrated in the following diagram:
 
@@ -221,13 +247,15 @@ Although the synthetic data used in the load test is similar to the eventual ste
 
 In the following diagram, adding an `IndexPartition` column to the schema after the launch resolves the hotspot issue, and players are evenly distributed across the available Spanner splits. The updated command for creating the table and index looks like this:
 
-    CREATE TABLE Player (
-            PlayerID STRING(36) NOT NULL,
-            IndexPartition INT64 NOT NULL
-            Attribute INT64 NOT NULL
-    ) PRIMARY KEY (PlayerID)
-    
-    CREATE INDEX idx_attribute ON Player(IndexPartition,Attribute)
+```
+CREATE TABLE Player (
+        PlayerID STRING(36) NOT NULL,
+        IndexPartition INT64 NOT NULL
+        Attribute INT64 NOT NULL
+) PRIMARY KEY (PlayerID)
+
+CREATE INDEX idx_attribute ON Player(IndexPartition,Attribute)
+```
 
 ![Adding an IndexPartition column to the schema evenly distributes players at launch.](https://docs.cloud.google.com/static/architecture/images/best-practices-cloud-spanner-gaming-database-4-splits.svg)
 
@@ -239,11 +267,13 @@ Alternative methods could be to assign a random number to each player, or assign
 
 Updating the previous query to use this improved index looks like the following:
 
-    SELECT PlayerID
-            FROM Player@{force_index=idx_attribute}
-            WHERE IndexPartition BETWEEN 1 and 6
-            AND Attribute = 23
-            LIMIT 10
+```
+SELECT PlayerID
+        FROM Player@{force_index=idx_attribute}
+        WHERE IndexPartition BETWEEN 1 and 6
+        AND Attribute = 23
+        LIMIT 10
+```
 
 Because no beta test was run, the studio didn't realize they were testing by using data with incorrect assumptions. Although synthetic load tests are a good way to validate how many [queries per second (QPS)](https://wikipedia.org/wiki/Queries_per_second) your instance can handle, a beta test with real players is necessary to validate your schema and prepare a successful launch.
 
@@ -277,6 +307,6 @@ Many games must comply with [data locality laws such as GDPR](https://cloud.goog
 
 ## What's next
 
-  - Read about how Bandai Namco Entertainment used [Spanner in their successful Dragon Ball Legends launch](https://cloud.google.com/blog/products/gcp/behind-the-scenes-with-the-dragon-ball-legends-gcp-backend) .
-  - Watch the Cloud Next '18 session on [Optimizing Applications, Schemas, and Query Design on Spanner](https://www.youtube.com/watch?time_continue=231&v=DxrdatA_ULk) .
-  - Read our guide on [Migrating from DynamoDB to Spanner](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner) .
+- Read about how Bandai Namco Entertainment used [Spanner in their successful Dragon Ball Legends launch](https://cloud.google.com/blog/products/gcp/behind-the-scenes-with-the-dragon-ball-legends-gcp-backend) .
+- Watch the Cloud Next '18 session on [Optimizing Applications, Schemas, and Query Design on Spanner](https://www.youtube.com/watch?time_continue=231&v=DxrdatA_ULk) .
+- Read our guide on [Migrating from DynamoDB to Spanner](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner) .

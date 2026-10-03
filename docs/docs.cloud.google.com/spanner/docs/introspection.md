@@ -8,23 +8,23 @@ data_source: docs.cloud.google.com
 
 Built-in statistics tables for Spanner help you investigate issues in your database. You can query these tables to gain insight about queries, transactions, and reads. The following list of built-in statistics tables (or introspection tools) are available in Spanner:
 
-  - [Active partitioned DML statistics](https://docs.cloud.google.com/spanner/docs/introspection#active-partitioned-DML-statistics)
-  - [Column operations statistics](https://docs.cloud.google.com/spanner/docs/introspection#column-operations-statistics)
-  - [Lock statistics](https://docs.cloud.google.com/spanner/docs/introspection#lock-statistics)
-  - [Oldest active queries statistics](https://docs.cloud.google.com/spanner/docs/introspection#oldest-active-queries)
-  - [Query statistics](https://docs.cloud.google.com/spanner/docs/introspection#query-statistics)
-  - [Read statistics](https://docs.cloud.google.com/spanner/docs/introspection#read-statistics)
-  - [Split statistics](https://docs.cloud.google.com/spanner/docs/introspection#split-statistics)
-  - [Table operations statistics](https://docs.cloud.google.com/spanner/docs/introspection#table-operations-statistics)
-  - [Table sizes statistics](https://docs.cloud.google.com/spanner/docs/introspection#table-sizes-statistics)
-  - [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection#transaction-statistics)
-  - [Vector index statistics](https://docs.cloud.google.com/spanner/docs/introspection#vector-index-statistics)
+- [Active partitioned DML statistics](https://docs.cloud.google.com/spanner/docs/introspection#active-partitioned-DML-statistics)
+- [Column operations statistics](https://docs.cloud.google.com/spanner/docs/introspection#column-operations-statistics)
+- [Lock statistics](https://docs.cloud.google.com/spanner/docs/introspection#lock-statistics)
+- [Oldest active queries statistics](https://docs.cloud.google.com/spanner/docs/introspection#oldest-active-queries)
+- [Query statistics](https://docs.cloud.google.com/spanner/docs/introspection#query-statistics)
+- [Read statistics](https://docs.cloud.google.com/spanner/docs/introspection#read-statistics)
+- [Split statistics](https://docs.cloud.google.com/spanner/docs/introspection#split-statistics)
+- [Table operations statistics](https://docs.cloud.google.com/spanner/docs/introspection#table-operations-statistics)
+- [Table sizes statistics](https://docs.cloud.google.com/spanner/docs/introspection#table-sizes-statistics)
+- [Transaction statistics](https://docs.cloud.google.com/spanner/docs/introspection#transaction-statistics)
+- [Vector index statistics](https://docs.cloud.google.com/spanner/docs/introspection#vector-index-statistics)
 
 These tables access `SPANNER_SYS` data, which is available only through the following Spanner SQL interfaces:
 
-  - A database's Spanner Studio page in the Google Cloud console.
-  - The [`gcloud spanner databases execute-sql`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command.
-  - The [`executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
+- A database's Spanner Studio page in the Google Cloud console.
+- The [`gcloud spanner databases execute-sql`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/execute-sql) command.
+- The [`executeSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql) or the [`executeStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeStreamingSql) method.
 
 You can't use other single read methods to query the `SPANNER_SYS` tables.
 
@@ -32,99 +32,14 @@ You can't use other single read methods to query the `SPANNER_SYS` tables.
 
 In Spanner there is some overlap between [transactions](https://docs.cloud.google.com/spanner/docs/transactions) , [reads](https://docs.cloud.google.com/spanner/docs/reads) and [queries](https://docs.cloud.google.com/spanner/docs/reads#single_read_methods) . Therefore, it might not be clear which API methods are included when compiling results for each introspection tool. The following table lists the main API methods and their relationship to each tool.
 
-API Methods
-
-Transaction Modes
-
-Query statistics
-
-Oldest active queries
-
-Read statistics
-
-Transaction statistics
-
-Lock statistics
-
-Read, StreamingRead
-
-Read-only transaction <sup>1</sup>
-
-No
-
-No
-
-**Yes**
-
-No
-
-No
-
-Read-write transaction
-
-No
-
-No
-
-**Yes**
-
-**Yes**
-
-**Yes**
-
-ExecuteSql, ExecuteStreamingSql
-
-Read-only transaction <sup>1</sup>
-
-**Yes <sup>2</sup>**
-
-**Yes <sup>2</sup>**
-
-No
-
-No
-
-No
-
-Read-write transaction
-
-**Yes**
-
-**Yes**
-
-No
-
-**Yes**
-
-**Yes**
-
-ExecuteBatchDml
-
-Read-write transactions
-
-**Yes** <sup>3</sup>
-
-**Yes** <sup>4</sup>
-
-No
-
-**Yes**
-
-**Yes**
-
-Commit
-
-Read-write transactions (DML <sup>5</sup> , Mutations <sup>6</sup> )
-
-No
-
-No
-
-No
-
-**Yes**
-
-**Yes**
+| API Methods                     | Transaction Modes                                                    | Query statistics     | Oldest active queries | Read statistics | Transaction statistics | Lock statistics |
+|---------------------------------|----------------------------------------------------------------------|----------------------|-----------------------|-----------------|------------------------|-----------------|
+| Read, StreamingRead             | Read-only transaction <sup>1</sup>                                   | No                   | No                    | **Yes**         | No                     | No              |
+| Read-write transaction          | No                                                                   | No                   | **Yes**               | **Yes**         | **Yes**                |                 |
+| ExecuteSql, ExecuteStreamingSql | Read-only transaction <sup>1</sup>                                   | **Yes <sup>2</sup>** | **Yes <sup>2</sup>**  | No              | No                     | No              |
+| Read-write transaction          | **Yes**                                                              | **Yes**              | No                    | **Yes**         | **Yes**                |                 |
+| ExecuteBatchDml                 | Read-write transactions                                              | **Yes** <sup>3</sup> | **Yes** <sup>4</sup>  | No              | **Yes**                | **Yes**         |
+| Commit                          | Read-write transactions (DML <sup>5</sup> , Mutations <sup>6</sup> ) | No                   | No                    | No              | **Yes**                | **Yes**         |
 
 Notes:
 
@@ -148,8 +63,8 @@ Notes:
 
 You can use [Column operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics) to do the following:
 
-  - Monitor the statistics of columns in your table.
-  - Find trends in how your table columns are used.
+- Monitor the statistics of columns in your table.
+- Find trends in how your table columns are used.
 
 ## Lock statistics
 
@@ -187,9 +102,9 @@ You can [debug hotspots in your database](https://docs.cloud.google.com/spanner/
 
 You can use [Table operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics) to do the following:
 
-  - Monitor the usages of your tables and indexes in your database.
-  - Find trends in the usage of your tables and indexes.
-  - Identify changes in traffic.
+- Monitor the usages of your tables and indexes in your database.
+- Find trends in the usage of your tables and indexes.
+- Identify changes in traffic.
 
 Also, you can correlate the changes in your table storage with the changes in your write traffic.
 

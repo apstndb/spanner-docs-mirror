@@ -14,16 +14,16 @@ Spanner provides operation APIs that let you check the progress of long-running 
 
 You can check and manage long-running operations with the following:
 
-  - [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries)
-  - The [`gcloud`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner) command-line tool
-  - The [Google Cloud console](https://console.cloud.google.com/spanner)
+- [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries)
+- The [`gcloud`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner) command-line tool
+- The [Google Cloud console](https://console.cloud.google.com/spanner)
 
 ## REST API commands for operation management
 
 Manage your Spanner long-running operations using the following REST methods:
 
 | Action                                         | Long-running database operations                                                                                               | Long-running instance operations                                                                                     |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+|------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | Cancel a long-running operation                | [`cancel`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#try-it) | [`cancel`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/cancel#try-it) |
 | Delete a long-running operation                | Unsupported                                                                                                                    | [`delete`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/delete#try-it) |
 | Check the progress of a long-running operation | [`get`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/get#try-it)       | [`get`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/get#try-it)       |
@@ -35,8 +35,8 @@ For information about using REST with Spanner, see [Getting started with Spanner
 
 The following are long-running instance operations.
 
-  - [`projects.instances.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/create#try-it)
-  - [`projects.instances.patch`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/patch#try-it)
+- [`projects.instances.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/create#try-it)
+- [`projects.instances.patch`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/patch#try-it)
 
 ### Check the progress of a long-running instance operation
 
@@ -44,7 +44,7 @@ Use [`projects.instances.operations.get`](https://docs.cloud.google.com/spanner/
 
 As an example, this is a response from [`projects.instances.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/create#try-it) :
 
-``` 
+```
   {
     "name": "projects/test01/instances/test-instance/operations/_auto_1492721321097206",
     "metadata": {
@@ -68,15 +68,17 @@ To Check the progress of the long-running instance operation:
 1.  Navigate to [`projects.instances.operations.get`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/get#try-it) .
 
 2.  For **name** , enter the long-running instance operation name as shown in the response to `projects.instances.create` or `projects.instances.patch` . For example:
-    
-        projects/PROJECT-ID/instances/INSTANCE-NAME/operations/OPERATION-ID
-    
+
+    ```
+    projects/PROJECT-ID/instances/INSTANCE-NAME/operations/OPERATION-ID
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - OPERATION-ID : the operations ID.
-    
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` OPERATION-ID ` : the operations ID.
+
     You can retrieve the instance operation name by [listing long-running instance operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#list_long-running_instance_operations) .
 
 3.  Click **Execute** . When an operation is done, the `done` field is set to `true` .
@@ -90,14 +92,16 @@ Use [`projects.instances.operations.list`](https://docs.cloud.google.com/spanner
 1.  Navigate to [`projects.instances.operations.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/list#try-it) .
 
 2.  For **name** , enter:
-    
-        projects/PROJECT-ID/instances/INSTANCE-NAME/operationsOPERATION-ID
-    
+
+    ```
+    projects/PROJECT-ID/instances/INSTANCE-NAME/operationsOPERATION-ID
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - OPERATION-ID : the operations ID.
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` OPERATION-ID ` : the operations ID.
 
 3.  Click **Execute** . The response contains a list of long-running operations.
 
@@ -108,15 +112,17 @@ Use [`projects.instances.operations.cancel`](https://docs.cloud.google.com/spann
 1.  Navigate to [`projects.instances.operations.cancel`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/cancel#try-it) .
 
 2.  For **name** , enter the long-running instance operation name as shown in the long-running instance operation response.
-    
-        projects/PROJECT-ID/instances/INSTANCE-NAME/operations/OPERATION-ID
-    
+
+    ```
+    projects/PROJECT-ID/instances/INSTANCE-NAME/operations/OPERATION-ID
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - OPERATION-ID : the operations ID.
-    
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` OPERATION-ID ` : the operations ID.
+
     You can also retrieve the instance operation name by [listing long-running instance operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#list_long-running_instance_operations) .
 
 3.  Click **Execute** .
@@ -128,15 +134,17 @@ Use [`projects.instances.operations.delete`](https://docs.cloud.google.com/spann
 1.  Click [`projects.instances.operations.delete`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations/delete#try-it) .
 
 2.  For **name** , enter the long-running instance operation name as shown in the long-running instance operation response.
-    
-        projects/<VAR>PROJECT-ID</VAR>/instances/<VAR>INSTANCE-NAME</VAR>/operations/<VAR>OPERATION-ID</VAR>
-    
+
+    ```
+    projects/<VAR>PROJECT-ID</VAR>/instances/<VAR>INSTANCE-NAME</VAR>/operations/<VAR>OPERATION-ID</VAR>
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - OPERATION-ID : the operations ID.
-    
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` OPERATION-ID ` : the operations ID.
+
     You can also retrieve the instance operation name by [listing long-running instance operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#list_long-running_instance_operations) .
 
 3.  Navigate to **Execute** . The operation is deleted.
@@ -145,10 +153,10 @@ Use [`projects.instances.operations.delete`](https://docs.cloud.google.com/spann
 
 The following are long-running database operations.
 
-  - [`projects.instances.databases.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/create#try-it)
-  - [`projects.instances.databases.restore`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#try-it)
-  - [`projects.instances.databases.updateDdl`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl#try-it)
-  - [`projects.instances.databaseOperations.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#try-it)
+- [`projects.instances.databases.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/create#try-it)
+- [`projects.instances.databases.restore`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#try-it)
+- [`projects.instances.databases.updateDdl`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl#try-it)
+- [`projects.instances.databaseOperations.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#try-it)
 
 ### Check the progress of a long-running database operation
 
@@ -156,13 +164,15 @@ Use [`projects.instances.databases.operations.get`](https://docs.cloud.google.co
 
 For example, the following is a response from [`projects.instances.databases.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/create#try-it) :
 
-    {
-      "name": "projects/test01/instances/test-instance/databases/example-db/operations/_auto_1492721321097206",
-      "metadata": {
-        "@type": "type.googleapis.com/google.spanner.admin.database.v1.CreateDatabaseMetadata",
-        "database": "projects/test01/instances/test-instance/databases/example-db"
-      }
-    }
+```
+{
+  "name": "projects/test01/instances/test-instance/databases/example-db/operations/_auto_1492721321097206",
+  "metadata": {
+    "@type": "type.googleapis.com/google.spanner.admin.database.v1.CreateDatabaseMetadata",
+    "database": "projects/test01/instances/test-instance/databases/example-db"
+  }
+}
+```
 
 The `name` value at the top of the response shows that the Spanner service created a long-running database operation called `projects/test01/instances/test-instance/databases/example-db/operations/_auto_1492721321097206` .
 
@@ -171,15 +181,17 @@ To check the progress of the long-running database operation:
 1.  Navigate to [`projects.instances.databases.operations.get`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/get#try-it) .
 
 2.  For **name** , enter the long-running database operation name as shown in the response to `projects.instances.databases.create` or `projects.instances.databases.updateDdl` .
-    
-        projects/PROJECT-ID/instances/INSTANCE-NAME/databases/example-db/operations/OPERATION-ID
-    
+
+    ```
+    projects/PROJECT-ID/instances/INSTANCE-NAME/databases/example-db/operations/OPERATION-ID
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - OPERATION-ID : the operations ID.
-    
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` OPERATION-ID ` : the operations ID.
+
     You can also retrieve the database operation name by [listing long-running database operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#list_long-running_database_operations) .
 
 3.  Click **Execute** . When an operation is done, the `done` field is set to `true` .
@@ -193,14 +205,16 @@ Use [`projects.instances.databases.operations.list`](https://docs.cloud.google.c
 1.  Navigate to [`projects.instances.databases.operations.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/list#try-it) .
 
 2.  For **name** , enter:
-    
-        projects/PROJECT-ID/instances/INSTANCE-NAME/databases/example-db/OPERATION-ID
-    
+
+    ```
+    projects/PROJECT-ID/instances/INSTANCE-NAME/databases/example-db/OPERATION-ID
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - OPERATION-ID : the operations ID.
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` OPERATION-ID ` : the operations ID.
 
 3.  Click **Execute** . The response contains a list of long-running operations.
 
@@ -211,15 +225,17 @@ Use [`projects.instances.databases.operations.cancel`](https://docs.cloud.google
 1.  Navigate to [`projects.instances.databases.operations.cancel`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#try-it) .
 
 2.  For **name** , enter the long-running database operation name as shown in the long-running database operation response.
-    
-        projects/PROJECT-ID/instances/INSTANCE-NAME/databases/example-db/OPERATION-ID
-    
+
+    ```
+    projects/PROJECT-ID/instances/INSTANCE-NAME/databases/example-db/OPERATION-ID
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - OPERATION-ID : the operations ID.
-    
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` OPERATION-ID ` : the operations ID.
+
     You can also retrieve the database operation name by [listing long-running database operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#list_long-running_database_operations) .
 
 3.  Click **Execute** .
@@ -228,7 +244,7 @@ Use [`projects.instances.databases.operations.cancel`](https://docs.cloud.google
 
 The following are long-running schema update operations.
 
-  - [projects.instances.databases.updateDdl](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl)
+- [projects.instances.databases.updateDdl](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl)
 
 ### Check the progress of a long-running schema update operation
 
@@ -245,68 +261,78 @@ The following are long-running schema update operations.
 Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) to check the progress of an operation.
 
 1.  Get the operation ID:
-    
-        gcloud spanner operations list \
-        --instance=INSTANCE-NAME \
-        --database=DATABASE-NAME \
-        --type=DATABASE_UPDATE_DDL
-    
+
+    ```
+    gcloud spanner operations list \
+    --instance=INSTANCE-NAME \
+    --database=DATABASE-NAME \
+    --type=DATABASE_UPDATE_DDL
+    ```
+
     Replace the following:
-    
-      - INSTANCE-NAME : the Spanner instance name.
-      - DATABASE-NAME : the instance name.
-      - DATABASE-NAME : the name of the database.
+
+    - ` INSTANCE-NAME ` : the Spanner instance name.
+    - ` DATABASE-NAME ` : the instance name.
+    - ` DATABASE-NAME ` : the name of the database.
 
 2.  Run `gcloud spanner operations describe` :
-    
-        gcloud spanner operations describe OPERATION-ID \
-        --instance=INSTANCE-NAME \
-        --database=DATABASE-NAME
-    
+
+    ```
+    gcloud spanner operations describe OPERATION-ID \
+    --instance=INSTANCE-NAME \
+    --database=DATABASE-NAME
+    ```
+
     Replace the following:
-    
-      - OPERATION-ID : the operation ID of the operation that you want to check.
-      - INSTANCE-NAME : the Spanner instance name.
-      - DATABASE-NAME : the Spanner database name.
-    
+
+    - ` OPERATION-ID ` : the operation ID of the operation that you want to check.
+    - ` INSTANCE-NAME ` : the Spanner instance name.
+    - ` DATABASE-NAME ` : the Spanner database name.
+
     The `progress` section in the output shows the percentage of the operation that's complete. The output looks similar to the following:
-    
-        done: true
-        metadata:
-        ...
-          progress:
-          - endTime: '2022-03-01T00:28:06.691403Z'
-            progressPercent: 100
-            startTime: '2022-03-01T00:28:04.221401Z'
-          - endTime: '2022-03-01T00:28:17.624588Z'
-            startTime: '2022-03-01T00:28:06.691403Z'
-            progressPercent: 100
-        ...
+
+    ```
+    done: true
+    metadata:
+    ...
+      progress:
+      - endTime: '2022-03-01T00:28:06.691403Z'
+        progressPercent: 100
+        startTime: '2022-03-01T00:28:04.221401Z'
+      - endTime: '2022-03-01T00:28:17.624588Z'
+        startTime: '2022-03-01T00:28:06.691403Z'
+        progressPercent: 100
+    ...
+    ```
 
 ### REST v1
 
 Get the operation ID:
 
-    gcloud spanner operations list \
-    --instance=INSTANCE-NAME \
-    --database=DATABASE-NAME \
-    --type=DATABASE_UPDATE_DDL
+```
+gcloud spanner operations list \
+--instance=INSTANCE-NAME \
+--database=DATABASE-NAME \
+--type=DATABASE_UPDATE_DDL
+```
 
 Replace the following:
 
-  - INSTANCE-NAME : the Spanner instance name.
-  - DATABASE-NAME : the name of the database.
+- ` INSTANCE-NAME ` : the Spanner instance name.
+- ` DATABASE-NAME ` : the name of the database.
 
 Before using any of the request data, make the following replacements:
 
-  - PROJECT-ID : the project ID.
-  - INSTANCE-ID : the instance ID.
-  - DATABASE-ID : the database ID.
-  - OPERATION-ID : the operation ID.
+- ` PROJECT-ID ` : the project ID.
+- ` INSTANCE-ID ` : the instance ID.
+- ` DATABASE-ID ` : the database ID.
+- ` OPERATION-ID ` : the operation ID.
 
 HTTP method and URL:
 
-    GET https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID
+```
+GET https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID
+```
 
 To send your request, expand one of these options:
 
@@ -316,9 +342,11 @@ To send your request, expand one of these options:
 
 Execute the following command:
 
-    curl -X GET \
-         -H "Authorization: Bearer $(gcloud auth print-access-token)" \
-         "https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID"
+```
+curl -X GET \
+     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+     "https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID"
+```
 
 #### PowerShell (Windows)
 
@@ -326,36 +354,40 @@ Execute the following command:
 
 Execute the following command:
 
-    $cred = gcloud auth print-access-token
-    $headers = @{ "Authorization" = "Bearer $cred" }
-    
-    Invoke-WebRequest `
-        -Method GET `
-        -Headers $headers `
-        -Uri "https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID" | Select-Object -Expand Content
+```
+$cred = gcloud auth print-access-token
+$headers = @{ "Authorization" = "Bearer $cred" }
+
+Invoke-WebRequest `
+    -Method GET `
+    -Headers $headers `
+    -Uri "https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID" | Select-Object -Expand Content
+```
 
 You should receive a JSON response similar to the following:
 
-    {
-    ...
-        "progress": [
-          {
-            "progressPercent": 100,
-            "startTime": "2023-05-27T00:52:27.366688Z",
-            "endTime": "2023-05-27T00:52:30.184845Z"
-          },
-          {
-            "progressPercent": 100,
-            "startTime": "2023-05-27T00:52:30.184845Z",
-            "endTime": "2023-05-27T00:52:40.750959Z"
-          }
-        ],
-    ...
-      "done": true,
-      "response": {
-        "@type": "type.googleapis.com/google.protobuf.Empty"
+```
+{
+...
+    "progress": [
+      {
+        "progressPercent": 100,
+        "startTime": "2023-05-27T00:52:27.366688Z",
+        "endTime": "2023-05-27T00:52:30.184845Z"
+      },
+      {
+        "progressPercent": 100,
+        "startTime": "2023-05-27T00:52:30.184845Z",
+        "endTime": "2023-05-27T00:52:40.750959Z"
       }
-    }
+    ],
+...
+  "done": true,
+  "response": {
+    "@type": "type.googleapis.com/google.protobuf.Empty"
+  }
+}
+```
 
 If the operation takes too long, you can cancel it. For more information, see [Cancel a long-running schema update operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#cancel_a_long-running_schema_update_operation) .
 
@@ -363,76 +395,88 @@ If the operation takes too long, you can cancel it. For more information, see [C
 
 ### gcloud
 
-    gcloud spanner operations list \
-     --instance=INSTANCE-NAME \
-     --database=DATABASE-NAME \
-     --type=DATABASE_UPDATE_DDL
+```
+gcloud spanner operations list \
+ --instance=INSTANCE-NAME \
+ --database=DATABASE-NAME \
+ --type=DATABASE_UPDATE_DDL
+```
 
 Replace the following:
 
-  - INSTANCE-NAME : the Spanner instance name.
-  - DATABASE-NAME : the name of the database.
+- ` INSTANCE-NAME ` : the Spanner instance name.
+- ` DATABASE-NAME ` : the name of the database.
 
 The output looks similar to the following:
 
-    OPERATION-ID     STATEMENTS                                                                                           DONE   @TYPE
-    _auto_op_123456  CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName)                                  False  UpdateDatabaseDdlMetadata
-    _auto_op_234567  CREATE INDEX SongsBySingerAlbumSongName ON Songs(SingerId, AlbumId, SongName), INTERLEAVE IN Albums  True   CreateDatabaseMetadata
+```
+OPERATION-ID     STATEMENTS                                                                                           DONE   @TYPE
+_auto_op_123456  CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName)                                  False  UpdateDatabaseDdlMetadata
+_auto_op_234567  CREATE INDEX SongsBySingerAlbumSongName ON Songs(SingerId, AlbumId, SongName), INTERLEAVE IN Albums  True   CreateDatabaseMetadata
+```
 
 ### Cancel a long-running schema update operation
 
 ### gcloud
 
 1.  Get the operation ID:
-    
-        gcloud spanner operations list \
-        --instance=INSTANCE-NAME \
-        --database=DATABASE-NAME \
-        --type=DATABASE_UPDATE_DDL
-    
+
+    ```
+    gcloud spanner operations list \
+    --instance=INSTANCE-NAME \
+    --database=DATABASE-NAME \
+    --type=DATABASE_UPDATE_DDL
+    ```
+
     Replace the following:
-    
-      - INSTANCE-NAME : the Spanner instance name.
-      - DATABASE-NAME : the name of the database.
+
+    - ` INSTANCE-NAME ` : the Spanner instance name.
+    - ` DATABASE-NAME ` : the name of the database.
 
 2.  Use the [`gcloud spanner operations cancel`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/cancel) to cancel a long-running schema update operation.
-    
-        gcloud spanner operations cancel OPERATION-ID \
-         --instance=INSTANCE-NAME
-    
+
+    ```
+    gcloud spanner operations cancel OPERATION-ID \
+     --instance=INSTANCE-NAME
+    ```
+
     Replace the following:
-    
-      - OPERATION-ID : the operation ID of the operation that you want to check.
-      - INSTANCE-NAME : the Spanner instance name.
+
+    - ` OPERATION-ID ` : the operation ID of the operation that you want to check.
+    - ` INSTANCE-NAME ` : the Spanner instance name.
 
 ### REST V1
 
 Use [`projects.instances.databases.operations.cancel`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#try-it) to cancel a long-running schema update operation.
 
 1.  Get the operation ID:
-    
-        gcloud spanner operations list \
-        --instance=INSTANCE-NAME \
-        --database=DATABASE-NAME \
-        --type=DATABASE_UPDATE_DDL
-    
+
+    ```
+    gcloud spanner operations list \
+    --instance=INSTANCE-NAME \
+    --database=DATABASE-NAME \
+    --type=DATABASE_UPDATE_DDL
+    ```
+
     Replace the following:
-    
-      - INSTANCE-NAME : the Spanner instance name.
-      - DATABASE-NAME : the name of the database.
+
+    - ` INSTANCE-NAME ` : the Spanner instance name.
+    - ` DATABASE-NAME ` : the name of the database.
 
 2.  Navigate to [`projects.instances.databases.operations.cancel`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/cancel#try-it) .
 
 3.  For **name** , enter the long-running schema update operation name as shown in the long-running schema update operation response.
-    
-        projects/PROJECT-ID/instances/INSTANCE-NAME/databases/example-db/operations/OPERATION-ID
-    
+
+    ```
+    projects/PROJECT-ID/instances/INSTANCE-NAME/databases/example-db/operations/OPERATION-ID
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - OPERATION-ID : the operations ID.
-    
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` OPERATION-ID ` : the operations ID.
+
     You can also retrieve the schema update operation name by [listing long-running instance operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#list_long-running_instance_operations) .
 
 4.  Click **Execute** . The operation stops running.
@@ -441,8 +485,8 @@ Use [`projects.instances.databases.operations.cancel`](https://docs.cloud.google
 
 The following are long-running backup operations.
 
-  - [`projects.instances.backups.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#try-it)
-  - [`projects.instances.databases.restore`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#try-it)
+- [`projects.instances.backups.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#try-it)
+- [`projects.instances.databases.restore`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#try-it)
 
 ### Check the progress of a long-running backup or restore operation
 
@@ -469,74 +513,81 @@ If the operation takes too long, you can cancel it. For more information, see [C
 Use [`gcloud spanner operations describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/operations/describe) to check the progress of a backup or restore operation.
 
 1.  Get the operation ID:
-    
-        gcloud spanner operations list \
-        --instance=INSTANCE-NAME \
-        --database=DATABASE-NAME \
-        --type=TYPE
-    
+
+    ```
+    gcloud spanner operations list \
+    --instance=INSTANCE-NAME \
+    --database=DATABASE-NAME \
+    --type=TYPE
+    ```
+
     Replace the following:
-    
-      - INSTANCE-NAME : the Spanner instance name.
-      - DATABASE-NAME : the name of the database.
-      - TYPE : the type of the operation. Possible values are `BACKUP` and `DATABASE_RESTORE` .
+
+    - ` INSTANCE-NAME ` : the Spanner instance name.
+    - ` DATABASE-NAME ` : the name of the database.
+    - ` TYPE ` : the type of the operation. Possible values are `BACKUP` and `DATABASE_RESTORE` .
 
 2.  Run `gcloud spanner operations describe` :
-    
-        gcloud spanner operations describe OPERATION-ID \
-        --instance=INSTANCE-NAME \
-        --database=DATABASE-NAME
-    
+
+    ```
+    gcloud spanner operations describe OPERATION-ID \
+    --instance=INSTANCE-NAME \
+    --database=DATABASE-NAME
+    ```
+
     Replace the following:
-    
-      - OPERATION-ID : the operation ID of the operation that you want to check.
-      - INSTANCE-NAME : the Spanner instance name.
-      - DATABASE-NAME : the Spanner database name.
-    
+
+    - ` OPERATION-ID ` : the operation ID of the operation that you want to check.
+    - ` INSTANCE-NAME ` : the Spanner instance name.
+    - ` DATABASE-NAME ` : the Spanner database name.
+
     The `progress` section in the output shows the percentage of the operation that's complete. The output looks similar to the following:
-    
-        done: true
-        metadata:
-        ...
-          progress:
-          - endTime: '2022-03-01T00:28:06.691403Z'
-            progressPercent: 100
-            startTime: '2022-03-01T00:28:04.221401Z'
-          - endTime: '2022-03-01T00:28:17.624588Z'
-            startTime: '2022-03-01T00:28:06.691403Z'
-            progressPercent: 100
-        ...
+
+    ```
+    done: true
+    metadata:
+    ...
+      progress:
+      - endTime: '2022-03-01T00:28:06.691403Z'
+        progressPercent: 100
+        startTime: '2022-03-01T00:28:04.221401Z'
+      - endTime: '2022-03-01T00:28:17.624588Z'
+        startTime: '2022-03-01T00:28:06.691403Z'
+        progressPercent: 100
+    ...
+    ```
 
 ### REST v1
 
 Get the operation ID:
 
-``` 
- gcloud spanner operations list 
+```
+gcloud spanner operations list 
 
    --instance=INSTANCE-NAME 
 
    --database=DATABASE-NAME 
 
    --type=DATABASE_UPDATE_DDL
- 
 ```
 
 Replace the following:
 
-  - INSTANCE-NAME : the Spanner instance name.
-  - DATABASE-NAME : the name of the database.
+- ` INSTANCE-NAME ` : the Spanner instance name.
+- ` DATABASE-NAME ` : the name of the database.
 
 Before using any of the request data, make the following replacements:
 
-  - PROJECT-ID : the project ID.
-  - INSTANCE-ID : the instance ID.
-  - DATABASE-ID : the database ID.
-  - OPERATION-ID : the operation ID.
+- ` PROJECT-ID ` : the project ID.
+- ` INSTANCE-ID ` : the instance ID.
+- ` DATABASE-ID ` : the database ID.
+- ` OPERATION-ID ` : the operation ID.
 
 HTTP method and URL:
 
-    GET https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID
+```
+GET https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID
+```
 
 To send your request, expand one of these options:
 
@@ -546,9 +597,11 @@ To send your request, expand one of these options:
 
 Execute the following command:
 
-    curl -X GET \
-         -H "Authorization: Bearer $(gcloud auth print-access-token)" \
-         "https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID"
+```
+curl -X GET \
+     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
+     "https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID"
+```
 
 #### PowerShell (Windows)
 
@@ -556,36 +609,40 @@ Execute the following command:
 
 Execute the following command:
 
-    $cred = gcloud auth print-access-token
-    $headers = @{ "Authorization" = "Bearer $cred" }
-    
-    Invoke-WebRequest `
-        -Method GET `
-        -Headers $headers `
-        -Uri "https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID" | Select-Object -Expand Content
+```
+$cred = gcloud auth print-access-token
+$headers = @{ "Authorization" = "Bearer $cred" }
+
+Invoke-WebRequest `
+    -Method GET `
+    -Headers $headers `
+    -Uri "https://spanner.googleapis.com/v1/projects/PROJECT-ID/instances/INSTANCE-ID/databases/DATABASE-ID/operations/OPERATION-ID" | Select-Object -Expand Content
+```
 
 You should receive a JSON response similar to the following:
 
-    {
-    ...
-        "progress": [
-          {
-            "progressPercent": 100,
-            "startTime": "2023-05-27T00:52:27.366688Z",
-            "endTime": "2023-05-27T00:52:30.184845Z"
-          },
-          {
-            "progressPercent": 100,
-            "startTime": "2023-05-27T00:52:30.184845Z",
-            "endTime": "2023-05-27T00:52:40.750959Z"
-          }
-        ],
-    ...
-      "done": true,
-      "response": {
-        "@type": "type.googleapis.com/google.protobuf.Empty"
+```
+{
+...
+    "progress": [
+      {
+        "progressPercent": 100,
+        "startTime": "2023-05-27T00:52:27.366688Z",
+        "endTime": "2023-05-27T00:52:30.184845Z"
+      },
+      {
+        "progressPercent": 100,
+        "startTime": "2023-05-27T00:52:30.184845Z",
+        "endTime": "2023-05-27T00:52:40.750959Z"
       }
-    }
+    ],
+...
+  "done": true,
+  "response": {
+    "@type": "type.googleapis.com/google.protobuf.Empty"
+  }
+}
+```
 
 If the operation takes too long, you can cancel it. For more information, see [Cancel a long-running backup operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#cancel_a_long-running_backup_operation) .
 
@@ -596,15 +653,17 @@ Use [`projects.instances.backups.operations.list`](https://docs.cloud.google.com
 1.  Navigate to [`projects.instances.backups.operations.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#try-it) .
 
 2.  For **name** , enter:
-    
-        projects/PROJECT-ID/instances/INSTANCE-NAME/backups/BACKUP-NAME/OPERATION-ID
-    
+
+    ```
+    projects/PROJECT-ID/instances/INSTANCE-NAME/backups/BACKUP-NAME/OPERATION-ID
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - BACKUP-NAME : the name of the backup.
-      - OPERATION-ID : the operations ID.
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` BACKUP-NAME ` : the name of the backup.
+    - ` OPERATION-ID ` : the operations ID.
 
 3.  Click **Execute** . The response contains a list of long-running operations.
 
@@ -615,16 +674,18 @@ Use [`projects.instances.backups.operations.cancel`](https://docs.cloud.google.c
 1.  Navigate to [`projects.instances.backups.operations.cancel`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/cancel#try-it) .
 
 2.  For **name** , enter the long-running backup operation name as shown in the long-running backup operation response.
-    
-        projects/PROJECT-ID/instances/INSTANCE-NAME/backups/BACKUP-NAME/operations/OPERATION-ID
-    
+
+    ```
+    projects/PROJECT-ID/instances/INSTANCE-NAME/backups/BACKUP-NAME/operations/OPERATION-ID
+    ```
+
     Replace the following:
-    
-      - PROJECT-ID : the project ID.
-      - INSTANCE-NAME : the instance name.
-      - BACKUP-NAME : the name of the backup.
-      - OPERATION-ID : the operations ID.
-    
+
+    - ` PROJECT-ID ` : the project ID.
+    - ` INSTANCE-NAME ` : the instance name.
+    - ` BACKUP-NAME ` : the name of the backup.
+    - ` OPERATION-ID ` : the operations ID.
+
     You can also retrieve the backup operation name by [listing long-running backup operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#list-long-running-backup-operations) .
 
 3.  Click **Execute** .

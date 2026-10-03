@@ -26,10 +26,10 @@ To use CMEKs created by Cloud KMS Autokey to protect your Spanner resources, use
 
 ## Features
 
-  - **Data access control:** administrators can rotate, manage access to, and disable or destroy the key used to protect data at rest in Spanner.
-  - **Auditability:** if you [enable audit logging](https://docs.cloud.google.com/logging/docs/audit/configure-data-access#config-console-enable) for the Cloud KMS API in your project, all actions on the key, including those performed by Spanner, are logged and viewable in [Cloud Logging](https://docs.cloud.google.com/logging/docs/view/logs-explorer-summary) . Cloud EKM keys support [Key Access Justification](https://docs.cloud.google.com/assured-workloads/key-access-justifications/docs/overview) , which adds a justification field to all key requests. With select external key management partners, you can automatically approve or deny these requests, based on the justification.
-  - **Performance:** there are no changes to Spanner [performance](https://docs.cloud.google.com/spanner/docs/performance) or the [service level agreement](https://cloud.google.com/spanner/sla) by using CMEK.
-  - **Multiple regional keys support:** you can create multiple regional (single-region) Cloud KMS keys to protect a database in a Spanner [custom, dual-region, or multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configuration) .
+- **Data access control:** administrators can rotate, manage access to, and disable or destroy the key used to protect data at rest in Spanner.
+- **Auditability:** if you [enable audit logging](https://docs.cloud.google.com/logging/docs/audit/configure-data-access#config-console-enable) for the Cloud KMS API in your project, all actions on the key, including those performed by Spanner, are logged and viewable in [Cloud Logging](https://docs.cloud.google.com/logging/docs/view/logs-explorer-summary) . Cloud EKM keys support [Key Access Justification](https://docs.cloud.google.com/assured-workloads/key-access-justifications/docs/overview) , which adds a justification field to all key requests. With select external key management partners, you can automatically approve or deny these requests, based on the justification.
+- **Performance:** there are no changes to Spanner [performance](https://docs.cloud.google.com/spanner/docs/performance) or the [service level agreement](https://cloud.google.com/spanner/sla) by using CMEK.
+- **Multiple regional keys support:** you can create multiple regional (single-region) Cloud KMS keys to protect a database in a Spanner [custom, dual-region, or multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#configuration) .
 
 ## Pricing
 
@@ -43,10 +43,10 @@ In a CMEK-enabled database, Spanner uses your Cloud KMS keys to protect *data at
 
 Some exceptions apply. The following types of data are protected by Google default encryption at rest and not by the CMEK key:
 
-  - A subset of row keys that mark range boundaries
-  - Debugging data including core dumps and operational logs
-  - Data in transit or in memory
-  - Database metadata
+- A subset of row keys that mark range boundaries
+- Debugging data including core dumps and operational logs
+- Data in transit or in memory
+- Database metadata
 
 In Spanner, there are three layers of encryption. Data at rest is broken into subfile chunks for storage, and each chunk is encrypted at the storage level with an individual encryption key. The key used to encrypt the data in a chunk is called a data encryption key (DEK). Because of the high volume of keys at Google, and the need for low latency and high availability, these keys are stored near the data that they encrypt. The DEKs are encrypted with (or wrapped by) a key encryption key (KEK). Finally, each KEK is encrypted with your CMEK.
 
@@ -79,9 +79,9 @@ If Spanner detects that your Cloud KMS key has been disabled or destroyed, an op
 In addition, if a database is protected by multiple regional keys and all keys are disabled or destroyed, then Spanner immediately starts to make your database inaccessible. If Spanner detects that only a subset of the database's keys are disabled or destroyed, then it disables the database over a period of time within 12 hours. Disabling or destroying only a subset of keys in a CMEK-enabled database is strongly discouraged and might result in uncertain behavior. To prevent this from happening, you can use the [Spanner CMEK Keys metric](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) ( `instance/replica/cmek/total_keys` ) to trigger an alert if a subset of keys are disabled or destroyed. For more information, see [Create alert for disabling a subset of CMEK](https://docs.cloud.google.com/spanner/docs/cmek#create-alert-subset-CMEK) .
 
 > **Warning:** If a database remains disabled for more than seven consecutive days, Spanner automatically deletes it. To avoid permanent data loss, don't leave CMEK keys in an inaccessible state for an extended time.
-> 
+>
 > If a Cloud KMS key is deleted and can't be recovered, any Spanner database encrypted with that key becomes permanently inaccessible.
-> 
+>
 > We strongly recommend against disabling or destroying only a subset of keys in a CMEK database that uses multiple keys. You must disable all keys in the database.
 
 ### Create alert for disabling a subset of CMEK
@@ -93,7 +93,7 @@ You can use the [Spanner CMEK Keys](https://docs.cloud.google.com/monitoring/api
 To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
-    
+
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
 2.  If you haven't created your notification channels and if you want to be notified, then click **Edit Notification Channels** and add your notification channels. Return to the **Alerting** page after you add your channels.
@@ -101,7 +101,6 @@ To create an alerting policy, do the following:
 3.  From the **Alerting** page, select **Create policy** .
 
 4.  To select the resource, metric, and filters, expand the **Select a metric** menu and then use the values in the **New condition** table:
-    
     1.  Optional: To limit the menu to relevant entries, enter the resource or metric name in the filter bar.
     2.  Select a **Resource type** . For example, select **VM instance** .
     3.  Select a **Metric category** . For example, select **instance** .
@@ -113,7 +112,7 @@ To create an alerting policy, do the following:
 6.  Click **Next** .
 
 7.  Optional: To add notifications to your alerting policy, click **Notification channels** . In the dialog, select one or more notification channels from the menu, and then click **OK** .
-    
+
     To be notified when alerts are opened and closed, check **Notify on alert closure** . By default, notifications are sent only when alerts are opened.
 
 8.  Optional: Update the **Alert autoclose duration** . This field determines when Monitoring closes alerts in the absence of metric data.
@@ -126,202 +125,43 @@ To create an alerting policy, do the following:
 
 #### Settings for CMEK alerting policy.
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>New condition</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Resource and Metric</strong></td>
-<td>In the <strong>Resources</strong> menu, select <strong>Spanner Instance</strong> .<br />
-In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
-In the <strong>Metrics</strong> menu, select <strong>CMEK Keys</strong> .<br />
-<br />
-(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/replica/cmek/total_keys</code> ).</td>
-</tr>
-<tr class="even">
-<td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">instance_id =           INSTANCE_ID         </code><br />
-<code dir="ltr" translate="no">is_key_revoked = TRUE</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Across time series<br />
-Time series group by</strong></td>
-<td><code dir="ltr" translate="no">database</code><br />
-</td>
-</tr>
-<tr class="even">
-<td><strong>Across time series<br />
-Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">sum</code><br />
-</td>
-</tr>
-<tr class="odd">
-<td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">10 m</code><br />
-</td>
-</tr>
-<tr class="even">
-<td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">mean</code></td>
-</tr>
-</tbody>
-</table>
+| **New condition** Field                        | Value                                                                                                                                                                                                                                              |
+|------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Resource and Metric**                        | In the **Resources** menu, select **Spanner Instance** . In the **Metric categories** menu, select **Instance** . In the **Metrics** menu, select **CMEK Keys** . (The metric.type is `spanner.googleapis.com/instance/replica/cmek/total_keys` ). |
+| **Filter**                                     | `instance_id = `` INSTANCE_ID` `is_key_revoked = TRUE`                                                                                                                                                                                             |
+| **Across time series Time series group by**    | `database`                                                                                                                                                                                                                                         |
+| **Across time series Time series aggregation** | `sum`                                                                                                                                                                                                                                              |
+| **Rolling window**                             | `10 m`                                                                                                                                                                                                                                             |
+| **Rolling window function**                    | `mean`                                                                                                                                                                                                                                             |
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Configure alert trigger</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">Threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Alert trigger</strong></td>
-<td><code dir="ltr" translate="no">Any time series violates</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">Above threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Threshold</strong></td>
-<td><code dir="ltr" translate="no">0</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">1 hr</code></td>
-</tr>
-</tbody>
-</table>
+| **Configure alert trigger** Field | Value                      |
+|-----------------------------------|----------------------------|
+| **Condition type**                | `Threshold`                |
+| **Alert trigger**                 | `Any time series violates` |
+| **Threshold position**            | `Above threshold`          |
+| **Threshold**                     | `0`                        |
+| **Retest window**                 | `1 hr`                     |
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>New condition</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Resource and Metric</strong></td>
-<td>In the <strong>Resources</strong> menu, select <strong>Spanner Instance</strong> .<br />
-In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
-In the <strong>Metrics</strong> menu, select <strong>CMEK Keys</strong> .<br />
-<br />
-(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/replica/cmek/total_keys</code> ).</td>
-</tr>
-<tr class="even">
-<td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">instance_id =           INSTANCE_ID         </code><br />
-<code dir="ltr" translate="no">is_key_revoked = FALSE</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Across time series<br />
-Time series group by</strong></td>
-<td><code dir="ltr" translate="no">database</code><br />
-</td>
-</tr>
-<tr class="even">
-<td><strong>Across time series<br />
-Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">sum</code><br />
-</td>
-</tr>
-<tr class="odd">
-<td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">10 m</code><br />
-</td>
-</tr>
-<tr class="even">
-<td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">mean</code></td>
-</tr>
-</tbody>
-</table>
+| **New condition** Field                        | Value                                                                                                                                                                                                                                              |
+|------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Resource and Metric**                        | In the **Resources** menu, select **Spanner Instance** . In the **Metric categories** menu, select **Instance** . In the **Metrics** menu, select **CMEK Keys** . (The metric.type is `spanner.googleapis.com/instance/replica/cmek/total_keys` ). |
+| **Filter**                                     | `instance_id = `` INSTANCE_ID` `is_key_revoked = FALSE`                                                                                                                                                                                            |
+| **Across time series Time series group by**    | `database`                                                                                                                                                                                                                                         |
+| **Across time series Time series aggregation** | `sum`                                                                                                                                                                                                                                              |
+| **Rolling window**                             | `10 m`                                                                                                                                                                                                                                             |
+| **Rolling window function**                    | `mean`                                                                                                                                                                                                                                             |
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Configure alert trigger</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">Threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Alert trigger</strong></td>
-<td><code dir="ltr" translate="no">Any time series violates</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">Above threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Threshold</strong></td>
-<td><code dir="ltr" translate="no">0</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">1 hr</code></td>
-</tr>
-</tbody>
-</table>
+| **Configure alert trigger** Field | Value                      |
+|-----------------------------------|----------------------------|
+| **Condition type**                | `Threshold`                |
+| **Alert trigger**                 | `Any time series violates` |
+| **Threshold position**            | `Above threshold`          |
+| **Threshold**                     | `0`                        |
+| **Retest window**                 | `1 hr`                     |
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Configure alert trigger</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Multi-condition trigger</strong></td>
-<td><code dir="ltr" translate="no">All conditions are met</code></td>
-</tr>
-</tbody>
-</table>
+| **Configure alert trigger** Field | Value                    |
+|-----------------------------------|--------------------------|
+| **Multi-condition trigger**       | `All conditions are met` |
 
 After you create the alert, if Spanner detects that a subset of CMEK has been disabled, an incident summary item appears under the **Incidents** table on the alert's **Policy details** page. You can also set up optional notification channels. For more information, see [Create and manage notification channels](https://docs.cloud.google.com/monitoring/support/notification-options) .
 
@@ -346,7 +186,7 @@ If you're using multiple Cloud EKM keys to protect your Spanner database, only t
 For more considerations when using external keys, see the [Cloud External Key Manager documentation](https://docs.cloud.google.com/kms/docs/ekm#considerations) .
 
 > **Warning:** If a database remains disabled for more than seven consecutive days, Spanner automatically deletes it. To avoid permanent data loss, don't leave external keys in an inaccessible state for an extended time.
-> 
+>
 > If an external key is deleted and can't be recovered, any Spanner database encrypted with that key becomes permanently inaccessible.
 
 ## Back up and restore
@@ -365,11 +205,11 @@ You can use CMEK or Google-owned and Google-managed encryption keys to protect S
 
 For example, if your Spanner database is in the multi-region instance configuration `nam3` , with instance partitions located in `europe-west1` and `europe-west2` , then you must create Cloud KMS keys in the following regions:
 
-  - `us-east4` (part of `nam3` )
-  - `us-east1` (part of `nam3` )
-  - `us-central1` (part of `nam3` )
-  - `europe-west1` (location of instance partition)
-  - `europe-west2` (location of instance partition)
+- `us-east4` (part of `nam3` )
+- `us-east1` (part of `nam3` )
+- `us-central1` (part of `nam3` )
+- `europe-west1` (location of instance partition)
+- `europe-west2` (location of instance partition)
 
 For more information, see [Secure a database with CMEK](https://docs.cloud.google.com/spanner/docs/use-cmek#create-db) .
 
@@ -381,12 +221,12 @@ You can audit the requests that Spanner sends t Cloud KMS on your behalf in Logg
 
 You can set organization-wide policies regarding the use of CMEK protection across various Google Cloud products, including Spanner. With these policies, you can:
 
-  - Require that new Spanner databases created by your organization use CMEK protection.
+- Require that new Spanner databases created by your organization use CMEK protection.
 
-  - Limit which of your organization's Cloud KMS keys are available for CMEK protection.
+- Limit which of your organization's Cloud KMS keys are available for CMEK protection.
 
 For more information, see [CMEK organization policies](https://docs.cloud.google.com/kms/docs/cmek-org-policy) .
 
 ## What's next
 
-  - Learn how to [secure a database with CMEK](https://docs.cloud.google.com/spanner/docs/use-cmek) .
+- Learn how to [secure a database with CMEK](https://docs.cloud.google.com/spanner/docs/use-cmek) .

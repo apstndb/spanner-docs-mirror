@@ -10,141 +10,60 @@ This page provides an overview of all GoogleSQL for Spanner data types, includin
 
 ## Data type list
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type">Array type</a></td>
-<td>An ordered list of zero or more elements of non-array values.<br />
-SQL type name: <code dir="ltr" translate="no">ARRAY</code></td>
-</tr>
-<tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#boolean_type">Boolean type</a></td>
-<td>A value that can be either <code dir="ltr" translate="no">TRUE</code> or <code dir="ltr" translate="no">FALSE</code> .<br />
-SQL type name: <code dir="ltr" translate="no">BOOL</code><br />
-SQL aliases: <code dir="ltr" translate="no">BOOLEAN</code></td>
-</tr>
-<tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#bytes_type">Bytes type</a></td>
-<td>Variable-length binary data.<br />
-SQL type name: <code dir="ltr" translate="no">BYTES</code></td>
-</tr>
-<tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type">Date type</a></td>
-<td>A Gregorian calendar date, independent of time zone.<br />
-SQL type name: <code dir="ltr" translate="no">DATE</code></td>
-</tr>
-<tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#enum_type">Enum type</a></td>
-<td>Named type that enumerates a list of possible values.<br />
-SQL type name: <code dir="ltr" translate="no">ENUM</code></td>
-</tr>
-<tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#graph_element_type">Graph element type</a></td>
-<td>An element in a property graph. Can be a <code dir="ltr" translate="no">GRAPH_NODE</code> or <code dir="ltr" translate="no">GRAPH_EDGE</code> .<br />
-SQL type name: <code dir="ltr" translate="no">GRAPH_ELEMENT</code></td>
-</tr>
-<tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#graph_path_type">Graph path type</a></td>
-<td>A path in a property graph.<br />
-SQL type name: <code dir="ltr" translate="no">GRAPH_PATH</code></td>
-</tr>
-<tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_type">Interval type</a></td>
-<td>A duration of time, without referring to any specific point in time.<br />
-SQL type name: <code dir="ltr" translate="no">INTERVAL</code></td>
-</tr>
-<tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type">JSON type</a></td>
-<td>Represents JSON, a lightweight data-interchange format.<br />
-SQL type name: <code dir="ltr" translate="no">JSON</code></td>
-</tr>
-<tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_types">Numeric types</a></td>
-<td><p>A numeric value. Several types are supported.</p>
-<p>A 64-bit integer.<br />
-SQL type name: <code dir="ltr" translate="no">INT64</code></p>
-<p>A decimal value with precision of 38 digits.<br />
-SQL type name: <code dir="ltr" translate="no">NUMERIC</code></p>
-<p>An approximate single precision numeric value.<br />
-SQL type name: <code dir="ltr" translate="no">FLOAT32</code></p>
-<p>An approximate double precision numeric value.<br />
-SQL type name: <code dir="ltr" translate="no">FLOAT64</code></p></td>
-</tr>
-<tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#protocol_buffer_type">Protocol buffer type</a></td>
-<td>A protocol buffer.<br />
-SQL type name: <code dir="ltr" translate="no">PROTO</code></td>
-</tr>
-<tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#string_type">String type</a></td>
-<td>Variable-length character data.<br />
-SQL type name: <code dir="ltr" translate="no">STRING</code></td>
-</tr>
-<tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#struct_type">Struct type</a></td>
-<td>Container of ordered fields.<br />
-SQL type name: <code dir="ltr" translate="no">STRUCT</code></td>
-</tr>
-<tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#timestamp_type">Timestamp type</a></td>
-<td>A timestamp value represents an absolute point in time, independent of any time zone or convention such as daylight saving time (DST).<br />
-SQL type name: <code dir="ltr" translate="no">TIMESTAMP</code></td>
-</tr>
-<tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#uuid_type">UUID type</a></td>
-<td>A universally unique identifier (UUID) represented as a 128-bit number.</td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                      | Summary                                                                                                                                                                                                                                                                                                      |
+|---------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Array type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#array_type)                     | An ordered list of zero or more elements of non-array values. SQL type name: `ARRAY`                                                                                                                                                                                                                         |
+| [Boolean type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#boolean_type)                 | A value that can be either `TRUE` or `FALSE` . SQL type name: `BOOL` SQL aliases: `BOOLEAN`                                                                                                                                                                                                                  |
+| [Bytes type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#bytes_type)                     | Variable-length binary data. SQL type name: `BYTES`                                                                                                                                                                                                                                                          |
+| [Date type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type)                       | A Gregorian calendar date, independent of time zone. SQL type name: `DATE`                                                                                                                                                                                                                                   |
+| [Enum type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#enum_type)                       | Named type that enumerates a list of possible values. SQL type name: `ENUM`                                                                                                                                                                                                                                  |
+| [Graph element type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#graph_element_type)     | An element in a property graph. Can be a `GRAPH_NODE` or `GRAPH_EDGE` . SQL type name: `GRAPH_ELEMENT`                                                                                                                                                                                                       |
+| [Graph path type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#graph_path_type)           | A path in a property graph. SQL type name: `GRAPH_PATH`                                                                                                                                                                                                                                                      |
+| [Interval type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_type)               | A duration of time, without referring to any specific point in time. SQL type name: `INTERVAL`                                                                                                                                                                                                               |
+| [JSON type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type)                       | Represents JSON, a lightweight data-interchange format. SQL type name: `JSON`                                                                                                                                                                                                                                |
+| [Numeric types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_types)               | A numeric value. Several types are supported. A 64-bit integer. SQL type name: `INT64` A decimal value with precision of 38 digits. SQL type name: `NUMERIC` An approximate single precision numeric value. SQL type name: `FLOAT32` An approximate double precision numeric value. SQL type name: `FLOAT64` |
+| [Protocol buffer type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#protocol_buffer_type) | A protocol buffer. SQL type name: `PROTO`                                                                                                                                                                                                                                                                    |
+| [String type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#string_type)                   | Variable-length character data. SQL type name: `STRING`                                                                                                                                                                                                                                                      |
+| [Struct type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#struct_type)                   | Container of ordered fields. SQL type name: `STRUCT`                                                                                                                                                                                                                                                         |
+| [Timestamp type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#timestamp_type)             | A timestamp value represents an absolute point in time, independent of any time zone or convention such as daylight saving time (DST). SQL type name: `TIMESTAMP`                                                                                                                                            |
+| [UUID type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#uuid_type)                       | A universally unique identifier (UUID) represented as a 128-bit number.                                                                                                                                                                                                                                      |
 
 ## Data type properties
 
 When storing and querying data, it's helpful to keep the following data type properties in mind:
 
-<span id="allowable_types"></span>
-
 ### Valid column types
 
 All data types are valid column types, except for:
 
-  - `STRUCT`
-  - `INTERVAL`
+- `STRUCT`
+- `INTERVAL`
 
 ### Valid key column types
 
 All data types are valid key column types for primary keys, foreign keys, and secondary indexes, except for:
 
-  - `FLOAT32`
-  - `ARRAY`
-  - `JSON`
-  - `STRUCT`
+- `FLOAT32`
+- `ARRAY`
+- `JSON`
+- `STRUCT`
 
 ### Storage size for data types
 
 Each data type includes 8 bytes of storage overhead, in addition to the following values:
 
-  - `ARRAY` : The sum of the size of its elements.
-  - `BOOL` : 1 byte.
-  - `BYTES` : The number of bytes.
-  - `DATE` : 4 bytes.
-  - `FLOAT32` : 4 bytes.
-  - `FLOAT64` : 8 bytes.
-  - `INT64` : 8 bytes.
-  - `JSON` : The number of bytes in UTF-8 encoding of the JSON-formatted string equivalent after canonicalization.
-  - `NUMERIC` : A function of both the precision and scale of the value being stored. The value `0` is stored as 1 byte. The storage size for all other values varies between 6 and 22 bytes.
-  - `STRING` : The number of bytes in its UTF-8 encoding.
-  - `STRUCT` : The sum of its parts.
-  - `TIMESTAMP` : 12 bytes.
+- `ARRAY` : The sum of the size of its elements.
+- `BOOL` : 1 byte.
+- `BYTES` : The number of bytes.
+- `DATE` : 4 bytes.
+- `FLOAT32` : 4 bytes.
+- `FLOAT64` : 8 bytes.
+- `INT64` : 8 bytes.
+- `JSON` : The number of bytes in UTF-8 encoding of the JSON-formatted string equivalent after canonicalization.
+- `NUMERIC` : A function of both the precision and scale of the value being stored. The value `0` is stored as 1 byte. The storage size for all other values varies between 6 and 22 bytes.
+- `STRING` : The number of bytes in its UTF-8 encoding.
+- `STRUCT` : The sum of its parts.
+- `TIMESTAMP` : 12 bytes.
 
 ### Nullable data types
 
@@ -154,12 +73,12 @@ For nullable data types, `NULL` is a valid value. Currently, all existing data t
 
 Expressions of orderable data types can be used in an `ORDER BY` clause. Applies to all data types except for:
 
-  - `ARRAY`
-  - `PROTO`
-  - `STRUCT`
-  - `JSON`
-  - `GRAPH_ELEMENT`
-  - `GRAPH_PATH`
+- `ARRAY`
+- `PROTO`
+- `STRUCT`
+- `JSON`
+- `GRAPH_ELEMENT`
+- `GRAPH_PATH`
 
 #### Ordering `NULL` s
 
@@ -183,11 +102,11 @@ Floating point values are sorted in this order, from least to greatest:
 
 Can generally appear in an expression following `GROUP BY` and `DISTINCT` . All data types are supported except for:
 
-  - `PROTO`
-  - `JSON`
-  - `ARRAY`
-  - `STRUCT`
-  - `GRAPH_PATH`
+- `PROTO`
+- `JSON`
+- `ARRAY`
+- `STRUCT`
+- `GRAPH_PATH`
 
 #### Grouping with floating point types
 
@@ -195,29 +114,29 @@ Groupable floating point types can appear in an expression following `GROUP BY` 
 
 Special floating point values are grouped in the following way, including both grouping done by a `GROUP BY` clause and grouping done by the `DISTINCT` keyword:
 
-  - `NULL`
-  - `NaN` — All `NaN` values are considered equal when grouping.
-  - `-inf`
-  - 0 or -0 — All zero values are considered equal when grouping.
-  - `+inf`
+- `NULL`
+- `NaN` — All `NaN` values are considered equal when grouping.
+- `-inf`
+- 0 or -0 — All zero values are considered equal when grouping.
+- `+inf`
 
 ### Comparable data types
 
 Values of the same comparable data type can be compared to each other. All data types are supported except for:
 
-  - `PROTO`
-  - `JSON`
+- `PROTO`
+- `JSON`
 
 Notes:
 
-  - Equality comparisons for array data types are supported as long as the element types are the same, and the element types are comparable. Less than and greater than comparisons aren't supported.
-  - Equality comparisons for structs are supported field by field, in field order. Field names are ignored. Less than and greater than comparisons aren't supported.
-  - All types that support comparisons can be used in a `JOIN` condition. See [JOIN Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join_types) for an explanation of join conditions.
+- Equality comparisons for array data types are supported as long as the element types are the same, and the element types are comparable. Less than and greater than comparisons aren't supported.
+- Equality comparisons for structs are supported field by field, in field order. Field names are ignored. Less than and greater than comparisons aren't supported.
+- All types that support comparisons can be used in a `JOIN` condition. See [JOIN Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join_types) for an explanation of join conditions.
 
 ## Array type
 
 | Name    | Description                                                  |
-| ------- | ------------------------------------------------------------ |
+|---------|--------------------------------------------------------------|
 | `ARRAY` | Ordered list of zero or more elements of any non-array type. |
 
 An array is an ordered list of zero or more elements of non-array values. Elements in an array must share the same type.
@@ -234,43 +153,20 @@ An empty array and a `NULL` array are two distinct values. Arrays can contain `N
 
 ### Declaring an array type
 
-    ARRAY<T>
+```
+ARRAY<T>
+```
 
 Array types are declared using the angle brackets ( `<` and `>` ). The type of the elements of an array can be arbitrarily complex with the exception that an array can't directly contain another array.
 
 **Examples**
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type Declaration</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">ARRAY&lt;INT64&gt;</code></td>
-<td>Simple array of 64-bit integers.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;INT64, INT64&gt;&gt;</code></td>
-<td>An array of structs, each of which contains two 64-bit integers.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">ARRAY&lt;ARRAY&lt;INT64&gt;&gt;</code><br />
-(not supported)</td>
-<td>This is an <strong>invalid</strong> type declaration which is included here just in case you came looking for how to create a multi-level array. Arrays can't contain arrays directly. Instead see the next example.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">ARRAY&lt;STRUCT&lt;ARRAY&lt;INT64&gt;&gt;&gt;</code></td>
-<td>An array of arrays of 64-bit integers. Notice that there is a struct between the two arrays because arrays can't hold other arrays directly.</td>
-</tr>
-</tbody>
-</table>
+| Type Declaration                      | Meaning                                                                                                                                                                                                 |
+|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ARRAY<INT64>`                        | Simple array of 64-bit integers.                                                                                                                                                                        |
+| `ARRAY<STRUCT<INT64, INT64>>`         | An array of structs, each of which contains two 64-bit integers.                                                                                                                                        |
+| `ARRAY<ARRAY<INT64>>` (not supported) | This is an **invalid** type declaration which is included here just in case you came looking for how to create a multi-level array. Arrays can't contain arrays directly. Instead see the next example. |
+| `ARRAY<STRUCT<ARRAY<INT64>>>`         | An array of arrays of 64-bit integers. Notice that there is a struct between the two arrays because arrays can't hold other arrays directly.                                                            |
 
 ### Constructing an array
 
@@ -280,35 +176,43 @@ You can construct an array using array literals or array functions.
 
 You can build an array literal in GoogleSQL using brackets ( `[` and `]` ). Each element in an array is separated by a comma.
 
-    SELECT [1, 2, 3] AS numbers;
-    
-    SELECT ["apple", "pear", "orange"] AS fruit;
-    
-    SELECT [true, false, true] AS booleans;
+```
+SELECT [1, 2, 3] AS numbers;
+
+SELECT ["apple", "pear", "orange"] AS fruit;
+
+SELECT [true, false, true] AS booleans;
+```
 
 You can also create arrays from any expressions that have compatible types. For example:
 
-    SELECT [a, b, c]
-    FROM
-      (SELECT 5 AS a,
-              37 AS b,
-              406 AS c);
-    
-    SELECT [a, b, c]
-    FROM
-      (SELECT CAST(5 AS INT64) AS a,
-              CAST(37 AS FLOAT64) AS b,
-              406 AS c);
+```
+SELECT [a, b, c]
+FROM
+  (SELECT 5 AS a,
+          37 AS b,
+          406 AS c);
+
+SELECT [a, b, c]
+FROM
+  (SELECT CAST(5 AS INT64) AS a,
+          CAST(37 AS FLOAT64) AS b,
+          406 AS c);
+```
 
 Notice that the second example contains three expressions: one that returns an `INT64` , one that returns a `FLOAT64` , and one that declares a literal. This expression works because all three expressions share `FLOAT64` as a supertype.
 
 To declare a specific data type for an array, use angle brackets ( `<` and `>` ). For example:
 
-    SELECT ARRAY<FLOAT64>[1, 2, 3] AS floats;
+```
+SELECT ARRAY<FLOAT64>[1, 2, 3] AS floats;
+```
 
 Arrays of most data types, such as `INT64` or `STRING` , don't require that you declare them first.
 
-    SELECT [1, 2, 3] AS numbers;
+```
+SELECT [1, 2, 3] AS numbers;
+```
 
 You can write an empty array of a specific type using `ARRAY<type>[]` . You can also write an untyped empty array using `[]` , in which case GoogleSQL attempts to infer the array type from the surrounding context. If GoogleSQL can't infer a type, the default type `ARRAY<INT64>` is used.
 
@@ -320,23 +224,27 @@ You can also construct an `ARRAY` with generated values.
 
 [`GENERATE_ARRAY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#generate_array) generates an array of values from a starting and ending value and a step value. For example, the following query generates an array that contains all of the odd integers from 11 to 33, inclusive:
 
-    SELECT GENERATE_ARRAY(11, 33, 2) AS odds;
-    
-    /*--------------------------------------------------+
-     | odds                                             |
-     +--------------------------------------------------+
-     | [11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33] |
-     +--------------------------------------------------*/
+```
+SELECT GENERATE_ARRAY(11, 33, 2) AS odds;
+
+/*--------------------------------------------------+
+ | odds                                             |
+ +--------------------------------------------------+
+ | [11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33] |
+ +--------------------------------------------------*/
+```
 
 You can also generate an array of values in descending order by giving a negative step value:
 
-    SELECT GENERATE_ARRAY(21, 14, -1) AS countdown;
-    
-    /*----------------------------------+
-     | countdown                        |
-     +----------------------------------+
-     | [21, 20, 19, 18, 17, 16, 15, 14] |
-     +----------------------------------*/
+```
+SELECT GENERATE_ARRAY(21, 14, -1) AS countdown;
+
+/*----------------------------------+
+ | countdown                        |
+ +----------------------------------+
+ | [21, 20, 19, 18, 17, 16, 15, 14] |
+ +----------------------------------*/
+```
 
 ##### Generating arrays of dates
 
@@ -344,37 +252,23 @@ You can also generate an array of values in descending order by giving a negativ
 
 You can generate a set of `DATE` values using `GENERATE_DATE_ARRAY` . For example, this query returns the current `DATE` and the following `DATE` s at 1 `WEEK` intervals up to and including a later `DATE` :
 
-    SELECT
-      GENERATE_DATE_ARRAY('2017-11-21', '2017-12-31', INTERVAL 1 WEEK)
-        AS date_array;
-    
-    /*--------------------------------------------------------------------------+
-     | date_array                                                               |
-     +--------------------------------------------------------------------------+
-     | [2017-11-21, 2017-11-28, 2017-12-05, 2017-12-12, 2017-12-19, 2017-12-26] |
-     +--------------------------------------------------------------------------*/
+```
+SELECT
+  GENERATE_DATE_ARRAY('2017-11-21', '2017-12-31', INTERVAL 1 WEEK)
+    AS date_array;
+
+/*--------------------------------------------------------------------------+
+ | date_array                                                               |
+ +--------------------------------------------------------------------------+
+ | [2017-11-21, 2017-11-28, 2017-12-05, 2017-12-12, 2017-12-19, 2017-12-26] |
+ +--------------------------------------------------------------------------*/
+```
 
 ## Boolean type
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">BOOL</code><br />
-<code dir="ltr" translate="no">BOOLEAN</code></td>
-<td>Boolean values are represented by the keywords <code dir="ltr" translate="no">TRUE</code> and <code dir="ltr" translate="no">FALSE</code> (case-insensitive).</td>
-</tr>
-</tbody>
-</table>
+| Name             | Description                                                                           |
+|------------------|---------------------------------------------------------------------------------------|
+| `BOOL` `BOOLEAN` | Boolean values are represented by the keywords `TRUE` and `FALSE` (case-insensitive). |
 
 `BOOLEAN` is an alias for `BOOL` .
 
@@ -387,7 +281,7 @@ Boolean values are sorted in this order, from least to greatest:
 ## Bytes type
 
 | Name    | Description                  |
-| ------- | ---------------------------- |
+|---------|------------------------------|
 | `BYTES` | Variable-length binary data. |
 
 String and bytes are separate types that can't be used interchangeably. Most functions on strings are also defined on bytes. The bytes version operates on raw bytes rather than Unicode characters. Casts between string and bytes enforce that the bytes are encoded using UTF-8.
@@ -399,32 +293,34 @@ To learn more about the literal representation of a bytes type, see [Bytes liter
 ## Date type
 
 | Name   | Range                     |
-| ------ | ------------------------- |
+|--------|---------------------------|
 | `DATE` | 0001-01-01 to 9999-12-31. |
 
 The date type represents a Gregorian calendar date, independent of time zone. A date value doesn't represent a specific 24-hour time period. Rather, a given date value represents a different 24-hour period when interpreted in different time zones, and may represent a shorter or longer day during daylight saving time (DST) transitions. To represent an absolute point in time, use a [timestamp](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#timestamp_type) .
 
 ##### Canonical format
 
-    YYYY-[M]M-[D]D
+```
+YYYY-[M]M-[D]D
+```
 
-  - `YYYY` : Four-digit year.
-  - `[M]M` : One or two digit month.
-  - `[D]D` : One or two digit day.
+- `YYYY` : Four-digit year.
+- `[M]M` : One or two digit month.
+- `[D]D` : One or two digit day.
 
 To learn more about the literal representation of a date type, see [Date literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#date_literals) .
 
 ## Enum type
 
 | Name   | Description                                                 |
-| ------ | ----------------------------------------------------------- |
+|--------|-------------------------------------------------------------|
 | `ENUM` | Named type that maps string constants to integer constants. |
 
 An enum is a named type that enumerates a list of possible values, each of which contains:
 
-  - An integer value: Integers are used for comparison and ordering enum values. There is no requirement that these integers start at zero or that they be contiguous.
-  - A string value for its name: Strings are case sensitive. In the case of protocol buffer open enums, this name is optional.
-  - Optional alias values: One or more additional string values that act as aliases.
+- An integer value: Integers are used for comparison and ordering enum values. There is no requirement that these integers start at zero or that they be contiguous.
+- A string value for its name: Strings are case sensitive. In the case of protocol buffer open enums, this name is optional.
+- Optional alias values: One or more additional string values that act as aliases.
 
 Enum values are referenced using their integer value or their string value. You reference an enum type, such as when using CAST, by using its fully qualified name.
 
@@ -437,12 +333,14 @@ To learn more about the literal representation of an enum type, see [Enum litera
 ## Graph element type
 
 | Name            | Description                     |
-| --------------- | ------------------------------- |
+|-----------------|---------------------------------|
 | `GRAPH_ELEMENT` | An element in a property graph. |
 
 A variable with a `GRAPH_ELEMENT` type is produced by a graph query. The generated type has this format:
 
-    GRAPH_ELEMENT<T>
+```
+GRAPH_ELEMENT<T>
+```
 
 A graph element is either a node or an edge, representing data from a matching node or edge table based on its label. Each graph element holds a set of properties that can be accessed with a case-insensitive name, similar to fields of a struct.
 
@@ -456,42 +354,48 @@ If a property isn't defined in the schema, accessing it through the [field-acces
 
 In the following example, `n` represents a graph element in the [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) property graph:
 
-    GRAPH FinGraph
-    MATCH (n:Person)
-    RETURN n.name
+```
+GRAPH FinGraph
+MATCH (n:Person)
+RETURN n.name
+```
 
 ## Graph path type
 
 | Name         | Description                 |
-| ------------ | --------------------------- |
+|--------------|-----------------------------|
 | `GRAPH_PATH` | A path in a property graph. |
 
 The graph path data type represents a sequence of nodes interleaved with edges and has this format:
 
-    GRAPH_PATH<NODE_TYPE, EDGE_TYPE>
+```
+GRAPH_PATH<NODE_TYPE, EDGE_TYPE>
+```
 
 You can construct a graph path with the [`PATH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#path) function or when you create a [path variable](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) in a graph pattern.
 
 ## Interval type
 
-| Name       | Range                                                            |
-| ---------- | ---------------------------------------------------------------- |
-| `INTERVAL` | \-10000-0 -3660000 -87840000:0:0 to 10000-0 3660000 87840000:0:0 |
+| Name       | Range                                                           |
+|------------|-----------------------------------------------------------------|
+| `INTERVAL` | -10000-0 -3660000 -87840000:0:0 to 10000-0 3660000 87840000:0:0 |
 
 An `INTERVAL` object represents duration or amount of time, without referring to any specific point in time.
 
 ##### Canonical format
 
-    [sign]Y-M [sign]D [sign]H:M:S[.F]
+```
+[sign]Y-M [sign]D [sign]H:M:S[.F]
+```
 
-  - `sign` : `+` or `-`
-  - `Y` : Year
-  - `M` : Month
-  - `D` : Day
-  - `H` : Hour
-  - `M` : Minute
-  - `S` : Second
-  - `[.F]` : Up to nine fractional digits (nanosecond precision)
+- `sign` : `+` or `-`
+- `Y` : Year
+- `M` : Month
+- `D` : Day
+- `H` : Hour
+- `M` : Minute
+- `S` : Second
+- `[.F]` : Up to nine fractional digits (nanosecond precision)
 
 To learn more about the literal representation of an interval type, see [Interval literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#interval_literals) .
 
@@ -501,49 +405,55 @@ You can construct an interval with an interval literal that supports a [single d
 
 #### Construct an interval with a single datetime part
 
-    INTERVAL step_size step_unit
+```
+INTERVAL step_size step_unit
+```
 
 You can construct an `INTERVAL` object with an `INT64` expression and one [interval-supported datetime part](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) . For example:
 
-    -- 1 year, 0 months, 0 days, 0 hours, 0 minutes, and 0 seconds (1-0 0 0:0:0)
-    INTERVAL 1 YEAR
-    INTERVAL 4 QUARTER
-    INTERVAL 12 MONTH
-    
-    -- 0 years, 3 months, 0 days, 0 hours, 0 minutes, and 0 seconds (0-3 0 0:0:0)
-    INTERVAL 1 QUARTER
-    INTERVAL 3 MONTH
-    
-    -- 0 years, 0 months, 42 days, 0 hours, 0 minutes, and 0 seconds (0-0 42 0:0:0)
-    INTERVAL 6 WEEK
-    INTERVAL 42 DAY
-    
-    -- 0 years, 0 months, 0 days, 25 hours, 0 minutes, and 0 seconds (0-0 0 25:0:0)
-    INTERVAL 25 HOUR
-    INTERVAL 1500 MINUTE
-    INTERVAL 90000 SECOND
-    
-    -- 0 years, 0 months, 0 days, 1 hours, 30 minutes, and 0 seconds (0-0 0 1:30:0)
-    INTERVAL 90 MINUTE
-    
-    -- 0 years, 0 months, 0 days, 0 hours, 1 minutes, and 30 seconds (0-0 0 0:1:30)
-    INTERVAL 90 SECOND
-    
-    -- 0 years, 0 months, -5 days, 0 hours, 0 minutes, and 0 seconds (0-0 -5 0:0:0)
-    INTERVAL -5 DAY
+```
+-- 1 year, 0 months, 0 days, 0 hours, 0 minutes, and 0 seconds (1-0 0 0:0:0)
+INTERVAL 1 YEAR
+INTERVAL 4 QUARTER
+INTERVAL 12 MONTH
+
+-- 0 years, 3 months, 0 days, 0 hours, 0 minutes, and 0 seconds (0-3 0 0:0:0)
+INTERVAL 1 QUARTER
+INTERVAL 3 MONTH
+
+-- 0 years, 0 months, 42 days, 0 hours, 0 minutes, and 0 seconds (0-0 42 0:0:0)
+INTERVAL 6 WEEK
+INTERVAL 42 DAY
+
+-- 0 years, 0 months, 0 days, 25 hours, 0 minutes, and 0 seconds (0-0 0 25:0:0)
+INTERVAL 25 HOUR
+INTERVAL 1500 MINUTE
+INTERVAL 90000 SECOND
+
+-- 0 years, 0 months, 0 days, 1 hours, 30 minutes, and 0 seconds (0-0 0 1:30:0)
+INTERVAL 90 MINUTE
+
+-- 0 years, 0 months, 0 days, 0 hours, 1 minutes, and 30 seconds (0-0 0 0:1:30)
+INTERVAL 90 SECOND
+
+-- 0 years, 0 months, -5 days, 0 hours, 0 minutes, and 0 seconds (0-0 -5 0:0:0)
+INTERVAL -5 DAY
+```
 
 For additional examples, see [Interval literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#interval_literal_single) .
 
 #### Construct an interval with a datetime part range
 
-    INTERVAL datetime_parts_string starting_datetime_part TO ending_datetime_part
+```
+INTERVAL datetime_parts_string starting_datetime_part TO ending_datetime_part
+```
 
 You can construct an `INTERVAL` object with a `STRING` that contains the datetime parts that you want to include, a starting datetime part, and an ending datetime part. The resulting `INTERVAL` object only includes datetime parts in the specified range.
 
 You can use one of the following formats with the [interval-supported datetime parts](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#interval_datetime_parts) :
 
 | Datetime part string | Datetime parts     | Example                                      |
-| -------------------- | ------------------ | -------------------------------------------- |
+|----------------------|--------------------|----------------------------------------------|
 | `Y-M`                | `YEAR TO MONTH`    | `INTERVAL '2-11' YEAR TO MONTH`              |
 | `Y-M D`              | `YEAR TO DAY`      | `INTERVAL '2-11 28' YEAR TO DAY`             |
 | `Y-M D H`            | `YEAR TO HOUR`     | `INTERVAL '2-11 28 16' YEAR TO HOUR`         |
@@ -562,11 +472,13 @@ You can use one of the following formats with the [interval-supported datetime p
 
 For example:
 
-    -- 0 years, 8 months, 20 days, 17 hours, 0 minutes, and 0 seconds (0-8 20 17:0:0)
-    INTERVAL '8 20 17' MONTH TO HOUR
-    
-    -- 0 years, 8 months, -20 days, 17 hours, 0 minutes, and 0 seconds (0-8 -20 17:0:0)
-    INTERVAL '8 -20 17' MONTH TO HOUR
+```
+-- 0 years, 8 months, 20 days, 17 hours, 0 minutes, and 0 seconds (0-8 20 17:0:0)
+INTERVAL '8 20 17' MONTH TO HOUR
+
+-- 0 years, 8 months, -20 days, 17 hours, 0 minutes, and 0 seconds (0-8 -20 17:0:0)
+INTERVAL '8 -20 17' MONTH TO HOUR
+```
 
 For additional examples, see [Interval literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#interval_literal_range) .
 
@@ -574,37 +486,37 @@ For additional examples, see [Interval literals](https://docs.cloud.google.com/s
 
 You can use the following date parts to construct an interval:
 
-  - `YEAR` : Number of years, `Y` .
-  - `QUARTER` : Number of quarters; each quarter is converted to `3` months, `M` .
-  - `MONTH` : Number of months, `M` . Each `12` months is converted to `1` year.
-  - `WEEK` : Number of weeks; Each week is converted to `7` days, `D` .
-  - `DAY` : Number of days, `D` .
+- `YEAR` : Number of years, `Y` .
+- `QUARTER` : Number of quarters; each quarter is converted to `3` months, `M` .
+- `MONTH` : Number of months, `M` . Each `12` months is converted to `1` year.
+- `WEEK` : Number of weeks; Each week is converted to `7` days, `D` .
+- `DAY` : Number of days, `D` .
 
 You can use the following time parts to construct an interval:
 
-  - `HOUR` : Number of hours, `H` .
-  - `MINUTE` : Number of minutes, `M` . Each `60` minutes is converted to `1` hour.
-  - `SECOND` : Number of seconds, `S` . Each `60` seconds is converted to `1` minute. Can include up to nine fractional digits (nanosecond precision).
-  - `MILLISECOND` : Number of milliseconds.
-  - `MICROSECOND` : Number of microseconds.
-  - `NANOSECOND` : Number of nanoseconds.
+- `HOUR` : Number of hours, `H` .
+- `MINUTE` : Number of minutes, `M` . Each `60` minutes is converted to `1` hour.
+- `SECOND` : Number of seconds, `S` . Each `60` seconds is converted to `1` minute. Can include up to nine fractional digits (nanosecond precision).
+- `MILLISECOND` : Number of milliseconds.
+- `MICROSECOND` : Number of microseconds.
+- `NANOSECOND` : Number of nanoseconds.
 
 ## JSON type
 
 | Name   | Description                                             |
-| ------ | ------------------------------------------------------- |
+|--------|---------------------------------------------------------|
 | `JSON` | Represents JSON, a lightweight data-interchange format. |
 
 Expect these canonicalization behaviors when creating a value of JSON type:
 
-  - Booleans, strings, and nulls are preserved exactly.
-  - Whitespace characters aren't preserved.
-  - A JSON value can store integers in the range of -9,223,372,036,854,775,808 (minimum signed 64-bit integer) to 18,446,744,073,709,551,615 (maximum unsigned 64-bit integer) and floating point numbers within a domain of `FLOAT64` .
-  - The order of elements in an array is preserved exactly.
-  - The order of the members of an object is lexicographically ordered.
-  - If an object has duplicate keys, the first key that's found is preserved.
-  - Up to 80 levels can be nested.
-  - The format of the original string representation of a JSON number may not be preserved.
+- Booleans, strings, and nulls are preserved exactly.
+- Whitespace characters aren't preserved.
+- A JSON value can store integers in the range of -9,223,372,036,854,775,808 (minimum signed 64-bit integer) to 18,446,744,073,709,551,615 (maximum unsigned 64-bit integer) and floating point numbers within a domain of `FLOAT64` .
+- The order of elements in an array is preserved exactly.
+- The order of the members of an object is lexicographically ordered.
+- If an object has duplicate keys, the first key that's found is preserved.
+- Up to 80 levels can be nested.
+- The format of the original string representation of a JSON number may not be preserved.
 
 To learn more about the literal representation of a JSON type, see [JSON literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#json_literals) .
 
@@ -612,18 +524,18 @@ To learn more about the literal representation of a JSON type, see [JSON literal
 
 Numeric types include the following types:
 
-  - `INT64`
-  - `NUMERIC`
-  - `FLOAT32`
-  - `FLOAT64`
+- `INT64`
+- `NUMERIC`
+- `FLOAT32`
+- `FLOAT64`
 
 ### Integer type
 
 Integers are numeric values that don't have fractional components.
 
-| Name    | Range                                                    |
-| ------- | -------------------------------------------------------- |
-| `INT64` | \-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 |
+| Name    | Range                                                   |
+|---------|---------------------------------------------------------|
+| `INT64` | -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 |
 
 To learn more about the literal representation of an integer type, see [Integer literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#integer_literals) .
 
@@ -633,29 +545,9 @@ Decimal type values are numeric values with fixed decimal precision and scale. P
 
 This type can represent decimal fractions exactly, and is suitable for financial calculations.
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Precision, Scale, and Range</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">NUMERIC</code></td>
-<td>Precision: 38<br />
-Scale: 9<br />
-Minimum value greater than 0 that can be handled: 1e-9<br />
-Min: -9.9999999999999999999999999999999999999E+28<br />
-Max: 9.9999999999999999999999999999999999999E+28<br />
-</td>
-</tr>
-</tbody>
-</table>
+| Name      | Precision, Scale, and Range                                                                                                                                                      |
+|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `NUMERIC` | Precision: 38 Scale: 9 Minimum value greater than 0 that can be handled: 1e-9 Min: -9.9999999999999999999999999999999999999E+28 Max: 9.9999999999999999999999999999999999999E+28 |
 
 To learn more about the literal representation of a `NUMERIC` type, see [`NUMERIC` literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#numeric_literals) .
 
@@ -664,7 +556,7 @@ To learn more about the literal representation of a `NUMERIC` type, see [`NUMERI
 Floating point values are approximate numeric values with fractional components.
 
 | Name      | Description                                    |
-| --------- | ---------------------------------------------- |
+|-----------|------------------------------------------------|
 | `FLOAT32` | Single precision (approximate) numeric values. |
 | `FLOAT64` | Double precision (approximate) numeric values. |
 
@@ -682,14 +574,14 @@ Function calls and operators return an overflow error if the input is finite but
 
 Floating point values are approximations.
 
-  - The binary format used to represent floating point values can only represent a subset of the numbers between the most positive number and most negative number in the value range. This enables efficient handling of a much larger range than would be possible otherwise. Numbers that aren't exactly representable are approximated by utilizing a close value instead. For example, `0.1` can't be represented as an integer scaled by a power of `2` . When this value is displayed as a string, it's rounded to a limited number of digits, and the value approximating `0.1` might appear as `"0.1"` , hiding the fact that the value isn't precise. In other situations, the approximation can be visible.
-  - Summation of floating point values might produce surprising results because of [limited precision](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems) . For example, `(1e30 + 1) - 1e30 = 0` , while `(1e30 - 1e30) + 1 = 1.0` . This is because the floating point value doesn't have enough precision to represent `(1e30 + 1)` , and the result is rounded to `1e30` . This example also shows that the result of the `SUM` aggregate function of floating points values depends on the order in which the values are accumulated. In general, this order isn't deterministic and therefore the result isn't deterministic. Thus, the resulting `SUM` of floating point values might not be deterministic and two executions of the same query on the same tables might produce different results.
-  - If the above points are concerning, use a [decimal type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#decimal_types) instead.
+- The binary format used to represent floating point values can only represent a subset of the numbers between the most positive number and most negative number in the value range. This enables efficient handling of a much larger range than would be possible otherwise. Numbers that aren't exactly representable are approximated by utilizing a close value instead. For example, `0.1` can't be represented as an integer scaled by a power of `2` . When this value is displayed as a string, it's rounded to a limited number of digits, and the value approximating `0.1` might appear as `"0.1"` , hiding the fact that the value isn't precise. In other situations, the approximation can be visible.
+- Summation of floating point values might produce surprising results because of [limited precision](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems) . For example, `(1e30 + 1) - 1e30 = 0` , while `(1e30 - 1e30) + 1 = 1.0` . This is because the floating point value doesn't have enough precision to represent `(1e30 + 1)` , and the result is rounded to `1e30` . This example also shows that the result of the `SUM` aggregate function of floating points values depends on the order in which the values are accumulated. In general, this order isn't deterministic and therefore the result isn't deterministic. Thus, the resulting `SUM` of floating point values might not be deterministic and two executions of the same query on the same tables might produce different results.
+- If the above points are concerning, use a [decimal type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#decimal_types) instead.
 
 ##### Mathematical function examples
 
 | Left Term               | Operator | Right Term              | Returns                |
-| ----------------------- | -------- | ----------------------- | ---------------------- |
+|-------------------------|----------|-------------------------|------------------------|
 | Any value               | `+`      | `NaN`                   | `NaN`                  |
 | 1.0                     | `+`      | `+inf`                  | `+inf`                 |
 | 1.0                     | `+`      | `-inf`                  | `-inf`                 |
@@ -703,19 +595,19 @@ Comparison operators provide standard IEEE-754 behavior for floating point input
 ##### Comparison operator examples
 
 | Left Term | Operator | Right Term | Returns |
-| --------- | -------- | ---------- | ------- |
+|-----------|----------|------------|---------|
 | `NaN`     | `=`      | Any value  | `FALSE` |
 | `NaN`     | `<`      | Any value  | `FALSE` |
 | Any value | `<`      | `NaN`      | `FALSE` |
-| \-0.0     | `=`      | 0.0        | `TRUE`  |
-| \-0.0     | `<`      | 0.0        | `FALSE` |
+| -0.0      | `=`      | 0.0        | `TRUE`  |
+| -0.0      | `<`      | 0.0        | `FALSE` |
 
 For more information on how these values are ordered and grouped so they can be compared, see [Ordering floating point values](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#orderable_floating_points) .
 
 ## Protocol buffer type
 
 | Name    | Description                     |
-| ------- | ------------------------------- |
+|---------|---------------------------------|
 | `PROTO` | An instance of protocol buffer. |
 
 Protocol buffers provide structured data types with a defined serialization format and cross-language support libraries. Protocol buffer message types can contain optional, required, or repeated fields, including nested messages. For more information, see the [Protocol Buffers Developer Guide](https://developers.google.com/protocol-buffers/docs/overview) .
@@ -734,153 +626,175 @@ You can construct a protocol buffer using the [`NEW`](https://docs.cloud.google.
 
 You can create a protocol buffer using the [`NEW`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#new_operator) operator with a map constructor:
 
-    NEW protocol_buffer {
-      field_name: literal_or_expression
-      field_name { ... }
-      repeated_field_name: [literal_or_expression, ... ]
-    }
+```
+NEW protocol_buffer {
+  field_name: literal_or_expression
+  field_name { ... }
+  repeated_field_name: [literal_or_expression, ... ]
+}
+```
 
 Where:
 
-  - `protocol_buffer` : The full protocol buffer name including the package name.
-  - `field_name` : The name of a field.
-  - `literal_or_expression` : The field value.
+- `protocol_buffer` : The full protocol buffer name including the package name.
+- `field_name` : The name of a field.
+- `literal_or_expression` : The field value.
 
 **Example**
 
-    NEW googlesql.examples.astronomy.Planet {
-      planet_name: 'Jupiter'
-      facts: {
-        length_of_day: 9.93
-        distance_to_sun: 5.2 * ASTRONOMICAL_UNIT
-        has_rings: TRUE
-      }
-      major_moons: [
-        { moon_name: 'Io' },
-        { moon_name: 'Europa' },
-        { moon_name: 'Ganymede' },
-        { moon_name: 'Callisto'}
-      ]
-      minor_moons: (
-        SELECT ARRAY_AGG(moon_name)
-        FROM SolarSystemMoons
-        WHERE
-          planet_name = 'Jupiter'
-          AND circumference < 3121
-      )
-      count_of_space_probe_photos: (
-        GALILEO_PHOTOS
-        + JUNO_PHOTOS
-        + NEW_HORIZONS_PHOTOS
-        + CASSINI_PHOTOS
-        + ULYSSES_PHOTOS
-        + VOYAGER_1_PHOTOS
-        + VOYAGER_2_PHOTOS
-        + PIONEER_10_PHOTOS
-        + PIONEER_11_PHOTOS
-      )
-    }
+```
+NEW googlesql.examples.astronomy.Planet {
+  planet_name: 'Jupiter'
+  facts: {
+    length_of_day: 9.93
+    distance_to_sun: 5.2 * ASTRONOMICAL_UNIT
+    has_rings: TRUE
+  }
+  major_moons: [
+    { moon_name: 'Io' },
+    { moon_name: 'Europa' },
+    { moon_name: 'Ganymede' },
+    { moon_name: 'Callisto'}
+  ]
+  minor_moons: (
+    SELECT ARRAY_AGG(moon_name)
+    FROM SolarSystemMoons
+    WHERE
+      planet_name = 'Jupiter'
+      AND circumference < 3121
+  )
+  count_of_space_probe_photos: (
+    GALILEO_PHOTOS
+    + JUNO_PHOTOS
+    + NEW_HORIZONS_PHOTOS
+    + CASSINI_PHOTOS
+    + ULYSSES_PHOTOS
+    + VOYAGER_1_PHOTOS
+    + VOYAGER_2_PHOTOS
+    + PIONEER_10_PHOTOS
+    + PIONEER_11_PHOTOS
+  )
+}
+```
 
 When using this syntax, the following rules apply:
 
-  - The field values must be expressions that are implicitly coercible or literal-coercible to the type of the corresponding protocol buffer field.
-  - Commas between fields are optional.
-  - A colon is required between field name and values unless the value is a map constructor.
-  - The `NEW protocol_buffer` prefix is optional if the protocol buffer type can be inferred from the context.
-  - The type of submessages inside the map constructor can be inferred.
+- The field values must be expressions that are implicitly coercible or literal-coercible to the type of the corresponding protocol buffer field.
+- Commas between fields are optional.
+- A colon is required between field name and values unless the value is a map constructor.
+- The `NEW protocol_buffer` prefix is optional if the protocol buffer type can be inferred from the context.
+- The type of submessages inside the map constructor can be inferred.
 
 **Examples**
 
 Simple:
 
-    SELECT
-      key,
-      name,
-      NEW googlesql.examples.music.Chart { rank: 1 chart_name: '2' }
+```
+SELECT
+  key,
+  name,
+  NEW googlesql.examples.music.Chart { rank: 1 chart_name: '2' }
+```
 
 Nested messages and arrays:
 
-    SELECT
-      NEW googlesql.examples.music.Album {
-        album_name: 'New Moon'
-        singer {
-          nationality: 'Canadian'
-          residence: [ { city: 'Victoria' }, { city: 'Toronto' } ]
-        }
-        song: ['Sandstorm', 'Wait']
-      }
+```
+SELECT
+  NEW googlesql.examples.music.Album {
+    album_name: 'New Moon'
+    singer {
+      nationality: 'Canadian'
+      residence: [ { city: 'Victoria' }, { city: 'Toronto' } ]
+    }
+    song: ['Sandstorm', 'Wait']
+  }
+```
 
 Non-literal expressions as values:
 
-    SELECT
-      NEW googlesql.examples.music.Chart {
-        rank: (SELECT COUNT(*) FROM TableName WHERE foo = 'bar')
-        chart_name: CONCAT('best', 'hits')
-      }
+```
+SELECT
+  NEW googlesql.examples.music.Chart {
+    rank: (SELECT COUNT(*) FROM TableName WHERE foo = 'bar')
+    chart_name: CONCAT('best', 'hits')
+  }
+```
 
 The following examples infers the protocol buffer data type from context:
 
-  - From `ARRAY` constructor:
-    
-        SELECT
-          ARRAY<googlesql.examples.music.Chart>[
-            { rank: 1 chart_name: '2' },
-            { rank: 2 chart_name: '3' }]
+- From `ARRAY` constructor:
 
-  - From `STRUCT` constructor:
-    
-        SELECT
-          STRUCT<STRING, googlesql.examples.music.Chart, INT64>(
-            'foo', { rank: 1 chart_name: '2' }, 7)[1]
+  ```
+  SELECT
+    ARRAY<googlesql.examples.music.Chart>[
+      { rank: 1 chart_name: '2' },
+      { rank: 2 chart_name: '3' }]
+  ```
 
-  - From column names through `SET` :
-    
-      - Simple column:
-    
-    <!-- end list -->
-    
-        UPDATE TableName SET proto_column = { rank: 1 chart_name: '2' }
-    
-      - Array column:
-    
-    <!-- end list -->
-    
-        UPDATE TableName
-        SET proto_array_column = [
-          { rank: 1 chart_name: '2' }, { rank: 2 chart_name: '3' }]
+- From `STRUCT` constructor:
 
-  - From generated column names in `CREATE` :
-    
-        CREATE TABLE TableName (
-          proto_column googlesql.examples.music.Chart  AS (
-            { rank: 1 chart_name: '2' }))
+  ```
+  SELECT
+    STRUCT<STRING, googlesql.examples.music.Chart, INT64>(
+      'foo', { rank: 1 chart_name: '2' }, 7)[1]
+  ```
 
-  - From column names in default values in `CREATE` :
-    
-        CREATE TABLE TableName(
-          proto_column googlesql.examples.music.Chart DEFAULT (
-            { rank: 1 chart_name: '2' }))
+- From column names through `SET` :
+
+  - Simple column:
+
+  ```
+  UPDATE TableName SET proto_column = { rank: 1 chart_name: '2' }
+  ```
+
+  - Array column:
+
+  ```
+  UPDATE TableName
+  SET proto_array_column = [
+    { rank: 1 chart_name: '2' }, { rank: 2 chart_name: '3' }]
+  ```
+
+- From generated column names in `CREATE` :
+
+  ```
+  CREATE TABLE TableName (
+    proto_column googlesql.examples.music.Chart  AS (
+      { rank: 1 chart_name: '2' }))
+  ```
+
+- From column names in default values in `CREATE` :
+
+  ```
+  CREATE TABLE TableName(
+    proto_column googlesql.examples.music.Chart DEFAULT (
+      { rank: 1 chart_name: '2' }))
+  ```
 
 #### `NEW protocol_buffer (...)`
 
 You can create a protocol buffer using the [`NEW`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#new_operator) operator with a parenthesized list of arguments and aliases to specify field names:
 
-    NEW protocol_buffer(field [AS alias], ...)
+```
+NEW protocol_buffer(field [AS alias], ...)
+```
 
 **Example**
 
-    SELECT
-      key,
-      name,
-      NEW googlesql.examples.music.Chart(key AS rank, name AS chart_name)
-    FROM
-      (SELECT 1 AS key, "2" AS name);
+```
+SELECT
+  key,
+  name,
+  NEW googlesql.examples.music.Chart(key AS rank, name AS chart_name)
+FROM
+  (SELECT 1 AS key, "2" AS name);
+```
 
 When using this syntax, the following rules apply:
 
-  - All field expressions must have an [explicit alias](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#explicit_alias_syntax) or end with an identifier. For example, the expression `a.b.c` has the [implicit alias](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#implicit_aliases) `c` .
-  - `NEW` matches fields by alias to the field names of the protocol buffer. Aliases must be unique.
-  - The expressions must be implicitly coercible or literal-coercible to the type of the corresponding protocol buffer field.
+- All field expressions must have an [explicit alias](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#explicit_alias_syntax) or end with an identifier. For example, the expression `a.b.c` has the [implicit alias](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#implicit_aliases) `c` .
+- `NEW` matches fields by alias to the field names of the protocol buffer. Aliases must be unique.
+- The expressions must be implicitly coercible or literal-coercible to the type of the corresponding protocol buffer field.
 
 #### `SELECT AS typename`
 
@@ -890,13 +804,13 @@ The [`SELECT AS typename`](https://docs.cloud.google.com/spanner/docs/reference/
 
 Direct comparison of protocol buffers isn't supported. There are a few alternative solutions:
 
-  - One way to compare protocol buffers is to do a pair-wise comparison between the fields of the protocol buffers. This can also be used to `GROUP BY` or `ORDER BY` protocol buffer fields.
-  - To get a simple approximation comparison, cast protocol buffer to string. This applies lexicographical ordering for numeric fields.
+- One way to compare protocol buffers is to do a pair-wise comparison between the fields of the protocol buffers. This can also be used to `GROUP BY` or `ORDER BY` protocol buffer fields.
+- To get a simple approximation comparison, cast protocol buffer to string. This applies lexicographical ordering for numeric fields.
 
 ## String type
 
 | Name     | Description                               |
-| -------- | ----------------------------------------- |
+|----------|-------------------------------------------|
 | `STRING` | Variable-length character (Unicode) data. |
 
 Input string values must be UTF-8 encoded and output string values will be UTF-8 encoded. Alternate encodings like CESU-8 and Modified UTF-8 aren't treated as valid UTF-8.
@@ -914,21 +828,23 @@ To learn more about the literal representation of a string type, see [String lit
 > **Note:** See details about using `STRUCT` s in the [SELECT statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#using_structs_with_select) and in [subqueries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries) .
 
 | Name     | Description                                                                        |
-| -------- | ---------------------------------------------------------------------------------- |
+|----------|------------------------------------------------------------------------------------|
 | `STRUCT` | Container of ordered fields each with a type (required) and field name (optional). |
 
 To learn more about the literal representation of a struct type, see [Struct literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#struct_literals) .
 
 ### Declaring a struct type
 
-    STRUCT<T>
+```
+STRUCT<T>
+```
 
 Struct types are declared using the angle brackets ( `<` and `>` ). The type of the elements of a struct can be arbitrarily complex.
 
 **Examples**
 
 | Type Declaration                     | Meaning                                                                                                                            |
-| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | `STRUCT<INT64>`                      | Simple struct with a single unnamed 64-bit integer field.                                                                          |
 | `STRUCT<x STRUCT<y INT64, z INT64>>` | A struct with a nested struct named `x` inside it. The struct `x` has two fields, `y` and `z` , both of which are 64-bit integers. |
 | `STRUCT<inner_array ARRAY<INT64>>`   | A struct containing an array named `inner_array` that holds 64-bit integer elements.                                               |
@@ -939,30 +855,36 @@ You can construct a struct using tuple syntax, typeless struct syntax, or typed 
 
 #### Tuple syntax
 
-    (expr1, expr2 [, ... ])
+```
+(expr1, expr2 [, ... ])
+```
 
 The output type is an anonymous struct type with anonymous fields with types matching the types of the input expressions. There must be at least two expressions specified. Otherwise this syntax is indistinguishable from an expression wrapped with parentheses.
 
 **Examples**
 
 | Syntax     | Output Type   | Notes                                                                                                                                                                                                                                                         |
-| ---------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `(x, x+y)` | `STRUCT<?,?>` | If column names are used (unquoted strings), the struct field data type is derived from the column data type. `x` and `y` are columns, so the data types of the struct fields are derived from the column types and the output type of the addition operator. |
 
 This syntax can also be used with struct comparison for comparison expressions using multi-part keys, e.g., in a `WHERE` clause:
 
-    WHERE (Key1,Key2) IN ( (12,34), (56,78) )
+```
+WHERE (Key1,Key2) IN ( (12,34), (56,78) )
+```
 
 #### Typeless struct syntax
 
-    STRUCT( expr1 [AS field_name] [, ... ])
+```
+STRUCT( expr1 [AS field_name] [, ... ])
+```
 
 Duplicate field names are allowed. Fields without names are considered anonymous fields and can't be referenced by name. struct values can be `NULL` , or can have `NULL` field values.
 
 **Examples**
 
 | Syntax                       | Output Type                     |
-| ---------------------------- | ------------------------------- |
+|------------------------------|---------------------------------|
 | `STRUCT(1,2,3)`              | `STRUCT<int64,int64,int64>`     |
 | `STRUCT()`                   | `STRUCT<>`                      |
 | `STRUCT('abc')`              | `STRUCT<string>`                |
@@ -972,14 +894,16 @@ Duplicate field names are allowed. Fields without names are considered anonymous
 
 #### Typed struct syntax
 
-    STRUCT<[field_name] field_type, ...>( expr1 [, ... ])
+```
+STRUCT<[field_name] field_type, ...>( expr1 [, ... ])
+```
 
 Typed syntax allows constructing structs with an explicit struct data type. The output type is exactly the `field_type` provided. The input expression is coerced to `field_type` if the two types aren't the same, and an error is produced if the types aren't compatible. `AS alias` isn't allowed on the input expressions. The number of expressions must match the number of fields in the type, and the expression types must be coercible or literal-coercible to the field types.
 
 **Examples**
 
 | Syntax                                    | Output Type                             |
-| ----------------------------------------- | --------------------------------------- |
+|-------------------------------------------|-----------------------------------------|
 | `STRUCT<int64>(5)`                        | `STRUCT<int64>`                         |
 | `STRUCT<date>("2011-05-05")`              | `STRUCT<date>`                          |
 | `STRUCT<x int64, y string>(1, t.str_col)` | `STRUCT<x int64, y string>`             |
@@ -990,25 +914,25 @@ Typed syntax allows constructing structs with an explicit struct data type. The 
 
 Structs can be directly compared using equality operators:
 
-  - Equal ( `=` )
-  - Not Equal ( `!=` or `<>` )
-  - \[ `NOT` \] `IN`
+- Equal ( `=` )
+- Not Equal ( `!=` or `<>` )
+- \[ `NOT` \] `IN`
 
 Notice, though, that these direct equality comparisons compare the fields of the struct pairwise in ordinal order ignoring any field names. If instead you want to compare identically named fields of a struct, you can compare the individual fields directly.
 
 ## Timestamp type
 
 | Name        | Range                                                     |
-| ----------- | --------------------------------------------------------- |
+|-------------|-----------------------------------------------------------|
 | `TIMESTAMP` | 0001-01-01 00:00:00 to 9999-12-31 23:59:59.999999999 UTC. |
 
 A timestamp value represents an absolute point in time, independent of any time zone or convention such as daylight saving time (DST), with nanosecond precision.
 
 A timestamp is typically represented internally as the number of elapsed nanoseconds since a fixed initial point in time.
 
-Note that a timestamp itself doesn't have a time zone; it represents the same instant in time globally. However, the *display* of a timestamp for human readability usually includes a Gregorian date, a time, and a time zone, in an implementation-dependent format. For example, the displayed values "2020-01-01 00:00:00 UTC", "2019-12-31 19:00:00 America/New\_York", and "2020-01-01 05:30:00 Asia/Kolkata" all represent the same instant in time and therefore represent the same timestamp value.
+Note that a timestamp itself doesn't have a time zone; it represents the same instant in time globally. However, the *display* of a timestamp for human readability usually includes a Gregorian date, a time, and a time zone, in an implementation-dependent format. For example, the displayed values "2020-01-01 00:00:00 UTC", "2019-12-31 19:00:00 America/New_York", and "2020-01-01 05:30:00 Asia/Kolkata" all represent the same instant in time and therefore represent the same timestamp value.
 
-  - To represent a Gregorian date as it might appear on a calendar (a civil date), use a [date](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) value.
+- To represent a Gregorian date as it might appear on a calendar (a civil date), use a [date](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) value.
 
 ##### Canonical format
 
@@ -1018,12 +942,16 @@ Follow the rules for encoding to and decoding from JSON values as described in [
 
 For example:
 
-    2014-09-27T12:30:00.45Z
+```
+2014-09-27T12:30:00.45Z
+```
 
 Timestamp values must be expressed in Zulu time and can't include a UTC offset. For example, the following timestamp isn't supported:
 
-    -- NOT SUPPORTED! TIMESTAMPS CANNOT INCLUDE A UTC OFFSET WHEN USED WITH THE REST AND RPC APIS
-    2014-09-27 12:30:00.45-8:00
+```
+-- NOT SUPPORTED! TIMESTAMPS CANNOT INCLUDE A UTC OFFSET WHEN USED WITH THE REST AND RPC APIS
+2014-09-27 12:30:00.45-8:00
+```
 
 #### For client libraries
 
@@ -1033,29 +961,31 @@ Use the language-specific timestamp format.
 
 The canonical format for a timestamp literal has the following parts:
 
-    {
-      civil_date_part[time_part [time_zone]] |
-      civil_date_part[time_part[time_zone_offset]] |
-      civil_date_part[time_part[utc_time_zone]]
-    }
-    
-    civil_date_part:
-        YYYY-[M]M-[D]D
-    
-    time_part:
-        { |T|t}[H]H:[M]M:[S]S[.F]
+```
+{
+  civil_date_part[time_part [time_zone]] |
+  civil_date_part[time_part[time_zone_offset]] |
+  civil_date_part[time_part[utc_time_zone]]
+}
 
-  - `YYYY` : Four-digit year.
-  - `[M]M` : One or two digit month.
-  - `[D]D` : One or two digit day.
-  - `{ |T|t}` : A space or a `T` or `t` separator. The `T` and `t` separators are flags for time.
-  - `[H]H` : One or two digit hour (valid values from 00 to 23).
-  - `[M]M` : One or two digit minutes (valid values from 00 to 59).
-  - `[S]S` : One or two digit seconds (valid values from 00 to 60).
-  - `[.F]` : Up to nine fractional digits (nanosecond precision).
-  - `[time_zone]` : String representing the time zone. When a time zone isn't explicitly specified, the default time zone, America/Los\_Angeles, is used. For details, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
-  - `[time_zone_offset]` : String representing the offset from the Coordinated Universal Time (UTC) time zone. For details, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
-  - `[utc_time_zone]` : String representing the Coordinated Universal Time (UTC), usually the letter `Z` or `z` . For details, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
+civil_date_part:
+    YYYY-[M]M-[D]D
+
+time_part:
+    { |T|t}[H]H:[M]M:[S]S[.F]
+```
+
+- `YYYY` : Four-digit year.
+- `[M]M` : One or two digit month.
+- `[D]D` : One or two digit day.
+- `{ |T|t}` : A space or a `T` or `t` separator. The `T` and `t` separators are flags for time.
+- `[H]H` : One or two digit hour (valid values from 00 to 23).
+- `[M]M` : One or two digit minutes (valid values from 00 to 59).
+- `[S]S` : One or two digit seconds (valid values from 00 to 60).
+- `[.F]` : Up to nine fractional digits (nanosecond precision).
+- `[time_zone]` : String representing the time zone. When a time zone isn't explicitly specified, the default time zone, America/Los_Angeles, is used. For details, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
+- `[time_zone_offset]` : String representing the offset from the Coordinated Universal Time (UTC) time zone. For details, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
+- `[utc_time_zone]` : String representing the Coordinated Universal Time (UTC), usually the letter `Z` or `z` . For details, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
 
 To learn more about the literal representation of a timestamp type, see [Timestamp literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#timestamp_literals) .
 
@@ -1065,69 +995,91 @@ A time zone is used when converting from a civil date or time (as might appear o
 
 Time zones are represented by strings in one of these canonical formats:
 
-  - Offset from Coordinated Universal Time (UTC), or the letter `Z` or `z` for UTC.
-  - Time zone name from the [tz database](http://www.iana.org/time-zones) .
+- Offset from Coordinated Universal Time (UTC), or the letter `Z` or `z` for UTC.
+- Time zone name from the [tz database](http://www.iana.org/time-zones) .
 
 The following timestamps are identical because the time zone offset for `America/Los_Angeles` is `-08` for the specified date and time.
 
-    SELECT UNIX_MILLIS(TIMESTAMP '2008-12-25 15:30:00 America/Los_Angeles') AS millis;
+```
+SELECT UNIX_MILLIS(TIMESTAMP '2008-12-25 15:30:00 America/Los_Angeles') AS millis;
+```
 
-    SELECT UNIX_MILLIS(TIMESTAMP '2008-12-25 15:30:00-08:00') AS millis;
+```
+SELECT UNIX_MILLIS(TIMESTAMP '2008-12-25 15:30:00-08:00') AS millis;
+```
 
 #### Specify Coordinated Universal Time (UTC)
 
 You can specify UTC using the following suffix:
 
-    {Z|z}
+```
+{Z|z}
+```
 
 You can also specify UTC using the following time zone name:
 
-    {Etc/UTC}
+```
+{Etc/UTC}
+```
 
 The `Z` suffix is a placeholder that implies UTC when converting an [RFC 3339-format](https://datatracker.ietf.org/doc/html/rfc3339#page-10) value to a `TIMESTAMP` value. The value `Z` isn't a valid time zone for functions that accept a time zone. If you're specifying a time zone, or you're unsure of the format to use to specify UTC, we recommend using the `Etc/UTC` time zone name.
 
 The `Z` suffix isn't case sensitive. When using the `Z` suffix, no space is allowed between the `Z` and the rest of the timestamp. The following are examples of using the `Z` suffix and the `Etc/UTC` time zone name:
 
-    SELECT TIMESTAMP '2014-09-27T12:30:00.45Z'
-    SELECT TIMESTAMP '2014-09-27 12:30:00.45z'
-    SELECT TIMESTAMP '2014-09-27T12:30:00.45 Etc/UTC'
+```
+SELECT TIMESTAMP '2014-09-27T12:30:00.45Z'
+SELECT TIMESTAMP '2014-09-27 12:30:00.45z'
+SELECT TIMESTAMP '2014-09-27T12:30:00.45 Etc/UTC'
+```
 
 #### Specify an offset from Coordinated Universal Time (UTC)
 
 You can specify the offset from UTC using the following format:
 
-    {+|-}H[H][:M[M]]
+```
+{+|-}H[H][:M[M]]
+```
 
 Examples:
 
-    -08:00
-    -8:15
-    +3:00
-    +07:30
-    -7
+```
+-08:00
+-8:15
++3:00
++07:30
+-7
+```
 
 When using this format, no space is allowed between the time zone and the rest of the timestamp.
 
-    2014-09-27 12:30:00.45-8:00
+```
+2014-09-27 12:30:00.45-8:00
+```
 
 #### Time zone name
 
 Format:
 
-    tz_identifier
+```
+tz_identifier
+```
 
 A time zone name is a tz identifier from the [tz database](http://www.iana.org/time-zones) . For a less comprehensive but simpler reference, see the [List of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) on Wikipedia.
 
 Examples:
 
-    America/Los_Angeles
-    America/Argentina/Buenos_Aires
-    Etc/UTC
-    Pacific/Auckland
+```
+America/Los_Angeles
+America/Argentina/Buenos_Aires
+Etc/UTC
+Pacific/Auckland
+```
 
 When using a time zone name, a space is required between the name and the rest of the timestamp:
 
-    2014-09-27 12:30:00.45 America/Los_Angeles
+```
+2014-09-27 12:30:00.45 America/Los_Angeles
+```
 
 Note that not all time zone names are interchangeable even if they do happen to report the same time during a given part of the year. For example, `America/Los_Angeles` reports the same time as `UTC-7:00` during daylight saving time (DST), but reports the same time as `UTC-8:00` outside of DST.
 
@@ -1145,45 +1097,51 @@ Leap seconds don't affect timestamp computations. All timestamp computations are
 
 A timestamp is unaffected by daylight saving time (DST) because it represents a point in time. When you display a timestamp as a civil time, with a timezone that observes DST, the following rules apply:
 
-  - During the transition from standard time to DST, one hour is skipped. A civil time from the skipped hour is treated the same as if it were written an hour later. For example, in the `America/Los_Angeles` time zone, the hour between 2 AM and 3 AM on March 10, 2024 is skipped on a clock. The times 2:30 AM and 3:30 AM on that date are treated as the same point in time:
-    
-        SELECT
-        FORMAT_TIMESTAMP("%c %Z", "2024-03-10 02:30:00 America/Los_Angeles", "UTC") AS two_thirty,
-        FORMAT_TIMESTAMP("%c %Z", "2024-03-10 03:30:00 America/Los_Angeles", "UTC") AS three_thirty;
-        
-        /*------------------------------+------------------------------+
-         | two_thirty                   | three_thirty                 |
-         +------------------------------+------------------------------+
-         | Sun Mar 10 10:30:00 2024 UTC | Sun Mar 10 10:30:00 2024 UTC |
-         +------------------------------+------------------------------*/
+- During the transition from standard time to DST, one hour is skipped. A civil time from the skipped hour is treated the same as if it were written an hour later. For example, in the `America/Los_Angeles` time zone, the hour between 2 AM and 3 AM on March 10, 2024 is skipped on a clock. The times 2:30 AM and 3:30 AM on that date are treated as the same point in time:
 
-  - When there's ambiguity in how to represent a civil time in a particular timezone because of DST, the later time is chosen:
-    
-        SELECT
-        FORMAT_TIMESTAMP("%c %Z", "2024-03-10 10:30:00 UTC", "America/Los_Angeles") as ten_thirty;
-        
-        /*--------------------------------+
-         | ten_thirty                     |
-         +--------------------------------+
-         | Sun Mar 10 03:30:00 2024 UTC-7 |
-         +--------------------------------*/
+  ```
+  SELECT
+  FORMAT_TIMESTAMP("%c %Z", "2024-03-10 02:30:00 America/Los_Angeles", "UTC") AS two_thirty,
+  FORMAT_TIMESTAMP("%c %Z", "2024-03-10 03:30:00 America/Los_Angeles", "UTC") AS three_thirty;
 
-  - During the transition from DST to standard time, one hour is repeated. A civil time that shows a time during that hour is treated as if it's the earlier instance of that time. For example, in the `America/Los_Angeles` time zone, the hour between 1 AM and 2 AM on November 3, 2024, is repeated on a clock. The time 1:30 AM on that date is treated as the earlier (DST) instance of that time.
-    
-        SELECT
-        FORMAT_TIMESTAMP("%c %Z", "2024-11-03 01:30:00 America/Los_Angeles", "UTC") as one_thirty,
-        FORMAT_TIMESTAMP("%c %Z", "2024-11-03 02:30:00 America/Los_Angeles", "UTC") as two_thirty;
-        
-        /*------------------------------+------------------------------+
-         | one_thirty                   | two_thirty                   |
-         +------------------------------+------------------------------+
-         | Sun Nov 3 08:30:00 2024 UTC  | Sun Nov 3 10:30:00 2024 UTC  |
-         +------------------------------+------------------------------*/
+  /*------------------------------+------------------------------+
+   | two_thirty                   | three_thirty                 |
+   +------------------------------+------------------------------+
+   | Sun Mar 10 10:30:00 2024 UTC | Sun Mar 10 10:30:00 2024 UTC |
+   +------------------------------+------------------------------*/
+  ```
+
+- When there's ambiguity in how to represent a civil time in a particular timezone because of DST, the later time is chosen:
+
+  ```
+  SELECT
+  FORMAT_TIMESTAMP("%c %Z", "2024-03-10 10:30:00 UTC", "America/Los_Angeles") as ten_thirty;
+
+  /*--------------------------------+
+   | ten_thirty                     |
+   +--------------------------------+
+   | Sun Mar 10 03:30:00 2024 UTC-7 |
+   +--------------------------------*/
+  ```
+
+- During the transition from DST to standard time, one hour is repeated. A civil time that shows a time during that hour is treated as if it's the earlier instance of that time. For example, in the `America/Los_Angeles` time zone, the hour between 1 AM and 2 AM on November 3, 2024, is repeated on a clock. The time 1:30 AM on that date is treated as the earlier (DST) instance of that time.
+
+  ```
+  SELECT
+  FORMAT_TIMESTAMP("%c %Z", "2024-11-03 01:30:00 America/Los_Angeles", "UTC") as one_thirty,
+  FORMAT_TIMESTAMP("%c %Z", "2024-11-03 02:30:00 America/Los_Angeles", "UTC") as two_thirty;
+
+  /*------------------------------+------------------------------+
+   | one_thirty                   | two_thirty                   |
+   +------------------------------+------------------------------+
+   | Sun Nov 3 08:30:00 2024 UTC  | Sun Nov 3 10:30:00 2024 UTC  |
+   +------------------------------+------------------------------*/
+  ```
 
 ## UUID type
 
 | Name   | Description                                                             |
-| ------ | ----------------------------------------------------------------------- |
+|--------|-------------------------------------------------------------------------|
 | `UUID` | A universally unique identifier (UUID) represented as a 128-bit number. |
 
 The following ASCII string format of lowercase hexadecimal digits is used to represent a UUID:
@@ -1198,7 +1156,7 @@ The following ASCII string format of lowercase hexadecimal digits is used to rep
 
 You can cast a UUID to a string by using the following syntax:
 
-``` 
+```
   SELECT CAST(NEW_UUID() AS STRING) AS UUID_STR;
 ```
 
@@ -1206,11 +1164,11 @@ You can also cast a string to a UUID, either explicitly or by using an implicit 
 
 **Examples**
 
-``` 
+```
   SELECT UUID_id >= CAST("00000000-0000-0000-0000-000000000000" AS UUID) FROM T1;
 ```
 
-``` 
+```
   SELECT UUID_id >= "00000000-0000-0000-0000-000000000000" FROM T1;
 ```
 
@@ -1218,7 +1176,7 @@ You can also cast a string to a UUID, either explicitly or by using an implicit 
 
 You can cast a UUID to bytes by using the following syntax:
 
-``` 
+```
   SELECT CAST(NEW_UUID() AS BYTES) AS UUID_BYTES;
 ```
 
@@ -1229,7 +1187,7 @@ You can also explicitly cast bytes to a UUID. Unlike strings, bytes can't be imp
 The comparison operator compares UUIDs using their internal representation. However, the result is presented as if the comparison were performed on the 36-character lowercase ASCII string representation of the UUIDs, using lexicographical order.
 
 | Left term                            | Operator | Right term                           | Returns |
-| ------------------------------------ | -------- | ------------------------------------ | ------- |
+|--------------------------------------|----------|--------------------------------------|---------|
 | Any value                            | `=`      | `NULL`                               | `NULL`  |
 | `NULL`                               | `<`      | Any value                            | `NULL`  |
 | 00000000-0000-0000-0000-000000000000 | `<`      | ffffffff-ffff-ffff-ffff-ffffffffffff | `TRUE`  |
@@ -1238,7 +1196,7 @@ The comparison operator compares UUIDs using their internal representation. Howe
 
 **Example**
 
-``` 
+```
   SELECT NEW_UUID() >= "00000000-0000-0000-0000-000000000000" AS Is_GE;
 
 /*-------+

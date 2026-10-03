@@ -30,13 +30,13 @@ You use Data Definition Language (DDL) statements to create, update, or drop you
 
 Efficient schema design is crucial for performance. Best practices include:
 
-  - Using interleaving to colocate edges with their source nodes.
+- Using interleaving to colocate edges with their source nodes.
 
-  - Using referential constraints (foreign keys) to help ensure graph integrity.
+- Using referential constraints (foreign keys) to help ensure graph integrity.
 
-  - Creating secondary indexes on properties that are frequently filtered.
+- Creating secondary indexes on properties that are frequently filtered.
 
-  - Choosing between schematized and schemaless designs based on your query patterns.
+- Choosing between schematized and schemaless designs based on your query patterns.
 
 For more information, see [Best practices for designing a schema](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema) in the Spanner documentation.
 
@@ -57,7 +57,7 @@ To create a graph from views, define the views using standard SQL. Then, referen
 You manage data in Spanner Graph by modifying the underlying tables that define the graph. For more information, see [Manage Spanner Graph data](https://docs.cloud.google.com/spanner/docs/graph/insert-update-delete-data) in the Spanner documentation.
 
 | Operation | Description                                                                                                                                        |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------|
 | Insert    | Add new rows to the node and edge tables using `INSERT` statements or mutation APIs.                                                               |
 | Update    | Modify existing properties by updating the corresponding columns in the underlying tables.                                                         |
 | Delete    | Remove nodes or edges by deleting the corresponding rows. Use `ON DELETE CASCADE` to automatically remove associated edges when you delete a node. |
@@ -78,11 +78,11 @@ Paths represent sequences of nodes and edges in the graph. You can find all path
 
 To optimize your graph queries:
 
-  - Start your traversals from lower cardinality nodes.
+- Start your traversals from lower cardinality nodes.
 
-  - Explicitly specify labels for all node and edge patterns.
+- Explicitly specify labels for all node and edge patterns.
 
-  - Use the `IS_FIRST()` function to limit the number of edges traversed from high-cardinality *super nodes* .
+- Use the `IS_FIRST()` function to limit the number of edges traversed from high-cardinality *super nodes* .
 
 For more information, see [Best practices for tuning queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries) in the Spanner documentation.
 
@@ -112,4 +112,4 @@ Common issues in Spanner Graph include referential integrity violations (danglin
 
 ## What's next
 
-  - [Explore graph data with the Spanner Graph notebook](https://docs.cloud.google.com/spanner-omni/graph-notebook) .
+- [Explore graph data with the Spanner Graph notebook](https://docs.cloud.google.com/spanner-omni/graph-notebook) .

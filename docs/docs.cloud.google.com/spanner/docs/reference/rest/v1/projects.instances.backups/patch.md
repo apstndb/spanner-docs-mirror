@@ -6,16 +6,16 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.HTTP_TEMPLATE)
-  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.PATH_PARAMETERS)
-  - [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.QUERY_PARAMETERS)
-  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.request_body)
-  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.response_body)
-  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.aspect)
-  - [IAM Permissions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.aspect_1)
-  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#try-it)
+- [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.HTTP_TEMPLATE)
+- [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.PATH_PARAMETERS)
+- [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.QUERY_PARAMETERS)
+- [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.request_body)
+- [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.response_body)
+- [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.aspect)
+- [IAM Permissions](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#body.aspect_1)
+- [Try it!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#try-it)
 
-Updates a pending or completed `  Backup  ` .
+Updates a pending or completed [`Backup`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup) .
 
 ### HTTP request
 
@@ -28,44 +28,30 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 ### Path parameters
 
-Parameters
-
-`backup.name`
-
-`string`
-
-Output only for the `  backups.create  ` operation. Required for the `  backups.patch  ` operation.
-
-A globally unique identifier for the backup which cannot be changed. Values are of the form `projects/<project>/instances/<instance>/backups/[a-z][a-z0-9_\-]*[a-z0-9]` The final segment of the name must be between 2 and 60 characters in length.
-
-The backup is stored in the location(s) specified in the instance configuration of the instance containing the backup, identified by the prefix of the backup name of the form `projects/<project>/instances/<instance>` .
+| Parameters    |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `backup.name` | `string` Output only for the [`backups.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup) operation. Required for the [`backups.patch`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/patch#google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup) operation. A globally unique identifier for the backup which cannot be changed. Values are of the form `projects/<project>/instances/<instance>/backups/[a-z][a-z0-9_\-]*[a-z0-9]` The final segment of the name must be between 2 and 60 characters in length. The backup is stored in the location(s) specified in the instance configuration of the instance containing the backup, identified by the prefix of the backup name of the form `projects/<project>/instances/<instance>` . |
 
 ### Query parameters
 
-Parameters
-
-`updateMask`
-
-` string ( FieldMask  ` format)
-
-Required. A mask specifying which fields (for example, `expireTime` ) in the backup resource should be updated. This mask is relative to the backup resource, not to the request message. The field mask must always be specified; this prevents any future fields from being erased accidentally by clients that do not know about them.
-
-This is a comma-separated list of fully qualified names of fields. Example: `"user.displayName,photo"` .
+| Parameters   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|--------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `updateMask` | `string ( `[`FieldMask`](https://protobuf.dev/reference/protobuf/google.protobuf/#field-mask)` format)` Required. A mask specifying which fields (for example, `expireTime` ) in the backup resource should be updated. This mask is relative to the backup resource, not to the request message. The field mask must always be specified; this prevents any future fields from being erased accidentally by clients that do not know about them. This is a comma-separated list of fully qualified names of fields. Example: `"user.displayName,photo"` . |
 
 ### Request body
 
-The request body contains an instance of `  Backup  ` .
+The request body contains an instance of [`Backup`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup) .
 
 ### Response body
 
-If successful, the response body contains an instance of `  Backup  ` .
+If successful, the response body contains an instance of [`Backup`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups#Backup) .
 
 ### Authorization scopes
 
 Requires one of the following OAuth scopes:
 
-  - `https://www.googleapis.com/auth/spanner.admin`
-  - `https://www.googleapis.com/auth/cloud-platform`
+- `https://www.googleapis.com/auth/spanner.admin`
+- `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .
 
@@ -73,6 +59,6 @@ For more information, see the [Authentication Overview](https://docs.cloud.googl
 
 Requires the following [IAM](https://cloud.google.com/iam/docs) permission on the `name` resource:
 
-  - `spanner.backups.update`
+- `spanner.backups.update`
 
 For more information, see the [IAM documentation](https://cloud.google.com/iam/docs) .

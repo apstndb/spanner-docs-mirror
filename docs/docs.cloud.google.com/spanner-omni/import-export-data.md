@@ -15,7 +15,7 @@ Import and export operations run on Spanner Omni servers and share available sys
 The following table compares the capabilities of Avro and CSV file formats for importing and exporting Spanner data.
 
 | Capability                          | Avro | CSV |
-| ----------------------------------- | ---- | --- |
+|-------------------------------------|------|-----|
 | Import or export an entire database | Yes  | No  |
 | Import previously exported tables   | Yes  | Yes |
 | Export at a past timestamp          | Yes  | Yes |
@@ -32,8 +32,8 @@ Before you start an import or export operation, verify your permissions and conf
 
 Ensure you have the following permissions before you begin:
 
-  - `spanner.databases.import`
-  - `spanner.databases.export`
+- `spanner.databases.import`
+- `spanner.databases.export`
 
 For more information about Identity and Access Management (IAM) in Spanner Omni, see [IAM overview](https://docs.cloud.google.com/spanner-omni/iam) . To learn how to update a user's roles, see [Update users](https://docs.cloud.google.com/spanner-omni/authentication#updating-users) .
 
@@ -43,15 +43,15 @@ You can store data in an Amazon Simple Storage Service (Amazon S3) bucket, Cloud
 
 You can provide access to the datastore in two ways:
 
-  - Add external storage to the deployment: This is the preferred method if you plan to reuse a bucket.
+- Add external storage to the deployment: This is the preferred method if you plan to reuse a bucket.
 
-  - Create one-time credentials: Ensure these credentials last longer than the duration of the import or export operation (for example, 48 hours).
+- Create one-time credentials: Ensure these credentials last longer than the duration of the import or export operation (for example, 48 hours).
 
 The credentials must provide permissions to list and read objects in the bucket for imports. For exports to Amazon S3, you need the following additional Amazon S3 permissions:
 
-  - `s3:PutObject`
-  - `s3:AbortMultipartUpload`
-  - `s3:ListBucketMultipartUploads`
+- `s3:PutObject`
+- `s3:AbortMultipartUpload`
+- `s3:ListBucketMultipartUploads`
 
 For more information, see [IAM permissions](https://docs.cloud.google.com/spanner-omni/iam#permissions) .
 
@@ -63,45 +63,47 @@ To import data you've previously exported from another Spanner database (Spanner
 
 Before you begin the Avro import, ensure your environment meets the following requirements:
 
-  - You've created the destination database.
+- You've created the destination database.
 
-  - The schema objects you're importing don't already exist in the database. The Avro import process creates these tables before importing data.
+- The schema objects you're importing don't already exist in the database. The Avro import process creates these tables before importing data.
 
 ### Avro import instructions
 
 Identify the path to the folder containing the exported data. The folder contains the following:
 
-  - A `spanner-export.json` file.
+- A `spanner-export.json` file.
 
-  - An `  ENTITY_NAME -manifest.json ` file for each exported entity (such as a table, sequence, or schema).
+- An `ENTITY_NAME `` -manifest.json` file for each exported entity (such as a table, sequence, or schema).
 
-  - All Avro files listed in the manifest files.
+- All Avro files listed in the manifest files.
 
 If you've already added the datastore as external storage, you don't need to include credentials in the path. You can provide the path directly. If you're using one-time credentials, use the following URL formats:
 
-  - Cloud Storage: `gs:// BUCKET_NAME / BASE_FOLDER [?accesskey= ACCESS_KEY &secret= SECRET_KEY ]` . Use HMAC credentials. For more information, see [HMAC keys](https://docs.cloud.google.com/storage/docs/authentication/hmackeys) .
+- Cloud Storage: `gs:// `` BUCKET_NAME `` / `` BASE_FOLDER `` [?accesskey= `` ACCESS_KEY `` &secret= `` SECRET_KEY `` ]` . Use HMAC credentials. For more information, see [HMAC keys](https://docs.cloud.google.com/storage/docs/authentication/hmackeys) .
 
-  - Amazon S3: `s3:// S3_BUCKET / BASE_FOLDER [?accesskey= ACCESS_KEY &secret= SECRET_KEY [&sessiontoken= SESSION_TOKEN ]]`
+- Amazon S3: `s3:// `` S3_BUCKET `` / `` BASE_FOLDER `` [?accesskey= `` ACCESS_KEY `` &secret= `` SECRET_KEY `` [&sessiontoken= `` SESSION_TOKEN `` ]]`
 
-  - Local file folde\*: ` file:/// PATH_TO_DIR  `
+- Local file folde\*: `file:/// `` PATH_TO_DIR`
 
 To start the import, run the following command:
 
-    spanner databases import DATABASE_ID --url="URL" --format=avro [--avro-skip-wait-for-index-creation]
+```
+spanner databases import DATABASE_ID --url="URL" --format=avro [--avro-skip-wait-for-index-creation]
+```
 
 #### Additional notes
 
 Consider the following information when you import Avro files:
 
-  - [A note on importing generated columns and change streams](https://docs.cloud.google.com/spanner/docs/import#a_note_on_importing_generated_columns_and_change_streams) in Spanner documentation.
+- [A note on importing generated columns and change streams](https://docs.cloud.google.com/spanner/docs/import#a_note_on_importing_generated_columns_and_change_streams) in Spanner documentation.
 
-  - [A note on importing sequences](https://docs.cloud.google.com/spanner/docs/import#a_note_on_importing_sequences) in Spanner documentation.
+- [A note on importing sequences](https://docs.cloud.google.com/spanner/docs/import#a_note_on_importing_sequences) in Spanner documentation.
 
-  - [A note on importing interleaved tables and foreign keys](https://docs.cloud.google.com/spanner/docs/import#a_note_on_importing_interleaved_tables_and_foreign_keys) in Spanner documentation.
+- [A note on importing interleaved tables and foreign keys](https://docs.cloud.google.com/spanner/docs/import#a_note_on_importing_interleaved_tables_and_foreign_keys) in Spanner documentation.
 
-  - To skip importing specific entities, remove them from the `spanner-export.json` file.
+- To skip importing specific entities, remove them from the `spanner-export.json` file.
 
-  - Index creation can take a significant amount of time for large datasets. To skip waiting for index creation, use the optional `--avro-skip-wait-for-index-creation` flag.
+- Index creation can take a significant amount of time for large datasets. To skip waiting for index creation, use the optional `--avro-skip-wait-for-index-creation` flag.
 
 When the import operation starts successfully, it returns a long-running operation ID. Use this ID to track the status of the operation.
 
@@ -113,93 +115,99 @@ To import text data you've exported from another database, follow these steps.
 
 Before you begin the CSV import, make sure you do the following:
 
-  - Ensure your tables are in one of the following supported data types: `BOOL` , `INT64` , `FLOAT64` , `NUMERIC` , `STRING` , `DATE` , `TIMESTAMP` , `BYTES` , and `JSON` .
+- Ensure your tables are in one of the following supported data types: `BOOL` , `INT64` , `FLOAT64` , `NUMERIC` , `STRING` , `DATE` , `TIMESTAMP` , `BYTES` , and `JSON` .
 
-  - Create destination database.
+- Create destination database.
 
-  - Create all the tables into which you want to import data. The CSV import process doesn't create tables.
+- Create all the tables into which you want to import data. The CSV import process doesn't create tables.
 
-  - Make sure the CSV file doesn't contain a header row.
+- Make sure the CSV file doesn't contain a header row.
 
 ### CSV import instructions
 
 To import CSV files, create a manifest file that describes the data to import. The manifest file uses the following structure, defined here in protobuf format:
 
-    message ImportManifest {
-      // The per-table import manifest.
-      message TableManifest {
-        // Required. The name of the destination table.
-        string table_name = 1;
-        // Required. The CSV files to import. This value can be either a path or a glob pattern.
-        repeated string file_patterns = 2;
-        // The schema for a table column.
-        message Column {
-          // Required for each column that you specify. The name of the column in the
-          // destination table.
-          string column_name = 1;
-          // Required for each column that you specify. The type of the column.
-          string type_name = 2;
-        }
-        // Optional. The schema for the table columns.
-        repeated Column columns = 3;
-      }
-      // Required. The TableManifest of the tables to be imported.
-      repeated TableManifest tables = 1;
-    
-      enum ProtoDialect {
-        GOOGLE_STANDARD_SQL = 0;
-        POSTGRESQL = 1;
-      }
-      // Optional. The dialect of the receiving database. Defaults to GOOGLE_STANDARD_SQL.
-      ProtoDialect dialect = 2;
+```
+message ImportManifest {
+  // The per-table import manifest.
+  message TableManifest {
+    // Required. The name of the destination table.
+    string table_name = 1;
+    // Required. The CSV files to import. This value can be either a path or a glob pattern.
+    repeated string file_patterns = 2;
+    // The schema for a table column.
+    message Column {
+      // Required for each column that you specify. The name of the column in the
+      // destination table.
+      string column_name = 1;
+      // Required for each column that you specify. The type of the column.
+      string type_name = 2;
     }
+    // Optional. The schema for the table columns.
+    repeated Column columns = 3;
+  }
+  // Required. The TableManifest of the tables to be imported.
+  repeated TableManifest tables = 1;
+
+  enum ProtoDialect {
+    GOOGLE_STANDARD_SQL = 0;
+    POSTGRESQL = 1;
+  }
+  // Optional. The dialect of the receiving database. Defaults to GOOGLE_STANDARD_SQL.
+  ProtoDialect dialect = 2;
+}
+```
 
 The following is an example manifest:
 
+```
+{
+  "tables": [
     {
-      "tables": [
-        {
-          "table_name": "Albums",
-          "file_patterns": [
-            "gs://bucket1/Albums_1.csv",
-            "gs://bucket1/Albums_2.csv"
-          ]
-        },
-        {
-          "table_name": "Singers",
-          "file_patterns": [
-            "gs://bucket1/Singers*.csv"
-          ],
-          "columns": [
-            {"column_name": "SingerId", "type_name": "INT64"},
-            {"column_name": "FirstName", "type_name": "STRING"},
-            {"column_name": "LastName", "type_name": "STRING"}
-          ]
-        }
+      "table_name": "Albums",
+      "file_patterns": [
+        "gs://bucket1/Albums_1.csv",
+        "gs://bucket1/Albums_2.csv"
+      ]
+    },
+    {
+      "table_name": "Singers",
+      "file_patterns": [
+        "gs://bucket1/Singers*.csv"
+      ],
+      "columns": [
+        {"column_name": "SingerId", "type_name": "INT64"},
+        {"column_name": "FirstName", "type_name": "STRING"},
+        {"column_name": "LastName", "type_name": "STRING"}
       ]
     }
+  ]
+}
+```
 
 The URL in the following The CSV file does not contain a header rowimport command must point to the folder containing a manifest file in JSON format, as described in the [example manifest](https://docs.cloud.google.com/spanner-omni/import-export-data#example-manifest) . This file can be located in Cloud Storage, Amazon S3, or a local file folder, using the same URL format for credentials as described in [Avro import instructions](https://docs.cloud.google.com/spanner-omni/import-export-data#avro-instructions) . To start the import, run the following command:
 
-    spanner databases import DATABASE_ID --url="URL" --format=csv
+```
+spanner databases import DATABASE_ID --url="URL" --format=csv
+```
 
 #### CSV import options
 
 Use the following flags to customize how Spanner Omni handles text files:
 
-  - `--csv-date-format` : Overrides the format for date columns. The default is `%Y-%m-%d` . Example: `%d/%m/%Y` .
+- `--csv-date-format` : Overrides the format for date columns. The default is `%Y-%m-%d` . Example: `%d/%m/%Y` .
 
-  - `--csv-timestamp-format` : Overrides the format for timestamp columns. Use this only if Spanner Omni doesn't support the format in the CSV. Example: `%d/%m/%Y %H:%M:%S%Ez` .
+- `--csv-timestamp-format` : Overrides the format for timestamp columns. Use this only if Spanner Omni doesn't support the format in the CSV. Example: `%d/%m/%Y %H:%M:%S%Ez` .
 
-  - `--csv-delimiter` : Overrides the delimiter character. The default is a comma.
+- `--csv-delimiter` : Overrides the delimiter character. The default is a comma.
 
-  - `--csv-quote-char` : Overrides the quote character. The default is a double quote.
+- `--csv-quote-char` : Overrides the quote character. The default is a double quote.
 
-  - `--csv-escape-char` : Overrides the escape character. The default is a double quote.
+- `--csv-escape-char` : Overrides the escape character. The default is a double quote.
 
-  - `--csv-null-string` : Overrides the string that represents `NULL` values. The default is `\N` .
+- `--csv-null-string` : Overrides the string that represents `NULL` values. The default is `\N` .
 
-  - `--csv-has-trailing-delimiters` : Specifies whether the CSV files have trailing delimiters. The default is `false` .
+- `--csv-has-trailing-delimiters` : Specifies whether the CSV files have trailing delimiters. The default is `false` .
 
 ## Export to Avro files
 
@@ -211,7 +219,9 @@ The system exports all tables and entities in the database. Ensure you provide a
 
 To start the export, run the following command:
 
-    spanner databases export DATABASE_ID --url="URL" --format=avro
+```
+spanner databases export DATABASE_ID --url="URL" --format=avro
+```
 
 CSV exports support tables only and don't export the database schema.
 
@@ -219,7 +229,9 @@ CSV exports support tables only and don't export the database schema.
 
 CSV exports don't export the database schema and support tables only. To export data to CSV files, run the following command:
 
-    spanner databases export DATABASE_ID --url="URL" --format=csv
+```
+spanner databases export DATABASE_ID --url="URL" --format=csv
+```
 
 ## Troubleshooting
 

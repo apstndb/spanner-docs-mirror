@@ -14,7 +14,7 @@ The security, privacy, risk, and compliance for Spanner use a [shared responsibi
 
 When you get started with Spanner, you enable the following APIs:
 
-  - [`https://spanner.googleapis.com`](https://docs.cloud.google.com/spanner/docs/reference/rest?rep_location=global)
+- [`https://spanner.googleapis.com`](https://docs.cloud.google.com/spanner/docs/reference/rest?rep_location=global)
 
 For more information, see [Quickstart: Create and query a database in Spanner using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/quickstart-console) .
 
@@ -52,13 +52,15 @@ To enable Spanner to access your resources on your behalf, Google Cloud creates 
 
 When you enable Spanner, the following Spanner service agent is created:
 
-    service-PROJECT_ID@gcp-sa-spanner.iam.gserviceaccount.com
+```
+service-PROJECT_ID@gcp-sa-spanner.iam.gserviceaccount.com
+```
 
 ## Policies for Spanner
 
 The predefined organization policies that apply to Spanner include the following:
 
-  - Limit the creation of instances that use Spanner editions ( `constraints/spanner.managed.restrictCloudSpannerEditions` )
+- Limit the creation of instances that use Spanner editions ( `constraints/spanner.managed.restrictCloudSpannerEditions` )
 
 For more information about policies, see [Use organization policies for Spanner](https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints) .
 
@@ -70,9 +72,9 @@ By default, Google applies default protections to data in transit for all Google
 
 If required by your organization, you can configure additional security controls to further protect traffic on the Google Cloud network and traffic between the Google Cloud network and your corporate network. Consider the following:
 
-  - Spanner supports [VPC Service Controls](https://docs.cloud.google.com/vpc-service-controls/docs/overview) . VPC Service Controls let you control the movement of data in Google services and set up context-based perimeter security.
-  - In Google Cloud, consider using [Shared VPC](https://docs.cloud.google.com/vpc/docs/shared-vpc) as your network topology. Shared VPC provides centralized network configuration management while maintaining separation of environments.
-  - Use Cloud VPN or Cloud Interconnect to maximize security and reliability for the connection between your corporate network and Google Cloud. For more information, see [Choosing a Network Connectivity product](https://docs.cloud.google.com/network-connectivity/docs/how-to/choose-product) .
+- Spanner supports [VPC Service Controls](https://docs.cloud.google.com/vpc-service-controls/docs/overview) . VPC Service Controls let you control the movement of data in Google services and set up context-based perimeter security.
+- In Google Cloud, consider using [Shared VPC](https://docs.cloud.google.com/vpc/docs/shared-vpc) as your network topology. Shared VPC provides centralized network configuration management while maintaining separation of environments.
+- Use Cloud VPN or Cloud Interconnect to maximize security and reliability for the connection between your corporate network and Google Cloud. For more information, see [Choosing a Network Connectivity product](https://docs.cloud.google.com/network-connectivity/docs/how-to/choose-product) .
 
 For more information about network security best practices, see [Implement zero trust](https://docs.cloud.google.com/architecture/framework/security/implement-zero-trust) and [Decide the network design for your Google Cloud landing zone](https://docs.cloud.google.com/architecture/landing-zones/decide-network-design) .
 
@@ -80,8 +82,8 @@ For more information about network security best practices, see [Implement zero 
 
 You can secure the connection between applications and Spanner using the following methods:
 
-  - [Serverless VPC Access](https://docs.cloud.google.com/vpc/docs/serverless-vpc-access) to connect Spanner directly with Cloud Run.
-  - [Private Service Connect](https://docs.cloud.google.com/vpc/docs/private-service-connect) to connect to a managed application in another VPC on Google Cloud using Spanner private IP address. Use this method to keep traffic in Google Cloud.
+- [Serverless VPC Access](https://docs.cloud.google.com/vpc/docs/serverless-vpc-access) to connect Spanner directly with Cloud Run.
+- [Private Service Connect](https://docs.cloud.google.com/vpc/docs/private-service-connect) to connect to a managed application in another VPC on Google Cloud using Spanner private IP address. Use this method to keep traffic in Google Cloud.
 
 For more information about options for setting up connections to services without an external IP address, see [Private access options for services](https://docs.cloud.google.com/vpc/docs/private-access-options) .
 
@@ -89,16 +91,16 @@ For more information about options for setting up connections to services withou
 
 Spanner provides the following authentication methods for clients:
 
-  - [IAM authentication](https://docs.cloud.google.com/spanner/docs/iam)
+- [IAM authentication](https://docs.cloud.google.com/spanner/docs/iam)
 
 ## Data protection and privacy
 
 Spanner encrypts your data that is stored in Google Cloud using [default encryption](https://docs.cloud.google.com/docs/security/encryption/default-encryption) . Example data includes the following:
 
-  - Table and column names
-  - Index names
-  - Database schema
-  - Data stored in tables
+- Table and column names
+- Index names
+- Database schema
+- Data stored in tables
 
 This data can only be accessed by Spanner instances.
 
@@ -122,11 +124,11 @@ Spanner acts as a data processor for Customer Data. Google also acts as a data c
 
 Spanner writes the following types of audit logs:
 
-  - **Admin Activity audit logs** : Includes `ADMIN WRITE` operations that write metadata or configuration information.
+- **Admin Activity audit logs** : Includes `ADMIN WRITE` operations that write metadata or configuration information.
 
-  - **Data Access audit logs** : Includes `ADMIN READ` operations that read metadata or configuration information. Also includes `DATA READ` and `DATA WRITE` operations that read or write user-provided data.
+- **Data Access audit logs** : Includes `ADMIN READ` operations that read metadata or configuration information. Also includes `DATA READ` and `DATA WRITE` operations that read or write user-provided data.
 
-  - **System Event audit logs** : Identifies automated Google Cloud actions that modify the configuration of resources.
+- **System Event audit logs** : Identifies automated Google Cloud actions that modify the configuration of resources.
 
 For more information, see [Audit logging](https://docs.cloud.google.com/spanner/docs/audit-logging) .
 
@@ -138,9 +140,9 @@ You can use [Access Approval](https://docs.cloud.google.com/assured-workloads/ac
 
 You can use a variety of tools to help you monitor the performance and security of Spanner. Consider the following:
 
-  - Logs Explorer to view and analyze event logs and create [custom metrics](https://docs.cloud.google.com/logging/docs/logs-based-metrics) and alerts.
-  - Use the Cloud Monitoring dashboard to monitor the performance of Spanner. For more information, see [Monitor Spanner](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
-  - Deploy [cloud controls and frameworks](https://docs.cloud.google.com/security-command-center/docs/compliance-manager-apply-framework) in Security Command Center to detect vulnerabilities and threats to Spanner (such as privilege escalations). You can set up alerts and [playbooks](https://docs.cloud.google.com/security-command-center/docs/playbooks-overview) for your security operations center (SOC) analysts so that they can respond to findings.
+- Logs Explorer to view and analyze event logs and create [custom metrics](https://docs.cloud.google.com/logging/docs/logs-based-metrics) and alerts.
+- Use the Cloud Monitoring dashboard to monitor the performance of Spanner. For more information, see [Monitor Spanner](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
+- Deploy [cloud controls and frameworks](https://docs.cloud.google.com/security-command-center/docs/compliance-manager-apply-framework) in Security Command Center to detect vulnerabilities and threats to Spanner (such as privilege escalations). You can set up alerts and [playbooks](https://docs.cloud.google.com/security-command-center/docs/playbooks-overview) for your security operations center (SOC) analysts so that they can respond to findings.
 
 ## Certifications and compliance
 
@@ -148,9 +150,9 @@ Meeting your regulatory requirements is a [shared responsibility](https://docs.c
 
 Spanner has received a variety of certifications, including the following:
 
-  - ISO 27001
-  - SOC 2
-  - HIPAA
+- ISO 27001
+- SOC 2
+- HIPAA
 
 For more information about Google Cloud compliance with different regulatory frameworks and certifications, see the [compliance resource center](https://cloud.google.com/security/compliance) .
 
@@ -158,7 +160,7 @@ Spanner also supports Assured Workloads, which lets you apply controls to specif
 
 ## What's next
 
-  - [Enable backups](https://docs.cloud.google.com/spanner/docs/backup) .
-  - Use [Google Threat Intelligence](https://cloud.google.com/security/products/threat-intelligence) to track external threats that apply to your business.
-  - Learn more about [Identity and Access Management](https://docs.cloud.google.com/spanner/docs/iam) in Spanner.
-  - Learn more about [data encryption](https://docs.cloud.google.com/spanner/docs/cmek) in Spanner.
+- [Enable backups](https://docs.cloud.google.com/spanner/docs/backup) .
+- Use [Google Threat Intelligence](https://cloud.google.com/security/products/threat-intelligence) to track external threats that apply to your business.
+- Learn more about [Identity and Access Management](https://docs.cloud.google.com/spanner/docs/iam) in Spanner.
+- Learn more about [data encryption](https://docs.cloud.google.com/spanner/docs/cmek) in Spanner.

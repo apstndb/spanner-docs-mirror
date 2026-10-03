@@ -20,11 +20,11 @@ You can view charts of latency metrics [in the Google Cloud console](https://doc
 
 Based on the latency of each request, Spanner groups the requests into percentiles. You can view latency metrics for 50th percentile and 99th percentile latency:
 
-  - **50th percentile latency** : The maximum latency, in seconds, for the fastest 50% of all requests. For example, if the 50th percentile latency is 0.5 seconds, then Spanner processed 50% of requests in less than 0.5 seconds.
-    
-    This metric is sometimes called the *median latency* .
+- **50th percentile latency** : The maximum latency, in seconds, for the fastest 50% of all requests. For example, if the 50th percentile latency is 0.5 seconds, then Spanner processed 50% of requests in less than 0.5 seconds.
 
-  - **99th percentile latency** : The maximum latency, in seconds, for the fastest 99% of requests. For example, if the 99th percentile latency is 2 seconds, then Spanner processed 99% of requests in less than 2 seconds.
+  This metric is sometimes called the *median latency* .
+
+- **99th percentile latency** : The maximum latency, in seconds, for the fastest 99% of requests. For example, if the 99th percentile latency is 2 seconds, then Spanner processed 99% of requests in less than 2 seconds.
 
 ### Latency and operations per second
 
@@ -50,32 +50,32 @@ You can also comment out the code that communicates with Spanner, then measure t
 
 If your application experiences latency that is higher than expected, and the Spanner latency metrics are also high, there are a few likely causes:
 
-  - **Your instance needs more compute capacity.** If your instance does not have enough CPU resources, and its CPU utilization exceeds the [recommended maximum](https://docs.cloud.google.com/spanner/docs/cpu-utilization#recommended-max) , then Spanner might not be able to process your requests quickly and efficiently.
+- **Your instance needs more compute capacity.** If your instance does not have enough CPU resources, and its CPU utilization exceeds the [recommended maximum](https://docs.cloud.google.com/spanner/docs/cpu-utilization#recommended-max) , then Spanner might not be able to process your requests quickly and efficiently.
 
-  - **Some of your queries cause high CPU utilization.** If your queries do not take advantage of Spanner features that improve efficiency, such as [query parameters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#query_parameters) and [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) , or if they include a large number of [joins](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join_types) or other CPU-intensive operations, the queries can use a large portion of the CPU resources for your instance.
+- **Some of your queries cause high CPU utilization.** If your queries do not take advantage of Spanner features that improve efficiency, such as [query parameters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#query_parameters) and [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) , or if they include a large number of [joins](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#join_types) or other CPU-intensive operations, the queries can use a large portion of the CPU resources for your instance.
 
 To check for these issues, use the Cloud Monitoring console to [look for a correlation](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-charts) between high CPU utilization and high latency. Also, check the [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) for your instance to identify any CPU-intensive queries during the same time period.
 
 If you find that CPU utilization and latency are both high at the same time, take action to address the issue:
 
-  - If you did not find many CPU-intensive queries, [add compute capacity to the instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity) .
-    
-    Adding [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) provides more CPU resources and enables Spanner to handle a larger workload.
+- If you did not find many CPU-intensive queries, [add compute capacity to the instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity) .
 
-  - If you found CPU-intensive queries, review the [query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) to learn why the queries are slow, then update your queries to follow the [SQL best practices for Spanner](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
-    
-    You might also need to review the [schema design](https://docs.cloud.google.com/spanner/docs/schema-design) for the database and update the schema to allow for more efficient queries.
+  Adding [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) provides more CPU resources and enables Spanner to handle a larger workload.
+
+- If you found CPU-intensive queries, review the [query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) to learn why the queries are slow, then update your queries to follow the [SQL best practices for Spanner](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
+
+  You might also need to review the [schema design](https://docs.cloud.google.com/spanner/docs/schema-design) for the database and update the schema to allow for more efficient queries.
 
 ## What's next
 
-  - Monitor your instance with the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) or the [Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
+- Monitor your instance with the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) or the [Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
-  - Learn how to
-    
-    [find correlations between high latency and other metrics](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-charts) .
+- Learn how to
 
-  - Understand how to reduce read latency by following [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) and using [timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) .
+  [find correlations between high latency and other metrics](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-charts) .
 
-  - Find out about [latency metrics in query statistics tables](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) , which you can retrieve using SQL statements.
+- Understand how to reduce read latency by following [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) and using [timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) .
 
-  - Understand [how instance configuration affects latency](https://docs.cloud.google.com/spanner/docs/instances) .
+- Find out about [latency metrics in query statistics tables](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) , which you can retrieve using SQL statements.
+
+- Understand [how instance configuration affects latency](https://docs.cloud.google.com/spanner/docs/instances) .

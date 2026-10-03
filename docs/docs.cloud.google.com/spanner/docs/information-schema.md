@@ -10,7 +10,7 @@ The information schema is a built-in schema that's common to every Spanner datab
 
 For example, the following query fetches the names of all user-defined tables in a database:
 
-``` 
+```
   SELECT
     table_schema,
     table_name
@@ -27,24 +27,24 @@ Fine-grained access control users see filtered results for some `INFORMATION_SCH
 
 `INFORMATION_SCHEMA` tables are available only through SQL interfaces, for example:
 
-  - The `executeQuery` API
-  - The `gcloud spanner databases execute-sql` command
-  - The **Spanner Studio** page of a database in the Google Cloud console)
+- The `executeQuery` API
+- The `gcloud spanner databases execute-sql` command
+- The **Spanner Studio** page of a database in the Google Cloud console)
 
 Other single read methods don't support `INFORMATION_SCHEMA` .
 
 Some additional `INFORMATION_SCHEMA` usage notes:
 
-  - Queries against the `INFORMATION_SCHEMA` can be used in a [read-only transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) , but not in a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) .
-  - Queries against the `INFORMATION_SCHEMA` can use strong, bounded staleness, or exact staleness [timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) .
-  - If you are using a PostgreSQL-dialect database, see [Information schema for PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema-pg) .
-  - If you are a [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) user, `INFORMATION_SCHEMA` tables are filtered to only show schema elements that you have access to.
+- Queries against the `INFORMATION_SCHEMA` can be used in a [read-only transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) , but not in a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) .
+- Queries against the `INFORMATION_SCHEMA` can use strong, bounded staleness, or exact staleness [timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) .
+- If you are using a PostgreSQL-dialect database, see [Information schema for PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema-pg) .
+- If you are a [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) user, `INFORMATION_SCHEMA` tables are filtered to only show schema elements that you have access to.
 
-## Row filtering in information\_schema tables
+## Row filtering in information_schema tables
 
-Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` [system role](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) (or to members of that role) can see all rows in all information\_schema tables. For other principals, for some tables, rows are filtered based on the current database role. The table and view descriptions in the following sections indicate how row filtering is applied for each table and view.
+Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` [system role](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) (or to members of that role) can see all rows in all information_schema tables. For other principals, for some tables, rows are filtered based on the current database role. The table and view descriptions in the following sections indicate how row filtering is applied for each table and view.
 
-## Tables in the INFORMATION\_SCHEMA
+## Tables in the INFORMATION_SCHEMA
 
 The following sections describe the tables in the `INFORMATION_SCHEMA` for GoogleSQL-dialect databases.
 
@@ -53,7 +53,7 @@ The following sections describe the tables in the `INFORMATION_SCHEMA` for Googl
 The `INFORMATION_SCHEMA.SCHEMATA` table lists the schemas in the database. These include the information schema and the named schemas, which contain the tables you define.
 
 | Column name    | Type     | Description                                                                                                                                                                                  |
-| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `CATALOG_NAME` | `STRING` | The name of the catalog. This column exists for compatibility with SQL-standard information schema tables. This column is always an empty string.                                            |
 | `SCHEMA_NAME`  | `STRING` | The name of the schema. This is a name for named schemas or \`\` for the default schema.                                                                                                     |
 | `PROTO_BUNDLE` | `STRING` | If the database contains proto bundle statements, this column provides information about the proto bundle used in the schema. This column is NULL if no proto bundle exists in the database. |
@@ -63,7 +63,7 @@ The `INFORMATION_SCHEMA.SCHEMATA` table lists the schemas in the database. These
 This table lists the options that are set on the database.
 
 | Column name    | Type     | Description                                         |
-| -------------- | -------- | --------------------------------------------------- |
+|----------------|----------|-----------------------------------------------------|
 | `CATALOG_NAME` | `STRING` | The name of the catalog. Always an empty string.    |
 | `SCHEMA_NAME`  | `STRING` | The name of the schema. An empty string if unnamed. |
 | `OPTION_NAME`  | `STRING` | The name of the database option.                    |
@@ -75,7 +75,7 @@ This table lists the options that are set on the database.
 This table lists the placements in the database.
 
 | Column name      | Type     | Description                                                              |
-| ---------------- | -------- | ------------------------------------------------------------------------ |
+|------------------|----------|--------------------------------------------------------------------------|
 | `PLACEMENT_NAME` | `STRING` | The name of the placement.                                               |
 | `IS_DEFAULT`     | `BOOL`   | A boolean that indicates whether the placement is the default placement. |
 
@@ -85,11 +85,11 @@ For each placement, this table lists the options that are set on the placement i
 
 The valid values for `OPTION_NAME` include:
 
-  - `instance_partition`
-  - `default_leader`
+- `instance_partition`
+- `default_leader`
 
 | Column name      | Type     | Description                                                                                                                                                                   |
-| ---------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `PLACEMENT_NAME` | `STRING` | The name of the placement.                                                                                                                                                    |
 | `OPTION_NAME`    | `STRING` | The name of the placement option.                                                                                                                                             |
 | `OPTION_TYPE`    | `STRING` | The data type of the placement option. For both options, this is `STRING(MAX)` .                                                                                              |
@@ -101,9 +101,9 @@ For each locality group, this table lists the name and options that are set on t
 
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -114,23 +114,23 @@ For each locality group, this table lists the name and options that are set on t
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">LOCALITY_GROUP_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>LOCALITY_GROUP_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the locality group.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">OPTION_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>OPTION_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the locality group option. The valid options are:
 <ul>
-<li><code dir="ltr" translate="no">STORAGE</code> : defines the storage type for the locality group.</li>
-<li><code dir="ltr" translate="no">SSD_TO_HDD_SPILL_TIMESPAN</code> : defines how long data is stored in SSD storage before it moves to HDD storage.</li>
+<li><code>STORAGE</code> : defines the storage type for the locality group.</li>
+<li><code>SSD_TO_HDD_SPILL_TIMESPAN</code> : defines how long data is stored in SSD storage before it moves to HDD storage.</li>
 </ul></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">OPTION_VALUE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The value of the locality group option. For <code dir="ltr" translate="no">STORAGE</code> , this is either <code dir="ltr" translate="no">ssd</code> or <code dir="ltr" translate="no">hdd</code> . For <code dir="ltr" translate="no">SSD_TO_HDD_SPILL_TIMESPAN</code> , this is the amount of time that data must be stored in SSD before it's moved to HDD storage. For example, <code dir="ltr" translate="no">10d</code> is 10 days. The minimum amount of time you can set is one hour.</td>
+<td><code>OPTION_VALUE</code></td>
+<td><code>STRING</code></td>
+<td>The value of the locality group option. For <code>STORAGE</code> , this is either <code>ssd</code> or <code>hdd</code> . For <code>SSD_TO_HDD_SPILL_TIMESPAN</code> , this is the amount of time that data must be stored in SSD before it's moved to HDD storage. For example, <code>10d</code> is 10 days. The minimum amount of time you can set is one hour.</td>
 </tr>
 </tbody>
 </table>
@@ -139,14 +139,14 @@ For each locality group, this table lists the name and options that are set on t
 
 This row-filtered table lists the tables and views in the database. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only tables that meet either of the following requirements:
 
-  - The `SELECT` , `INSERT` , `UPDATE` , or `DELETE` fine-grained access control privileges are granted on the table to the current database role, to roles of which the current database role is a member, or to `public` .
-  - The `SELECT` , `INSERT` , or `UPDATE` privileges are granted on any table column to the current database role, to roles of which the current database role is a member, or to `public` .
+- The `SELECT` , `INSERT` , `UPDATE` , or `DELETE` fine-grained access control privileges are granted on the table to the current database role, to roles of which the current database role is a member, or to `public` .
+- The `SELECT` , `INSERT` , or `UPDATE` privileges are granted on any table column to the current database role, to roles of which the current database role is a member, or to `public` .
 
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -157,59 +157,59 @@ This row-filtered table lists the tables and views in the database. Principals w
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">TABLE_CATALOG</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_CATALOG</code></td>
+<td><code>STRING</code></td>
 <td>Not used. Always an empty string.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">TABLE_SCHEMA</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_SCHEMA</code></td>
+<td><code>STRING</code></td>
 <td>The schema name of the table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">TABLE_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the table, view, or synonym.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">TABLE_TYPE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The type of the table. For tables it has the value <code dir="ltr" translate="no">BASE TABLE</code> ; for views it has the value <code dir="ltr" translate="no">VIEW</code> ; for synonyms, it has the value <code dir="ltr" translate="no">SYNONYM</code> .</td>
+<td><code>TABLE_TYPE</code></td>
+<td><code>STRING</code></td>
+<td>The type of the table. For tables it has the value <code>BASE TABLE</code> ; for views it has the value <code>VIEW</code> ; for synonyms, it has the value <code>SYNONYM</code> .</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">PARENT_TABLE_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The name of the parent table if this table is interleaved, and <code dir="ltr" translate="no">NULL</code> otherwise.</td>
+<td><code>PARENT_TABLE_NAME</code></td>
+<td><code>STRING</code></td>
+<td>The name of the parent table if this table is interleaved, and <code>NULL</code> otherwise.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">ON_DELETE_ACTION</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>This is set to <code dir="ltr" translate="no">CASCADE</code> or <code dir="ltr" translate="no">NO ACTION</code> for interleaved tables, and <code dir="ltr" translate="no">NULL</code> otherwise. See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#table_statements">TABLE statements</a> for more information.</td>
+<td><code>ON_DELETE_ACTION</code></td>
+<td><code>STRING</code></td>
+<td>This is set to <code>CASCADE</code> or <code>NO ACTION</code> for interleaved tables, and <code>NULL</code> otherwise. See <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#table_statements">TABLE statements</a> for more information.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">SPANNER_STATE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>SPANNER_STATE</code></td>
+<td><code>STRING</code></td>
 <td>A table can go through multiple states during creation, if bulk operations are involved. For example, when the table is created with a foreign key that requires backfilling of its indexes. Possible states are:
 <ul>
-<li><code dir="ltr" translate="no">ADDING_FOREIGN_KEY</code> : Adding the table's foreign keys.</li>
-<li><code dir="ltr" translate="no">WAITING_FOR_COMMIT</code> : Finalizing the schema change.</li>
-<li><code dir="ltr" translate="no">COMMITTED</code> : The schema change to create the table has been committed. You can't write to the table until the change is committed.</li>
+<li><code>ADDING_FOREIGN_KEY</code> : Adding the table's foreign keys.</li>
+<li><code>WAITING_FOR_COMMIT</code> : Finalizing the schema change.</li>
+<li><code>COMMITTED</code> : The schema change to create the table has been committed. You can't write to the table until the change is committed.</li>
 </ul></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">INTERLEAVE_TYPE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>INTERLEAVE_TYPE</code></td>
+<td><code>STRING</code></td>
 <td>The expression text that indicates whether there is a parent-child relationship between this table and the table it is interleaved in. Possible values are:
 <ul>
-<li><code dir="ltr" translate="no">IN</code> : The table doesn't have a parent-child relationship. A row in this table can exist regardless of the existence of its parent table row.</li>
-<li><code dir="ltr" translate="no">IN PARENT</code> : The table has a parent-child relationship. A row in this table requires the existence of its parent table row.</li>
+<li><code>IN</code> : The table doesn't have a parent-child relationship. A row in this table can exist regardless of the existence of its parent table row.</li>
+<li><code>IN PARENT</code> : The table has a parent-child relationship. A row in this table requires the existence of its parent table row.</li>
 <li>An empty string indicates that this table has no interleaving relationships.</li>
 </ul></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">ROW_DELETION_POLICY_EXPRESSION</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The expression text that defines the <a href="https://docs.cloud.google.com/spanner/docs/ttl">row deletion policy</a> of the table. For example, <code dir="ltr" translate="no">OLDER_THAN(CreatedAt, INTERVAL 1 DAY)</code> or <code dir="ltr" translate="no">OLDER_THAN(ExpiredDate, INTERVAL 0 DAY)</code> .</td>
+<td><code>ROW_DELETION_POLICY_EXPRESSION</code></td>
+<td><code>STRING</code></td>
+<td>The expression text that defines the <a href="https://docs.cloud.google.com/spanner/docs/ttl">row deletion policy</a> of the table. For example, <code>OLDER_THAN(CreatedAt, INTERVAL 1 DAY)</code> or <code>OLDER_THAN(ExpiredDate, INTERVAL 0 DAY)</code> .</td>
 </tr>
 </tbody>
 </table>
@@ -218,14 +218,14 @@ This row-filtered table lists the tables and views in the database. Principals w
 
 This row-filtered table lists the columns in a table. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only columns that meet either of the following requirements:
 
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are directly granted on the column to the current database role, to roles of which the current database role is a member, or to `public` .
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that contains the column to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are directly granted on the column to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that contains the column to the current database role, to roles of which the current database role is a member, or to `public` .
 
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -236,117 +236,117 @@ This row-filtered table lists the columns in a table. Principals with database-l
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">TABLE_CATALOG</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_CATALOG</code></td>
+<td><code>STRING</code></td>
 <td>Not used. Always an empty string.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">TABLE_SCHEMA</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_SCHEMA</code></td>
+<td><code>STRING</code></td>
 <td>The schema name of the column's table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">TABLE_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the table.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">COLUMN_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>COLUMN_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the column.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">ORDINAL_POSITION</code></td>
-<td><code dir="ltr" translate="no">INT64</code></td>
+<td><code>ORDINAL_POSITION</code></td>
+<td><code>INT64</code></td>
 <td>The ordinal position of the column in the table, starting with a value of 1.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">COLUMN_DEFAULT</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td><p>A string representation of the SQL expression for the default value of the column. <code dir="ltr" translate="no">NULL</code> if the column has no default value.</p>
-<p><em>Note:</em> Prior to March 2022, <code dir="ltr" translate="no">COLUMN_DEFAULT</code> used type <code dir="ltr" translate="no">BYTES</code> .</p></td>
+<td><code>COLUMN_DEFAULT</code></td>
+<td><code>STRING</code></td>
+<td><p>A string representation of the SQL expression for the default value of the column. <code>NULL</code> if the column has no default value.</p>
+<p><em>Note:</em> Prior to March 2022, <code>COLUMN_DEFAULT</code> used type <code>BYTES</code> .</p></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">DATA_TYPE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Included to satisfy the SQL standard. Always <code dir="ltr" translate="no">NULL</code> . See the column <code dir="ltr" translate="no">SPANNER_TYPE</code></td>
+<td><code>DATA_TYPE</code></td>
+<td><code>STRING</code></td>
+<td>Included to satisfy the SQL standard. Always <code>NULL</code> . See the column <code>SPANNER_TYPE</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">IS_NULLABLE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>A string that indicates whether the column is nullable. In accordance with the SQL standard, the string is either <code dir="ltr" translate="no">YES</code> or <code dir="ltr" translate="no">NO</code> , rather than a Boolean value.</td>
+<td><code>IS_NULLABLE</code></td>
+<td><code>STRING</code></td>
+<td>A string that indicates whether the column is nullable. In accordance with the SQL standard, the string is either <code>YES</code> or <code>NO</code> , rather than a Boolean value.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">SPANNER_TYPE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>SPANNER_TYPE</code></td>
+<td><code>STRING</code></td>
 <td>The <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#allowable-types">data type</a> of the column.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">IS_GENERATED</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>A string that indicates whether the column is generated. The string is either <code dir="ltr" translate="no">ALWAYS</code> for a generated column or <code dir="ltr" translate="no">NEVER</code> for a non-generated column.</td>
+<td><code>IS_GENERATED</code></td>
+<td><code>STRING</code></td>
+<td>A string that indicates whether the column is generated. The string is either <code>ALWAYS</code> for a generated column or <code>NEVER</code> for a non-generated column.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">GENERATION_EXPRESSION</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>A string representing the SQL expression of a generated column. <code dir="ltr" translate="no">NULL</code> if the column is not a generated column.</td>
+<td><code>GENERATION_EXPRESSION</code></td>
+<td><code>STRING</code></td>
+<td>A string representing the SQL expression of a generated column. <code>NULL</code> if the column is not a generated column.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">IS_STORED</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>A string that indicates whether the generated column is stored. The string is always <code dir="ltr" translate="no">YES</code> for generated columns, and <code dir="ltr" translate="no">NULL</code> for non-generated columns.</td>
+<td><code>IS_STORED</code></td>
+<td><code>STRING</code></td>
+<td>A string that indicates whether the generated column is stored. The string is always <code>YES</code> for generated columns, and <code>NULL</code> for non-generated columns.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">IS_HIDDEN</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>A string that is set to <code dir="ltr" translate="no">TRUE</code> if the column doesn't appear in a <code dir="ltr" translate="no">SELECT *</code> query, and is set to <code dir="ltr" translate="no">FALSE</code> otherwise. If the column is hidden, you can still select it using its name (for example, <code dir="ltr" translate="no">SELECT Id, Name, ColHidden FROM TableWithHiddenColumn</code> ).</td>
+<td><code>IS_HIDDEN</code></td>
+<td><code>STRING</code></td>
+<td>A string that is set to <code>TRUE</code> if the column doesn't appear in a <code>SELECT *</code> query, and is set to <code>FALSE</code> otherwise. If the column is hidden, you can still select it using its name (for example, <code>SELECT Id, Name, ColHidden FROM TableWithHiddenColumn</code> ).</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">SPANNER_STATE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>SPANNER_STATE</code></td>
+<td><code>STRING</code></td>
 <td>The current state of the column. A new stored generated column added to an existing table may go through multiple user-observable states before it is fully usable. Possible values are:
 <ul>
-<li><code dir="ltr" translate="no">WRITE_ONLY</code> : The column is being backfilled. No read is allowed.</li>
-<li><code dir="ltr" translate="no">COMMITTED</code> : The column is fully usable.</li>
+<li><code>WRITE_ONLY</code> : The column is being backfilled. No read is allowed.</li>
+<li><code>COMMITTED</code> : The column is fully usable.</li>
 </ul></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">IS_IDENTITY</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>A string that is set to <code dir="ltr" translate="no">YES</code> if the generated column is an identity column, and <code dir="ltr" translate="no">NO</code> otherwise.</td>
+<td><code>IS_IDENTITY</code></td>
+<td><code>STRING</code></td>
+<td>A string that is set to <code>YES</code> if the generated column is an identity column, and <code>NO</code> otherwise.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">IDENTITY_GENERATION</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>IDENTITY_GENERATION</code></td>
+<td><code>STRING</code></td>
 <td>A string that specifies whether the column permits only generated, and not custom user-inserted, values.
 <ul>
-<li><code dir="ltr" translate="no">BY DEFAULT</code> : The default value. <code dir="ltr" translate="no">BY DEFAULT</code> specifies that the column uses generated values if user-inserted values aren't provided.</li>
-<li><code dir="ltr" translate="no">ALWAYS</code> : The column permits only generated, and not custom user-inserted, values.</li>
+<li><code>BY DEFAULT</code> : The default value. <code>BY DEFAULT</code> specifies that the column uses generated values if user-inserted values aren't provided.</li>
+<li><code>ALWAYS</code> : The column permits only generated, and not custom user-inserted, values.</li>
 </ul></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">IDENTITY_KIND</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Always <code dir="ltr" translate="no">BIT_REVERSED_POSITITVE_SEQUENCE</code> . Only bit-reversed positive sequences are supported.</td>
+<td><code>IDENTITY_KIND</code></td>
+<td><code>STRING</code></td>
+<td>Always <code>BIT_REVERSED_POSITITVE_SEQUENCE</code> . Only bit-reversed positive sequences are supported.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">IDENTITY_START_WITH_COUNTER</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>IDENTITY_START_WITH_COUNTER</code></td>
+<td><code>STRING</code></td>
 <td>The start value of the internal counter before transforming. For example, the start value before bit-reversing.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">IDENTITY_SKIP_RANGE_MIN</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>IDENTITY_SKIP_RANGE_MIN</code></td>
+<td><code>STRING</code></td>
 <td>The minimum value of a skipped range after transforming.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">IDENTITY_SKIP_RANGE_MAX</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>IDENTITY_SKIP_RANGE_MAX</code></td>
+<td><code>STRING</code></td>
 <td>The maximum value of a skipped range after transforming.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">ON_UPDATE_EXPRESSION</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>ON_UPDATE_EXPRESSION</code></td>
+<td><code>STRING</code></td>
 <td>A STRING with the SQL representation of the `ON UPDATE` expression for a column. If the column does not have an `ON UPDATE` value, the value is `NULL`.</td>
 </tr>
 </tbody>
@@ -356,11 +356,11 @@ This row-filtered table lists the columns in a table. Principals with database-l
 
 This row-filtered table lists all the privileges granted at the column-level to any [database role](https://docs.cloud.google.com/spanner/docs/information-schema#roles) , including `public` . Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see privileges only for columns that meet either of the following requirements:
 
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are directly granted on the column to the current database role, to roles of which the current database role is a member, or to `public` .
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that contains the column to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are directly granted on the column to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that contains the column to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name      | Type     | Description                                                                                                                                                      |
-| ---------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `TABLE_CATALOG`  | `STRING` | Not used. Always an empty string.                                                                                                                                |
 | `TABLE_SCHEMA`   | `STRING` | The schema name of the column's table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value. |
 | `TABLE_NAME`     | `STRING` | The name of the table that contains the privileged column.                                                                                                       |
@@ -373,7 +373,7 @@ This row-filtered table lists all the privileges granted at the column-level to 
 This row-filtered table lists all the privileges granted at the table-level to [database roles](https://docs.cloud.google.com/spanner/docs/information-schema#roles) , including `public` . Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see privileges only for tables on which any of the `SELECT` , `INSERT` , `UPDATE` , or `DELETE` fine-grained access control privileges are granted to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name      | Type     | Description                                                                                                                                             |
-| ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `TABLE_CATALOG`  | `STRING` | Not used. Always an empty string.                                                                                                                       |
 | `TABLE_SCHEMA`   | `STRING` | The schema name of the table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value. |
 | `TABLE_NAME`     | `STRING` | The name of the table on which fine-grained access control privileges are granted.                                                                      |
@@ -386,9 +386,9 @@ This table contains one row for each constraint defined for the tables in the da
 
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -399,61 +399,61 @@ This table contains one row for each constraint defined for the tables in the da
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">CONSTRAINT_CATALOG</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_CATALOG</code></td>
+<td><code>STRING</code></td>
 <td>Always an emptry string.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">CONSTRAINT_SCHEMA</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_SCHEMA</code></td>
+<td><code>STRING</code></td>
 <td>The name of the constraint's schema. An empty string if unnamed.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">CONSTRAINT_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the constraint.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">TABLE_CATALOG</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_CATALOG</code></td>
+<td><code>STRING</code></td>
 <td>The name of constrained table's catalog. Always an empty string.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">TABLE_SCHEMA</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_SCHEMA</code></td>
+<td><code>STRING</code></td>
 <td>The schema name of the constrained table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">TABLE_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the constrained table.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">CONSTRAINT_TYPE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_TYPE</code></td>
+<td><code>STRING</code></td>
 <td>The type of the constraint. Possible values are:
 <ul>
-<li><code dir="ltr" translate="no">PRIMARY KEY</code></li>
-<li><code dir="ltr" translate="no">FOREIGN KEY</code></li>
-<li><code dir="ltr" translate="no">PLACEMENT KEY</code></li>
-<li><code dir="ltr" translate="no">CHECK</code></li>
-<li><code dir="ltr" translate="no">UNIQUE</code></li>
+<li><code>PRIMARY KEY</code></li>
+<li><code>FOREIGN KEY</code></li>
+<li><code>PLACEMENT KEY</code></li>
+<li><code>CHECK</code></li>
+<li><code>UNIQUE</code></li>
 </ul></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">IS_DEFERRABLE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Always <code dir="ltr" translate="no">NO</code> .</td>
+<td><code>IS_DEFERRABLE</code></td>
+<td><code>STRING</code></td>
+<td>Always <code>NO</code> .</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">INITIALLY_DEFERRED</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Always <code dir="ltr" translate="no">NO</code> .</td>
+<td><code>INITIALLY_DEFERRED</code></td>
+<td><code>STRING</code></td>
+<td>Always <code>NO</code> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">ENFORCED</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td><code dir="ltr" translate="no">NO</code> if the constraint is an <a href="https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys">informational ( <code dir="ltr" translate="no">NOT ENFORCED</code> ) foreign key</a> . <code dir="ltr" translate="no">YES</code> for enforced foreign keys or any other constraint type.</td>
+<td><code>ENFORCED</code></td>
+<td><code>STRING</code></td>
+<td><code>NO</code> if the constraint is an <a href="https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys">informational ( <code>NOT ENFORCED</code> ) foreign key</a> . <code>YES</code> for enforced foreign keys or any other constraint type.</td>
 </tr>
 </tbody>
 </table>
@@ -463,7 +463,7 @@ This table contains one row for each constraint defined for the tables in the da
 This table lists tables that define or are used by constraints. Includes tables that define `PRIMARY KEY` and `UNIQUE` constraints. Also includes the referenced tables of `FOREIGN KEY` definitions.
 
 | Column name          | Type     | Description                                                                                                                                                         |
-| -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `TABLE_CATALOG`      | `STRING` | The name of the constrained table's catalog. Always an empty string.                                                                                                |
 | `TABLE_SCHEMA`       | `STRING` | The schema name of the constrained table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value. |
 | `TABLE_NAME`         | `STRING` | The name of the constrained table.                                                                                                                                  |
@@ -477,9 +477,9 @@ This table contains one row about each `FOREIGN KEY` constraint.
 
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -490,59 +490,59 @@ This table contains one row about each `FOREIGN KEY` constraint.
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">CONSTRAINT_CATALOG</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_CATALOG</code></td>
+<td><code>STRING</code></td>
 <td>The name of the FOREIGN KEY's catalog. Always an empty string.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">CONSTRAINT_SCHEMA</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_SCHEMA</code></td>
+<td><code>STRING</code></td>
 <td>The name of the FOREIGN KEY's schema. An empty string if unnamed.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">CONSTRAINT_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the FOREIGN KEY.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">UNIQUE_CONSTRAINT_CATALOG</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>UNIQUE_CONSTRAINT_CATALOG</code></td>
+<td><code>STRING</code></td>
 <td>The catalog name of the PRIMARY KEY or UNIQUE constraint the FOREIGN KEY references. Always an empty string.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">UNIQUE_CONSTRAINT_SCHEMA</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>UNIQUE_CONSTRAINT_SCHEMA</code></td>
+<td><code>STRING</code></td>
 <td>The schema name of the PRIMARY KEY or UNIQUE constraint the FOREIGN KEY references. An empty string if unnamed.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">UNIQUE_CONSTRAINT_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>UNIQUE_CONSTRAINT_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the PRIMARY KEY or UNIQUE constraint the FOREIGN KEY references.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">MATCH_OPTION</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Always <code dir="ltr" translate="no">SIMPLE</code> .</td>
+<td><code>MATCH_OPTION</code></td>
+<td><code>STRING</code></td>
+<td>Always <code>SIMPLE</code> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">UPDATE_RULE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Always <code dir="ltr" translate="no">NO ACTION</code> .</td>
+<td><code>UPDATE_RULE</code></td>
+<td><code>STRING</code></td>
+<td>Always <code>NO ACTION</code> .</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">DELETE_RULE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Either <code dir="ltr" translate="no">CASCADE</code> or <code dir="ltr" translate="no">NO ACTION</code> .</td>
+<td><code>DELETE_RULE</code></td>
+<td><code>STRING</code></td>
+<td>Either <code>CASCADE</code> or <code>NO ACTION</code> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">SPANNER_STATE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>SPANNER_STATE</code></td>
+<td><code>STRING</code></td>
 <td>The current state of the foreign key. Spanner does not begin enforcing the constraint until the foreign key's backing indexes are created and backfilled. Once the indexes are ready, Spanner begins enforcing the constraint for new transactions while it validates the existing data. Possible values and the states they represent are:
 <ul>
-<li><code dir="ltr" translate="no">BACKFILLING_INDEXES</code> : indexes are being backfilled.</li>
-<li><code dir="ltr" translate="no">VALIDATING_DATA</code> : existing data and new writes are being validated.</li>
-<li><code dir="ltr" translate="no">WAITING_FOR_COMMIT</code> : the foreign key bulk operations have completed successfully, or none were needed, but the foreign key is still pending.</li>
-<li><code dir="ltr" translate="no">COMMITTED</code> : the schema change was committed.</li>
+<li><code>BACKFILLING_INDEXES</code> : indexes are being backfilled.</li>
+<li><code>VALIDATING_DATA</code> : existing data and new writes are being validated.</li>
+<li><code>WAITING_FOR_COMMIT</code> : the foreign key bulk operations have completed successfully, or none were needed, but the foreign key is still pending.</li>
+<li><code>COMMITTED</code> : the schema change was committed.</li>
 </ul></td>
 </tr>
 </tbody>
@@ -554,9 +554,9 @@ The `information_schema.CHECK_CONSTRAINTS` table contains one row about each `CH
 
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -567,32 +567,32 @@ The `information_schema.CHECK_CONSTRAINTS` table contains one row about each `CH
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">CONSTRAINT_CATALOG</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_CATALOG</code></td>
+<td><code>STRING</code></td>
 <td>The name of the constraint's catalog. This column is never null, but always an empty string.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">CONSTRAINT_SCHEMA</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_SCHEMA</code></td>
+<td><code>STRING</code></td>
 <td>The name of the constraint's schema. An empty string if unnamed.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">CONSTRAINT_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>CONSTRAINT_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the constraint. This column is never null. If not explicitly specified in the schema definition, a system-defined name is assigned.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">CHECK_CLAUSE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The expressions of the <code dir="ltr" translate="no">CHECK</code> constraint. This column is never null.</td>
+<td><code>CHECK_CLAUSE</code></td>
+<td><code>STRING</code></td>
+<td>The expressions of the <code>CHECK</code> constraint. This column is never null.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">SPANNER_STATE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The current state of the <code dir="ltr" translate="no">CHECK</code> constraint. This column is never null. The possible states are as follows:
+<td><code>SPANNER_STATE</code></td>
+<td><code>STRING</code></td>
+<td>The current state of the <code>CHECK</code> constraint. This column is never null. The possible states are as follows:
 <ul>
-<li><code dir="ltr" translate="no">VALIDATING</code> : Spanner is validating the existing data.</li>
-<li><code dir="ltr" translate="no">COMMITTED</code> : There is no active schema change for this constraint.</li>
+<li><code>VALIDATING</code> : Spanner is validating the existing data.</li>
+<li><code>COMMITTED</code> : There is no active schema change for this constraint.</li>
 </ul></td>
 </tr>
 </tbody>
@@ -602,11 +602,11 @@ The `information_schema.CHECK_CONSTRAINTS` table contains one row about each `CH
 
 This row-filtered table contains one row about each column of the tables from `TABLE_CONSTRAINTS` that are constrained as keys by a `PRIMARY KEY` , `FOREIGN KEY` or `UNIQUE` constraint. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only columns that meet the following criteria:
 
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are directly granted on the column to the current database role, to roles of which the current database role is a member, or to `public` .
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that contains the column to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are directly granted on the column to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that contains the column to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name                     | Type     | Description                                                                                                                                                                  |
-| ------------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `CONSTRAINT_CATALOG`            | `STRING` | The name of the constraint's catalog. Always an empty string.                                                                                                                |
 | `CONSTRAINT_SCHEMA`             | `STRING` | The name of the constraint's schema. This column is never null. An empty string if unnamed.                                                                                  |
 | `CONSTRAINT_NAME`               | `STRING` | The name of the constraint.                                                                                                                                                  |
@@ -622,7 +622,7 @@ This row-filtered table contains one row about each column of the tables from `T
 This table contains one row about each column used by a constraint. Includes the `PRIMARY KEY` and `UNIQUE` columns, plus the referenced columns of `FOREIGN KEY` constraints.
 
 | Column name          | Type     | Description                                                                                                                                                      |
-| -------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `TABLE_CATALOG`      | `STRING` | The name of the column table's catalog. Always an empty string.                                                                                                  |
 | `TABLE_SCHEMA`       | `STRING` | The schema name of the column's table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value. |
 | `TABLE_NAME`         | `STRING` | The name of the column's table.                                                                                                                                  |
@@ -636,7 +636,7 @@ This table contains one row about each column used by a constraint. Includes the
 This table lists lists synonym information for the table.
 
 | Column name          | Type     | Description                                                                                                                                             |
-| -------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `TABLE_CATALOG`      | `STRING` | Not used. Always an empty string.                                                                                                                       |
 | `TABLE_SCHEMA`       | `STRING` | The schema name of the table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value. |
 | `TABLE_NAME`         | `STRING` | The name of the table.                                                                                                                                  |
@@ -648,14 +648,14 @@ This table lists lists synonym information for the table.
 
 This row-filtered table lists the indexes in the database. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only indexes that meet either of the following requirements:
 
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted at the column level on *all* columns in the index to the current database role, to roles of which the current database role is a member, or to `public` .
-  - Any of the `SELECT` , `INSERT` , `UPDATE` , or `DELETE` fine-grained access control privileges are granted on the table that has the index to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted at the column level on *all* columns in the index to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , `UPDATE` , or `DELETE` fine-grained access control privileges are granted on the table that has the index to the current database role, to roles of which the current database role is a member, or to `public` .
 
 <table>
 <colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -666,61 +666,61 @@ This row-filtered table lists the indexes in the database. Principals with datab
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">TABLE_CATALOG</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_CATALOG</code></td>
+<td><code>STRING</code></td>
 <td>The name of the catalog. Always an empty string.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">TABLE_SCHEMA</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_SCHEMA</code></td>
+<td><code>STRING</code></td>
 <td>The schema name of the index table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">TABLE_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>TABLE_NAME</code></td>
+<td><code>STRING</code></td>
 <td>The name of the table.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">INDEX_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The name of the index. Tables with a <code dir="ltr" translate="no">PRIMARY KEY</code> specification have a pseudo-index entry generated with the name <code dir="ltr" translate="no">PRIMARY_KEY</code> , which allows the fields of the primary key to be determined.</td>
+<td><code>INDEX_NAME</code></td>
+<td><code>STRING</code></td>
+<td>The name of the index. Tables with a <code>PRIMARY KEY</code> specification have a pseudo-index entry generated with the name <code>PRIMARY_KEY</code> , which allows the fields of the primary key to be determined.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">INDEX_TYPE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The type of the index. The type is <code dir="ltr" translate="no">INDEX</code> or <code dir="ltr" translate="no">PRIMARY_KEY</code> .</td>
+<td><code>INDEX_TYPE</code></td>
+<td><code>STRING</code></td>
+<td>The type of the index. The type is <code>INDEX</code> or <code>PRIMARY_KEY</code> .</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">PARENT_TABLE_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>PARENT_TABLE_NAME</code></td>
+<td><code>STRING</code></td>
 <td>Secondary indexes can be interleaved in a parent table, as discussed in <a href="https://docs.cloud.google.com/spanner/docs/secondary-indexes#creating_a_secondary_index">Creating a secondary index</a> . This column holds the name of that parent table, or an empty string if the index is not interleaved.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">IS_UNIQUE</code></td>
-<td><code dir="ltr" translate="no">BOOL</code></td>
+<td><code>IS_UNIQUE</code></td>
+<td><code>BOOL</code></td>
 <td>Whether the index keys must be unique.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">IS_NULL_FILTERED</code></td>
-<td><code dir="ltr" translate="no">BOOL</code></td>
-<td>Whether the index includes entries with <code dir="ltr" translate="no">NULL</code> values.</td>
+<td><code>IS_NULL_FILTERED</code></td>
+<td><code>BOOL</code></td>
+<td>Whether the index includes entries with <code>NULL</code> values.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">INDEX_STATE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>INDEX_STATE</code></td>
+<td><code>STRING</code></td>
 <td>The current state of the index. Possible values and the states they represent are:
 <ul>
-<li><code dir="ltr" translate="no">PREPARE</code> : creating empty tables for a new index.</li>
-<li><code dir="ltr" translate="no">WRITE_ONLY</code> : backfilling data for a new index.</li>
-<li><code dir="ltr" translate="no">WRITE_ONLY_CLEANUP</code> : cleaning up a new index.</li>
-<li><code dir="ltr" translate="no">WRITE_ONLY_VALIDATE_UNIQUE</code> : checking uniqueness of data in a new index.</li>
-<li><code dir="ltr" translate="no">READ_WRITE</code> : normal index operation.</li>
+<li><code>PREPARE</code> : creating empty tables for a new index.</li>
+<li><code>WRITE_ONLY</code> : backfilling data for a new index.</li>
+<li><code>WRITE_ONLY_CLEANUP</code> : cleaning up a new index.</li>
+<li><code>WRITE_ONLY_VALIDATE_UNIQUE</code> : checking uniqueness of data in a new index.</li>
+<li><code>READ_WRITE</code> : normal index operation.</li>
 </ul></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">SPANNER_IS_MANAGED</code></td>
-<td><code dir="ltr" translate="no">BOOL</code></td>
-<td><code dir="ltr" translate="no">TRUE</code> if the index is managed by Spanner; Otherwise, <code dir="ltr" translate="no">FALSE</code> . Secondary backing indexes for foreign keys are managed by Spanner.</td>
+<td><code>SPANNER_IS_MANAGED</code></td>
+<td><code>BOOL</code></td>
+<td><code>TRUE</code> if the index is managed by Spanner; Otherwise, <code>FALSE</code> . Secondary backing indexes for foreign keys are managed by Spanner.</td>
 </tr>
 </tbody>
 </table>
@@ -729,11 +729,11 @@ This row-filtered table lists the indexes in the database. Principals with datab
 
 This row-filtered table lists the columns in an index. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only indexes that meet either of the following requirements:
 
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted at the column level on *all* columns in the index to the current database role, to roles of which the current database role is a member, or to `public` .
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that has index to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted at the column level on *all* columns in the index to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that has index to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name        | Type     | Description                                                                                                                                                                                                                                                                                 |
-| ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `TABLE_CATALOG`    | `STRING` | The name of the catalog. Always an empty string.                                                                                                                                                                                                                                            |
 | `TABLE_SCHEMA`     | `STRING` | The schema name of the index table. The name is empty for the default schema, and it contains a value for other schemas. This column always contains a value.                                                                                                                               |
 | `TABLE_NAME`       | `STRING` | The name of the table.                                                                                                                                                                                                                                                                      |
@@ -748,11 +748,11 @@ This row-filtered table lists the columns in an index. Principals with database-
 
 This row-filtered table lists lists the column options in a table. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see options only for columns that meet either of the following requirements:
 
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are directly granted on the column to the current database role, to roles of which the current database role is a member, or to `public` .
-  - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that contains the column to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are directly granted on the column to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that contains the column to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name     | Type     | Description                                                                                                                                                                                                                     |
-| --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `TABLE_CATALOG` | `STRING` | The name of the catalog. Always an empty string.                                                                                                                                                                                |
 | `TABLE_SCHEMA`  | `STRING` | The name of the schema. The name is empty for the default schema and non-empty for other schemas (for example, the `INFORMATION_SCHEMA` itself). This column is never null.                                                     |
 | `TABLE_NAME`    | `STRING` | The name of the table.                                                                                                                                                                                                          |
@@ -766,7 +766,7 @@ This row-filtered table lists lists the column options in a table. Principals wi
 This table lists the sequences metadata. `SEQUENCES` is row-filtered based on fine-grained access privileges, if a user with fine-grained access privileges is querying it.
 
 | Column name | Type     | Description                                                     |
-| ----------- | -------- | --------------------------------------------------------------- |
+|-------------|----------|-----------------------------------------------------------------|
 | `CATALOG`   | `STRING` | The name of the catalog containing the sequence.                |
 | `SCHEMA`    | `STRING` | The name of the schema containing the sequence.                 |
 | `NAME`      | `STRING` | The name of the sequence.                                       |
@@ -777,7 +777,7 @@ This table lists the sequences metadata. `SEQUENCES` is row-filtered based on fi
 This table contains the configuration options for sequences. `SEQUENCE_OPTIONS` is row-filtered based on fine-grained access privileges, if a user with fine-grained access privileges is querying it.
 
 | Column name    | Type     | Description                                                                                                          |
-| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------- |
+|----------------|----------|----------------------------------------------------------------------------------------------------------------------|
 | `CATALOG`      | `STRING` | The name of the catalog containing the sequence.                                                                     |
 | `SCHEMA`       | `STRING` | The name of the schema containing the sequence.                                                                      |
 | `NAME`         | `STRING` | The name of the sequence.                                                                                            |
@@ -789,97 +789,31 @@ This table contains the configuration options for sequences. `SEQUENCE_OPTIONS` 
 
 This table lists the available query optimizer statistics packages.
 
-<table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 10%" />
-<col style="width: 70%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">CATALOG_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The name of the catalog. Always an empty string.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">SCHEMA_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The name of the schema. The name is empty for the default schema and non-empty for other schemas (for example, the <code dir="ltr" translate="no">INFORMATION_SCHEMA</code> itself). This column is never null.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">PACKAGE_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The name of the statistics package.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">ALLOW_GC</code></td>
-<td><code dir="ltr" translate="no">BOOL</code></td>
-<td><code dir="ltr" translate="no">FALSE</code> if the statistics package is exempted from garbage collection; Otherwise, <code dir="ltr" translate="no">TRUE</code> .<br />
-This attribute must be set to <code dir="ltr" translate="no">FALSE</code> in order to reference the statistics package in a hint or through client API.</td>
-</tr>
-</tbody>
-</table>
+| Column name    | Type     | Description                                                                                                                                                                                                    |
+|----------------|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `CATALOG_NAME` | `STRING` | The name of the catalog. Always an empty string.                                                                                                                                                               |
+| `SCHEMA_NAME`  | `STRING` | The name of the schema. The name is empty for the default schema and non-empty for other schemas (for example, the `INFORMATION_SCHEMA` itself). This column is never null.                                    |
+| `PACKAGE_NAME` | `STRING` | The name of the statistics package.                                                                                                                                                                            |
+| `ALLOW_GC`     | `BOOL`   | `FALSE` if the statistics package is exempted from garbage collection; Otherwise, `TRUE` . This attribute must be set to `FALSE` in order to reference the statistics package in a hint or through client API. |
 
 ### `VIEWS`
 
 This row-filtered table lists the views in the database. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only views on which the `SELECT` fine-grained access control privilege is granted to the current database role, to roles of which the current database role is a member, or to `public` .
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 10%" />
-<col style="width: 65%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Column name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">TABLE_CATALOG</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The name of the catalog. Always an empty string.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">TABLE_SCHEMA</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The name of the schema. An empty string if unnamed.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">TABLE_NAME</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The name of the view.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">VIEW_DEFINITION</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The SQL text of the query that defines the view.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">SECURITY_TYPE</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>The security type of the view. Either <code dir="ltr" translate="no">INVOKER</code> or <code dir="ltr" translate="no">DEFINER</code> .
-<p>For more information, see <a href="https://docs.cloud.google.com/spanner/docs/views">About views</a> .</p></td>
-</tr>
-</tbody>
-</table>
+| Column name       | Type     | Description                                                                                                                                                |
+|-------------------|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `TABLE_CATALOG`   | `STRING` | The name of the catalog. Always an empty string.                                                                                                           |
+| `TABLE_SCHEMA`    | `STRING` | The name of the schema. An empty string if unnamed.                                                                                                        |
+| `TABLE_NAME`      | `STRING` | The name of the view.                                                                                                                                      |
+| `VIEW_DEFINITION` | `STRING` | The SQL text of the query that defines the view.                                                                                                           |
+| `SECURITY_TYPE`   | `STRING` | The security type of the view. Either `INVOKER` or `DEFINER` . For more information, see [About views](https://docs.cloud.google.com/spanner/docs/views) . |
 
 ### `ROLES`
 
 This row-filtered table lists the defined database roles for [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) , including system roles. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all database roles. All other principals can see only database roles to which they have been granted access either directly or through inheritance.
 
 | Column name | Type     | Description                                                                                                                       |
-| ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------- |
+|-------------|----------|-----------------------------------------------------------------------------------------------------------------------------------|
 | `ROLE_NAME` | `STRING` | The name of the database role.                                                                                                    |
 | `IS_SYSTEM` | `BOOL`   | `TRUE` if the database role is a [system role](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) ; `FALSE` otherwise. |
 
@@ -890,7 +824,7 @@ This row-filtered table lists all role memberships explicitly granted to all dat
 Because all database roles are members of the [public role](https://docs.cloud.google.com/spanner/docs/fgac-system-roles#public) , the results omit records for implicit membership in the public role.
 
 | Column name | Type     | Description                                                        |
-| ----------- | -------- | ------------------------------------------------------------------ |
+|-------------|----------|--------------------------------------------------------------------|
 | `ROLE_NAME` | `STRING` | The name of the database role in which this membership is granted. |
 | `GRANTEE`   | `STRING` | The name of the database role to which this membership is granted. |
 
@@ -899,7 +833,7 @@ Because all database roles are members of the [public role](https://docs.cloud.g
 This row-filtered table lists all of a database's change streams, and notes which ones track the entire database versus specific tables or columns. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only change streams on which the `SELECT` fine-grained access control privilege is granted to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name             | Type     | Description                                                                                                               |
-| ----------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------|----------|---------------------------------------------------------------------------------------------------------------------------|
 | `CHANGE_STREAM_CATALOG` | `STRING` | The name of the change stream's catalog. Always an empty string.                                                          |
 | `CHANGE_STREAM_SCHEMA`  | `STRING` | The name of this change stream's schema. Always an empty string.                                                          |
 | `CHANGE_STREAM_NAME`    | `STRING` | The name of the change stream.                                                                                            |
@@ -912,7 +846,7 @@ This row-filtered table contains information about tables and the change streams
 The data in `CHANGE_STREAM_TABLES` does not include the implicit relationships between tables and change streams that track the entire database.
 
 | Column name             | Type     | Description                                                                                                  |
-| ----------------------- | -------- | ------------------------------------------------------------------------------------------------------------ |
+|-------------------------|----------|--------------------------------------------------------------------------------------------------------------|
 | `CHANGE_STREAM_CATALOG` | `STRING` | The name of the change stream's catalog. Always an empty string.                                             |
 | `CHANGE_STREAM_SCHEMA`  | `STRING` | The name of the change stream's schema. Always an empty string.                                              |
 | `CHANGE_STREAM_NAME`    | `STRING` | The name of the change stream that this row refers to.                                                       |
@@ -928,7 +862,7 @@ This row-filtered table contains information about table columns and the change 
 Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only rows for change streams on which the `SELECT` privilege is granted to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name             | Type     | Description                                                      |
-| ----------------------- | -------- | ---------------------------------------------------------------- |
+|-------------------------|----------|------------------------------------------------------------------|
 | `CHANGE_STREAM_CATALOG` | `STRING` | The name of the change stream's catalog. Always an empty string. |
 | `CHANGE_STREAM_SCHEMA`  | `STRING` | The name of the change stream's schema. Always an empty string.  |
 | `CHANGE_STREAM_NAME`    | `STRING` | The name of the change stream.                                   |
@@ -942,7 +876,7 @@ Principals with database-level IAM permissions and principals who have been gran
 This row-filtered table contains the configuration options for change streams. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only options for change streams on which the `SELECT` privilege is granted to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name             | Type     | Description                                                      |
-| ----------------------- | -------- | ---------------------------------------------------------------- |
+|-------------------------|----------|------------------------------------------------------------------|
 | `CHANGE_STREAM_CATALOG` | `STRING` | The name of the change stream's catalog. Always an empty string. |
 | `CHANGE_STREAM_SCHEMA`  | `STRING` | The name of the change stream's schema. Always an empty string.  |
 | `CHANGE_STREAM_NAME`    | `STRING` | The name of the change stream.                                   |
@@ -955,7 +889,7 @@ This row-filtered table contains the configuration options for change streams. P
 This row-filtered table lists all fine-grained access control privileges granted on all change streams to any database role, including `public` . Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on change streams to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name             | Type     | Description                                                             |
-| ----------------------- | -------- | ----------------------------------------------------------------------- |
+|-------------------------|----------|-------------------------------------------------------------------------|
 | `CHANGE_STREAM_CATALOG` | `STRING` | The name of the catalog containing the change stream (an empty string). |
 | `CHANGE_STREAM_SCHEMA`  | `STRING` | The name of the schema containing the change stream (an empty string).  |
 | `CHANGE_STREAM_NAME`    | `STRING` | The name of the change stream.                                          |
@@ -967,7 +901,7 @@ This row-filtered table lists all fine-grained access control privileges granted
 This row-filtered table lists all of a database's change stream read functions. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only change stream read functions on which the `EXECUTE` fine-grained access control privilege is granted to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name          | Type     | Description                                                                              |
-| -------------------- | -------- | ---------------------------------------------------------------------------------------- |
+|----------------------|----------|------------------------------------------------------------------------------------------|
 | `SPECIFIC_CATALOG`   | `STRING` | The name of the routine's catalog. Always an empty string.                               |
 | `SPECIFIC_SCHEMA`    | `STRING` | The name of the routine's schema. Always an empty string.                                |
 | `SPECIFIC_NAME`      | `STRING` | The name of the routine. Uniquely identifies the routine even if its name is overloaded. |
@@ -987,7 +921,7 @@ This row-filtered table contains one row for each option for each defined change
 Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only options for change stream read functions on which the `EXECUTE` fine-grained access control privilege is granted to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name        | Type     | Description                                                                                                      |
-| ------------------ | -------- | ---------------------------------------------------------------------------------------------------------------- |
+|--------------------|----------|------------------------------------------------------------------------------------------------------------------|
 | `SPECIFIC_CATALOG` | `STRING` | The name of the routine's catalog. Always an empty string.                                                       |
 | `SPECIFIC_SCHEMA`  | `STRING` | The name of the routine's schema. Always an empty string.                                                        |
 | `SPECIFIC_NAME`    | `STRING` | The name of the routine. Uniquely identifies the routine in case of name overloading.                            |
@@ -1002,7 +936,7 @@ This row-filtered table defines the arguments for each change stream read functi
 Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only parameters for change stream read functions on which the `EXECUTE` fine-grained access control privilege is granted to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name         | Type     | Description                                                                                  |
-| ------------------- | -------- | -------------------------------------------------------------------------------------------- |
+|---------------------|----------|----------------------------------------------------------------------------------------------|
 | `SPECIFIC_CATALOG`  | `STRING` | The name of the routine's catalog. Always an empty string.                                   |
 | `SPECIFIC_SCHEMA`   | `STRING` | The name of the routine's schema. Always an empty string.                                    |
 | `SPECIFIC_NAME`     | `STRING` | The name of the routine. Uniquely identifies the routine in case of name overloading.        |
@@ -1016,7 +950,7 @@ Principals with database-level IAM permissions and principals who have been gran
 This row-filtered table lists all fine-grained access control privileges granted on all change stream read functions to any database role, including `public` . Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on change stream read functions to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name        | Type     | Description                                                                           |
-| ------------------ | -------- | ------------------------------------------------------------------------------------- |
+|--------------------|----------|---------------------------------------------------------------------------------------|
 | `SPECIFIC_CATALOG` | `STRING` | The name of the routine's catalog. Always an empty string.                            |
 | `SPECIFIC_SCHEMA`  | `STRING` | The name of the routine's schema. Always an empty string.                             |
 | `SPECIFIC_NAME`    | `STRING` | The name of the routine. Uniquely identifies the routine in case of name overloading. |
@@ -1028,7 +962,7 @@ This row-filtered table lists all fine-grained access control privileges granted
 This row-filtered table lists all fine-grained access control privileges granted on all tables and views to any database role, including `public` . Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on tables and views to the current database role and to roles of which the current database role is a member, not including `public` .
 
 | **Column name**  | **Type** | **Description**                                                             |
-| ---------------- | -------- | --------------------------------------------------------------------------- |
+|------------------|----------|-----------------------------------------------------------------------------|
 | `GRANTOR`        | `STRING` | Not used. Always `NULL` .                                                   |
 | `GRANTEE`        | `STRING` | The name of the database role to which this privilege is granted.           |
 | `TABLE_CATALOG`  | `STRING` | Not used. Always an empty string.                                           |
@@ -1044,7 +978,7 @@ This row-filtered table lists all fine-grained access control privileges granted
 The view includes the `SELECT` , `INSERT` , and `UPDATE` privileges that the column inherits from the table or view that contains the column.
 
 | **Column name**  | **Type** | **Description**                                                   |
-| ---------------- | -------- | ----------------------------------------------------------------- |
+|------------------|----------|-------------------------------------------------------------------|
 | `GRANTOR`        | `STRING` | Not used. Always `NULL` .                                         |
 | `GRANTEE`        | `STRING` | The name of the database role to which this privilege is granted. |
 | `TABLE_CATALOG`  | `STRING` | Not used. Always an empty string.                                 |
@@ -1059,7 +993,7 @@ The view includes the `SELECT` , `INSERT` , and `UPDATE` privileges that the col
 This row-filtered table lists the `SELECT` privileges granted on all change streams to any database role, including `public` . Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on change streams to the current database role and to roles of which the current database role is a member, not including `public` .
 
 | **Column name**         | **Type** | **Description**                                                   |
-| ----------------------- | -------- | ----------------------------------------------------------------- |
+|-------------------------|----------|-------------------------------------------------------------------|
 | `CHANGE_STREAM_CATALOG` | `STRING` | Not used. Always an empty string.                                 |
 | `CHANGE_STREAM_SCHEMA`  | `STRING` | The name of the schema that contains the change stream.           |
 | `CHANGE_STREAM_NAME`    | `STRING` | The name of the change stream.                                    |
@@ -1071,7 +1005,7 @@ This row-filtered table lists the `SELECT` privileges granted on all change stre
 This row-filtered table lists all fine-grained access control privileges granted on all models to any database role, including `public` . Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on tables and views to the current database role and to roles of which the current database role is a member, not including `public` .
 
 | **Column name**  | **Type** | **Description**                                                   |
-| ---------------- | -------- | ----------------------------------------------------------------- |
+|------------------|----------|-------------------------------------------------------------------|
 | `GRANTOR`        | `STRING` | Not used. Always `NULL` .                                         |
 | `GRANTEE`        | `STRING` | The name of the database role to which this privilege is granted. |
 | `MODEL_CATALOG`  | `STRING` | Not used. Always an empty string.                                 |
@@ -1085,7 +1019,7 @@ This row-filtered table lists all fine-grained access control privileges granted
 This row-filtered table lists the `EXECUTE` privileges granted on all change stream read functions to any database role, including `public` . Principals with IAM database-level permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on change stream read functions to the current database role and to roles of which the current database role is a member, not including `public` .
 
 | Column name        | Type     | Description                                                                           |
-| ------------------ | -------- | ------------------------------------------------------------------------------------- |
+|--------------------|----------|---------------------------------------------------------------------------------------|
 | `GRANTOR`          | `STRING` | Not used. Always `NULL` .                                                             |
 | `GRANTEE`          | `STRING` | The name of the role that the privilege is granted to.                                |
 | `SPECIFIC_CATALOG` | `STRING` | The name of the routine catalog.                                                      |
@@ -1099,7 +1033,7 @@ This row-filtered table lists the `EXECUTE` privileges granted on all change str
 This table lists all of a database's [models](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) .
 
 | Column name     | Type     | Description                                                           |
-| --------------- | -------- | --------------------------------------------------------------------- |
+|-----------------|----------|-----------------------------------------------------------------------|
 | `MODEL_CATALOG` | `STRING` | The name of the catalog. Always an empty string.                      |
 | `MODEL_SCHEMA`  | `STRING` | The name of this model's schema. Always an empty string.              |
 | `MODEL_NAME`    | `STRING` | The name of the model.                                                |
@@ -1110,7 +1044,7 @@ This table lists all of a database's [models](https://docs.cloud.google.com/span
 This table contains the configuration options for models.
 
 | Column name     | Type     | Description                                              |
-| --------------- | -------- | -------------------------------------------------------- |
+|-----------------|----------|----------------------------------------------------------|
 | `MODEL_CATALOG` | `STRING` | The name of the catalog. Always an empty string.         |
 | `MODEL_SCHEMA`  | `STRING` | The name of this model's schema. Always an empty string. |
 | `MODEL_NAME`    | `STRING` | The name of the model.                                   |
@@ -1123,7 +1057,7 @@ This table contains the configuration options for models.
 This table lists the columns in a model.
 
 | Column name        | Type     | Description                                                                                                       |
-| ------------------ | -------- | ----------------------------------------------------------------------------------------------------------------- |
+|--------------------|----------|-------------------------------------------------------------------------------------------------------------------|
 | `MODEL_CATALOG`    | `STRING` | The name of the catalog. Always an empty string.                                                                  |
 | `MODEL_SCHEMA`     | `STRING` | The name of this model's schema. Always an empty string.                                                          |
 | `MODEL_NAME`       | `STRING` | The name of the model.                                                                                            |
@@ -1138,7 +1072,7 @@ This table lists the columns in a model.
 This table contains the configuration options for model columns.
 
 | Column name     | Type     | Description                                              |
-| --------------- | -------- | -------------------------------------------------------- |
+|-----------------|----------|----------------------------------------------------------|
 | `MODEL_CATALOG` | `STRING` | The name of the catalog. Always an empty string.         |
 | `MODEL_SCHEMA`  | `STRING` | The name of this model's schema. Always an empty string. |
 | `MODEL_NAME`    | `STRING` | The name of the model.                                   |
@@ -1153,7 +1087,7 @@ This table contains the configuration options for model columns.
 This row-filtered table lists all the privileges granted at the model-level to [database roles](https://docs.cloud.google.com/spanner/docs/information-schema#roles) , including `public` . Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see privileges only for models on which `EXECUTE` fine-grained access control privilege is granted to the current database role, to roles of which the current database role is a member, or to `public` .
 
 | Column name      | Type     | Description                                                                        |
-| ---------------- | -------- | ---------------------------------------------------------------------------------- |
+|------------------|----------|------------------------------------------------------------------------------------|
 | `MODEL_CATALOG`  | `STRING` | Not used. Always an empty string.                                                  |
 | `MODEL_SCHEMA`   | `STRING` | Not used. Always an empty string.                                                  |
 | `MODEL_NAME`     | `STRING` | The name of the model on which fine-grained access control privileges are granted. |
@@ -1165,7 +1099,7 @@ This row-filtered table lists all the privileges granted at the model-level to [
 This row-filtered table lists the [property graphs](https://docs.cloud.google.com/spanner/docs/graph/schema-overview#property-graph-data-model) in the database. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can only see property graphs if they meet the requirements to see all the tables used to define those graphs.
 
 | Column name                    | Type     | Description                                          |
-| ------------------------------ | -------- | ---------------------------------------------------- |
+|--------------------------------|----------|------------------------------------------------------|
 | `PROPERTY_GRAPH_CATALOG`       | `STRING` | The name of the catalog. Always an empty string.     |
 | `PROPERTY_GRAPH_SCHEMA`        | `STRING` | The name of the schema. An empty string if unnamed.  |
 | `PROPERTY_GRAPH_NAME`          | `STRING` | The name of the property graph.                      |
@@ -1173,340 +1107,207 @@ This row-filtered table lists the [property graphs](https://docs.cloud.google.co
 
 The `PROPERTY_GRAPH_METADATA_JSON` column contains a `PropertyGraph` JSON object defined as the following:
 
-JSON object name
-
-Field name
-
-JSON type
-
-Description
-
-`PropertyGraph`
-
-`catalog`
-
-`string`
-
-The name of the catalog. Always an empty string.
-
-`schema`
-
-`string`
-
-The name of the schema. An empty string if unnamed.
-
-`name`
-
-`string`
-
-The name of the property graph.
-
-`nodeTables`
-
-`array<object>`
-
-A list of `GraphElementTable` objects for nodes.
-
-`edgeTables`
-
-`array<object>`
-
-A list of `GraphElementTable` objects for edges.
-
-`labels`
-
-`array<object>`
-
-A list of `GraphElementLabel` objects.
-
-`propertyDeclarations`
-
-`array<object>`
-
-A list of `GraphPropertyDeclaration` objects.
-
-`GraphElementTable`
-
-`name`
-
-`string`
-
-The name of the graph element table.
-
-`kind`
-
-`string`
-
-Either `NODE` or `EDGE` .
-
-`baseCatalogName`
-
-`string`
-
-The name of the catalog containing the base table.
-
-`baseSchemaName`
-
-`string`
-
-The name of the schema containing the base table.
-
-`baseTableName`
-
-`string`
-
-The name of the input table from which elements are created.
-
-`keyColumns`
-
-`array<string>`
-
-The column names that constitute the element key.
-
-`labelNames`
-
-`array<string>`
-
-The label names attached to this element table.
-
-`propertyDefinitions`
-
-`array<object>`
-
-A list of `GraphPropertyDefinition` objects.
-
-`dynamicLabelExpr`
-
-`string`
-
-The name of the column that contains the [`DYNAMIC LABEL`](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#dynamic-label) definition.
-
-`dynamicPropertyExpr`
-
-`string`
-
-The name of the column that contains the [`DYNAMIC PROPERTIES`](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#dynamic-properties) definition.
-
-`sourceNodeTable`
-
-`object`
-
-A `GraphNodeTableReference` object. Only exist when the `kind` is `EDGE` .
-
-`destinationNodeTable`
-
-`object`
-
-A `GraphNodeTableReference` object. Only exist when the `kind` is `EDGE` .
-
-`GraphNodeTableReference`
-
-`nodeTableName`
-
-`string`
-
-The name of the graph element table.
-
-`edgeTableColumns`
-
-`array<string>`
-
-The name of the columns that are associated with the source and destination keys for the edges.
-
-`nodeTableColumns`
-
-`array<string>`
-
-The name of the columns that are associated with the source and destination keys for the nodes.
-
-`GraphElementLabel`
-
-`name`
-
-`string`
-
-The name of the label.
-
-`propertyDeclarationNames`
-
-`array<string>`
-
-The names of the properties associated with this label.
-
-`GraphPropertyDeclaration`
-
-`name`
-
-`string`
-
-The name of the property.
-
-`type`
-
-`string`
-
-The type of the property.
-
-`GraphPropertyDefinition`
-
-`propertyDeclarationName`
-
-`string`
-
-The name of the property.
-
-`valueExpressionSql`
-
-`string`
-
-The expression that defines the property.
+| JSON object name           | Field name                | JSON type                                                                                                                                                               | Description                                      |
+|----------------------------|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+| `PropertyGraph`            | `catalog`                 | `string`                                                                                                                                                                | The name of the catalog. Always an empty string. |
+| `schema`                   | `string`                  | The name of the schema. An empty string if unnamed.                                                                                                                     |                                                  |
+| `name`                     | `string`                  | The name of the property graph.                                                                                                                                         |                                                  |
+| `nodeTables`               | `array<object>`           | A list of `GraphElementTable` objects for nodes.                                                                                                                        |                                                  |
+| `edgeTables`               | `array<object>`           | A list of `GraphElementTable` objects for edges.                                                                                                                        |                                                  |
+| `labels`                   | `array<object>`           | A list of `GraphElementLabel` objects.                                                                                                                                  |                                                  |
+| `propertyDeclarations`     | `array<object>`           | A list of `GraphPropertyDeclaration` objects.                                                                                                                           |                                                  |
+| `GraphElementTable`        | `name`                    | `string`                                                                                                                                                                | The name of the graph element table.             |
+| `kind`                     | `string`                  | Either `NODE` or `EDGE` .                                                                                                                                               |                                                  |
+| `baseCatalogName`          | `string`                  | The name of the catalog containing the base table.                                                                                                                      |                                                  |
+| `baseSchemaName`           | `string`                  | The name of the schema containing the base table.                                                                                                                       |                                                  |
+| `baseTableName`            | `string`                  | The name of the input table from which elements are created.                                                                                                            |                                                  |
+| `keyColumns`               | `array<string>`           | The column names that constitute the element key.                                                                                                                       |                                                  |
+| `labelNames`               | `array<string>`           | The label names attached to this element table.                                                                                                                         |                                                  |
+| `propertyDefinitions`      | `array<object>`           | A list of `GraphPropertyDefinition` objects.                                                                                                                            |                                                  |
+| `dynamicLabelExpr`         | `string`                  | The name of the column that contains the [`DYNAMIC LABEL`](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#dynamic-label) definition.           |                                                  |
+| `dynamicPropertyExpr`      | `string`                  | The name of the column that contains the [`DYNAMIC PROPERTIES`](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#dynamic-properties) definition. |                                                  |
+| `sourceNodeTable`          | `object`                  | A `GraphNodeTableReference` object. Only exist when the `kind` is `EDGE` .                                                                                              |                                                  |
+| `destinationNodeTable`     | `object`                  | A `GraphNodeTableReference` object. Only exist when the `kind` is `EDGE` .                                                                                              |                                                  |
+| `GraphNodeTableReference`  | `nodeTableName`           | `string`                                                                                                                                                                | The name of the graph element table.             |
+| `edgeTableColumns`         | `array<string>`           | The name of the columns that are associated with the source and destination keys for the edges.                                                                         |                                                  |
+| `nodeTableColumns`         | `array<string>`           | The name of the columns that are associated with the source and destination keys for the nodes.                                                                         |                                                  |
+| `GraphElementLabel`        | `name`                    | `string`                                                                                                                                                                | The name of the label.                           |
+| `propertyDeclarationNames` | `array<string>`           | The names of the properties associated with this label.                                                                                                                 |                                                  |
+| `GraphPropertyDeclaration` | `name`                    | `string`                                                                                                                                                                | The name of the property.                        |
+| `type`                     | `string`                  | The type of the property.                                                                                                                                               |                                                  |
+| `GraphPropertyDefinition`  | `propertyDeclarationName` | `string`                                                                                                                                                                | The name of the property.                        |
+| `valueExpressionSql`       | `string`                  | The expression that defines the property.                                                                                                                               |                                                  |
 
 ## Examples
 
 Return information about each table in the user's schema:
 
-    SELECT
-      t.table_schema,
-      t.table_name,
-      t.parent_table_name
-    FROM
-      information_schema.tables AS t
-    WHERE
-      t.table_catalog = ''
-      AND
-      t.table_schema NOT IN ('information_schema', 'SPANNER_SYS')
-      AND t.table_type = 'BASE TABLE'
-    ORDER BY
-      t.table_catalog,
-      t.table_schema,
-      t.table_name
+```
+SELECT
+  t.table_schema,
+  t.table_name,
+  t.parent_table_name
+FROM
+  information_schema.tables AS t
+WHERE
+  t.table_catalog = ''
+  AND
+  t.table_schema NOT IN ('information_schema', 'SPANNER_SYS')
+  AND t.table_type = 'BASE TABLE'
+ORDER BY
+  t.table_catalog,
+  t.table_schema,
+  t.table_name
+```
 
-Return the name of all tables in the INFORMATION\_SCHEMA:
+Return the name of all tables in the INFORMATION_SCHEMA:
 
-    SELECT
-      t.table_name
-    FROM
-      information_schema.tables AS t
-    WHERE
-      t.table_schema = "SPANNER_SYS"
+```
+SELECT
+  t.table_name
+FROM
+  information_schema.tables AS t
+WHERE
+  t.table_schema = "SPANNER_SYS"
+```
 
 Return information about the columns in the user table `MyTable` in default schema:
 
-    SELECT
-      t.column_name,
-      t.spanner_type,
-      t.is_nullable
-    FROM
-      information_schema.columns AS t
-    WHERE
-      t.table_catalog = ''
-      AND
-      t.table_schema = ''
-      AND
-      t.table_name = 'MyTable'
-    ORDER BY
-      t.table_catalog,
-      t.table_schema,
-      t.table_name,
-      t.ordinal_position
+```
+SELECT
+  t.column_name,
+  t.spanner_type,
+  t.is_nullable
+FROM
+  information_schema.columns AS t
+WHERE
+  t.table_catalog = ''
+  AND
+  t.table_schema = ''
+  AND
+  t.table_name = 'MyTable'
+ORDER BY
+  t.table_catalog,
+  t.table_schema,
+  t.table_name,
+  t.ordinal_position
+```
 
 Return information on what the default leader region for the database is. Returns empty if the default leader is not set:
 
-    SELECT
-      s.option_name,
-      s.option_value
-    FROM
-      information_schema.database_options s
-    WHERE
-      s.option_name = 'default_leader'
+```
+SELECT
+  s.option_name,
+  s.option_value
+FROM
+  information_schema.database_options s
+WHERE
+  s.option_name = 'default_leader'
+```
 
 Return information about each index in the user's schema:
 
-    SELECT
-      t.table_schema,
-      t.table_name,
-      t.index_name,
-      t.parent_table_name
-    FROM
-      information_schema.indexes AS t
-    WHERE
-      t.table_catalog = ''
-      AND
-      t.table_schema NOT IN ('information_schema', 'SPANNER_SYS')
-      AND
-      t.index_type != 'PRIMARY_KEY'
-    ORDER BY
-      t.table_catalog,
-      t.table_schema,
-      t.table_name,
-      t.index_name
+```
+SELECT
+  t.table_schema,
+  t.table_name,
+  t.index_name,
+  t.parent_table_name
+FROM
+  information_schema.indexes AS t
+WHERE
+  t.table_catalog = ''
+  AND
+  t.table_schema NOT IN ('information_schema', 'SPANNER_SYS')
+  AND
+  t.index_type != 'PRIMARY_KEY'
+ORDER BY
+  t.table_catalog,
+  t.table_schema,
+  t.table_name,
+  t.index_name
+```
 
 Returns all the columns that use options other than the default:
 
-    SELECT
-      t.table_schema,
-      t.table_name,
-      t.column_name,
-      t.option_type,
-      t.option_value,
-      t.option_name
-    FROM
-      information_schema.column_options AS t
-    WHERE
-      t.table_catalog = ''
-    AND
-      t.table_schema NOT IN ('information_schema', 'SPANNER_SYS')
+```
+SELECT
+  t.table_schema,
+  t.table_name,
+  t.column_name,
+  t.option_type,
+  t.option_value,
+  t.option_name
+FROM
+  information_schema.column_options AS t
+WHERE
+  t.table_catalog = ''
+AND
+  t.table_schema NOT IN ('information_schema', 'SPANNER_SYS')
+```
 
 Returns the current optimizer related database options:
 
-    SELECT
-      s.option_name,
-      s.option_value
-    FROM
-      information_schema.database_options s
-    WHERE
-      s.schema_name=''
-      AND s.option_name IN ('optimizer_version',
-        'optimizer_statistics_package')
+```
+SELECT
+  s.option_name,
+  s.option_value
+FROM
+  information_schema.database_options s
+WHERE
+  s.schema_name=''
+  AND s.option_name IN ('optimizer_version',
+    'optimizer_statistics_package')
+```
 
 Returns all available statistics packages:
 
-    SELECT
-      *
-    FROM
-      information_schema.spanner_statistics;
+```
+SELECT
+  *
+FROM
+  information_schema.spanner_statistics;
+```
 
 Return all sequences:
 
-    SELECT
-      *
-    FROM
-      information_schema.sequences;
+```
+SELECT
+  *
+FROM
+  information_schema.sequences;
+```
 
 Return all sequence options for the sequence named "MySequence"
 
-    SELECT
-      *
-    FROM
-      information_schema.sequence_options WHERE name="MySequence";
+```
+SELECT
+  *
+FROM
+  information_schema.sequence_options WHERE name="MySequence";
+```
 
 Return the names of all property graphs and their definitions:
 
-    SELECT
-      property_graph_name,
-      property_graph_metadata_json
-    FROM
-      information_schema.property_graphs
+```
+SELECT
+  property_graph_name,
+  property_graph_metadata_json
+FROM
+  information_schema.property_graphs
+```
 
 Return the names of all property graphs together with their labels and properties:
 
-    SELECT
-      property_graph_name,
-      property_graph_metadata_json.labels,
-      property_graph_metadata_json.propertyDeclarations
-    FROM
-      information_schema.property_graphs
+```
+SELECT
+  property_graph_name,
+  property_graph_metadata_json.labels,
+  property_graph_metadata_json.propertyDeclarations
+FROM
+  information_schema.property_graphs
+```
 
 ## What's next
 
-  - Learn about available [Introspection tools](https://docs.cloud.google.com/spanner/docs/introspection) to help you investigate database issues.
+- Learn about available [Introspection tools](https://docs.cloud.google.com/spanner/docs/introspection) to help you investigate database issues.

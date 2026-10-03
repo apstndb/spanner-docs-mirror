@@ -14,11 +14,13 @@ This document describes how to configure the Go SQL package driver to connect to
 
 To use the Go SQL package to connect to Spanner Omni, ensure you meet the following requirements:
 
-  - Use [version 1.23.0](https://pkg.go.dev/database/sql@go1.23.0) or later of the Go SQL package.
+- Use [version 1.23.0](https://pkg.go.dev/database/sql@go1.23.0) or later of the Go SQL package.
 
-  - Add the following module to your `go.mod` file to use the driver in your application:
-    
-        go get github.com/googleapis/go-sql-spanner
+- Add the following module to your `go.mod` file to use the driver in your application:
+
+  ```
+  go get github.com/googleapis/go-sql-spanner
+  ```
 
 ## Establish a connection
 
@@ -28,16 +30,22 @@ Run one of the following commands to establish a connection with Spanner Omni:
 
 To establish a plain-text communication channel, run the following command:
 
-    db, err := sql.Open("spanner", "ENDPOINT/databases/DATABASE_ID?use_plain_text=true;is_experimental_host=true")
+```
+db, err := sql.Open("spanner", "ENDPOINT/databases/DATABASE_ID?use_plain_text=true;is_experimental_host=true")
+```
 
 ### TLS connection
 
 To establish a secure TLS connection, run the following command:
 
-    db, err := sql.Open("spanner", "ENDPOINT/databases/DATABASE_ID?ca_cert_file=PATH_TO_CA_CRT;is_experimental_host=true")
+```
+db, err := sql.Open("spanner", "ENDPOINT/databases/DATABASE_ID?ca_cert_file=PATH_TO_CA_CRT;is_experimental_host=true")
+```
 
 ### mTLS connection
 
 To establish a mutual TLS (mTLS) connection, run the following command:
 
-    db, err := sql.Open("spanner", "ENDPOINT/databases/DATABASE_ID?ca_cert_file=PATH_TO_CA_CRT;client_cert_file=PATH_TO_CLIENT_CRT;client_cert_key=PATH_TO_CLIENT_KEY;is_experimental_host=true")
+```
+db, err := sql.Open("spanner", "ENDPOINT/databases/DATABASE_ID?ca_cert_file=PATH_TO_CA_CRT;client_cert_file=PATH_TO_CLIENT_CRT;client_cert_key=PATH_TO_CLIENT_KEY;is_experimental_host=true")
+```

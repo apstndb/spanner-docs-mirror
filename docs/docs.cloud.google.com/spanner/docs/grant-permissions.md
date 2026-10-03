@@ -157,7 +157,7 @@ Follow these steps to remove database-level roles from a principal.
     The **Info panel** appears.
 
 4.  In the **Info panel** , under **Role/Principal** , locate the database-level role that you want to remove, and expand it.
-    
+
     A list of principals who have this role is shown.
 
 5.  Click the trash icon adjacent to the principal from whom you want to remove the role.

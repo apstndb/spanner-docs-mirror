@@ -8,15 +8,15 @@ data_source: docs.cloud.google.com
 
 ## Objectives
 
-This tutorial walks you through the following steps using the Spanner client library for C\#:
+This tutorial walks you through the following steps using the Spanner client library for C#:
 
-  - Create a Spanner instance and database.
-  - Write, read, and execute SQL queries on data in the database.
-  - Update the database schema.
-  - Update data using a read-write transaction.
-  - Add a secondary index to the database.
-  - Use the index to read and execute SQL queries on data.
-  - Retrieve data using a read-only transaction.
+- Create a Spanner instance and database.
+- Write, read, and execute SQL queries on data in the database.
+- Update the database schema.
+- Update data using a read-write transaction.
+- Add a secondary index to the database.
+- Use the index to read and execute SQL queries on data.
+- Retrieve data using a read-only transaction.
 
 ## Costs
 
@@ -30,47 +30,59 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 
 > **Note:** If you don't plan to keep the resources that you create in this tutorial, consider creating a new Google Cloud project instead of selecting an existing project. After you finish the tutorial, you can delete the project, removing all resources associated with the project.
 
-## Prepare your local C\# environment
+## Prepare your local C# environment
 
 1.  Set the `PROJECT_ID` environment variable to your Google Cloud project ID.
-    
+
     1.  First, set `PROJECT_ID` for the current PowerShell session:
-        
-            $env:PROJECT_ID = "MY_PROJECT_ID"
-    
+
+        ```
+        $env:PROJECT_ID = "MY_PROJECT_ID"
+        ```
+
     2.  Then, set `PROJECT_ID` for all processes created after this command:
-        
-            [Environment]::SetEnvironmentVariable("PROJECT_ID", "MY_PROJECT_ID", "User")
+
+        ```
+        [Environment]::SetEnvironmentVariable("PROJECT_ID", "MY_PROJECT_ID", "User")
+        ```
 
 2.  Download credentials.
-    
+
     1.  Go to the **Credentials** page in the Google Cloud console.
-    
+
     2.  Click **Create credentials** and choose **Service account key** .
-    
+
     3.  Under "Service account", choose **Compute Engine default service account** , and leave **JSON** selected under "Key type". Click **Create** . Your computer downloads a JSON file.
 
-3.  Set up credentials. For a file named `  FILENAME .json ` in `  CURRENT_USER  ` 's Downloads directory, located on the `  C  ` drive, run the following commands to set `GOOGLE_APPLICATION_CREDENTIALS` to point to the JSON key:
-    
+3.  Set up credentials. For a file named `FILENAME `` .json` in `CURRENT_USER` 's Downloads directory, located on the `C` drive, run the following commands to set `GOOGLE_APPLICATION_CREDENTIALS` to point to the JSON key:
+
     1.  First, to set `GOOGLE_APPLICATION_CREDENTIALS` for this PowerShell session:
-        
-            $env:GOOGLE_APPLICATION_CREDENTIALS = "C:\Users\CURRENT_USER\Downloads\FILENAME.json"
-    
+
+        ```
+        $env:GOOGLE_APPLICATION_CREDENTIALS = "C:\Users\CURRENT_USER\Downloads\FILENAME.json"
+        ```
+
     2.  Then, to set `GOOGLE_APPLICATION_CREDENTIALS` for all processes created after this command:
-        
-            [Environment]::SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "C:\Users\CURRENT_USER\Downloads\FILENAME.json", "User")
+
+        ```
+        [Environment]::SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "C:\Users\CURRENT_USER\Downloads\FILENAME.json", "User")
+        ```
 
 4.  Clone the sample app repository to your local machine:
-    
-        git clone https://github.com/GoogleCloudPlatform/dotnet-docs-samples
-    
+
+    ```
+    git clone https://github.com/GoogleCloudPlatform/dotnet-docs-samples
+    ```
+
     Alternatively, you can [download the sample](https://github.com/GoogleCloudPlatform/dotnet-docs-samples/archive/main.zip) as a zip file and extract it.
 
 5.  Open `Spanner.sln` , located in the `dotnet-docs-samples\spanner\api` directory of the downloaded repository, with Visual Studio 2017 or later, then build it.
 
 6.  Change to the directory within the downloaded repository that contains the compiled application. For example:
-    
-        cd dotnet-docs-samples\spanner\api\Spanner
+
+    ```
+    cd dotnet-docs-samples\spanner\api\Spanner
+    ```
 
 ## Create an instance
 
@@ -78,13 +90,13 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
-  - The Google Cloud CLI
-  - The Google Cloud console
-  - A client library (C++, C\#, Go, Java, Node.js, PHP, Python, or Ruby)
+- The Google Cloud CLI
+- The Google Cloud console
+- A client library (C++, C#, Go, Java, Node.js, PHP, Python, or Ruby)
 
 ## Look through sample files
 
-The samples repository contains a sample that shows how to use Spanner with C\#.
+The samples repository contains a sample that shows how to use Spanner with C#.
 
 Take a look through the [Spanner .NET GitHub repository](https://github.com/GoogleCloudPlatform/dotnet-docs-samples/tree/main/spanner/api) , which shows how to create a database and modify a database schema. The data uses the example schema shown in the [Schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) page.
 
@@ -98,110 +110,114 @@ The following code creates a database and two tables in the database.
 
 ### GoogleSQL
 
-    using Google.Cloud.Spanner.Data;
-    using System.Threading.Tasks;
-    
-    public class CreateDatabaseAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System.Threading.Tasks;
+
+public class CreateDatabaseAsyncSample
+{
+    public async Task CreateDatabaseAsync(string projectId, string instanceId, string databaseId)
     {
-        public async Task CreateDatabaseAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}";
-    
-            using var connection = new SpannerConnection(connectionString);
-            var createDatabase = $"CREATE DATABASE `{databaseId}`";
-            // Define create table statement for table #1.
-            var createSingersTable =
-                @"CREATE TABLE Singers (
-                    SingerId INT64 NOT NULL,
-                    FirstName STRING(1024),
-                    LastName STRING(1024),
-                    ComposerInfo BYTES(MAX),
-                    FullName STRING(2048) AS (ARRAY_TO_STRING([FirstName, LastName], "" "")) STORED
-                ) PRIMARY KEY (SingerId)";
-            // Define create table statement for table #2.
-            var createAlbumsTable =
-                @"CREATE TABLE Albums (
-                    SingerId INT64 NOT NULL,
-                    AlbumId INT64 NOT NULL,
-                    AlbumTitle STRING(MAX)
-                ) PRIMARY KEY (SingerId, AlbumId),
-                INTERLEAVE IN PARENT Singers ON DELETE CASCADE";
-    
-            using var createDbCommand = connection.CreateDdlCommand(createDatabase, createSingersTable, createAlbumsTable);
-            await createDbCommand.ExecuteNonQueryAsync();
-        }
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}";
+
+        using var connection = new SpannerConnection(connectionString);
+        var createDatabase = $"CREATE DATABASE `{databaseId}`";
+        // Define create table statement for table #1.
+        var createSingersTable =
+            @"CREATE TABLE Singers (
+                SingerId INT64 NOT NULL,
+                FirstName STRING(1024),
+                LastName STRING(1024),
+                ComposerInfo BYTES(MAX),
+                FullName STRING(2048) AS (ARRAY_TO_STRING([FirstName, LastName], "" "")) STORED
+            ) PRIMARY KEY (SingerId)";
+        // Define create table statement for table #2.
+        var createAlbumsTable =
+            @"CREATE TABLE Albums (
+                SingerId INT64 NOT NULL,
+                AlbumId INT64 NOT NULL,
+                AlbumTitle STRING(MAX)
+            ) PRIMARY KEY (SingerId, AlbumId),
+            INTERLEAVE IN PARENT Singers ON DELETE CASCADE";
+
+        using var createDbCommand = connection.CreateDdlCommand(createDatabase, createSingersTable, createAlbumsTable);
+        await createDbCommand.ExecuteNonQueryAsync();
     }
+}
+```
 
 ### PostgreSQL
 
-    using Google.Cloud.Spanner.Admin.Database.V1;
-    using Google.Cloud.Spanner.Common.V1;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class CreateDatabaseAsyncPostgresSample
+```csharp
+using Google.Cloud.Spanner.Admin.Database.V1;
+using Google.Cloud.Spanner.Common.V1;
+using System;
+using System.Threading.Tasks;
+
+public class CreateDatabaseAsyncPostgresSample
+{
+    public async Task CreateDatabaseAsyncPostgres(string projectId, string instanceId, string databaseId)
     {
-        public async Task CreateDatabaseAsyncPostgres(string projectId, string instanceId, string databaseId)
+        DatabaseAdminClient databaseAdminClient = await DatabaseAdminClient.CreateAsync();
+
+        // Create the CreateDatabaseRequest with PostgreSQL dialect and execute it.
+        // There cannot be Extra DDL statements while creating PostgreSQL.
+        var createDatabaseRequest = new CreateDatabaseRequest
         {
-            DatabaseAdminClient databaseAdminClient = await DatabaseAdminClient.CreateAsync();
-    
-            // Create the CreateDatabaseRequest with PostgreSQL dialect and execute it.
-            // There cannot be Extra DDL statements while creating PostgreSQL.
-            var createDatabaseRequest = new CreateDatabaseRequest
-            {
-                ParentAsInstanceName = InstanceName.FromProjectInstance(projectId, instanceId),
-                CreateStatement = $"CREATE DATABASE \"{databaseId}\"",
-                DatabaseDialect = DatabaseDialect.Postgresql
-            };
-    
-            var createOperation = await databaseAdminClient.CreateDatabaseAsync(createDatabaseRequest);
-    
-            // Wait until the operation has finished.
-            Console.WriteLine("Waiting for the database to be created.");
-            var completedResponse = await createOperation.PollUntilCompletedAsync();
-            if (completedResponse.IsFaulted)
-            {
-                Console.WriteLine($"Error while creating PostgreSQL database: {completedResponse.Exception}");
-                throw completedResponse.Exception;
-            }
-    
-            // PostgreSQL Database is created. Now, we can create the tables.
-            // Define create table statement for table #1 in PostgreSQL syntax.
-            var createSingersTable = @"CREATE TABLE Singers (
-                SingerId bigint NOT NULL PRIMARY KEY,
-                FirstName varchar(1024),
-                LastName varchar(1024),
-                Rating numeric,
-                SingerInfo bytea,
-                FullName character varying(2048) GENERATED ALWAYS AS (FirstName || ' ' || LastName) STORED)";
-    
-            // Define create table statement for table #2 in PostgreSQL syntax.
-            var createAlbumsTable = @"CREATE TABLE Albums (
-                AlbumId bigint NOT NULL PRIMARY KEY,
-                SingerId bigint NOT NULL REFERENCES Singers (SingerId),
-                AlbumTitle text,
-                MarketingBudget BIGINT)";
-    
-            DatabaseName databaseName = DatabaseName.FromProjectInstanceDatabase(projectId, instanceId, databaseId);
-    
-            // Create UpdateDatabaseRequest to create the tables. 
-            var updateDatabaseRequest = new UpdateDatabaseDdlRequest
-            {
-                DatabaseAsDatabaseName = databaseName,
-                Statements = { createSingersTable, createAlbumsTable }
-            };
-    
-            var updateOperation = await databaseAdminClient.UpdateDatabaseDdlAsync(updateDatabaseRequest);
-            // Wait until the operation has finished.
-            Console.WriteLine("Waiting for the tables to be created.");
-            var updateResponse = await updateOperation.PollUntilCompletedAsync();
-            if (updateResponse.IsFaulted)
-            {
-                Console.WriteLine($"Error while updating database: {updateResponse.Exception}");
-                throw updateResponse.Exception;
-            }
+            ParentAsInstanceName = InstanceName.FromProjectInstance(projectId, instanceId),
+            CreateStatement = $"CREATE DATABASE \"{databaseId}\"",
+            DatabaseDialect = DatabaseDialect.Postgresql
+        };
+
+        var createOperation = await databaseAdminClient.CreateDatabaseAsync(createDatabaseRequest);
+
+        // Wait until the operation has finished.
+        Console.WriteLine("Waiting for the database to be created.");
+        var completedResponse = await createOperation.PollUntilCompletedAsync();
+        if (completedResponse.IsFaulted)
+        {
+            Console.WriteLine($"Error while creating PostgreSQL database: {completedResponse.Exception}");
+            throw completedResponse.Exception;
+        }
+
+        // PostgreSQL Database is created. Now, we can create the tables.
+        // Define create table statement for table #1 in PostgreSQL syntax.
+        var createSingersTable = @"CREATE TABLE Singers (
+            SingerId bigint NOT NULL PRIMARY KEY,
+            FirstName varchar(1024),
+            LastName varchar(1024),
+            Rating numeric,
+            SingerInfo bytea,
+            FullName character varying(2048) GENERATED ALWAYS AS (FirstName || ' ' || LastName) STORED)";
+
+        // Define create table statement for table #2 in PostgreSQL syntax.
+        var createAlbumsTable = @"CREATE TABLE Albums (
+            AlbumId bigint NOT NULL PRIMARY KEY,
+            SingerId bigint NOT NULL REFERENCES Singers (SingerId),
+            AlbumTitle text,
+            MarketingBudget BIGINT)";
+
+        DatabaseName databaseName = DatabaseName.FromProjectInstanceDatabase(projectId, instanceId, databaseId);
+
+        // Create UpdateDatabaseRequest to create the tables. 
+        var updateDatabaseRequest = new UpdateDatabaseDdlRequest
+        {
+            DatabaseAsDatabaseName = databaseName,
+            Statements = { createSingersTable, createAlbumsTable }
+        };
+
+        var updateOperation = await databaseAdminClient.UpdateDatabaseDdlAsync(updateDatabaseRequest);
+        // Wait until the operation has finished.
+        Console.WriteLine("Waiting for the tables to be created.");
+        var updateResponse = await updateOperation.PollUntilCompletedAsync();
+        if (updateResponse.IsFaulted)
+        {
+            Console.WriteLine($"Error while updating database: {updateResponse.Exception}");
+            throw updateResponse.Exception;
         }
     }
+}
+```
 
 The next step is to write data to your database.
 
@@ -209,50 +225,50 @@ The next step is to write data to your database.
 
 Before you can do reads or writes, you must create a [`SpannerConnection`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection) :
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    namespace GoogleCloudSamples.Spanner
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading.Tasks;
+
+namespace GoogleCloudSamples.Spanner
+{
+    public class QuickStart
     {
-        public class QuickStart
+        static async Task MainAsync()
         {
-            static async Task MainAsync()
+            string projectId = "YOUR-PROJECT-ID";
+            string instanceId = "my-instance";
+            string databaseId = "my-database";
+            string connectionString =
+                $"Data Source=projects/{projectId}/instances/{instanceId}/"
+                + $"databases/{databaseId}";
+            // Create connection to Cloud Spanner.
+            using (var connection = new SpannerConnection(connectionString))
             {
-                string projectId = "YOUR-PROJECT-ID";
-                string instanceId = "my-instance";
-                string databaseId = "my-database";
-                string connectionString =
-                    $"Data Source=projects/{projectId}/instances/{instanceId}/"
-                    + $"databases/{databaseId}";
-                // Create connection to Cloud Spanner.
-                using (var connection = new SpannerConnection(connectionString))
+                // Execute a simple SQL statement.
+                var cmd = connection.CreateSelectCommand(
+                    @"SELECT ""Hello World"" as test");
+                using (var reader = await cmd.ExecuteReaderAsync())
                 {
-                    // Execute a simple SQL statement.
-                    var cmd = connection.CreateSelectCommand(
-                        @"SELECT ""Hello World"" as test");
-                    using (var reader = await cmd.ExecuteReaderAsync())
+                    while (await reader.ReadAsync())
                     {
-                        while (await reader.ReadAsync())
-                        {
-                            Console.WriteLine(
-                                reader.GetFieldValue<string>("test"));
-                        }
+                        Console.WriteLine(
+                            reader.GetFieldValue<string>("test"));
                     }
                 }
             }
-            public static void Main(string[] args)
-            {
-                MainAsync().Wait();
-            }
+        }
+        public static void Main(string[] args)
+        {
+            MainAsync().Wait();
         }
     }
+}
+```
 
 You can think of a `SpannerConnection` as a database connection: all of your interactions with Spanner must go through a `SpannerConnection` .
 
 Read more in the [`SpannerConnection`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection) reference.
-
-<span id="write_data"></span>
 
 ## Write data with DML
 
@@ -260,43 +276,47 @@ You can insert data using Data Manipulation Language (DML) in a read-write trans
 
 You use the `ExecuteNonQueryAsync()` method to execute a DML statement.
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class WriteUsingDmlCoreAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading.Tasks;
+
+public class WriteUsingDmlCoreAsyncSample
+{
+    public async Task<int> WriteUsingDmlCoreAsync(string projectId, string instanceId, string databaseId)
     {
-        public async Task<int> WriteUsingDmlCoreAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            SpannerCommand cmd = connection.CreateDmlCommand(
-                "INSERT Singers (SingerId, FirstName, LastName) VALUES "
-                   + "(12, 'Melissa', 'Garcia'), "
-                   + "(13, 'Russell', 'Morales'), "
-                   + "(14, 'Jacqueline', 'Long'), "
-                   + "(15, 'Dylan', 'Shaw')");
-            int rowCount = await cmd.ExecuteNonQueryAsync();
-    
-            Console.WriteLine($"{rowCount} row(s) inserted...");
-            return rowCount;
-        }
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        SpannerCommand cmd = connection.CreateDmlCommand(
+            "INSERT Singers (SingerId, FirstName, LastName) VALUES "
+               + "(12, 'Melissa', 'Garcia'), "
+               + "(13, 'Russell', 'Morales'), "
+               + "(14, 'Jacqueline', 'Long'), "
+               + "(15, 'Dylan', 'Shaw')");
+        int rowCount = await cmd.ExecuteNonQueryAsync();
+
+        Console.WriteLine($"{rowCount} row(s) inserted...");
+        return rowCount;
     }
+}
+```
 
 Run the sample using the `writeUsingDml` argument.
 
-    dotnet run writeUsingDml $env:PROJECT_ID test-instance example-db
+```
+dotnet run writeUsingDml $env:PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    4 row(s) inserted...
+```
+4 row(s) inserted...
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
-
-<span id="write_data_with_mutations"></span>
 
 ## Write data with mutations
 
@@ -306,97 +326,103 @@ You can insert data using the [`connection.CreateInsertCommand()`](https://docs.
 
 This code shows how to insert data using mutations:
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    
-    public class InsertDataAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+public class InsertDataAsyncSample
+{
+    public class Singer
     {
-        public class Singer
-        {
-            public int SingerId { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-        }
-    
-        public class Album
-        {
-            public int SingerId { get; set; }
-            public int AlbumId { get; set; }
-            public string AlbumTitle { get; set; }
-        }
-    
-        public async Task InsertDataAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            List<Singer> singers = new List<Singer>
-            {
-                new Singer { SingerId = 1, FirstName = "Marc", LastName = "Richards" },
-                new Singer { SingerId = 2, FirstName = "Catalina", LastName = "Smith" },
-                new Singer { SingerId = 3, FirstName = "Alice", LastName = "Trentor" },
-                new Singer { SingerId = 4, FirstName = "Lea", LastName = "Martin" },
-                new Singer { SingerId = 5, FirstName = "David", LastName = "Lomond" },
-            };
-            List<Album> albums = new List<Album>
-            {
-                new Album { SingerId = 1, AlbumId = 1, AlbumTitle = "Total Junk" },
-                new Album { SingerId = 1, AlbumId = 2, AlbumTitle = "Go, Go, Go" },
-                new Album { SingerId = 2, AlbumId = 1, AlbumTitle = "Green" },
-                new Album { SingerId = 2, AlbumId = 2, AlbumTitle = "Forever Hold your Peace" },
-                new Album { SingerId = 2, AlbumId = 3, AlbumTitle = "Terrified" },
-            };
-    
-            // Create connection to Cloud Spanner.
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            await connection.RunWithRetriableTransactionAsync(async transaction =>
-            {
-                await Task.WhenAll(singers.Select(singer =>
-                {
-                    // Insert rows into the Singers table.
-                    using var cmd = connection.CreateInsertCommand("Singers", new SpannerParameterCollection
-                    {
-                            { "SingerId", SpannerDbType.Int64, singer.SingerId },
-                            { "FirstName", SpannerDbType.String, singer.FirstName },
-                            { "LastName", SpannerDbType.String, singer.LastName }
-                    });
-                    cmd.Transaction = transaction;
-                    return cmd.ExecuteNonQueryAsync();
-                }));
-    
-                await Task.WhenAll(albums.Select(album =>
-                {
-                    // Insert rows into the Albums table.
-                    using var cmd = connection.CreateInsertCommand("Albums", new SpannerParameterCollection
-                    {
-                            { "SingerId", SpannerDbType.Int64, album.SingerId },
-                            { "AlbumId", SpannerDbType.Int64, album.AlbumId },
-                            { "AlbumTitle", SpannerDbType.String,album.AlbumTitle }
-                    });
-                    cmd.Transaction = transaction;
-                    return cmd.ExecuteNonQueryAsync();
-                }));
-            });
-            Console.WriteLine("Data inserted.");
-        }
+        public int SingerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
+
+    public class Album
+    {
+        public int SingerId { get; set; }
+        public int AlbumId { get; set; }
+        public string AlbumTitle { get; set; }
+    }
+
+    public async Task InsertDataAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+        List<Singer> singers = new List<Singer>
+        {
+            new Singer { SingerId = 1, FirstName = "Marc", LastName = "Richards" },
+            new Singer { SingerId = 2, FirstName = "Catalina", LastName = "Smith" },
+            new Singer { SingerId = 3, FirstName = "Alice", LastName = "Trentor" },
+            new Singer { SingerId = 4, FirstName = "Lea", LastName = "Martin" },
+            new Singer { SingerId = 5, FirstName = "David", LastName = "Lomond" },
+        };
+        List<Album> albums = new List<Album>
+        {
+            new Album { SingerId = 1, AlbumId = 1, AlbumTitle = "Total Junk" },
+            new Album { SingerId = 1, AlbumId = 2, AlbumTitle = "Go, Go, Go" },
+            new Album { SingerId = 2, AlbumId = 1, AlbumTitle = "Green" },
+            new Album { SingerId = 2, AlbumId = 2, AlbumTitle = "Forever Hold your Peace" },
+            new Album { SingerId = 2, AlbumId = 3, AlbumTitle = "Terrified" },
+        };
+
+        // Create connection to Cloud Spanner.
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        await connection.RunWithRetriableTransactionAsync(async transaction =>
+        {
+            await Task.WhenAll(singers.Select(singer =>
+            {
+                // Insert rows into the Singers table.
+                using var cmd = connection.CreateInsertCommand("Singers", new SpannerParameterCollection
+                {
+                        { "SingerId", SpannerDbType.Int64, singer.SingerId },
+                        { "FirstName", SpannerDbType.String, singer.FirstName },
+                        { "LastName", SpannerDbType.String, singer.LastName }
+                });
+                cmd.Transaction = transaction;
+                return cmd.ExecuteNonQueryAsync();
+            }));
+
+            await Task.WhenAll(albums.Select(album =>
+            {
+                // Insert rows into the Albums table.
+                using var cmd = connection.CreateInsertCommand("Albums", new SpannerParameterCollection
+                {
+                        { "SingerId", SpannerDbType.Int64, album.SingerId },
+                        { "AlbumId", SpannerDbType.Int64, album.AlbumId },
+                        { "AlbumTitle", SpannerDbType.String,album.AlbumTitle }
+                });
+                cmd.Transaction = transaction;
+                return cmd.ExecuteNonQueryAsync();
+            }));
+        });
+        Console.WriteLine("Data inserted.");
+    }
+}
+```
 
 Run the sample using the `insertSampleData` argument.
 
-    dotnet run insertSampleData $env:PROJECT_ID test-instance example-db
+```
+dotnet run insertSampleData $env:PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Inserted data.
+```
+Inserted data.
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
 ## Query data using SQL
 
-Spanner supports a SQL interface for reading data, which you can access on the command line using the Google Cloud CLI or programmatically using the Spanner client library for C\#.
+Spanner supports a SQL interface for reading data, which you can access on the command line using the Google Cloud CLI or programmatically using the Spanner client library for C#.
 
 ### On the command line
 
@@ -404,77 +430,89 @@ Execute the following SQL statement to read the values of all columns from the `
 
 ### GoogleSQL
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
 
 ### GoogleSQL Pipe syntax
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
 
 > **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
-    SingerId AlbumId AlbumTitle
-    1        1       Total Junk
-    1        2       Go, Go, Go
-    2        1       Green
-    2        2       Forever Hold Your Peace
-    2        3       Terrified
+```
+SingerId AlbumId AlbumTitle
+1        1       Total Junk
+1        2       Go, Go, Go
+2        1       Green
+2        2       Forever Hold Your Peace
+2        3       Terrified
+```
 
-### Use the Spanner client library for C\#
+### Use the Spanner client library for C#
 
-In addition to executing a SQL statement on the command line, you can issue the same SQL statement programmatically using the Spanner client library for C\#.
+In addition to executing a SQL statement on the command line, you can issue the same SQL statement programmatically using the Spanner client library for C#.
 
 Use [`ExecuteReaderAsync()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerCommand#Google_Cloud_Spanner_Data_SpannerCommand_ExecuteReaderAsync) to run the SQL query.
 
-    using Google.Cloud.Spanner.Data;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class QuerySampleDataAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class QuerySampleDataAsyncSample
+{
+    public class Album
     {
-        public class Album
-        {
-            public int SingerId { get; set; }
-            public int AlbumId { get; set; }
-            public string AlbumTitle { get; set; }
-        }
-    
-        public async Task<List<Album>> QuerySampleDataAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            var albums = new List<Album>();
-            using var connection = new SpannerConnection(connectionString);
-            using var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
-    
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                albums.Add(new Album
-                {
-                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                    SingerId = reader.GetFieldValue<int>("SingerId"),
-                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
-                });
-            }
-            return albums;
-        }
+        public int SingerId { get; set; }
+        public int AlbumId { get; set; }
+        public string AlbumTitle { get; set; }
     }
+
+    public async Task<List<Album>> QuerySampleDataAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        var albums = new List<Album>();
+        using var connection = new SpannerConnection(connectionString);
+        using var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
+
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            albums.Add(new Album
+            {
+                AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                SingerId = reader.GetFieldValue<int>("SingerId"),
+                AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
+            });
+        }
+        return albums;
+    }
+}
+```
 
 Here's how to issue the query and access the data:
 
-    dotnet run querySampleData $env:PROJECT_ID test-instance example-db
+```
+dotnet run querySampleData $env:PROJECT_ID test-instance example-db
+```
 
 You should see the following result:
 
-    SingerId: 1 AlbumId: 1 AlbumTitle: Total Junk
-    SingerId: 1 AlbumId: 2 AlbumTitle: Go, Go, Go
-    SingerId: 2 AlbumId: 1 AlbumTitle: Green
-    SingerId: 2 AlbumId: 2 AlbumTitle: Forever Hold your Peace
-    SingerId: 2 AlbumId: 3 AlbumTitle: Terrified
+```
+SingerId: 1 AlbumId: 1 AlbumTitle: Total Junk
+SingerId: 1 AlbumId: 2 AlbumTitle: Go, Go, Go
+SingerId: 2 AlbumId: 1 AlbumTitle: Green
+SingerId: 2 AlbumId: 2 AlbumTitle: Forever Hold your Peace
+SingerId: 2 AlbumId: 3 AlbumTitle: Terrified
+```
 
 ### Query using a SQL parameter
 
@@ -484,98 +522,106 @@ Here is an example of using a parameter in the `WHERE` clause to query records c
 
 ### GoogleSQL
 
-    using Google.Cloud.Spanner.Data;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class QueryWithParameterAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class QueryWithParameterAsyncSample
+{
+    public class Singer
     {
-        public class Singer
-        {
-            public int SingerId { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
-        }
-    
-        public async Task<List<Singer>> QueryWithParameterAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            using var connection = new SpannerConnection(connectionString);
-            using var cmd = connection.CreateSelectCommand(
-                $"SELECT SingerId, FirstName, LastName FROM Singers WHERE LastName = @lastName",
-                new SpannerParameterCollection { { "lastName", SpannerDbType.String, "Garcia" } });
-    
-            var singers = new List<Singer>();
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                singers.Add(new Singer
-                {
-                    SingerId = reader.GetFieldValue<int>("SingerId"),
-                    FirstName = reader.GetFieldValue<string>("FirstName"),
-                    LastName = reader.GetFieldValue<string>("LastName")
-                });
-            }
-            return singers;
-        }
+        public int SingerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
+
+    public async Task<List<Singer>> QueryWithParameterAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        using var connection = new SpannerConnection(connectionString);
+        using var cmd = connection.CreateSelectCommand(
+            $"SELECT SingerId, FirstName, LastName FROM Singers WHERE LastName = @lastName",
+            new SpannerParameterCollection { { "lastName", SpannerDbType.String, "Garcia" } });
+
+        var singers = new List<Singer>();
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            singers.Add(new Singer
+            {
+                SingerId = reader.GetFieldValue<int>("SingerId"),
+                FirstName = reader.GetFieldValue<string>("FirstName"),
+                LastName = reader.GetFieldValue<string>("LastName")
+            });
+        }
+        return singers;
+    }
+}
+```
 
 ### PostgreSQL
 
-    using Google.Cloud.Spanner.Data;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class QueryUsingParametersAsyncPostgresSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class QueryUsingParametersAsyncPostgresSample
+{
+    public async Task<List<Singer>> QueryUsingParametersAsyncPostgres(string projectId, string instanceId, string databaseId)
     {
-        public async Task<List<Singer>> QueryUsingParametersAsyncPostgres(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            using var cmd = connection.CreateSelectCommand("SELECT SingerId, FirstName, LastName FROM Singers WHERE LastName LIKE $1",
-                new SpannerParameterCollection
-                {
-                    {"p1", SpannerDbType.String, "N%" }
-                });
-    
-            var list = new List<Singer>();
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        using var cmd = connection.CreateSelectCommand("SELECT SingerId, FirstName, LastName FROM Singers WHERE LastName LIKE $1",
+            new SpannerParameterCollection
             {
-                list.Add(new Singer
-                {
-                    // See https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
-                    // to understand why column names are in lower case.
-                    Id = reader.GetFieldValue<long>("singerid"),
-                    FirstName = reader.GetFieldValue<string>("firstname"),
-                    LastName = reader.GetFieldValue<string>("lastname")
-                });
-            }
-    
-            return list;
-        }
-    
-        public struct Singer
+                {"p1", SpannerDbType.String, "N%" }
+            });
+
+        var list = new List<Singer>();
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
         {
-            public long Id { get; set; }
-    
-            public string FirstName { get; set; }
-    
-            public string LastName { get; set; }
+            list.Add(new Singer
+            {
+                // See https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
+                // to understand why column names are in lower case.
+                Id = reader.GetFieldValue<long>("singerid"),
+                FirstName = reader.GetFieldValue<string>("firstname"),
+                LastName = reader.GetFieldValue<string>("lastname")
+            });
         }
+
+        return list;
     }
+
+    public struct Singer
+    {
+        public long Id { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+    }
+}
+```
 
 Here's how to issue the query with a parameter and access the data:
 
-    dotnet run queryWithParameter $env:PROJECT_ID test-instance example-db
+```
+dotnet run queryWithParameter $env:PROJECT_ID test-instance example-db
+```
 
 You should see the following result:
 
-    SingerId : 12 FirstName : Melissa LastName : Garcia
+```
+SingerId : 12 FirstName : Melissa LastName : Garcia
+```
 
 ## Update the database schema
 
@@ -583,7 +629,7 @@ Assume you need to add a new column called `MarketingBudget` to the `Albums` tab
 
 ### Add a column
 
-You can add a column on the command line using the Google Cloud CLI or programmatically using the Spanner client library for C\#.
+You can add a column on the command line using the Google Cloud CLI or programmatically using the Spanner client library for C#.
 
 #### On the command line
 
@@ -591,163 +637,189 @@ Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/ref
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
-#### Use the Spanner client library for C\#
+#### Use the Spanner client library for C#
 
 Use [`CreateDdlCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDdlCommand_System_String_System_String___) to modify the schema:
 
 ### GoogleSQL
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class AddColumnAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading.Tasks;
+
+public class AddColumnAsyncSample
+{
+    public async Task AddColumnAsync(string projectId, string instanceId, string databaseId)
     {
-        public async Task AddColumnAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            string alterStatement = "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64";
-    
-            using var connection = new SpannerConnection(connectionString);
-            using var updateCmd = connection.CreateDdlCommand(alterStatement);
-            await updateCmd.ExecuteNonQueryAsync();
-            Console.WriteLine("Added the MarketingBudget column.");
-        }
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+        string alterStatement = "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64";
+
+        using var connection = new SpannerConnection(connectionString);
+        using var updateCmd = connection.CreateDdlCommand(alterStatement);
+        await updateCmd.ExecuteNonQueryAsync();
+        Console.WriteLine("Added the MarketingBudget column.");
     }
+}
+```
 
 ### PostgreSQL
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class AddColumnAsyncPostgresSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading.Tasks;
+
+public class AddColumnAsyncPostgresSample
+{
+    public async Task AddColumnAsyncPostgres(string projectId, string instanceId, string databaseId)
     {
-        public async Task AddColumnAsyncPostgres(string projectId, string instanceId, string databaseId)
-        {
-            // PostgreSQL database with Singers table already exists.
-            // Alter the Singers table.
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            string alterStatement = "ALTER TABLE Singers ADD COLUMN Age INTEGER";
-    
-            using var connection = new SpannerConnection(connectionString);
-            using var updateCmd = connection.CreateDdlCommand(alterStatement);
-            await updateCmd.ExecuteNonQueryAsync();
-            Console.WriteLine("Added the Age column in Singers table.");
-        }
+        // PostgreSQL database with Singers table already exists.
+        // Alter the Singers table.
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+        string alterStatement = "ALTER TABLE Singers ADD COLUMN Age INTEGER";
+
+        using var connection = new SpannerConnection(connectionString);
+        using var updateCmd = connection.CreateDdlCommand(alterStatement);
+        await updateCmd.ExecuteNonQueryAsync();
+        Console.WriteLine("Added the Age column in Singers table.");
     }
+}
+```
 
 Run the sample using the `addColumn` command.
 
-    dotnet run addColumn $env:PROJECT_ID test-instance example-db
+```
+dotnet run addColumn $env:PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Added the MarketingBudget column.
+```
+Added the MarketingBudget column.
+```
 
 ### Write data to the new column
 
 The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class UpdateDataAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading.Tasks;
+
+public class UpdateDataAsyncSample
+{
+    public async Task<int> UpdateDataAsync(string projectId, string instanceId, string databaseId)
     {
-        public async Task<int> UpdateDataAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            using var connection = new SpannerConnection(connectionString);
-    
-            var rowCount = 0;
-            SpannerCommand cmd = connection.CreateDmlCommand(
-                "UPDATE Albums SET MarketingBudget = @MarketingBudget "
-                + "WHERE SingerId = 1 and AlbumId = 1");
-            cmd.Parameters.Add("MarketingBudget", SpannerDbType.Int64, 100000);
-            rowCount += await cmd.ExecuteNonQueryAsync();
-    
-            cmd = connection.CreateDmlCommand(
-                "UPDATE Albums SET MarketingBudget = @MarketingBudget "
-                + "WHERE SingerId = 2 and AlbumId = 2");
-            cmd.Parameters.Add("MarketingBudget", SpannerDbType.Int64, 500000);
-            rowCount += await cmd.ExecuteNonQueryAsync();
-    
-            Console.WriteLine("Data Updated.");
-            return rowCount;
-        }
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        using var connection = new SpannerConnection(connectionString);
+
+        var rowCount = 0;
+        SpannerCommand cmd = connection.CreateDmlCommand(
+            "UPDATE Albums SET MarketingBudget = @MarketingBudget "
+            + "WHERE SingerId = 1 and AlbumId = 1");
+        cmd.Parameters.Add("MarketingBudget", SpannerDbType.Int64, 100000);
+        rowCount += await cmd.ExecuteNonQueryAsync();
+
+        cmd = connection.CreateDmlCommand(
+            "UPDATE Albums SET MarketingBudget = @MarketingBudget "
+            + "WHERE SingerId = 2 and AlbumId = 2");
+        cmd.Parameters.Add("MarketingBudget", SpannerDbType.Int64, 500000);
+        rowCount += await cmd.ExecuteNonQueryAsync();
+
+        Console.WriteLine("Data Updated.");
+        return rowCount;
     }
+}
+```
 
 Run the sample using the `writeDataToNewColumn` command.
 
-    dotnet run writeDataToNewColumn $env:PROJECT_ID test-instance example-db
+```
+dotnet run writeDataToNewColumn $env:PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Updated data.
+```
+Updated data.
+```
 
 You can also execute a SQL query to fetch the values that you just wrote.
 
 Here's the code to execute the query:
 
-    using Google.Cloud.Spanner.Data;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class QueryNewColumnAsyncSample
+```c#
+using Google.Cloud.Spanner.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class QueryNewColumnAsyncSample
+{
+    public class Album
     {
-        public class Album
-        {
-            public int SingerId { get; set; }
-            public int AlbumId { get; set; }
-            public long MarketingBudget { get; set; }
-        }
-    
-        public async Task<List<Album>> QueryNewColumnAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            var albums = new List<Album>();
-            using var connection = new SpannerConnection(connectionString);
-            using var cmd = connection.CreateSelectCommand("SELECT * FROM Albums");
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                albums.Add(new Album
-                {
-                    SingerId = reader.GetFieldValue<int>("SingerId"),
-                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                    MarketingBudget = reader.IsDBNull(reader.GetOrdinal("MarketingBudget")) ? 0 : reader.GetFieldValue<long>("MarketingBudget")
-                });
-            }
-            return albums;
-        }
+        public int SingerId { get; set; }
+        public int AlbumId { get; set; }
+        public long MarketingBudget { get; set; }
     }
+
+    public async Task<List<Album>> QueryNewColumnAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        var albums = new List<Album>();
+        using var connection = new SpannerConnection(connectionString);
+        using var cmd = connection.CreateSelectCommand("SELECT * FROM Albums");
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            albums.Add(new Album
+            {
+                SingerId = reader.GetFieldValue<int>("SingerId"),
+                AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                MarketingBudget = reader.IsDBNull(reader.GetOrdinal("MarketingBudget")) ? 0 : reader.GetFieldValue<long>("MarketingBudget")
+            });
+        }
+        return albums;
+    }
+}
+```
 
 To execute this query, run the sample using the `queryNewColumn` argument.
 
-    dotnet run queryNewColumn $env:PROJECT_ID test-instance example-db
+```
+dotnet run queryNewColumn $env:PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    SingerId : 1 AlbumId : 1 MarketingBudget : 100000
-    SingerId : 1 AlbumId : 2 MarketingBudget :
-    SingerId : 2 AlbumId : 1 MarketingBudget :
-    SingerId : 2 AlbumId : 2 MarketingBudget : 500000
-    SingerId : 2 AlbumId : 3 MarketingBudget :
+```
+SingerId : 1 AlbumId : 1 MarketingBudget : 100000
+SingerId : 1 AlbumId : 2 MarketingBudget :
+SingerId : 2 AlbumId : 1 MarketingBudget :
+SingerId : 2 AlbumId : 2 MarketingBudget : 500000
+SingerId : 2 AlbumId : 3 MarketingBudget :
+```
 
 ## Update data
 
@@ -757,104 +829,112 @@ You use the `ExecuteNonQueryAsync()` method to execute a DML statement.
 
 ### GoogleSQL
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class WriteWithTransactionUsingDmlCoreAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading.Tasks;
+
+public class WriteWithTransactionUsingDmlCoreAsyncSample
+{
+    public async Task<int> WriteWithTransactionUsingDmlCoreAsync(string projectId, string instanceId, string databaseId)
     {
-        public async Task<int> WriteWithTransactionUsingDmlCoreAsync(string projectId, string instanceId, string databaseId)
+        // This sample transfers 200,000 from the MarketingBudget
+        // field of the second Album to the first Album. Make sure to run
+        // the AddColumnAsyncSample and WriteDataToNewColumnAsyncSample first,
+        // in that order.
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        decimal transferAmount = 200000;
+        decimal secondBudget = 0;
+
+        // Create connection to Cloud Spanner.
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        // Create a readwrite transaction that we'll assign
+        // to each SpannerCommand.
+        using var transaction = await connection.BeginTransactionAsync();
+        // Create statement to select the second album's data.
+        var cmdLookup = connection.CreateSelectCommand("SELECT * FROM Albums WHERE SingerId = 2 AND AlbumId = 2");
+        cmdLookup.Transaction = transaction;
+        // Execute the select query.
+        using var reader1 = await cmdLookup.ExecuteReaderAsync();
+        while (await reader1.ReadAsync())
         {
-            // This sample transfers 200,000 from the MarketingBudget
-            // field of the second Album to the first Album. Make sure to run
-            // the AddColumnAsyncSample and WriteDataToNewColumnAsyncSample first,
-            // in that order.
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            decimal transferAmount = 200000;
-            decimal secondBudget = 0;
-    
-            // Create connection to Cloud Spanner.
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            // Create a readwrite transaction that we'll assign
-            // to each SpannerCommand.
-            using var transaction = await connection.BeginTransactionAsync();
-            // Create statement to select the second album's data.
-            var cmdLookup = connection.CreateSelectCommand("SELECT * FROM Albums WHERE SingerId = 2 AND AlbumId = 2");
-            cmdLookup.Transaction = transaction;
-            // Execute the select query.
-            using var reader1 = await cmdLookup.ExecuteReaderAsync();
-            while (await reader1.ReadAsync())
+            // Read the second album's budget.
+            secondBudget = reader1.GetFieldValue<decimal>("MarketingBudget");
+            // Confirm second Album's budget is sufficient and
+            // if not raise an exception. Raising an exception
+            // will automatically roll back the transaction.
+            if (secondBudget < transferAmount)
             {
-                // Read the second album's budget.
-                secondBudget = reader1.GetFieldValue<decimal>("MarketingBudget");
-                // Confirm second Album's budget is sufficient and
-                // if not raise an exception. Raising an exception
-                // will automatically roll back the transaction.
-                if (secondBudget < transferAmount)
-                {
-                    throw new Exception($"The second album's budget {secondBudget} is less than the amount to transfer.");
-                }
+                throw new Exception($"The second album's budget {secondBudget} is less than the amount to transfer.");
             }
-    
-            // Update second album to remove the transfer amount.
-            secondBudget -= transferAmount;
-            SpannerCommand cmd = connection.CreateDmlCommand("UPDATE Albums SET MarketingBudget = @MarketingBudget  WHERE SingerId = 2 and AlbumId = 2");
-            cmd.Parameters.Add("MarketingBudget", SpannerDbType.Int64, secondBudget);
-            cmd.Transaction = transaction;
-            var rowCount = await cmd.ExecuteNonQueryAsync();
-    
-            // Update first album to add the transfer amount.
-            cmd = connection.CreateDmlCommand("UPDATE Albums SET MarketingBudget = MarketingBudget + @MarketingBudgetIncrement WHERE SingerId = 1 and AlbumId = 1");
-            cmd.Parameters.Add("MarketingBudgetIncrement", SpannerDbType.Int64, transferAmount);
-            cmd.Transaction = transaction;
-            rowCount += await cmd.ExecuteNonQueryAsync();
-    
-            await transaction.CommitAsync();
-    
-            Console.WriteLine("Transaction complete.");
-            return rowCount;
         }
+
+        // Update second album to remove the transfer amount.
+        secondBudget -= transferAmount;
+        SpannerCommand cmd = connection.CreateDmlCommand("UPDATE Albums SET MarketingBudget = @MarketingBudget  WHERE SingerId = 2 and AlbumId = 2");
+        cmd.Parameters.Add("MarketingBudget", SpannerDbType.Int64, secondBudget);
+        cmd.Transaction = transaction;
+        var rowCount = await cmd.ExecuteNonQueryAsync();
+
+        // Update first album to add the transfer amount.
+        cmd = connection.CreateDmlCommand("UPDATE Albums SET MarketingBudget = MarketingBudget + @MarketingBudgetIncrement WHERE SingerId = 1 and AlbumId = 1");
+        cmd.Parameters.Add("MarketingBudgetIncrement", SpannerDbType.Int64, transferAmount);
+        cmd.Transaction = transaction;
+        rowCount += await cmd.ExecuteNonQueryAsync();
+
+        await transaction.CommitAsync();
+
+        Console.WriteLine("Transaction complete.");
+        return rowCount;
     }
+}
+```
 
 ### PostgreSQL
 
-    using Google.Cloud.Spanner.Data;
-    using Google.Cloud.Spanner.V1;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class UpdateUsingDmlAsyncPostgresSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using Google.Cloud.Spanner.V1;
+using System;
+using System.Threading.Tasks;
+
+public class UpdateUsingDmlAsyncPostgresSample
+{
+    public async Task<int> UpdateUsingDmlAsyncPostgres(string projectId, string instanceId, string databaseId)
     {
-        public async Task<int> UpdateUsingDmlAsyncPostgres(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            using var cmd = connection.CreateDmlCommand("UPDATE Singers SET Rating = $1 WHERE SingerId = 11", 
-                new SpannerParameterCollection 
-                {
-                    { "p1", SpannerDbType.PgNumeric, PgNumeric.Parse("4.0") }
-                });
-    
-            var rowCount = await cmd.ExecuteNonQueryAsync();
-    
-            Console.WriteLine($"{rowCount} row(s) updated...");
-            return rowCount;
-        }
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        using var cmd = connection.CreateDmlCommand("UPDATE Singers SET Rating = $1 WHERE SingerId = 11", 
+            new SpannerParameterCollection 
+            {
+                { "p1", SpannerDbType.PgNumeric, PgNumeric.Parse("4.0") }
+            });
+
+        var rowCount = await cmd.ExecuteNonQueryAsync();
+
+        Console.WriteLine($"{rowCount} row(s) updated...");
+        return rowCount;
     }
+}
+```
 
 Run the sample using the `writeWithTransactionUsingDml` argument.
 
-    dotnet run writeWithTransactionUsingDml $env:PROJECT_ID test-instance example-db
+```
+dotnet run writeWithTransactionUsingDml $env:PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Transaction complete.
+```
+Transaction complete.
+```
 
 > **Note:** You can also [update data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api#updating_rows_in_a_table) .
 
@@ -868,50 +948,56 @@ After you add a secondary index, Spanner automatically uses it for SQL queries t
 
 ### Add a secondary index
 
-You can add an index on the command line using the gcloud CLI or programmatically using the Spanner client library for C\#.
+You can add an index on the command line using the gcloud CLI or programmatically using the Spanner client library for C#.
 
 #### On the command line
 
 Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
-#### Using the Spanner client library for C\#
+#### Using the Spanner client library for C#
 
 Use [`CreateDdlCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDdlCommand_System_String_System_String___) to add an index:
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class AddIndexAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading.Tasks;
+
+public class AddIndexAsyncSample
+{
+    public async Task AddIndexAsync(string projectId, string instanceId, string databaseId)
     {
-        public async Task AddIndexAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            string createStatement = "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)";
-    
-            using var connection = new SpannerConnection(connectionString);
-            using var createCmd = connection.CreateDdlCommand(createStatement);
-            await createCmd.ExecuteNonQueryAsync();
-            Console.WriteLine("Added the AlbumsByAlbumTitle index.");
-        }
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+        string createStatement = "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)";
+
+        using var connection = new SpannerConnection(connectionString);
+        using var createCmd = connection.CreateDdlCommand(createStatement);
+        await createCmd.ExecuteNonQueryAsync();
+        Console.WriteLine("Added the AlbumsByAlbumTitle index.");
     }
+}
+```
 
 Run the sample using the `addIndex` command.
 
-``` 
+```
   dotnet run addIndex $env:PROJECT_ID test-instance example-db
 ```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-``` 
+```
   Added the AlbumsByAlbumTitle index.
 ```
 
@@ -925,97 +1011,115 @@ Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `Ma
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
-#### Using the Spanner client library for C\#
+#### Using the Spanner client library for C#
 
 Use [`CreateDdlCommand()`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/Google.Cloud.Spanner.Data.SpannerConnection#Google_Cloud_Spanner_Data_SpannerConnection_CreateDdlCommand_System_String_System_String___) to add an index with a `STORING` clause:
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading.Tasks;
-    
-    public class AddStoringIndexAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading.Tasks;
+
+public class AddStoringIndexAsyncSample
+{
+    public async Task AddStoringIndexAsync(string projectId, string instanceId, string databaseId)
     {
-        public async Task AddStoringIndexAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            string createStatement = "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)";
-    
-            using var connection = new SpannerConnection(connectionString);
-            using var createCmd = connection.CreateDdlCommand(createStatement);
-            await createCmd.ExecuteNonQueryAsync();
-            Console.WriteLine("Added the AlbumsByAlbumTitle2 index.");
-        }
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+        string createStatement = "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)";
+
+        using var connection = new SpannerConnection(connectionString);
+        using var createCmd = connection.CreateDdlCommand(createStatement);
+        await createCmd.ExecuteNonQueryAsync();
+        Console.WriteLine("Added the AlbumsByAlbumTitle2 index.");
     }
+}
+```
 
 Run the sample using the `addStoringIndex` command.
 
-    dotnet run addStoringIndex $env:PROJECT_ID test-instance example-db
+```
+dotnet run addStoringIndex $env:PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Added the AlbumsByAlbumTitle2 index.
+```
+Added the AlbumsByAlbumTitle2 index.
+```
 
 Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
 Read data using the storing index you created by executing a query that explicitly specifies the index:
 
-    using Google.Cloud.Spanner.Data;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class QueryDataWithStoringIndexAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class QueryDataWithStoringIndexAsyncSample
+{
+    public class Album
     {
-        public class Album
-        {
-            public int AlbumId { get; set; }
-            public string AlbumTitle { get; set; }
-            public long? MarketingBudget { get; set; }
-        }
-    
-        public async Task<List<Album>> QueryDataWithStoringIndexAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            using var connection = new SpannerConnection(connectionString);
-            var cmd = connection.CreateSelectCommand(
-                "SELECT AlbumId, AlbumTitle, MarketingBudget FROM Albums@ "
-                + "{FORCE_INDEX=AlbumsByAlbumTitle2}");
-    
-            var albums = new List<Album>();
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                albums.Add(new Album
-                {
-                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle"),
-                    MarketingBudget = reader.IsDBNull(reader.GetOrdinal("MarketingBudget")) ? 0 : reader.GetFieldValue<long>("MarketingBudget")
-                });
-            }
-            return albums;
-        }
+        public int AlbumId { get; set; }
+        public string AlbumTitle { get; set; }
+        public long? MarketingBudget { get; set; }
     }
+
+    public async Task<List<Album>> QueryDataWithStoringIndexAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        using var connection = new SpannerConnection(connectionString);
+        var cmd = connection.CreateSelectCommand(
+            "SELECT AlbumId, AlbumTitle, MarketingBudget FROM Albums@ "
+            + "{FORCE_INDEX=AlbumsByAlbumTitle2}");
+
+        var albums = new List<Album>();
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            albums.Add(new Album
+            {
+                AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                AlbumTitle = reader.GetFieldValue<string>("AlbumTitle"),
+                MarketingBudget = reader.IsDBNull(reader.GetOrdinal("MarketingBudget")) ? 0 : reader.GetFieldValue<long>("MarketingBudget")
+            });
+        }
+        return albums;
+    }
+}
+```
 
 Run the sample using the `queryDataWithStoringIndex` command.
 
-    dotnet run queryDataWithStoringIndex $env:PROJECT_ID test-instance example-db
+```
+dotnet run queryDataWithStoringIndex $env:PROJECT_ID test-instance example-db
+```
 
 You should see output similar to:
 
-    AlbumId : 2 AlbumTitle : Forever Hold your Peace MarketingBudget : 300000
-    AlbumId : 2 AlbumTitle : Go, Go, Go MarketingBudget : 300000
+```
+AlbumId : 2 AlbumTitle : Forever Hold your Peace MarketingBudget : 300000
+AlbumId : 2 AlbumTitle : Go, Go, Go MarketingBudget : 300000
+```
 
 ## Retrieve data using read-only transactions
 
@@ -1025,147 +1129,155 @@ The following shows how to run a query and perform a read in the same read-only 
 
 ### .NET Standard 2.0
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using System.Transactions;
-    
-    public class QueryDataWithTransactionAsyncSample
+```csharp
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Transactions;
+
+public class QueryDataWithTransactionAsyncSample
+{
+    public class Album
     {
-        public class Album
-        {
-            public int SingerId { get; set; }
-            public int AlbumId { get; set; }
-            public string AlbumTitle { get; set; }
-        }
-    
-        public async Task<List<Album>> QueryDataWithTransactionAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            var albums = new List<Album>();
-            using TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-            using var connection = new SpannerConnection(connectionString);
-    
-            // Opens the connection so that the Spanner transaction included in the TransactionScope
-            // is read-only TimestampBound.Strong.
-            await connection.OpenAsync(SpannerTransactionCreationOptions.ReadOnly, options: null, cancellationToken: default);
-            using var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
-    
-            // Read #1.
-            using (var reader = await cmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
-                {
-                    Console.WriteLine("SingerId : " + reader.GetFieldValue<string>("SingerId")
-                        + " AlbumId : " + reader.GetFieldValue<string>("AlbumId")
-                        + " AlbumTitle : " + reader.GetFieldValue<string>("AlbumTitle"));
-                }
-            }
-    
-            // Read #2. Even if changes occur in-between the reads,
-            // the transaction ensures that Read #1 and Read #2
-            // return the same data.
-            using (var reader = await cmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
-                {
-                    albums.Add(new Album
-                    {
-                        AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                        SingerId = reader.GetFieldValue<int>("SingerId"),
-                        AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
-                    });
-                }
-            }
-            scope.Complete();
-            Console.WriteLine("Transaction complete.");
-            return albums;
-        }
+        public int SingerId { get; set; }
+        public int AlbumId { get; set; }
+        public string AlbumTitle { get; set; }
     }
+
+    public async Task<List<Album>> QueryDataWithTransactionAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        var albums = new List<Album>();
+        using TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+        using var connection = new SpannerConnection(connectionString);
+
+        // Opens the connection so that the Spanner transaction included in the TransactionScope
+        // is read-only TimestampBound.Strong.
+        await connection.OpenAsync(SpannerTransactionCreationOptions.ReadOnly, options: null, cancellationToken: default);
+        using var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
+
+        // Read #1.
+        using (var reader = await cmd.ExecuteReaderAsync())
+        {
+            while (await reader.ReadAsync())
+            {
+                Console.WriteLine("SingerId : " + reader.GetFieldValue<string>("SingerId")
+                    + " AlbumId : " + reader.GetFieldValue<string>("AlbumId")
+                    + " AlbumTitle : " + reader.GetFieldValue<string>("AlbumTitle"));
+            }
+        }
+
+        // Read #2. Even if changes occur in-between the reads,
+        // the transaction ensures that Read #1 and Read #2
+        // return the same data.
+        using (var reader = await cmd.ExecuteReaderAsync())
+        {
+            while (await reader.ReadAsync())
+            {
+                albums.Add(new Album
+                {
+                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                    SingerId = reader.GetFieldValue<int>("SingerId"),
+                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
+                });
+            }
+        }
+        scope.Complete();
+        Console.WriteLine("Transaction complete.");
+        return albums;
+    }
+}
+```
 
 ### .NET Standard 1.5
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class QueryDataWithTransactionCoreAsyncSample
+```c#
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class QueryDataWithTransactionCoreAsyncSample
+{
+    public class Album
     {
-        public class Album
-        {
-            public int SingerId { get; set; }
-            public int AlbumId { get; set; }
-            public string AlbumTitle { get; set; }
-        }
-    
-        public async Task<List<Album>> QueryDataWithTransactionCoreAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            var albums = new List<Album>();
-    
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            // Open a new read only transaction.
-            using var transaction = await connection.BeginTransactionAsync(
-                SpannerTransactionCreationOptions.ReadOnly,
-                transactionOptions: null,
-                cancellationToken: default);
-            using var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
-            cmd.Transaction = transaction;
-    
-            // Read #1.
-            using (var reader = await cmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
-                {
-                    Console.WriteLine("SingerId : " + reader.GetFieldValue<string>("SingerId")
-                        + " AlbumId : " + reader.GetFieldValue<string>("AlbumId")
-                        + " AlbumTitle : " + reader.GetFieldValue<string>("AlbumTitle"));
-                }
-            }
-    
-            // Read #2. Even if changes occur in-between the reads,
-            // the transaction ensures that Read #1 and Read #2
-            // return the same data.
-            using (var reader = await cmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
-                {
-                    albums.Add(new Album
-                    {
-                        AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                        SingerId = reader.GetFieldValue<int>("SingerId"),
-                        AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
-                    });
-                }
-            }
-    
-            Console.WriteLine("Transaction complete.");
-            return albums;
-        }
+        public int SingerId { get; set; }
+        public int AlbumId { get; set; }
+        public string AlbumTitle { get; set; }
     }
+
+    public async Task<List<Album>> QueryDataWithTransactionCoreAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        var albums = new List<Album>();
+
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        // Open a new read only transaction.
+        using var transaction = await connection.BeginTransactionAsync(
+            SpannerTransactionCreationOptions.ReadOnly,
+            transactionOptions: null,
+            cancellationToken: default);
+        using var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
+        cmd.Transaction = transaction;
+
+        // Read #1.
+        using (var reader = await cmd.ExecuteReaderAsync())
+        {
+            while (await reader.ReadAsync())
+            {
+                Console.WriteLine("SingerId : " + reader.GetFieldValue<string>("SingerId")
+                    + " AlbumId : " + reader.GetFieldValue<string>("AlbumId")
+                    + " AlbumTitle : " + reader.GetFieldValue<string>("AlbumTitle"));
+            }
+        }
+
+        // Read #2. Even if changes occur in-between the reads,
+        // the transaction ensures that Read #1 and Read #2
+        // return the same data.
+        using (var reader = await cmd.ExecuteReaderAsync())
+        {
+            while (await reader.ReadAsync())
+            {
+                albums.Add(new Album
+                {
+                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                    SingerId = reader.GetFieldValue<int>("SingerId"),
+                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
+                });
+            }
+        }
+
+        Console.WriteLine("Transaction complete.");
+        return albums;
+    }
+}
+```
 
 Run the sample using the `queryDataWithTransaction` command.
 
-    dotnet run queryDataWithTransaction $env:PROJECT_ID test-instance example-db
+```
+dotnet run queryDataWithTransaction $env:PROJECT_ID test-instance example-db
+```
 
 You should see output similar to:
 
-    SingerId : 2 AlbumId : 2 AlbumTitle : Forever Hold your Peace
-    SingerId : 1 AlbumId : 2 AlbumTitle : Go, Go, Go
-    SingerId : 2 AlbumId : 1 AlbumTitle : Green
-    SingerId : 2 AlbumId : 3 AlbumTitle : Terrified
-    SingerId : 1 AlbumId : 1 AlbumTitle : Total Junk
-    SingerId : 2 AlbumId : 2 AlbumTitle : Forever Hold your Peace
-    SingerId : 1 AlbumId : 2 AlbumTitle : Go, Go, Go
-    SingerId : 2 AlbumId : 1 AlbumTitle : Green
-    SingerId : 2 AlbumId : 3 AlbumTitle : Terrified
-    SingerId : 1 AlbumId : 1 AlbumTitle : Total Junk
+```
+SingerId : 2 AlbumId : 2 AlbumTitle : Forever Hold your Peace
+SingerId : 1 AlbumId : 2 AlbumTitle : Go, Go, Go
+SingerId : 2 AlbumId : 1 AlbumTitle : Green
+SingerId : 2 AlbumId : 3 AlbumTitle : Terrified
+SingerId : 1 AlbumId : 1 AlbumTitle : Total Junk
+SingerId : 2 AlbumId : 2 AlbumTitle : Forever Hold your Peace
+SingerId : 1 AlbumId : 2 AlbumTitle : Go, Go, Go
+SingerId : 2 AlbumId : 1 AlbumTitle : Green
+SingerId : 2 AlbumId : 3 AlbumTitle : Terrified
+SingerId : 1 AlbumId : 1 AlbumTitle : Total Junk
+```
 
 ## Cleanup
 
@@ -1177,7 +1289,9 @@ If you delete an instance, all databases within it are automatically deleted. Th
 
 #### On the command line
 
-    gcloud spanner databases delete example-db --instance=test-instance
+```
+gcloud spanner databases delete example-db --instance=test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1197,7 +1311,9 @@ Deleting an instance automatically drops all databases created in that instance.
 
 #### On the command line
 
-    gcloud spanner instances delete test-instance
+```
+gcloud spanner instances delete test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1211,12 +1327,12 @@ Deleting an instance automatically drops all databases created in that instance.
 
 ## What's next
 
-  - Try the preview release of [Spanner database provider](https://github.com/cloudspannerecosystem/dotnet-spanner-entity-framework#googlecloudentityframeworkcorespanner) for [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) .
+- Try the preview release of [Spanner database provider](https://github.com/cloudspannerecosystem/dotnet-spanner-entity-framework#googlecloudentityframeworkcorespanner) for [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) .
 
-<!-- end list -->
+<!-- -->
 
-  - Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
+- Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
 
-  - Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
 
-  - Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .

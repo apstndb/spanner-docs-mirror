@@ -30,40 +30,40 @@ This approach makes Spanner Graph the ideal solution for mission-critical graph 
 
 You can use Spanner Graph to build many types of online Graph applications, including the following:
 
-  - **Detect financial fraud** : Analyze complex relationships among users, accounts, and transactions to identify suspicious patterns and anomalies, such as money laundering and unusual connections between entities, which can be difficult to detect using relational databases.
+- **Detect financial fraud** : Analyze complex relationships among users, accounts, and transactions to identify suspicious patterns and anomalies, such as money laundering and unusual connections between entities, which can be difficult to detect using relational databases.
 
-  - **Track customer relationships** : Track customer relationships, preferences, and purchase histories. Gain a holistic understanding of each customer, enable personalized recommendations, targeted marketing campaigns, and improved customer service experiences.
+- **Track customer relationships** : Track customer relationships, preferences, and purchase histories. Gain a holistic understanding of each customer, enable personalized recommendations, targeted marketing campaigns, and improved customer service experiences.
 
-  - **Capture social networks** : Capture user activities and interactions, and use graph pattern matching for friend recommendations and content discovery.
+- **Capture social networks** : Capture user activities and interactions, and use graph pattern matching for friend recommendations and content discovery.
 
-  - **Manage manufacturing and supply chains** : Model parts, suppliers, orders, availability, and defects in the graph to analyze impact, roll up costs, and check compliance.
+- **Manage manufacturing and supply chains** : Model parts, suppliers, orders, availability, and defects in the graph to analyze impact, roll up costs, and check compliance.
 
-  - **Analyze healthcare data** : Capture patient relationships, conditions, diagnoses, and treatments to facilitate patient similarity analysis and treatment planning.
+- **Analyze healthcare data** : Capture patient relationships, conditions, diagnoses, and treatments to facilitate patient similarity analysis and treatment planning.
 
-  - **Manage supply chains** : Given a shipment routing plan, evaluate route segments to identify violations of segment rules.
+- **Manage supply chains** : Given a shipment routing plan, evaluate route segments to identify violations of segment rules.
 
 ## Key capabilities
 
 Spanner Graph is a multi-model database that integrates graph, relational, search, and AI capabilities. It offers high performance and scalability, delivering the following:
 
-  - **Native graph experience** : The ISO GQL interface offers a familiar, purpose-built graph experience that's based on open standards.
+- **Native graph experience** : The ISO GQL interface offers a familiar, purpose-built graph experience that's based on open standards.
 
-  - **Build GraphRAG workflow applications** : Spanner Graph integrates with LangChain to help you build GraphRAG applications. While conventional retrieval-augmented generation (RAG) uses vector search to provide context to a large language model (LLM), it can't use the implicit relationships in your data. GraphRAG overcomes this limitation by building a graph from your data to capture these complex relationships. It then combines graph search (for relationship-based context) with vector search (for semantic similarity), generating more accurate, relevant, and complete answers than using either method alone. For more information, see [Build LLM-powered applications using LangChain](https://docs.cloud.google.com/spanner/docs/langchain) . To learn how you can use Spanner Graph with Gemini Enterprise Agent Platform to build infrastructure for a GraphRAG-capable generative AI application, see [GraphRAG infrastructure for generative AI using Agent Platform and Spanner Graph](https://docs.cloud.google.com/architecture/gen-ai-graphrag-spanner) .
+- **Build GraphRAG workflow applications** : Spanner Graph integrates with LangChain to help you build GraphRAG applications. While conventional retrieval-augmented generation (RAG) uses vector search to provide context to a large language model (LLM), it can't use the implicit relationships in your data. GraphRAG overcomes this limitation by building a graph from your data to capture these complex relationships. It then combines graph search (for relationship-based context) with vector search (for semantic similarity), generating more accurate, relevant, and complete answers than using either method alone. For more information, see [Build LLM-powered applications using LangChain](https://docs.cloud.google.com/spanner/docs/langchain) . To learn how you can use Spanner Graph with Gemini Enterprise Agent Platform to build infrastructure for a GraphRAG-capable generative AI application, see [GraphRAG infrastructure for generative AI using Agent Platform and Spanner Graph](https://docs.cloud.google.com/architecture/gen-ai-graphrag-spanner) .
 
-  - **Unified relational and graph** : Full interoperability between GQL and SQL breaks down data silos. This lets you choose the optimal tool for each use case, without any operational overheads to extract, transform, and load (ETL).
+- **Unified relational and graph** : Full interoperability between GQL and SQL breaks down data silos. This lets you choose the optimal tool for each use case, without any operational overheads to extract, transform, and load (ETL).
 
-  - **Built-in search capabilities** : Rich vector and full-text search capabilities are integrated with graph, letting you use semantic meaning and keywords in graph analysis.
+- **Built-in search capabilities** : Rich vector and full-text search capabilities are integrated with graph, letting you use semantic meaning and keywords in graph analysis.
 
-  - **AI-powered insights** : Deep integration with Agent Platform unlocks a suite of AI models directly in Spanner Graph, helping you accelerate your AI workflows.
+- **AI-powered insights** : Deep integration with Agent Platform unlocks a suite of AI models directly in Spanner Graph, helping you accelerate your AI workflows.
 
-  - **Fully managed, high-performance graph algorithms** : A suite of fully managed graph algorithms for centrality, clustering, similarity, and path finding. These algorithms utilize on-demand dedicated compute to scale to tens of billions of edges with near-zero impact on transactional workloads, bringing you new insights without additional complexity.
+- **Fully managed, high-performance graph algorithms** : A suite of fully managed graph algorithms for centrality, clustering, similarity, and path finding. These algorithms utilize on-demand dedicated compute to scale to tens of billions of edges with near-zero impact on transactional workloads, bringing you new insights without additional complexity.
 
-  - **Scalability, availability, and consistency** : Spanner's established scalability, availability, and consistency provide a solid foundation.
+- **Scalability, availability, and consistency** : Spanner's established scalability, availability, and consistency provide a solid foundation.
 
 ## What's next
 
-  - Get started with the [Spanner Graph codelab](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started) .
-  - Set up and query [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
-  - Learn about the [Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) .
-  - Learn how to create, update, or drop a [Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema) .
-  - Learn about [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview) .
+- Get started with the [Spanner Graph codelab](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started) .
+- Set up and query [Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
+- Learn about the [Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) .
+- Learn how to create, update, or drop a [Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema) .
+- Learn about [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview) .

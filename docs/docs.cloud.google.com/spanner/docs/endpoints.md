@@ -30,7 +30,7 @@ If you have active requests that use regional endpoints on any of the instance r
 
 ## Regional endpoint naming convention
 
-Spanner regional endpoint names follow the same naming convention as the regional instance configuration names. The regional endpoint follows the format `spanner. REGION .rep.googleapis.com` . For example, both the regional instance configuration name and regional endpoint name for Dammam are `me-central2` . Therefore, the regional endpoint is `spanner.me-central2.rep.googleapis.com` .
+Spanner regional endpoint names follow the same naming convention as the regional instance configuration names. The regional endpoint follows the format `spanner. `` REGION `` .rep.googleapis.com` . For example, both the regional instance configuration name and regional endpoint name for Dammam are `me-central2` . Therefore, the regional endpoint is `spanner.me-central2.rep.googleapis.com` .
 
 For more information, see [Available regions for regional endpoints](https://docs.cloud.google.com/spanner/docs/endpoints#available-regional-endpoints) .
 
@@ -42,30 +42,38 @@ You can specify a Spanner regional endpoint using the Google Cloud CLI, REST, or
 
 To specify a regional endpoint and override the global endpoint, run the following command:
 
-    gcloud config set api_endpoint_overrides/spanner https://spanner.REGION.rep.googleapis.com/
+```
+gcloud config set api_endpoint_overrides/spanner https://spanner.REGION.rep.googleapis.com/
+```
 
 Provide the following value:
 
-  - `  REGION  `  
-    The [region](https://docs.cloud.google.com/spanner/docs/endpoints#available-regional-endpoints) for which to set a regional endpoint. For example, `me-central2` .
+`REGION`  
+The [region](https://docs.cloud.google.com/spanner/docs/endpoints#available-regional-endpoints) for which to set a regional endpoint. For example, `me-central2` .
 
 For example, to configure the regional endpoint as `me-central2` , run the following command:
 
-    gcloud config set api_endpoint_overrides/spanner https://spanner.me-central2.rep.googleapis.com/
+```
+gcloud config set api_endpoint_overrides/spanner https://spanner.me-central2.rep.googleapis.com/
+```
 
 To reconfigure a regional endpoint to the global endpoint, run:
 
-    gcloud config unset api_endpoint_overrides/spanner
+```
+gcloud config unset api_endpoint_overrides/spanner
+```
 
 ### REST API
 
 The default API endpoint accesses the global endpoint. To use a regional endpoint, configure the endpoint to the address of the regional endpoint using the following pattern:
 
-    https://spanner.REGION.rep.googleapis.com
+```
+https://spanner.REGION.rep.googleapis.com
+```
 
 For example, if you want to enforce data guarantees in the regional instance configuration Dammam ( `me-central2` ), use:
 
-``` 
+```
   https://spanner.me-central2.rep.googleapis.com
 ```
 
@@ -75,11 +83,15 @@ Refer to [REST API](https://docs.cloud.google.com/spanner/docs/reference/rest) a
 
 The default API endpoint accesses the global endpoint. To use a regional endpoint, configure the endpoint to the address of the regional endpoint using the following pattern:
 
-    spanner.REGION.rep.googleapis.com
+```
+spanner.REGION.rep.googleapis.com
+```
 
 For example, if you want to enforce data guarantees in the regional instance configuration Dammam ( `me-central2` ), use:
 
-    spanner.me-central2.rep.googleapis.com
+```
+spanner.me-central2.rep.googleapis.com
+```
 
 Refer to [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc) and [Available regions for regional endpoints](https://docs.cloud.google.com/spanner/docs/endpoints#available-regional-endpoints) for more information.
 
@@ -88,7 +100,7 @@ Refer to [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc) and
 Spanner regional endpoints are available in the following regions:
 
 |                 | Base regional name | Region description |
-| --------------- | ------------------ | ------------------ |
+|-----------------|--------------------|--------------------|
 | **Americas**    |                    |                    |
 |                 | `us-central1`      | Iowa               |
 |                 | `us-central2`      | Oklahoma           |
@@ -113,8 +125,8 @@ To help enforce the use of regional endpoints, use the `constraints/gcp.restrict
 
 ## What's next
 
-  - Learn more about Spanner [instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
+- Learn more about Spanner [instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
 
-  - Learn more about [Spanner REST API](https://docs.cloud.google.com/spanner/docs/reference/rest) and [Global and regional endpoints](https://docs.cloud.google.com/spanner/docs/rest-endpoints) .
+- Learn more about [Spanner REST API](https://docs.cloud.google.com/spanner/docs/reference/rest) and [Global and regional endpoints](https://docs.cloud.google.com/spanner/docs/rest-endpoints) .
 
-  - Learn more about [Spanner RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc) and [Global and regional endpoints](https://docs.cloud.google.com/spanner/docs/rpc-endpoints) .
+- Learn more about [Spanner RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc) and [Global and regional endpoints](https://docs.cloud.google.com/spanner/docs/rpc-endpoints) .

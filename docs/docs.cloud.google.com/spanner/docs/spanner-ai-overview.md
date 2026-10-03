@@ -16,16 +16,16 @@ Use Spanner with [Vector Search](https://docs.cloud.google.com/gemini-enterprise
 
 To get started, [generate and backfill Agent Platform vector embeddings](https://docs.cloud.google.com/spanner/docs/backfill-embeddings) in bulk for existing textual data. You can do this by using SQL and an Agent Platform embedding model, such as the `text-embedding` model, described in the [text embeddings API documentation](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/text-embeddings-api) . Spanner supports using [approximate nearest neighbors (ANN)](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) and [K-nearest neighbors (KNN)](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) with query vector embeddings. ANN uses a vector index for a fast, scalable search that returns approximate results. KNN performs an exhaustive search that returns more accurate results, but can be slow for large datasets. You can use [multiple vector distance functions](https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function) to measure similarity, including:
 
-  - **Cosine distance** : Measures the cosine of the angle between two vectors, which is useful for finding items with similar orientation, regardless of magnitude.
+- **Cosine distance** : Measures the cosine of the angle between two vectors, which is useful for finding items with similar orientation, regardless of magnitude.
 
-  - **Euclidean distance** : Measures the straight-line distance between two vectors.
+- **Euclidean distance** : Measures the straight-line distance between two vectors.
 
-  - **Dot product** : Calculates the product of vector magnitudes and the cosine of the angle between them. This can be the most computationally efficient option for normalized vectors.
+- **Dot product** : Calculates the product of vector magnitudes and the cosine of the angle between them. This can be the most computationally efficient option for normalized vectors.
 
 For more information, see the following topics:
 
-  - [Vector store for Spanner](https://docs.cloud.google.com/spanner/docs/langchain#vector-store)
-  - [Vector Search overview](https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/overview)
+- [Vector store for Spanner](https://docs.cloud.google.com/spanner/docs/langchain#vector-store)
+- [Vector Search overview](https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/overview)
 
 ## Generate ML predictions with SQL
 
@@ -49,11 +49,11 @@ For more information, see [GraphRAG infrastructure for generative AI using Agent
 
 Spanner provides several classes to programmatically work with LangChain. LangChain is an LLM orchestration framework that provides the structure, tools, and components to streamline complex LLM workflows. Use LangChain to build generative AI applications and RAG workflows. The available LangChain classes for Spanner include:
 
-  - **[`SpannerVectorStore`](https://cloud.google.com/python/docs/reference/langchain-google-spanner/latest/langchain_google_spanner.vector_store.SpannerVectorStore)** : Store and search vector embeddings to enable similarity search within your application with the class.
+- **[`SpannerVectorStore`](https://cloud.google.com/python/docs/reference/langchain-google-spanner/latest/langchain_google_spanner.vector_store.SpannerVectorStore)** : Store and search vector embeddings to enable similarity search within your application with the class.
 
-  - **[`SpannerLoader`](https://cloud.google.com/python/docs/reference/langchain-google-spanner/latest/langchain_google_spanner.loader.SpannerLoader)** : Load data from Spanner to be used in embeddings or to provide specific context to LLM chains with the class.
+- **[`SpannerLoader`](https://cloud.google.com/python/docs/reference/langchain-google-spanner/latest/langchain_google_spanner.loader.SpannerLoader)** : Load data from Spanner to be used in embeddings or to provide specific context to LLM chains with the class.
 
-  - **[`SpannerChatMessageHistory`](https://cloud.google.com/python/docs/reference/langchain-google-spanner/latest/langchain_google_spanner.chat_message_history.SpannerChatMessageHistory)** : Enable conversational AI applications by storing the history of conversations in a Spanner database.
+- **[`SpannerChatMessageHistory`](https://cloud.google.com/python/docs/reference/langchain-google-spanner/latest/langchain_google_spanner.chat_message_history.SpannerChatMessageHistory)** : Enable conversational AI applications by storing the history of conversations in a Spanner database.
 
 For more information, see [Build LLM-powered applications using LangChain](https://docs.cloud.google.com/spanner/docs/langchain) and [Spanner client library for LangChain](https://cloud.google.com/python/docs/reference/langchain-google-spanner/latest) .
 
@@ -61,22 +61,22 @@ For more information, see [Build LLM-powered applications using LangChain](https
 
 Use Spanner's AI capabilities to build intelligent applications for use cases such as the following:
 
-  - **Ecommerce recommendation engines** : Generate vector embeddings for product descriptions to power a recommendation engine. This engine can suggest similar items to customers, which enhances their shopping experience and increases sales. For more information, see [Use Generative AI to get personalized recommendations in an ecommerce application](https://docs.cloud.google.com/spanner/docs/ml-tutorial-generative-ai) .
+- **Ecommerce recommendation engines** : Generate vector embeddings for product descriptions to power a recommendation engine. This engine can suggest similar items to customers, which enhances their shopping experience and increases sales. For more information, see [Use Generative AI to get personalized recommendations in an ecommerce application](https://docs.cloud.google.com/spanner/docs/ml-tutorial-generative-ai) .
 
-  - **Manage chat message history** : Use Spanner and LangChain to store and retrieve conversation history. Spanner stores this data in a database and provides the `SpannerChatMessageHistory` class. This class extends a LangChain base class to save and retrieve messages from a database. For more information, see [Chat message history with Spanner](https://docs.cloud.google.com/spanner/docs/langchain#chat-message-history) .
+- **Manage chat message history** : Use Spanner and LangChain to store and retrieve conversation history. Spanner stores this data in a database and provides the `SpannerChatMessageHistory` class. This class extends a LangChain base class to save and retrieve messages from a database. For more information, see [Chat message history with Spanner](https://docs.cloud.google.com/spanner/docs/langchain#chat-message-history) .
 
-  - **Financial fraud detection** : Use Spanner Graph to analyze complex relationships between users, accounts, and transactions to identify suspicious patterns and anomalies that are difficult to detect with traditional relational databases.
+- **Financial fraud detection** : Use Spanner Graph to analyze complex relationships between users, accounts, and transactions to identify suspicious patterns and anomalies that are difficult to detect with traditional relational databases.
 
-  - **Customer 360** : With Spanner Graph, gain a holistic view of customers by tracking relationships, preferences, and purchase histories. This provides personalized recommendations, targeted marketing campaigns, and improved customer service experiences.
+- **Customer 360** : With Spanner Graph, gain a holistic view of customers by tracking relationships, preferences, and purchase histories. This provides personalized recommendations, targeted marketing campaigns, and improved customer service experiences.
 
-  - **Social networks** : Model user activities and interactions with Spanner Graph to provide friend recommendations and discover content in social networks.
+- **Social networks** : Model user activities and interactions with Spanner Graph to provide friend recommendations and discover content in social networks.
 
 ## What's next
 
 To learn more about implementing AI capabilities in Spanner, see the following topics:
 
-  - [Generate and backfill vector embeddings](https://docs.cloud.google.com/spanner/docs/backfill-embeddings)
-  - [Find k-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors)
-  - [Improve vector search performance with approximate nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors)
-  - [LangChain integration](https://docs.cloud.google.com/spanner/docs/langchain)
-  - [Spanner Graph overview](https://docs.cloud.google.com/spanner/docs/graph/overview)
+- [Generate and backfill vector embeddings](https://docs.cloud.google.com/spanner/docs/backfill-embeddings)
+- [Find k-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors)
+- [Improve vector search performance with approximate nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors)
+- [LangChain integration](https://docs.cloud.google.com/spanner/docs/langchain)
+- [Spanner Graph overview](https://docs.cloud.google.com/spanner/docs/graph/overview)

@@ -14,19 +14,19 @@ The Data Manipulation Language (DML) in Spanner lets you manipulate data in your
 
 Spanner offers the following two implementations of DML execution, each with different properties.
 
-  - **Standard DML** - suitable for standard [Online Transaction Processing (OLTP)](https://en.wikipedia.org/wiki/Online_transaction_processing) workloads.
-    
-    For more information, including code samples, see [Using DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#using-dml)
+- **Standard DML** - suitable for standard [Online Transaction Processing (OLTP)](https://en.wikipedia.org/wiki/Online_transaction_processing) workloads.
 
-  - **Partitioned DML** - designed for bulk updates and deletes as in the following examples.
-    
-      - Periodic cleanup and garbage collection. Examples are deleting old rows or setting columns to NULL.
-    
-      - Backfilling new columns with default values. An example is using an UPDATE statement to set a new column's value to False where it is NULL.
-    
-    For more information, including code samples, see [Using Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#partitioned-dml) .
-    
-    You can use batch writes for a large number of write operations without read operations that don't require atomic transactions. For more information, see [Modify data using batch writes](https://docs.cloud.google.com/spanner/docs/batch-write) .
+  For more information, including code samples, see [Using DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#using-dml)
+
+- **Partitioned DML** - designed for bulk updates and deletes as in the following examples.
+
+  - Periodic cleanup and garbage collection. Examples are deleting old rows or setting columns to NULL.
+
+  - Backfilling new columns with default values. An example is using an UPDATE statement to set a new column's value to False where it is NULL.
+
+  For more information, including code samples, see [Using Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#partitioned-dml) .
+
+  You can use batch writes for a large number of write operations without read operations that don't require atomic transactions. For more information, see [Modify data using batch writes](https://docs.cloud.google.com/spanner/docs/batch-write) .
 
 ## What are mutations?
 
@@ -38,27 +38,27 @@ For more information, including code samples, see [Inserting, updating, and dele
 
 The following table summarizes DML and mutation support of common database operation and features.
 
-| Operations                                     |                  DML                   |        Mutations        |
-| ---------------------------------------------- | :------------------------------------: | :---------------------: |
-| Insert Data                                    |               Supported                |        Supported        |
-| Delete Data                                    |               Supported                |        Supported        |
-| Update Data                                    |               Supported                |        Supported        |
-| Insert or Ignore Data                          |               Supported                |       Unsupported       |
-| Read Your Writes (RYW)                         |               Supported                |       Unsupported       |
-| Insert or Update Data (Upsert)                 |               Supported                |        Supported        |
-| SQL Syntax                                     |               Supported                |       Unsupported       |
-| Constraint checking                            |         After every statement          |     At commit time      |
+| Operations                                     | DML                                    | Mutations               |
+|------------------------------------------------|----------------------------------------|-------------------------|
+| Insert Data                                    | Supported                              | Supported               |
+| Delete Data                                    | Supported                              | Supported               |
+| Update Data                                    | Supported                              | Supported               |
+| Insert or Ignore Data                          | Supported                              | Unsupported             |
+| Read Your Writes (RYW)                         | Supported                              | Unsupported             |
+| Insert or Update Data (Upsert)                 | Supported                              | Supported               |
+| SQL Syntax                                     | Supported                              | Unsupported             |
+| Constraint checking                            | After every statement                  | At commit time          |
 | Mutation limit enforcement (including indexes) | Per statement (resets after execution) | Per commit (cumulative) |
 
 DML and mutations diverge in their support for the following features:
 
-  - **Read Your Writes** : Reading uncommitted results within an active transaction. Changes you make using DML statements are visible to subsequent statements in the same transaction. This is different from using mutations, where changes are not visible in any reads (including reads done in the same transaction) until the transaction commits. This is because mutations in a transaction are buffered client-side (locally) and sent to the server as part of the commit operation. As a result, mutations in the commit request are not visible to SQL or DML statements within the same transaction.
+- **Read Your Writes** : Reading uncommitted results within an active transaction. Changes you make using DML statements are visible to subsequent statements in the same transaction. This is different from using mutations, where changes are not visible in any reads (including reads done in the same transaction) until the transaction commits. This is because mutations in a transaction are buffered client-side (locally) and sent to the server as part of the commit operation. As a result, mutations in the commit request are not visible to SQL or DML statements within the same transaction.
 
-  - **Constraint Checking** : Spanner checks constraints after every DML statement. This is different from using mutations, where Spanner buffers mutations in the client until commit and checks constraints at commit time. Evaluating constraints after each DML statement allows Spanner to guarantee that the data returned by a subsequent query in the same transaction returns data that is consistent with the schema.
+- **Constraint Checking** : Spanner checks constraints after every DML statement. This is different from using mutations, where Spanner buffers mutations in the client until commit and checks constraints at commit time. Evaluating constraints after each DML statement allows Spanner to guarantee that the data returned by a subsequent query in the same transaction returns data that is consistent with the schema.
 
-  - **Mutation Limit Enforcement** : For DML, the mutation limit of 80,000 (including indexes) is applied per statement and resets after the statement executes. This allows a single transaction to execute multiple DML statements that collectively exceed 80,000 mutations, as long as no single statement exceeds the limit. For the Mutation API, which can only be used as part of the commit operation, the limit of 80,000 mutations (including indexes) is cumulative across all mutations in the commit. Both methods are subject to the 100 MiB transaction size limit.
+- **Mutation Limit Enforcement** : For DML, the mutation limit of 80,000 (including indexes) is applied per statement and resets after the statement executes. This allows a single transaction to execute multiple DML statements that collectively exceed 80,000 mutations, as long as no single statement exceeds the limit. For the Mutation API, which can only be used as part of the commit operation, the limit of 80,000 mutations (including indexes) is cumulative across all mutations in the commit. Both methods are subject to the 100 MiB transaction size limit.
 
-  - **SQL Syntax** : DML provides a conventional way to manipulate data. You can reuse SQL skills to alter the data using the DML API.
+- **SQL Syntax** : DML provides a conventional way to manipulate data. You can reuse SQL skills to alter the data using the DML API.
 
 ## Best practice - avoid mixing DML and mutation in the same transaction
 
@@ -66,68 +66,70 @@ If a transaction contains both DML statements and mutations in the commit reques
 
 The following Java example illustrates potentially surprising behavior. The code inserts two rows into Albums using the Mutation API. The snippet, then calls `executeUpdate()` to update the newly inserted rows and calls `executeQuery()` to read updated albums.
 
-    static void updateMarketingBudget(DatabaseClient dbClient) {
-      dbClient
-          .readWriteTransaction()
-          .run(
-              new TransactionCallable<Void>() {
-                @Override
-                public Void run(TransactionContext transaction) throws Exception {
-                   transaction.buffer(
-                        Mutation.newInsertBuilder("Albums")
-                            .set("SingerId")
-                            .to(1)
-                            .set("AlbumId")
-                            .to(1)
-                            .set("AlbumTitle")
-                            .to("Total Junk")
-                            .set("MarketingBudget")
-                            .to(800)
-                            .build());
-                   transaction.buffer(
-                        Mutation.newInsertBuilder("Albums")
-                            .set("SingerId")
-                            .to(1)
-                            .set("AlbumId")
-                            .to(2)
-                            .set("AlbumTitle")
-                            .to("Go Go Go")
-                            .set("MarketingBudget")
-                            .to(200)
-                            .build());
-    
-                    // This UPDATE will not include the Albums inserted above.
-                    String sql =
-                      "UPDATE Albums SET MarketingBudget = MarketingBudget * 2"
-                          + " WHERE SingerId = 1";
-                    long rowCount = transaction.executeUpdate(Statement.of(sql));
-                    System.out.printf("%d records updated.\n", rowCount);
-    
-                    // Read a newly updated record.
-                    sql =
-                      "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
-                          + " WHERE SingerId = 1 AND MarketingBudget < 1000";
-                    ResultSet resultSet =
-                                     transaction.executeQuery(Statement.of(sql));
-                    while (resultSet.next()) {
-                       System.out.printf(
-                            "%s %s\n",
-                            resultSet.getString("FirstName"),
-                            resultSet.getString("LastName"));
-                    }
-                    return null;
-                  }
-                });
-    }
+```
+static void updateMarketingBudget(DatabaseClient dbClient) {
+  dbClient
+      .readWriteTransaction()
+      .run(
+          new TransactionCallable<Void>() {
+            @Override
+            public Void run(TransactionContext transaction) throws Exception {
+               transaction.buffer(
+                    Mutation.newInsertBuilder("Albums")
+                        .set("SingerId")
+                        .to(1)
+                        .set("AlbumId")
+                        .to(1)
+                        .set("AlbumTitle")
+                        .to("Total Junk")
+                        .set("MarketingBudget")
+                        .to(800)
+                        .build());
+               transaction.buffer(
+                    Mutation.newInsertBuilder("Albums")
+                        .set("SingerId")
+                        .to(1)
+                        .set("AlbumId")
+                        .to(2)
+                        .set("AlbumTitle")
+                        .to("Go Go Go")
+                        .set("MarketingBudget")
+                        .to(200)
+                        .build());
+
+                // This UPDATE will not include the Albums inserted above.
+                String sql =
+                  "UPDATE Albums SET MarketingBudget = MarketingBudget * 2"
+                      + " WHERE SingerId = 1";
+                long rowCount = transaction.executeUpdate(Statement.of(sql));
+                System.out.printf("%d records updated.\n", rowCount);
+
+                // Read a newly updated record.
+                sql =
+                  "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
+                      + " WHERE SingerId = 1 AND MarketingBudget < 1000";
+                ResultSet resultSet =
+                                 transaction.executeQuery(Statement.of(sql));
+                while (resultSet.next()) {
+                   System.out.printf(
+                        "%s %s\n",
+                        resultSet.getString("FirstName"),
+                        resultSet.getString("LastName"));
+                }
+                return null;
+              }
+            });
+}
+```
 
 If you were to execute this code, you'd see *0 records updated* . Why? This happens because the changes we made using Mutations are not visible to subsequent statements until the transaction commits. Ideally, we should have buffered writes only at the very end of the transaction.
 
 ## What's next?
 
-  - Learn how to modify data [Using DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#using-dml) .
+- Learn how to modify data [Using DML](https://docs.cloud.google.com/spanner/docs/dml-tasks#using-dml) .
 
-  - Learn how to modify data [Using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
+- Learn how to modify data [Using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
 
-  - To find the mutation count for a transaction, see [Retrieving commit statistics for a transaction](https://docs.cloud.google.com/spanner/docs/commit-statistics) .
+- To find the mutation count for a transaction, see [Retrieving commit statistics for a transaction](https://docs.cloud.google.com/spanner/docs/commit-statistics) .
 
-  - Learn about [Data Manipulation Language (DML) best practices](https://docs.cloud.google.com/spanner/docs/dml-best-practices) .
+- Learn about [Data Manipulation Language (DML) best practices](https://docs.cloud.google.com/spanner/docs/dml-best-practices) .

@@ -18,7 +18,9 @@ To use the Python client library with Spanner Omni, use the [Python client libra
 
 To install the Spanner Omni Python package, run the following command:
 
-    pip install google-cloud-spanner>=3.72.0
+```
+pip install google-cloud-spanner>=3.72.0
+```
 
 ## Configure the `Client` object
 
@@ -30,95 +32,105 @@ The following examples show how to configure the `Client` object for each suppor
 
 To establish a plain-text connection, specify `instance_type=InstanceType.OMNI` and `use_plain_text=True` :
 
-    from google.cloud import spanner
-    from google.cloud.spanner_v1 import InstanceType
-    
-    spanner_client = spanner.Client(
-        client_options={"api_endpoint": "ENDPOINT"},
-        instance_type=InstanceType.OMNI,
-        use_plain_text=True,
-    )
+```
+from google.cloud import spanner
+from google.cloud.spanner_v1 import InstanceType
+
+spanner_client = spanner.Client(
+    client_options={"api_endpoint": "ENDPOINT"},
+    instance_type=InstanceType.OMNI,
+    use_plain_text=True,
+)
+```
 
 Replace the following:
 
-  - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance.
+- `ENDPOINT` : the endpoint of your Spanner Omni instance.
 
 ### TLS
 
 To establish a TLS connection, specify the path to your CA certificate using `ca_certificate` :
 
-    from google.cloud import spanner
-    from google.cloud.spanner_v1 import InstanceType
-    
-    spanner_client = spanner.Client(
-        client_options={"api_endpoint": "ENDPOINT"},
-        instance_type=InstanceType.OMNI,
-        ca_certificate="PATH_TO_CA_CERT",
-    )
+```
+from google.cloud import spanner
+from google.cloud.spanner_v1 import InstanceType
+
+spanner_client = spanner.Client(
+    client_options={"api_endpoint": "ENDPOINT"},
+    instance_type=InstanceType.OMNI,
+    ca_certificate="PATH_TO_CA_CERT",
+)
+```
 
 Replace the following:
 
-  - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance.
+- `ENDPOINT` : the endpoint of your Spanner Omni instance.
 
-  - `  PATH_TO_CA_CERT  ` : the path to your CA certificate file.
+- `PATH_TO_CA_CERT` : the path to your CA certificate file.
 
 ### TLS with credentials
 
 To establish a TLS connection with username and password authentication, specify the `username` and `password` parameters alongside the CA certificate:
 
-    from google.cloud import spanner
-    from google.cloud.spanner_v1 import InstanceType
-    
-    spanner_client = spanner.Client(
-        client_options={"api_endpoint": "ENDPOINT"},
-        instance_type=InstanceType.OMNI,
-        ca_certificate="PATH_TO_CA_CERT",
-        username="USERNAME",
-        password="PASSWORD",
-    )
+```
+from google.cloud import spanner
+from google.cloud.spanner_v1 import InstanceType
+
+spanner_client = spanner.Client(
+    client_options={"api_endpoint": "ENDPOINT"},
+    instance_type=InstanceType.OMNI,
+    ca_certificate="PATH_TO_CA_CERT",
+    username="USERNAME",
+    password="PASSWORD",
+)
+```
 
 Replace the following:
 
-  - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance.
+- `ENDPOINT` : the endpoint of your Spanner Omni instance.
 
-  - `  PATH_TO_CA_CERT  ` : the path to your CA certificate file.
+- `PATH_TO_CA_CERT` : the path to your CA certificate file.
 
-  - `  USERNAME  ` : the username for your Spanner Omni user.
+- `USERNAME` : the username for your Spanner Omni user.
 
-  - `  PASSWORD  ` : the password for your Spanner Omni user.
+- `PASSWORD` : the password for your Spanner Omni user.
 
 ### mTLS
 
 To establish a mutual TLS (mTLS) connection, specify the CA certificate, client certificate, and private client key:
 
-    from google.cloud import spanner
-    from google.cloud.spanner_v1 import InstanceType
-    
-    spanner_client = spanner.Client(
-        client_options={"api_endpoint": "ENDPOINT"},
-        instance_type=InstanceType.OMNI,
-        ca_certificate="PATH_TO_CA_CERT",
-        client_certificate="PATH_TO_CLIENT_CERT",
-        client_key="PATH_TO_CLIENT_KEY",
-    )
+```
+from google.cloud import spanner
+from google.cloud.spanner_v1 import InstanceType
+
+spanner_client = spanner.Client(
+    client_options={"api_endpoint": "ENDPOINT"},
+    instance_type=InstanceType.OMNI,
+    ca_certificate="PATH_TO_CA_CERT",
+    client_certificate="PATH_TO_CLIENT_CERT",
+    client_key="PATH_TO_CLIENT_KEY",
+)
+```
 
 Replace the following:
 
-  - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance.
+- `ENDPOINT` : the endpoint of your Spanner Omni instance.
 
-  - `  PATH_TO_CA_CERT  ` : the path to your CA certificate file.
+- `PATH_TO_CA_CERT` : the path to your CA certificate file.
 
-  - `  PATH_TO_CLIENT_CERT  ` : the path to your client certificate file.
+- `PATH_TO_CLIENT_CERT` : the path to your client certificate file.
 
-  - `  PATH_TO_CLIENT_KEY  ` : the path to your client private key file.
+- `PATH_TO_CLIENT_KEY` : the path to your client private key file.
 
 ## Get a database
 
 After you configure the `Client` object, you can get a database. Because Spanner Omni does not use Google Cloud project or instance IDs, specify `default` for the instance ID when you create an `Instance` :
 
-    instance = spanner_client.instance("default")
-    database = instance.database("DATABASE_ID")
+```
+instance = spanner_client.instance("default")
+database = instance.database("DATABASE_ID")
+```
 
 Replace the following:
 
-  - `  DATABASE_ID  ` : the ID of your Spanner Omni database.
+- `DATABASE_ID` : the ID of your Spanner Omni database.

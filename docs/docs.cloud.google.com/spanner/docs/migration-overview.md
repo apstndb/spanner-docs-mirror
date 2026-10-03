@@ -24,4 +24,4 @@ You can use the previously described high-level migration stages if you want to 
 
 ## Source-specific migration guides
 
-  - MySQL: [Migrate from MySQL to Spanner](https://docs.cloud.google.com/spanner/docs/migrating-mysql-to-spanner) .
+- MySQL: [Migrate from MySQL to Spanner](https://docs.cloud.google.com/spanner/docs/migrating-mysql-to-spanner) .

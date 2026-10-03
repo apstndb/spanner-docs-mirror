@@ -20,11 +20,13 @@ Before you can use the Spanner Omni CLI, ensure you meet the following requireme
 1.  Download the Spanner Omni CLI from the `spanner-omni` Cloud Storage bucket.
 
 2.  Extract the tar file.
-    
-        tar -xvf CLI_TAR_FILE
-    
+
+    ```
+    tar -xvf CLI_TAR_FILE
+    ```
+
     This installs the Spanner Omni CLI binary, called `spanner` , in the `google/spanner/bin` directory.
-    
+
     To run the `spanner` command, add the `google/spanner/bin` directory to your `PATH` environment variable, or use the full path to the binary in the following steps.
 
 ## Step 2: Connect to your deployment
@@ -33,8 +35,10 @@ By default, the Spanner Omni CLI attempts to connect to `localhost:15000` . To c
 
 For example, the following command lists the zones in your deployment:
 
-    spanner deployment zones list \
-        --deployment-endpoint=LOAD_BALANCER_IP_OR_SERVER_IP:PORT
+```
+spanner deployment zones list \
+    --deployment-endpoint=LOAD_BALANCER_IP_OR_SERVER_IP:PORT
+```
 
 ## Step 3: Run common commands
 
@@ -44,21 +48,27 @@ The following are common administrative commands you can run with the Spanner Om
 
 To see a list of available commands and global flags, run:
 
-    spanner --help
+```
+spanner --help
+```
 
 ### Create a database
 
 To create a new database in your deployment, run:
 
-    spanner databases create DATABASE_NAME \
-        --deployment-endpoint=LOAD_BALANCER_IP_OR_SERVER_IP:PORT
+```
+spanner databases create DATABASE_NAME \
+    --deployment-endpoint=LOAD_BALANCER_IP_OR_SERVER_IP:PORT
+```
 
 ### List all databases
 
 To list all databases in your deployment, run:
 
-    spanner databases list \
-        --deployment-endpoint=LOAD_BALANCER_IP_OR_SERVER_IP:PORT
+```
+spanner databases list \
+    --deployment-endpoint=LOAD_BALANCER_IP_OR_SERVER_IP:PORT
+```
 
 ## Step 4: Start an interactive SQL shell session
 
@@ -66,11 +76,15 @@ The Spanner Omni CLI includes an interactive SQL shell for running queries. By s
 
 To start the SQL shell, run:
 
-    spanner sql --database=DATABASE_NAME \
-        --deployment-endpoint=LOAD_BALANCER_IP_OR_SERVER_IP:PORT
+```
+spanner sql --database=DATABASE_NAME \
+    --deployment-endpoint=LOAD_BALANCER_IP_OR_SERVER_IP:PORT
+```
 
 After the shell starts, you see the `sql>` prompt:
 
-    spanner-cli>
+```
+spanner-cli>
+```
 
 To exit the shell, type `exit` .

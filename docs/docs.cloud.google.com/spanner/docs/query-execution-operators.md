@@ -17,7 +17,7 @@ Execution plans support GoogleSQL-dialect databases and PostgreSQL-dialect datab
 The exact mapping between SQL constructs and query execution operators depends on the query optimization. The following table shows some common mappings:
 
 | **SQL**                             | **Query execution operator**                                                                                                                                                            |
-| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Table reference                     | [Table Scan, Index Scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan)                                                                                          |
 | `WHERE`                             | [Filter Scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#filter_scan) , [Filter](https://docs.cloud.google.com/spanner/docs/query-operators-unary#filter)          |
 | `GROUP BY`                          | [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)                                                                                                 |
@@ -37,7 +37,7 @@ This section lists all query execution operators that can make up a query execut
 Operators that have no children.
 
 | Name                                                                                                   | Summary                                                                  |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+|--------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
 | [Array unnest](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#array-unnest)           | Flattens an input array into rows of elements.                           |
 | [Generate relation](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#generate-relation) | Returns zero or more rows.                                               |
 | [Unit relation](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#unit-relation)         | Returns one row.                                                         |
@@ -50,7 +50,7 @@ Operators that have no children.
 Operators that have a single relational child.
 
 | Name                                                                                                            | Summary                                                                                                                           |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)                         | Implements `GROUP BY` SQL statements and aggregate functions.                                                                     |
 | [Apply mutations](https://docs.cloud.google.com/spanner/docs/query-operators-unary#apply-mutations)             | Applies the mutations from a Data Manipulation Language (DML) statement to the table.                                             |
 | [Create batch](https://docs.cloud.google.com/spanner/docs/query-operators-unary#create_batch)                   | Batches its input rows into a sequence.                                                                                           |
@@ -72,7 +72,7 @@ Operators that have a single relational child.
 Operators that have two relational children.
 
 | Name                                                                                                 | Summary                                                                                                          |
-| ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+|------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
 | [Apply join](https://docs.cloud.google.com/spanner/docs/query-operators-binary#apply-join)           | Applies each row on the input side to the map side using an apply method.                                        |
 | [Hash join](https://docs.cloud.google.com/spanner/docs/query-operators-binary#hash-join)             | Reads rows from input marked as build and inserts them into a hash table based on a join condition.              |
 | [Merge join](https://docs.cloud.google.com/spanner/docs/query-operators-binary#merge-join)           | Consumes both input streams concurrently and outputs rows when the join condition is satisfied.                  |
@@ -83,7 +83,7 @@ Operators that have two relational children.
 Operators that have more than two relational children.
 
 | Name                                                                                    | Summary                                                            |
-| --------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+|-----------------------------------------------------------------------------------------|--------------------------------------------------------------------|
 | [Union all](https://docs.cloud.google.com/spanner/docs/query-operators-n-ary#union_all) | Combines all row sets of its children without removing duplicates. |
 
 ### Distributed operators
@@ -91,7 +91,7 @@ Operators that have more than two relational children.
 Operators that execute across multiple servers.
 
 | Name                                                                                                                        | Summary                                                                                                                                               |
-| --------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Distributed union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union)               | Conceptually divides one or more tables into multiple splits, remotely evaluates a subquery independently on each split, and then unions all results. |
 | [Distributed apply](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-apply)               | Extends the apply join operator by executing across multiple servers.                                                                                 |
 | [Distributed merge union](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-merge-union)   | Distributes a query across multiple remote servers and then combines the query results to produce a sorted result.                                    |
@@ -102,7 +102,7 @@ Operators that execute across multiple servers.
 SQL sub-expressions that return a single scalar value.
 
 | Name                                                                                              | Summary                                                |
-| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+|---------------------------------------------------------------------------------------------------|--------------------------------------------------------|
 | [Scalar subqueries](https://docs.cloud.google.com/spanner/docs/query-operators-scalar-subqueries) | SQL sub-expressions that return a single scalar value. |
 
 ### Array subqueries
@@ -110,7 +110,7 @@ SQL sub-expressions that return a single scalar value.
 SQL sub-expressions that return an array.
 
 | Name                                                                                            | Summary                                   |
-| ----------------------------------------------------------------------------------------------- | ----------------------------------------- |
+|-------------------------------------------------------------------------------------------------|-------------------------------------------|
 | [Array subqueries](https://docs.cloud.google.com/spanner/docs/query-operators-array-subqueries) | SQL sub-expressions that return an array. |
 
 ### Struct constructor
@@ -118,5 +118,5 @@ SQL sub-expressions that return an array.
 An operator that creates a struct (a collection of fields) for rows resulting from a compute operation.
 
 | Name                                                                                                | Summary                                                                                                 |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+|-----------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
 | [Struct constructor](https://docs.cloud.google.com/spanner/docs/query-operators-struct-constructor) | An operator that creates a struct (a collection of fields) for rows resulting from a compute operation. |

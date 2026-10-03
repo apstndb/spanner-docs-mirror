@@ -20,17 +20,19 @@ Spanner creates the service agent and grants the necessary permissions automatic
 
 If the Spanner service agent account doesn't exist for your Spanner project, [create](https://docs.cloud.google.com/sdk/gcloud/reference/beta/services/identity/create) it by running the following command:
 
-    gcloud beta services identity create --service=spanner.googleapis.com --project={PROJECT}`
+```
+gcloud beta services identity create --service=spanner.googleapis.com --project={PROJECT}`
+```
 
-Follow the steps described in the [Grant a single role](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access#iam-grant-single-role-gcloud) to grant the [`Spanner API Service Agent`](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.serviceAgent) role to the Spanner [service agent](https://docs.cloud.google.com/iam/docs/service-agents) account `service- PROJECT_NUMBER @gcp-sa-spanner.iam.gserviceaccount.com` on your Agent Platform project.
+Follow the steps described in the [Grant a single role](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access#iam-grant-single-role-gcloud) to grant the [`Spanner API Service Agent`](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.serviceAgent) role to the Spanner [service agent](https://docs.cloud.google.com/iam/docs/service-agents) account `service- `` PROJECT_NUMBER `` @gcp-sa-spanner.iam.gserviceaccount.com` on your Agent Platform project.
 
 ### Select a model
 
 When you use the `ML.PREDICT` (for GoogleSQL) or the `spanner.ML_PREDICT_ROW` (for PostgreSQL) function, you must specify the location of the ML model. Your selected model can be one of the following:
 
-  - A model running in [Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models) .
+- A model running in [Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models) .
 
-  - An Agent Platform model with an active endpoint that your [Spanner service agent](https://docs.cloud.google.com/iam/docs/service-agents) has IAM permission to access.
+- An Agent Platform model with an active endpoint that your [Spanner service agent](https://docs.cloud.google.com/iam/docs/service-agents) has IAM permission to access.
 
 To learn more about Spanner Agent Platform integration, see [How does Spanner Agent Platform integration work?](https://docs.cloud.google.com/spanner/docs/ml#how-does-it-work) .
 
@@ -46,49 +48,53 @@ To generate a prediction using a model from Model Garden, [select a model from M
 
 Before you use a model with `ML.PREDICT()` , you need to register the model using the `CREATE MODEL` statement.
 
-    CREATE MODEL 'MODEL_NAME'
-    INPUT (INPUT_COLUMN_NAME INPUT_COLUMN_TYPE)
-    OUTPUT (OUTPUT_COLUMN_NAME OUTPUT_COLUMN_TYPE)
-    REMOTE
-    OPTIONS (
-      endpoint = '//aiplatform.googleapis.com/projects/PROJECT_ID/locations/LOCATION_ID/publishers/google/models/model_id'
-    );
+```
+CREATE MODEL 'MODEL_NAME'
+INPUT (INPUT_COLUMN_NAME INPUT_COLUMN_TYPE)
+OUTPUT (OUTPUT_COLUMN_NAME OUTPUT_COLUMN_TYPE)
+REMOTE
+OPTIONS (
+  endpoint = '//aiplatform.googleapis.com/projects/PROJECT_ID/locations/LOCATION_ID/publishers/google/models/model_id'
+);
+```
 
 Replace the following:
 
-  - `  MODEL_NAME  ` : the name you want to give your model
+- `MODEL_NAME` : the name you want to give your model
 
-  - `  INPUT_COLUMN_NAME  ` : the name of your input column. For example, if using the `gemini-pro` model, the input column name is `prompt` .
+- `INPUT_COLUMN_NAME` : the name of your input column. For example, if using the `gemini-pro` model, the input column name is `prompt` .
 
-  - `  INPUT_COLUMN_TYPE  ` : the data type for `INPUT_COLUMN_NAME`
+- `INPUT_COLUMN_TYPE` : the data type for `INPUT_COLUMN_NAME`
 
-  - `  OUTPUT_COLUMN_NAME  ` : the name of your output column. For example, if using the `gemini-pro` model, the output column name is `content` .
+- `OUTPUT_COLUMN_NAME` : the name of your output column. For example, if using the `gemini-pro` model, the output column name is `content` .
 
-  - `  OUTPUT_COLUMN_TYPE  ` : the data type for `OUTPUT_COLUMN_NAME`
+- `OUTPUT_COLUMN_TYPE` : the data type for `OUTPUT_COLUMN_NAME`
 
-  - `  PROJECT_ID  ` : the ID of your Google Cloud project
+- `PROJECT_ID` : the ID of your Google Cloud project
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region that the model is located in—for example, `us-central1`
+- `REGION_ID` : the ID of the Google Cloud region that the model is located in—for example, `us-central1`
 
-  - `  MODEL_ID  ` : the ID of the ML model you want to use—for example, `gemini-pro`
-    
-    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
+- `MODEL_ID` : the ID of the ML model you want to use—for example, `gemini-pro`
+
+  For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
 
 Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function with the model selected from Model Garden to generate your prediction.
 
-    SELECT * FROM ML.PREDICT(
-      MODEL `MODEL_NAME`,
-      `INPUT_RELATION`[, `PARAMETERS`])
+```
+SELECT * FROM ML.PREDICT(
+  MODEL `MODEL_NAME`,
+  `INPUT_RELATION`[, `PARAMETERS`])
+```
 
 Replace the following:
 
-  - `  MODEL_NAME  ` : the name you want to give your model
-    
-    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
+- `MODEL_NAME` : the name you want to give your model
 
-  - `  INPUT_RELATION  ` : either `TABLE table_name` or a subquery the table or subquery supplying data to run the ML prediction on.
+  For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
 
-  - `  PARAMETERS  ` : a `STRUCT` value that contains parameters supported by `model_id` .
+- `INPUT_RELATION` : either `TABLE table_name` or a subquery the table or subquery supplying data to run the ML prediction on.
+
+- `PARAMETERS` : a `STRUCT` value that contains parameters supported by `model_id` .
 
 You can also use `SAFE.ML.PREDICT` to return `null` instead of an error in your predictions. This is helpful in cases when running large queries where some failed predictions are tolerable.
 
@@ -96,26 +102,28 @@ You can also use `SAFE.ML.PREDICT` to return `null` instead of an error in your 
 
 Use the `ML_PREDICT_ROW` PostgreSQL function with the model selected from Model Garden to generate your prediction.
 
-    SELECT spanner.ml_predict_row(
-      'projects/PROJECT_ID/locations/REGION_ID/publishers/google/models/MODEL_ID'::text,
-      '{
-        "instances": [ INSTANCES ],
-        "parameters": { PARAMETERS }
-       }'::jsonb);
+```
+SELECT spanner.ml_predict_row(
+  'projects/PROJECT_ID/locations/REGION_ID/publishers/google/models/MODEL_ID'::text,
+  '{
+    "instances": [ INSTANCES ],
+    "parameters": { PARAMETERS }
+   }'::jsonb);
+```
 
 Replace the following:
 
-  - `  PROJECT_ID  ` : the ID of your Google Cloud project
+- `PROJECT_ID` : the ID of your Google Cloud project
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region that the model is located in—for example, `us-central1`
+- `REGION_ID` : the ID of the Google Cloud region that the model is located in—for example, `us-central1`
 
-  - `  MODEL_ID  ` : the ID of the ML model you want to use—for example, `gemini-pro`
-    
-    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
+- `MODEL_ID` : the ID of the ML model you want to use—for example, `gemini-pro`
 
-  - `  INSTANCES  ` : the inputs for the prediction call, in JSON format
+  For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
 
-  - `  PARAMETERS  ` : optional parameters for the prediction call, in JSON format
+- `INSTANCES` : the inputs for the prediction call, in JSON format
+
+- `PARAMETERS` : optional parameters for the prediction call, in JSON format
 
 This query produces a JSON response. For more information about the model's JSON response messages, see [PredictResponse](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1/PredictResponse) .
 
@@ -127,44 +135,48 @@ To use a trained or downloaded model with Spanner Agent Platform integration, yo
 
 Use the `ML.PREDICT` GoogleSQL function with the model in a Agent Platform endpoint to generate your prediction. Before you use a model with `ML.PREDICT()` , you need to register the model using the [`CREATE MODEL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) statement. Each deployed model has its own unique schema. The following is an example schema from [Classification and regression overview](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/tabular-data/classification-regression/overview)
 
-    CREATE MODEL MyClassificationModel
-    INPUT (
-      length FLOAT64,
-      material STRING(MAX),
-      tag_array ARRAY<STRING(MAX)>
-    )
-    OUTPUT (
-      scores ARRAY<FLOAT64>,
-      classes ARRAY<STRING(MAX)>
-    )
-    REMOTE
-    OPTIONS (
-      endpoint = '//aiplatform.googleapis.com/projects/PROJECT/locations/LOCATION/endpoints/ENDPOINT_ID'
-    )
+```
+CREATE MODEL MyClassificationModel
+INPUT (
+  length FLOAT64,
+  material STRING(MAX),
+  tag_array ARRAY<STRING(MAX)>
+)
+OUTPUT (
+  scores ARRAY<FLOAT64>,
+  classes ARRAY<STRING(MAX)>
+)
+REMOTE
+OPTIONS (
+  endpoint = '//aiplatform.googleapis.com/projects/PROJECT/locations/LOCATION/endpoints/ENDPOINT_ID'
+)
+```
 
 Replace the following:
 
-  - `  PROJECT_ID  ` : the ID of your Google Cloud project
+- `PROJECT_ID` : the ID of your Google Cloud project
 
-  - `  LOCATION  ` : the ID of the Google Cloud region that the model is located in—for example, `us-central1`
+- `LOCATION` : the ID of the Google Cloud region that the model is located in—for example, `us-central1`
 
-  - `  ENDPOINT_ID  ` : the ID of the ML model you want to use—for example, `gemini-pro`
-    
-    For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
+- `ENDPOINT_ID` : the ID of the ML model you want to use—for example, `gemini-pro`
+
+  For more information about models, see [Model API reference for Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) .
 
 Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function with the model selected from Model Garden to generate your prediction.
 
-    SELECT * FROM ML.PREDICT(
-      `MODEL_ID`,
-      `INPUT_RELATION`[, `PARAMETERS`])
+```
+SELECT * FROM ML.PREDICT(
+  `MODEL_ID`,
+  `INPUT_RELATION`[, `PARAMETERS`])
+```
 
 Replace the following:
 
-  - `  MODEL_ID  ` : the ID of the ML model you want to use.
+- `MODEL_ID` : the ID of the ML model you want to use.
 
-  - `  INPUT_RELATION  ` : the table or subquery that you want to run the ML prediction on.
+- `INPUT_RELATION` : the table or subquery that you want to run the ML prediction on.
 
-  - `  PARAMETERS  ` : a `STRUCT` value that contains parameters supported by `model_name` .
+- `PARAMETERS` : a `STRUCT` value that contains parameters supported by `model_name` .
 
 This query produces a relation containing all output columns of the model and all columns of the input relation.
 
@@ -172,7 +184,7 @@ This query produces a relation containing all output columns of the model and al
 
 Use the `ML.PREDICT` PostgreSQL function with the model in an Agent Platform endpoint to generate your prediction.
 
-```` 
+````
   SELECT spanner.ml_predict_row(
     'projects/PROJECT_ID/locations/REGION_ID/endpoints/ENDPOINT_ID'::text,
     '{
@@ -184,22 +196,22 @@ Use the `ML.PREDICT` PostgreSQL function with the model in an Agent Platform end
 Replace the following:
 ````
 
-  - `  PROJECT_ID  ` : the ID of the Google Cloud project that the model is located in
+- `PROJECT_ID` : the ID of the Google Cloud project that the model is located in
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
+- `REGION_ID` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
 
-  - `  ENDPOINT_ID  ` : the ID of the model endpoint
+- `ENDPOINT_ID` : the ID of the model endpoint
 
-  - `  INSTANCES  ` : the inputs to the prediction call, in JSON format
+- `INSTANCES` : the inputs to the prediction call, in JSON format
 
-  - `  PARAMETERS  ` : optional parameters to the prediction call, in JSON format
+- `PARAMETERS` : optional parameters to the prediction call, in JSON format
 
 This query produces a JSON response. For more information about the model's JSON response messages, see [PredictResponse](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1/PredictResponse) .
 
 ### Examples for using ML functions to generate predictions
 
 > **Preview — [Gemini](https://docs.cloud.google.com/gemini/docs/overview) in Spanner**
-> 
+>
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 The following example uses the [gemini-pro](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/inference) model, from Model Garden, to generate text based on a short prompt that is provided as an argument. This model is available as part of Gemini in Spanner.
@@ -208,60 +220,70 @@ The following example uses the [gemini-pro](https://docs.cloud.google.com/gemini
 
 **Register the `gemini-pro` model**
 
-    CREATE MODEL GeminiPro
-    INPUT (prompt STRING(MAX))
-    OUTPUT (content STRING(MAX))
-    REMOTE
-    OPTIONS (
-      endpoint = '//aiplatform.googleapis.com/projects/PROJECT/locations/LOCATION/publishers/google/models/gemini-pro',
-      default_batch_size = 1
-    );
+```
+CREATE MODEL GeminiPro
+INPUT (prompt STRING(MAX))
+OUTPUT (content STRING(MAX))
+REMOTE
+OPTIONS (
+  endpoint = '//aiplatform.googleapis.com/projects/PROJECT/locations/LOCATION/publishers/google/models/gemini-pro',
+  default_batch_size = 1
+);
+```
 
 Replace the following:
 
-  - `PROJECT` : the project ID
-  - `LOCATION` : the region where you are using Agent Platform
+- `PROJECT` : the project ID
+- `LOCATION` : the region where you are using Agent Platform
 
 **Run the model**
 
-    SELECT content
-    FROM ML.PREDICT(
-      MODEL GeminiPro,
-      (SELECT "Is 7 a prime number?" AS prompt),
-      STRUCT(256 AS maxOutputTokens, 0.2 AS temperature, 40 as topK, 0.95 AS topP)
-    );
+```
+SELECT content
+FROM ML.PREDICT(
+  MODEL GeminiPro,
+  (SELECT "Is 7 a prime number?" AS prompt),
+  STRUCT(256 AS maxOutputTokens, 0.2 AS temperature, 40 as topK, 0.95 AS topP)
+);
+```
 
 **Expected output**
 
 The expected out is as follows:
 
-    +--------------------+
-    | content            |
-    +--------------------+
-    | "Yes"              |
-    +--------------------+
+```
++--------------------+
+| content            |
++--------------------+
+| "Yes"              |
++--------------------+
+```
 
 ### PostgreSQL
 
 **Run the model**
 
-    select spanner.ml_predict_row(
-      '{
-        "endpoint": "projects/PROJECT_ID/locations/us-central1/publishers/google/models/gemini-pro",
-        "default_batch_size": 1
-       }'::jsonb,
-      '{
-        "instances":[{"prompt": "Is 7 a prime number?"}],
-        "parameters":{"maxOutputTokens":256, "topK": 40, "topP":0.96, "temperature":0.2}
-        }'
-    );
+```
+select spanner.ml_predict_row(
+  '{
+    "endpoint": "projects/PROJECT_ID/locations/us-central1/publishers/google/models/gemini-pro",
+    "default_batch_size": 1
+   }'::jsonb,
+  '{
+    "instances":[{"prompt": "Is 7 a prime number?"}],
+    "parameters":{"maxOutputTokens":256, "topK": 40, "topP":0.96, "temperature":0.2}
+    }'
+);
+```
 
 **Expected output**
 
 The expected out is the following:
 
-    +--------------------+
-    | content            |
-    +--------------------+
-    | "Yes"              |
-    +--------------------+
+```
++--------------------+
+| content            |
++--------------------+
+| "Yes"              |
++--------------------+
+```

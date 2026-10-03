@@ -12,34 +12,40 @@ A subquery is a [query](https://docs.cloud.google.com/spanner/docs/reference/pos
 
 The `WITH` clause is not supported on a subquery. The following query returns an error:
 
-    SELECT username
-    FROM (
-      WITH result AS (SELECT * FROM Players)
-      SELECT *
-      FROM result);
+```
+SELECT username
+FROM (
+  WITH result AS (SELECT * FROM Players)
+  SELECT *
+  FROM result);
+```
 
 ## Common tables used in examples
 
 The following are tables that are used in the sample queries on this page:
 
-    Players
-    +-----------------------------+
-    | username  | level   | team  |
-    +-----------------------------+
-    | gorbie    | 29      | red   |
-    | junelyn   | 2       | blue  |
-    | corba     | 43      | green |
-    +-----------------------------+
+```
+Players
++-----------------------------+
+| username  | level   | team  |
++-----------------------------+
+| gorbie    | 29      | red   |
+| junelyn   | 2       | blue  |
+| corba     | 43      | green |
++-----------------------------+
+```
 
-    Mascots
-    +-------------------+
-    | mascot   | team   |
-    +-------------------+
-    | cardinal | red    |
-    | parrot   | green  |
-    | finch    | blue   |
-    | sparrow  | yellow |
-    +-------------------+
+```
+Mascots
++-------------------+
+| mascot   | team   |
++-------------------+
+| cardinal | red    |
+| parrot   | green  |
+| finch    | blue   |
+| sparrow  | yellow |
++-------------------+
+```
 
 ## Expression subqueries
 
@@ -47,7 +53,9 @@ Expression subqueries are used in a query wherever expressions are valid. They r
 
 ### Scalar subqueries
 
-    SELECT ( subquery ) FROM table
+```
+SELECT ( subquery ) FROM table
+```
 
 **Description**
 
@@ -59,40 +67,46 @@ A scalar subquery is an ordinary SELECT query in parentheses that returns exactl
 
 In this example, a correlated scalar subquery returns the mascots for a list of players, using the [`Players`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) and [`Mascots`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) tables:
 
-    SELECT
-      username,
-      (SELECT mascot FROM Mascots WHERE Players.team = Mascots.team) AS player_mascot
-    FROM
-      Players;
-    
-    +---------------------------+
-    | username  | player_mascot |
-    +---------------------------+
-    | gorbie    | cardinal      |
-    | junelyn   | finch         |
-    | corba     | parrot        |
-    +---------------------------+
+```
+SELECT
+  username,
+  (SELECT mascot FROM Mascots WHERE Players.team = Mascots.team) AS player_mascot
+FROM
+  Players;
+
++---------------------------+
+| username  | player_mascot |
++---------------------------+
+| gorbie    | cardinal      |
+| junelyn   | finch         |
+| corba     | parrot        |
++---------------------------+
+```
 
 In this example, an aggregate scalar subquery calculates `avg_level` , the average level of a user in the [`Players`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) table.
 
-    SELECT
-      username,
-      level,
-      (SELECT AVG(level) FROM Players) AS avg_level
-    FROM
-      Players;
-    
-    +---------------------------------------+
-    | username  | level      | avg_level    |
-    +---------------------------------------+
-    | gorbie    | 29         | 24.66        |
-    | junelyn   | 2          | 24.66        |
-    | corba     | 43         | 24.66        |
-    +---------------------------------------+
+```
+SELECT
+  username,
+  level,
+  (SELECT AVG(level) FROM Players) AS avg_level
+FROM
+  Players;
+
++---------------------------------------+
+| username  | level      | avg_level    |
++---------------------------------------+
+| gorbie    | 29         | 24.66        |
+| junelyn   | 2          | 24.66        |
+| corba     | 43         | 24.66        |
++---------------------------------------+
+```
 
 ### IN subqueries
 
-    SELECT value IN ( subquery )
+```
+SELECT value IN ( subquery )
+```
 
 **Description**
 
@@ -106,9 +120,11 @@ The subquery's SELECT list must have a single column of any type and its type mu
 
 If you prefer to use ANY/SOME syntax, these are equivalent:
 
-    value IN ( subquery )
-    value = ANY ( subquery )
-    value = SOME ( subquery )
+```
+value IN ( subquery )
+value = ANY ( subquery )
+value = SOME ( subquery )
+```
 
 Operators other than `=` are not supported for ANY/SOME expressions.
 
@@ -116,18 +132,22 @@ Operators other than `=` are not supported for ANY/SOME expressions.
 
 In this example, the `IN` operator that checks to see if a username called `corba` exists within the [`Players`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) table:
 
-    SELECT
-      'corba' IN (SELECT username FROM Players) AS result;
-    
-    +--------+
-    | result |
-    +--------+
-    | TRUE   |
-    +--------+
+```
+SELECT
+  'corba' IN (SELECT username FROM Players) AS result;
+
++--------+
+| result |
++--------+
+| TRUE   |
++--------+
+```
 
 ### NOT IN subqueries
 
-    SELECT value NOT IN ( subquery )
+```
+SELECT value NOT IN ( subquery )
+```
 
 **Description**
 
@@ -141,14 +161,18 @@ The subquery's SELECT list must have a single column of any type and its type mu
 
 If you prefer to use ALL syntax, these are equivalent:
 
-    value NOT IN ( subquery )
-    value != ALL ( subquery )
+```
+value NOT IN ( subquery )
+value != ALL ( subquery )
+```
 
 Operators other than `!=` are not supported for ALL expressions.
 
 ### EXISTS subqueries
 
-    SELECT EXISTS( subquery )
+```
+SELECT EXISTS( subquery )
+```
 
 **Description**
 
@@ -158,18 +182,22 @@ Returns TRUE if the subquery produces one or more rows. Returns FALSE if the sub
 
 In this example, the `EXISTS` operator checks to see if any rows are produced, using the [`Players`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) table:
 
-    SELECT
-      EXISTS(SELECT username FROM Players WHERE team = 'yellow') AS result;
-    
-    +--------+
-    | result |
-    +--------+
-    | FALSE  |
-    +--------+
+```
+SELECT
+  EXISTS(SELECT username FROM Players WHERE team = 'yellow') AS result;
+
++--------+
+| result |
++--------+
+| FALSE  |
++--------+
+```
 
 ## Table subqueries
 
-    SELECT select-list FROM ( subquery ) [ [ AS ] alias ]
+```
+SELECT select-list FROM ( subquery ) [ [ AS ] alias ]
+```
 
 **Description**
 
@@ -179,16 +207,18 @@ With table subqueries, the outer query treats the result of the subquery as a ta
 
 In this example, a subquery returns a table of usernames from the [`Players`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) table:
 
-    SELECT results.username
-    FROM (SELECT * FROM Players) AS results;
-    
-    +-----------+
-    | username  |
-    +-----------+
-    | gorbie    |
-    | junelyn   |
-    | corba     |
-    +-----------+
+```
+SELECT results.username
+FROM (SELECT * FROM Players) AS results;
+
++-----------+
+| username  |
++-----------+
+| gorbie    |
+| junelyn   |
+| corba     |
++-----------+
+```
 
 ## Correlated subqueries
 
@@ -198,28 +228,32 @@ A correlated subquery is a subquery that references a column from outside that s
 
 In this example, a list of mascots that don't have any players assigned to them is returned. The [`Mascots`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) and [`Players`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) tables are referenced.
 
-    SELECT mascot
-    FROM Mascots
-    WHERE
-      NOT EXISTS(SELECT username FROM Players WHERE Mascots.team = Players.team);
-    
-    +----------+
-    | mascot   |
-    +----------+
-    | sparrow  |
-    +----------+
+```
+SELECT mascot
+FROM Mascots
+WHERE
+  NOT EXISTS(SELECT username FROM Players WHERE Mascots.team = Players.team);
+
++----------+
+| mascot   |
++----------+
+| sparrow  |
++----------+
+```
 
 In this example, a correlated scalar subquery returns the mascots for a list of players, using the [`Players`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) and [`Mascots`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries#example_tables) tables:
 
-    SELECT
-      username,
-      (SELECT mascot FROM Mascots WHERE Players.team = Mascots.team) AS player_mascot
-    FROM Players;
-    
-    +---------------------------+
-    | username  | player_mascot |
-    +---------------------------+
-    | gorbie    | cardinal      |
-    | junelyn   | finch         |
-    | corba     | parrot        |
-    +---------------------------+
+```
+SELECT
+  username,
+  (SELECT mascot FROM Mascots WHERE Players.team = Mascots.team) AS player_mascot
+FROM Players;
+
++---------------------------+
+| username  | player_mascot |
++---------------------------+
+| gorbie    | cardinal      |
+| junelyn   | finch         |
+| corba     | parrot        |
++---------------------------+
+```

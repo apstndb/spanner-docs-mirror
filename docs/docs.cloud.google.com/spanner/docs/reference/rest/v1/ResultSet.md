@@ -6,48 +6,32 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSet#SCHEMA_REPRESENTATION)
+- [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSet#SCHEMA_REPRESENTATION)
 
-Results from `  sessions.read  ` or `  ExecuteSql  ` .
+Results from [`sessions.read`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/read#google.spanner.v1.Spanner.Read) or [`ExecuteSql`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#google.spanner.v1.Spanner.ExecuteSql) .
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;metadata&quot;: {object (ResultSetMetadata)},&quot;rows&quot;: [array],&quot;stats&quot;: {object (ResultSetStats)},&quot;precommitToken&quot;: {object (MultiplexedSessionPrecommitToken)}}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "metadata": {
+    object (ResultSetMetadata)
+  },
+  "rows": [
+    array
+  ],
+  "stats": {
+    object (ResultSetStats)
+  },
+  "precommitToken": {
+    object (MultiplexedSessionPrecommitToken)
+  }
+}
+```
 
-`metadata`
-
-` object ( ResultSetMetadata  ` )
-
-Metadata about the result set, such as row type information.
-
-`rows[]`
-
-` array ( ListValue  ` format)
-
-Each element in `rows` is a row whose format is defined by `  metadata.row_type  ` . The ith element in each row matches the ith field in `  metadata.row_type  ` . Elements are encoded based on type as described `  here  ` .
-
-`stats`
-
-` object ( ResultSetStats  ` )
-
-Query plan and execution statistics for the SQL statement that produced this result set. These can be requested by setting `  ExecuteSqlRequest.query_mode  ` . DML statements always produce stats containing the number of rows modified, unless executed using the `  ExecuteSqlRequest.QueryMode.PLAN  ` `  ExecuteSqlRequest.query_mode  ` . Other fields might or might not be populated, based on the `  ExecuteSqlRequest.query_mode  ` .
-
-`precommitToken`
-
-` object ( MultiplexedSessionPrecommitToken  ` )
-
-Optional. A precommit token is included if the read-write transaction is on a multiplexed session. Pass the precommit token with the highest sequence number from this transaction attempt to the `  Commit  ` request for this transaction.
+| Fields           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `metadata`       | `object ( `[`ResultSetMetadata`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetMetadata)` )` Metadata about the result set, such as row type information.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `rows[]`         | `array ( `[`ListValue`](https://protobuf.dev/reference/protobuf/google.protobuf/#list-value)` format)` Each element in `rows` is a row whose format is defined by [`metadata.row_type`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetMetadata#FIELDS.row_type) . The ith element in each row matches the ith field in [`metadata.row_type`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetMetadata#FIELDS.row_type) . Elements are encoded based on type as described [`here`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Type#TypeCode) .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `stats`          | `object ( `[`ResultSetStats`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats)` )` Query plan and execution statistics for the SQL statement that produced this result set. These can be requested by setting [`ExecuteSqlRequest.query_mode`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#body.request_body.FIELDS.query_mode) . DML statements always produce stats containing the number of rows modified, unless executed using the [`ExecuteSqlRequest.QueryMode.PLAN`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode#ENUM_VALUES.PLAN) [`ExecuteSqlRequest.query_mode`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#body.request_body.FIELDS.query_mode) . Other fields might or might not be populated, based on the [`ExecuteSqlRequest.query_mode`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/executeSql#body.request_body.FIELDS.query_mode) . |
+| `precommitToken` | `object ( `[`MultiplexedSessionPrecommitToken`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/MultiplexedSessionPrecommitToken)` )` Optional. A precommit token is included if the read-write transaction is on a multiplexed session. Pass the precommit token with the highest sequence number from this transaction attempt to the [`Commit`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/commit#google.spanner.v1.Spanner.Commit) request for this transaction.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |

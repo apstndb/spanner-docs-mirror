@@ -16,11 +16,15 @@ The [Spanner support for Active Record](https://github.com/googleapis/ruby-spann
 
 To setup the Spanner support for Active Record in your application, edit the `Gemfile` of your Rails application and add the [activerecord-spanner-adapter](https://rubygems.org/gems/activerecord-spanner-adapter) gem.
 
-    gem 'activerecord-spanner-adapter'
+```
+gem 'activerecord-spanner-adapter'
+```
 
 Next, run bundle to install the gem.
 
-    bundle install
+```
+bundle install
+```
 
 As authentication for the Spanner support for Active Record, the [service account JSON credentials](https://docs.cloud.google.com/docs/authentication/getting-started) file location should be provided in the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. Otherwise, the Spanner support for Active Record can also use the default credentials set in the Google Cloud SDK `gcloud` application.
 
@@ -30,9 +34,9 @@ For more information about the available features, limitations of the Spanner su
 
 ## What's next
 
-  - Checkout the [code examples](https://github.com/googleapis/ruby-spanner-activerecord#examples) on how to use the Spanner support for Active Record.
-  - View the repository for the Spanner support for Active Record on [GitHub](https://github.com/googleapis/ruby-spanner-activerecord) .
-  - File a [GitHub issue](https://github.com/googleapis/ruby-spanner-activerecord/issues) to report a bug or ask a question about the Spanner support for Active Record.
-  - Learn more about [Active Record](https://guides.rubyonrails.org/active_record_basics.html) .
-  - Learn more about [Ruby Gems](https://rubygems.org/) .
-  - Learn about authorization and authentication credentials in [Getting started with authentication](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Checkout the [code examples](https://github.com/googleapis/ruby-spanner-activerecord#examples) on how to use the Spanner support for Active Record.
+- View the repository for the Spanner support for Active Record on [GitHub](https://github.com/googleapis/ruby-spanner-activerecord) .
+- File a [GitHub issue](https://github.com/googleapis/ruby-spanner-activerecord/issues) to report a bug or ask a question about the Spanner support for Active Record.
+- Learn more about [Active Record](https://guides.rubyonrails.org/active_record_basics.html) .
+- Learn more about [Ruby Gems](https://rubygems.org/) .
+- Learn about authorization and authentication credentials in [Getting started with authentication](https://docs.cloud.google.com/docs/authentication/getting-started) .

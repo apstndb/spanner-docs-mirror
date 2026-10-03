@@ -10,13 +10,13 @@ data_source: docs.cloud.google.com
 
 This tutorial walks you through the following steps using the Spanner ADO.NET driver:
 
-  - Create a Spanner instance and database.
-  - Write, read, and execute SQL queries on data in the database.
-  - Update the database schema.
-  - Update data using a read-write transaction.
-  - Add a secondary index to the database.
-  - Use the index to read and execute SQL queries on data.
-  - Retrieve data using a read-only transaction.
+- Create a Spanner instance and database.
+- Write, read, and execute SQL queries on data in the database.
+- Update the database schema.
+- Update data using a read-write transaction.
+- Add a secondary index to the database.
+- Use the index to read and execute SQL queries on data.
+- Retrieve data using a read-only transaction.
 
 ## Costs
 
@@ -35,12 +35,16 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 1.  Download and install [.NET](https://dotnet.microsoft.com/en-us/download) on your development machine if it isn't already installed.
 
 2.  Clone the sample repository to your local machine:
-    
-        git clone https://github.com/googleapis/dotnet-spanner-entity-framework.git
+
+    ```
+    git clone https://github.com/googleapis/dotnet-spanner-entity-framework.git
+    ```
 
 3.  Change to the directory that contains the Spanner ADO.NET driver sample code:
-    
-        cd dotnet-spanner-entity-framework/spanner-ado-net/spanner-ado-net-getting-started-guide
+
+    ```
+    cd dotnet-spanner-entity-framework/spanner-ado-net/spanner-ado-net-getting-started-guide
+    ```
 
 ## Create an instance
 
@@ -48,9 +52,9 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
-  - The Google Cloud CLI
-  - The Google Cloud console
-  - A client library (C++, C\#, Go, Java, Node.js, PHP, Python, or Ruby)
+- The Google Cloud CLI
+- The Google Cloud console
+- A client library (C++, C#, Go, Java, Node.js, PHP, Python, or Ruby)
 
 ## Look through sample files
 
@@ -62,16 +66,22 @@ Take a look through the `SampleRunner.cs` file, which shows how to use Spanner. 
 
 ### GoogleSQL
 
-    gcloud spanner databases create example-db --instance=test-instance
+```
+gcloud spanner databases create example-db --instance=test-instance
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases create example-db --instance=test-instance \
-      --database-dialect=POSTGRESQL
+```
+gcloud spanner databases create example-db --instance=test-instance \
+  --database-dialect=POSTGRESQL
+```
 
 You should see:
 
-    Creating database...done.
+```
+Creating database...done.
+```
 
 ### Create tables
 
@@ -81,63 +91,71 @@ The following code creates two tables in the database.
 
 ### GoogleSQL
 
-    public static async Task CreateTables(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Create two tables in one batch on Spanner.
-        var batch = connection.CreateBatch();
-        batch.BatchCommands.Add("CREATE TABLE Singers (" +
-                                "  SingerId   INT64 NOT NULL, " +
-                                "  FirstName  STRING(1024), " +
-                                "  LastName   STRING(1024), " +
-                                "  SingerInfo BYTES(MAX) " +
-                                ") PRIMARY KEY (SingerId)");
-        batch.BatchCommands.Add("CREATE TABLE Albums ( " +
-                                "  SingerId     INT64 NOT NULL, " +
-                                "  AlbumId      INT64 NOT NULL, " +
-                                "  AlbumTitle   STRING(MAX)" +
-                                ") PRIMARY KEY (SingerId, AlbumId), " +
-                                "INTERLEAVE IN PARENT Singers ON DELETE CASCADE");
-        await batch.ExecuteNonQueryAsync();
-        Console.WriteLine("Created Singers & Albums tables");
-    }
+```csharp
+public static async Task CreateTables(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Create two tables in one batch on Spanner.
+    var batch = connection.CreateBatch();
+    batch.BatchCommands.Add("CREATE TABLE Singers (" +
+                            "  SingerId   INT64 NOT NULL, " +
+                            "  FirstName  STRING(1024), " +
+                            "  LastName   STRING(1024), " +
+                            "  SingerInfo BYTES(MAX) " +
+                            ") PRIMARY KEY (SingerId)");
+    batch.BatchCommands.Add("CREATE TABLE Albums ( " +
+                            "  SingerId     INT64 NOT NULL, " +
+                            "  AlbumId      INT64 NOT NULL, " +
+                            "  AlbumTitle   STRING(MAX)" +
+                            ") PRIMARY KEY (SingerId, AlbumId), " +
+                            "INTERLEAVE IN PARENT Singers ON DELETE CASCADE");
+    await batch.ExecuteNonQueryAsync();
+    Console.WriteLine("Created Singers & Albums tables");
+}
+```
 
 ### PostgreSQL
 
-    public static async Task CreateTables(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Create two tables in one batch on Spanner.
-        var batch = connection.CreateBatch();
-        batch.BatchCommands.Add("create table singers (" +
-                                "  singer_id   bigint not null primary key, " +
-                                "  first_name  varchar(1024), " +
-                                "  last_name   varchar(1024), " +
-                                "  singer_info bytea" +
-                                ")");
-        batch.BatchCommands.Add("create table albums (" +
-                                "  singer_id     bigint not null, " +
-                                "  album_id      bigint not null, " +
-                                "  album_title   varchar, " +
-                                "  primary key (singer_id, album_id)" +
-                                ") interleave in parent singers on delete cascade");
-        await batch.ExecuteNonQueryAsync();
-        Console.WriteLine("Created Singers & Albums tables");
-    }
+```csharp
+public static async Task CreateTables(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Create two tables in one batch on Spanner.
+    var batch = connection.CreateBatch();
+    batch.BatchCommands.Add("create table singers (" +
+                            "  singer_id   bigint not null primary key, " +
+                            "  first_name  varchar(1024), " +
+                            "  last_name   varchar(1024), " +
+                            "  singer_info bytea" +
+                            ")");
+    batch.BatchCommands.Add("create table albums (" +
+                            "  singer_id     bigint not null, " +
+                            "  album_id      bigint not null, " +
+                            "  album_title   varchar, " +
+                            "  primary key (singer_id, album_id)" +
+                            ") interleave in parent singers on delete cascade");
+    await batch.ExecuteNonQueryAsync();
+    Console.WriteLine("Created Singers & Albums tables");
+}
+```
 
 Run the sample with the following command:
 
 ### GoogleSQL
 
-    dotnet run createtables projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run createtables projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run createtablespg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run createtablespg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 The next step is to write data to your database.
 
@@ -147,79 +165,81 @@ Before you can do reads or writes, you must create a connection to interact with
 
 ### GoogleSQL
 
-    /// <summary>
-    /// Create an ADO.NET connection to a Spanner database.
-    /// </summary>
-    /// <param name="connectionString">
-    /// A connection string in the format
-    /// 'Data Source=projects/my-project/instances/my-instance/databases/my-database'.
-    /// </param>
-    public static async Task CreateConnection(string connectionString)
+```csharp
+/// <summary>
+/// Create an ADO.NET connection to a Spanner database.
+/// </summary>
+/// <param name="connectionString">
+/// A connection string in the format
+/// 'Data Source=projects/my-project/instances/my-instance/databases/my-database'.
+/// </param>
+public static async Task CreateConnection(string connectionString)
+{
+    // Use a SpannerConnectionStringBuilder to construct a connection string.
+    // The SpannerConnectionStringBuilder contains properties for the most
+    // used connection string variables.
+    var builder = new SpannerConnectionStringBuilder(connectionString)
     {
-        // Use a SpannerConnectionStringBuilder to construct a connection string.
-        // The SpannerConnectionStringBuilder contains properties for the most
-        // used connection string variables.
-        var builder = new SpannerConnectionStringBuilder(connectionString)
-        {
-            // Sets the default isolation level that should be used for all
-            // read/write transactions on this connection.
-            DefaultIsolationLevel = IsolationLevel.RepeatableRead,
-    
-            // The Options property can be used to set any connection property
-            // as a key-value pair.
-            Options = "statement_cache_size=2000"
-        };
-    
-        await using var connection = new SpannerConnection(builder.ConnectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT 'Hello World' as Message";
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            Console.WriteLine($"Greeting from Spanner: {reader.GetString(0)}");
-        }
+        // Sets the default isolation level that should be used for all
+        // read/write transactions on this connection.
+        DefaultIsolationLevel = IsolationLevel.RepeatableRead,
+
+        // The Options property can be used to set any connection property
+        // as a key-value pair.
+        Options = "statement_cache_size=2000"
+    };
+
+    await using var connection = new SpannerConnection(builder.ConnectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "SELECT 'Hello World' as Message";
+    await using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
+    {
+        Console.WriteLine($"Greeting from Spanner: {reader.GetString(0)}");
     }
+}
+```
 
 ### PostgreSQL
 
-    /// <summary>
-    /// Create an ADO.NET connection to a Spanner PostgreSQL database.
-    /// </summary>
-    /// <param name="connectionString">
-    /// A connection string in the format
-    /// 'Data Source=projects/my-project/instances/my-instance/databases/my-database'.
-    /// </param>
-    public static async Task CreateConnection(string connectionString)
+```csharp
+/// <summary>
+/// Create an ADO.NET connection to a Spanner PostgreSQL database.
+/// </summary>
+/// <param name="connectionString">
+/// A connection string in the format
+/// 'Data Source=projects/my-project/instances/my-instance/databases/my-database'.
+/// </param>
+public static async Task CreateConnection(string connectionString)
+{
+    // Use a SpannerConnectionStringBuilder to construct a connection string.
+    // The SpannerConnectionStringBuilder contains properties for the most
+    // used connection string variables.
+    var builder = new SpannerConnectionStringBuilder(connectionString)
     {
-        // Use a SpannerConnectionStringBuilder to construct a connection string.
-        // The SpannerConnectionStringBuilder contains properties for the most
-        // used connection string variables.
-        var builder = new SpannerConnectionStringBuilder(connectionString)
-        {
-            // Sets the default isolation level that should be used for all
-            // read/write transactions on this connection.
-            DefaultIsolationLevel = IsolationLevel.RepeatableRead,
-    
-            // The Options property can be used to set any connection property
-            // as a key-value pair.
-            Options = "statement_cache_size=2000"
-        };
-    
-        await using var connection = new SpannerConnection(builder.ConnectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT 'Hello World' as Message";
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            Console.WriteLine($"Greeting from Spanner: {reader.GetString(0)}");
-        }
-    }
+        // Sets the default isolation level that should be used for all
+        // read/write transactions on this connection.
+        DefaultIsolationLevel = IsolationLevel.RepeatableRead,
 
-<span id="write_data"></span>
+        // The Options property can be used to set any connection property
+        // as a key-value pair.
+        Options = "statement_cache_size=2000"
+    };
+
+    await using var connection = new SpannerConnection(builder.ConnectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "SELECT 'Hello World' as Message";
+    await using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
+    {
+        Console.WriteLine($"Greeting from Spanner: {reader.GetString(0)}");
+    }
+}
+```
 
 ## Write data with DML
 
@@ -229,87 +249,95 @@ You use the `DbCommand#ExecuteNonQuery` method to execute a DML statement.
 
 ### GoogleSQL
 
-    public static async Task WriteDataWithDml(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Add 4 rows in one statement.
-        // The ADO.NET driver supports positional query parameters.
-        await using var command = connection.CreateCommand();
-        command.CommandText = "INSERT INTO Singers (SingerId, FirstName, LastName) " +
-                              "VALUES (?, ?, ?), (?, ?, ?), " +
-                              "       (?, ?, ?), (?, ?, ?)";
-        command.Parameters.Add(12);
-        command.Parameters.Add("Melissa");
-        command.Parameters.Add("Garcia");
-    
-        command.Parameters.Add(13);
-        command.Parameters.Add("Russel");
-        command.Parameters.Add("Morales");
-    
-        command.Parameters.Add(14);
-        command.Parameters.Add("Jacqueline");
-        command.Parameters.Add("Long");
-    
-        command.Parameters.Add(15);
-        command.Parameters.Add("Dylan");
-        command.Parameters.Add("Shaw");
-    
-        var affected = await command.ExecuteNonQueryAsync();
-        Console.WriteLine($"{affected} record(s) inserted.");
-    }
+```csharp
+public static async Task WriteDataWithDml(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Add 4 rows in one statement.
+    // The ADO.NET driver supports positional query parameters.
+    await using var command = connection.CreateCommand();
+    command.CommandText = "INSERT INTO Singers (SingerId, FirstName, LastName) " +
+                          "VALUES (?, ?, ?), (?, ?, ?), " +
+                          "       (?, ?, ?), (?, ?, ?)";
+    command.Parameters.Add(12);
+    command.Parameters.Add("Melissa");
+    command.Parameters.Add("Garcia");
+
+    command.Parameters.Add(13);
+    command.Parameters.Add("Russel");
+    command.Parameters.Add("Morales");
+
+    command.Parameters.Add(14);
+    command.Parameters.Add("Jacqueline");
+    command.Parameters.Add("Long");
+
+    command.Parameters.Add(15);
+    command.Parameters.Add("Dylan");
+    command.Parameters.Add("Shaw");
+
+    var affected = await command.ExecuteNonQueryAsync();
+    Console.WriteLine($"{affected} record(s) inserted.");
+}
+```
 
 ### PostgreSQL
 
-    public static async Task WriteDataWithDml(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Add 4 rows in one statement.
-        // The ADO.NET driver supports positional query parameters.
-        await using var command = connection.CreateCommand();
-        command.CommandText = "insert into singers (singer_id, first_name, last_name) " +
-                              "VALUES (?, ?, ?), (?, ?, ?), " +
-                              "       (?, ?, ?), (?, ?, ?)";
-        command.Parameters.Add(12);
-        command.Parameters.Add("Melissa");
-        command.Parameters.Add("Garcia");
-    
-        command.Parameters.Add(13);
-        command.Parameters.Add("Russel");
-        command.Parameters.Add("Morales");
-    
-        command.Parameters.Add(14);
-        command.Parameters.Add("Jacqueline");
-        command.Parameters.Add("Long");
-    
-        command.Parameters.Add(15);
-        command.Parameters.Add("Dylan");
-        command.Parameters.Add("Shaw");
-    
-        var affected = await command.ExecuteNonQueryAsync();
-        Console.WriteLine($"{affected} record(s) inserted.");
-    }
+```csharp
+public static async Task WriteDataWithDml(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Add 4 rows in one statement.
+    // The ADO.NET driver supports positional query parameters.
+    await using var command = connection.CreateCommand();
+    command.CommandText = "insert into singers (singer_id, first_name, last_name) " +
+                          "VALUES (?, ?, ?), (?, ?, ?), " +
+                          "       (?, ?, ?), (?, ?, ?)";
+    command.Parameters.Add(12);
+    command.Parameters.Add("Melissa");
+    command.Parameters.Add("Garcia");
+
+    command.Parameters.Add(13);
+    command.Parameters.Add("Russel");
+    command.Parameters.Add("Morales");
+
+    command.Parameters.Add(14);
+    command.Parameters.Add("Jacqueline");
+    command.Parameters.Add("Long");
+
+    command.Parameters.Add(15);
+    command.Parameters.Add("Dylan");
+    command.Parameters.Add("Shaw");
+
+    var affected = await command.ExecuteNonQueryAsync();
+    Console.WriteLine($"{affected} record(s) inserted.");
+}
+```
 
 Run the sample with the following command:
 
 ### GoogleSQL
 
-    dotnet run dmlwrite projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run dmlwrite projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run dmlwritepg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run dmlwritepg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 The result should show:
 
-    4 records inserted.
+```
+4 records inserted.
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
-
-<span id="write_data_with_mutations"></span>
 
 ## Write data with mutations
 
@@ -321,133 +349,141 @@ The following code shows how to write data using mutations:
 
 ### GoogleSQL
 
-    struct Singer
+```csharp
+struct Singer
+{
+    internal long SingerId;
+    internal string FirstName;
+    internal string LastName;
+}
+
+struct Album
+{
+    internal long SingerId;
+    internal long AlbumId;
+    internal string Title;
+}
+
+public static async Task WriteDataWithMutations(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    Singer[] singers =
+    [
+        new() {SingerId=1, FirstName = "Marc", LastName = "Richards"},
+        new() {SingerId=2, FirstName = "Catalina", LastName = "Smith"},
+        new() {SingerId=3, FirstName = "Alice", LastName = "Trentor"},
+        new() {SingerId=4, FirstName = "Lea", LastName = "Martin"},
+        new() {SingerId=5, FirstName = "David", LastName = "Lomond"},
+    ];
+    Album[] albums =
+    [
+        new() {SingerId = 1, AlbumId = 1, Title = "Total Junk"},
+        new() {SingerId = 1, AlbumId = 2, Title = "Go, Go, Go"},
+        new() {SingerId = 2, AlbumId = 1, Title = "Green"},
+        new() {SingerId = 2, AlbumId = 2, Title = "Forever Hold Your Peace"},
+        new() {SingerId = 2, AlbumId = 3, Title = "Terrified"},
+    ];
+    var batch = connection.CreateBatch();
+    foreach (var singer in singers)
     {
-        internal long SingerId;
-        internal string FirstName;
-        internal string LastName;
+        // The name of a parameter must correspond with a column name.
+        var command = batch.CreateInsertCommand("Singers");
+        command.AddParameter("SingerId", singer.SingerId);
+        command.AddParameter("FirstName", singer.FirstName);
+        command.AddParameter("LastName", singer.LastName);
+        batch.BatchCommands.Add(command);
     }
-    
-    struct Album
+    foreach (var album in albums)
     {
-        internal long SingerId;
-        internal long AlbumId;
-        internal string Title;
+        // The name of a parameter must correspond with a column name.
+        var command = batch.CreateInsertCommand("Albums");
+        command.AddParameter("SingerId", album.SingerId);
+        command.AddParameter("AlbumId", album.AlbumId);
+        command.AddParameter("AlbumTitle", album.Title);
+        batch.BatchCommands.Add(command);
     }
-    
-    public static async Task WriteDataWithMutations(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        Singer[] singers =
-        [
-            new() {SingerId=1, FirstName = "Marc", LastName = "Richards"},
-            new() {SingerId=2, FirstName = "Catalina", LastName = "Smith"},
-            new() {SingerId=3, FirstName = "Alice", LastName = "Trentor"},
-            new() {SingerId=4, FirstName = "Lea", LastName = "Martin"},
-            new() {SingerId=5, FirstName = "David", LastName = "Lomond"},
-        ];
-        Album[] albums =
-        [
-            new() {SingerId = 1, AlbumId = 1, Title = "Total Junk"},
-            new() {SingerId = 1, AlbumId = 2, Title = "Go, Go, Go"},
-            new() {SingerId = 2, AlbumId = 1, Title = "Green"},
-            new() {SingerId = 2, AlbumId = 2, Title = "Forever Hold Your Peace"},
-            new() {SingerId = 2, AlbumId = 3, Title = "Terrified"},
-        ];
-        var batch = connection.CreateBatch();
-        foreach (var singer in singers)
-        {
-            // The name of a parameter must correspond with a column name.
-            var command = batch.CreateInsertCommand("Singers");
-            command.AddParameter("SingerId", singer.SingerId);
-            command.AddParameter("FirstName", singer.FirstName);
-            command.AddParameter("LastName", singer.LastName);
-            batch.BatchCommands.Add(command);
-        }
-        foreach (var album in albums)
-        {
-            // The name of a parameter must correspond with a column name.
-            var command = batch.CreateInsertCommand("Albums");
-            command.AddParameter("SingerId", album.SingerId);
-            command.AddParameter("AlbumId", album.AlbumId);
-            command.AddParameter("AlbumTitle", album.Title);
-            batch.BatchCommands.Add(command);
-        }
-        var affected = await batch.ExecuteNonQueryAsync();
-        Console.WriteLine($"Inserted {affected} rows.");
-    }
+    var affected = await batch.ExecuteNonQueryAsync();
+    Console.WriteLine($"Inserted {affected} rows.");
+}
+```
 
 ### PostgreSQL
 
-    struct Singer
+```csharp
+struct Singer
+{
+    internal long SingerId;
+    internal string FirstName;
+    internal string LastName;
+}
+
+struct Album
+{
+    internal long SingerId;
+    internal long AlbumId;
+    internal string Title;
+}
+
+public static async Task WriteDataWithMutations(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    Singer[] singers =
+    [
+        new() {SingerId=1, FirstName = "Marc", LastName = "Richards"},
+        new() {SingerId=2, FirstName = "Catalina", LastName = "Smith"},
+        new() {SingerId=3, FirstName = "Alice", LastName = "Trentor"},
+        new() {SingerId=4, FirstName = "Lea", LastName = "Martin"},
+        new() {SingerId=5, FirstName = "David", LastName = "Lomond"},
+    ];
+    Album[] albums =
+    [
+        new() {SingerId = 1, AlbumId = 1, Title = "Total Junk"},
+        new() {SingerId = 1, AlbumId = 2, Title = "Go, Go, Go"},
+        new() {SingerId = 2, AlbumId = 1, Title = "Green"},
+        new() {SingerId = 2, AlbumId = 2, Title = "Forever Hold Your Peace"},
+        new() {SingerId = 2, AlbumId = 3, Title = "Terrified"},
+    ];
+    var batch = connection.CreateBatch();
+    foreach (var singer in singers)
     {
-        internal long SingerId;
-        internal string FirstName;
-        internal string LastName;
+        // The name of a parameter must correspond with a column name.
+        var command = batch.CreateInsertCommand("singers");
+        command.AddParameter("singer_id", singer.SingerId);
+        command.AddParameter("first_name", singer.FirstName);
+        command.AddParameter("last_name", singer.LastName);
+        batch.BatchCommands.Add(command);
     }
-    
-    struct Album
+    foreach (var album in albums)
     {
-        internal long SingerId;
-        internal long AlbumId;
-        internal string Title;
+        // The name of a parameter must correspond with a column name.
+        var command = batch.CreateInsertCommand("albums");
+        command.AddParameter("singer_id", album.SingerId);
+        command.AddParameter("album_id", album.AlbumId);
+        command.AddParameter("album_title", album.Title);
+        batch.BatchCommands.Add(command);
     }
-    
-    public static async Task WriteDataWithMutations(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        Singer[] singers =
-        [
-            new() {SingerId=1, FirstName = "Marc", LastName = "Richards"},
-            new() {SingerId=2, FirstName = "Catalina", LastName = "Smith"},
-            new() {SingerId=3, FirstName = "Alice", LastName = "Trentor"},
-            new() {SingerId=4, FirstName = "Lea", LastName = "Martin"},
-            new() {SingerId=5, FirstName = "David", LastName = "Lomond"},
-        ];
-        Album[] albums =
-        [
-            new() {SingerId = 1, AlbumId = 1, Title = "Total Junk"},
-            new() {SingerId = 1, AlbumId = 2, Title = "Go, Go, Go"},
-            new() {SingerId = 2, AlbumId = 1, Title = "Green"},
-            new() {SingerId = 2, AlbumId = 2, Title = "Forever Hold Your Peace"},
-            new() {SingerId = 2, AlbumId = 3, Title = "Terrified"},
-        ];
-        var batch = connection.CreateBatch();
-        foreach (var singer in singers)
-        {
-            // The name of a parameter must correspond with a column name.
-            var command = batch.CreateInsertCommand("singers");
-            command.AddParameter("singer_id", singer.SingerId);
-            command.AddParameter("first_name", singer.FirstName);
-            command.AddParameter("last_name", singer.LastName);
-            batch.BatchCommands.Add(command);
-        }
-        foreach (var album in albums)
-        {
-            // The name of a parameter must correspond with a column name.
-            var command = batch.CreateInsertCommand("albums");
-            command.AddParameter("singer_id", album.SingerId);
-            command.AddParameter("album_id", album.AlbumId);
-            command.AddParameter("album_title", album.Title);
-            batch.BatchCommands.Add(command);
-        }
-        var affected = await batch.ExecuteNonQueryAsync();
-        Console.WriteLine($"Inserted {affected} rows.");
-    }
+    var affected = await batch.ExecuteNonQueryAsync();
+    Console.WriteLine($"Inserted {affected} rows.");
+}
+```
 
 Run the following example using the `write` argument:
 
 ### GoogleSQL
 
-    dotnet run write projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run write projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run writepg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run writepg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
@@ -461,29 +497,37 @@ Execute the following SQL statement to read the values of all columns from the `
 
 ### GoogleSQL
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
 
 ### GoogleSQL Pipe syntax
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='SELECT singer_id, album_id, album_title FROM albums'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='SELECT singer_id, album_id, album_title FROM albums'
+```
 
 > **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
-    SingerId AlbumId AlbumTitle
-    1        1       Total Junk
-    1        2       Go, Go, Go
-    2        1       Green
-    2        2       Forever Hold Your Peace
-    2        3       Terrified
+```
+SingerId AlbumId AlbumTitle
+1        1       Total Junk
+1        2       Go, Go, Go
+2        1       Green
+2        2       Forever Hold Your Peace
+2        3       Terrified
+```
 
 ### Use the Spanner ADO.NET driver
 
@@ -491,64 +535,74 @@ In addition to executing a SQL statement on the command line, you can issue the 
 
 The following methods are used to execute a SQL query:
 
-  - The [`ExecuteReader`](https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/retrieving-data-using-a-datareader) method in the `DbCommand` class: use this to execute a SQL statement that returns rows, such as a query or a DML statement with a `THEN RETURN` clause.
-  - The [`DbDataReader`](https://learn.microsoft.com/en-us/dotnet/api/system.data.common.dbdatareader) class: use this to access the data returned by a SQL statement.
+- The [`ExecuteReader`](https://learn.microsoft.com/en-us/dotnet/framework/data/adonet/retrieving-data-using-a-datareader) method in the `DbCommand` class: use this to execute a SQL statement that returns rows, such as a query or a DML statement with a `THEN RETURN` clause.
+- The [`DbDataReader`](https://learn.microsoft.com/en-us/dotnet/api/system.data.common.dbdatareader) class: use this to access the data returned by a SQL statement.
 
 The following example uses the `ExecuteReaderAsync` method:
 
 ### GoogleSQL
 
-    public static async Task QueryData(string connectionString)
+```csharp
+public static async Task QueryData(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
+                          "FROM Albums " +
+                          "ORDER BY SingerId, AlbumId";
+    await using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
-                              "FROM Albums " +
-                              "ORDER BY SingerId, AlbumId";
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            Console.WriteLine($"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
-        }
+        Console.WriteLine($"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
     }
+}
+```
 
 ### PostgreSQL
 
-    public static async Task QueryData(string connectionString)
+```csharp
+public static async Task QueryData(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "SELECT singer_id, album_id, album_title " +
+                          "FROM albums " +
+                          "ORDER BY singer_id, album_id";
+    await using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT singer_id, album_id, album_title " +
-                              "FROM albums " +
-                              "ORDER BY singer_id, album_id";
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            Console.WriteLine($"{reader["singer_id"]} {reader["album_id"]} {reader["album_title"]}");
-        }
+        Console.WriteLine($"{reader["singer_id"]} {reader["album_id"]} {reader["album_title"]}");
     }
+}
+```
 
 Run the example with the following command:
 
 ### GoogleSQL
 
-    dotnet run query projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run query projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run querypg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run querypg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 The result should show:
 
-    1 1 Total Junk
-    1 2 Go, Go, Go
-    2 1 Green
-    2 2 Forever Hold Your Peace
-    2 3 Terrified
+```
+1 1 Total Junk
+1 2 Go, Go, Go
+2 1 Green
+2 2 Forever Hold Your Peace
+2 3 Terrified
+```
 
 ### Query using a SQL parameter
 
@@ -560,55 +614,65 @@ The Spanner ADO.NET driver supports both positional and named query parameters. 
 
 ### GoogleSQL
 
-    public static async Task QueryDataWithParameter(string connectionString)
+```csharp
+public static async Task QueryDataWithParameter(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "SELECT SingerId, FirstName, LastName " +
+                          "FROM Singers " +
+                          "WHERE LastName = ?";
+    command.Parameters.Add("Garcia");
+    await using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT SingerId, FirstName, LastName " +
-                              "FROM Singers " +
-                              "WHERE LastName = ?";
-        command.Parameters.Add("Garcia");
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            Console.WriteLine($"{reader["SingerId"]} {reader["FirstName"]} {reader["LastName"]}");
-        }
+        Console.WriteLine($"{reader["SingerId"]} {reader["FirstName"]} {reader["LastName"]}");
     }
+}
+```
 
 ### PostgreSQL
 
-    public static async Task QueryDataWithParameter(string connectionString)
+```csharp
+public static async Task QueryDataWithParameter(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "SELECT singer_id, first_name, last_name " +
+                          "FROM singers " +
+                          "WHERE last_name = ?";
+    command.Parameters.Add("Garcia");
+    await using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT singer_id, first_name, last_name " +
-                              "FROM singers " +
-                              "WHERE last_name = ?";
-        command.Parameters.Add("Garcia");
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            Console.WriteLine($"{reader["singer_id"]} {reader["first_name"]} {reader["last_name"]}");
-        }
+        Console.WriteLine($"{reader["singer_id"]} {reader["first_name"]} {reader["last_name"]}");
     }
+}
+```
 
 Run the example with the following command:
 
 ### GoogleSQL
 
-    dotnet run querywithparameter projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run querywithparameter projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run querywithparameterpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run querywithparameterpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 The result shows:
 
-    12 Melissa Garcia
+```
+12 Melissa Garcia
+```
 
 ## Update the database schema
 
@@ -624,17 +688,23 @@ Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/ref
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='alter table albums add column marketing_budget bigint'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='alter table albums add column marketing_budget bigint'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Use the Spanner ADO.NET driver
 
@@ -642,45 +712,55 @@ Use the `ExecuteNonQueryAsync` method to modify the schema:
 
 ### GoogleSQL
 
-    public static async Task AddColumn(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64";
-        await command.ExecuteNonQueryAsync();
-    
-        Console.WriteLine("Added MarketingBudget column");
-    }
+```csharp
+public static async Task AddColumn(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64";
+    await command.ExecuteNonQueryAsync();
+
+    Console.WriteLine("Added MarketingBudget column");
+}
+```
 
 ### PostgreSQL
 
-    public static async Task AddColumn(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "alter table albums add column marketing_budget bigint";
-        await command.ExecuteNonQueryAsync();
-    
-        Console.WriteLine("Added marketing_budget column");
-    }
+```csharp
+public static async Task AddColumn(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "alter table albums add column marketing_budget bigint";
+    await command.ExecuteNonQueryAsync();
+
+    Console.WriteLine("Added marketing_budget column");
+}
+```
 
 Run the example with the following command:
 
 ### GoogleSQL
 
-    dotnet run addcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run addcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run addcolumnpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run addcolumnpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 The result shows:
 
-    Added MarketingBudget column.
+```
+Added MarketingBudget column.
+```
 
 ### Execute a DDL batch
 
@@ -688,83 +768,93 @@ We recommend that you execute multiple schema modifications in one batch. Use th
 
 ### GoogleSQL
 
-    public static async Task DdlBatch(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Executing multiple DDL statements as one batch is
-        // more efficient than executing each statement individually.
-        var batch = connection.CreateBatch();
-        batch.BatchCommands.Add(
-            "CREATE TABLE Venues (" +
-            "  VenueId     INT64 NOT NULL, " +
-            "  Name        STRING(1024), " +
-            "  Description JSON, " +
-            ") PRIMARY KEY (VenueId)");
-        batch.BatchCommands.Add(
-            "CREATE TABLE Concerts (" +
-            "  ConcertId INT64 NOT NULL, " +
-            "  VenueId   INT64 NOT NULL, " +
-            "  SingerId  INT64 NOT NULL, " +
-            "  StartTime TIMESTAMP, " +
-            "  EndTime   TIMESTAMP, " +
-            "  CONSTRAINT Fk_Concerts_Venues " +
-            "    FOREIGN KEY (VenueId) REFERENCES Venues (VenueId), " +
-            "  CONSTRAINT Fk_Concerts_Singers " +
-            "    FOREIGN KEY (SingerId) REFERENCES Singers (SingerId), " +
-            ") PRIMARY KEY (ConcertId)");
-        await batch.ExecuteNonQueryAsync();
-    
-        Console.WriteLine("Added Venues and Concerts tables");
-    }
+```csharp
+public static async Task DdlBatch(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Executing multiple DDL statements as one batch is
+    // more efficient than executing each statement individually.
+    var batch = connection.CreateBatch();
+    batch.BatchCommands.Add(
+        "CREATE TABLE Venues (" +
+        "  VenueId     INT64 NOT NULL, " +
+        "  Name        STRING(1024), " +
+        "  Description JSON, " +
+        ") PRIMARY KEY (VenueId)");
+    batch.BatchCommands.Add(
+        "CREATE TABLE Concerts (" +
+        "  ConcertId INT64 NOT NULL, " +
+        "  VenueId   INT64 NOT NULL, " +
+        "  SingerId  INT64 NOT NULL, " +
+        "  StartTime TIMESTAMP, " +
+        "  EndTime   TIMESTAMP, " +
+        "  CONSTRAINT Fk_Concerts_Venues " +
+        "    FOREIGN KEY (VenueId) REFERENCES Venues (VenueId), " +
+        "  CONSTRAINT Fk_Concerts_Singers " +
+        "    FOREIGN KEY (SingerId) REFERENCES Singers (SingerId), " +
+        ") PRIMARY KEY (ConcertId)");
+    await batch.ExecuteNonQueryAsync();
+
+    Console.WriteLine("Added Venues and Concerts tables");
+}
+```
 
 ### PostgreSQL
 
-    public static async Task DdlBatch(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Executing multiple DDL statements as one batch is
-        // more efficient than executing each statement individually.
-        var batch = connection.CreateBatch();
-        batch.BatchCommands.Add(
-            "create table venues (" +
-            "  venue_id    bigint not null primary key, " +
-            "  name        varchar(1024), " +
-            "  description jsonb" +
-            ")");
-        batch.BatchCommands.Add(
-            "create table concerts (" +
-            "  concert_id bigint not null primary key, " +
-            "  venue_id   bigint not null, " +
-            "  singer_id  bigint not null, " +
-            "  start_time timestamptz, " +
-            "  end_time   timestamptz, " +
-            "  constraint fk_concerts_venues foreign key " +
-            "    (venue_id) references venues (venue_id), " +
-            "  constraint fk_concerts_singers foreign key " +
-            "    (singer_id) references singers (singer_id)" +
-            ")");
-        await batch.ExecuteNonQueryAsync();
-    
-        Console.WriteLine("Added Venues and Concerts tables");
-    }
+```csharp
+public static async Task DdlBatch(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Executing multiple DDL statements as one batch is
+    // more efficient than executing each statement individually.
+    var batch = connection.CreateBatch();
+    batch.BatchCommands.Add(
+        "create table venues (" +
+        "  venue_id    bigint not null primary key, " +
+        "  name        varchar(1024), " +
+        "  description jsonb" +
+        ")");
+    batch.BatchCommands.Add(
+        "create table concerts (" +
+        "  concert_id bigint not null primary key, " +
+        "  venue_id   bigint not null, " +
+        "  singer_id  bigint not null, " +
+        "  start_time timestamptz, " +
+        "  end_time   timestamptz, " +
+        "  constraint fk_concerts_venues foreign key " +
+        "    (venue_id) references venues (venue_id), " +
+        "  constraint fk_concerts_singers foreign key " +
+        "    (singer_id) references singers (singer_id)" +
+        ")");
+    await batch.ExecuteNonQueryAsync();
+
+    Console.WriteLine("Added Venues and Concerts tables");
+}
+```
 
 Run the example with the following command:
 
 ### GoogleSQL
 
-    dotnet run ddlbatch projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run ddlbatch projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run ddlbatchpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run ddlbatchpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 The result shows:
 
-    Added Venues and Concerts tables.
+```
+Added Venues and Concerts tables.
+```
 
 ### Write data to the new column
 
@@ -772,69 +862,79 @@ The following code writes data to the new column. It sets `MarketingBudget` to `
 
 ### GoogleSQL
 
-    public static async Task UpdateDataWithMutations(string connectionString)
+```csharp
+public static async Task UpdateDataWithMutations(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    (long SingerId, long AlbumId, long MarketingBudget)[] albums = [
+        (1L, 1L, 100000L),
+        (2L, 2L, 500000L),
+    ];
+    // Use a batch to update two rows in one round-trip.
+    var batch = connection.CreateBatch();
+    foreach (var album in albums)
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        (long SingerId, long AlbumId, long MarketingBudget)[] albums = [
-            (1L, 1L, 100000L),
-            (2L, 2L, 500000L),
-        ];
-        // Use a batch to update two rows in one round-trip.
-        var batch = connection.CreateBatch();
-        foreach (var album in albums)
-        {
-            // This creates a command that will use a mutation to update the row.
-            var command = batch.CreateUpdateCommand("Albums");
-            command.AddParameter("SingerId", album.SingerId);
-            command.AddParameter("AlbumId", album.AlbumId);
-            command.AddParameter("MarketingBudget", album.MarketingBudget);
-            batch.BatchCommands.Add(command);
-        }
-        var affected = await batch.ExecuteNonQueryAsync();
-        Console.WriteLine($"Updated {affected} albums.");
+        // This creates a command that will use a mutation to update the row.
+        var command = batch.CreateUpdateCommand("Albums");
+        command.AddParameter("SingerId", album.SingerId);
+        command.AddParameter("AlbumId", album.AlbumId);
+        command.AddParameter("MarketingBudget", album.MarketingBudget);
+        batch.BatchCommands.Add(command);
     }
+    var affected = await batch.ExecuteNonQueryAsync();
+    Console.WriteLine($"Updated {affected} albums.");
+}
+```
 
 ### PostgreSQL
 
-    public static async Task UpdateDataWithMutations(string connectionString)
+```csharp
+public static async Task UpdateDataWithMutations(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    (long SingerId, long AlbumId, long MarketingBudget)[] albums = [
+        (1L, 1L, 100000L),
+        (2L, 2L, 500000L),
+    ];
+    // Use a batch to update two rows in one round-trip.
+    var batch = connection.CreateBatch();
+    foreach (var album in albums)
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        (long SingerId, long AlbumId, long MarketingBudget)[] albums = [
-            (1L, 1L, 100000L),
-            (2L, 2L, 500000L),
-        ];
-        // Use a batch to update two rows in one round-trip.
-        var batch = connection.CreateBatch();
-        foreach (var album in albums)
-        {
-            // This creates a command that will use a mutation to update the row.
-            var command = batch.CreateUpdateCommand("albums");
-            command.AddParameter("singer_id", album.SingerId);
-            command.AddParameter("album_id", album.AlbumId);
-            command.AddParameter("marketing_budget", album.MarketingBudget);
-            batch.BatchCommands.Add(command);
-        }
-        var affected = await batch.ExecuteNonQueryAsync();
-        Console.WriteLine($"Updated {affected} albums.");
+        // This creates a command that will use a mutation to update the row.
+        var command = batch.CreateUpdateCommand("albums");
+        command.AddParameter("singer_id", album.SingerId);
+        command.AddParameter("album_id", album.AlbumId);
+        command.AddParameter("marketing_budget", album.MarketingBudget);
+        batch.BatchCommands.Add(command);
     }
+    var affected = await batch.ExecuteNonQueryAsync();
+    Console.WriteLine($"Updated {affected} albums.");
+}
+```
 
 Run the example with the following command:
 
 ### GoogleSQL
 
-    dotnet run update projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run update projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run updatepg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run updatepg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 The result shows:
 
-    Updated 2 albums
+```
+Updated 2 albums
+```
 
 You can also execute a SQL query to fetch the values that you just wrote.
 
@@ -842,57 +942,67 @@ The following example uses the `ExecuteReaderAsync` method to execute a query:
 
 ### GoogleSQL
 
-    public static async Task QueryNewColumn(string connectionString)
+```csharp
+public static async Task QueryNewColumn(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "SELECT SingerId, AlbumId, MarketingBudget " +
+                          "FROM Albums " +
+                          "ORDER BY SingerId, AlbumId";
+    await using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SELECT SingerId, AlbumId, MarketingBudget " +
-                              "FROM Albums " +
-                              "ORDER BY SingerId, AlbumId";
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            Console.WriteLine($"{reader["SingerId"]} {reader["AlbumId"]} {reader["MarketingBudget"]}");
-        }
+        Console.WriteLine($"{reader["SingerId"]} {reader["AlbumId"]} {reader["MarketingBudget"]}");
     }
+}
+```
 
 ### PostgreSQL
 
-    public static async Task QueryNewColumn(string connectionString)
+```csharp
+public static async Task QueryNewColumn(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    await using var command = connection.CreateCommand();
+    command.CommandText = "select singer_id, album_id, marketing_budget " +
+                          "from albums " +
+                          "order by singer_id, album_id";
+    await using var reader = await command.ExecuteReaderAsync();
+    while (await reader.ReadAsync())
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.CommandText = "select singer_id, album_id, marketing_budget " +
-                              "from albums " +
-                              "order by singer_id, album_id";
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            Console.WriteLine($"{reader["singer_id"]} {reader["album_id"]} {reader["marketing_budget"]}");
-        }
+        Console.WriteLine($"{reader["singer_id"]} {reader["album_id"]} {reader["marketing_budget"]}");
     }
+}
+```
 
 To execute this query, run the following command:
 
 ### GoogleSQL
 
-    dotnet run querymarketingbudget projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run querymarketingbudget projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run querymarketingbudgetpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run querymarketingbudgetpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see:
 
-    1 1 100000
-    1 2 null
-    2 1 null
-    2 2 500000
-    2 3 null
+```
+1 1 100000
+1 2 null
+2 1 null
+2 2 500000
+2 3 null
+```
 
 ## Update data
 
@@ -902,177 +1012,185 @@ Call `connection.BeginTransactionAsync()` to execute read-write transactions in 
 
 ### GoogleSQL
 
-    public static async Task WriteDataWithTransaction(string connectionString)
+```csharp
+public static async Task WriteDataWithTransaction(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Transfer marketing budget from one album to another. We do it in a
+    // transaction to ensure that the transfer is atomic.
+    await using var transaction = await connection.BeginTransactionAsync();
+
+    // The Spanner ADO.NET driver supports both positional and named
+    // query parameters. This query uses named query parameters.
+    const string selectSql =
+        "SELECT MarketingBudget " +
+        "FROM Albums " +
+        "WHERE SingerId = @singerId and AlbumId = @albumId";
+    // Get the marketing_budget of singer 2 / album 2.
+    await using var command = connection.CreateCommand();
+    command.CommandText = selectSql;
+    command.Transaction = transaction;
+    command.Parameters.AddWithValue("singerId", 2);
+    command.Parameters.AddWithValue("albumId", 2);
+    var budget2 = (long) (await command.ExecuteScalarAsync() ?? 0L);
+
+    const long transfer = 20000L;
+    // The transaction will only be committed if this condition still holds
+    // at the time of commit. Otherwise, the transaction will be aborted.
+    if (budget2 >= transfer)
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Transfer marketing budget from one album to another. We do it in a
-        // transaction to ensure that the transfer is atomic.
-        await using var transaction = await connection.BeginTransactionAsync();
-    
-        // The Spanner ADO.NET driver supports both positional and named
-        // query parameters. This query uses named query parameters.
-        const string selectSql =
-            "SELECT MarketingBudget " +
-            "FROM Albums " +
+        // Get the marketing_budget of singer 1 / album 1.
+        command.Parameters["singerId"].Value = 1;
+        command.Parameters["albumId"].Value = 1;
+        var budget1 = (long) (await command.ExecuteScalarAsync() ?? 0L);
+
+        // Transfer part of the marketing budget of Album 2 to Album 1.
+        budget1 += transfer;
+        budget2 -= transfer;
+        const string updateSql =
+            "UPDATE Albums " +
+            "SET MarketingBudget = @budget " +
             "WHERE SingerId = @singerId and AlbumId = @albumId";
-        // Get the marketing_budget of singer 2 / album 2.
-        await using var command = connection.CreateCommand();
-        command.CommandText = selectSql;
-        command.Transaction = transaction;
-        command.Parameters.AddWithValue("singerId", 2);
-        command.Parameters.AddWithValue("albumId", 2);
-        var budget2 = (long) (await command.ExecuteScalarAsync() ?? 0L);
-    
-        const long transfer = 20000L;
-        // The transaction will only be committed if this condition still holds
-        // at the time of commit. Otherwise, the transaction will be aborted.
-        if (budget2 >= transfer)
+        // Create a DML batch and execute it as part of the current transaction.
+        var batch = connection.CreateBatch();
+        batch.Transaction = transaction;
+
+        // Update the marketing budgets of both Album 1 and Album 2 in a batch.
+        (long SingerId, long AlbumId, long MarketingBudget)[] budgets = [
+            new (1L, 1L, budget1),
+            new (2L, 2L, budget2),
+        ];
+        foreach (var budget in budgets)
         {
-            // Get the marketing_budget of singer 1 / album 1.
-            command.Parameters["singerId"].Value = 1;
-            command.Parameters["albumId"].Value = 1;
-            var budget1 = (long) (await command.ExecuteScalarAsync() ?? 0L);
-    
-            // Transfer part of the marketing budget of Album 2 to Album 1.
-            budget1 += transfer;
-            budget2 -= transfer;
-            const string updateSql =
-                "UPDATE Albums " +
-                "SET MarketingBudget = @budget " +
-                "WHERE SingerId = @singerId and AlbumId = @albumId";
-            // Create a DML batch and execute it as part of the current transaction.
-            var batch = connection.CreateBatch();
-            batch.Transaction = transaction;
-    
-            // Update the marketing budgets of both Album 1 and Album 2 in a batch.
-            (long SingerId, long AlbumId, long MarketingBudget)[] budgets = [
-                new (1L, 1L, budget1),
-                new (2L, 2L, budget2),
-            ];
-            foreach (var budget in budgets)
-            {
-                var batchCommand = batch.CreateBatchCommand();
-                batchCommand.CommandText = updateSql;
-                var singerIdParameter = batchCommand.CreateParameter();
-                singerIdParameter.ParameterName = "singerId";
-                singerIdParameter.Value = budget.SingerId;
-                batchCommand.Parameters.Add(singerIdParameter);
-                var albumIdParameter = batchCommand.CreateParameter();
-                albumIdParameter.ParameterName = "albumId";
-                albumIdParameter.Value = budget.AlbumId;
-                batchCommand.Parameters.Add(albumIdParameter);
-                var marketingBudgetParameter = batchCommand.CreateParameter();
-                marketingBudgetParameter.ParameterName = "budget";
-                marketingBudgetParameter.Value = budget.MarketingBudget;
-                batchCommand.Parameters.Add(marketingBudgetParameter);
-                batch.BatchCommands.Add(batchCommand);
-            }
-            var affected = await batch.ExecuteNonQueryAsync();
-            // The batch should update 2 rows.
-            if (affected != 2)
-            {
-                await transaction.RollbackAsync();
-                throw new InvalidOperationException($"Unexpected num affected: {affected}");
-            }
+            var batchCommand = batch.CreateBatchCommand();
+            batchCommand.CommandText = updateSql;
+            var singerIdParameter = batchCommand.CreateParameter();
+            singerIdParameter.ParameterName = "singerId";
+            singerIdParameter.Value = budget.SingerId;
+            batchCommand.Parameters.Add(singerIdParameter);
+            var albumIdParameter = batchCommand.CreateParameter();
+            albumIdParameter.ParameterName = "albumId";
+            albumIdParameter.Value = budget.AlbumId;
+            batchCommand.Parameters.Add(albumIdParameter);
+            var marketingBudgetParameter = batchCommand.CreateParameter();
+            marketingBudgetParameter.ParameterName = "budget";
+            marketingBudgetParameter.Value = budget.MarketingBudget;
+            batchCommand.Parameters.Add(marketingBudgetParameter);
+            batch.BatchCommands.Add(batchCommand);
         }
-        // Commit the transaction.
-        await transaction.CommitAsync();
-        Console.WriteLine("Transferred marketing budget from Album 2 to Album 1");
+        var affected = await batch.ExecuteNonQueryAsync();
+        // The batch should update 2 rows.
+        if (affected != 2)
+        {
+            await transaction.RollbackAsync();
+            throw new InvalidOperationException($"Unexpected num affected: {affected}");
+        }
     }
+    // Commit the transaction.
+    await transaction.CommitAsync();
+    Console.WriteLine("Transferred marketing budget from Album 2 to Album 1");
+}
+```
 
 ### PostgreSQL
 
-    public static async Task WriteDataWithTransaction(string connectionString)
+```csharp
+public static async Task WriteDataWithTransaction(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Transfer marketing budget from one album to another. We do it in a
+    // transaction to ensure that the transfer is atomic.
+    await using var transaction = await connection.BeginTransactionAsync();
+
+    // The Spanner ADO.NET driver supports both positional and named
+    // query parameters. This query uses named query parameters.
+    const string selectSql =
+        "SELECT marketing_budget " +
+        "FROM albums " +
+        "WHERE singer_id = $1 and album_id = $2";
+    // Get the marketing_budget of singer 2 / album 2.
+    await using var command = connection.CreateCommand();
+    command.CommandText = selectSql;
+    command.Transaction = transaction;
+    command.Parameters.AddWithValue("p1", 2);
+    command.Parameters.AddWithValue("p2", 2);
+    var budget2 = (long) (await command.ExecuteScalarAsync() ?? 0L);
+
+    const long transfer = 20000L;
+    // The transaction will only be committed if this condition still holds
+    // at the time of commit. Otherwise, the transaction will be aborted.
+    if (budget2 >= transfer)
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Transfer marketing budget from one album to another. We do it in a
-        // transaction to ensure that the transfer is atomic.
-        await using var transaction = await connection.BeginTransactionAsync();
-    
-        // The Spanner ADO.NET driver supports both positional and named
-        // query parameters. This query uses named query parameters.
-        const string selectSql =
-            "SELECT marketing_budget " +
-            "FROM albums " +
-            "WHERE singer_id = $1 and album_id = $2";
-        // Get the marketing_budget of singer 2 / album 2.
-        await using var command = connection.CreateCommand();
-        command.CommandText = selectSql;
-        command.Transaction = transaction;
-        command.Parameters.AddWithValue("p1", 2);
-        command.Parameters.AddWithValue("p2", 2);
-        var budget2 = (long) (await command.ExecuteScalarAsync() ?? 0L);
-    
-        const long transfer = 20000L;
-        // The transaction will only be committed if this condition still holds
-        // at the time of commit. Otherwise, the transaction will be aborted.
-        if (budget2 >= transfer)
+        // Get the marketing_budget of singer 1 / album 1.
+        command.Parameters["p1"].Value = 1;
+        command.Parameters["p2"].Value = 1;
+        var budget1 = (long) (await command.ExecuteScalarAsync() ?? 0L);
+
+        // Transfer part of the marketing budget of Album 2 to Album 1.
+        budget1 += transfer;
+        budget2 -= transfer;
+        const string updateSql =
+            "UPDATE albums " +
+            "SET marketing_budget = $1 " +
+            "WHERE singer_id = $2 and album_id = $3";
+        // Create a DML batch and execute it as part of the current transaction.
+        var batch = connection.CreateBatch();
+        batch.Transaction = transaction;
+
+        // Update the marketing budgets of both Album 1 and Album 2 in a batch.
+        (long SingerId, long AlbumId, long MarketingBudget)[] budgets = [
+            new (1L, 1L, budget1),
+            new (2L, 2L, budget2),
+        ];
+        foreach (var budget in budgets)
         {
-            // Get the marketing_budget of singer 1 / album 1.
-            command.Parameters["p1"].Value = 1;
-            command.Parameters["p2"].Value = 1;
-            var budget1 = (long) (await command.ExecuteScalarAsync() ?? 0L);
-    
-            // Transfer part of the marketing budget of Album 2 to Album 1.
-            budget1 += transfer;
-            budget2 -= transfer;
-            const string updateSql =
-                "UPDATE albums " +
-                "SET marketing_budget = $1 " +
-                "WHERE singer_id = $2 and album_id = $3";
-            // Create a DML batch and execute it as part of the current transaction.
-            var batch = connection.CreateBatch();
-            batch.Transaction = transaction;
-    
-            // Update the marketing budgets of both Album 1 and Album 2 in a batch.
-            (long SingerId, long AlbumId, long MarketingBudget)[] budgets = [
-                new (1L, 1L, budget1),
-                new (2L, 2L, budget2),
-            ];
-            foreach (var budget in budgets)
-            {
-                var batchCommand = batch.CreateBatchCommand();
-                batchCommand.CommandText = updateSql;
-                var marketingBudgetParameter = batchCommand.CreateParameter();
-                marketingBudgetParameter.ParameterName = "p1";
-                marketingBudgetParameter.Value = budget.MarketingBudget;
-                batchCommand.Parameters.Add(marketingBudgetParameter);
-                var singerIdParameter = batchCommand.CreateParameter();
-                singerIdParameter.ParameterName = "p2";
-                singerIdParameter.Value = budget.SingerId;
-                batchCommand.Parameters.Add(singerIdParameter);
-                var albumIdParameter = batchCommand.CreateParameter();
-                albumIdParameter.ParameterName = "p3";
-                albumIdParameter.Value = budget.AlbumId;
-                batchCommand.Parameters.Add(albumIdParameter);
-                batch.BatchCommands.Add(batchCommand);
-            }
-            var affected = await batch.ExecuteNonQueryAsync();
-            // The batch should update 2 rows.
-            if (affected != 2)
-            {
-                await transaction.RollbackAsync();
-                throw new InvalidOperationException($"Unexpected num affected: {affected}");
-            }
+            var batchCommand = batch.CreateBatchCommand();
+            batchCommand.CommandText = updateSql;
+            var marketingBudgetParameter = batchCommand.CreateParameter();
+            marketingBudgetParameter.ParameterName = "p1";
+            marketingBudgetParameter.Value = budget.MarketingBudget;
+            batchCommand.Parameters.Add(marketingBudgetParameter);
+            var singerIdParameter = batchCommand.CreateParameter();
+            singerIdParameter.ParameterName = "p2";
+            singerIdParameter.Value = budget.SingerId;
+            batchCommand.Parameters.Add(singerIdParameter);
+            var albumIdParameter = batchCommand.CreateParameter();
+            albumIdParameter.ParameterName = "p3";
+            albumIdParameter.Value = budget.AlbumId;
+            batchCommand.Parameters.Add(albumIdParameter);
+            batch.BatchCommands.Add(batchCommand);
         }
-        // Commit the transaction.
-        await transaction.CommitAsync();
-        Console.WriteLine("Transferred marketing budget from Album 2 to Album 1");
+        var affected = await batch.ExecuteNonQueryAsync();
+        // The batch should update 2 rows.
+        if (affected != 2)
+        {
+            await transaction.RollbackAsync();
+            throw new InvalidOperationException($"Unexpected num affected: {affected}");
+        }
     }
+    // Commit the transaction.
+    await transaction.CommitAsync();
+    Console.WriteLine("Transferred marketing budget from Album 2 to Album 1");
+}
+```
 
 Run the example with the following command:
 
 ### GoogleSQL
 
-    dotnet run writewithtransactionusingdml projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run writewithtransactionusingdml projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run writewithtransactionusingdmlpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run writewithtransactionusingdmlpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### Transaction tags and request tags
 
@@ -1080,101 +1198,109 @@ Use [transaction tags and request tags](https://docs.cloud.google.com/spanner/do
 
 ### GoogleSQL
 
-    public static async Task Tags(string connectionString)
+```
+public static async Task Tags(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    const long singerId = 1L;
+    const long albumId = 1L;
+
+    await using var transaction = await connection.BeginTransactionAsync();
+    // Set a tag on the transaction before executing any statements.
+    transaction.Tag = "example-tx-tag";
+
+    await using var command = connection.CreateCommand();
+    command.Transaction = transaction;
+    command.Tag = "query-marketing-budget";
+    command.CommandText =
+        "SELECT MarketingBudget " +
+        "FROM Albums " +
+        "WHERE SingerId=? and AlbumId=?";
+    command.Parameters.Add(singerId);
+    command.Parameters.Add(albumId);
+    var budget = (long)(await command.ExecuteScalarAsync() ?? 0L);
+
+    // Reduce the marketing budget by 10% if it is more than 1,000.
+    if (budget > 1000)
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        const long singerId = 1L;
-        const long albumId = 1L;
-    
-        await using var transaction = await connection.BeginTransactionAsync();
-        // Set a tag on the transaction before executing any statements.
-        transaction.Tag = "example-tx-tag";
-    
-        await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.Tag = "query-marketing-budget";
-        command.CommandText =
-            "SELECT MarketingBudget " +
-            "FROM Albums " +
-            "WHERE SingerId=? and AlbumId=?";
-        command.Parameters.Add(singerId);
-        command.Parameters.Add(albumId);
-        var budget = (long)(await command.ExecuteScalarAsync() ?? 0L);
-    
-        // Reduce the marketing budget by 10% if it is more than 1,000.
-        if (budget > 1000)
-        {
-            budget -= budget / 10;
-            await using var updateCommand = connection.CreateCommand();
-            updateCommand.Transaction = transaction;
-            updateCommand.Tag = "reduce-marketing-budget";
-            updateCommand.CommandText =
-                "UPDATE Albums SET MarketingBudget=@budget WHERE SingerId=@singerId AND AlbumId=@albumId";
-            updateCommand.Parameters.AddWithValue("budget", budget);
-            updateCommand.Parameters.AddWithValue("singerId", singerId);
-            updateCommand.Parameters.AddWithValue("albumId", albumId);
-            await updateCommand.ExecuteNonQueryAsync();
-        }
-        // Commit the transaction.
-        await transaction.CommitAsync();
-        Console.WriteLine("Reduced marketing budget");
+        budget -= budget / 10;
+        await using var updateCommand = connection.CreateCommand();
+        updateCommand.Transaction = transaction;
+        updateCommand.Tag = "reduce-marketing-budget";
+        updateCommand.CommandText =
+            "UPDATE Albums SET MarketingBudget=@budget WHERE SingerId=@singerId AND AlbumId=@albumId";
+        updateCommand.Parameters.AddWithValue("budget", budget);
+        updateCommand.Parameters.AddWithValue("singerId", singerId);
+        updateCommand.Parameters.AddWithValue("albumId", albumId);
+        await updateCommand.ExecuteNonQueryAsync();
     }
+    // Commit the transaction.
+    await transaction.CommitAsync();
+    Console.WriteLine("Reduced marketing budget");
+}
+```
 
 ### PostgreSQL
 
-    public static async Task Tags(string connectionString)
+```
+public static async Task Tags(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    const long singerId = 1L;
+    const long albumId = 1L;
+
+    await using var transaction = await connection.BeginTransactionAsync();
+    // Set a tag on the transaction before executing any statements.
+    transaction.Tag = "example-tx-tag";
+
+    await using var command = connection.CreateCommand();
+    command.Transaction = transaction;
+    command.Tag = "query-marketing-budget";
+    command.CommandText =
+        "select marketing_budget " +
+        "from albums " +
+        "where singer_id=? and album_id=?";
+    command.Parameters.Add(singerId);
+    command.Parameters.Add(albumId);
+    var budget = (long)(await command.ExecuteScalarAsync() ?? 0L);
+
+    // Reduce the marketing budget by 10% if it is more than 1,000.
+    if (budget > 1000)
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        const long singerId = 1L;
-        const long albumId = 1L;
-    
-        await using var transaction = await connection.BeginTransactionAsync();
-        // Set a tag on the transaction before executing any statements.
-        transaction.Tag = "example-tx-tag";
-    
-        await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.Tag = "query-marketing-budget";
-        command.CommandText =
-            "select marketing_budget " +
-            "from albums " +
-            "where singer_id=? and album_id=?";
-        command.Parameters.Add(singerId);
-        command.Parameters.Add(albumId);
-        var budget = (long)(await command.ExecuteScalarAsync() ?? 0L);
-    
-        // Reduce the marketing budget by 10% if it is more than 1,000.
-        if (budget > 1000)
-        {
-            budget -= budget / 10;
-            await using var updateCommand = connection.CreateCommand();
-            updateCommand.Transaction = transaction;
-            updateCommand.Tag = "reduce-marketing-budget";
-            updateCommand.CommandText =
-                "update albums set marketing_budget=$1 where singer_id=$2 and album_id=$3";
-            updateCommand.Parameters.Add(budget);
-            updateCommand.Parameters.Add(singerId);
-            updateCommand.Parameters.Add(albumId);
-            await updateCommand.ExecuteNonQueryAsync();
-        }
-        // Commit the transaction.
-        await transaction.CommitAsync();
-        Console.WriteLine("Reduced marketing budget");
+        budget -= budget / 10;
+        await using var updateCommand = connection.CreateCommand();
+        updateCommand.Transaction = transaction;
+        updateCommand.Tag = "reduce-marketing-budget";
+        updateCommand.CommandText =
+            "update albums set marketing_budget=$1 where singer_id=$2 and album_id=$3";
+        updateCommand.Parameters.Add(budget);
+        updateCommand.Parameters.Add(singerId);
+        updateCommand.Parameters.Add(albumId);
+        await updateCommand.ExecuteNonQueryAsync();
     }
+    // Commit the transaction.
+    await transaction.CommitAsync();
+    Console.WriteLine("Reduced marketing budget");
+}
+```
 
 Run the example with the following command:
 
 ### GoogleSQL
 
-    dotnet run tags projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run tags projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run tagspg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run tagspg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ## Retrieve data using read-only transactions
 
@@ -1184,99 +1310,107 @@ The following shows how to run a query and perform a read in the same read-only 
 
 ### GoogleSQL
 
-    public static async Task ReadOnlyTransaction(string connectionString)
+```csharp
+public static async Task ReadOnlyTransaction(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Start a read-only transaction on this connection.
+    await using var transaction = await connection.BeginReadOnlyTransactionAsync();
+
+    await using var command = connection.CreateCommand();
+    command.Transaction = transaction;
+    command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
+                          "FROM Albums " +
+                          "ORDER BY SingerId, AlbumId";
+    await using (var reader = await command.ExecuteReaderAsync())
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Start a read-only transaction on this connection.
-        await using var transaction = await connection.BeginReadOnlyTransactionAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
-                              "FROM Albums " +
-                              "ORDER BY SingerId, AlbumId";
-        await using (var reader = await command.ExecuteReaderAsync())
+        while (await reader.ReadAsync())
         {
-            while (await reader.ReadAsync())
-            {
-                Console.WriteLine(
-                    $"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
-            }
+            Console.WriteLine(
+                $"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
         }
-    
-        // Execute another query using the same read-only transaction.
-        command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
-                              "FROM Albums " +
-                              "ORDER BY AlbumTitle";
-        await using (var reader = await command.ExecuteReaderAsync())
-        {
-            while (await reader.ReadAsync())
-            {
-                Console.WriteLine(
-                    $"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
-            }
-        }
-    
-        // End the read-only transaction by calling Commit.
-        await transaction.CommitAsync();
     }
+
+    // Execute another query using the same read-only transaction.
+    command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
+                          "FROM Albums " +
+                          "ORDER BY AlbumTitle";
+    await using (var reader = await command.ExecuteReaderAsync())
+    {
+        while (await reader.ReadAsync())
+        {
+            Console.WriteLine(
+                $"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
+        }
+    }
+
+    // End the read-only transaction by calling Commit.
+    await transaction.CommitAsync();
+}
+```
 
 ### PostgreSQL
 
-    public static async Task ReadOnlyTransaction(string connectionString)
+```csharp
+public static async Task ReadOnlyTransaction(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Start a read-only transaction on this connection.
+    await using var transaction = await connection.BeginReadOnlyTransactionAsync();
+
+    await using var command = connection.CreateCommand();
+    command.Transaction = transaction;
+    command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
+                          "FROM Albums " +
+                          "ORDER BY SingerId, AlbumId";
+    await using (var reader = await command.ExecuteReaderAsync())
     {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Start a read-only transaction on this connection.
-        await using var transaction = await connection.BeginReadOnlyTransactionAsync();
-    
-        await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
-        command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
-                              "FROM Albums " +
-                              "ORDER BY SingerId, AlbumId";
-        await using (var reader = await command.ExecuteReaderAsync())
+        while (await reader.ReadAsync())
         {
-            while (await reader.ReadAsync())
-            {
-                Console.WriteLine(
-                    $"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
-            }
+            Console.WriteLine(
+                $"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
         }
-    
-        // Execute another query using the same read-only transaction.
-        command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
-                              "FROM Albums " +
-                              "ORDER BY AlbumTitle";
-        await using (var reader = await command.ExecuteReaderAsync())
-        {
-            while (await reader.ReadAsync())
-            {
-                Console.WriteLine(
-                    $"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
-            }
-        }
-    
-        // End the read-only transaction by calling Commit.
-        await transaction.CommitAsync();
     }
+
+    // Execute another query using the same read-only transaction.
+    command.CommandText = "SELECT SingerId, AlbumId, AlbumTitle " +
+                          "FROM Albums " +
+                          "ORDER BY AlbumTitle";
+    await using (var reader = await command.ExecuteReaderAsync())
+    {
+        while (await reader.ReadAsync())
+        {
+            Console.WriteLine(
+                $"{reader["SingerId"]} {reader["AlbumId"]} {reader["AlbumTitle"]}");
+        }
+    }
+
+    // End the read-only transaction by calling Commit.
+    await transaction.CommitAsync();
+}
+```
 
 Run the example with the following command:
 
 ### GoogleSQL
 
-    dotnet run readonlytransaction projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run readonlytransaction projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run readonlytransactionpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run readonlytransactionpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 The result shows:
 
-``` 
+```
     1 1 Total Junk
     1 2 Go, Go, Go
     2 1 Green
@@ -1293,66 +1427,74 @@ The result shows:
 
 [Partitioned Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/dml-partitioned) is designed for the following types of bulk updates and deletes:
 
-  - Periodic cleanup and garbage collection.
-  - Backfilling new columns with default values.
+- Periodic cleanup and garbage collection.
+- Backfilling new columns with default values.
 
 ### GoogleSQL
 
-    public static async Task PartitionedDml(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Enable Partitioned DML on this connection.
-        await using var command = connection.CreateCommand();
-        command.CommandText = "SET AUTOCOMMIT_DML_MODE='PARTITIONED_NON_ATOMIC'";
-        await command.ExecuteNonQueryAsync();
-    
-        // Back-fill a default value for the MarketingBudget column.
-        command.CommandText = "UPDATE Albums SET MarketingBudget=0 WHERE MarketingBudget IS NULL";
-        var affected = await command.ExecuteNonQueryAsync();
-    
-        // Partitioned DML returns the minimum number of records that were affected.
-        Console.WriteLine($"Updated at least {affected} albums");
-    
-        // Reset the value for AUTOCOMMIT_DML_MODE to its default.
-        command.CommandText = "RESET AUTOCOMMIT_DML_MODE";
-        await command.ExecuteNonQueryAsync();
-    }
+```csharp
+public static async Task PartitionedDml(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Enable Partitioned DML on this connection.
+    await using var command = connection.CreateCommand();
+    command.CommandText = "SET AUTOCOMMIT_DML_MODE='PARTITIONED_NON_ATOMIC'";
+    await command.ExecuteNonQueryAsync();
+
+    // Back-fill a default value for the MarketingBudget column.
+    command.CommandText = "UPDATE Albums SET MarketingBudget=0 WHERE MarketingBudget IS NULL";
+    var affected = await command.ExecuteNonQueryAsync();
+
+    // Partitioned DML returns the minimum number of records that were affected.
+    Console.WriteLine($"Updated at least {affected} albums");
+
+    // Reset the value for AUTOCOMMIT_DML_MODE to its default.
+    command.CommandText = "RESET AUTOCOMMIT_DML_MODE";
+    await command.ExecuteNonQueryAsync();
+}
+```
 
 ### PostgreSQL
 
-    public static async Task PartitionedDml(string connectionString)
-    {
-        await using var connection = new SpannerConnection(connectionString);
-        await connection.OpenAsync();
-    
-        // Enable Partitioned DML on this connection.
-        await using var command = connection.CreateCommand();
-        command.CommandText = "set autocommit_dml_mode='partitioned_non_atomic'";
-        await command.ExecuteNonQueryAsync();
-    
-        // Back-fill a default value for the MarketingBudget column.
-        command.CommandText = "update albums set marketing_budget=0 where marketing_budget is null";
-        var affected = await command.ExecuteNonQueryAsync();
-    
-        // Partitioned DML returns the minimum number of records that were affected.
-        Console.WriteLine($"Updated at least {affected} albums");
-    
-        // Reset the value for autocommit_dml_mode to its default.
-        command.CommandText = "reset autocommit_dml_mode";
-        await command.ExecuteNonQueryAsync();
-    }
+```csharp
+public static async Task PartitionedDml(string connectionString)
+{
+    await using var connection = new SpannerConnection(connectionString);
+    await connection.OpenAsync();
+
+    // Enable Partitioned DML on this connection.
+    await using var command = connection.CreateCommand();
+    command.CommandText = "set autocommit_dml_mode='partitioned_non_atomic'";
+    await command.ExecuteNonQueryAsync();
+
+    // Back-fill a default value for the MarketingBudget column.
+    command.CommandText = "update albums set marketing_budget=0 where marketing_budget is null";
+    var affected = await command.ExecuteNonQueryAsync();
+
+    // Partitioned DML returns the minimum number of records that were affected.
+    Console.WriteLine($"Updated at least {affected} albums");
+
+    // Reset the value for autocommit_dml_mode to its default.
+    command.CommandText = "reset autocommit_dml_mode";
+    await command.ExecuteNonQueryAsync();
+}
+```
 
 Run the example with the following command:
 
 ### GoogleSQL
 
-    dotnet run pdml projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run pdml projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    dotnet run pdmlpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+dotnet run pdmlpg projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ## Cleanup
 
@@ -1364,7 +1506,9 @@ If you delete an instance, all databases within it are automatically deleted. Th
 
 #### On the command line
 
-    gcloud spanner databases delete example-db --instance=test-instance
+```
+gcloud spanner databases delete example-db --instance=test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1384,7 +1528,9 @@ Deleting an instance automatically drops all databases created in that instance.
 
 #### On the command line
 
-    gcloud spanner instances delete test-instance
+```
+gcloud spanner instances delete test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1398,8 +1544,8 @@ Deleting an instance automatically drops all databases created in that instance.
 
 ## What's next
 
-  - Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
+- Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
 
-  - Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
 
-  - Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .

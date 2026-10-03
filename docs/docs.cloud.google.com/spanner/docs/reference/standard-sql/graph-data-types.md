@@ -10,40 +10,22 @@ Graph Query Language (GQL) supports all GoogleSQL [data types](https://docs.clou
 
 ## Graph data types list
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type">Graph element type</a></td>
-<td>An element in a property graph. Can be a <code dir="ltr" translate="no">GRAPH_NODE</code> or <code dir="ltr" translate="no">GRAPH_EDGE</code> .<br />
-SQL type name: <code dir="ltr" translate="no">GRAPH_ELEMENT</code></td>
-</tr>
-<tr class="even">
-<td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_path_type">Graph path type</a></td>
-<td>A path in a property graph.<br />
-SQL type name: <code dir="ltr" translate="no">GRAPH_PATH</code></td>
-</tr>
-</tbody>
-</table>
+| Name                                                                                                                        | Summary                                                                                                |
+|-----------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| [Graph element type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) | An element in a property graph. Can be a `GRAPH_NODE` or `GRAPH_EDGE` . SQL type name: `GRAPH_ELEMENT` |
+| [Graph path type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_path_type)       | A path in a property graph. SQL type name: `GRAPH_PATH`                                                |
 
 ## Graph element type
 
 | Name            | Description                     |
-| --------------- | ------------------------------- |
+|-----------------|---------------------------------|
 | `GRAPH_ELEMENT` | An element in a property graph. |
 
 A variable with a `GRAPH_ELEMENT` type is produced by a graph query. The generated type has this format:
 
-    GRAPH_ELEMENT<T>
+```
+GRAPH_ELEMENT<T>
+```
 
 A graph element is either a node or an edge, representing data from a matching node or edge table based on its label. Each graph element holds a set of properties that can be accessed with a case-insensitive name, similar to fields of a struct.
 
@@ -57,18 +39,22 @@ If a property isn't defined in the schema, accessing it through the [field-acces
 
 In the following example, `n` represents a graph element in the [`FinGraph`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements#fin_graph) property graph:
 
-    GRAPH FinGraph
-    MATCH (n:Person)
-    RETURN n.name
+```
+GRAPH FinGraph
+MATCH (n:Person)
+RETURN n.name
+```
 
 ## Graph path type
 
 | Name         | Description                 |
-| ------------ | --------------------------- |
+|--------------|-----------------------------|
 | `GRAPH_PATH` | A path in a property graph. |
 
 The graph path data type represents a sequence of nodes interleaved with edges and has this format:
 
-    GRAPH_PATH<NODE_TYPE, EDGE_TYPE>
+```
+GRAPH_PATH<NODE_TYPE, EDGE_TYPE>
+```
 
 You can construct a graph path with the [`PATH`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-functions#path) function or when you create a [path variable](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) in a graph pattern.

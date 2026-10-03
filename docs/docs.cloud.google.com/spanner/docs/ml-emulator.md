@@ -44,29 +44,33 @@ To learn more about how to use the `ML.PREDICT` function to generate predictions
 
 Before you can use a model with the [ML.PREDICT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function, you must register the model using the [CREATE MODEL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) statement and provide the `input` and `output` values:
 
-    CREATE MODEL FraudDetection
-    INPUT (Amount INT64, Name STRING(MAX))
-    OUTPUT (Outcome BOOL)
-    REMOTE OPTIONS (
-    endpoint = '//aiplatform.googleapis.com/projects/PROJECT_ID/locations/REGION_ID/endpoints/ENDPOINT_ID'
-    );
+```
+CREATE MODEL FraudDetection
+INPUT (Amount INT64, Name STRING(MAX))
+OUTPUT (Outcome BOOL)
+REMOTE OPTIONS (
+endpoint = '//aiplatform.googleapis.com/projects/PROJECT_ID/locations/REGION_ID/endpoints/ENDPOINT_ID'
+);
+```
 
 Replace the following:
 
-  - `  PROJECT_ID  ` : the ID of the Google Cloud project that the model is located in
+- `PROJECT_ID` : the ID of the Google Cloud project that the model is located in
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
+- `REGION_ID` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
 
-  - `  ENDPOINT_ID  ` : the ID of the model endpoint
+- `ENDPOINT_ID` : the ID of the model endpoint
 
 **Run the prediction**
 
 Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function to generate your prediction.
 
-    SELECT Outcome
-    FROM ML.PREDICT(
-        MODEL FraudDetection,
-        (SELECT 1000 AS Amount, "John Smith" AS Name))
+```
+SELECT Outcome
+FROM ML.PREDICT(
+    MODEL FraudDetection,
+    (SELECT 1000 AS Amount, "John Smith" AS Name))
+```
 
 The expected output of this query is `TRUE` .
 
@@ -78,18 +82,20 @@ To learn more about how to use the `spanner.ML_PREDICT_ROW` function to generate
 
 Use the `spanner.ML_PREDICT_ROW` PostgreSQL function to generate your prediction.
 
-    SELECT (spanner.ml_predict_row(
-    'projects/`MODEL_ID`/locations/`REGION_ID`/endpoints/`ENDPOINT_ID`',
-    '{"instances": [{"Amount": "1000", "Name": "John Smith"}]}'
-    )->'predictions'->0->'Outcome')::boolean
+```
+SELECT (spanner.ml_predict_row(
+'projects/`MODEL_ID`/locations/`REGION_ID`/endpoints/`ENDPOINT_ID`',
+'{"instances": [{"Amount": "1000", "Name": "John Smith"}]}'
+)->'predictions'->0->'Outcome')::boolean
+```
 
 Replace the following:
 
-  - `  PROJECT_ID  ` : the ID of the Google Cloud project that the model is located in
+- `PROJECT_ID` : the ID of the Google Cloud project that the model is located in
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
+- `REGION_ID` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
 
-  - `  ENDPOINT_ID  ` : the ID of the model endpoint
+- `ENDPOINT_ID` : the ID of the model endpoint
 
 The expected output of this query is `TRUE` .
 
@@ -105,61 +111,67 @@ When using a custom callback for a model, you must [fork](https://docs.github.co
 
 Before you can use a model with the [ML.PREDICT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function, you must register the model using the [CREATE MODEL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-model) statement:
 
-    CREATE MODEL GeminiPro
-    INPUT (prompt STRING(MAX))
-    OUTPUT (content STRING(MAX))
-    REMOTE OPTIONS (
-    endpoint = '//aiplatform.googleapis.com/projects/PROJECT_ID/locations/REGION_ID/publishers/google/models/gemini-pro',
-    default_batch_size = 1
-    );
+```
+CREATE MODEL GeminiPro
+INPUT (prompt STRING(MAX))
+OUTPUT (content STRING(MAX))
+REMOTE OPTIONS (
+endpoint = '//aiplatform.googleapis.com/projects/PROJECT_ID/locations/REGION_ID/publishers/google/models/gemini-pro',
+default_batch_size = 1
+);
+```
 
 Since the emulator doesn't connect to Agent Platform, you must provide the `input` and `output` values.
 
 Replace the following:
 
-  - `  PROJECT_ID  ` : the ID of the Google Cloud project that the model is located in
+- `PROJECT_ID` : the ID of the Google Cloud project that the model is located in
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
+- `REGION_ID` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
 
 **Callback**
 
 Use a callback to add custom logic to the `GeminiPro` model.
 
-    absl::Status ModelEvaluator::Predict(
-        const googlesql::Model* model,
-        const CaseInsensitiveStringMap<const ModelColumn>& model_inputs,
-        CaseInsensitiveStringMap<ModelColumn>& model_outputs) {
-      // Custom logic for GeminiPro.
-      if (model->Name() == "GeminiPro") {
-        RET_CHECK(model_inputs.contains("prompt"));
-        RET_CHECK(model_inputs.find("prompt")->second.value->type()->IsString());
-        RET_CHECK(model_outputs.contains("content"));
-        std::string content;
-    
-        // Process prompts used in tests.
-        int64_t number;
-        static LazyRE2 is_prime_prompt = {R"(Is (\d+) a prime number\?)"};
-        if (RE2::FullMatch(
-                model_inputs.find("prompt")->second.value->string_value(),
-                *is_prime_prompt, &number)) {
-            content = IsPrime(number) ? "Yes" : "No";
-        } else {
-            // Default response.
-            content = "Sorry, I don't understand";
-        }
-        *model_outputs["content"].value = googlesql::values::String(content);
-        return absl::OkStatus();
-      }
-      // Custom model prediction logic can be added here.
-      return DefaultPredict(model, model_inputs, model_outputs);
+```
+absl::Status ModelEvaluator::Predict(
+    const googlesql::Model* model,
+    const CaseInsensitiveStringMap<const ModelColumn>& model_inputs,
+    CaseInsensitiveStringMap<ModelColumn>& model_outputs) {
+  // Custom logic for GeminiPro.
+  if (model->Name() == "GeminiPro") {
+    RET_CHECK(model_inputs.contains("prompt"));
+    RET_CHECK(model_inputs.find("prompt")->second.value->type()->IsString());
+    RET_CHECK(model_outputs.contains("content"));
+    std::string content;
+
+    // Process prompts used in tests.
+    int64_t number;
+    static LazyRE2 is_prime_prompt = {R"(Is (\d+) a prime number\?)"};
+    if (RE2::FullMatch(
+            model_inputs.find("prompt")->second.value->string_value(),
+            *is_prime_prompt, &number)) {
+        content = IsPrime(number) ? "Yes" : "No";
+    } else {
+        // Default response.
+        content = "Sorry, I don't understand";
     }
+    *model_outputs["content"].value = googlesql::values::String(content);
+    return absl::OkStatus();
+  }
+  // Custom model prediction logic can be added here.
+  return DefaultPredict(model, model_inputs, model_outputs);
+}
+```
 
 **Run the prediction**
 
 Use the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) GoogleSQL function to generate your prediction.
 
-    SELECT content
-        FROM ML.PREDICT(MODEL GeminiPro, (SELECT "Is 7 a prime number?" AS prompt))
+```
+SELECT content
+    FROM ML.PREDICT(MODEL GeminiPro, (SELECT "Is 7 a prime number?" AS prompt))
+```
 
 The expected output of this query is `"YES"` .
 
@@ -171,50 +183,54 @@ Use the `spanner.ML_PREDICT_ROW` PostgreSQL function to generate your prediction
 
 Use a callback to add custom logic to the `GeminiPro` model.
 
-    absl::Status ModelEvaluator::PgPredict(
-        absl::string_view endpoint, const googlesql::JSONValueConstRef& instance,
-        const googlesql::JSONValueConstRef& parameters,
-        lesql::JSONValueRef prediction) {
-      if (endpoint.ends_with("publishers/google/models/gemini-pro")) {
-        RET_CHECK(instance.IsObject());
-        RET_CHECK(instance.HasMember("prompt"));
-        std::string content;
-    
-        // Process prompts used in tests.
-        int64_t number;
-        static LazyRE2 is_prime_prompt = {R"(Is (\d+) a prime number\?)"};
-        if (RE2::FullMatch(instance.GetMember("prompt").GetString(),
-                            *is_prime_prompt, &number)) {
-            content = IsPrime(number) ? "Yes" : "No";
-        } else {
-            // Default response.
-            content = "Sorry, I don't understand";
-        }
-        prediction.SetToEmptyObject();
-        prediction.GetMember("content").SetString(content);
-        return absl::OkStatus();
-      }
-    
-      // Custom model prediction logic can be added here.
-      return DefaultPgPredict(endpoint, instance, parameters, prediction);
+```
+absl::Status ModelEvaluator::PgPredict(
+    absl::string_view endpoint, const googlesql::JSONValueConstRef& instance,
+    const googlesql::JSONValueConstRef& parameters,
+    lesql::JSONValueRef prediction) {
+  if (endpoint.ends_with("publishers/google/models/gemini-pro")) {
+    RET_CHECK(instance.IsObject());
+    RET_CHECK(instance.HasMember("prompt"));
+    std::string content;
+
+    // Process prompts used in tests.
+    int64_t number;
+    static LazyRE2 is_prime_prompt = {R"(Is (\d+) a prime number\?)"};
+    if (RE2::FullMatch(instance.GetMember("prompt").GetString(),
+                        *is_prime_prompt, &number)) {
+        content = IsPrime(number) ? "Yes" : "No";
+    } else {
+        // Default response.
+        content = "Sorry, I don't understand";
     }
+    prediction.SetToEmptyObject();
+    prediction.GetMember("content").SetString(content);
+    return absl::OkStatus();
+  }
+
+  // Custom model prediction logic can be added here.
+  return DefaultPgPredict(endpoint, instance, parameters, prediction);
+}
+```
 
 **Run the prediction**
 
-    SELECT (spanner.ml_predict_row(
-    'projects/`PROJECT_ID`/locations/`REGION_ID`/publishers/google/models/gemini-pro',
-    '{"instances": [{"prompt": "Is 7 a prime number?"}]}'
-    )->'predictions'->0->'content')::text
+```
+SELECT (spanner.ml_predict_row(
+'projects/`PROJECT_ID`/locations/`REGION_ID`/publishers/google/models/gemini-pro',
+'{"instances": [{"prompt": "Is 7 a prime number?"}]}'
+)->'predictions'->0->'content')::text
+```
 
 Replace the following:
 
-  - `  PROJECT_ID  ` : the ID of the Google Cloud project that the model is located in
+- `PROJECT_ID` : the ID of the Google Cloud project that the model is located in
 
-  - `  REGION_ID  ` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
+- `REGION_ID` : the ID of the Google Cloud region the model is located in—for example, `us-central1`
 
 The expected output of this query is `"YES"` .
 
 ## What's next?
 
-  - [Generate ML predictions using SQL](https://docs.cloud.google.com/spanner/docs/ml-tutorial) .
-  - [Get Agent Platform text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .
+- [Generate ML predictions using SQL](https://docs.cloud.google.com/spanner/docs/ml-tutorial) .
+- [Get Agent Platform text embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) .

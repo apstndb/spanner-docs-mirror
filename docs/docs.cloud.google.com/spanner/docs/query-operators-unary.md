@@ -10,21 +10,21 @@ A *unary* operator has a single relational child.
 
 The following operators are unary operators:
 
-  - [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)
-  - [Apply mutations](https://docs.cloud.google.com/spanner/docs/query-operators-unary#apply-mutations)
-  - [Create batch](https://docs.cloud.google.com/spanner/docs/query-operators-unary#create_batch)
-  - [Compute](https://docs.cloud.google.com/spanner/docs/query-operators-unary#compute)
-  - [Compute struct](https://docs.cloud.google.com/spanner/docs/query-operators-unary#compute_struct)
-  - [DataBlockToRowAdapter](https://docs.cloud.google.com/spanner/docs/query-operators-unary#datablocktorowadapter)
-  - [Filter](https://docs.cloud.google.com/spanner/docs/query-operators-unary#filter)
-  - [Limit](https://docs.cloud.google.com/spanner/docs/query-operators-unary#limit)
-  - [Local split union](https://docs.cloud.google.com/spanner/docs/query-operators-unary#local-split-union)
-  - [Random Id Assign](https://docs.cloud.google.com/spanner/docs/query-operators-unary#random_id_assign)
-  - [RowToDataBlockAdapter](https://docs.cloud.google.com/spanner/docs/query-operators-unary#rowtodatablockadapter)
-  - [Serialize result](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result)
-  - [Sort](https://docs.cloud.google.com/spanner/docs/query-operators-unary#sort)
-  - [TVF](https://docs.cloud.google.com/spanner/docs/query-operators-unary#tvf)
-  - [Union input](https://docs.cloud.google.com/spanner/docs/query-operators-unary#union_input)
+- [Aggregate](https://docs.cloud.google.com/spanner/docs/query-operators-unary#aggregate)
+- [Apply mutations](https://docs.cloud.google.com/spanner/docs/query-operators-unary#apply-mutations)
+- [Create batch](https://docs.cloud.google.com/spanner/docs/query-operators-unary#create_batch)
+- [Compute](https://docs.cloud.google.com/spanner/docs/query-operators-unary#compute)
+- [Compute struct](https://docs.cloud.google.com/spanner/docs/query-operators-unary#compute_struct)
+- [DataBlockToRowAdapter](https://docs.cloud.google.com/spanner/docs/query-operators-unary#datablocktorowadapter)
+- [Filter](https://docs.cloud.google.com/spanner/docs/query-operators-unary#filter)
+- [Limit](https://docs.cloud.google.com/spanner/docs/query-operators-unary#limit)
+- [Local split union](https://docs.cloud.google.com/spanner/docs/query-operators-unary#local-split-union)
+- [Random Id Assign](https://docs.cloud.google.com/spanner/docs/query-operators-unary#random_id_assign)
+- [RowToDataBlockAdapter](https://docs.cloud.google.com/spanner/docs/query-operators-unary#rowtodatablockadapter)
+- [Serialize result](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result)
+- [Sort](https://docs.cloud.google.com/spanner/docs/query-operators-unary#sort)
+- [TVF](https://docs.cloud.google.com/spanner/docs/query-operators-unary#tvf)
+- [Union input](https://docs.cloud.google.com/spanner/docs/query-operators-unary#union_input)
 
 > **PostgreSQL interface note:** The examples in this topic are intended for GoogleSQL-dialect databases. This feature doesn't support PostgreSQL interface.
 
@@ -32,79 +32,83 @@ The following operators are unary operators:
 
 The queries and execution plans on this page are based on the following database schema:
 
-    CREATE TABLE Singers (
-      SingerId   INT64 NOT NULL,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-      SingerInfo BYTES(MAX),
-      BirthDate  DATE
-    ) PRIMARY KEY(SingerId);
-    
-    CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
-    
-    CREATE TABLE Albums (
-      SingerId        INT64 NOT NULL,
-      AlbumId         INT64 NOT NULL,
-      AlbumTitle      STRING(MAX),
-      MarketingBudget INT64
-    ) PRIMARY KEY(SingerId, AlbumId),
-      INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
-    
-    CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
-    
-    CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget);
-    
-    CREATE TABLE Songs (
-      SingerId  INT64 NOT NULL,
-      AlbumId   INT64 NOT NULL,
-      TrackId   INT64 NOT NULL,
-      SongName  STRING(MAX),
-      Duration  INT64,
-      SongGenre STRING(25)
-    ) PRIMARY KEY(SingerId, AlbumId, TrackId),
-      INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
-    
-    CREATE INDEX SongsBySingerAlbumSongNameDesc ON Songs(SingerId, AlbumId, SongName DESC), INTERLEAVE IN Albums;
-    
-    CREATE INDEX SongsBySongName ON Songs(SongName);
-    
-    CREATE TABLE Concerts (
-      VenueId      INT64 NOT NULL,
-      SingerId     INT64 NOT NULL,
-      ConcertDate  DATE NOT NULL,
-      BeginTime    TIMESTAMP,
-      EndTime      TIMESTAMP,
-      TicketPrices ARRAY<INT64>
-    ) PRIMARY KEY(VenueId, SingerId, ConcertDate);
+```
+CREATE TABLE Singers (
+  SingerId   INT64 NOT NULL,
+  FirstName  STRING(1024),
+  LastName   STRING(1024),
+  SingerInfo BYTES(MAX),
+  BirthDate  DATE
+) PRIMARY KEY(SingerId);
+
+CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
+
+CREATE TABLE Albums (
+  SingerId        INT64 NOT NULL,
+  AlbumId         INT64 NOT NULL,
+  AlbumTitle      STRING(MAX),
+  MarketingBudget INT64
+) PRIMARY KEY(SingerId, AlbumId),
+  INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+
+CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
+
+CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget);
+
+CREATE TABLE Songs (
+  SingerId  INT64 NOT NULL,
+  AlbumId   INT64 NOT NULL,
+  TrackId   INT64 NOT NULL,
+  SongName  STRING(MAX),
+  Duration  INT64,
+  SongGenre STRING(25)
+) PRIMARY KEY(SingerId, AlbumId, TrackId),
+  INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
+
+CREATE INDEX SongsBySingerAlbumSongNameDesc ON Songs(SingerId, AlbumId, SongName DESC), INTERLEAVE IN Albums;
+
+CREATE INDEX SongsBySongName ON Songs(SongName);
+
+CREATE TABLE Concerts (
+  VenueId      INT64 NOT NULL,
+  SingerId     INT64 NOT NULL,
+  ConcertDate  DATE NOT NULL,
+  BeginTime    TIMESTAMP,
+  EndTime      TIMESTAMP,
+  TicketPrices ARRAY<INT64>
+) PRIMARY KEY(VenueId, SingerId, ConcertDate);
+```
 
 You can use the following Data Manipulation Language (DML) statements to add data to these tables:
 
-    INSERT INTO Singers (SingerId, FirstName, LastName, BirthDate)
-    VALUES (1, "Marc", "Richards", "1970-09-03"),
-           (2, "Catalina", "Smith", "1990-08-17"),
-           (3, "Alice", "Trentor", "1991-10-02"),
-           (4, "Lea", "Martin", "1991-11-09"),
-           (5, "David", "Lomond", "1977-01-29");
-    
-    INSERT INTO Albums (SingerId, AlbumId, AlbumTitle)
-    VALUES (1, 1, "Total Junk"),
-           (1, 2, "Go, Go, Go"),
-           (2, 1, "Green"),
-           (2, 2, "Forever Hold Your Peace"),
-           (2, 3, "Terrified"),
-           (3, 1, "Nothing To Do With Me"),
-           (4, 1, "Play");
-    
-    INSERT INTO Songs (SingerId, AlbumId, TrackId, SongName, Duration, SongGenre)
-    VALUES (2, 1, 1, "Let's Get Back Together", 182, "COUNTRY"),
-           (2, 1, 2, "Starting Again", 156, "ROCK"),
-           (2, 1, 3, "I Knew You Were Magic", 294, "BLUES"),
-           (2, 1, 4, "42", 185, "CLASSICAL"),
-           (2, 1, 5, "Blue", 238, "BLUES"),
-           (2, 1, 6, "Nothing Is The Same", 303, "BLUES"),
-           (2, 1, 7, "The Second Time", 255, "ROCK"),
-           (2, 3, 1, "Fight Story", 194, "ROCK"),
-           (3, 1, 1, "Not About The Guitar", 278, "BLUES");
+```
+INSERT INTO Singers (SingerId, FirstName, LastName, BirthDate)
+VALUES (1, "Marc", "Richards", "1970-09-03"),
+       (2, "Catalina", "Smith", "1990-08-17"),
+       (3, "Alice", "Trentor", "1991-10-02"),
+       (4, "Lea", "Martin", "1991-11-09"),
+       (5, "David", "Lomond", "1977-01-29");
+
+INSERT INTO Albums (SingerId, AlbumId, AlbumTitle)
+VALUES (1, 1, "Total Junk"),
+       (1, 2, "Go, Go, Go"),
+       (2, 1, "Green"),
+       (2, 2, "Forever Hold Your Peace"),
+       (2, 3, "Terrified"),
+       (3, 1, "Nothing To Do With Me"),
+       (4, 1, "Play");
+
+INSERT INTO Songs (SingerId, AlbumId, TrackId, SongName, Duration, SongGenre)
+VALUES (2, 1, 1, "Let's Get Back Together", 182, "COUNTRY"),
+       (2, 1, 2, "Starting Again", 156, "ROCK"),
+       (2, 1, 3, "I Knew You Were Magic", 294, "BLUES"),
+       (2, 1, 4, "42", 185, "CLASSICAL"),
+       (2, 1, 5, "Blue", 238, "BLUES"),
+       (2, 1, 6, "Nothing Is The Same", 303, "BLUES"),
+       (2, 1, 7, "The Second Time", 255, "ROCK"),
+       (2, 3, 1, "Fight Story", 194, "ROCK"),
+       (3, 1, 1, "Not About The Guitar", 278, "BLUES");
+```
 
 > **Note:** You can run queries and retrieve execution plans even if the tables have no data.
 
@@ -114,18 +118,20 @@ An *aggregate* operator implements `GROUP BY` SQL statements and aggregate funct
 
 The following query demonstrates this operator:
 
-    SELECT s.singerid,
-           Avg(s.duration) AS average,
-           Count(*)        AS count
-    FROM   songs AS s
-    GROUP  BY singerid;
-    
-    /*----------+---------+-------+
-     | SingerId | average | count |
-     +----------+---------+-------+
-     |        3 | 278     |     1 |
-     |        2 | 225.875 |     8 |
-     +----------+---------+-------*/
+```
+SELECT s.singerid,
+       Avg(s.duration) AS average,
+       Count(*)        AS count
+FROM   songs AS s
+GROUP  BY singerid;
+
+/*----------+---------+-------+
+ | SingerId | average | count |
+ +----------+---------+-------+
+ |        3 | 278     |     1 |
+ |        2 | 225.875 |     8 |
+ +----------+---------+-------*/
+```
 
 The query groups by `SingerId` and performs an `AVG` aggregation and a `COUNT` aggregation.
 
@@ -144,13 +150,13 @@ A property of an operator describes a trait that is used when the operator is ex
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -165,12 +171,14 @@ An *apply mutations* operator applies the mutations from a [Data Manipulation La
 
 The following query demonstrates this operator:
 
-    DELETE FROM singers
-    WHERE  firstname = 'Alice';
-    
-    /*
-    4 rows deleted  This statement deleted 4 rows and did not return any rows.
-    */
+```
+DELETE FROM singers
+WHERE  firstname = 'Alice';
+
+/*
+4 rows deleted  This statement deleted 4 rows and did not return any rows.
+*/
+```
 
 The execution plan appears as follows:
 
@@ -183,13 +191,13 @@ A property of an operator describes a trait that is used when the operator is ex
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -211,13 +219,13 @@ A property of an operator describes a trait that is used when the operator is ex
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -237,13 +245,13 @@ A property of an operator describes a trait that is used when the operator is ex
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -258,18 +266,20 @@ A *compute struct* operator creates a variable for a structure that contains fie
 
 The following query demonstrates this operator:
 
-    SELECT FirstName,
-           ARRAY(SELECT AS STRUCT song.SongName, song.SongGenre
-                 FROM Songs AS song
-                 WHERE song.SingerId = singer.SingerId)
-    FROM singers AS singer
-    WHERE singer.SingerId = 3;
-    
-    /*-----------+------------------------------------------------------+
-     | FirstName | Unspecified                                          |
-     +-----------+------------------------------------------------------+
-     | Alice     | [["Not About The Guitar","BLUES"]]                   |
-     +-----------+------------------------------------------------------*/
+```
+SELECT FirstName,
+       ARRAY(SELECT AS STRUCT song.SongName, song.SongGenre
+             FROM Songs AS song
+             WHERE song.SingerId = singer.SingerId)
+FROM singers AS singer
+WHERE singer.SingerId = 3;
+
+/*-----------+------------------------------------------------------+
+ | FirstName | Unspecified                                          |
+ +-----------+------------------------------------------------------+
+ | Alice     | [["Not About The Guitar","BLUES"]]                   |
+ +-----------+------------------------------------------------------*/
+```
 
 The execution plan appears as follows:
 
@@ -284,13 +294,13 @@ A property of an operator describes a trait that is used when the operator is ex
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -305,17 +315,19 @@ A *filter* operator reads all rows from its input, applies a scalar predicate on
 
 The following query demonstrates this operator:
 
-    SELECT s.lastname
-    FROM   (SELECT s.lastname
-            FROM   singers AS s
-            LIMIT  3) s
-    WHERE  s.lastname LIKE 'Rich%';
-    
-    /*----------+
-     | LastName |
-     +----------+
-     | Richards |
-     +----------*/
+```
+SELECT s.lastname
+FROM   (SELECT s.lastname
+        FROM   singers AS s
+        LIMIT  3) s
+WHERE  s.lastname LIKE 'Rich%';
+
+/*----------+
+ | LastName |
+ +----------+
+ | Richards |
+ +----------*/
+```
 
 The execution plan appears as follows:
 
@@ -332,14 +344,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -354,17 +366,19 @@ A *limit* operator constrains the number of rows returned. An optional `OFFSET` 
 
 The following query demonstrates this operator:
 
-    SELECT s.songname
-    FROM   songs AS s
-    LIMIT  3;
-    
-    /*----------------------+
-     | SongName             |
-     +----------------------+
-     | Not About The Guitar |
-     | The Second Time      |
-     | Starting Again       |
-     +----------------------*/
+```
+SELECT s.songname
+FROM   songs AS s
+LIMIT  3;
+
+/*----------------------+
+ | SongName             |
+ +----------------------+
+ | Not About The Guitar |
+ | The Second Time      |
+ | Starting Again       |
+ +----------------------*/
+```
 
 The execution plan appears as follows:
 
@@ -381,14 +395,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -403,14 +417,16 @@ A *random ID assign* operator produces output by reading its input rows and addi
 
 For example, the following query uses Bernoulli sampling with a sampling rate of 10 percent.
 
-    SELECT s.songname
-    FROM   songs AS s TABLESAMPLE bernoulli (10 PERCENT);
-    
-    /*----------------+
-     | SongName       |
-     +----------------+
-     | Starting Again |
-     +----------------*/
+```
+SELECT s.songname
+FROM   songs AS s TABLESAMPLE bernoulli (10 PERCENT);
+
+/*----------------+
+ | SongName       |
+ +----------------+
+ | Starting Again |
+ +----------------*/
+```
 
 Because the result is a sample, the result could vary each time the query is run even though the query is the same.
 
@@ -422,15 +438,17 @@ The following example uses [Reservoir](https://en.wikipedia.org/wiki/Reservoir_s
 
 sampling with a sampling rate of 2 rows.
 
-    SELECT s.songname
-    FROM   songs AS s TABLESAMPLE reservoir (2 rows);
-    
-    /*------------------------+
-     | SongName               |
-     +------------------------+
-     | I Knew You Were Magic  |
-     | The Second Time        |
-     +------------------------*/
+```
+SELECT s.songname
+FROM   songs AS s TABLESAMPLE reservoir (2 rows);
+
+/*------------------------+
+ | SongName               |
+ +------------------------+
+ | I Knew You Were Magic  |
+ | The Second Time        |
+ +------------------------*/
+```
 
 Because the result is a sample, the result could vary each time the query is run even though the query is the same.
 
@@ -449,14 +467,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -473,16 +491,20 @@ A *local split union* appears in execution plans that scan a [placement](https:/
 
 For example, suppose the `Singers` table uses a placement key to partition singer data:
 
-    CREATE TABLE Singers (
-        SingerId INT64 NOT NULL,
-        SingerName STRING(MAX) NOT NULL,
-        ...
-        Location STRING(MAX) NOT NULL PLACEMENT KEY
-    ) PRIMARY KEY (SingerId);
+```
+CREATE TABLE Singers (
+    SingerId INT64 NOT NULL,
+    SingerName STRING(MAX) NOT NULL,
+    ...
+    Location STRING(MAX) NOT NULL PLACEMENT KEY
+) PRIMARY KEY (SingerId);
+```
 
 Now, consider this query:
 
-    SELECT BirthDate FROM Singers;
+```
+SELECT BirthDate FROM Singers;
+```
 
 This is the execution plan:
 
@@ -499,14 +521,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -528,14 +550,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -557,14 +579,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -579,23 +601,25 @@ A *serialize result* operator is a special case of the compute struct operator t
 
 The following query demonstrates this operator:
 
-    SELECT array
-      (
-        select as struct so.songname,
-                so.songgenre
-        FROM   songs AS so
-        WHERE  so.singerid = s.singerid)
-    FROM  singers AS s;
-    
-    /*------------------------------------------------------------------+
-     | Unspecified                                                      |
-     +------------------------------------------------------------------+
-     | []                                                               |
-     | [[Let's Get Back Together, COUNTRY], [Starting Again, ROCK]]     |
-     | [["Not About The Guitar", "BLUES"]]                              |
-     | []                                                               |
-     | []                                                               |
-     +------------------------------------------------------------------*/
+```
+SELECT array
+  (
+    select as struct so.songname,
+            so.songgenre
+    FROM   songs AS so
+    WHERE  so.singerid = s.singerid)
+FROM  singers AS s;
+
+/*------------------------------------------------------------------+
+ | Unspecified                                                      |
+ +------------------------------------------------------------------+
+ | []                                                               |
+ | [[Let's Get Back Together, COUNTRY], [Starting Again, ROCK]]     |
+ | [["Not About The Guitar", "BLUES"]]                              |
+ | []                                                               |
+ | []                                                               |
+ +------------------------------------------------------------------*/
+```
 
 The execution plan appears as follows:
 
@@ -612,14 +636,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -634,23 +658,25 @@ A *sort* operator reads its input rows, orders them by column(s), and then retur
 
 The following query demonstrates this operator:
 
-    SELECT s.songgenre
-    FROM   songs AS s
-    ORDER  BY songgenre;
-    
-    /*--------------------------+
-     | SongGenre                |
-     +--------------------------+
-     | BLUES                    |
-     | BLUES                    |
-     | BLUES                    |
-     | BLUES                    |
-     | CLASSICAL                |
-     | COUNTRY                  |
-     | ROCK                     |
-     | ROCK                     |
-     | ROCK                     |
-     +--------------------------*/
+```
+SELECT s.songgenre
+FROM   songs AS s
+ORDER  BY songgenre;
+
+/*--------------------------+
+ | SongGenre                |
+ +--------------------------+
+ | BLUES                    |
+ | BLUES                    |
+ | BLUES                    |
+ | BLUES                    |
+ | CLASSICAL                |
+ | COUNTRY                  |
+ | ROCK                     |
+ | ROCK                     |
+ | ROCK                     |
+ +--------------------------*/
+```
 
 The execution plan appears as follows:
 
@@ -662,18 +688,20 @@ To constrain the number of rows returned, a sort operator can optionally have `L
 
 The following query demonstrates this operator:
 
-    SELECT s.songgenre
-    FROM   songs AS s
-    ORDER  BY songgenre
-    LIMIT  3;
-    
-    /*--------------------------+
-     | SongGenre                |
-     +--------------------------+
-     | BLUES                    |
-     | BLUES                    |
-     | BLUES                    |
-     +--------------------------*/
+```
+SELECT s.songgenre
+FROM   songs AS s
+ORDER  BY songgenre
+LIMIT  3;
+
+/*--------------------------+
+ | SongGenre                |
+ +--------------------------+
+ | BLUES                    |
+ | BLUES                    |
+ | BLUES                    |
+ +--------------------------*/
+```
 
 The execution plan appears as follows:
 
@@ -690,14 +718,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -712,23 +740,25 @@ A *table valued function* operator produces output by reading its input rows and
 
 The following query demonstrates this operator:
 
-    SELECT genre,
-           songname
-    FROM   ml.predict(model genreclassifier, TABLE songs)
-    
-    /*-----------------------+--------------------------+
-     | Genre                 | SongName                 |
-     +-----------------------+--------------------------+
-     | Country               | Not About The Guitar     |
-     | Rock                  | The Second Time          |
-     | Pop                   | Starting Again           |
-     | Pop                   | Nothing Is The Same      |
-     | Country               | Let's Get Back Together  |
-     | Pop                   | I Knew You Were Magic    |
-     | Electronic            | Blue                     |
-     | Rock                  | 42                       |
-     | Rock                  | Fight Story              |
-     +-----------------------+--------------------------*/
+```
+SELECT genre,
+       songname
+FROM   ml.predict(model genreclassifier, TABLE songs)
+
+/*-----------------------+--------------------------+
+ | Genre                 | SongName                 |
+ +-----------------------+--------------------------+
+ | Country               | Not About The Guitar     |
+ | Rock                  | The Second Time          |
+ | Pop                   | Starting Again           |
+ | Pop                   | Nothing Is The Same      |
+ | Country               | Let's Get Back Together  |
+ | Pop                   | I Knew You Were Magic    |
+ | Electronic            | Blue                     |
+ | Rock                  | 42                       |
+ | Rock                  | Fight Story              |
+ +-----------------------+--------------------------*/
+```
 
 #### Properties and execution statistics
 
@@ -739,14 +769,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |
@@ -768,14 +798,14 @@ The **Filter** operator has additional distinct properties.
 Properties
 
 | Name             | Description                                                                                                                     |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | Condition        | A predicate applied to each input row. When true the row is passed to the next operator; when false the row is discarded.       |
 | Execution method | In Row execution, the operator processes one row at a time. In Batch execution, the operator processes a batch of rows at once. |
 
 Execution statistics
 
 | Name                 | Description                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------- |
+|----------------------|-------------------------------------------------------------------------------------|
 | Latency              | Elapsed time of all the executions done in the operator.                            |
 | Cumulative latency   | The total time of the current operator and its descendants.                         |
 | CPU time             | Sum of CPU time spent executing the operator.                                       |

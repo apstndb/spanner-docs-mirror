@@ -43,7 +43,7 @@ If you need more complex data constraints, implement them in the application lay
 The following table discusses the types of constraints commonly found in Oracle® databases, and how to implement them with Spanner.
 
 | Constraint                                                      | Implementation with Spanner                                                                                         |
-| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
 | Not null                                                        | `NOT NULL` column constraint                                                                                        |
 | Unique                                                          | Secondary index with `UNIQUE` constraint                                                                            |
 | Foreign key (for normal tables)                                 | See [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) . |
@@ -58,90 +58,21 @@ You might also have to perform additional transformations on your data as descri
 
 For example, you can store a large `BLOB` as an object in a Cloud Storage bucket rather than in the database, and then store the URI reference to the Cloud Storage object in the database as a `STRING` .
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Oracle data type</th>
-<th>Spanner equivalent</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Character types ( <code dir="ltr" translate="no">CHAR</code> , <code dir="ltr" translate="no">VARCHAR</code> , <code dir="ltr" translate="no">NCHAR</code> , <code dir="ltr" translate="no">NVARCHAR</code> )</td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td>Note: Spanner uses Unicode strings throughout.<br />
-Oracle supports a maximum length of 32,000 bytes or characters (depending on type), while Spanner supports up to 2,621,440 characters.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">BLOB</code> , <code dir="ltr" translate="no">LONG RAW</code> , <code dir="ltr" translate="no">BFILE</code></td>
-<td><code dir="ltr" translate="no">BYTES</code> or <code dir="ltr" translate="no">STRING</code> containing URI to the object.</td>
-<td>Small objects (less than 10 MiB) can be stored as <code dir="ltr" translate="no">BYTES</code> .<br />
-Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">CLOB</code> , <code dir="ltr" translate="no">NCLOB</code> , <code dir="ltr" translate="no">LONG</code></td>
-<td><code dir="ltr" translate="no">STRING</code> (either containing data or URI to external object)</td>
-<td>Small objects (less than 2,621,440 characters) can be stored as <code dir="ltr" translate="no">STRING</code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">NUMBER</code> , <code dir="ltr" translate="no">NUMERIC</code> , <code dir="ltr" translate="no">DECIMAL</code></td>
-<td><code dir="ltr" translate="no">STRING</code> , <code dir="ltr" translate="no">FLOAT64</code> , <code dir="ltr" translate="no">INT64</code></td>
-<td>The Oracle <code dir="ltr" translate="no">NUMBER</code> data type is equivalent to the GoogleSQL <code dir="ltr" translate="no">NUMERIC</code> data type. Each supports 38 digits of precision and nine digits of scale: (P,S) = (38,9). The PostgreSQL <code dir="ltr" translate="no">NUMERIC</code> data type stores <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">arbitrary precision numeric data</a> . The <code dir="ltr" translate="no">FLOAT64</code> GoogleSQL data type supports up to 16 digits of precision.<br />
-</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">INT</code> , <code dir="ltr" translate="no">INTEGER</code> , <code dir="ltr" translate="no">SMALLINT</code></td>
-<td><code dir="ltr" translate="no">INT64</code></td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">BINARY_FLOAT</code> , <code dir="ltr" translate="no">BINARY_DOUBLE</code></td>
-<td><code dir="ltr" translate="no">FLOAT64</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">DATE</code></td>
-<td><code dir="ltr" translate="no">DATE</code></td>
-<td>The default <code dir="ltr" translate="no">STRING</code> representation of the Spanner <code dir="ltr" translate="no">DATE</code> type is <code dir="ltr" translate="no">yyyy-mm-dd</code> , which is different from Oracle's, so use caution when automatically converting to and from <code dir="ltr" translate="no">STRING</code> representations of dates. SQL functions are provided to convert dates to a formatted string.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">DATETIME</code></td>
-<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
-<td>Spanner stores time independent of timezone. If you need to store a timezone, you need to use a separate <code dir="ltr" translate="no">STRING</code> column. SQL functions are provided to convert timestamps to a formatted string using timezones.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">XML</code></td>
-<td><code dir="ltr" translate="no">STRING</code> (either containing data or URI to external object)</td>
-<td>Small XML objects (less than 2,621,440 characters) can be stored as <code dir="ltr" translate="no">STRING</code> . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">URI</code> , <code dir="ltr" translate="no">DBURI</code> , <code dir="ltr" translate="no">XDBURI</code> , <code dir="ltr" translate="no">HTTPURI</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">ROWID</code></td>
-<td><code dir="ltr" translate="no">PRIMARY KEY</code></td>
-<td>Spanner uses the table's primary key to sort and reference rows internally, so in Spanner it is effectively the same as the <code dir="ltr" translate="no">ROWID</code> data type.</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">SDO_GEOMETRY</code> , <code dir="ltr" translate="no">SDO_TOPO_GEOMETRY_SDO_GEORASTER</code></td>
-<td></td>
-<td>Spanner does not support geospatial data types. You will have to store this data using standard data types, and implement any searching and filtering logic in the application layer.</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">ORDAudio</code> , <code dir="ltr" translate="no">ORDDicom</code> , <code dir="ltr" translate="no">ORDDoc</code> , <code dir="ltr" translate="no">ORDImage</code> , <code dir="ltr" translate="no">ORDVideo</code> , <code dir="ltr" translate="no">ORDImageSignature</code></td>
-<td></td>
-<td>Spanner does not support media data types. Consider using Cloud Storage to store media data.</td>
-</tr>
-</tbody>
-</table>
+| Oracle data type                                                                   | Spanner equivalent                                          | Notes                                                                                                                                                                                                                                                                                                                                                                                     |
+|------------------------------------------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Character types ( `CHAR` , `VARCHAR` , `NCHAR` , `NVARCHAR` )                      | `STRING`                                                    | Note: Spanner uses Unicode strings throughout. Oracle supports a maximum length of 32,000 bytes or characters (depending on type), while Spanner supports up to 2,621,440 characters.                                                                                                                                                                                                     |
+| `BLOB` , `LONG RAW` , `BFILE`                                                      | `BYTES` or `STRING` containing URI to the object.           | Small objects (less than 10 MiB) can be stored as `BYTES` . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.                                                                                                                                                                                                                              |
+| `CLOB` , `NCLOB` , `LONG`                                                          | `STRING` (either containing data or URI to external object) | Small objects (less than 2,621,440 characters) can be stored as `STRING` . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.                                                                                                                                                                                                               |
+| `NUMBER` , `NUMERIC` , `DECIMAL`                                                   | `STRING` , `FLOAT64` , `INT64`                              | The Oracle `NUMBER` data type is equivalent to the GoogleSQL `NUMERIC` data type. Each supports 38 digits of precision and nine digits of scale: (P,S) = (38,9). The PostgreSQL `NUMERIC` data type stores [arbitrary precision numeric data](https://docs.cloud.google.com/spanner/docs/storing-numeric-data) . The `FLOAT64` GoogleSQL data type supports up to 16 digits of precision. |
+| `INT` , `INTEGER` , `SMALLINT`                                                     | `INT64`                                                     |                                                                                                                                                                                                                                                                                                                                                                                           |
+| `BINARY_FLOAT` , `BINARY_DOUBLE`                                                   | `FLOAT64`                                                   |                                                                                                                                                                                                                                                                                                                                                                                           |
+| `DATE`                                                                             | `DATE`                                                      | The default `STRING` representation of the Spanner `DATE` type is `yyyy-mm-dd` , which is different from Oracle's, so use caution when automatically converting to and from `STRING` representations of dates. SQL functions are provided to convert dates to a formatted string.                                                                                                         |
+| `DATETIME`                                                                         | `TIMESTAMP`                                                 | Spanner stores time independent of timezone. If you need to store a timezone, you need to use a separate `STRING` column. SQL functions are provided to convert timestamps to a formatted string using timezones.                                                                                                                                                                         |
+| `XML`                                                                              | `STRING` (either containing data or URI to external object) | Small XML objects (less than 2,621,440 characters) can be stored as `STRING` . Consider using alternative Google Cloud offerings such as Cloud Storage to store larger objects.                                                                                                                                                                                                           |
+| `URI` , `DBURI` , `XDBURI` , `HTTPURI`                                             | `STRING`                                                    |                                                                                                                                                                                                                                                                                                                                                                                           |
+| `ROWID`                                                                            | `PRIMARY KEY`                                               | Spanner uses the table's primary key to sort and reference rows internally, so in Spanner it is effectively the same as the `ROWID` data type.                                                                                                                                                                                                                                            |
+| `SDO_GEOMETRY` , `SDO_TOPO_GEOMETRY_SDO_GEORASTER`                                 |                                                             | Spanner does not support geospatial data types. You will have to store this data using standard data types, and implement any searching and filtering logic in the application layer.                                                                                                                                                                                                     |
+| `ORDAudio` , `ORDDicom` , `ORDDoc` , `ORDImage` , `ORDVideo` , `ORDImageSignature` |                                                             | Spanner does not support media data types. Consider using Cloud Storage to store media data.                                                                                                                                                                                                                                                                                              |
 
 ## Migration process
 
@@ -176,13 +107,15 @@ You can [define on-delete actions](https://docs.cloud.google.com/spanner/docs/sc
 
 Here is an example of creating an Albums table interleaved in the parent Singers table defined earlier:
 
-    CREATE TABLE Albums (
-      SingerId     INT64 NOT NULL,
-      AlbumId      INT64 NOT NULL,
-      AlbumTitle   STRING(MAX),
-    ) PRIMARY KEY (SingerId, AlbumId)
-    INTERLEAVE IN PARENT (Singers)
-    ON DELETE CASCADE;
+```
+CREATE TABLE Albums (
+  SingerId     INT64 NOT NULL,
+  AlbumId      INT64 NOT NULL,
+  AlbumTitle   STRING(MAX),
+) PRIMARY KEY (SingerId, AlbumId)
+INTERLEAVE IN PARENT (Singers)
+ON DELETE CASCADE;
+```
 
 #### Create secondary indexes
 
@@ -194,15 +127,19 @@ Value lookups using secondary indexes are effectively the same as a query with a
 
 Spanner's query optimizer will only automatically use secondary indexes when the index itself stores all the columns being queried (a covered query). To force the use of an index when querying columns in the original table, you must use a [`FORCE INDEX` directive](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index_directive) in the SQL statement, for example:
 
-    SELECT *
-    FROM MyTable@{FORCE_INDEX=MyTableIndex}
-    WHERE IndexedColumn=@value
+```
+SELECT *
+FROM MyTable@{FORCE_INDEX=MyTableIndex}
+WHERE IndexedColumn=@value
+```
 
 Indexes can be used to enforce unique values within a table column, by defining a [`UNIQUE` index](https://docs.cloud.google.com/spanner/docs/secondary-indexes#unique_indexes) on that column. Adding duplicate values will be prevented by the index.
 
 Here is an example DDL statement creating a secondary index for the Albums table:
 
-    CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
+```
+CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
+```
 
 Note that if you create additional indexes after your data is loaded, populating the index may take some time. You should limit the rate at which you add them to an average of three per day. For more guidance on creating secondary indexes, see [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) . For more information on the limitations on index creation, see [Schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates#large-updates) .
 
@@ -230,9 +167,9 @@ The default isolation level of transactions in Spanner is [serializable isolatio
 
 Spanner offers [read-write and read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions) . Additionally, read transactions can have [timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) applied, where you are reading a consistent version of the data specified in these ways:
 
-  - At an exact time in the past (up to 1 hour ago).
-  - In the future (where the read will block until that time arrives).
-  - With an acceptable amount of bounded staleness, which will return a consistent view up to some time in the past without needing to check that later data is available on another replica. This can give performance benefits at the expense of possibly stale data.
+- At an exact time in the past (up to 1 hour ago).
+- In the future (where the read will block until that time arrives).
+- With an acceptable amount of bounded staleness, which will return a consistent view up to some time in the past without needing to check that later data is available on another replica. This can give performance benefits at the expense of possibly stale data.
 
 ### Step 4: Transfer your data from Oracle to Spanner
 
@@ -248,9 +185,9 @@ Some options for performing an export are listed in the [Oracle FAQ](http://www.
 
 These include:
 
-  - Using SQL\*plus or SQLcl to spool a query to a text file.
-  - Writing a [PL/SQL function using UTL\_FILE](https://asktom.oracle.com/pls/apex/f?p=100:11:0::::P11_QUESTION_ID:9536328100346697722) to unload a table in parallel to text files.
-  - Using features within [Oracle APEX](https://docs.oracle.com/cd/E18283_01/appdev.112/e12511/sql_utl.htm#insertedID2) or [Oracle SQL Developer](https://www.oracle.com/database/technologies/appdev/sqldeveloper-landing.html) to unload a table to a CSV or XML file.
+- Using SQL\*plus or SQLcl to spool a query to a text file.
+- Writing a [PL/SQL function using UTL_FILE](https://asktom.oracle.com/pls/apex/f?p=100:11:0::::P11_QUESTION_ID:9536328100346697722) to unload a table in parallel to text files.
+- Using features within [Oracle APEX](https://docs.oracle.com/cd/E18283_01/appdev.112/e12511/sql_utl.htm#insertedID2) or [Oracle SQL Developer](https://www.oracle.com/database/technologies/appdev/sqldeveloper-landing.html) to unload a table to a CSV or XML file.
 
 Each of these has the disadvantage that only one table can be exported at a time, which means that you must pause your application or [quiesce your database](http://www.orafaq.com/node/2943) so that the database remains in a consistent state for export.
 
@@ -286,13 +223,13 @@ There are various methods of keeping your two databases in sync, including Chang
 
 You can write an application that subscribes to one of these streams and that applies the same modifications (after data conversion, of course) to your Spanner database. Such a stream processing application has to implement several features:
 
-  - Connecting to the Oracle database (source database).
-  - Connecting to Spanner (target database).
-  - Repeatedly performing the following:
-      - Receiveing the data produced by one of the Oracle database CDC streams.
-      - Interpreting the data produced by the CDC stream.
-      - Converting the data into Spanner `INSERT` statements.
-      - Executing the Spanner `INSERT` statements.
+- Connecting to the Oracle database (source database).
+- Connecting to Spanner (target database).
+- Repeatedly performing the following:
+  - Receiveing the data produced by one of the Oracle database CDC streams.
+  - Interpreting the data produced by the CDC stream.
+  - Converting the data into Spanner `INSERT` statements.
+  - Executing the Spanner `INSERT` statements.
 
 Database migration technology is middleware technology that has implemented the required features as part of its functionality. The database migration platform is installed as a separate component either at the source location or the target location, in accordance with customer requirements. The database migration platform only requires connectivity configuration of the databases involved in order to specify and start continuous data transfer from the source to the target database.
 
@@ -330,12 +267,12 @@ Finally, you can disable and remove the Oracle database update code and shut dow
 
 You can optionally export your tables from Spanner to a Cloud Storage bucket using a Dataflow template to perform the export. The resulting folder contains a set of Avro files and JSON manifest files containing your exported tables. These files can serve various purposes, including:
 
-  - Backing up your database for data retention policy compliance or disaster recovery.
-  - Importing the Avro file into other Google Cloud offerings such as BigQuery.
+- Backing up your database for data retention policy compliance or disaster recovery.
+- Importing the Avro file into other Google Cloud offerings such as BigQuery.
 
 For more information on the export and import process, see [Exporting Databases](https://docs.cloud.google.com/spanner/docs/export) and [Importing Databases](https://docs.cloud.google.com/spanner/docs/import) .
 
 ## What's next
 
-  - Read about how to [optimize your Spanner schema](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .
-  - Learn how to use [Dataflow](https://docs.cloud.google.com/dataflow/docs/how-to) for more complex situations.
+- Read about how to [optimize your Spanner schema](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .
+- Learn how to use [Dataflow](https://docs.cloud.google.com/dataflow/docs/how-to) for more complex situations.

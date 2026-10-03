@@ -36,208 +36,223 @@ The following examples insert `Account` nodes and `Transfer` edges into the data
 
 In the Google Cloud console, run the following DML statement. For more information, see [Run statements in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/dml-tasks#console) .
 
-    -- Insert 2 Account nodes.
-    INSERT INTO Account (id, create_time, is_blocked)
-    VALUES (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false);
-    INSERT INTO Account (id, create_time, is_blocked)
-    VALUES (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true);
-    
-    -- Insert 2 Transfer edges.
-    INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
-    VALUES (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100);
-    INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
-    VALUES (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200);
+```
+-- Insert 2 Account nodes.
+INSERT INTO Account (id, create_time, is_blocked)
+VALUES (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false);
+INSERT INTO Account (id, create_time, is_blocked)
+VALUES (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true);
+
+-- Insert 2 Transfer edges.
+INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
+VALUES (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100);
+INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
+VALUES (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200);
+```
 
 ### gcloud
 
 In the gcloud CLI, run the following commands. For more information, see [Execute statements with the gcloud CLI](https://docs.cloud.google.com/spanner/docs/dml-tasks#gcloud-dml) .
 
-    gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="INSERT INTO Account (id, create_time, is_blocked) VALUES (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false)"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="INSERT INTO Account (id, create_time, is_blocked) VALUES (2, CAST('2000-08-12 07:13:16.463959-03:41'  AS TIMESTAMP), true)"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) VALUES (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100)"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) VALUES (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200)"
+```
+gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+    --sql="INSERT INTO Account (id, create_time, is_blocked) VALUES (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false)"
+gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+    --sql="INSERT INTO Account (id, create_time, is_blocked) VALUES (2, CAST('2000-08-12 07:13:16.463959-03:41'  AS TIMESTAMP), true)"
+gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+    --sql="INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) VALUES (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100)"
+gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+    --sql="INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) VALUES (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200)"
+```
 
 Replace the following:
 
-  - DATABASE\_NAME : the name of your database.
-  - INSTANCE\_NAME : the name of your instance.
+- ` DATABASE_NAME ` : the name of your database.
+- ` INSTANCE_NAME ` : the name of your instance.
 
 ### Client libraries
 
 ### Python
 
-    def insert_data_with_dml(instance_id, database_id):
-        """Inserts sample data into the given database using a DML statement."""
-    
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        def insert_accounts(transaction):
-            row_ct = transaction.execute_update(
-                "INSERT INTO Account (id, create_time, is_blocked) "
-                "  VALUES"
-                "    (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false),"
-                "    (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true)"
-            )
-    
-            print("{} record(s) inserted into Account.".format(row_ct))
-    
-        def insert_transfers(transaction):
-            row_ct = transaction.execute_update(
-                "INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) "
-                "  VALUES"
-                "    (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100),"
-                "    (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200) "
-            )
-    
-            print("{} record(s) inserted into AccountTransferAccount.".format(row_ct))
-    
-        database.run_in_transaction(insert_accounts)
-        database.run_in_transaction(insert_transfers)
+```python
+def insert_data_with_dml(instance_id, database_id):
+    """Inserts sample data into the given database using a DML statement."""
+
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    def insert_accounts(transaction):
+        row_ct = transaction.execute_update(
+            "INSERT INTO Account (id, create_time, is_blocked) "
+            "  VALUES"
+            "    (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false),"
+            "    (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true)"
+        )
+
+        print("{} record(s) inserted into Account.".format(row_ct))
+
+    def insert_transfers(transaction):
+        row_ct = transaction.execute_update(
+            "INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) "
+            "  VALUES"
+            "    (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100),"
+            "    (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200) "
+        )
+
+        print("{} record(s) inserted into AccountTransferAccount.".format(row_ct))
+
+    database.run_in_transaction(insert_accounts)
+    database.run_in_transaction(insert_transfers)
+```
 
 ### Java
 
-    static void insertUsingDml(DatabaseClient dbClient) {
-      dbClient
-          .readWriteTransaction()
-          .run(
-              transaction -> {
-                String sql =
-                    "INSERT INTO Account (id, create_time, is_blocked) "
-                        + "  VALUES"
-                        + "    (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false),"
-                        + "    (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true)";
-                long rowCount = transaction.executeUpdate(Statement.of(sql));
-                System.out.printf("%d record(s) inserted into Account.\n", rowCount);
-                return null;
-              });
-    
-      dbClient
-          .readWriteTransaction()
-          .run(
-              transaction -> {
-                String sql =
-                    "INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) "
-                        + "  VALUES"
-                        + "    (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100),"
-                        + "    (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200) ";
-                long rowCount = transaction.executeUpdate(Statement.of(sql));
-                System.out.printf("%d record(s) inserted into AccountTransferAccount.\n", rowCount);
-                return null;
-              });
-    }
+```java
+static void insertUsingDml(DatabaseClient dbClient) {
+  dbClient
+      .readWriteTransaction()
+      .run(
+          transaction -> {
+            String sql =
+                "INSERT INTO Account (id, create_time, is_blocked) "
+                    + "  VALUES"
+                    + "    (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false),"
+                    + "    (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true)";
+            long rowCount = transaction.executeUpdate(Statement.of(sql));
+            System.out.printf("%d record(s) inserted into Account.\n", rowCount);
+            return null;
+          });
+
+  dbClient
+      .readWriteTransaction()
+      .run(
+          transaction -> {
+            String sql =
+                "INSERT INTO AccountTransferAccount (id, to_id, create_time, amount) "
+                    + "  VALUES"
+                    + "    (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100),"
+                    + "    (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200) ";
+            long rowCount = transaction.executeUpdate(Statement.of(sql));
+            System.out.printf("%d record(s) inserted into AccountTransferAccount.\n", rowCount);
+            return null;
+          });
+}
+```
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func insertGraphDataWithDml(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     // Execute a ReadWriteTransaction to insert values into the 'Account' table
-     // underpinning 'Account' nodes in 'FinGraph'. The function run by ReadWriteTransaction
-     // executes an 'INSERT' SQL DML statement. Graph queries run after this
-     // transaction is committed will observe the effects of the new 'Account's
-     // added to the graph.
-     _, err1 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{
-             SQL: `INSERT INTO Account (id, create_time, is_blocked)
-                     VALUES
-                         (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false),
-                         (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true)`,
-         }
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d Account record(s) inserted.\n", rowCount)
-         return err
-     })
-    
-     if err1 != nil {
-         return err1
-     }
-    
-     // Execute a ReadWriteTransaction to insert values into the 'AccountTransferAccount'
-     // table underpinning 'AccountTransferAccount' edges in 'FinGraph'. The function run
-     // by ReadWriteTransaction executes an 'INSERT' SQL DML statement.
-     // Graph queries run after this transaction is committed will observe the effects
-     // of the edges added to the graph.
-     _, err2 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{
-             SQL: `INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
-                     VALUES
-                         (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100),
-                         (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200)`,
-         }
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d AccountTransferAccount record(s) inserted.\n", rowCount)
-         return err
-     })
-    
-     return err2
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func insertGraphDataWithDml(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    // Execute a ReadWriteTransaction to insert values into the 'Account' table
+    // underpinning 'Account' nodes in 'FinGraph'. The function run by ReadWriteTransaction
+    // executes an 'INSERT' SQL DML statement. Graph queries run after this
+    // transaction is committed will observe the effects of the new 'Account's
+    // added to the graph.
+    _, err1 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{
+            SQL: `INSERT INTO Account (id, create_time, is_blocked)
+                    VALUES
+                        (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false),
+                        (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true)`,
+        }
+        rowCount, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d Account record(s) inserted.\n", rowCount)
+        return err
+    })
+
+    if err1 != nil {
+        return err1
+    }
+
+    // Execute a ReadWriteTransaction to insert values into the 'AccountTransferAccount'
+    // table underpinning 'AccountTransferAccount' edges in 'FinGraph'. The function run
+    // by ReadWriteTransaction executes an 'INSERT' SQL DML statement.
+    // Graph queries run after this transaction is committed will observe the effects
+    // of the edges added to the graph.
+    _, err2 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{
+            SQL: `INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
+                    VALUES
+                        (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100),
+                        (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200)`,
+        }
+        rowCount, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d AccountTransferAccount record(s) inserted.\n", rowCount)
+        return err
+    })
+
+    return err2
+}
+```
 
 ### C++
 
-    void InsertDataWithDml(google::cloud::spanner::Client client) {
-      using ::google::cloud::StatusOr;
-      namespace spanner = ::google::cloud::spanner;
-    
-      std::int64_t rows_inserted;
-      auto commit_result = client.Commit(
-          [&client, &rows_inserted](
-              spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
-            auto insert =
-                client.ExecuteDml(std::move(txn), spanner::SqlStatement(R"""(
-              INSERT INTO Account (id, create_time, is_blocked)
-              VALUES
-              (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false),
-              (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true)
-            )"""));
-            if (!insert) return std::move(insert).status();
-            rows_inserted = insert->RowsModified();
-            return spanner::Mutations{};
-          });
-      if (!commit_result) throw std::move(commit_result).status();
-      std::cout << "Rows inserted into Account: " << rows_inserted << "\n";
-    
-      commit_result = client.Commit(
-          [&client, &rows_inserted](
-              spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
-            auto insert =
-                client.ExecuteDml(std::move(txn), spanner::SqlStatement(R"""(
-              INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
-              VALUES
-              (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100),
-              (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200)
-            )"""));
-            if (!insert) return std::move(insert).status();
-            rows_inserted = insert->RowsModified();
-            return spanner::Mutations{};
-          });
-      if (!commit_result) throw std::move(commit_result).status();
-      std::cout << "Rows inserted into AccountTransferAccount: " << rows_inserted
-                << "\n";
-    
-      std::cout << "Insert was successful [spanner_insert_graph_data_with_dml]\n";
-    }
+```cpp
+void InsertDataWithDml(google::cloud::spanner::Client client) {
+  using ::google::cloud::StatusOr;
+  namespace spanner = ::google::cloud::spanner;
+
+  std::int64_t rows_inserted;
+  auto commit_result = client.Commit(
+      [&client, &rows_inserted](
+          spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
+        auto insert =
+            client.ExecuteDml(std::move(txn), spanner::SqlStatement(R"""(
+          INSERT INTO Account (id, create_time, is_blocked)
+          VALUES
+          (1, CAST('2000-08-10 08:18:48.463959-07:52' AS TIMESTAMP), false),
+          (2, CAST('2000-08-12 07:13:16.463959-03:41' AS TIMESTAMP), true)
+        )"""));
+        if (!insert) return std::move(insert).status();
+        rows_inserted = insert->RowsModified();
+        return spanner::Mutations{};
+      });
+  if (!commit_result) throw std::move(commit_result).status();
+  std::cout << "Rows inserted into Account: " << rows_inserted << "\n";
+
+  commit_result = client.Commit(
+      [&client, &rows_inserted](
+          spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
+        auto insert =
+            client.ExecuteDml(std::move(txn), spanner::SqlStatement(R"""(
+          INSERT INTO AccountTransferAccount (id, to_id, create_time, amount)
+          VALUES
+          (1, 2, CAST('2000-09-11 03:11:18.463959-06:36' AS TIMESTAMP), 100),
+          (1, 1, CAST('2000-09-12 04:09:34.463959-05:12' AS TIMESTAMP), 200)
+        )"""));
+        if (!insert) return std::move(insert).status();
+        rows_inserted = insert->RowsModified();
+        return spanner::Mutations{};
+      });
+  if (!commit_result) throw std::move(commit_result).status();
+  std::cout << "Rows inserted into AccountTransferAccount: " << rows_inserted
+            << "\n";
+
+  std::cout << "Insert was successful [spanner_insert_graph_data_with_dml]\n";
+}
+```
 
 ## Update nodes or edges
 
@@ -253,173 +268,184 @@ The following examples use DML to update the `Account` node and `Transfer` edge 
 
 In the Google Cloud console, run the following DML statement. For more information, see [Run statements in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/dml-tasks#console) .
 
-    -- Update Account node
-    UPDATE Account SET is_blocked = false WHERE id = 2;
-    
-    -- Update Transfer edge
-    UPDATE AccountTransferAccount
-    SET amount = 300
-    WHERE id = 1 AND to_id = 2;
+```
+-- Update Account node
+UPDATE Account SET is_blocked = false WHERE id = 2;
+
+-- Update Transfer edge
+UPDATE AccountTransferAccount
+SET amount = 300
+WHERE id = 1 AND to_id = 2;
+```
 
 ### gcloud
 
 1.  [Execute statements with the gcloud CLI](https://docs.cloud.google.com/spanner/docs/dml-tasks#gcloud-dml) .
 2.  In the gcloud CLI, run the following commands:
 
-<!-- end list -->
-
-    gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="UPDATE Account SET is_blocked = false WHERE id = 2"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2"
+```
+gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+    --sql="UPDATE Account SET is_blocked = false WHERE id = 2"
+gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+    --sql="UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2"
+```
 
 Replace the following:
 
-  - DATABASE\_NAME : the name of your database.
-  - INSTANCE\_NAME : the name of your instance.
+- ` DATABASE_NAME ` : the name of your database.
+- ` INSTANCE_NAME ` : the name of your instance.
 
 ### Client libraries
 
 ### Python
 
-    def update_data_with_dml(instance_id, database_id):
-        """Updates sample data from the database using a DML statement."""
-    
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        def update_accounts(transaction):
-            row_ct = transaction.execute_update(
-                "UPDATE Account SET is_blocked = false WHERE id = 2"
-            )
-    
-            print("{} Account record(s) updated.".format(row_ct))
-    
-        def update_transfers(transaction):
-            row_ct = transaction.execute_update(
-                "UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2"
-            )
-    
-            print("{} AccountTransferAccount record(s) updated.".format(row_ct))
-    
-        database.run_in_transaction(update_accounts)
-        database.run_in_transaction(update_transfers)
+```python
+def update_data_with_dml(instance_id, database_id):
+    """Updates sample data from the database using a DML statement."""
+
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    def update_accounts(transaction):
+        row_ct = transaction.execute_update(
+            "UPDATE Account SET is_blocked = false WHERE id = 2"
+        )
+
+        print("{} Account record(s) updated.".format(row_ct))
+
+    def update_transfers(transaction):
+        row_ct = transaction.execute_update(
+            "UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2"
+        )
+
+        print("{} AccountTransferAccount record(s) updated.".format(row_ct))
+
+    database.run_in_transaction(update_accounts)
+    database.run_in_transaction(update_transfers)
+```
 
 ### Java
 
-    static void updateUsingDml(DatabaseClient dbClient) {
-      dbClient
-          .readWriteTransaction()
-          .run(
-              transaction -> {
-                String sql = "UPDATE Account SET is_blocked = false WHERE id = 2";
-                long rowCount = transaction.executeUpdate(Statement.of(sql));
-                System.out.printf("%d Account record(s) updated.\n", rowCount);
-                return null;
-              });
-    
-      dbClient
-          .readWriteTransaction()
-          .run(
-              transaction -> {
-                String sql =
-                    "UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2";
-                long rowCount = transaction.executeUpdate(Statement.of(sql));
-                System.out.printf("%d AccountTransferAccount record(s) updated.\n", rowCount);
-                return null;
-              });
-    }
+```java
+static void updateUsingDml(DatabaseClient dbClient) {
+  dbClient
+      .readWriteTransaction()
+      .run(
+          transaction -> {
+            String sql = "UPDATE Account SET is_blocked = false WHERE id = 2";
+            long rowCount = transaction.executeUpdate(Statement.of(sql));
+            System.out.printf("%d Account record(s) updated.\n", rowCount);
+            return null;
+          });
+
+  dbClient
+      .readWriteTransaction()
+      .run(
+          transaction -> {
+            String sql =
+                "UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2";
+            long rowCount = transaction.executeUpdate(Statement.of(sql));
+            System.out.printf("%d AccountTransferAccount record(s) updated.\n", rowCount);
+            return null;
+          });
+}
+```
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func updateGraphDataWithDml(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     // Execute a ReadWriteTransaction to update the 'Account' table underpinning
-     // 'Account' nodes in 'FinGraph'. The function run by ReadWriteTransaction
-     // executes an 'UPDATE' SQL DML statement. Graph queries run after this
-     // transaction is committed will observe the effects of the update to 'Account'
-     // with 'id' = 2.
-     _, err1 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{
-             SQL: `UPDATE Account SET is_blocked = false WHERE id = 2`,
-         }
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d Account record(s) updated.\n", rowCount)
-         return err
-     })
-    
-     if err1 != nil {
-         return err1
-     }
-    
-     // Execute a ReadWriteTransaction to update the 'AccountTransferAccount' table
-     // underpinning 'AccountTransferAccount' edges in 'FinGraph'. The function run
-     // by ReadWriteTransaction executes an 'UPDATE' SQL DML statement.
-     // Graph queries run after this transaction is committed will observe the effects
-     // of the update to 'AccountTransferAccount' where the source of the transfer has
-     // 'id' 1 and the destination has 'id' 2.
-     _, err2 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{
-             SQL: `UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2`,
-         }
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d AccountTransferAccount record(s) updated.\n", rowCount)
-         return err
-     })
-    
-     return err2
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func updateGraphDataWithDml(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    // Execute a ReadWriteTransaction to update the 'Account' table underpinning
+    // 'Account' nodes in 'FinGraph'. The function run by ReadWriteTransaction
+    // executes an 'UPDATE' SQL DML statement. Graph queries run after this
+    // transaction is committed will observe the effects of the update to 'Account'
+    // with 'id' = 2.
+    _, err1 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{
+            SQL: `UPDATE Account SET is_blocked = false WHERE id = 2`,
+        }
+        rowCount, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d Account record(s) updated.\n", rowCount)
+        return err
+    })
+
+    if err1 != nil {
+        return err1
+    }
+
+    // Execute a ReadWriteTransaction to update the 'AccountTransferAccount' table
+    // underpinning 'AccountTransferAccount' edges in 'FinGraph'. The function run
+    // by ReadWriteTransaction executes an 'UPDATE' SQL DML statement.
+    // Graph queries run after this transaction is committed will observe the effects
+    // of the update to 'AccountTransferAccount' where the source of the transfer has
+    // 'id' 1 and the destination has 'id' 2.
+    _, err2 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{
+            SQL: `UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2`,
+        }
+        rowCount, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d AccountTransferAccount record(s) updated.\n", rowCount)
+        return err
+    })
+
+    return err2
+}
+```
 
 ### C++
 
-    void UpdateDataWithDml(google::cloud::spanner::Client client) {
-      using ::google::cloud::StatusOr;
-      namespace spanner = ::google::cloud::spanner;
-    
-      auto commit_result = client.Commit(
-          [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
-            auto update = client.ExecuteDml(
-                std::move(txn),
-                spanner::SqlStatement(
-                    "UPDATE Account SET is_blocked = false WHERE id = 2"));
-            if (!update) return std::move(update).status();
-            return spanner::Mutations{};
-          });
-      if (!commit_result) throw std::move(commit_result).status();
-    
-      commit_result = client.Commit(
-          [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
-            auto update =
-                client.ExecuteDml(std::move(txn), spanner::SqlStatement(R"""(
-              UPDATE AccountTransferAccount
-                SET amount = 300 WHERE id = 1 AND to_id = 2)"""));
-            if (!update) return std::move(update).status();
-            return spanner::Mutations{};
-          });
-      if (!commit_result) throw std::move(commit_result).status();
-    
-      std::cout << "Update was successful [spanner_update_graph_data_with_dml]\n";
-    }
+```cpp
+void UpdateDataWithDml(google::cloud::spanner::Client client) {
+  using ::google::cloud::StatusOr;
+  namespace spanner = ::google::cloud::spanner;
+
+  auto commit_result = client.Commit(
+      [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
+        auto update = client.ExecuteDml(
+            std::move(txn),
+            spanner::SqlStatement(
+                "UPDATE Account SET is_blocked = false WHERE id = 2"));
+        if (!update) return std::move(update).status();
+        return spanner::Mutations{};
+      });
+  if (!commit_result) throw std::move(commit_result).status();
+
+  commit_result = client.Commit(
+      [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
+        auto update =
+            client.ExecuteDml(std::move(txn), spanner::SqlStatement(R"""(
+          UPDATE AccountTransferAccount
+            SET amount = 300 WHERE id = 1 AND to_id = 2)"""));
+        if (!update) return std::move(update).status();
+        return spanner::Mutations{};
+      });
+  if (!commit_result) throw std::move(commit_result).status();
+
+  std::cout << "Update was successful [spanner_update_graph_data_with_dml]\n";
+}
+```
 
 ### Update nodes or edges with graph queries and DML
 
@@ -429,138 +455,151 @@ The following examples use Spanner Graph queries with DML to update the `Account
 
 In the Google Cloud console, run the following DML statement. For more information, see [Run statements in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/dml-tasks#console) .
 
-    -- Use Graph pattern matching to identify Account nodes to update:
-    UPDATE Account SET is_blocked = false
-    WHERE id IN {
-      GRAPH FinGraph
-      MATCH (a:Account WHERE a.id = 1)-[:Transfers]->{1,2}(b:Account)
-      RETURN b.id
-    }
+```
+-- Use Graph pattern matching to identify Account nodes to update:
+UPDATE Account SET is_blocked = false
+WHERE id IN {
+  GRAPH FinGraph
+  MATCH (a:Account WHERE a.id = 1)-[:Transfers]->{1,2}(b:Account)
+  RETURN b.id
+}
+```
 
 ### gcloud
 
 In the gcloud CLI, run the following commands. For more information, see [Execute statements with the gcloud CLI](https://docs.cloud.google.com/spanner/docs/dml-tasks#gcloud-dml) .
 
-    gcloud spanner databases execute-sql DATABASE-NAME --instance=INSTANCE_NAME \
-        --sql="UPDATE Account SET is_blocked = false"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2"
-        --sql=" WHERE id IN { GRAPH FinGraph MATCH (a:Account WHERE a.id = 1)-[:Transfers]->{1,2}(b:Account) RETURN b.id }"
+```
+gcloud spanner databases execute-sql DATABASE-NAME --instance=INSTANCE_NAME \
+    --sql="UPDATE Account SET is_blocked = false"
+gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+    --sql="UPDATE AccountTransferAccount SET amount = 300 WHERE id = 1 AND to_id = 2"
+    --sql=" WHERE id IN { GRAPH FinGraph MATCH (a:Account WHERE a.id = 1)-[:Transfers]->{1,2}(b:Account) RETURN b.id }"
+```
 
 Replace the following:
 
-  - DATABASE\_NAME : the name of your database.
-  - INSTANCE\_NAME : the name of your instance.
+- ` DATABASE_NAME ` : the name of your database.
+- ` INSTANCE_NAME ` : the name of your instance.
 
 ### Client libraries
 
 ### Python
 
-    def update_data_with_graph_query_in_dml(instance_id, database_id):
-        """Updates sample data from the database using a DML statement."""
-    
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        def update_accounts(transaction):
-            row_ct = transaction.execute_update(
-                "UPDATE Account SET is_blocked = true "
-                "WHERE id IN {"
-                "  GRAPH FinGraph"
-                "  MATCH (a:Account WHERE a.id = 1)-[:TRANSFERS]->{1,2}(b:Account)"
-                "  RETURN b.id}"
-            )
-    
-            print("{} Account record(s) updated.".format(row_ct))
-    
-        database.run_in_transaction(update_accounts)
+```python
+def update_data_with_graph_query_in_dml(instance_id, database_id):
+    """Updates sample data from the database using a DML statement."""
+
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    def update_accounts(transaction):
+        row_ct = transaction.execute_update(
+            "UPDATE Account SET is_blocked = true "
+            "WHERE id IN {"
+            "  GRAPH FinGraph"
+            "  MATCH (a:Account WHERE a.id = 1)-[:TRANSFERS]->{1,2}(b:Account)"
+            "  RETURN b.id}"
+        )
+
+        print("{} Account record(s) updated.".format(row_ct))
+
+    database.run_in_transaction(update_accounts)
+```
 
 ### Java
 
-    static void updateUsingGraphQueryInDml(DatabaseClient dbClient) {
-      dbClient
-          .readWriteTransaction()
-          .run(
-              transaction -> {
-                String sql =
-                    "UPDATE Account SET is_blocked = true "
-                        + "WHERE id IN {"
-                        + "  GRAPH FinGraph"
-                        + "  MATCH (a:Account WHERE a.id = 1)-[:TRANSFERS]->{1,2}(b:Account)"
-                        + "  RETURN b.id}";
-                long rowCount = transaction.executeUpdate(Statement.of(sql));
-                System.out.printf("%d Account record(s) updated.\n", rowCount);
-                return null;
-              });
-    }
+```java
+static void updateUsingGraphQueryInDml(DatabaseClient dbClient) {
+  dbClient
+      .readWriteTransaction()
+      .run(
+          transaction -> {
+            String sql =
+                "UPDATE Account SET is_blocked = true "
+                    + "WHERE id IN {"
+                    + "  GRAPH FinGraph"
+                    + "  MATCH (a:Account WHERE a.id = 1)-[:TRANSFERS]->{1,2}(b:Account)"
+                    + "  RETURN b.id}";
+            long rowCount = transaction.executeUpdate(Statement.of(sql));
+            System.out.printf("%d Account record(s) updated.\n", rowCount);
+            return null;
+          });
+}
+```
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func updateGraphDataWithGraphQueryInDml(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     // Execute a ReadWriteTransaction to update the 'Account' table underpinning
-     // 'Account' nodes in 'FinGraph'. The function run by ReadWriteTransaction
-     // executes an 'UPDATE' SQL DML statement. Graph queries run after this
-     // transaction is committed will observe the effects of the updates to 'Account's
-     //
-     // The update is performed for all 'Account's whose 'id' is returned by
-     // the graph query in the 'IN' subquery, i.e., all 'Account's that have
-     // received transfers directly or via one intermediary from an 'Account'
-     // whose 'id' is 1.
-     _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{
-             SQL: `UPDATE Account SET is_blocked = true 
-                   WHERE id IN {
-                     GRAPH FinGraph 
-                     MATCH (a:Account WHERE a.id = 1)-[:TRANSFERS]->{1,2}(b:Account)
-                     RETURN b.id}`,
-         }
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d Account record(s) updated.\n", rowCount)
-         return err
-     })
-    
-     return err
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func updateGraphDataWithGraphQueryInDml(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    // Execute a ReadWriteTransaction to update the 'Account' table underpinning
+    // 'Account' nodes in 'FinGraph'. The function run by ReadWriteTransaction
+    // executes an 'UPDATE' SQL DML statement. Graph queries run after this
+    // transaction is committed will observe the effects of the updates to 'Account's
+    //
+    // The update is performed for all 'Account's whose 'id' is returned by
+    // the graph query in the 'IN' subquery, i.e., all 'Account's that have
+    // received transfers directly or via one intermediary from an 'Account'
+    // whose 'id' is 1.
+    _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{
+            SQL: `UPDATE Account SET is_blocked = true 
+                  WHERE id IN {
+                    GRAPH FinGraph 
+                    MATCH (a:Account WHERE a.id = 1)-[:TRANSFERS]->{1,2}(b:Account)
+                    RETURN b.id}`,
+        }
+        rowCount, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d Account record(s) updated.\n", rowCount)
+        return err
+    })
+
+    return err
+}
+```
 
 ### C++
 
-    void UpdateDataWithGraphQueryInDml(google::cloud::spanner::Client client) {
-      using ::google::cloud::StatusOr;
-      namespace spanner = ::google::cloud::spanner;
-      auto commit_result = client.Commit(
-          [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
-            auto update =
-                client.ExecuteDml(std::move(txn), spanner::SqlStatement(R"""(
-                  UPDATE Account SET is_blocked = true
-                  WHERE id IN {
-                    GRAPH FinGraph
-                    MATCH (a:Account WHERE a.id = 1)-[:TRANSFERS]->{1,2}(b:Account)
-                    RETURN b.id})"""));
-            if (!update) return std::move(update).status();
-            return spanner::Mutations{};
-          });
-      if (!commit_result) throw std::move(commit_result).status();
-      std::cout << "Update was successful "
-                << "[spanner_update_graph_data_with_graph_query_in_dml]\n";
-    }
+```cpp
+void UpdateDataWithGraphQueryInDml(google::cloud::spanner::Client client) {
+  using ::google::cloud::StatusOr;
+  namespace spanner = ::google::cloud::spanner;
+  auto commit_result = client.Commit(
+      [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
+        auto update =
+            client.ExecuteDml(std::move(txn), spanner::SqlStatement(R"""(
+              UPDATE Account SET is_blocked = true
+              WHERE id IN {
+                GRAPH FinGraph
+                MATCH (a:Account WHERE a.id = 1)-[:TRANSFERS]->{1,2}(b:Account)
+                RETURN b.id})"""));
+        if (!update) return std::move(update).status();
+        return spanner::Mutations{};
+      });
+  if (!commit_result) throw std::move(commit_result).status();
+  std::cout << "Update was successful "
+            << "[spanner_update_graph_data_with_graph_query_in_dml]\n";
+}
+```
 
 ## Delete nodes or edges
 
@@ -576,164 +615,177 @@ The following examples delete a `Transfer` edge and an `Account` node from the g
 
 In the Google Cloud console, run the following DML statement. For more information, see [Run statements in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/dml-tasks#console) .
 
-    -- Delete Transfer edge
-    DELETE FROM AccountTransferAccount
-    WHERE id = 1 AND to_id = 2;
-    
-    -- Delete Account node
-    DELETE FROM Account WHERE id = 2;
+```
+-- Delete Transfer edge
+DELETE FROM AccountTransferAccount
+WHERE id = 1 AND to_id = 2;
+
+-- Delete Account node
+DELETE FROM Account WHERE id = 2;
+```
 
 ### gcloud
 
 In the gcloud CLI, run the following commands. For more information, see [Execute statements with the gcloud CLI](https://docs.cloud.google.com/spanner/docs/dml-tasks#gcloud-dml) .
 
-    gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2"gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
-        --sql="DELETE FROM Account WHERE id = 2"
+```
+gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+    --sql="DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2"
+gcloud spanner databases execute-sql  DATABASE-NAME --instance=INSTANCE-NAME \
+    --sql="DELETE FROM Account WHERE id = 2"
+```
 
 Replace the following:
 
-  - DATABASE\_NAME : the name of your database.
-  - INSTANCE\_NAME : the name of your instance.
+- ` DATABASE_NAME ` : the name of your database.
+- ` INSTANCE_NAME ` : the name of your instance.
 
 ### Client libraries
 
 ### Python
 
-    def delete_data_with_dml(instance_id, database_id):
-        """Deletes sample data from the database using a DML statement."""
-    
-        spanner_client = spanner.Client()
-        instance = spanner_client.instance(instance_id)
-        database = instance.database(database_id)
-    
-        def delete_transfers(transaction):
-            row_ct = transaction.execute_update(
-                "DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2"
-            )
-    
-            print("{} AccountTransferAccount record(s) deleted.".format(row_ct))
-    
-        def delete_accounts(transaction):
-            row_ct = transaction.execute_update("DELETE FROM Account WHERE id = 2")
-    
-            print("{} Account record(s) deleted.".format(row_ct))
-    
-        database.run_in_transaction(delete_transfers)
-        database.run_in_transaction(delete_accounts)
+```python
+def delete_data_with_dml(instance_id, database_id):
+    """Deletes sample data from the database using a DML statement."""
+
+    spanner_client = spanner.Client()
+    instance = spanner_client.instance(instance_id)
+    database = instance.database(database_id)
+
+    def delete_transfers(transaction):
+        row_ct = transaction.execute_update(
+            "DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2"
+        )
+
+        print("{} AccountTransferAccount record(s) deleted.".format(row_ct))
+
+    def delete_accounts(transaction):
+        row_ct = transaction.execute_update("DELETE FROM Account WHERE id = 2")
+
+        print("{} Account record(s) deleted.".format(row_ct))
+
+    database.run_in_transaction(delete_transfers)
+    database.run_in_transaction(delete_accounts)
+```
 
 ### Java
 
-    static void deleteUsingDml(DatabaseClient dbClient) {
-      dbClient
-          .readWriteTransaction()
-          .run(
-              transaction -> {
-                String sql = "DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2";
-                long rowCount = transaction.executeUpdate(Statement.of(sql));
-                System.out.printf("%d AccountTransferAccount record(s) deleted.\n", rowCount);
-                return null;
-              });
-    
-      dbClient
-          .readWriteTransaction()
-          .run(
-              transaction -> {
-                String sql = "DELETE FROM Account WHERE id = 2";
-                long rowCount = transaction.executeUpdate(Statement.of(sql));
-                System.out.printf("%d Account record(s) deleted.\n", rowCount);
-                return null;
-              });
-    }
+```java
+static void deleteUsingDml(DatabaseClient dbClient) {
+  dbClient
+      .readWriteTransaction()
+      .run(
+          transaction -> {
+            String sql = "DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2";
+            long rowCount = transaction.executeUpdate(Statement.of(sql));
+            System.out.printf("%d AccountTransferAccount record(s) deleted.\n", rowCount);
+            return null;
+          });
+
+  dbClient
+      .readWriteTransaction()
+      .run(
+          transaction -> {
+            String sql = "DELETE FROM Account WHERE id = 2";
+            long rowCount = transaction.executeUpdate(Statement.of(sql));
+            System.out.printf("%d Account record(s) deleted.\n", rowCount);
+            return null;
+          });
+}
+```
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func deleteGraphDataWithDml(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     // Execute a ReadWriteTransaction to update the 'AccountTransferAccount'
-     // table underpinning 'AccountTransferAccount' edges in 'FinGraph'. The
-     // function run by ReadWriteTransaction executes an 'DELETE' SQL DML
-     // statement. This has the effect of deleting the 'AccountTransferAccount'
-     // edge where the source 'id' is 1 and the destination 'id' is 2 from the graph.
-     _, err1 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{SQL: `DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2`}
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d AccountTransferAccount record(s) deleted.\n", rowCount)
-         return nil
-     })
-    
-     if err1 != nil {
-         return err1
-     }
-    
-     // Execute a ReadWriteTransaction to update the 'Account' table underpinning
-     //'Account' nodes in 'FinGraph'. In 'FinGraph', nodes can only be deleted
-     // after any edges referencing the nodes have been deleted first. The function
-     // run by ReadWriteTransaction executes an 'DELETE' SQL DML statement. This has
-     // the effect of deleting the 'Account' node whose 'id' is 1 from the graph.
-     _, err2 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{SQL: `DELETE FROM Account WHERE id = 2`}
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d Account record(s) deleted.\n", rowCount)
-         return nil
-     })
-    
-     return err2
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func deleteGraphDataWithDml(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    // Execute a ReadWriteTransaction to update the 'AccountTransferAccount'
+    // table underpinning 'AccountTransferAccount' edges in 'FinGraph'. The
+    // function run by ReadWriteTransaction executes an 'DELETE' SQL DML
+    // statement. This has the effect of deleting the 'AccountTransferAccount'
+    // edge where the source 'id' is 1 and the destination 'id' is 2 from the graph.
+    _, err1 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{SQL: `DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2`}
+        rowCount, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d AccountTransferAccount record(s) deleted.\n", rowCount)
+        return nil
+    })
+
+    if err1 != nil {
+        return err1
+    }
+
+    // Execute a ReadWriteTransaction to update the 'Account' table underpinning
+    //'Account' nodes in 'FinGraph'. In 'FinGraph', nodes can only be deleted
+    // after any edges referencing the nodes have been deleted first. The function
+    // run by ReadWriteTransaction executes an 'DELETE' SQL DML statement. This has
+    // the effect of deleting the 'Account' node whose 'id' is 1 from the graph.
+    _, err2 := client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{SQL: `DELETE FROM Account WHERE id = 2`}
+        rowCount, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d Account record(s) deleted.\n", rowCount)
+        return nil
+    })
+
+    return err2
+}
+```
 
 ### C++
 
-    void DeleteDataWithDml(google::cloud::spanner::Client client) {
-      using ::google::cloud::StatusOr;
-      namespace spanner = ::google::cloud::spanner;
-    
-      auto commit_result = client.Commit([&client](spanner::Transaction txn)
-                                             -> StatusOr<spanner::Mutations> {
+```cpp
+void DeleteDataWithDml(google::cloud::spanner::Client client) {
+  using ::google::cloud::StatusOr;
+  namespace spanner = ::google::cloud::spanner;
+
+  auto commit_result = client.Commit([&client](spanner::Transaction txn)
+                                         -> StatusOr<spanner::Mutations> {
+    auto deleted = client.ExecuteDml(
+        std::move(txn),
+        spanner::SqlStatement(
+            "DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2"));
+    if (!deleted) return std::move(deleted).status();
+    return spanner::Mutations{};
+  });
+  if (!commit_result) throw std::move(commit_result).status();
+
+  commit_result = client.Commit(
+      [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
         auto deleted = client.ExecuteDml(
             std::move(txn),
-            spanner::SqlStatement(
-                "DELETE FROM AccountTransferAccount WHERE id = 1 AND to_id = 2"));
+            spanner::SqlStatement("DELETE FROM Account WHERE id = 2"));
         if (!deleted) return std::move(deleted).status();
         return spanner::Mutations{};
       });
-      if (!commit_result) throw std::move(commit_result).status();
-    
-      commit_result = client.Commit(
-          [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
-            auto deleted = client.ExecuteDml(
-                std::move(txn),
-                spanner::SqlStatement("DELETE FROM Account WHERE id = 2"));
-            if (!deleted) return std::move(deleted).status();
-            return spanner::Mutations{};
-          });
-      if (!commit_result) throw std::move(commit_result).status();
-    
-      std::cout << "Delete was successful [spanner_delete_graph_data_with_dml]\n";
-    }
+  if (!commit_result) throw std::move(commit_result).status();
+
+  std::cout << "Delete was successful [spanner_delete_graph_data_with_dml]\n";
+}
+```
 
 You can combine Spanner Graph queries with your DML statement, as shown in the following example:
 
-``` 
+```
   -- Use Graph pattern matching to identify Account nodes to delete:
   DELETE FROM AccountTransferAccount
   WHERE id IN {
@@ -747,13 +799,13 @@ You can combine Spanner Graph queries with your DML statement, as shown in the f
 
 In addition to using DML to insert, update, and delete individual nodes and edges, you can also use the following methods to manage your Spanner Graph data:
 
-  - You can automate deletion of edges in a graph by using the [ON DELETE CASCADE](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) action.
+- You can automate deletion of edges in a graph by using the [ON DELETE CASCADE](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#on-delete-cascade) action.
 
-  - You can automate deletion of nodes and edges in the graph using a [TTL](https://docs.cloud.google.com/spanner/docs/ttl) policy. For more information, see [TTL on nodes and edges](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#ttl-on-nodes-and-edges) .
+- You can automate deletion of nodes and edges in the graph using a [TTL](https://docs.cloud.google.com/spanner/docs/ttl) policy. For more information, see [TTL on nodes and edges](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#ttl-on-nodes-and-edges) .
 
-  - Efficiently bulk update and delete nodes and edges in the graph using [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
+- Efficiently bulk update and delete nodes and edges in the graph using [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
 
 ## What's next
 
-  - Read the [Spanner Graph queries overview](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
-  - Learn [best practices for tuning Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries) .
+- Read the [Spanner Graph queries overview](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
+- Learn [best practices for tuning Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/best-practices-tuning-queries) .

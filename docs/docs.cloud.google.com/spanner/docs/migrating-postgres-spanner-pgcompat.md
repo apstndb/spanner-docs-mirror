@@ -56,7 +56,7 @@ Note that after you designate your primary key, you can't add or remove a primar
 
 PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-types.html) are similar to [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) in Spanner. In a Spanner database you use secondary indexes to index commonly searched columns for better performance, and to replace any `UNIQUE` constraints specified in your tables. For example, if your PostgreSQL DDL has this statement:
 
-``` 
+```
      CREATE TABLE customer (
         id CHAR (5) PRIMARY KEY,
         first_name VARCHAR (50),
@@ -88,13 +88,17 @@ Value lookups using secondary indexes are effectively the same as a query with a
 
 Spanner's query optimizer is more likely to use a secondary index when the index itself stores all the columns being queried (a covered query). To force the use of an index when querying columns that are not stored in the index, you must use a [FORCE INDEX directive](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index_directive) in the SQL statement, for example:
 
-    SELECT *
-    FROM MyTable /*@ FORCE_INDEX=MyTableIndex */
-    WHERE IndexedColumn=$1;
+```
+SELECT *
+FROM MyTable /*@ FORCE_INDEX=MyTableIndex */
+WHERE IndexedColumn=$1;
+```
 
 Here is an example DDL statement creating a secondary index for the Albums table:
 
-    CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
+```
+CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
+```
 
 If you create additional indexes after your data is loaded, populating the index might take some time. We recommend that you limit the rate at which you add them to an average of three per day. For more guidance on creating secondary indexes, see [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) . For more information on the limitations on index creation, see [Schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates#large-updates) .
 
@@ -116,13 +120,15 @@ You can define `ON DELETE` actions for child tables to determine what happens wh
 
 Here is an example of creating an Albums table interleaved in the parent Singers table defined earlier:
 
-    CREATE TABLE Albums (
-     SingerID      bigint,
-     AlbumID       bigint,
-     AlbumTitle    varchar,
-     PRIMARY KEY (SingerID, AlbumID)
-     )
-     INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
+CREATE TABLE Albums (
+ SingerID      bigint,
+ AlbumID       bigint,
+ AlbumTitle    varchar,
+ PRIMARY KEY (SingerID, AlbumID)
+ )
+ INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
 
 For more information, see [Create interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) .
 
@@ -133,7 +139,7 @@ The following table lists the open source PostgreSQL data types that the Postgre
 > **Note:** The Spanner migration tool can automatically make some of the conversions that are listed in the **Use instead** column. For more information, see [Spanner migration tool evaluation and migration](https://github.com/GoogleCloudPlatform/spanner-migration-tool) .
 
 | Data type                                   | Use instead                                                 |
-| ------------------------------------------- | ----------------------------------------------------------- |
+|---------------------------------------------|-------------------------------------------------------------|
 | bigserial,serial8                           | bigint, int8                                                |
 | bit \[ (n) \]                               | \-                                                          |
 | bit varying \[ (n) \], varbit \[ (n) \]     | \-                                                          |
@@ -150,7 +156,7 @@ The following table lists the open source PostgreSQL data types that the Postgre
 | macaddr                                     | text                                                        |
 | money                                       | numeric, decimal                                            |
 | path                                        | \-                                                          |
-| pg\_lsn                                     | \-                                                          |
+| pg_lsn                                      | \-                                                          |
 | point                                       | \-                                                          |
 | polygon                                     | \-                                                          |
 | realfloat4                                  | double precision, float8                                    |
@@ -162,7 +168,7 @@ The following table lists the open source PostgreSQL data types that the Postgre
 | timestamp \[ (p) \] \[ without time zone \] | text or timestamptz                                         |
 | tsquery                                     | \-                                                          |
 | tsvector                                    | \-                                                          |
-| txid\_snapshot                              | \-                                                          |
+| txid_snapshot                               | \-                                                          |
 | uuid                                        | text or bytea                                               |
 | xml                                         | text                                                        |
 
@@ -180,9 +186,9 @@ Use [`pg_dump`](https://www.postgresql.org/docs/current/static/app-pgdump.html) 
 
 For more information, see:
 
-  - [Create and manage instances](https://docs.cloud.google.com/spanner/docs/create-manage-instances)
-  - [Create and manage databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases)
-  - [About schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model)
+- [Create and manage instances](https://docs.cloud.google.com/spanner/docs/create-manage-instances)
+- [Create and manage databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases)
+- [About schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model)
 
 ## Step 4: Set the transaction isolation level and concurrency control
 
@@ -196,10 +202,10 @@ Add application logic to account for the modified schema and revised SQL queries
 
 There are two ways to migrate your data:
 
-  - By using the [Spanner migration tool](https://github.com/GoogleCloudPlatform/spanner-migration-tool) .
-    
-    The Spanner migration tool supports both schema and data migration. You can import a [pg\_dump](https://www.postgresql.org/docs/current/app-pgdump.html) file or a CSV file, or you can import data using a direct connection to the open source PostgreSQL database.
+- By using the [Spanner migration tool](https://github.com/GoogleCloudPlatform/spanner-migration-tool) .
 
-  - By using the `COPY FROM STDIN` command.
-    
-    For details, see [COPY command for importing data](https://docs.cloud.google.com/spanner/docs/psql-commands#copy-command) .
+  The Spanner migration tool supports both schema and data migration. You can import a [pg_dump](https://www.postgresql.org/docs/current/app-pgdump.html) file or a CSV file, or you can import data using a direct connection to the open source PostgreSQL database.
+
+- By using the `COPY FROM STDIN` command.
+
+  For details, see [COPY command for importing data](https://docs.cloud.google.com/spanner/docs/psql-commands#copy-command) .

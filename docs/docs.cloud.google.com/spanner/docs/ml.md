@@ -14,13 +14,13 @@ Spanner Agent Platform integration helps you to access classifier and regression
 
 Generating ML predictions using Spanner Agent Platform integration provides multiple benefits compared to the approach where Spanner data access and access to the Agent Platform prediction endpoint are performed separately:
 
-  - Performance:
-      - Better latency: Spanner Agent Platform integration talking to the Agent Platform service directly eliminates additional round-trips between a compute node running a Spanner client and the Agent Platform service.
-      - Better throughput/parallelism: Spanner Agent Platform integration runs on top of Spanner's distributed query processing infrastructure, which supports highly parallelizable query execution.
-  - User experience:
-      - Ability to use a single, simple, coherent, and familiar SQL interface to facilitate both data transformation and ML serving scenarios on Spanner level of scale lowers the ML entry barrier and allows for a much smoother user experience.
-  - Costs:
-      - Spanner Agent Platform integration uses Spanner [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to merge the results of ML computations and SQL query execution, which eliminates the need to provision an additional compute (for example, in Compute Engine or Google Kubernetes Engine) for that.
+- Performance:
+  - Better latency: Spanner Agent Platform integration talking to the Agent Platform service directly eliminates additional round-trips between a compute node running a Spanner client and the Agent Platform service.
+  - Better throughput/parallelism: Spanner Agent Platform integration runs on top of Spanner's distributed query processing infrastructure, which supports highly parallelizable query execution.
+- User experience:
+  - Ability to use a single, simple, coherent, and familiar SQL interface to facilitate both data transformation and ML serving scenarios on Spanner level of scale lowers the ML entry barrier and allows for a much smoother user experience.
+- Costs:
+  - Spanner Agent Platform integration uses Spanner [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to merge the results of ML computations and SQL query execution, which eliminates the need to provision an additional compute (for example, in Compute Engine or Google Kubernetes Engine) for that.
 
 ## How does Spanner Agent Platform integration work?
 
@@ -28,15 +28,15 @@ Spanner Agent Platform integration doesn't host ML models, but relies on the Age
 
 To train models on data stored in Spanner, you can use the following:
 
-  - [BigQuery Federated queries](https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries) together with [BigQuery ML](https://docs.cloud.google.com/bigquery/docs/bqml-introduction) .
+- [BigQuery Federated queries](https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries) together with [BigQuery ML](https://docs.cloud.google.com/bigquery/docs/bqml-introduction) .
 
-  - [Dataflow](https://docs.cloud.google.com/dataflow) to export data from Spanner into CSV format and import the [CSV data source](https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview#csv) into Agent Platform.
+- [Dataflow](https://docs.cloud.google.com/dataflow) to export data from Spanner into CSV format and import the [CSV data source](https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview#csv) into Agent Platform.
 
 Spanner Agent Platform integration extends the following functions for using ML models:
 
-  - **Generate ML predictions** by calling a model using SQL on your Spanner data. You can use a model from [Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models) or a model deployed to your [Agent Platform endpoint](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment) .
+- **Generate ML predictions** by calling a model using SQL on your Spanner data. You can use a model from [Model Garden](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-garden/explore-models) or a model deployed to your [Agent Platform endpoint](https://docs.cloud.google.com/gemini-enterprise-agent-platform/machine-learning/general/deployment) .
 
-  - **Generate text embeddings** to have an LLM translate text prompts into numbers. To learn more about embeddings, see [Get text embeddings](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings) .
+- **Generate text embeddings** to have an LLM translate text prompts into numbers. To learn more about embeddings, see [Get text embeddings](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings) .
 
 ## Using Spanner Agent Platform integration functions
 
@@ -70,9 +70,9 @@ For more information on how to use these functions to generate text embeddings, 
 
 There are no additional charges from Spanner when you use it with Spanner Agent Platform integration. However, there are other potential charges associated with this feature:
 
-  - You pay the [standard rates](https://docs.cloud.google.com/products/gemini-enterprise-agent-platform/pricing) for Agent Platform online prediction. The total charge depends on the model type you use. Some model types have a flat per hour rate, depending on the machine type and number of nodes that you use. Some model types have per call rates. We recommend you deploy the latter in a dedicated project where you have set explicit prediction quotas.
+- You pay the [standard rates](https://docs.cloud.google.com/products/gemini-enterprise-agent-platform/pricing) for Agent Platform online prediction. The total charge depends on the model type you use. Some model types have a flat per hour rate, depending on the machine type and number of nodes that you use. Some model types have per call rates. We recommend you deploy the latter in a dedicated project where you have set explicit prediction quotas.
 
-  - You pay the [standard rates](https://docs.cloud.google.com/spanner/pricing#network) for data transfer between Spanner and Agent Platform. The total charge depends on the region hosting the server that executes the query and the region hosting the called endpoint. To minimize charges, deploy your Agent Platform endpoints in the same region as your Spanner instance. When using multi-regional instance configurations or multiple Agent Platform endpoints, deploy your endpoints on the same continent.
+- You pay the [standard rates](https://docs.cloud.google.com/spanner/pricing#network) for data transfer between Spanner and Agent Platform. The total charge depends on the region hosting the server that executes the query and the region hosting the called endpoint. To minimize charges, deploy your Agent Platform endpoints in the same region as your Spanner instance. When using multi-regional instance configurations or multiple Agent Platform endpoints, deploy your endpoints on the same continent.
 
 ## SLA
 
@@ -87,7 +87,7 @@ Due to [Agent Platform online prediction availability](https://docs.cloud.google
 The number of redundant Agent Platform endpoints depends on their SLA, and the number of rows in Spanner queries:
 
 | Spanner SLA | Agent Platform SLA | 1 row | 10 rows | 100 rows | 1000 rows |
-| ----------- | ------------------ | ----- | ------- | -------- | --------- |
+|-------------|--------------------|-------|---------|----------|-----------|
 | 99.99%      | 99.9%              | 2     | 2       | 2        | 3         |
 | 99.99%      | 99.5%              | 2     | 3       | 3        | 4         |
 | 99.999%     | 99.9%              | 2     | 2       | 3        | 3         |
@@ -97,7 +97,7 @@ Agent Platform endpoints don't need to host exactly the same model. We recommend
 
 ## Limitations
 
-  - Model input and output must be a JSON object.
+- Model input and output must be a JSON object.
 
 ## Compliance
 

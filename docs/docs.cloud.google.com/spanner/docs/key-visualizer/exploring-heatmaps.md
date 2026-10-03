@@ -34,7 +34,7 @@ Values associated with each color are defined in the legend to the left of the *
 
 Keep in mind that for most metrics, Key Visualizer identifies which values are "high" and "low" based entirely on your usage of that database. For example, if you perform 20 reads per second in a specific row range and 1 read per second in other row ranges, Key Visualizer will use a bright color for that specific row range, even though 20 reads per second is a low number for Spanner.
 
-To adjust the colors that are used for different values, use the **+ / -** buttons on either side of the **Adjust Brightness** *brightness\_6* icon. When you increase the brightness, you lower the range of values that each color represents; when you lower the brightness, you increase the range of values.
+To adjust the colors that are used for different values, use the **+ / -** buttons on either side of the **Adjust Brightness** *brightness_6* icon. When you increase the brightness, you lower the range of values that each color represents; when you lower the brightness, you increase the range of values.
 
 ## Zooming in on time periods and row key ranges
 
@@ -42,11 +42,11 @@ When you open a heatmap, it displays values for the entire time period included 
 
 There are several ways to zoom in or out:
 
-  - Scroll up or down within the heatmap.
-  - Click the **Rectangular Zoom** *crop* button, then click and drag to select an area to enlarge.
-  - Press and hold the `Shift` key, then click and drag to select an area to enlarge.
-  - Return to the previous area of the heatmap by pressing the `Backspace` or `Delete` key.
-  - Zoom out to view the entire table by clicking the **Reset Zoom** *zoom\_out\_map* button or pressing the `R` key.
+- Scroll up or down within the heatmap.
+- Click the **Rectangular Zoom** *crop* button, then click and drag to select an area to enlarge.
+- Press and hold the `Shift` key, then click and drag to select an area to enlarge.
+- Return to the previous area of the heatmap by pressing the `Backspace` or `Delete` key.
+- Zoom out to view the entire table by clicking the **Reset Zoom** *zoom_out_map* button or pressing the `R` key.
 
 ## Pinning details about a metric
 
@@ -64,21 +64,21 @@ You can view multiple metrics at the same time in Key Visualizer when you want t
 
 To view multiple metrics and their values at the same time, click **Show info panel** near the top right corner. A list of metrics appears in a pane to the right of the heatmap.
 
-![Example showing the multimetric pane for\_a\_scan](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/heatmap-metrics-panel.png)
+![Example showing the multimetric pane for_a\_scan](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/heatmap-metrics-panel.png)
 
 To examine several metrics at once, use the following tools in the info panel:
 
-  - To show or hide miniature heatmaps for all metrics, click `Expand All` or `Collapse All` at the top right.
+- To show or hide miniature heatmaps for all metrics, click `Expand All` or `Collapse All` at the top right.
 
-  - To show an individual metric's heatmap, click the metric name.
+- To show an individual metric's heatmap, click the metric name.
 
-  - To hide an individual metric's heatmap, click the metric name again.
+- To hide an individual metric's heatmap, click the metric name again.
 
-  - To display a metric's heatmap in the main window, click the solid arrow at the left edge of the metric's title bar.
-    
-    ![Left arrow shows a metric in the main window](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/metrics-panel-solid-arrow.png)
+- To display a metric's heatmap in the main window, click the solid arrow at the left edge of the metric's title bar.
 
-  - Hover over a miniature heatmap to see corresponding activity in the main view.
+  ![Left arrow shows a metric in the main window](https://docs.cloud.google.com/static/spanner/docs/key-visualizer/images/metrics-panel-solid-arrow.png)
+
+- Hover over a miniature heatmap to see corresponding activity in the main view.
 
 To compare different metrics for a row range at the same point in time, you can pin a value in a scan, then switch to a different metric at the same point in time:
 
@@ -88,5 +88,5 @@ To compare different metrics for a row range at the same point in time, you can 
 
 ## What's next
 
-  - Learn to recognize [common patterns in heatmaps](https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns) .
-  - Read about the [metrics you can view in a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics) .
+- Learn to recognize [common patterns in heatmaps](https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns) .
+- Read about the [metrics you can view in a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics) .

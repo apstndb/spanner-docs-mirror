@@ -16,21 +16,21 @@ Why set a timestamp bound? If your database is geographically distributed (that 
 
 The types of timestamp bound are:
 
-  - Strong (the default): read the latest data.
+- Strong (the default): read the latest data.
 
-  - Bounded staleness: read a version of the data that's no staler than a bound.
+- Bounded staleness: read a version of the data that's no staler than a bound.
 
-  - Exact staleness: read the version of the data at an exact timestamp, for example, a point in time in the past, though you can specify a timestamp for a time that hasn't passed yet. (If you specify a timestamp in the future, Spanner will wait for that timestamp before serving the read.)
-    
-    > **Caution:** Certain Java timestamp APIs (for example, `java.sql.Timestamp` and `java.util.Date` ) are inherently subject to Daylight Saving Time (DST) handling. When using these APIs to specify staleness, you might produce staleness values that are off by an hour during DST time shifts. To avoid this problem use newer Java APIs, such as `java.time.Instant` , that don't exhibit this issue.
+- Exact staleness: read the version of the data at an exact timestamp, for example, a point in time in the past, though you can specify a timestamp for a time that hasn't passed yet. (If you specify a timestamp in the future, Spanner will wait for that timestamp before serving the read.)
+
+  > **Caution:** Certain Java timestamp APIs (for example, `java.sql.Timestamp` and `java.util.Date` ) are inherently subject to Daylight Saving Time (DST) handling. When using these APIs to specify staleness, you might produce staleness values that are off by an hour during DST time shifts. To avoid this problem use newer Java APIs, such as `java.time.Instant` , that don't exhibit this issue.
 
 Notes:
 
-  - Although reads using these timestamp bound modes are not part of a read-write transaction, they can block waiting for concurrent read-write transactions to commit. Bounded staleness reads attempt to pick a timestamp to avoid blocking, but may still block.
+- Although reads using these timestamp bound modes are not part of a read-write transaction, they can block waiting for concurrent read-write transactions to commit. Bounded staleness reads attempt to pick a timestamp to avoid blocking, but may still block.
 
-  - Stale reads (i.e. using the bounded or exact staleness types) have the maximum performance benefit at longest staleness intervals. Use a minimum staleness of 10 seconds to get a benefit.
+- Stale reads (i.e. using the bounded or exact staleness types) have the maximum performance benefit at longest staleness intervals. Use a minimum staleness of 10 seconds to get a benefit.
 
-  - Spanner keeps track of a database's [`earliest_version_time`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.earliest_version_time) , which specifies the earliest time at which past versions of data can be read. You cannot read at a timestamp before the earliest version time.
+- Spanner keeps track of a database's [`earliest_version_time`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.earliest_version_time) , which specifies the earliest time at which past versions of data can be read. You cannot read at a timestamp before the earliest version time.
 
 The Spanner timestamp bound types are explained in more detail later.
 

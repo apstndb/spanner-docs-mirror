@@ -10,8 +10,8 @@ This page introduces the Autoscaler tool for Spanner (Autoscaler), an [open sour
 
 For more information about scaling in Spanner, see [Autoscaling Spanner](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) . For information about deploying the Autoscaler tool, see the following:
 
-  - [Deploy the Autoscaler tool for Spanner to Cloud Run functions](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run) .
-  - [Deploy the Autoscaler tool for Spanner to Google Kubernetes Engine (GKE)](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke) .
+- [Deploy the Autoscaler tool for Spanner to Cloud Run functions](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run) .
+- [Deploy the Autoscaler tool for Spanner to Google Kubernetes Engine (GKE)](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke) .
 
 This page presents the features, architecture, and high-level configuration of the Autoscaler. These topics guide you through the deployment of the Autoscaler to one of the supported runtimes in each of the different topologies.
 
@@ -19,8 +19,8 @@ This page presents the features, architecture, and high-level configuration of t
 
 The Autoscaler tool is useful for managing the utilization and performance of your Spanner deployments. To help you to balance cost control with performance needs, the Autoscaler tool monitors your instances and automatically adds or removes nodes or processing units to help ensure that they stay within the following parameters:
 
-  - The [recommended maximums for CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization#recommended-max) .
-  - The [recommended limit for storage per node](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#storage) .
+- The [recommended maximums for CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization#recommended-max) .
+- The [recommended limit for storage per node](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#storage) .
 
 Plus or minus a configurable [margin](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview#margins) .
 
@@ -56,9 +56,9 @@ Each autoscaled Spanner instance can have one or more polling schedules. Each po
 
 These parameters determine the following factors:
 
-  - The minimum and maximum number of nodes or processing units that control how small or large your instance can be, helping you to control incurred charges.
-  - The [scaling method](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview#scaling_methods) used to adjust your Spanner instance specific to your workload.
-  - The [cooldown periods](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview#data_splits) to let Spanner manage data splits.
+- The minimum and maximum number of nodes or processing units that control how small or large your instance can be, helping you to control incurred charges.
+- The [scaling method](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview#scaling_methods) used to adjust your Spanner instance specific to your workload.
+- The [cooldown periods](https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview#data_splits) to let Spanner manage data splits.
 
 ### Scaling methods
 
@@ -112,9 +112,9 @@ The Autoscaler tool has advanced configuration options that let you more finely 
 
 The Autoscaler tool determines the number of nodes or processing units to be added or subtracted to an instance using the [recommended Spanner thresholds](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-alert) for the following load metrics:
 
-  - High priority CPU
-  - 24-hour rolling average CPU
-  - Storage utilization
+- High priority CPU
+- 24-hour rolling average CPU
+- Storage utilization
 
 We recommend that you use the default thresholds as described in [Creating alerts for Spanner metrics](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-alert) . However, in some cases you might want to modify the thresholds used by the Autoscaler tool. For example, you could use lower thresholds to make the Autoscaler tool react more quickly than for higher thresholds. This modification helps to prevent alerts being triggered at higher thresholds.
 
@@ -128,7 +128,9 @@ A margin defines an upper and a lower limit around the threshold. The Autoscaler
 
 The objective of this parameter is to avoid autoscaling events being triggered for small workload fluctuations around the threshold, reducing the amount of fluctuation in Autoscaler actions. The threshold and margin together define the following range, according to what you want the metric value to be:
 
-    [threshold - margin, threshold + margin]
+```
+[threshold - margin, threshold + margin]
+```
 
 The smaller the margin, the narrower the range, resulting in a higher probability that an autoscaling event is triggered.
 
@@ -144,8 +146,8 @@ Data is organized into splits and Spanner automatically manages the splits. So, 
 
 The Autoscaler tool uses cooldown periods on both scale-up and scale-down events to control how quickly it can add or remove nodes or processing units from an instance. This method allows the instance the necessary time to reorganize the relationships between compute notes or processing units and data splits. By default, the scale-up and scale-down cooldown periods are set to the following minimum values:
 
-  - Scale-up value: 5 minutes
-  - Scale-down value: 30 minutes
+- Scale-up value: 5 minutes
+- Scale-down value: 30 minutes
 
 For more information about scaling recommendations and cooldown periods, see [Scaling Spanner Instances](https://medium.com/google-cloud/scaling-cloud-spanner-instances-dec47675d1af) .
 
@@ -159,9 +161,9 @@ Use the [Pricing Calculator](https://cloud.google.com/products/calculator) to ge
 
 ## What's next
 
-  - Learn how to [deploy the Autoscaler tool to Cloud Run functions](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run) .
-  - Learn how to [deploy the Autoscaler tool to GKE](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke) .
-  - Read more about Spanner [recommended thresholds](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-alert) .
-  - Read more about Spanner [CPU utilization metrics](https://docs.cloud.google.com/spanner/docs/cpu-utilization) and [latency metrics](https://docs.cloud.google.com/spanner/docs/latency-guide) .
-  - Learn about [best practices for Spanner schema design](https://docs.cloud.google.com/spanner/docs/schema-design) to avoid hotspots and for loading data into Spanner.
-  - Explore reference architectures, diagrams, and best practices about Google Cloud. Take a look at our [Cloud Architecture Center](https://docs.cloud.google.com/architecture) .
+- Learn how to [deploy the Autoscaler tool to Cloud Run functions](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run) .
+- Learn how to [deploy the Autoscaler tool to GKE](https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke) .
+- Read more about Spanner [recommended thresholds](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-alert) .
+- Read more about Spanner [CPU utilization metrics](https://docs.cloud.google.com/spanner/docs/cpu-utilization) and [latency metrics](https://docs.cloud.google.com/spanner/docs/latency-guide) .
+- Learn about [best practices for Spanner schema design](https://docs.cloud.google.com/spanner/docs/schema-design) to avoid hotspots and for loading data into Spanner.
+- Explore reference architectures, diagrams, and best practices about Google Cloud. Take a look at our [Cloud Architecture Center](https://docs.cloud.google.com/architecture) .

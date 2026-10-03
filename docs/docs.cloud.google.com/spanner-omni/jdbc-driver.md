@@ -22,15 +22,17 @@ To use Spanner Omni with the JDBC driver, use the Spanner JDBC driver version 2.
 
 If you use Maven without the Bill of Materials (BOM), add the following to the `pom.xml` file dependencies:
 
-    <dependency>
-      <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud-spanner-jdbc</artifactId>
-      <version>2.41.0</version>
-    </dependency>
+```
+<dependency>
+  <groupId>com.google.cloud</groupId>
+  <artifactId>google-cloud-spanner-jdbc</artifactId>
+  <version>2.41.0</version>
+</dependency>
+```
 
 ## Connection URL considerations
 
-Because Spanner Omni is not directly connected to a Google Cloud project, the ` projects/ name  ` component is not required in the JDBC connection URL. Similarly, because each Spanner Omni deployment has a single, already-created instance ( `instances/default` ), the ` instances/ name  ` component is optional.
+Because Spanner Omni is not directly connected to a Google Cloud project, the `projects/ `` name` component is not required in the JDBC connection URL. Similarly, because each Spanner Omni deployment has a single, already-created instance ( `instances/default` ), the `instances/ `` name` component is optional.
 
 To connect the JDBC driver to Spanner Omni instead of Spanner, append the `;type=omni` property to the connection URL.
 
@@ -42,32 +44,40 @@ The following examples show how to establish a connection with Spanner Omni usin
 
 To establish a plain-text connection, use a connection URL similar to the following:
 
-    String url = "jdbc:spanner://HOST_ADDRESS:PORT/databases/DATABASE_ID;usePlainText=true;type=omni";
-    try (java.sql.Connection connection = DriverManager.getConnection(url)) {
-      try (ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM Singers")) {
-        while (rs.next()) {
-          System.out.print(rs.getLong(1) + "\t");
-          System.out.println(rs.getString(2));
-        }
-      }
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
+```
+String url = "jdbc:spanner://HOST_ADDRESS:PORT/databases/DATABASE_ID;usePlainText=true;type=omni";
+try (java.sql.Connection connection = DriverManager.getConnection(url)) {
+  try (ResultSet rs = connection.createStatement().executeQuery("SELECT * FROM Singers")) {
+    while (rs.next()) {
+      System.out.print(rs.getLong(1) + "\t");
+      System.out.println(rs.getString(2));
     }
+  }
+} catch (Exception e) {
+  System.out.println(e.getMessage());
+}
+```
 
 ### TLS
 
 To establish a TLS connection, add the CA certificate to the Java truststore or specify a custom truststore when you run the application, as described in [Configure the Java truststore](https://docs.cloud.google.com/spanner-omni/java#configure-truststore) . The JDBC URL does not require any additional authentication parameters:
 
-    String url = "jdbc:spanner://HOST_ADDRESS:PORT/databases/DATABASE_ID;type=omni";
+```
+String url = "jdbc:spanner://HOST_ADDRESS:PORT/databases/DATABASE_ID;type=omni";
+```
 
 ### TLS with credentials
 
 To establish a TLS connection with username and password authentication, add the CA certificate to the Java truststore as described in [Configure the Java truststore](https://docs.cloud.google.com/spanner-omni/java#configure-truststore) , and specify the `username` and `password` properties in the JDBC URL:
 
-    String url = "jdbc:spanner://HOST_ADDRESS:PORT/databases/DATABASE_ID;type=omni;username=USERNAME;password=PASSWORD";
+```
+String url = "jdbc:spanner://HOST_ADDRESS:PORT/databases/DATABASE_ID;type=omni;username=USERNAME;password=PASSWORD";
+```
 
 ### mTLS
 
-To establish an mTLS connection, add the CA certificate to the Java truststore as described in [Configure the Java truststore](https://docs.cloud.google.com/spanner-omni/java#configure-truststore) , and specify the `clientCertificate` and `clientKey` parameters in the JDBC URL. The client private key must be in a Java-compliant PKCS\#8 format, as described in the [Java SDK mTLS instructions](https://docs.cloud.google.com/spanner-omni/java#mtls) :
+To establish an mTLS connection, add the CA certificate to the Java truststore as described in [Configure the Java truststore](https://docs.cloud.google.com/spanner-omni/java#configure-truststore) , and specify the `clientCertificate` and `clientKey` parameters in the JDBC URL. The client private key must be in a Java-compliant PKCS#8 format, as described in the [Java SDK mTLS instructions](https://docs.cloud.google.com/spanner-omni/java#mtls) :
 
-    String url = "jdbc:spanner://HOST_ADDRESS:PORT/databases/DATABASE_ID;type=omni;clientCertificate=PATH_TO_CLIENT_CERT;clientKey=PATH_TO_CLIENT_KEY";
+```
+String url = "jdbc:spanner://HOST_ADDRESS:PORT/databases/DATABASE_ID;type=omni;clientCertificate=PATH_TO_CLIENT_CERT;clientKey=PATH_TO_CLIENT_KEY";
+```

@@ -10,13 +10,13 @@ data_source: docs.cloud.google.com
 
 This tutorial walks you through the following steps using the Spanner client library for PHP:
 
-  - Create a Spanner instance and database.
-  - Write, read, and execute SQL queries on data in the database.
-  - Update the database schema.
-  - Update data using a read-write transaction.
-  - Add a secondary index to the database.
-  - Use the index to read and execute SQL queries on data.
-  - Retrieve data using a read-only transaction.
+- Create a Spanner instance and database.
+- Write, read, and execute SQL queries on data in the database.
+- Update the database schema.
+- Update data using a read-write transaction.
+- Add a secondary index to the database.
+- Use the index to read and execute SQL queries on data.
+- Retrieve data using a read-only transaction.
 
 ## Costs
 
@@ -35,25 +35,31 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 1.  Follow the steps in [Service accounts](https://docs.cloud.google.com/docs/authentication#service_accounts) to set up a service account as your Application Default Credentials. Following those steps, you should obtain both a service account key file (in JSON) and a `GOOGLE_APPLICATION_CREDENTIALS` environment variable that lets you authenticate to the Spanner API.
 
 2.  Install the following on your development machine if they are not already installed:
-    
-      - [PHP](http://php.net/)
-      - [composer](https://getcomposer.org/)
-      - [gRPC](https://docs.cloud.google.com/php/grpc)
+
+    - [PHP](http://php.net/)
+    - [composer](https://getcomposer.org/)
+    - [gRPC](https://docs.cloud.google.com/php/grpc)
 
 3.  Clone the sample app repository to your local machine:
-    
-        git clone https://github.com/GoogleCloudPlatform/php-docs-samples
-    
+
+    ```
+    git clone https://github.com/GoogleCloudPlatform/php-docs-samples
+    ```
+
     Alternatively, you can [download the sample](https://github.com/GoogleCloudPlatform/php-docs-samples/archive/master.zip) as a zip file and extract it.
 
 4.  Change to the directory that contains the Spanner sample code:
-    
-        cd php-docs-samples/spanner
+
+    ```
+    cd php-docs-samples/spanner
+    ```
 
 5.  Install dependencies:
-    
-        composer install
-    
+
+    ```
+    composer install
+    ```
+
     This installs the Spanner client library for PHP, which you can add to any project by running `composer require google/cloud-spanner` .
 
 ## Create an instance
@@ -62,9 +68,9 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
-  - The Google Cloud CLI
-  - The Google Cloud console
-  - A client library (C++, C\#, Go, Java, Node.js, PHP, Python, or Ruby)
+- The Google Cloud CLI
+- The Google Cloud console
+- A client library (C++, C#, Go, Java, Node.js, PHP, Python, or Ruby)
 
 ## Look through sample files
 
@@ -76,15 +82,21 @@ Take a look at the functions in `src/create_database.php` and `src/add_column.ph
 
 ### GoogleSQL
 
-    php src/create_database.php test-instance example-db
+```
+php src/create_database.php test-instance example-db
+```
 
 ### PostgreSQL
 
-    php src/pg_create_database.php test-instance example-db
+```
+php src/pg_create_database.php test-instance example-db
+```
 
 You should see:
 
-    Created database example-db on instance test-instance
+```
+Created database example-db on instance test-instance
+```
 
 The following code creates a database and two tables in the database.
 
@@ -92,119 +104,123 @@ The following code creates a database and two tables in the database.
 
 ### GoogleSQL
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\CreateDatabaseRequest;
-    
-    /**
-     * Creates a database and tables for sample data.
-     * Example:
-     * ```
-     * create_database($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $projectId The Google Cloud project ID.
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function create_database(string $projectId, string $instanceId, string $databaseId): void
-    {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $instance = $databaseAdminClient->instanceName($projectId, $instanceId);
-    
-        $operation = $databaseAdminClient->createDatabase(
-            new CreateDatabaseRequest([
-                'parent' => $instance,
-                'create_statement' => sprintf('CREATE DATABASE `%s`', $databaseId),
-                'extra_statements' => [
-                    'CREATE TABLE Singers (' .
+```php
+use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+use Google\Cloud\Spanner\Admin\Database\V1\CreateDatabaseRequest;
+
+/**
+ * Creates a database and tables for sample data.
+ * Example:
+ * ```
+ * create_database($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $projectId The Google Cloud project ID.
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function create_database(string $projectId, string $instanceId, string $databaseId): void
+{
+    $databaseAdminClient = new DatabaseAdminClient();
+    $instance = $databaseAdminClient->instanceName($projectId, $instanceId);
+
+    $operation = $databaseAdminClient->createDatabase(
+        new CreateDatabaseRequest([
+            'parent' => $instance,
+            'create_statement' => sprintf('CREATE DATABASE `%s`', $databaseId),
+            'extra_statements' => [
+                'CREATE TABLE Singers (' .
+                'SingerId     INT64 NOT NULL,' .
+                'FirstName    STRING(1024),' .
+                'LastName     STRING(1024),' .
+                'SingerInfo   BYTES(MAX),' .
+                'FullName     STRING(2048) AS' .
+                '(ARRAY_TO_STRING([FirstName, LastName], " ")) STORED' .
+                ') PRIMARY KEY (SingerId)',
+                'CREATE TABLE Albums (' .
                     'SingerId     INT64 NOT NULL,' .
-                    'FirstName    STRING(1024),' .
-                    'LastName     STRING(1024),' .
-                    'SingerInfo   BYTES(MAX),' .
-                    'FullName     STRING(2048) AS' .
-                    '(ARRAY_TO_STRING([FirstName, LastName], " ")) STORED' .
-                    ') PRIMARY KEY (SingerId)',
-                    'CREATE TABLE Albums (' .
-                        'SingerId     INT64 NOT NULL,' .
-                        'AlbumId      INT64 NOT NULL,' .
-                        'AlbumTitle   STRING(MAX)' .
-                    ') PRIMARY KEY (SingerId, AlbumId),' .
-                    'INTERLEAVE IN PARENT Singers ON DELETE CASCADE'
-                ]
-            ])
-        );
-    
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
-    
-        printf('Created database %s on instance %s' . PHP_EOL,
-            $databaseId, $instanceId);
-    }
+                    'AlbumId      INT64 NOT NULL,' .
+                    'AlbumTitle   STRING(MAX)' .
+                ') PRIMARY KEY (SingerId, AlbumId),' .
+                'INTERLEAVE IN PARENT Singers ON DELETE CASCADE'
+            ]
+        ])
+    );
+
+    print('Waiting for operation to complete...' . PHP_EOL);
+    $operation->pollUntilComplete();
+
+    printf('Created database %s on instance %s' . PHP_EOL,
+        $databaseId, $instanceId);
+}
+```
 
 ### PostgreSQL
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\CreateDatabaseRequest;
-    use Google\Cloud\Spanner\Admin\Database\V1\DatabaseDialect;
-    use Google\Cloud\Spanner\Admin\Database\V1\GetDatabaseRequest;
-    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
-    
-    /**
-     * Creates a database that uses Postgres dialect
-     *
-     * @param string $projectId The Google Cloud project ID.
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function pg_create_database(string $projectId, string $instanceId, string $databaseId): void
-    {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $instance = $databaseAdminClient->instanceName($projectId, $instanceId);
-        $databaseName = $databaseAdminClient->databaseName($projectId, $instanceId, $databaseId);
-    
-        $table1Query = 'CREATE TABLE Singers (
-            SingerId   bigint NOT NULL PRIMARY KEY,
-            FirstName  varchar(1024),
-            LastName   varchar(1024),
-            SingerInfo bytea,
-            FullName character varying(2048) GENERATED
-            ALWAYS AS (FirstName || \' \' || LastName) STORED
-        )';
-        $table2Query = 'CREATE TABLE Albums (
-            AlbumId      bigint NOT NULL,
-            SingerId     bigint NOT NULL REFERENCES Singers (SingerId),
-            AlbumTitle   text,
-            PRIMARY KEY(SingerId, AlbumId)
-        )';
-    
-        $operation = $databaseAdminClient->createDatabase(
-            new CreateDatabaseRequest([
-                'parent' => $instance,
-                'create_statement' => sprintf('CREATE DATABASE "%s"', $databaseId),
-                'extra_statements' => [],
-                'database_dialect' => DatabaseDialect::POSTGRESQL
-            ])
-        );
-    
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
-    
-        $request = new UpdateDatabaseDdlRequest([
-            'database' => $databaseName,
-            'statements' => [$table1Query, $table2Query]
-        ]);
-    
-        $operation = $databaseAdminClient->updateDatabaseDdl($request);
-        $operation->pollUntilComplete();
-    
-        $database = $databaseAdminClient->getDatabase(
-            new GetDatabaseRequest(['name' => $databaseAdminClient->databaseName($projectId, $instanceId, $databaseId)])
-        );
-        $dialect = DatabaseDialect::name($database->getDatabaseDialect());
-    
-        printf('Created database %s with dialect %s on instance %s' . PHP_EOL,
-            $databaseId, $dialect, $instanceId);
-    }
+```php
+use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+use Google\Cloud\Spanner\Admin\Database\V1\CreateDatabaseRequest;
+use Google\Cloud\Spanner\Admin\Database\V1\DatabaseDialect;
+use Google\Cloud\Spanner\Admin\Database\V1\GetDatabaseRequest;
+use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
+
+/**
+ * Creates a database that uses Postgres dialect
+ *
+ * @param string $projectId The Google Cloud project ID.
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function pg_create_database(string $projectId, string $instanceId, string $databaseId): void
+{
+    $databaseAdminClient = new DatabaseAdminClient();
+    $instance = $databaseAdminClient->instanceName($projectId, $instanceId);
+    $databaseName = $databaseAdminClient->databaseName($projectId, $instanceId, $databaseId);
+
+    $table1Query = 'CREATE TABLE Singers (
+        SingerId   bigint NOT NULL PRIMARY KEY,
+        FirstName  varchar(1024),
+        LastName   varchar(1024),
+        SingerInfo bytea,
+        FullName character varying(2048) GENERATED
+        ALWAYS AS (FirstName || \' \' || LastName) STORED
+    )';
+    $table2Query = 'CREATE TABLE Albums (
+        AlbumId      bigint NOT NULL,
+        SingerId     bigint NOT NULL REFERENCES Singers (SingerId),
+        AlbumTitle   text,
+        PRIMARY KEY(SingerId, AlbumId)
+    )';
+
+    $operation = $databaseAdminClient->createDatabase(
+        new CreateDatabaseRequest([
+            'parent' => $instance,
+            'create_statement' => sprintf('CREATE DATABASE "%s"', $databaseId),
+            'extra_statements' => [],
+            'database_dialect' => DatabaseDialect::POSTGRESQL
+        ])
+    );
+
+    print('Waiting for operation to complete...' . PHP_EOL);
+    $operation->pollUntilComplete();
+
+    $request = new UpdateDatabaseDdlRequest([
+        'database' => $databaseName,
+        'statements' => [$table1Query, $table2Query]
+    ]);
+
+    $operation = $databaseAdminClient->updateDatabaseDdl($request);
+    $operation->pollUntilComplete();
+
+    $database = $databaseAdminClient->getDatabase(
+        new GetDatabaseRequest(['name' => $databaseAdminClient->databaseName($projectId, $instanceId, $databaseId)])
+    );
+    $dialect = DatabaseDialect::name($database->getDatabaseDialect());
+
+    printf('Created database %s with dialect %s on instance %s' . PHP_EOL,
+        $databaseId, $dialect, $instanceId);
+}
+```
 
 The next step is to write data to your database.
 
@@ -212,38 +228,40 @@ The next step is to write data to your database.
 
 To do reads and writes, you need to obtain an instance of [`Google\Cloud\Spanner\Database`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database) .
 
-    # Includes the autoloader for libraries installed with composer
-    require __DIR__ . '/vendor/autoload.php';
-    
-    # Imports the Google Cloud client library
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    # Your Google Cloud Platform project ID
-    $projectId = 'YOUR_PROJECT_ID';
-    
-    # Instantiates a client
-    $spanner = new SpannerClient([
-        'projectId' => $projectId
-    ]);
-    
-    # Your Cloud Spanner instance ID.
-    $instanceId = 'your-instance-id';
-    
-    # Get a Cloud Spanner instance by ID.
-    $instance = $spanner->instance($instanceId);
-    
-    # Your Cloud Spanner database ID.
-    $databaseId = 'your-database-id';
-    
-    # Get a Cloud Spanner database by ID.
-    $database = $instance->database($databaseId);
-    
-    # Execute a simple SQL statement.
-    $results = $database->execute('SELECT "Hello World" as test');
-    
-    foreach ($results as $row) {
-        print($row['test'] . PHP_EOL);
-    }
+```php
+# Includes the autoloader for libraries installed with composer
+require __DIR__ . '/vendor/autoload.php';
+
+# Imports the Google Cloud client library
+use Google\Cloud\Spanner\SpannerClient;
+
+# Your Google Cloud Platform project ID
+$projectId = 'YOUR_PROJECT_ID';
+
+# Instantiates a client
+$spanner = new SpannerClient([
+    'projectId' => $projectId
+]);
+
+# Your Cloud Spanner instance ID.
+$instanceId = 'your-instance-id';
+
+# Get a Cloud Spanner instance by ID.
+$instance = $spanner->instance($instanceId);
+
+# Your Cloud Spanner database ID.
+$databaseId = 'your-database-id';
+
+# Get a Cloud Spanner database by ID.
+$database = $instance->database($databaseId);
+
+# Execute a simple SQL statement.
+$results = $database->execute('SELECT "Hello World" as test');
+
+foreach ($results as $row) {
+    print($row['test'] . PHP_EOL);
+}
+```
 
 You can think of a `Database` as a database connection: all of your interactions with Spanner must go through a `Database` . Typically you create a `Database` when your application starts up, then you re-use that `Database` to read, write, and execute transactions. Each client uses resources in Spanner.
 
@@ -251,59 +269,61 @@ If you create multiple clients in the same app, you should call [`Database::clos
 
 Read more in the [`Database`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database) reference.
 
-<span id="write_data"></span>
-
 ## Write data with DML
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
 
 You use the `executeUpdate()` method to execute a DML statement.
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use Google\Cloud\Spanner\Transaction;
-    
-    /**
-     * Inserts sample data into the given database with a DML statement.
-     *
-     * The database and table must already exist and can be created using
-     * `create_database`.
-     * Example:
-     * ```
-     * insert_data($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function write_data_with_dml(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $database->runTransaction(function (Transaction $t) {
-            $rowCount = $t->executeUpdate(
-                'INSERT Singers (SingerId, FirstName, LastName) VALUES '
-                . "(12, 'Melissa', 'Garcia'), "
-                . "(13, 'Russell', 'Morales'), "
-                . "(14, 'Jacqueline', 'Long'), "
-                . "(15, 'Dylan', 'Shaw')");
-            $t->commit();
-            printf('Inserted %d row(s).' . PHP_EOL, $rowCount);
-        });
-    }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+use Google\Cloud\Spanner\Transaction;
+
+/**
+ * Inserts sample data into the given database with a DML statement.
+ *
+ * The database and table must already exist and can be created using
+ * `create_database`.
+ * Example:
+ * ```
+ * insert_data($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function write_data_with_dml(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $database->runTransaction(function (Transaction $t) {
+        $rowCount = $t->executeUpdate(
+            'INSERT Singers (SingerId, FirstName, LastName) VALUES '
+            . "(12, 'Melissa', 'Garcia'), "
+            . "(13, 'Russell', 'Morales'), "
+            . "(14, 'Jacqueline', 'Long'), "
+            . "(15, 'Dylan', 'Shaw')");
+        $t->commit();
+        printf('Inserted %d row(s).' . PHP_EOL, $rowCount);
+    });
+}
+```
 
 Run the sample file `src/write_data_with_dml.php` .
 
-    php src/write_data_with_dml.php test-instance example-db
+```
+php src/write_data_with_dml.php test-instance example-db
+```
 
 You should see:
 
-    Inserted 4 row(s).
+```
+Inserted 4 row(s).
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
-
-<span id="write_data_with_mutations"></span>
 
 ## Write data with mutations
 
@@ -313,54 +333,60 @@ You write data using the [`Database::insertBatch`](https://docs.cloud.google.com
 
 This code shows how to write the data using mutations:
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Inserts sample data into the given database.
-     *
-     * The database and table must already exist and can be created using
-     * `create_database`.
-     * Example:
-     * ```
-     * insert_data($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function insert_data(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $operation = $database->transaction(['singleUse' => true])
-            ->insertBatch('Singers', [
-                ['SingerId' => 1, 'FirstName' => 'Marc', 'LastName' => 'Richards'],
-                ['SingerId' => 2, 'FirstName' => 'Catalina', 'LastName' => 'Smith'],
-                ['SingerId' => 3, 'FirstName' => 'Alice', 'LastName' => 'Trentor'],
-                ['SingerId' => 4, 'FirstName' => 'Lea', 'LastName' => 'Martin'],
-                ['SingerId' => 5, 'FirstName' => 'David', 'LastName' => 'Lomond'],
-            ])
-            ->insertBatch('Albums', [
-                ['SingerId' => 1, 'AlbumId' => 1, 'AlbumTitle' => 'Total Junk'],
-                ['SingerId' => 1, 'AlbumId' => 2, 'AlbumTitle' => 'Go, Go, Go'],
-                ['SingerId' => 2, 'AlbumId' => 1, 'AlbumTitle' => 'Green'],
-                ['SingerId' => 2, 'AlbumId' => 2, 'AlbumTitle' => 'Forever Hold Your Peace'],
-                ['SingerId' => 2, 'AlbumId' => 3, 'AlbumTitle' => 'Terrified']
-            ])
-            ->commit();
-    
-        print('Inserted data.' . PHP_EOL);
-    }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Inserts sample data into the given database.
+ *
+ * The database and table must already exist and can be created using
+ * `create_database`.
+ * Example:
+ * ```
+ * insert_data($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function insert_data(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $operation = $database->transaction(['singleUse' => true])
+        ->insertBatch('Singers', [
+            ['SingerId' => 1, 'FirstName' => 'Marc', 'LastName' => 'Richards'],
+            ['SingerId' => 2, 'FirstName' => 'Catalina', 'LastName' => 'Smith'],
+            ['SingerId' => 3, 'FirstName' => 'Alice', 'LastName' => 'Trentor'],
+            ['SingerId' => 4, 'FirstName' => 'Lea', 'LastName' => 'Martin'],
+            ['SingerId' => 5, 'FirstName' => 'David', 'LastName' => 'Lomond'],
+        ])
+        ->insertBatch('Albums', [
+            ['SingerId' => 1, 'AlbumId' => 1, 'AlbumTitle' => 'Total Junk'],
+            ['SingerId' => 1, 'AlbumId' => 2, 'AlbumTitle' => 'Go, Go, Go'],
+            ['SingerId' => 2, 'AlbumId' => 1, 'AlbumTitle' => 'Green'],
+            ['SingerId' => 2, 'AlbumId' => 2, 'AlbumTitle' => 'Forever Hold Your Peace'],
+            ['SingerId' => 2, 'AlbumId' => 3, 'AlbumTitle' => 'Terrified']
+        ])
+        ->commit();
+
+    print('Inserted data.' . PHP_EOL);
+}
+```
 
 Run the sample file `src/insert_data.php` .
 
-    php src/insert_data.php test-instance example-db
+```
+php src/insert_data.php test-instance example-db
+```
 
 You should see:
 
-    Inserted data.
+```
+Inserted data.
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
@@ -374,24 +400,30 @@ Execute the following SQL statement to read the values of all columns from the `
 
 ### GoogleSQL
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
 
 ### GoogleSQL Pipe syntax
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
 
 > **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
-    SingerId AlbumId AlbumTitle
-    1        1       Total Junk
-    1        2       Go, Go, Go
-    2        1       Green
-    2        2       Forever Hold Your Peace
-    2        3       Terrified
+```
+SingerId AlbumId AlbumTitle
+1        1       Total Junk
+1        2       Go, Go, Go
+2        1       Green
+2        2       Forever Hold Your Peace
+2        3       Terrified
+```
 
 ### Use the Spanner client library for PHP
 
@@ -401,45 +433,51 @@ Use [`Database::execute()`](https://docs.cloud.google.com/php/docs/reference/clo
 
 Here's how to issue the query and access the data:
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Queries sample data from the database using SQL.
-     * Example:
-     * ```
-     * query_data($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function query_data(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $results = $database->execute(
-            'SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
-        );
-    
-        foreach ($results as $row) {
-            printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
-                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
-        }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Queries sample data from the database using SQL.
+ * Example:
+ * ```
+ * query_data($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function query_data(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $results = $database->execute(
+        'SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+    );
+
+    foreach ($results as $row) {
+        printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+            $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
     }
+}
+```
 
 Run the sample file `src/query_data.php` .
 
-    php src/query_data.php test-instance example-db
+```
+php src/query_data.php test-instance example-db
+```
 
 You should see the following result:
 
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+```
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+```
 
 Your results won't necessarily be in this order. If you need to ensure the ordering of the result, use an `ORDER BY` clause, as documented in [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices#use_order_by_to_ensure_the_ordering_of_your_sql_results) .
 
@@ -451,79 +489,87 @@ Here is an example of using a parameter in the `WHERE` clause to query records c
 
 ### GoogleSQL
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Queries sample data from the database using SQL with a parameter.
-     * Example:
-     * ```
-     * query_data_with_parameter($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function query_data_with_parameter(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $results = $database->execute(
-            'SELECT SingerId, FirstName, LastName FROM Singers ' .
-            'WHERE LastName = @lastName',
-            ['parameters' => ['lastName' => 'Garcia']]
-        );
-    
-        foreach ($results as $row) {
-            printf('SingerId: %s, FirstName: %s, LastName: %s' . PHP_EOL,
-                $row['SingerId'], $row['FirstName'], $row['LastName']);
-        }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Queries sample data from the database using SQL with a parameter.
+ * Example:
+ * ```
+ * query_data_with_parameter($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function query_data_with_parameter(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $results = $database->execute(
+        'SELECT SingerId, FirstName, LastName FROM Singers ' .
+        'WHERE LastName = @lastName',
+        ['parameters' => ['lastName' => 'Garcia']]
+    );
+
+    foreach ($results as $row) {
+        printf('SingerId: %s, FirstName: %s, LastName: %s' . PHP_EOL,
+            $row['SingerId'], $row['FirstName'], $row['LastName']);
     }
+}
+```
 
 ### PostgreSQL
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Execute a query with parameters on a Spanner PostgreSQL database.
-     * The PostgreSQL dialect uses positional parameters, as
-     * opposed to the named parameters of Cloud Spanner.
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function pg_query_parameter(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        printf('Listing all singers with a last name that starts with \'A\'' . PHP_EOL);
-    
-        $results = $database->execute(
-            'SELECT SingerId, FirstName, LastName' .
-            ' FROM Singers' .
-            ' WHERE LastName LIKE $1',
-            [
-            'parameters' => [
-                'p1' => 'A%'
-            ]
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Execute a query with parameters on a Spanner PostgreSQL database.
+ * The PostgreSQL dialect uses positional parameters, as
+ * opposed to the named parameters of Cloud Spanner.
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function pg_query_parameter(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    printf('Listing all singers with a last name that starts with \'A\'' . PHP_EOL);
+
+    $results = $database->execute(
+        'SELECT SingerId, FirstName, LastName' .
+        ' FROM Singers' .
+        ' WHERE LastName LIKE $1',
+        [
+        'parameters' => [
+            'p1' => 'A%'
         ]
-        );
-    
-        foreach ($results as $row) {
-            printf('SingerId: %s, Firstname: %s, LastName: %s' . PHP_EOL, $row['singerid'], $row['firstname'], $row['lastname']);
-        }
+    ]
+    );
+
+    foreach ($results as $row) {
+        printf('SingerId: %s, Firstname: %s, LastName: %s' . PHP_EOL, $row['singerid'], $row['firstname'], $row['lastname']);
     }
+}
+```
 
 Run the sample file `src/query_data_with_parameter.php` .
 
-    php src/query_data_with_parameter.php test-instance example-db
+```
+php src/query_data_with_parameter.php test-instance example-db
+```
 
 You should see the following result:
 
-    SingerId: 12, FirstName: Melissa, LastName: Garcia
+```
+SingerId: 12, FirstName: Melissa, LastName: Garcia
+```
 
 ## Read data using the read API
 
@@ -533,48 +579,54 @@ Use [`Database::read()`](https://docs.cloud.google.com/php/docs/reference/cloud-
 
 Here's how to read the data:
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Reads sample data from the database.
-     * Example:
-     * ```
-     * read_data($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function read_data(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $keySet = $spanner->keySet(['all' => true]);
-        $results = $database->read(
-            'Albums',
-            $keySet,
-            ['SingerId', 'AlbumId', 'AlbumTitle']
-        );
-    
-        foreach ($results->rows() as $row) {
-            printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
-                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
-        }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Reads sample data from the database.
+ * Example:
+ * ```
+ * read_data($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function read_data(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $keySet = $spanner->keySet(['all' => true]);
+    $results = $database->read(
+        'Albums',
+        $keySet,
+        ['SingerId', 'AlbumId', 'AlbumTitle']
+    );
+
+    foreach ($results->rows() as $row) {
+        printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+            $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
     }
+}
+```
 
 Run the sample in `read_data.php` file.
 
-    php read_data.php test-instance example-db
+```
+php read_data.php test-instance example-db
+```
 
 You should see output similar to:
 
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold your Peace
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
 
 ## Update the database schema
 
@@ -590,17 +642,23 @@ Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/ref
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Use the Spanner client library for PHP
 
@@ -608,172 +666,192 @@ Use [`Database::updateDdl`](https://docs.cloud.google.com/php/docs/reference/clo
 
 ### GoogleSQL
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
-    
-    /**
-     * Adds a new column to the Albums table in the example database.
-     * Example:
-     * ```
-     * add_column($projectId, $instanceId, $databaseId);
-     * ```
-     *
-     * @param string $projectId The Google Cloud project ID.
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function add_column(string $projectId, string $instanceId, string $databaseId): void
-    {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
-    
-        $request = new UpdateDatabaseDdlRequest([
-            'database' => $databaseName,
-            'statements' => ['ALTER TABLE Albums ADD COLUMN MarketingBudget INT64']
-        ]);
-    
-        $operation = $databaseAdminClient->updateDatabaseDdl($request);
-    
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
-    
-        printf('Added the MarketingBudget column.' . PHP_EOL);
-    }
+```php
+use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
+
+/**
+ * Adds a new column to the Albums table in the example database.
+ * Example:
+ * ```
+ * add_column($projectId, $instanceId, $databaseId);
+ * ```
+ *
+ * @param string $projectId The Google Cloud project ID.
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function add_column(string $projectId, string $instanceId, string $databaseId): void
+{
+    $databaseAdminClient = new DatabaseAdminClient();
+    $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
+
+    $request = new UpdateDatabaseDdlRequest([
+        'database' => $databaseName,
+        'statements' => ['ALTER TABLE Albums ADD COLUMN MarketingBudget INT64']
+    ]);
+
+    $operation = $databaseAdminClient->updateDatabaseDdl($request);
+
+    print('Waiting for operation to complete...' . PHP_EOL);
+    $operation->pollUntilComplete();
+
+    printf('Added the MarketingBudget column.' . PHP_EOL);
+}
+```
 
 ### PostgreSQL
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
-    
-    /**
-     * Add a column to a table present in a PG Spanner database.
-     *
-     * @param string $projectId The Google Cloud project ID.
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function pg_add_column(string $projectId, string $instanceId, string $databaseId): void
-    {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
-        $statement = 'ALTER TABLE Albums ADD COLUMN MarketingBudget bigint';
-        $request = new UpdateDatabaseDdlRequest([
-            'database' => $databaseName,
-            'statements' => [$statement]
-        ]);
-    
-        $operation = $databaseAdminClient->updateDatabaseDdl($request);
-    
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
-    
-        print('Added column MarketingBudget on table Albums' . PHP_EOL);
-    }
+```php
+use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
+
+/**
+ * Add a column to a table present in a PG Spanner database.
+ *
+ * @param string $projectId The Google Cloud project ID.
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function pg_add_column(string $projectId, string $instanceId, string $databaseId): void
+{
+    $databaseAdminClient = new DatabaseAdminClient();
+    $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
+    $statement = 'ALTER TABLE Albums ADD COLUMN MarketingBudget bigint';
+    $request = new UpdateDatabaseDdlRequest([
+        'database' => $databaseName,
+        'statements' => [$statement]
+    ]);
+
+    $operation = $databaseAdminClient->updateDatabaseDdl($request);
+
+    print('Waiting for operation to complete...' . PHP_EOL);
+    $operation->pollUntilComplete();
+
+    print('Added column MarketingBudget on table Albums' . PHP_EOL);
+}
+```
 
 Run the sample file `src/add_column.php` .
 
-    php src/add_column.php test-instance example-db
+```
+php src/add_column.php test-instance example-db
+```
 
 You should see:
 
-    Added the MarketingBudget column.
+```
+Added the MarketingBudget column.
+```
 
 ### Write data to the new column
 
 The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Updates sample data in the database.
-     *
-     * This updates the `MarketingBudget` column which must be created before
-     * running this sample. You can add the column by running the `add_column`
-     * sample or by running this DDL statement against your database:
-     *
-     *     ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
-     *
-     * Example:
-     * ```
-     * update_data($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function update_data(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $operation = $database->transaction(['singleUse' => true])
-            ->updateBatch('Albums', [
-                ['SingerId' => 1, 'AlbumId' => 1, 'MarketingBudget' => 100000],
-                ['SingerId' => 2, 'AlbumId' => 2, 'MarketingBudget' => 500000],
-            ])
-            ->commit();
-    
-        print('Updated data.' . PHP_EOL);
-    }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Updates sample data in the database.
+ *
+ * This updates the `MarketingBudget` column which must be created before
+ * running this sample. You can add the column by running the `add_column`
+ * sample or by running this DDL statement against your database:
+ *
+ *     ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
+ *
+ * Example:
+ * ```
+ * update_data($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function update_data(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $operation = $database->transaction(['singleUse' => true])
+        ->updateBatch('Albums', [
+            ['SingerId' => 1, 'AlbumId' => 1, 'MarketingBudget' => 100000],
+            ['SingerId' => 2, 'AlbumId' => 2, 'MarketingBudget' => 500000],
+        ])
+        ->commit();
+
+    print('Updated data.' . PHP_EOL);
+}
+```
 
 Run the sample file `src/update_data.php` .
 
-    php src/update_data.php test-instance example-db
+```
+php src/update_data.php test-instance example-db
+```
 
 You should see:
 
-    Updated data.
+```
+Updated data.
+```
 
 You can also execute a SQL query or a read call to fetch the values that you just wrote.
 
 Here's the code to execute the query:
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Queries sample data from the database using SQL.
-     * This sample uses the `MarketingBudget` column. You can add the column
-     * by running the `add_column` sample or by running this DDL statement against
-     * your database:
-     *
-     *      ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
-     *
-     * Example:
-     * ```
-     * query_data_with_new_column($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function query_data_with_new_column(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $results = $database->execute(
-            'SELECT SingerId, AlbumId, MarketingBudget FROM Albums'
-        );
-    
-        foreach ($results as $row) {
-            printf('SingerId: %s, AlbumId: %s, MarketingBudget: %d' . PHP_EOL,
-                $row['SingerId'], $row['AlbumId'], $row['MarketingBudget']);
-        }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Queries sample data from the database using SQL.
+ * This sample uses the `MarketingBudget` column. You can add the column
+ * by running the `add_column` sample or by running this DDL statement against
+ * your database:
+ *
+ *      ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
+ *
+ * Example:
+ * ```
+ * query_data_with_new_column($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function query_data_with_new_column(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $results = $database->execute(
+        'SELECT SingerId, AlbumId, MarketingBudget FROM Albums'
+    );
+
+    foreach ($results as $row) {
+        printf('SingerId: %s, AlbumId: %s, MarketingBudget: %d' . PHP_EOL,
+            $row['SingerId'], $row['AlbumId'], $row['MarketingBudget']);
     }
+}
+```
 
 To execute this query, run the sample file `src/query-data-with-new-column.php` .
 
-    php src/query_data_with_new_column.php test-instance example-db
+```
+php src/query_data_with_new_column.php test-instance example-db
+```
 
 You should see:
 
-    SingerId: 1, AlbumId: 1, MarketingBudget: 100000
-    SingerId: 1, AlbumId: 2, MarketingBudget: 0
-    SingerId: 2, AlbumId: 1, MarketingBudget: 0
-    SingerId: 2, AlbumId: 2, MarketingBudget: 500000
-    SingerId: 2, AlbumId: 3, MarketingBudget: 0
+```
+SingerId: 1, AlbumId: 1, MarketingBudget: 100000
+SingerId: 1, AlbumId: 2, MarketingBudget: 0
+SingerId: 2, AlbumId: 1, MarketingBudget: 0
+SingerId: 2, AlbumId: 2, MarketingBudget: 500000
+SingerId: 2, AlbumId: 3, MarketingBudget: 0
+```
 
 ## Update data
 
@@ -783,164 +861,172 @@ You use the `executeUpdate()` method to execute a DML statement.
 
 ### GoogleSQL
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use Google\Cloud\Spanner\Transaction;
-    
-    /**
-     * Performs a read-write transaction to update two sample records in the
-     * database.
-     *
-     * This will transfer 200,000 from the `MarketingBudget` field for the second
-     * Album to the first Album. If the `MarketingBudget` for the second Album is
-     * too low, it will raise an exception.
-     *
-     * Before running this sample, you will need to run the `update_data` sample
-     * to populate the fields.
-     * Example:
-     * ```
-     * write_data_with_dml_transaction($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function write_data_with_dml_transaction(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $database->runTransaction(function (Transaction $t) {
-            // Transfer marketing budget from one album to another. We do it in a transaction to
-            // ensure that the transfer is atomic.
-            $transferAmount = 200000;
-    
+```php
+use Google\Cloud\Spanner\SpannerClient;
+use Google\Cloud\Spanner\Transaction;
+
+/**
+ * Performs a read-write transaction to update two sample records in the
+ * database.
+ *
+ * This will transfer 200,000 from the `MarketingBudget` field for the second
+ * Album to the first Album. If the `MarketingBudget` for the second Album is
+ * too low, it will raise an exception.
+ *
+ * Before running this sample, you will need to run the `update_data` sample
+ * to populate the fields.
+ * Example:
+ * ```
+ * write_data_with_dml_transaction($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function write_data_with_dml_transaction(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $database->runTransaction(function (Transaction $t) {
+        // Transfer marketing budget from one album to another. We do it in a transaction to
+        // ensure that the transfer is atomic.
+        $transferAmount = 200000;
+
+        $results = $t->execute(
+            'SELECT MarketingBudget from Albums WHERE SingerId = 2 and AlbumId = 2'
+        );
+        $resultsRow = $results->rows()->current();
+        $album2budget = $resultsRow['MarketingBudget'];
+
+        // Transaction will only be committed if this condition still holds at the time of
+        // commit. Otherwise it will be aborted and the callable will be rerun by the
+        // client library.
+        if ($album2budget >= $transferAmount) {
             $results = $t->execute(
-                'SELECT MarketingBudget from Albums WHERE SingerId = 2 and AlbumId = 2'
+                'SELECT MarketingBudget from Albums WHERE SingerId = 1 and AlbumId = 1'
             );
             $resultsRow = $results->rows()->current();
-            $album2budget = $resultsRow['MarketingBudget'];
-    
-            // Transaction will only be committed if this condition still holds at the time of
-            // commit. Otherwise it will be aborted and the callable will be rerun by the
-            // client library.
-            if ($album2budget >= $transferAmount) {
-                $results = $t->execute(
-                    'SELECT MarketingBudget from Albums WHERE SingerId = 1 and AlbumId = 1'
-                );
-                $resultsRow = $results->rows()->current();
-                $album1budget = $resultsRow['MarketingBudget'];
-    
-                $album2budget -= $transferAmount;
-                $album1budget += $transferAmount;
-    
-                // Update the albums
-                $t->executeUpdate(
-                    'UPDATE Albums '
-                    . 'SET MarketingBudget = @AlbumBudget '
-                    . 'WHERE SingerId = 1 and AlbumId = 1',
-                    [
-                        'parameters' => [
-                            'AlbumBudget' => $album1budget
-                        ]
+            $album1budget = $resultsRow['MarketingBudget'];
+
+            $album2budget -= $transferAmount;
+            $album1budget += $transferAmount;
+
+            // Update the albums
+            $t->executeUpdate(
+                'UPDATE Albums '
+                . 'SET MarketingBudget = @AlbumBudget '
+                . 'WHERE SingerId = 1 and AlbumId = 1',
+                [
+                    'parameters' => [
+                        'AlbumBudget' => $album1budget
                     ]
-                );
-                $t->executeUpdate(
-                    'UPDATE Albums '
-                    . 'SET MarketingBudget = @AlbumBudget '
-                    . 'WHERE SingerId = 2 and AlbumId = 2',
-                    [
-                        'parameters' => [
-                            'AlbumBudget' => $album2budget
-                        ]
+                ]
+            );
+            $t->executeUpdate(
+                'UPDATE Albums '
+                . 'SET MarketingBudget = @AlbumBudget '
+                . 'WHERE SingerId = 2 and AlbumId = 2',
+                [
+                    'parameters' => [
+                        'AlbumBudget' => $album2budget
                     ]
-                );
-    
-                $t->commit();
-    
-                print('Transaction complete.' . PHP_EOL);
-            }
-        });
-    }
+                ]
+            );
+
+            $t->commit();
+
+            print('Transaction complete.' . PHP_EOL);
+        }
+    });
+}
+```
 
 ### PostgreSQL
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use Google\Cloud\Spanner\Transaction;
-    
-    /**
-     *
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function pg_dml_getting_started_update(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        // Transfer marketing budget from one album to another. We do it in a transaction to
-        // ensure that the transfer is atomic.
-        $database->runTransaction(function (Transaction $t) {
+```php
+use Google\Cloud\Spanner\SpannerClient;
+use Google\Cloud\Spanner\Transaction;
+
+/**
+ *
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function pg_dml_getting_started_update(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    // Transfer marketing budget from one album to another. We do it in a transaction to
+    // ensure that the transfer is atomic.
+    $database->runTransaction(function (Transaction $t) {
+        $sql = 'SELECT marketingbudget as "MarketingBudget" from Albums WHERE '
+        . 'SingerId = 2 and AlbumId = 2';
+
+        $result = $t->execute($sql);
+        $row = $result->rows()->current();
+        $budgetAlbum2 = $row['MarketingBudget'];
+        $transfer = 200000;
+
+        // Transaction will only be committed if this condition still holds at the time of
+        // commit. Otherwise it will be aborted.
+        if ($budgetAlbum2 > $transfer) {
             $sql = 'SELECT marketingbudget as "MarketingBudget" from Albums WHERE '
-            . 'SingerId = 2 and AlbumId = 2';
-    
+            . 'SingerId = 1 and AlbumId = 1';
             $result = $t->execute($sql);
             $row = $result->rows()->current();
-            $budgetAlbum2 = $row['MarketingBudget'];
-            $transfer = 200000;
-    
-            // Transaction will only be committed if this condition still holds at the time of
-            // commit. Otherwise it will be aborted.
-            if ($budgetAlbum2 > $transfer) {
-                $sql = 'SELECT marketingbudget as "MarketingBudget" from Albums WHERE '
-                . 'SingerId = 1 and AlbumId = 1';
-                $result = $t->execute($sql);
-                $row = $result->rows()->current();
-                $budgetAlbum1 = $row['MarketingBudget'];
-    
-                $budgetAlbum1 += $transfer;
-                $budgetAlbum2 -= $transfer;
-    
-                $t->executeUpdateBatch([
+            $budgetAlbum1 = $row['MarketingBudget'];
+
+            $budgetAlbum1 += $transfer;
+            $budgetAlbum2 -= $transfer;
+
+            $t->executeUpdateBatch([
+                [
+                    'sql' => 'UPDATE Albums '
+                    . 'SET MarketingBudget = $1 '
+                    . 'WHERE SingerId = 1 and AlbumId = 1',
                     [
-                        'sql' => 'UPDATE Albums '
-                        . 'SET MarketingBudget = $1 '
-                        . 'WHERE SingerId = 1 and AlbumId = 1',
-                        [
-                            'parameters' => [
-                                'p1' => $budgetAlbum1
-                            ]
+                        'parameters' => [
+                            'p1' => $budgetAlbum1
                         ]
-                    ],
+                    ]
+                ],
+                [
+                    'sql' => 'UPDATE Albums '
+                    . 'SET MarketingBudget = $1 '
+                    . 'WHERE SingerId = 2 and AlbumId = 2',
                     [
-                        'sql' => 'UPDATE Albums '
-                        . 'SET MarketingBudget = $1 '
-                        . 'WHERE SingerId = 2 and AlbumId = 2',
-                        [
-                            'parameters' => [
-                                'p1' => $budgetAlbum2
-                            ]
+                        'parameters' => [
+                            'p1' => $budgetAlbum2
                         ]
-                    ],
-                ]);
-                $t->commit();
-    
-                print('Marketing budget updated.' . PHP_EOL);
-            } else {
-                $t->rollback();
-            }
-        });
-    }
+                    ]
+                ],
+            ]);
+            $t->commit();
+
+            print('Marketing budget updated.' . PHP_EOL);
+        } else {
+            $t->rollback();
+        }
+    });
+}
+```
 
 Run the sample file `src/write_data_with_dml_transaction.php` .
 
-    php src/write_data_with_dml_transaction.php test-instance example-db
+```
+php src/write_data_with_dml_transaction.php test-instance example-db
+```
 
 You should see:
 
-    Transaction complete.
+```
+Transaction complete.
+```
 
 > **Note:** You can also [update data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api#updating_rows_in_a_table) .
 
@@ -960,56 +1046,66 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for PHP
 
 Use [`Database::updateDdl`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=updateDdl) to add an index:
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
-    
-    /**
-     * Adds a simple index to the example database.
-     * Example:
-     * ```
-     * create_index($projectId, $instanceId, $databaseId);
-     * ```
-     *
-     * @param string $projectId The Google Cloud project ID.
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function create_index(string $projectId, string $instanceId, string $databaseId): void
-    {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
-        $statement = 'CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)';
-        $request = new UpdateDatabaseDdlRequest([
-            'database' => $databaseName,
-            'statements' => [$statement]
-        ]);
-    
-        $operation = $databaseAdminClient->updateDatabaseDdl($request);
-    
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
-    
-        printf('Added the AlbumsByAlbumTitle index.' . PHP_EOL);
-    }
+```php
+use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
+
+/**
+ * Adds a simple index to the example database.
+ * Example:
+ * ```
+ * create_index($projectId, $instanceId, $databaseId);
+ * ```
+ *
+ * @param string $projectId The Google Cloud project ID.
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function create_index(string $projectId, string $instanceId, string $databaseId): void
+{
+    $databaseAdminClient = new DatabaseAdminClient();
+    $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
+    $statement = 'CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)';
+    $request = new UpdateDatabaseDdlRequest([
+        'database' => $databaseName,
+        'statements' => [$statement]
+    ]);
+
+    $operation = $databaseAdminClient->updateDatabaseDdl($request);
+
+    print('Waiting for operation to complete...' . PHP_EOL);
+    $operation->pollUntilComplete();
+
+    printf('Added the AlbumsByAlbumTitle index.' . PHP_EOL);
+}
+```
 
 Run the sample file `src/create_index.php` .
 
-    php src/create_index.php test-instance example-db
+```
+php src/create_index.php test-instance example-db
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Added the AlbumsByAlbumTitle index.
+```
+Added the AlbumsByAlbumTitle index.
+```
 
 ### Read using the index
 
@@ -1017,56 +1113,62 @@ For SQL queries, Spanner automatically uses an appropriate index. In the read in
 
 To use the index in the read interface, use the [`Database::read`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=read) method.
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Reads sample data from the database using an index.
-     *
-     * The index must exist before running this sample. You can add the index
-     * by running the `add_index` sample or by running this DDL statement against
-     * your database:
-     *
-     *     CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)
-     *
-     * Example:
-     * ```
-     * read_data_with_index($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function read_data_with_index(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $keySet = $spanner->keySet(['all' => true]);
-        $results = $database->read(
-            'Albums',
-            $keySet,
-            ['AlbumId', 'AlbumTitle'],
-            ['index' => 'AlbumsByAlbumTitle']
-        );
-    
-        foreach ($results->rows() as $row) {
-            printf('AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
-                $row['AlbumId'], $row['AlbumTitle']);
-        }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Reads sample data from the database using an index.
+ *
+ * The index must exist before running this sample. You can add the index
+ * by running the `add_index` sample or by running this DDL statement against
+ * your database:
+ *
+ *     CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)
+ *
+ * Example:
+ * ```
+ * read_data_with_index($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function read_data_with_index(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $keySet = $spanner->keySet(['all' => true]);
+    $results = $database->read(
+        'Albums',
+        $keySet,
+        ['AlbumId', 'AlbumTitle'],
+        ['index' => 'AlbumsByAlbumTitle']
+    );
+
+    foreach ($results->rows() as $row) {
+        printf('AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+            $row['AlbumId'], $row['AlbumTitle']);
     }
+}
+```
 
 Run the sample file `src/read_data_with_index.php` .
 
-    php src/read_data_with_index.php test-instance example-db
+```
+php src/read_data_with_index.php test-instance example-db
+```
 
 You should see:
 
-    AlbumId: 2, AlbumTitle: Forever Hold your Peace
-    AlbumId: 2, AlbumTitle: Go, Go, Go
-    AlbumId: 1, AlbumTitle: Green
-    AlbumId: 3, AlbumTitle: Terrified
-    AlbumId: 1, AlbumTitle: Total Junk
+```
+AlbumId: 2, AlbumTitle: Forever Hold your Peace
+AlbumId: 2, AlbumTitle: Go, Go, Go
+AlbumId: 1, AlbumTitle: Green
+AlbumId: 3, AlbumTitle: Terrified
+AlbumId: 1, AlbumTitle: Total Junk
+```
 
 ### Add an index for index-only reads
 
@@ -1078,124 +1180,142 @@ Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `Ma
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for PHP
 
 Use [`Database::updateDdl`](https://docs.cloud.google.com/php/docs/reference/cloud-spanner/latest/database?method=updateDdl) to add an index with a `STORING` clause:
 
-    use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
-    use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
-    
-    /**
-     * Adds an storing index to the example database.
-     *
-     * This sample uses the `MarketingBudget` column. You can add the column
-     * by running the `add_column` sample or by running this DDL statement against
-     * your database:
-     *
-     *     ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
-     *
-     * Example:
-     * ```
-     * create_storing_index($projectId, $instanceId, $databaseId);
-     * ```
-     *
-     * @param string $projectId The Google Cloud project ID.
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function create_storing_index(string $projectId, string $instanceId, string $databaseId): void
-    {
-        $databaseAdminClient = new DatabaseAdminClient();
-        $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
-        $statement = 'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) ' .
-            'STORING (MarketingBudget)';
-        $request = new UpdateDatabaseDdlRequest([
-            'database' => $databaseName,
-            'statements' => [$statement]
-        ]);
-    
-        $operation = $databaseAdminClient->updateDatabaseDdl($request);
-    
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
-    
-        printf('Added the AlbumsByAlbumTitle2 index.' . PHP_EOL);
-    }
+```php
+use Google\Cloud\Spanner\Admin\Database\V1\Client\DatabaseAdminClient;
+use Google\Cloud\Spanner\Admin\Database\V1\UpdateDatabaseDdlRequest;
+
+/**
+ * Adds an storing index to the example database.
+ *
+ * This sample uses the `MarketingBudget` column. You can add the column
+ * by running the `add_column` sample or by running this DDL statement against
+ * your database:
+ *
+ *     ALTER TABLE Albums ADD COLUMN MarketingBudget INT64
+ *
+ * Example:
+ * ```
+ * create_storing_index($projectId, $instanceId, $databaseId);
+ * ```
+ *
+ * @param string $projectId The Google Cloud project ID.
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function create_storing_index(string $projectId, string $instanceId, string $databaseId): void
+{
+    $databaseAdminClient = new DatabaseAdminClient();
+    $databaseName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
+    $statement = 'CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) ' .
+        'STORING (MarketingBudget)';
+    $request = new UpdateDatabaseDdlRequest([
+        'database' => $databaseName,
+        'statements' => [$statement]
+    ]);
+
+    $operation = $databaseAdminClient->updateDatabaseDdl($request);
+
+    print('Waiting for operation to complete...' . PHP_EOL);
+    $operation->pollUntilComplete();
+
+    printf('Added the AlbumsByAlbumTitle2 index.' . PHP_EOL);
+}
+```
 
 Run the sample file `src/create_storing_index.php` .
 
-    php src/create_storing_index.php test-instance example-db
+```
+php src/create_storing_index.php test-instance example-db
+```
 
 You should see:
 
-    Added the AlbumsByAlbumTitle2 index.
+```
+Added the AlbumsByAlbumTitle2 index.
+```
 
 Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Reads sample data from the database using an index with a storing
-     * clause.
-     *
-     * The index must exist before running this sample. You can add the index
-     * by running the `add_storing_index` sample or by running this DDL statement
-     * against your database:
-     *
-     *     CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)
-     *     STORING (MarketingBudget)
-     *
-     * Example:
-     * ```
-     * read_data_with_storing_index($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function read_data_with_storing_index(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $keySet = $spanner->keySet(['all' => true]);
-        $results = $database->read(
-            'Albums',
-            $keySet,
-            ['AlbumId', 'AlbumTitle', 'MarketingBudget'],
-            ['index' => 'AlbumsByAlbumTitle2']
-        );
-    
-        foreach ($results->rows() as $row) {
-            printf('AlbumId: %s, AlbumTitle: %s, MarketingBudget: %d' . PHP_EOL,
-                $row['AlbumId'], $row['AlbumTitle'], $row['MarketingBudget']);
-        }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Reads sample data from the database using an index with a storing
+ * clause.
+ *
+ * The index must exist before running this sample. You can add the index
+ * by running the `add_storing_index` sample or by running this DDL statement
+ * against your database:
+ *
+ *     CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)
+ *     STORING (MarketingBudget)
+ *
+ * Example:
+ * ```
+ * read_data_with_storing_index($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function read_data_with_storing_index(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $keySet = $spanner->keySet(['all' => true]);
+    $results = $database->read(
+        'Albums',
+        $keySet,
+        ['AlbumId', 'AlbumTitle', 'MarketingBudget'],
+        ['index' => 'AlbumsByAlbumTitle2']
+    );
+
+    foreach ($results->rows() as $row) {
+        printf('AlbumId: %s, AlbumTitle: %s, MarketingBudget: %d' . PHP_EOL,
+            $row['AlbumId'], $row['AlbumTitle'], $row['MarketingBudget']);
     }
+}
+```
 
 Run the sample file `src/read_data_with_storing_index.php` .
 
-    php src/read_data_with_storing_index.php test-instance example-db
+```
+php src/read_data_with_storing_index.php test-instance example-db
+```
 
 You should see output similar to:
 
-    AlbumId: 2, AlbumTitle: Forever Hold your Peace, MarketingBudget: 300000
-    AlbumId: 2, AlbumTitle: Go, Go, Go, MarketingBudget: 0
-    AlbumId: 1, AlbumTitle: Green, MarketingBudget: 0
-    AlbumId: 3, AlbumTitle: Terrified, MarketingBudget: 0
-    AlbumId: 1, AlbumTitle: Total Junk, MarketingBudget: 300000
+```
+AlbumId: 2, AlbumTitle: Forever Hold your Peace, MarketingBudget: 300000
+AlbumId: 2, AlbumTitle: Go, Go, Go, MarketingBudget: 0
+AlbumId: 1, AlbumTitle: Green, MarketingBudget: 0
+AlbumId: 3, AlbumTitle: Terrified, MarketingBudget: 0
+AlbumId: 1, AlbumTitle: Total Junk, MarketingBudget: 300000
+```
 
 ## Retrieve data using read-only transactions
 
@@ -1203,72 +1323,78 @@ Suppose you want to execute more than one read at the same timestamp. [Read-only
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
-    use Google\Cloud\Spanner\SpannerClient;
-    
-    /**
-     * Reads data inside of a read-only transaction.
-     *
-     * Within the read-only transaction, or "snapshot", the application sees
-     * consistent view of the database at a particular timestamp.
-     * Example:
-     * ```
-     * read_only_transaction($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function read_only_transaction(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $snapshot = $database->snapshot();
-        $results = $snapshot->execute(
-            'SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
-        );
-        print('Results from the first read:' . PHP_EOL);
-        foreach ($results as $row) {
-            printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
-                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
-        }
-    
-        // Perform another read using the `read` method. Even if the data
-        // is updated in-between the reads, the snapshot ensures that both
-        // return the same data.
-        $keySet = $spanner->keySet(['all' => true]);
-        $results = $database->read(
-            'Albums',
-            $keySet,
-            ['SingerId', 'AlbumId', 'AlbumTitle']
-        );
-    
-        print('Results from the second read:' . PHP_EOL);
-        foreach ($results->rows() as $row) {
-            printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
-                $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
-        }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+
+/**
+ * Reads data inside of a read-only transaction.
+ *
+ * Within the read-only transaction, or "snapshot", the application sees
+ * consistent view of the database at a particular timestamp.
+ * Example:
+ * ```
+ * read_only_transaction($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function read_only_transaction(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $snapshot = $database->snapshot();
+    $results = $snapshot->execute(
+        'SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+    );
+    print('Results from the first read:' . PHP_EOL);
+    foreach ($results as $row) {
+        printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+            $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
     }
+
+    // Perform another read using the `read` method. Even if the data
+    // is updated in-between the reads, the snapshot ensures that both
+    // return the same data.
+    $keySet = $spanner->keySet(['all' => true]);
+    $results = $database->read(
+        'Albums',
+        $keySet,
+        ['SingerId', 'AlbumId', 'AlbumTitle']
+    );
+
+    print('Results from the second read:' . PHP_EOL);
+    foreach ($results->rows() as $row) {
+        printf('SingerId: %s, AlbumId: %s, AlbumTitle: %s' . PHP_EOL,
+            $row['SingerId'], $row['AlbumId'], $row['AlbumTitle']);
+    }
+}
+```
 
 Run the sample file `src/read_only_transaction.php` .
 
-    php src/read_only_transaction.php test-instance example-db
+```
+php src/read_only_transaction.php test-instance example-db
+```
 
 You should see output similar to:
 
-    Results from first read:
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    Results from second read:
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
+Results from first read:
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+Results from second read:
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
 
 ## Cleanup
 
@@ -1280,7 +1406,9 @@ If you delete an instance, all databases within it are automatically deleted. Th
 
 #### On the command line
 
-    gcloud spanner databases delete example-db --instance=test-instance
+```
+gcloud spanner databases delete example-db --instance=test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1300,7 +1428,9 @@ Deleting an instance automatically drops all databases created in that instance.
 
 #### On the command line
 
-    gcloud spanner instances delete test-instance
+```
+gcloud spanner instances delete test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1314,8 +1444,8 @@ Deleting an instance automatically drops all databases created in that instance.
 
 ## What's next
 
-  - Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
+- Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
 
-  - Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
 
-  - Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .

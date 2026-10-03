@@ -12,15 +12,17 @@ Spanner Graph visualizations show the graph elements returned by a query or the 
 
 You can use the Google Cloud console to visualize Spanner Graph query results in Spanner Studio. To visualize a query with Spanner Graph, the query must return graph elements in JSON format using the [`SAFE_TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#safe_to_json) or [`TO_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json) function. We recommend that you return graph paths instead of returning nodes and edges individually. Returning paths offers the following benefits:
 
-  - Paths contain complete data of nodes and edges. Some intermediate nodes and edges in a visualization of a complex query might not be available if you return individual nodes and edges.
+- Paths contain complete data of nodes and edges. Some intermediate nodes and edges in a visualization of a complex query might not be available if you return individual nodes and edges.
 
-  - If you return paths, your `RETURN` statement can be less complex than if you return nodes and edges individually.
+- If you return paths, your `RETURN` statement can be less complex than if you return nodes and edges individually.
 
 The following sample query returns the paths of account transfers, which you can visualize:
 
-    GRAPH FinGraph
-    MATCH result_paths = (account:Account {is_blocked: True})-[:Transfers]->(dest_account:Account)
-    RETURN SAFE_TO_JSON(result_paths) AS result_paths
+```
+GRAPH FinGraph
+MATCH result_paths = (account:Account {is_blocked: True})-[:Transfers]->(dest_account:Account)
+RETURN SAFE_TO_JSON(result_paths) AS result_paths
+```
 
 After you run a query, the query results area displays the visualization. The detail panel shows a summary of node and edge labels with counts for each. Click a node or an edge to navigate the graph and view properties, neighbors, and connections, as the following screenshot shows. Alternatively, you can view the query results as a table or [toggle to a visualization of the underlying graph schema](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations#visualize-schema) .
 
@@ -38,13 +40,13 @@ Query result display updates are for your current query result visualization ses
 
 The menu on the visualization panel provides the following layout options:
 
-  - **Force layout (default)** : Presents nodes as points that repel each other, while connected nodes pull together, simulating physical forces to create a visually intuitive layout.
+- **Force layout (default)** : Presents nodes as points that repel each other, while connected nodes pull together, simulating physical forces to create a visually intuitive layout.
 
-  - **Hierarchical** : Positions nodes to create a visual hierarchy based on connectivity.
+- **Hierarchical** : Positions nodes to create a visual hierarchy based on connectivity.
 
-  - **Sequential** : Positions nodes to create a visual sequence based on connectivity.
+- **Sequential** : Positions nodes to create a visual sequence based on connectivity.
 
-  - **Show labels** : Displays all node and edge labels on the graph at all zoom levels.
+- **Show labels** : Displays all node and edge labels on the graph at all zoom levels.
 
 #### Choose the node property to display
 
@@ -75,16 +77,16 @@ To choose which nodes display in a visualization, do the following:
 1.  In the query visualization, right-click a node.
 
 2.  Click one of the following menu options to modify the visible graph state:
-    
-      - **Expand** renders adjacent nodes by traversing all incoming edges, outgoing edges, or filtering by a specific edge type.
-    
-      - **Collapse** prunes the current view by hiding all nodes connected to the target node using incoming edges, outgoing edges, or a specific edge type.
-    
-      - **Hide node** removes the target node from the current view.
-    
-      - **Show only neighbors** hides all nodes in the graph except for the target node and those directly connected to it.
-    
-      - **Highlight node** highlights the target node.
+
+    - **Expand** renders adjacent nodes by traversing all incoming edges, outgoing edges, or filtering by a specific edge type.
+
+    - **Collapse** prunes the current view by hiding all nodes connected to the target node using incoming edges, outgoing edges, or a specific edge type.
+
+    - **Hide node** removes the target node from the current view.
+
+    - **Show only neighbors** hides all nodes in the graph except for the target node and those directly connected to it.
+
+    - **Highlight node** highlights the target node.
 
 ## Visualize a Spanner Graph schema
 
@@ -94,21 +96,21 @@ You can visualize graphs that you create with a schema or graphs that use schema
 
 You can see a visualization of a Spanner Graph schema in the Google Cloud console by doing one of the following:
 
-  - When you're [viewing a visualization of the results of a Spanner Graph query](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations#visualization-results) , click **Switch to schema view** on the **Results** tab of the query results panel.
-    
-    ![Switch to schema view button.](https://docs.cloud.google.com/static/spanner/docs/images/switch-to-schema-view.png)
+- When you're [viewing a visualization of the results of a Spanner Graph query](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations#visualization-results) , click **Switch to schema view** on the **Results** tab of the query results panel.
 
-  - Click **View schema** on a Spanner Graph in the **Object explorer** :
-    
-    1.  In the Google Cloud console, open the **Spanner** page.
-    
-    2.  Select an instance from the list.
-    
-    3.  Select a database.
-    
-    4.  In the navigation menu, click **Spanner Studio** . The **Object explorer** pane displays a list of the objects in your database.
-    
-    5.  Click more\_vert **View actions** on a graph, then click **View schema** .
+  ![Switch to schema view button.](https://docs.cloud.google.com/static/spanner/docs/images/switch-to-schema-view.png)
+
+- Click **View schema** on a Spanner Graph in the **Object explorer** :
+
+  1.  In the Google Cloud console, open the **Spanner** page.
+
+  2.  Select an instance from the list.
+
+  3.  Select a database.
+
+  4.  In the navigation menu, click **Spanner Studio** . The **Object explorer** pane displays a list of the objects in your database.
+
+  5.  Click more_vert **View actions** on a graph, then click **View schema** .
 
 ## Troubleshoot Spanner Graph visualizations
 
@@ -120,21 +122,21 @@ The following can help you troubleshoot and understand Spanner Graph visualizati
 
 **Possible cause** : The query doesn't return graph elements in JSON format. For example:
 
-  - The following query can't be visualized because it returns nodes and edge identifiers:
+- The following query can't be visualized because it returns nodes and edge identifiers:
 
-<!-- end list -->
+```
+GRAPH FinGraph
+MATCH (person:Person {name: "Dana"})-[owns:Owns]->(account:Account)
+RETURN person.id as person_id, account.id as account_id
+```
 
-    GRAPH FinGraph
-    MATCH (person:Person {name: "Dana"})-[owns:Owns]->(account:Account)
-    RETURN person.id as person_id, account.id as account_id
+- The following query can't be visualized because it returns property values:
 
-  - The following query can't be visualized because it returns property values:
-
-<!-- end list -->
-
-    GRAPH FinGraph
-    MATCH (person:Person {name: "Dana"})-[owns:Owns]->(account:Account)
-    RETURN owns.create_time, account.nick_name
+```
+GRAPH FinGraph
+MATCH (person:Person {name: "Dana"})-[owns:Owns]->(account:Account)
+RETURN owns.create_time, account.nick_name
+```
 
 **Recommended solution** :
 
@@ -158,7 +160,7 @@ Return graph elements in JSON format using [`SAFE_TO_JSON`](https://docs.cloud.g
 
 ## What's next
 
-  - Learn how to [set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
-  - Learn about [Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
-  - Learn about [Spanner Graph schemas](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) .
-  - Learn about [Spanner Graph visualization integrations](https://docs.cloud.google.com/spanner/docs/graph/visualization-integrations) .
+- Learn how to [set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
+- Learn about [Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
+- Learn about [Spanner Graph schemas](https://docs.cloud.google.com/spanner/docs/graph/schema-overview) .
+- Learn about [Spanner Graph visualization integrations](https://docs.cloud.google.com/spanner/docs/graph/visualization-integrations) .

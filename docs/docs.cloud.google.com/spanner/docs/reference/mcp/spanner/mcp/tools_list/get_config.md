@@ -12,36 +12,24 @@ Get information about a specific Spanner instance configuration.
 
 The following sample demonstrate how to use `curl` to invoke the `get_config` MCP tool.
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Curl Request</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                  
-curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
---header &#39;content-type: application/json&#39; \
---header &#39;accept: application/json, text/event-stream&#39; \
---data &#39;{
-  &quot;method&quot;: &quot;tools/call&quot;,
-  &quot;params&quot;: {
-    &quot;name&quot;: &quot;get_config&quot;,
-    &quot;arguments&quot;: {
-      // provide these details according to the tool&#39;s MCP specification
+**Curl Request**
+
+```
+curl --location 'https://spanner.googleapis.com/mcp' \
+--header 'content-type: application/json' \
+--header 'accept: application/json, text/event-stream' \
+--data '{
+  "method": "tools/call",
+  "params": {
+    "name": "get_config",
+    "arguments": {
+      // provide these details according to the tool's MCP specification
     }
   },
-  &quot;jsonrpc&quot;: &quot;2.0&quot;,
-  &quot;id&quot;: 1
-}&#39;
-                </code></pre></td>
-</tr>
-</tbody>
-</table>
+  "jsonrpc": "2.0",
+  "id": 1
+}'
+```
 
 ## Input Schema
 
@@ -49,31 +37,17 @@ The request for `GetInstanceConfigRequest` .
 
 ### GetInstanceConfigRequest
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;name&quot;: string
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "name": string
+}
+```
 
-`name`
-
-`string`
-
-Required. The name of the requested instance configuration. Values are of the form `projects/<project>/instanceConfigs/<config>` .
+| Fields |                                                                                                                                             |
+|--------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| `name` | `string` Required. The name of the requested instance configuration. Values are of the form `projects/<project>/instanceConfigs/<config>` . |
 
 ## Output Schema
 
@@ -81,191 +55,169 @@ A possible configuration for a Cloud Spanner instance. Configurations define the
 
 ### InstanceConfig
 
+**JSON representation**
+
+```
+{
+  "name": string,
+  "displayName": string,
+  "configType": enum (Type),
+  "replicas": [
+    {
+      object (ReplicaInfo)
+    }
+  ],
+  "optionalReplicas": [
+    {
+      object (ReplicaInfo)
+    }
+  ],
+  "baseConfig": string,
+  "labels": {
+    string: string,
+    ...
+  },
+  "etag": string,
+  "leaderOptions": [
+    string
+  ],
+  "reconciling": boolean,
+  "state": enum (State),
+  "freeInstanceAvailability": enum (FreeInstanceAvailability),
+  "quorumType": enum (QuorumType),
+  "storageLimitPerProcessingUnit": string
+}
+```
+
 <table>
 <colgroup>
-<col style="width: 100%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>JSON representation</th>
+<th>Fields</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;name&quot;: string,&quot;displayName&quot;: string,&quot;configType&quot;: enum (Type),&quot;replicas&quot;: [{object (ReplicaInfo)}],&quot;optionalReplicas&quot;: [{object (ReplicaInfo)}],&quot;baseConfig&quot;: string,&quot;labels&quot;: {string: string,...},&quot;etag&quot;: string,&quot;leaderOptions&quot;: [string],&quot;reconciling&quot;: boolean,&quot;state&quot;: enum (State),&quot;freeInstanceAvailability&quot;: enum (FreeInstanceAvailability),&quot;quorumType&quot;: enum (QuorumType),&quot;storageLimitPerProcessingUnit&quot;: string}</code></pre></td>
+<td><code>name</code></td>
+<td><p><code>string</code></p>
+<p>A unique identifier for the instance configuration. Values are of the form <code>projects/&lt;project&gt;/instanceConfigs/[a-z][-a-z0-9]*</code> .</p>
+<p>User instance configuration must start with <code>custom-</code> .</p></td>
+</tr>
+<tr class="even">
+<td><code>displayName</code></td>
+<td><p><code>string</code></p>
+<p>The name of this instance configuration as it appears in UIs.</p></td>
+</tr>
+<tr class="odd">
+<td><code>configType</code></td>
+<td><p><code>enum ( </code><code>Type</code><code> )</code></p>
+<p>Output only. Whether this instance configuration is a Google-managed or user-managed configuration.</p></td>
+</tr>
+<tr class="even">
+<td><code>replicas[]</code></td>
+<td><p><code>object ( </code><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_configs#Output.Schema.ReplicaInfo"><code>ReplicaInfo</code></a><code> )</code></p>
+<p>The geographic placement of nodes in this instance configuration and their replication properties.</p>
+<p>To create user-managed configurations, input <code>replicas</code> must include all replicas in <code>replicas</code> of the <code>base_config</code> and include one or more replicas in the <code>optional_replicas</code> of the <code>base_config</code> .</p></td>
+</tr>
+<tr class="odd">
+<td><code>optionalReplicas[]</code></td>
+<td><p><code>object ( </code><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_configs#Output.Schema.ReplicaInfo"><code>ReplicaInfo</code></a><code> )</code></p>
+<p>Output only. The available optional replicas to choose from for user-managed configurations. Populated for Google-managed configurations.</p></td>
+</tr>
+<tr class="even">
+<td><code>baseConfig</code></td>
+<td><p><code>string</code></p>
+<p>Base configuration name, e.g. projects/ /instanceConfigs/nam3, based on which this configuration is created. Only set for user-managed configurations. <code>base_config</code> must refer to a configuration of type <code>GOOGLE_MANAGED</code> in the same project as this configuration.</p></td>
+</tr>
+<tr class="odd">
+<td><code>labels</code></td>
+<td><p><code>map (key: string, value: string)</code></p>
+<p>Cloud Labels are a flexible and lightweight mechanism for organizing cloud resources into groups that reflect a customer's organizational needs and deployment strategies. Cloud Labels can be used to filter collections of resources. They can be used to control how resource metrics are aggregated. And they can be used as arguments to policy management rules (e.g. route, firewall, load balancing, etc.).</p>
+<ul>
+<li>Label keys must be between 1 and 63 characters long and must conform to the following regular expression: <code>[a-z][a-z0-9_-]{0,62}</code> .</li>
+<li>Label values must be between 0 and 63 characters long and must conform to the regular expression <code>[a-z0-9_-]{0,63}</code> .</li>
+<li>No more than 64 labels can be associated with a given resource.</li>
+</ul>
+<p>See <a href="https://goo.gl/xmQnxf">https://goo.gl/xmQnxf</a> for more information on and examples of labels.</p>
+<p>If you plan to use labels in your own code, please note that additional characters may be allowed in the future. Therefore, you are advised to use an internal label representation, such as JSON, which doesn't rely upon specific characters being disallowed. For example, representing labels as the string: name + "_" + value would prove problematic if we were to allow "_" in a future release.</p>
+<p>An object containing a list of <code>"key": value</code> pairs. Example: <code>{ "name": "wrench", "mass": "1.3kg", "count": "3" }</code> .</p></td>
+</tr>
+<tr class="even">
+<td><code>etag</code></td>
+<td><p><code>string</code></p>
+<p>etag is used for optimistic concurrency control as a way to help prevent simultaneous updates of a instance configuration from overwriting each other. It is strongly suggested that systems make use of the etag in the read-modify-write cycle to perform instance configuration updates in order to avoid race conditions: An etag is returned in the response which contains instance configurations, and systems are expected to put that etag in the request to update instance configuration to ensure that their change is applied to the same version of the instance configuration. If no etag is provided in the call to update the instance configuration, then the existing instance configuration is overwritten blindly.</p></td>
+</tr>
+<tr class="odd">
+<td><code>leaderOptions[]</code></td>
+<td><p><code>string</code></p>
+<p>Allowed values of the "default_leader" schema option for databases in instances that use this instance configuration.</p></td>
+</tr>
+<tr class="even">
+<td><code>reconciling</code></td>
+<td><p><code>boolean</code></p>
+<p>Output only. If true, the instance configuration is being created or updated. If false, there are no ongoing operations for the instance configuration.</p></td>
+</tr>
+<tr class="odd">
+<td><code>state</code></td>
+<td><p><code>enum ( </code><code>State</code><code> )</code></p>
+<p>Output only. The current instance configuration state. Applicable only for <code>USER_MANAGED</code> configurations.</p></td>
+</tr>
+<tr class="even">
+<td><code>freeInstanceAvailability</code></td>
+<td><p><code>enum ( </code><code>FreeInstanceAvailability</code><code> )</code></p>
+<p>Output only. Describes whether free instances are available to be created in this instance configuration.</p></td>
+</tr>
+<tr class="odd">
+<td><code>quorumType</code></td>
+<td><p><code>enum ( </code><code>QuorumType</code><code> )</code></p>
+<p>Output only. The <code>QuorumType</code> of the instance configuration.</p></td>
+</tr>
+<tr class="even">
+<td><code>storageLimitPerProcessingUnit</code></td>
+<td><p><code>string ( </code><a href="https://developers.google.com/discovery/v1/type-format"><code>int64</code></a><code> format)</code></p>
+<p>Output only. The storage limit in bytes per processing unit.</p></td>
 </tr>
 </tbody>
 </table>
-
-Fields
-
-`name`
-
-`string`
-
-A unique identifier for the instance configuration. Values are of the form `projects/<project>/instanceConfigs/[a-z][-a-z0-9]*` .
-
-User instance configuration must start with `custom-` .
-
-`displayName`
-
-`string`
-
-The name of this instance configuration as it appears in UIs.
-
-`configType`
-
-`enum ( Type` )
-
-Output only. Whether this instance configuration is a Google-managed or user-managed configuration.
-
-`replicas[]`
-
-` object ( ReplicaInfo  ` )
-
-The geographic placement of nodes in this instance configuration and their replication properties.
-
-To create user-managed configurations, input `replicas` must include all replicas in `replicas` of the `base_config` and include one or more replicas in the `optional_replicas` of the `base_config` .
-
-`optionalReplicas[]`
-
-` object ( ReplicaInfo  ` )
-
-Output only. The available optional replicas to choose from for user-managed configurations. Populated for Google-managed configurations.
-
-`baseConfig`
-
-`string`
-
-Base configuration name, e.g. projects/ /instanceConfigs/nam3, based on which this configuration is created. Only set for user-managed configurations. `base_config` must refer to a configuration of type `GOOGLE_MANAGED` in the same project as this configuration.
-
-`labels`
-
-`map (key: string, value: string)`
-
-Cloud Labels are a flexible and lightweight mechanism for organizing cloud resources into groups that reflect a customer's organizational needs and deployment strategies. Cloud Labels can be used to filter collections of resources. They can be used to control how resource metrics are aggregated. And they can be used as arguments to policy management rules (e.g. route, firewall, load balancing, etc.).
-
-  - Label keys must be between 1 and 63 characters long and must conform to the following regular expression: `[a-z][a-z0-9_-]{0,62}` .
-  - Label values must be between 0 and 63 characters long and must conform to the regular expression `[a-z0-9_-]{0,63}` .
-  - No more than 64 labels can be associated with a given resource.
-
-See <https://goo.gl/xmQnxf> for more information on and examples of labels.
-
-If you plan to use labels in your own code, please note that additional characters may be allowed in the future. Therefore, you are advised to use an internal label representation, such as JSON, which doesn't rely upon specific characters being disallowed. For example, representing labels as the string: name + "\_" + value would prove problematic if we were to allow "\_" in a future release.
-
-An object containing a list of `"key": value` pairs. Example: `{ "name": "wrench", "mass": "1.3kg", "count": "3" }` .
-
-`etag`
-
-`string`
-
-etag is used for optimistic concurrency control as a way to help prevent simultaneous updates of a instance configuration from overwriting each other. It is strongly suggested that systems make use of the etag in the read-modify-write cycle to perform instance configuration updates in order to avoid race conditions: An etag is returned in the response which contains instance configurations, and systems are expected to put that etag in the request to update instance configuration to ensure that their change is applied to the same version of the instance configuration. If no etag is provided in the call to update the instance configuration, then the existing instance configuration is overwritten blindly.
-
-`leaderOptions[]`
-
-`string`
-
-Allowed values of the "default\_leader" schema option for databases in instances that use this instance configuration.
-
-`reconciling`
-
-`boolean`
-
-Output only. If true, the instance configuration is being created or updated. If false, there are no ongoing operations for the instance configuration.
-
-`state`
-
-`enum ( State` )
-
-Output only. The current instance configuration state. Applicable only for `USER_MANAGED` configurations.
-
-`freeInstanceAvailability`
-
-`enum ( FreeInstanceAvailability` )
-
-Output only. Describes whether free instances are available to be created in this instance configuration.
-
-`quorumType`
-
-`enum ( QuorumType` )
-
-Output only. The `QuorumType` of the instance configuration.
-
-`storageLimitPerProcessingUnit`
-
-`string ( int64 format)`
-
-Output only. The storage limit in bytes per processing unit.
 
 ### ReplicaInfo
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;location&quot;: string,&quot;type&quot;: enum (ReplicaType),&quot;defaultLeaderLocation&quot;: boolean}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "location": string,
+  "type": enum (ReplicaType),
+  "defaultLeaderLocation": boolean
+}
+```
 
-`location`
-
-`string`
-
-The location of the serving resources, e.g., "us-central1".
-
-`type`
-
-`enum ( ReplicaType` )
-
-The type of replica.
-
-`defaultLeaderLocation`
-
-`boolean`
-
-If true, this location is designated as the default leader location where leader replicas are placed. See the [region types documentation](https://cloud.google.com/spanner/docs/instances#region_types) for more details.
+| Fields                  |                                                                                                                                                                                                                                      |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `location`              | `string` The location of the serving resources, e.g., "us-central1".                                                                                                                                                                 |
+| `type`                  | `enum ( ``ReplicaType`` )` The type of replica.                                                                                                                                                                                      |
+| `defaultLeaderLocation` | `boolean` If true, this location is designated as the default leader location where leader replicas are placed. See the [region types documentation](https://cloud.google.com/spanner/docs/instances#region_types) for more details. |
 
 ### LabelsEntry
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;key&quot;: string,
-  &quot;value&quot;: string
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "key": string,
+  "value": string
+}
+```
 
-`key`
-
-`string`
-
-`value`
-
-`string`
+| Fields  |          |
+|---------|----------|
+| `key`   | `string` |
+| `value` | `string` |
 
 ### Tool Annotations
 
-Destructive Hint: ❌ | Idempotent Hint: ✅ | Read Only Hint: ✅ | Open World Hint: ❌
+Destructive Hint: ❌ \| Idempotent Hint: ✅ \| Read Only Hint: ✅ \| Open World Hint: ❌

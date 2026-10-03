@@ -16,19 +16,21 @@ To create, grant, and revoke access to a view, you must have the [`spanner.datab
 
 To create a view, use the DDL statement [`CREATE VIEW`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-view) to name the view and provide the query that defines it. This statement has two forms:
 
-  - `CREATE VIEW` defines a new view in the current database. If a view named `  view_name  ` already exists, the `CREATE VIEW` statement fails.
+- `CREATE VIEW` defines a new view in the current database. If a view named *`view_name`* already exists, the `CREATE VIEW` statement fails.
 
-  - `CREATE OR REPLACE VIEW` defines a new view in the current database. If a view named `  view_name  ` already exists, its definition is replaced.
+- `CREATE OR REPLACE VIEW` defines a new view in the current database. If a view named *`view_name`* already exists, its definition is replaced.
 
 The syntax for the CREATE VIEW statement is:
 
-    {CREATE | CREATE OR REPLACE } VIEW  view_name
-    SQL SECURITY { INVOKER | DEFINER }
-    AS query
+```
+{CREATE | CREATE OR REPLACE } VIEW  view_name
+SQL SECURITY { INVOKER | DEFINER }
+AS query
+```
 
-Because a view is a virtual table, the `  query  ` that you specify must provide names for all the columns in that virtual table.
+Because a view is a virtual table, the ***`query`*** that you specify must provide names for all the columns in that virtual table.
 
-Additionally, Spanner checks the `  query  ` you specify using *strict name resolution* , meaning that all schema object names used in the query must be qualified such that they unambiguously identify a single schema object. For example, in the examples that follow the `SingerId` column in the `Singers` table must be qualified as `Singers.SingerId` .
+Additionally, Spanner checks the ***`query`*** you specify using *strict name resolution* , meaning that all schema object names used in the query must be qualified such that they unambiguously identify a single schema object. For example, in the examples that follow the `SingerId` column in the `Singers` table must be qualified as `Singers.SingerId` .
 
 You must specify the `SQL SECURITY` as either `INVOKER` or `DEFINER` in the `CREATE VIEW` or `CREATE OR REPLACE VIEW` statement. For more information about the difference between the two security types, see [Views overview](https://docs.cloud.google.com/spanner/docs/views) .
 
@@ -36,30 +38,36 @@ For example, assume the `Singers` table is defined as shown in the following:
 
 ### GoogleSQL
 
-    CREATE TABLE Singers (
-      SingerId   INT64 NOT NULL,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-      SingerInfo BYTES(MAX)
-    ) PRIMARY KEY (SingerId);
+```
+CREATE TABLE Singers (
+  SingerId   INT64 NOT NULL,
+  FirstName  STRING(1024),
+  LastName   STRING(1024),
+  SingerInfo BYTES(MAX)
+) PRIMARY KEY (SingerId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE Singers (
-      SingerId   BIGINT PRIMARY KEY,
-      FirstName  VARCHAR(1024),
-      LastName   VARCHAR(1024),
-      SingerInfo BYTEA
-    );
+```
+CREATE TABLE Singers (
+  SingerId   BIGINT PRIMARY KEY,
+  FirstName  VARCHAR(1024),
+  LastName   VARCHAR(1024),
+  SingerInfo BYTEA
+);
+```
 
 You can define the `SingerNames` view with invoker's rights as shown in the following:
 
-    CREATE VIEW SingerNames
-    SQL SECURITY INVOKER
-    AS SELECT
-       Singers.SingerId AS SingerId,
-       Singers.FirstName || ' ' || Singers.LastName AS Name
-    FROM Singers;
+```
+CREATE VIEW SingerNames
+SQL SECURITY INVOKER
+AS SELECT
+   Singers.SingerId AS SingerId,
+   Singers.FirstName || ' ' || Singers.LastName AS Name
+FROM Singers;
+```
 
 The virtual table created when the `SingerNames` view is used in a query has two columns, `SingerId` and `Name` .
 
@@ -71,32 +79,38 @@ To minimize the need to update a view's definition, explicitly cast the data typ
 
 For example, the following definition of the `SingerNames` view might become invalid as the result of changing a column's data type in the `Singers` table.
 
-    CREATE VIEW SingerNames
-    SQL SECURITY INVOKER
-    AS SELECT
-       Singers.SingerId AS SingerId,
-       Singers.FirstName || ' ' || Singers.LastName AS Name
-    FROM Singers;
+```
+CREATE VIEW SingerNames
+SQL SECURITY INVOKER
+AS SELECT
+   Singers.SingerId AS SingerId,
+   Singers.FirstName || ' ' || Singers.LastName AS Name
+FROM Singers;
+```
 
 You can avoid the view becoming invalid by explicitly casting the columns to the needed data types, as shown in the following example:
 
 ### GoogleSQL
 
-    CREATE OR REPLACE VIEW SingerNames
-    SQL SECURITY INVOKER
-    AS SELECT
-     CAST(Singers.SingerId AS INT64) AS SingerId,
-     CAST(Singers.FirstName AS STRING) || " " || CAST(Singers.LastName AS STRING) AS Name
-    FROM Singers;
+```
+CREATE OR REPLACE VIEW SingerNames
+SQL SECURITY INVOKER
+AS SELECT
+ CAST(Singers.SingerId AS INT64) AS SingerId,
+ CAST(Singers.FirstName AS STRING) || " " || CAST(Singers.LastName AS STRING) AS Name
+FROM Singers;
+```
 
 ### PostgreSQL
 
-    CREATE OR REPLACE VIEW SingerNames
-    SQL SECURITY INVOKER
-    AS SELECT
-     CAST(Singers.SingerId AS bigint) AS SingerId,
-     CAST(Singers.FirstName AS varchar) || ' ' || CAST(Singers.LastName AS varchar) AS Name
-    FROM Singers;
+```
+CREATE OR REPLACE VIEW SingerNames
+SQL SECURITY INVOKER
+AS SELECT
+ CAST(Singers.SingerId AS bigint) AS SingerId,
+ CAST(Singers.FirstName AS varchar) || ' ' || CAST(Singers.LastName AS varchar) AS Name
+FROM Singers;
+```
 
 ## Grant and revoke access to a view
 
@@ -106,21 +120,29 @@ As a fine-grained access control user, you must have the `SELECT` privilege on a
 
 ### GoogleSQL
 
-    GRANT SELECT ON VIEW SingerNames TO ROLE Analyst;
+```
+GRANT SELECT ON VIEW SingerNames TO ROLE Analyst;
+```
 
 ### PostgreSQL
 
-    GRANT SELECT ON TABLE SingerNames TO Analyst;
+```
+GRANT SELECT ON TABLE SingerNames TO Analyst;
+```
 
 To revoke `SELECT` privilege on a view from a database role:
 
 ### GoogleSQL
 
-    REVOKE SELECT ON VIEW SingerNames FROM ROLE Analyst;
+```
+REVOKE SELECT ON VIEW SingerNames FROM ROLE Analyst;
+```
 
 ### PostgreSQL
 
-    REVOKE SELECT ON TABLE SingerNames FROM Analyst;
+```
+REVOKE SELECT ON TABLE SingerNames FROM Analyst;
+```
 
 ## Query a view
 
@@ -132,8 +154,10 @@ If a view has invoker's rights, the user must have privileges on all underlying 
 
 For example, if a database role has access to all objects referenced by the `SingerNames` view, they can query the `SingerNames` view:
 
-    SELECT COUNT(SingerID) as SingerCount
-    FROM SingerNames;
+```
+SELECT COUNT(SingerID) as SingerCount
+FROM SingerNames;
+```
 
 ### Query a definer's rights view
 
@@ -141,8 +165,10 @@ If a view has definer's rights, a user can query the view without needing privil
 
 In the following example, a user with the Analyst database role wants to query the `SingerNames` view. However, the user is denied access because `SingerNames` is an invoker's rights view and the Analyst role does not have access to all the underlying objects. In this case, if you decide to provide the Analyst with access to the view, but don't want to provide them access to the `Singers` table, you can [replace the security type of the view](https://docs.cloud.google.com/spanner/docs/create-manage-views#replace-view) to definer's rights. After you replace the security type of the view, grant the Analyst role access to the view. The user can now query the `SingerNames` view even though they don't have access to the `Singers` table.
 
-    SELECT COUNT(SingerID) as SingerCount
-    FROM SingerNames;
+```
+SELECT COUNT(SingerID) as SingerCount
+FROM SingerNames;
+```
 
 ## Replace a view
 
@@ -152,31 +178,35 @@ Replacing a view is similar to dropping and recreating the view. Any access gran
 
 To replace an invoker's rights view with a definer's rights view:
 
-    CREATE OR REPLACE VIEW SingerNames
-    SQL SECURITY DEFINER
-    AS SELECT
-       Singers.SingerId AS SingerId,
-       Singers.FirstName || ' ' || Singers.LastName AS Name
-    FROM Singers;
+```
+CREATE OR REPLACE VIEW SingerNames
+SQL SECURITY DEFINER
+AS SELECT
+   Singers.SingerId AS SingerId,
+   Singers.FirstName || ' ' || Singers.LastName AS Name
+FROM Singers;
+```
 
 ## Delete a view
 
 After a view is dropped, database roles with privileges on it no longer have access. To delete a view, use the `DROP VIEW` statement.
 
-    DROP VIEW SingerNames;
+```
+DROP VIEW SingerNames;
+```
 
 ## Get information about a view
 
 You can get information about views in a database by querying tables in its `INFORMATION_SCHEMA` schema.
 
-  - The `  INFORMATION_SCHEMA.TABLES  ` table provides the names of all defined views.
+- The [`INFORMATION_SCHEMA.TABLES`](https://docs.cloud.google.com/spanner/docs/information-schema#information_schematables) table provides the names of all defined views.
 
-  - The `  INFORMATION_SCHEMA.VIEWS  ` table provides the names, view definition, security type, and query text of all defined views. FGAC users who have `SELECT` privilege on the view can get information about the view from the `INFORMATION_SCHEMA.VIEWS` table. Other FGAC users need the `spanner_info_reader` role if they don't have `SELECT` privilege for the view.
+- The [`INFORMATION_SCHEMA.VIEWS`](https://docs.cloud.google.com/spanner/docs/information-schema#information_schemaviews) table provides the names, view definition, security type, and query text of all defined views. FGAC users who have `SELECT` privilege on the view can get information about the view from the `INFORMATION_SCHEMA.VIEWS` table. Other FGAC users need the `spanner_info_reader` role if they don't have `SELECT` privilege for the view.
 
 To check the view definition and security type of a view called `ProductSoldLastWeek` :
 
-``` 
-  SELECT *
+```
+SELECT *
   FROM INFORMATION_SCHEMA.VIEWS
   WHERE TABLE_NAME = 'ProductSoldLastWeek';
 ```

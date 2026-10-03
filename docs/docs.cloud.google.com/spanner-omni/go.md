@@ -18,7 +18,9 @@ To use the Go client library with Spanner Omni, use the Go client library [versi
 
 To add the Spanner Go module to your `go.mod` file, run the following command:
 
-    go get cloud.google.com/go/spanner@v1.94.0
+```
+go get cloud.google.com/go/spanner@v1.94.0
+```
 
 ## Configure the `ClientConfig` object
 
@@ -30,110 +32,118 @@ The following examples show how to configure the `ClientConfig` object for each 
 
 To establish a plain-text connection, set `UsePlainText` to `true` in `spanner.ClientConfig` :
 
-    clientConfig := spanner.ClientConfig{
-      Type:         spanner.OMNI,
-      UsePlainText: true,
-    }
-    
-    adminClient, err := database.NewDatabaseAdminClientWithConfig(ctx, clientConfig,
-      option.WithEndpoint("ENDPOINT"),
-    )
-    if err != nil {
-      // Handle error.
-    }
-    defer adminClient.Close()
-    
-    databaseClient, err := spanner.NewClientWithConfig(ctx, "DATABASE_NAME", clientConfig,
-      option.WithEndpoint("ENDPOINT"),
-    )
-    if err != nil {
-      // Handle error.
-    }
-    defer databaseClient.Close()
+```
+clientConfig := spanner.ClientConfig{
+  Type:         spanner.OMNI,
+  UsePlainText: true,
+}
+
+adminClient, err := database.NewDatabaseAdminClientWithConfig(ctx, clientConfig,
+  option.WithEndpoint("ENDPOINT"),
+)
+if err != nil {
+  // Handle error.
+}
+defer adminClient.Close()
+
+databaseClient, err := spanner.NewClientWithConfig(ctx, "DATABASE_NAME", clientConfig,
+  option.WithEndpoint("ENDPOINT"),
+)
+if err != nil {
+  // Handle error.
+}
+defer databaseClient.Close()
+```
 
 ### TLS
 
 To establish a TLS connection, specify the path to your CA certificate using `CaCertificateFile` :
 
-    clientConfig := spanner.ClientConfig{
-      Type:              spanner.OMNI,
-      CaCertificateFile: "PATH_TO_CA_CERT",
-    }
-    
-    adminClient, err := database.NewDatabaseAdminClientWithConfig(ctx, clientConfig,
-      option.WithEndpoint("ENDPOINT"),
-    )
-    if err != nil {
-      // Handle error.
-    }
-    defer adminClient.Close()
-    
-    databaseClient, err := spanner.NewClientWithConfig(ctx, "DATABASE_NAME", clientConfig,
-      option.WithEndpoint("ENDPOINT"),
-    )
-    if err != nil {
-      // Handle error.
-    }
-    defer databaseClient.Close()
+```
+clientConfig := spanner.ClientConfig{
+  Type:              spanner.OMNI,
+  CaCertificateFile: "PATH_TO_CA_CERT",
+}
+
+adminClient, err := database.NewDatabaseAdminClientWithConfig(ctx, clientConfig,
+  option.WithEndpoint("ENDPOINT"),
+)
+if err != nil {
+  // Handle error.
+}
+defer adminClient.Close()
+
+databaseClient, err := spanner.NewClientWithConfig(ctx, "DATABASE_NAME", clientConfig,
+  option.WithEndpoint("ENDPOINT"),
+)
+if err != nil {
+  // Handle error.
+}
+defer databaseClient.Close()
+```
 
 ### TLS with credentials
 
 To establish a TLS connection with username and password authentication, specify `CaCertificateFile` , `Username` , and `Password` :
 
-    clientConfig := spanner.ClientConfig{
-      Type:              spanner.OMNI,
-      CaCertificateFile: "PATH_TO_CA_CERT",
-      Username:          "USERNAME",
-      Password:          []byte("PASSWORD"),
-    }
-    
-    adminClient, err := database.NewDatabaseAdminClientWithConfig(ctx, clientConfig,
-      option.WithEndpoint("ENDPOINT"),
-    )
-    if err != nil {
-      // Handle error.
-    }
-    defer adminClient.Close()
-    
-    databaseClient, err := spanner.NewClientWithConfig(ctx, "DATABASE_NAME", clientConfig,
-      option.WithEndpoint("ENDPOINT"),
-    )
-    if err != nil {
-      // Handle error.
-    }
-    defer databaseClient.Close()
+```
+clientConfig := spanner.ClientConfig{
+  Type:              spanner.OMNI,
+  CaCertificateFile: "PATH_TO_CA_CERT",
+  Username:          "USERNAME",
+  Password:          []byte("PASSWORD"),
+}
+
+adminClient, err := database.NewDatabaseAdminClientWithConfig(ctx, clientConfig,
+  option.WithEndpoint("ENDPOINT"),
+)
+if err != nil {
+  // Handle error.
+}
+defer adminClient.Close()
+
+databaseClient, err := spanner.NewClientWithConfig(ctx, "DATABASE_NAME", clientConfig,
+  option.WithEndpoint("ENDPOINT"),
+)
+if err != nil {
+  // Handle error.
+}
+defer databaseClient.Close()
+```
 
 ### mTLS
 
 To establish a mutual TLS (mTLS) connection, specify `CaCertificateFile` , `ClientCertificateFile` , and `ClientKeyFile` :
 
-    clientConfig := spanner.ClientConfig{
-      Type:                  spanner.OMNI,
-      CaCertificateFile:     "PATH_TO_CA_CERT",
-      ClientCertificateFile: "PATH_TO_CLIENT_CERT",
-      ClientKeyFile:         "PATH_TO_CLIENT_KEY",
-    }
-    
-    adminClient, err := database.NewDatabaseAdminClientWithConfig(ctx, clientConfig,
-      option.WithEndpoint("ENDPOINT"),
-    )
-    if err != nil {
-      // Handle error.
-    }
-    defer adminClient.Close()
-    
-    databaseClient, err := spanner.NewClientWithConfig(ctx, "DATABASE_NAME", clientConfig,
-      option.WithEndpoint("ENDPOINT"),
-    )
-    if err != nil {
-      // Handle error.
-    }
-    defer databaseClient.Close()
+```
+clientConfig := spanner.ClientConfig{
+  Type:                  spanner.OMNI,
+  CaCertificateFile:     "PATH_TO_CA_CERT",
+  ClientCertificateFile: "PATH_TO_CLIENT_CERT",
+  ClientKeyFile:         "PATH_TO_CLIENT_KEY",
+}
+
+adminClient, err := database.NewDatabaseAdminClientWithConfig(ctx, clientConfig,
+  option.WithEndpoint("ENDPOINT"),
+)
+if err != nil {
+  // Handle error.
+}
+defer adminClient.Close()
+
+databaseClient, err := spanner.NewClientWithConfig(ctx, "DATABASE_NAME", clientConfig,
+  option.WithEndpoint("ENDPOINT"),
+)
+if err != nil {
+  // Handle error.
+}
+defer databaseClient.Close()
+```
 
 Replace the following:
 
-  - `  PATH_TO_CA_CERT  ` : the path to your CA certificate file.
+- `PATH_TO_CA_CERT` : the path to your CA certificate file.
 
-  - `  PATH_TO_CLIENT_CERT  ` : the path to your client certificate file.
+- `PATH_TO_CLIENT_CERT` : the path to your client certificate file.
 
-  - `  PATH_TO_CLIENT_KEY  ` : the path to your client key file.
+- `PATH_TO_CLIENT_KEY` : the path to your client key file.

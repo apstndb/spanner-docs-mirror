@@ -18,26 +18,28 @@ The system table reports TTL information per table for a database, while Cloud M
 
 Spanner provides a built-in table that tracks information related to TTL. The table is named `SPANNER_SYS.ROW_DELETION_POLICIES` and has the following schema.
 
-| Column name                 | Type      | Description                                                                                                                                                                                                                              |
-| --------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TABLE\_NAME                 | STRING    | The name of the table that contains this TTL policy.                                                                                                                                                                                     |
-| PROCESSED\_WATERMARK        | TIMESTAMP | This policy has run against all rows in the table as of this time. Some table partitions may have been processed more recently, so this timestamp represents the least-recently processed partition. Typically, this is within 72 hours. |
-| UNDELETABLE\_ROWS           | INT64     | The number of rows that cannot be deleted by the TTL policy. See [Undeletable rows](https://docs.cloud.google.com/spanner/docs/ttl/monitoring-and-metrics#undeletable_rows) for more details.                                            |
-| MIN\_UNDELETABLE\_TIMESTAMP | TIMESTAMP | The oldest timestamp for undeletable rows that was observed during the last processing cycle.                                                                                                                                            |
+| Column name               | Type      | Description                                                                                                                                                                                                                              |
+|---------------------------|-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| TABLE_NAME                | STRING    | The name of the table that contains this TTL policy.                                                                                                                                                                                     |
+| PROCESSED_WATERMARK       | TIMESTAMP | This policy has run against all rows in the table as of this time. Some table partitions may have been processed more recently, so this timestamp represents the least-recently processed partition. Typically, this is within 72 hours. |
+| UNDELETABLE_ROWS          | INT64     | The number of rows that cannot be deleted by the TTL policy. See [Undeletable rows](https://docs.cloud.google.com/spanner/docs/ttl/monitoring-and-metrics#undeletable_rows) for more details.                                            |
+| MIN_UNDELETABLE_TIMESTAMP | TIMESTAMP | The oldest timestamp for undeletable rows that was observed during the last processing cycle.                                                                                                                                            |
 
 The deletion policy information is returned per table for your database.
 
 You can query this data with a SQL query similar to the following:
 
-    SELECT TABLE_NAME, UNDELETABLE_ROWS
-    FROM SPANNER_SYS.ROW_DELETION_POLICIES
-    WHERE UNDELETABLE_ROWS > 0
+```
+SELECT TABLE_NAME, UNDELETABLE_ROWS
+FROM SPANNER_SYS.ROW_DELETION_POLICIES
+WHERE UNDELETABLE_ROWS > 0
+```
 
 The `SPANNER_SYS` tables are only accessible through SQL interfaces; for example:
 
-  - The **Spanner Studio** page in the Google Cloud console
-  - The `gcloud spanner databases execute-sql` command
-  - The `executeQuery` API
+- The **Spanner Studio** page in the Google Cloud console
+- The `gcloud spanner databases execute-sql` command
+- The `executeQuery` API
 
 Other single read methods that Spanner provides don't support `SPANNER_SYS` .
 
@@ -45,9 +47,9 @@ Other single read methods that Spanner provides don't support `SPANNER_SYS` .
 
 Spanner provides the following metrics to monitor TTL activity at a database level:
 
-  - `row_deletion_policy/deleted_rows` is the number of rows deleted by the TTL policy.
-  - `row_deletion_policy/undeletable_rows` is the number of rows that match the row deletion (GoogleSQL) or `TTL INTERVAL` (PostgreSQL) statement, but that cannot be deleted. This is usually because the row had too many child rows, causing the action to exceed Spanner's [transaction limit](https://docs.cloud.google.com/spanner/quotas#limits_for_creating_reading_updating_and_deleting_data) .
-  - `row_deletion_policy/processed_watermark_age` is the time between now and the read timestamp used by the last successful cycle (with or without undeletable rows).
+- `row_deletion_policy/deleted_rows` is the number of rows deleted by the TTL policy.
+- `row_deletion_policy/undeletable_rows` is the number of rows that match the row deletion (GoogleSQL) or `TTL INTERVAL` (PostgreSQL) statement, but that cannot be deleted. This is usually because the row had too many child rows, causing the action to exceed Spanner's [transaction limit](https://docs.cloud.google.com/spanner/quotas#limits_for_creating_reading_updating_and_deleting_data) .
+- `row_deletion_policy/processed_watermark_age` is the time between now and the read timestamp used by the last successful cycle (with or without undeletable rows).
 
 These metrics are available through [Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) and the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) .
 
@@ -59,9 +61,11 @@ You can also monitor other TTL activities.
 
 You can find the last snapshot time at which Spanner completed a scan of the table looking for expired rows. To do so as a SQL query:
 
-    SELECT PROCESSED_WATERMARK
-    FROM SPANNER_SYS.ROW_DELETION_POLICIES
-    WHERE TABLE_NAME = $name
+```
+SELECT PROCESSED_WATERMARK
+FROM SPANNER_SYS.ROW_DELETION_POLICIES
+WHERE TABLE_NAME = $name
+```
 
 Alternatively, the `row_deletion_policy/process_watermark_age` metric displays similar information, but is expressed as the difference between the current time and the last scan time. The metric is not broken down by table, but represents the oldest scan time of any TTL-enabled tables in the database.
 
@@ -83,14 +87,18 @@ You can [set an alert](https://docs.cloud.google.com/monitoring/alerts/using-ale
 
 If you find a non-zero count, you can create a query to break down the count by table:
 
-    SELECT TABLE_NAME, UNDELETABLE_ROWS, MIN_UNDELETABLE_TIMESTAMP
-    FROM SPANNER_SYS.ROW_DELETION_POLICIES
-    WHERE UNDELETABLE_ROWS > 0
+```
+SELECT TABLE_NAME, UNDELETABLE_ROWS, MIN_UNDELETABLE_TIMESTAMP
+FROM SPANNER_SYS.ROW_DELETION_POLICIES
+WHERE UNDELETABLE_ROWS > 0
+```
 
 To look up the contents of the undeletable row:
 
-    SELECT *
-    FROM $TABLE_NAME
-    WHERE $EXPIRE_COL >= $MIN_UNDELETABLE_TIMESTAMP
+```
+SELECT *
+FROM $TABLE_NAME
+WHERE $EXPIRE_COL >= $MIN_UNDELETABLE_TIMESTAMP
+```
 
 Most commonly, a row deletion failure is due to cascading updates to interleaved tables and indexes such that the resulting transaction size exceeds Spanner's [mutation limits](https://docs.cloud.google.com/spanner/quotas#limits_for_creating_reading_updating_and_deleting_data) . You can resolve the issue by updating your schema to add separate [TTL policies on interleaved tables](https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl#ttl_and_interleaved_tables) .

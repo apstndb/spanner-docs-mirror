@@ -20,41 +20,27 @@ Because the query defining a view is executed every time a query referring to th
 
 In Spanner, you can create a view as either an *invoker's rights view* or a *definer's rights view* . They are the two types of security models controlling access to a view for users.
 
-Invoker's rights views
-
-Definer's rights views
-
-Description
-
-If you create a view with invoker's rights, a database role needs privileges on the view and all the schema objects that the view references to query the view. For more information, see [Invoker's rights views](https://docs.cloud.google.com/spanner/docs/views#invoker) .
-
-If you create a view with definer's rights, a database role needs privileges on the view (and only the view) to query the view. Use fine-grained access control alongside definer's rights view, otherwise the definer's rights view doesn't add any additional access control. For more information, see [Definer's rights views](https://docs.cloud.google.com/spanner/docs/views#definer) .
-
-Permissions required to create the view
-
-To create, grant, and revoke access to either view types, you must have database-level `spanner.database.updateDdl` permission.
-
-Privileges required to query the view
-
-A database role needs privileges to the view and all its underlying schema objects to query the view.
-
-A database role needs privileges to the view (and only the view) to query the view.
+|                                         | Invoker's rights views                                                                                                                                                                                                                                                         | Definer's rights views                                                                                                                                                                                                                                                                                                                                                                         |
+|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Description                             | If you create a view with invoker's rights, a database role needs privileges on the view and all the schema objects that the view references to query the view. For more information, see [Invoker's rights views](https://docs.cloud.google.com/spanner/docs/views#invoker) . | If you create a view with definer's rights, a database role needs privileges on the view (and only the view) to query the view. Use fine-grained access control alongside definer's rights view, otherwise the definer's rights view doesn't add any additional access control. For more information, see [Definer's rights views](https://docs.cloud.google.com/spanner/docs/views#definer) . |
+| Permissions required to create the view | To create, grant, and revoke access to either view types, you must have database-level `spanner.database.updateDdl` permission.                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                |
+| Privileges required to query the view   | A database role needs privileges to the view and all its underlying schema objects to query the view.                                                                                                                                                                          | A database role needs privileges to the view (and only the view) to query the view.                                                                                                                                                                                                                                                                                                            |
 
 ## Benefits of views
 
 Views offer several benefits over including the queries they define in the application logic.
 
-  - **Views can provide logical data-modeling to applications.**
-    
-    Sometimes the choices that make sense for physical data-modeling on Spanner are not the best abstraction for applications reading that data. A view can present an alternate table schema that is a more appropriate abstraction for applications.
+- **Views can provide logical data-modeling to applications.**
 
-  - **Views centralize query definitions and so simplify maintenance.**
-    
-    By creating views for widely used or complex queries, you can factor query text out of applications and centralize it. Doing so makes keeping query text up-to-date across applications much simpler and permits revision and tuning of queries without requiring application code to change.
+  Sometimes the choices that make sense for physical data-modeling on Spanner are not the best abstraction for applications reading that data. A view can present an alternate table schema that is a more appropriate abstraction for applications.
 
-  - **Views provide stability across schema changes.**
-    
-    Because the query that defines a view is stored in the database schema instead of in application logic, Spanner can and does ensure that schema changes to the objects (tables, columns and so on) the query refers to do not invalidate the query.
+- **Views centralize query definitions and so simplify maintenance.**
+
+  By creating views for widely used or complex queries, you can factor query text out of applications and centralize it. Doing so makes keeping query text up-to-date across applications much simpler and permits revision and tuning of queries without requiring application code to change.
+
+- **Views provide stability across schema changes.**
+
+  Because the query that defines a view is stored in the database schema instead of in application logic, Spanner can and does ensure that schema changes to the objects (tables, columns and so on) the query refers to do not invalidate the query.
 
 ## Common use cases
 
@@ -64,9 +50,9 @@ If your view doesn't need additional security functionality and all invokers of 
 
 If you want to create a view where not all invokers have access to all schema objects that the view references, create a definer's rights view. Definer's rights views are better protected and have more restrictions because the database admin can provide fewer users with privileges on the tables and columns referenced in the view. Definer's rights views are useful when a user needs a way to securely access a relevant subset of a Spanner database. For example, you might want to create a definer's rights view for the following data:
 
-  - Personal account data (e.g., application customer).
-  - Role specific data (e.g., HR personnel, sales associate).
-  - Location specific data.
+- Personal account data (e.g., application customer).
+- Role specific data (e.g., HR personnel, sales associate).
+- Location specific data.
 
 ## Invoker's rights views
 
@@ -82,50 +68,50 @@ Spanner Identity and Access Management (IAM) permissions are granted at the data
 
 Views have limitations compared to actual tables that make them inappropriate for certain use cases.
 
-  - **Views are read-only. They cannot be used to add, update or delete data.**
-    
-    You cannot use views in DML statements ( `INSERT` , `UPDATE` , `DELETE` ).
+- **Views are read-only. They cannot be used to add, update or delete data.**
 
-  - **The query that defines a view cannot use query parameters.**
+  You cannot use views in DML statements ( `INSERT` , `UPDATE` , `DELETE` ).
 
-  - **Views cannot be indexed.**
+- **The query that defines a view cannot use query parameters.**
 
-  - **References to views cannot use [table hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#table-hints) .**
-    
-    However, the query that defines a view can include table hints on the tables it refers to.
+- **Views cannot be indexed.**
 
-  - **Views are not supported by the [Read](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Read) API.**
+- **References to views cannot use [table hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#table-hints) .**
 
-  - **Definer's rights views are not supported with Spanner [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .**
-    
-    Running a query that contains a definer's rights view in Data Boost results in an error.
+  However, the query that defines a view can include table hints on the tables it refers to.
 
-  - **The recommended [query mode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode) for accessing a definer's rights view is `NORMAL` mode.**
-    
-    Users who don't have access to the underlying schema objects of a definer's rights view receive an error when querying in a query mode other than normal.
+- **Views are not supported by the [Read](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Read) API.**
 
-  - **It's possible for a user to create a carefully crafted query that causes Spanner to throw an error that shows or reveals the existence of data that is not available in the definer's rights view.**
-    
-    For example, assume there is the following view QualifiedStudentScores which returns scores of students who qualify for a course. The criteria for qualifying is based on the level and exam score of the student. If the student's level is equal or lower than six, the score matters, and the student has to get at least 50 points on the exam to qualify. Otherwise, for levels equal or greater than six, the student qualifies by default.
-    
-    ``` 
-      CREATE VIEW QualifiedStudentScores
-      SQL SECURITY DEFINER AS
-      SELECT
-        s.Name,
-        s.Level,
-        sc.Score
-      FROM Students AS s
-      JOIN Scores AS sc ON sc.StudentId = s.StudentId
-      WHERE
-      (CASE
-        WHEN (s.Level < 6) OR (s.Level >= 6 AND sc.Score >= 50)
-          THEN 'QUALIFIED';
-        ELSE 'FAILED';
-      END) = 'QUALIFIED';
-    ```
-    
-    A user can run a query in the form of `SELECT * FROM QualifiedStudentScores s WHERE s.Level = 7 AND 1/(s.Score - 20) = 1;` . This query might fail with a division by zero error if there is a student in level 7 who got a score of 20 points, even though the view limits data to 50 points and above for that level.
+- **Definer's rights views are not supported with Spanner [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .**
+
+  Running a query that contains a definer's rights view in Data Boost results in an error.
+
+- **The recommended [query mode](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/QueryMode) for accessing a definer's rights view is `NORMAL` mode.**
+
+  Users who don't have access to the underlying schema objects of a definer's rights view receive an error when querying in a query mode other than normal.
+
+- **It's possible for a user to create a carefully crafted query that causes Spanner to throw an error that shows or reveals the existence of data that is not available in the definer's rights view.**
+
+  For example, assume there is the following view QualifiedStudentScores which returns scores of students who qualify for a course. The criteria for qualifying is based on the level and exam score of the student. If the student's level is equal or lower than six, the score matters, and the student has to get at least 50 points on the exam to qualify. Otherwise, for levels equal or greater than six, the student qualifies by default.
+
+  ```
+    CREATE VIEW QualifiedStudentScores
+    SQL SECURITY DEFINER AS
+    SELECT
+      s.Name,
+      s.Level,
+      sc.Score
+    FROM Students AS s
+    JOIN Scores AS sc ON sc.StudentId = s.StudentId
+    WHERE
+    (CASE
+      WHEN (s.Level < 6) OR (s.Level >= 6 AND sc.Score >= 50)
+        THEN 'QUALIFIED';
+      ELSE 'FAILED';
+    END) = 'QUALIFIED';
+  ```
+
+  A user can run a query in the form of `SELECT * FROM QualifiedStudentScores s WHERE s.Level = 7 AND 1/(s.Score - 20) = 1;` . This query might fail with a division by zero error if there is a student in level 7 who got a score of 20 points, even though the view limits data to 50 points and above for that level.
 
 ## Query performance when using views
 
@@ -133,18 +119,18 @@ A query that refers to a view performs comparably to that same query with its vi
 
 ## Quotas and limits that apply to views
 
-  - The [Quotas & limits](https://docs.cloud.google.com/spanner/quotas#views) page lists quota and limit information specifically for views.
+- The [Quotas & limits](https://docs.cloud.google.com/spanner/quotas#views) page lists quota and limit information specifically for views.
 
-  - Using a view in a query can affect that query's conformance to [query limits](https://docs.cloud.google.com/spanner/quotas#tables) because the view's definition becomes part of the query.
+- Using a view in a query can affect that query's conformance to [query limits](https://docs.cloud.google.com/spanner/quotas#tables) because the view's definition becomes part of the query.
 
 ## Cost impact
 
 Using views has a very small impact on the cost of an instance:
 
-  - Using views has no impact on the compute capacity needs of an instance, as compared to embedding their defined query text in queries that refer to them.
+- Using views has no impact on the compute capacity needs of an instance, as compared to embedding their defined query text in queries that refer to them.
 
-  - Using views has very small impact on the database storage of an instance because the table generated by executing a view's query definition is not saved to persistent database storage.
+- Using views has very small impact on the database storage of an instance because the table generated by executing a view's query definition is not saved to persistent database storage.
 
 ## What's next
 
-  - Learn how to [Create and manage views](https://docs.cloud.google.com/spanner/docs/create-manage-views) .
+- Learn how to [Create and manage views](https://docs.cloud.google.com/spanner/docs/create-manage-views) .

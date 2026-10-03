@@ -16,10 +16,10 @@ Spanner spend-based CUDs are ideal when your spending on Spanner capacity involv
 
 Spanner CUDs offer two levels of discounts, depending on the commitment period:
 
-  - **20% discount** : You get this by committing to a 1-year term. For the duration of your term, you pay the Spanner CUD 1-year price (consumption model ID 558C-892D-2291) as your committed hourly spend amount.
-  - **40% discount** : You get this by committing to a 3-year term. For the duration of your term, you pay the Spanner CUD 3-year price (consumption model ID 38C3-A961-A68B) as your committed hourly spend amount.
+- **20% discount** : You get this by committing to a 1-year term. For the duration of your term, you pay the Spanner CUD 1-year price (consumption model ID 558C-892D-2291) as your committed hourly spend amount.
+- **40% discount** : You get this by committing to a 3-year term. For the duration of your term, you pay the Spanner CUD 3-year price (consumption model ID 38C3-A961-A68B) as your committed hourly spend amount.
 
-When you purchase a commitment, you agree to pay a fixed hourly fee for a one or three-year term. Your monthly invoice shows usage charges using the CUD [consumption model](https://docs.cloud.google.com/billing/docs/resources/multiprice-cuds) prices for usage that falls within your commitment. You're charged $1 for $1 worth of commitment fees, and a corresponding credit applies so that the commitment fee is offset for any utilized portion of your commitment. For a full example, see [An example Spanner CUD](https://docs.cloud.google.com/spanner/docs/cuds#example) .
+When you purchase a commitment, you agree to pay a fixed hourly fee for a one or three-year term. Your monthly invoice shows usage charges using the CUD [consumption model](https://docs.cloud.google.com/billing/docs/resources/multiprice-cuds) prices for usage that falls within your commitment. You're charged \$1 for \$1 worth of commitment fees, and a corresponding credit applies so that the commitment fee is offset for any utilized portion of your commitment. For a full example, see [An example Spanner CUD](https://docs.cloud.google.com/spanner/docs/cuds#example) .
 
 For any unused portion of your commitment, the fee applies. The result is that you pay the flat commitment fee every hour, whether you use the services or not, but commitment fees are then credited back to you for the used portions within the commitment amount.
 
@@ -53,36 +53,36 @@ In this example, we calculate your expected on-demand usage cost and use that in
 
 Start by calculating your non-discounted cost for one month (730 hours). Find your desired Spanner SKUs in the [pricing page](https://cloud.google.com/spanner/pricing) and use the drop-down to select the regions. For the calculations, use the prices you see in the three columns, *Default* price (on-demand), 1-year CUD, and 3-year CUD prices:
 
-  - Node cost for `us-central1` : $0.9 per node per hour on-demand cost \* 10 nodes = $9.00 per hour.
-  - Node cost for `us-west2` : $1.08 per node per hour on-demand cost \* 20 nodes = $21.60 per hour.
-  - On-demand costs across all regions: $9.00 + $21.60 = $30.60 per hour.
-  - Total monthly on-demand cost: $30.60 per hour \* 730 hours in a month = $22,338 per month.
+- Node cost for `us-central1` : \$0.9 per node per hour on-demand cost \* 10 nodes = \$9.00 per hour.
+- Node cost for `us-west2` : \$1.08 per node per hour on-demand cost \* 20 nodes = \$21.60 per hour.
+- On-demand costs across all regions: \$9.00 + \$21.60 = \$30.60 per hour.
+- Total monthly on-demand cost: \$30.60 per hour \* 730 hours in a month = \$22,338 per month.
 
 ### Calculate the 1-year commitment cost and discount
 
 Use the [Spanner pricing page](https://cloud.google.com/spanner/pricing) to get the hourly cost for a 1-year commitment for the regions and number of nodes, then perform the following calculations:
 
-  - Node cost for `us-central1` : 10 nodes \* $0.72 per node per hour 1-year cost = $7.20 per hour.
-  - Node cost for `us-west2` : 20 nodes \* $0.864 per node per hour 1-year cost = $17.28 per hour.
-  - Total 1-year commitment hourly cost: $7.20 + $17.28 = $24.48 per hour.
-  - Total monthly 1-year commitment cost: $24.48 per hour \* 730 hours in a month = $17,870.40 per month.
+- Node cost for `us-central1` : 10 nodes \* \$0.72 per node per hour 1-year cost = \$7.20 per hour.
+- Node cost for `us-west2` : 20 nodes \* \$0.864 per node per hour 1-year cost = \$17.28 per hour.
+- Total 1-year commitment hourly cost: \$7.20 + \$17.28 = \$24.48 per hour.
+- Total monthly 1-year commitment cost: \$24.48 per hour \* 730 hours in a month = \$17,870.40 per month.
 
 Based on the results, you can make a commitment amount of `$24.48` per hour to achieve the 20% discount and see the total savings over 1 year:
 
-  - Total 1-year committment savings: On-demand cost per month $22,338 - 1-year commitment cost per month $17,870.40 = $4467.60 \* 12 months = **$53,611.20** .
+- Total 1-year committment savings: On-demand cost per month \$22,338 - 1-year commitment cost per month \$17,870.40 = \$4467.60 \* 12 months = **\$53,611.20** .
 
 ### Calculate the 3-year commitment cost and discount
 
 Use the [Spanner pricing page](https://cloud.google.com/spanner/pricing) to get the hourly cost for a 3-year commitment for the regions and number of nodes, then perform the following calculations:
 
-  - Node cost for `us-central1` : 10 nodes \* $0.54 per node per hour 3-year cost = $5.40 per hour.
-  - Node cost for `us-west2` : 20 nodes \* $0.648 per node per hour 3-year cost = $12.96 per hour.
-  - Total 3-year commitment hourly cost: $5.40 + $12.96 = $18.36 per hour.
-  - Total monthly 3-year commitment cost: $18.36 per hour \* 730 hours in a month = $13,402.80 per month.
+- Node cost for `us-central1` : 10 nodes \* \$0.54 per node per hour 3-year cost = \$5.40 per hour.
+- Node cost for `us-west2` : 20 nodes \* \$0.648 per node per hour 3-year cost = \$12.96 per hour.
+- Total 3-year commitment hourly cost: \$5.40 + \$12.96 = \$18.36 per hour.
+- Total monthly 3-year commitment cost: \$18.36 per hour \* 730 hours in a month = \$13,402.80 per month.
 
 Based on the results, you can make a commitment amount of `$18.36` per hour to achieve the 40% discount and see the total savings over 3 years:
 
-  - Total 3-year committment savings: On-demand cost per month $22,338 - 3-year commitment cost per month $13,402.80 = $8935.20 \* 36 months = **$321,667.20** .
+- Total 3-year committment savings: On-demand cost per month \$22,338 - 3-year commitment cost per month \$13,402.80 = \$8935.20 \* 36 months = **\$321,667.20** .
 
 ## Recommendations for choosing a commitment
 
@@ -96,14 +96,14 @@ Your commitment fee applies to every hour during the term of the commitment, reg
 
 ## What's next
 
-  - Learn more about [Spanner pricing](https://cloud.google.com/spanner/pricing) .
+- Learn more about [Spanner pricing](https://cloud.google.com/spanner/pricing) .
 
-  - Learn more about [Google Cloud spend-based CUDs](https://docs.cloud.google.com/docs/cuds) .
+- Learn more about [Google Cloud spend-based CUDs](https://docs.cloud.google.com/docs/cuds) .
 
-  - Learn more about CUD [consumption models](https://docs.cloud.google.com/billing/docs/resources/multiprice-cuds) .
+- Learn more about CUD [consumption models](https://docs.cloud.google.com/billing/docs/resources/multiprice-cuds) .
 
-  - Learn how to [view your CUD reports](https://docs.cloud.google.com/billing/docs/how-to/cud-analysis) .
+- Learn how to [view your CUD reports](https://docs.cloud.google.com/billing/docs/how-to/cud-analysis) .
 
-  - Understand savings with [cost breakdown reports](https://docs.cloud.google.com/billing/docs/how-to/cost-breakdown) .
+- Understand savings with [cost breakdown reports](https://docs.cloud.google.com/billing/docs/how-to/cost-breakdown) .
 
-  - See [the list of Spanner SKUs](https://cloud.google.com/skus/sku-groups/cloud-spanner-cud-eligible-skus) that you can use with Spanner CUDs.
+- See [the list of Spanner SKUs](https://cloud.google.com/skus/sku-groups/cloud-spanner-cud-eligible-skus) that you can use with Spanner CUDs.

@@ -7,7 +7,7 @@ data_source: docs.cloud.google.com
 ---
 
 > **Preview — [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview)**
-> 
+>
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
@@ -16,33 +16,37 @@ data_source: docs.cloud.google.com
 
 Spanner Graph algorithms can run on graphs with schemas that meet the following requirements:
 
-  - An edge input table must be interleaved into its source node input table and have a [Foreign Key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#enforced-foreign-keys) or [Informational Foreign Key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys) to its destination node input table. See [Best practices for designing a Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#enforced-foreign-key) .
-  - Each input table to the graph algorithm must have a unique identifying label.
+- An edge input table must be interleaved into its source node input table and have a [Foreign Key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#enforced-foreign-keys) or [Informational Foreign Key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys) to its destination node input table. See [Best practices for designing a Spanner Graph schema](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#enforced-foreign-key) .
+- Each input table to the graph algorithm must have a unique identifying label.
 
 The following is an example of an unsupported schema:
 
-    -- Unsupported: Both `Person` and `Account` can only be referred to via label `Entity`.
-    CREATE PROPERTY GRAPH FinGraph
-      NODE TABLES (
-        Person KEY (id)
-          LABEL Entity PROPERTIES (...),
-        Account KEY (id)
-          LABEL Entity PROPERTIES (...)
-      );
+```
+-- Unsupported: Both `Person` and `Account` can only be referred to via label `Entity`.
+CREATE PROPERTY GRAPH FinGraph
+  NODE TABLES (
+    Person KEY (id)
+      LABEL Entity PROPERTIES (...),
+    Account KEY (id)
+      LABEL Entity PROPERTIES (...)
+  );
+```
 
 The following is an example of a supported schema:
 
-    -- Supported: Even though label `Entity` refers to both `Person` and `Account`,
-    -- label `Customer` uniquely identifies `Person`, label `Account` uniquely identifies `Account`.
-    CREATE PROPERTY GRAPH FinGraph
-      NODE TABLES (
-        Person KEY (id)
-          LABEL Customer PROPERTIES (...)
-          LABEL Entity PROPERTIES (...),
-        Account KEY (id)
-          LABEL Account PROPERTIES (...)
-          LABEL Entity PROPERTIES (...)
-      );
+```
+-- Supported: Even though label `Entity` refers to both `Person` and `Account`,
+-- label `Customer` uniquely identifies `Person`, label `Account` uniquely identifies `Account`.
+CREATE PROPERTY GRAPH FinGraph
+  NODE TABLES (
+    Person KEY (id)
+      LABEL Customer PROPERTIES (...)
+      LABEL Entity PROPERTIES (...),
+    Account KEY (id)
+      LABEL Account PROPERTIES (...)
+      LABEL Entity PROPERTIES (...)
+  );
+```
 
 ## Feature compatibility
 
@@ -59,69 +63,77 @@ When you use the `MATCH` clause in [algorithm query structure](https://docs.clou
 
 The following examples demonstrate supported `MATCH` clauses:
 
-    -- Supported: Assuming only 1 element table has `Account` label:
-    MATCH (a:Account)
-    
-    MATCH (a:Account WHERE a.id > 400)
-    
-    MATCH (a:Account WHERE a.id IN [101, 102, 105])
-    
-    MATCH -[e:Transfers WHERE e.amount < 500]->
+```
+-- Supported: Assuming only 1 element table has `Account` label:
+MATCH (a:Account)
+
+MATCH (a:Account WHERE a.id > 400)
+
+MATCH (a:Account WHERE a.id IN [101, 102, 105])
+
+MATCH -[e:Transfers WHERE e.amount < 500]->
+```
 
 The following examples demonstrate unsupported `MATCH` clauses:
 
-    -- Unsupported: End nodes for edge patterns cannot have labels or named variables.
-    MATCH (a:Account)-[]->
-    
-    -- Unsupported: Each MATCH can only name one variable.
-    MATCH (a:Account)-[e:Transfers]->
-    
-    -- Unsupported: If there are multiple node element tables in the graph, each MATCH
-    -- must uniquely identify one element table.
-    MATCH (a)
-    
-    -- Unsupported: The `Entity` label maps to both `Account` and `Person` node element tables.
-    MATCH (a:Account | Entity)
+```
+-- Unsupported: End nodes for edge patterns cannot have labels or named variables.
+MATCH (a:Account)-[]->
+
+-- Unsupported: Each MATCH can only name one variable.
+MATCH (a:Account)-[e:Transfers]->
+
+-- Unsupported: If there are multiple node element tables in the graph, each MATCH
+-- must uniquely identify one element table.
+MATCH (a)
+
+-- Unsupported: The `Entity` label maps to both `Account` and `Person` node element tables.
+MATCH (a:Account | Entity)
+```
 
 ### Use RETURN clause
 
 The `RETURN` clause in [algorithm query structure](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#algo-query-structure) defines the data returned by the algorithm query. You can refer to columns from the algorithm's output signature in the `RETURN` clause, with some constraints:
 
-  - If an algorithm outputs a [Node](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) , you can return any property of the node. You can also return [ELEMENT\_DEFINITION\_NAME](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) of the node.
-  - If an algorithm outputs a [Path](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_path_type) , you can return `PATH_LENGTH(path).`
-  - You can return any scalar output from the algorithm.
-  - You can return any literal Constant.
+- If an algorithm outputs a [Node](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) , you can return any property of the node. You can also return [ELEMENT_DEFINITION_NAME](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) of the node.
+- If an algorithm outputs a [Path](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_path_type) , you can return `PATH_LENGTH(path).`
+- You can return any scalar output from the algorithm.
+- You can return any literal Constant.
 
 The following examples demonstrate supported `RETURN` clauses:
 
-    -- Supported.
-    CALL PageRank(...) YIELD node, score
-    RETURN ELEMENT_DEFINITION_NAME(node) AS node_type, node.id, score
-    
-    -- Supported: You can return constants.
-    CALL PageRank(...) YIELD node, score
-    RETURN node.id, score, "pagerank-run1" AS algo_run_id
-    
-    -- Supported.
-    CALL ShortestPath(...) YIELD source_node, target_node, path, cost
-    RETURN source_node.id AS source_id, target_node.id AS target_id,
-      PATH_LENGTH(path) AS length, cost
+```
+-- Supported.
+CALL PageRank(...) YIELD node, score
+RETURN ELEMENT_DEFINITION_NAME(node) AS node_type, node.id, score
+
+-- Supported: You can return constants.
+CALL PageRank(...) YIELD node, score
+RETURN node.id, score, "pagerank-run1" AS algo_run_id
+
+-- Supported.
+CALL ShortestPath(...) YIELD source_node, target_node, path, cost
+RETURN source_node.id AS source_id, target_node.id AS target_id,
+  PATH_LENGTH(path) AS length, cost
+```
 
 The following examples demonstrate unsupported `RETURN` clauses:
 
-    -- Unsupported: You cannot return the graph element `node` directly.
-    RETURN node, score
-    
-    -- Unsupported: You can only return properties of `node`. Applying a function to a node property
-    -- is not supported.
-    RETURN node.id + 1, score
-    
-    -- Unsupported: You can only return the scalar `score` directly from the algorithm output. Applying
-    -- a function to scalar output is not supported.
-    RETURN node.id, score + 1
-    
-    -- Unsupported: General function calls are not allowed.
-    RETURN JSON_OBJECT(node.id, score) as json_obj
+```
+-- Unsupported: You cannot return the graph element `node` directly.
+RETURN node, score
+
+-- Unsupported: You can only return properties of `node`. Applying a function to a node property
+-- is not supported.
+RETURN node.id + 1, score
+
+-- Unsupported: You can only return the scalar `score` directly from the algorithm output. Applying
+-- a function to scalar output is not supported.
+RETURN node.id, score + 1
+
+-- Unsupported: General function calls are not allowed.
+RETURN JSON_OBJECT(node.id, score) as json_obj
+```
 
 ### Parameters are not supported
 
@@ -133,6 +145,6 @@ When you create your graph on a [view](https://docs.cloud.google.com/spanner/doc
 
 ## What's next
 
-  - [Spanner Graph run algorithms](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms) .
-  - [Spanner Graph algorithms catalog](https://docs.cloud.google.com/spanner/docs/graph/algorithms) .
-  - [Spanner Graph algorithm best practices](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices) .
+- [Spanner Graph run algorithms](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms) .
+- [Spanner Graph algorithms catalog](https://docs.cloud.google.com/spanner/docs/graph/algorithms) .
+- [Spanner Graph algorithm best practices](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices) .

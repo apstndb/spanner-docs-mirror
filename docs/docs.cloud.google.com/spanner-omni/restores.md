@@ -10,13 +10,13 @@ You can restore a backup of a Spanner Omni database into a new database. The res
 
 The following items aren't included in a restored database:
 
-  - IAM permissions. You must apply appropriate IAM permissions after the restore completes.
+- IAM permissions. You must apply appropriate IAM permissions after the restore completes.
 
-  - Internal data of any change streams.
+- Internal data of any change streams.
 
-  - Time to live (TTL) defined by a row deletion policy. You must reconfigure these policies after the restore completes.
+- Time to live (TTL) defined by a row deletion policy. You must reconfigure these policies after the restore completes.
 
-  - Split points you create when pre-splitting a database.
+- Split points you create when pre-splitting a database.
 
 ## How restoration works
 
@@ -41,13 +41,13 @@ A restored database transitions through three states, tracked by two long-runnin
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">CREATING</code></td>
+<td><code>CREATING</code></td>
 <td>Spanner Omni begins restoring by creating a new database and mounting files from the backup. During this state, the restored database is not yet ready for use. Once complete, your database is ready to use.<br />
 <br />
-<strong>Note:</strong> Spanner Omni doesn't allow you to delete the backup while it restores. You can delete it after the restore completes and the database enters the <code dir="ltr" translate="no">READY</code> state.</td>
+<strong>Note:</strong> Spanner Omni doesn't allow you to delete the backup while it restores. You can delete it after the restore completes and the database enters the <code>READY</code> state.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">READY_OPTIMIZING</code></td>
+<td><code>READY_OPTIMIZING</code></td>
 <td>After mounting the backup, Spanner Omni starts copying data into the new database while optimizing its stored size. Your database is ready for use during this process.<br />
 <br />
 <strong>Caveats:</strong>
@@ -58,8 +58,8 @@ A restored database transitions through three states, tracked by two long-runnin
 </ul></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">READY</code></td>
-<td>Once the copy-and-optimize operation completes, the database transitions to the <code dir="ltr" translate="no">READY</code> state. The database is fully restored and no longer requires the backup.</td>
+<td><code>READY</code></td>
+<td>Once the copy-and-optimize operation completes, the database transitions to the <code>READY</code> state. The database is fully restored and no longer requires the backup.</td>
 </tr>
 </tbody>
 </table>
@@ -71,7 +71,7 @@ To track progress during the `CREATING` state, you can query the long-running re
 The following roles provide the permissions required for Spanner Omni restore operations:
 
 | IAM role                     | Permissions                                                                             |
-| ---------------------------- | --------------------------------------------------------------------------------------- |
+|------------------------------|-----------------------------------------------------------------------------------------|
 | `roles/spanner.restoreAdmin` | Permission to restore from a backup.                                                    |
 | `roles/spanner.admin`        | Full access to restore operations and all other Spanner Omni resources.                 |
 | `owner`                      | Full access to restore operations.                                                      |
@@ -82,7 +82,9 @@ The following roles provide the permissions required for Spanner Omni restore op
 
 To restore a database, use the `spanner databases restore` command:
 
-    spanner databases restore \
-      --destination-database=RESTORE_DATABASE_NAME \
-      --source-backup=BACKUP_NAME \
-      --async
+```
+spanner databases restore \
+  --destination-database=RESTORE_DATABASE_NAME \
+  --source-backup=BACKUP_NAME \
+  --async
+```

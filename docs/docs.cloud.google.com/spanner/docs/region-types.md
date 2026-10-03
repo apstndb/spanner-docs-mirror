@@ -8,9 +8,9 @@ data_source: docs.cloud.google.com
 
 This page describes the different region types available in Spanner:
 
-  - Read-write regions
-  - Read-only regions
-  - Witness regions
+- Read-write regions
+- Read-only regions
+- Witness regions
 
 ## Read-write regions
 
@@ -50,6 +50,6 @@ A witness region contains a [witness replica](https://docs.cloud.google.com/span
 
 ## What's next
 
-  - Learn more about [Regional, dual-region, and multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
-  - Learn more about [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
-  - Learn more about [Google Cloud geography and regions](https://docs.cloud.google.com/docs/geography-and-regions) .
+- Learn more about [Regional, dual-region, and multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
+- Learn more about [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
+- Learn more about [Google Cloud geography and regions](https://docs.cloud.google.com/docs/geography-and-regions) .

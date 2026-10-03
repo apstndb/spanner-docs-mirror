@@ -35,19 +35,23 @@ Using our `Albums` sample schema, for the first page, the query looks like the f
 
 ### GoogleSQL
 
-    SELECT AlbumId, ReleaseTimestamp
-    FROM Albums
-    WHERE SEARCH(AlbumTitle_Tokens, "fifth symphony")
-    ORDER BY ReleaseTimestamp DESC, AlbumId
-    LIMIT 10;
+```
+SELECT AlbumId, ReleaseTimestamp
+FROM Albums
+WHERE SEARCH(AlbumTitle_Tokens, "fifth symphony")
+ORDER BY ReleaseTimestamp DESC, AlbumId
+LIMIT 10;
+```
 
 ### PostgreSQL
 
-    SELECT albumid, releasetimestamp
-    FROM albums
-    WHERE spanner.search(albumtitle_tokens, 'fifth symphony')
-    ORDER BY releasetimestamp DESC, albumid
-    LIMIT 10;
+```
+SELECT albumid, releasetimestamp
+FROM albums
+WHERE spanner.search(albumtitle_tokens, 'fifth symphony')
+ORDER BY releasetimestamp DESC, albumid
+LIMIT 10;
+```
 
 The `AlbumId` is the tie breaker since `ReleaseTimestamp` isn't a key. There might be two different albums with the same value for `ReleaseTimestamp` .
 
@@ -57,27 +61,31 @@ In our example, `AlbumId` is the only key column (in ascending order) and it can
 
 ### GoogleSQL
 
-    SELECT AlbumId, ReleaseTimestamp
-    FROM Albums
-    WHERE (ReleaseTimestamp < @last_page_release_timestamp
-        OR (ReleaseTimestamp = @last_page_release_timestamp
-            AND AlbumId > @last_page_album_id))
-        AND SEARCH(AlbumTitle_Tokens, @p)
-    ORDER BY ReleaseTimestamp DESC, AlbumId ASC
-    LIMIT @page_size;
+```
+SELECT AlbumId, ReleaseTimestamp
+FROM Albums
+WHERE (ReleaseTimestamp < @last_page_release_timestamp
+    OR (ReleaseTimestamp = @last_page_release_timestamp
+        AND AlbumId > @last_page_album_id))
+    AND SEARCH(AlbumTitle_Tokens, @p)
+ORDER BY ReleaseTimestamp DESC, AlbumId ASC
+LIMIT @page_size;
+```
 
 ### PostgreSQL
 
 This example uses query parameters `$1` , `$2` , `$3` and `$4` which are bound to values specified for `last_page_release_timestamp` , `last_page_album_id` , `query` , and `page_size` , respectively.
 
-    SELECT albumid, releasetimestamp
-    FROM albums
-    WHERE (releasetimestamp < $1
-        OR (releasetimestamp = $1
-            AND albumid > $2))
-        AND spanner.search(albumtitle_tokens, $3)
-    ORDER BY releasetimestamp DESC, albumid ASC
-    LIMIT $4;
+```
+SELECT albumid, releasetimestamp
+FROM albums
+WHERE (releasetimestamp < $1
+    OR (releasetimestamp = $1
+        AND albumid > $2))
+    AND spanner.search(albumtitle_tokens, $3)
+ORDER BY releasetimestamp DESC, albumid ASC
+LIMIT $4;
+```
 
 Spanner interprets this kind of condition as [seekable](https://docs.cloud.google.com/spanner/docs/query-execution-operators#filter_scan) . This means that Spanner doesn't read the index for documents you're filtering out. This optimization is what makes key-based pagination much more efficient than offset-based pagination.
 
@@ -89,28 +97,32 @@ For example, the following query fetches the third page, with a page size of 50:
 
 ### GoogleSQL
 
-    SELECT AlbumId
-    FROM Albums
-    WHERE SEARCH(AlbumTitle_Tokens, "fifth symphony")
-    ORDER BY ReleaseTimestamp DESC, AlbumId
-    LIMIT 50 OFFSET 100;
+```
+SELECT AlbumId
+FROM Albums
+WHERE SEARCH(AlbumTitle_Tokens, "fifth symphony")
+ORDER BY ReleaseTimestamp DESC, AlbumId
+LIMIT 50 OFFSET 100;
+```
 
 ### PostgreSQL
 
-    SELECT albumid
-    FROM albums
-    WHERE spanner.search(albumtitle_tokens, 'fifth symphony')
-    ORDER BY releasetimestamp DESC, albumid
-    LIMIT 50 OFFSET 100;
+```
+SELECT albumid
+FROM albums
+WHERE spanner.search(albumtitle_tokens, 'fifth symphony')
+ORDER BY releasetimestamp DESC, albumid
+LIMIT 50 OFFSET 100;
+```
 
 Usage Notes:
 
-  - The `ORDER BY` clause is highly recommended to ensure consistent ordering between pages.
-  - In production queries, use query parameters rather than constants to specify `LIMIT` and `OFFSET` to make query caching more efficient. For more information, see [Query parameters](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#query_parameters) .
+- The `ORDER BY` clause is highly recommended to ensure consistent ordering between pages.
+- In production queries, use query parameters rather than constants to specify `LIMIT` and `OFFSET` to make query caching more efficient. For more information, see [Query parameters](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#query_parameters) .
 
 ## What's next
 
-  - Learn how to [rank search results](https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search) .
-  - Learn how to [perform a substring search](https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search) .
-  - Learn how to [mix full-text and non-text queries](https://docs.cloud.google.com/spanner/docs/full-text-search/mix-full-text-and-non-text-queries) .
-  - Learn how to [search multiple columns](https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns) .
+- Learn how to [rank search results](https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search) .
+- Learn how to [perform a substring search](https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search) .
+- Learn how to [mix full-text and non-text queries](https://docs.cloud.google.com/spanner/docs/full-text-search/mix-full-text-and-non-text-queries) .
+- Learn how to [search multiple columns](https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns) .

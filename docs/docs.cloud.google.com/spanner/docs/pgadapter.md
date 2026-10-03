@@ -22,12 +22,12 @@ PGAdapter supports basic and extended query modes, and any data type that the Po
 
 PGAdapter supports standard PostgreSQL drivers, ORMs, and client tools, including:
 
-  - **Command-line tools** : [`psql`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psql.md) (versions 11 through 14) and [JetBrains IDEs](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/intellij.md) (such as DataGrip).
-  - **Java/JVM** : [JDBC](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/jdbc.md) (version 42.x and higher), [R2DBC](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/java/r2dbc) , [Hibernate](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/java/hibernate) , and [Spring Data JPA](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/java/spring-data-jpa) .
-  - **Go** : [`pgx`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/pgx.md) (version 4.15 and higher) and [`gorm`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/gorm.md) .
-  - **Python** : [`psycopg2`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psycopg2.md) , [`psycopg3`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psycopg3.md) , [`SQLAlchemy`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/sqlalchemy.md) , and [Python ADBC](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/adbc.md) .
-  - **Node.js** : [`node-postgres`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/node-postgres.md) , [`Knex.js`](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/nodejs/knex) , [`Sequelize.js`](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/nodejs/sequelize) , [`Prisma`](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/nodejs/prisma-sample-app) , and [`Drizzle`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/drizzle.md) .
-  - **Other languages** : [`npgsql`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/npgsql.md) (.NET) and [`PDO_PGSQL`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/pdo.md) (PHP).
+- **Command-line tools** : [`psql`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psql.md) (versions 11 through 14) and [JetBrains IDEs](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/intellij.md) (such as DataGrip).
+- **Java/JVM** : [JDBC](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/jdbc.md) (version 42.x and higher), [R2DBC](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/java/r2dbc) , [Hibernate](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/java/hibernate) , and [Spring Data JPA](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/java/spring-data-jpa) .
+- **Go** : [`pgx`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/pgx.md) (version 4.15 and higher) and [`gorm`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/gorm.md) .
+- **Python** : [`psycopg2`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psycopg2.md) , [`psycopg3`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psycopg3.md) , [`SQLAlchemy`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/sqlalchemy.md) , and [Python ADBC](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/adbc.md) .
+- **Node.js** : [`node-postgres`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/node-postgres.md) , [`Knex.js`](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/nodejs/knex) , [`Sequelize.js`](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/nodejs/sequelize) , [`Prisma`](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/nodejs/prisma-sample-app) , and [`Drizzle`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/drizzle.md) .
+- **Other languages** : [`npgsql`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/npgsql.md) (.NET) and [`PDO_PGSQL`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/pdo.md) (PHP).
 
 For a complete compatibility matrix, see [PostgreSQL drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview#postgresql_drivers_and_orms) .
 
@@ -35,11 +35,11 @@ For a complete compatibility matrix, see [PostgreSQL drivers and ORMs](https://d
 
 You can run PGAdapter by using one of the following methods:
 
-  - **Standalone** : PGAdapter is supplied as a JAR file and runs standalone in the JVM.
-  - **Docker** . PGAdapter is also packaged as a Docker image.
-  - **Cloud Run** : PGAdapter can be deployed as a sidecar proxy on Cloud Run.
-  - **Sidecar proxy** : a typical use as a sidecar proxy is in a Kubernetes cluster.
-  - **In-process** : your Java application code can use the supplied JAR file to create and start a PGAdapter instance.
+- **Standalone** : PGAdapter is supplied as a JAR file and runs standalone in the JVM.
+- **Docker** . PGAdapter is also packaged as a Docker image.
+- **Cloud Run** : PGAdapter can be deployed as a sidecar proxy on Cloud Run.
+- **Sidecar proxy** : a typical use as a sidecar proxy is in a Kubernetes cluster.
+- **In-process** : your Java application code can use the supplied JAR file to create and start a PGAdapter instance.
 
 For details about these methods, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
@@ -53,6 +53,6 @@ For more information, see [About fine-grained access control](https://docs.cloud
 
 ## What's next
 
-  - [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start)
-  - Learn more about the [PGAdapter GitHub repository](https://github.com/GoogleCloudPlatform/pgadapter) .
-  - Learn more about [PostgreSQL drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview#postgresql_drivers_and_orms) for a table of PostgreSQL drivers and ORMs that PGAdapter supports.
+- [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start)
+- Learn more about the [PGAdapter GitHub repository](https://github.com/GoogleCloudPlatform/pgadapter) .
+- Learn more about [PostgreSQL drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview#postgresql_drivers_and_orms) for a table of PostgreSQL drivers and ORMs that PGAdapter supports.

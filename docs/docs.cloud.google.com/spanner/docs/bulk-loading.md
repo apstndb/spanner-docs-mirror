@@ -10,11 +10,11 @@ This page provides guidelines for efficiently bulk loading large amounts of data
 
 You have several options for bulk loading data into Spanner:
 
-  - [Insert rows using Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/dml-tasks) .
-  - [Insert rows using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
-  - [Import data using the Dataflow connector](https://docs.cloud.google.com/spanner/docs/dataflow-connector) .
-  - [Import a database using Avro files](https://docs.cloud.google.com/spanner/docs/import) .
-  - [Import data in CSV format](https://docs.cloud.google.com/spanner/docs/import-export-csv) .
+- [Insert rows using Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/dml-tasks) .
+- [Insert rows using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) .
+- [Import data using the Dataflow connector](https://docs.cloud.google.com/spanner/docs/dataflow-connector) .
+- [Import a database using Avro files](https://docs.cloud.google.com/spanner/docs/import) .
+- [Import data in CSV format](https://docs.cloud.google.com/spanner/docs/import-export-csv) .
 
 While you can also [insert rows using the Google Cloud CLI](https://docs.cloud.google.com/spanner/docs/modify-gcloud#modify-data) , we don't recommend that you use the gcloud CLI for bulk loading.
 
@@ -30,14 +30,14 @@ Spanner automatically partitions tables into smaller ranges. The primary key for
 
 To get optimal write throughput for bulk loads, partition your data by primary key with this pattern:
 
-  - Each partition contains a range of consecutive rows, as determined by the key columns.
-  - Each commit contains data for only a single partition.
+- Each partition contains a range of consecutive rows, as determined by the key columns.
+- Each commit contains data for only a single partition.
 
 We recommend that the number of partitions be 10 times the number of nodes in your Spanner instance. To assign rows to partitions:
 
-  - Sort your data by primary key.
-  - Divide the data into 10 \* (number of nodes) separate, equally sized partitions.
-  - Create and assign a separate worker task to each partition. Creating the worker tasks happens in your application. It is not a Spanner feature.
+- Sort your data by primary key.
+- Divide the data into 10 \* (number of nodes) separate, equally sized partitions.
+- Create and assign a separate worker task to each partition. Creating the worker tasks happens in your application. It is not a Spanner feature.
 
 Following this pattern, you should see a maximum overall bulk write throughput of 10-20 MB per second per node for large loads.
 
@@ -47,10 +47,10 @@ As you load data, Spanner creates and updates splits to balance the load on the 
 
 You have a regional configuration with 3 nodes. You have 90,000 rows in a non-interleaved table. The primary keys in the table range from 1 to 90000.
 
-  - Rows: 90,000 rows
-  - Nodes: 3
-  - Partitions: 10 \* 3 = 30
-  - Rows per partition: 90000 / 30 = 3000.
+- Rows: 90,000 rows
+- Nodes: 3
+- Partitions: 10 \* 3 = 30
+- Rows per partition: 90000 / 30 = 3000.
 
 The first partition includes the key range 1 to 3000. The second partition includes the key range 3001 to 6000. The 30th partition includes the key range 87001 to 90000. (You shouldn't use sequential keys in a large table. This example is only for demonstration.)
 
@@ -78,9 +78,9 @@ Commits larger than 5 MB or more than a few hundred rows don't provide extra ben
 
 If your database has [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) , you must choose between adding the indexes to the database schema before or after loading the table data.
 
-  - Adding the index before data is loaded allows the schema change to complete immediately. However, each write affecting the index takes longer since it also needs to update the index. When the data load is complete, the database is immediately usable with all indexes in place. To create a table and its indexes at the same time, send the DDL statements for the new table and the new indexes in a single request to Spanner.
+- Adding the index before data is loaded allows the schema change to complete immediately. However, each write affecting the index takes longer since it also needs to update the index. When the data load is complete, the database is immediately usable with all indexes in place. To create a table and its indexes at the same time, send the DDL statements for the new table and the new indexes in a single request to Spanner.
 
-  - Adding the index after loading the data means that each write is efficient. However, the schema change for each index backfill can take a long time. The database is not fully usable, and queries can't use the indexes until all of the schema changes are complete. The database can still serve writes and queries but at a slower rate.
+- Adding the index after loading the data means that each write is efficient. However, the schema change for each index backfill can take a long time. The database is not fully usable, and queries can't use the indexes until all of the schema changes are complete. The database can still serve writes and queries but at a slower rate.
 
 We recommend adding indexes that are critical to your business application before you load the data. For all non-critical indexes, add them after the data is migrated.
 
@@ -94,7 +94,7 @@ However, for `INTERLEAVE IN PARENT` tables it is recommended that you create all
 
 Once all tables are loaded, you can then migrate the interleaved tables to start enforcing the parent-child relationship using the `ALTER TABLE t1 SET INTERLEAVE IN PARENT t2` statement. This validates referential integrity, failing if there are any orphaned child rows. If validation fails, identify missing parent rows using the following query.
 
-``` 
+```
       SELECT pk1, pk2 FROM child
       EXCEPT DISTINCT
       SELECT pk1, pk2 FROM parent;
@@ -110,5 +110,5 @@ If you are updating an existing database that contains data but does not have an
 
 If you do have secondary indexes, the instructions might yield reasonable performance. Performance depends on how many [splits](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) , on average, are involved in your transactions. If throughput drops too low, you can try the following:
 
-  - Include a smaller number of mutations in each commit, which might increase throughput.
-  - If your upload is larger than the total current size of the table being updated, delete your secondary indexes and then add them again after you upload the data. This step is usually not necessary, but it might improve the throughput.
+- Include a smaller number of mutations in each commit, which might increase throughput.
+- If your upload is larger than the total current size of the table being updated, delete your secondary indexes and then add them again after you upload the data. This step is usually not necessary, but it might improve the throughput.

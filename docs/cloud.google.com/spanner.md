@@ -22,25 +22,13 @@ Get started with a [90 day free trial instance](https://console.cloud.google.com
 
 ### Product highlights
 
-  - [Start small and scale without limits or re-architecture](https://cloud.google.com/spanner#features)
+- [Start small and scale without limits or re-architecture](https://cloud.google.com/spanner#features)
+- [Built-in graph processing, full-text search and vector search](https://cloud.google.com/spanner#features)
+- [Develop apps with the familiar PostgreSQL interface on Spanner](https://cloud.google.com/spanner#options)
 
-  - [](https://cloud.google.com/spanner#features)
-    
-    Built-in graph processing, full-text search and vector search
+------------------------------------------------------------------------
 
-  - [](https://cloud.google.com/spanner#options)
-    
-    Develop apps with the familiar PostgreSQL interface on Spanner
-
------
-
-  - [](https://www.youtube.com/watch?v=RunwI3gYLAE)
-    
-    ![Spanner product overview video thumbnail](https://www.gstatic.com/bricks/image/bd7064ec-74b0-4541-8c2e-502188f481c9.png)
-    
-    What is Spanner?
-    
-    5-minute video explainer
+[![Spanner product overview video thumbnail](https://www.gstatic.com/bricks/image/bd7064ec-74b0-4541-8c2e-502188f481c9.png) What is Spanner? 5-minute video explainer](https://www.youtube.com/watch?v=RunwI3gYLAE)
 
 Features
 
@@ -48,91 +36,43 @@ Features
 
 Spanner's multi-model capabilities empower you to build intelligent, AI-enabled applications on top of your operational relational and NoSQL data by leveraging native integration with Gemini Enterprise Agent Platform, [Spanner Graph](https://cloud.google.com/products/spanner/graph) for querying complex relationships, [vector search](https://youtu.be/TmlC3FejwvU) for semantic search, built-in [full-text search](https://services.google.com/fh/files/misc/building_applications_with_spanner_full_text_search.pdf), —all with "true ZeroETL" interoperability. This unified approach eliminates data silos, saves costs, reduces operational and security touchpoints, and ensures data consistency across all models.
 
-[](https://www.youtube.com/watch?v=g0KHpOhwisw)
-
-![Spanner Multimodal power and foundation](https://www.gstatic.com/bricks/image/238b48e8-ea4f-4abe-9d23-f22190f5fd1e.png)
-
-Enterprise-scale AI, search, graph, and analytics
-
-43:41
+[![Spanner Multimodal power and foundation](https://www.gstatic.com/bricks/image/238b48e8-ea4f-4abe-9d23-f22190f5fd1e.png) Enterprise-scale AI, search, graph, and analytics 43:41](https://www.youtube.com/watch?v=g0KHpOhwisw)
 
 ### Foundation for agentic AI applications
 
 Seamlessly [integrate with Gemini Enterprise Agent Platform](https://docs.cloud.google.com/spanner/docs/ml) to harness the latest Gemini models. Maximize AI developer productivity to build autonomous agents that reason over real-time operational state using [Agent Development Kit (ADK)](https://google.github.io/adk-docs/integrations/spanner/). Have natural language conversations with your data in Spanner with vibe coding platforms such as [Gemini CLI](https://github.com/gemini-cli-extensions/spanner) using [remote MCP servers](https://docs.cloud.google.com/spanner/docs/use-spanner-mcp). Leverage [AI functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions) in Spanner allowing you to perform complex semantic operations directly in SQL bringing intelligence closer to your data. Chat with agents about your database data using natural language with [conversational analytics for Spanner](https://docs.cloud.google.com/gemini/data-agents/conversational-analytics/spanner). The [Data Agent Kit](https://docs.cloud.google.com/data-cloud-extension) streamlines your workflows by bundling secure [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro) tools, native IDE plugins, and pre-codified data engineering, data science, and data app developer skills into a single, open-source package.
 
-[](https://youtu.be/qiVVCKEwF7w)
-
-![](https://img.youtube.com/vi/qiVVCKEwF7w/hqdefault.jpg)
-
-How Palo Alto Networks Is Securing AI at Scale with Spanner
-
-3:09
+[![](https://img.youtube.com/vi/qiVVCKEwF7w/hqdefault.jpg) How Palo Alto Networks Is Securing AI at Scale with Spanner 3:09](https://youtu.be/qiVVCKEwF7w)
 
 ### Run anywhere
 
 [Spanner Omni](https://cloud.google.com/products/spanner/omni) is a downloadable version of Spanner, Google Cloud’s globally distributed, multi-model database. It extends Spanner's industry-leading scale, high availability, and strong global consistency to your infrastructure— on-premises, across clouds, or on your laptop. Spanner Omni is the ideal solution where you need cross-cloud resilience or a scale-out database that operates outside Google Cloud to power your agentic AI applications.
 
-[](https://www.youtube.com/watch?v=LbAbxh-nHAA)
-
-![Spanner Omni collage](https://www.gstatic.com/bricks/image/eb7d701d-5225-4d95-a226-c04486012c0b.png)
-
-To infinity & beyond: Spanner Omni for deployments beyond Google Cloud
-
-40:03
+[![Spanner Omni collage](https://www.gstatic.com/bricks/image/eb7d701d-5225-4d95-a226-c04486012c0b.png) To infinity & beyond: Spanner Omni for deployments beyond Google Cloud 40:03](https://www.youtube.com/watch?v=LbAbxh-nHAA)
 
 ### Real-time insights at the speed of business
 
 Break down the silos between operational and analytical data. Spanner’s built-in [columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine) allows you to perform high-performance, ad hoc analytics on live data without impacting transactional throughput. For deeper analysis, Spanner integrates seamlessly with data lakehouses like BigQuery leveraging [federated queries](https://docs.cloud.google.com/bigquery/docs/spanner-external-datasets) to analyze data across Spanner and BigQuery in real-time, or utilizing one-click [reverse ETL](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) to flow insights from your lakehouse back into Spanner.
 
-[](https://youtu.be/S7AXi28Gl-k?si=N2Rm_mWRwKxtQXiE)
-
-![](https://img.youtube.com/vi/S7AXi28Gl-k/hqdefault.jpg)
-
-What is Spanner Data Boost?
-
-5:52
+[![](https://img.youtube.com/vi/S7AXi28Gl-k/hqdefault.jpg) What is Spanner Data Boost? 5:52](https://youtu.be/S7AXi28Gl-k?si=N2Rm_mWRwKxtQXiE)
 
 ### Effortless scalability
 
 Dream big, start small, and scale effortlessly as your needs grow. Spanner seamlessly handles growing datasets and demanding workloads with its horizontal read and "write" scalability. Automatic database sharding ensures optimal data distribution, while geo-partitioning brings data closer to your users for lower latency. Experience consistently high performance with workload-isolated query processing with [Spanner Data Boost](https://youtu.be/0iK76JCGsHM), even during peak demand.
 
-[](https://www.youtube.com/watch?v=BtaUNTrtEKk)
-
-![Google Cloud experts explaining how Spanner transactions work at Planet Scale](https://www.gstatic.com/bricks/image/5SK_Exy-fzWt-alQ941WpK8ffLd9jRLb7SvANuHOzgLo48ZE14BmSZt_qMVhhlquPl5jEFzOpUQ.png)
-
-VIDEO
-
-How Spanner Transactions Work at Planet Scale
-
-8:17
+[![Google Cloud experts explaining how Spanner transactions work at Planet Scale](https://www.gstatic.com/bricks/image/5SK_Exy-fzWt-alQ941WpK8ffLd9jRLb7SvANuHOzgLo48ZE14BmSZt_qMVhhlquPl5jEFzOpUQ.png) VIDEO How Spanner Transactions Work at Planet Scale 8:17](https://www.youtube.com/watch?v=BtaUNTrtEKk)
 
 ### Always On availability
 
 Ensure your applications are always on, ready to serve your users. Spanner delivers up to 99.999% availability with automated maintenance and flexible deployment options. Choose from single-region, dual-region, or multi-region configurations to match your specific availability and fault-tolerance requirements.
 
-[](https://www.youtube.com/watch?v=8-R6k2u6sgk)
-
-![How Cloud Spanner delivers high availability at scale](https://www.gstatic.com/bricks/image/5dc70af4-31e2-4d02-a95b-d9c0d4706cc0.png)
-
-VIDEO
-
-How Cloud Spanner delivers high availability at scale
-
-6:43
+[![How Cloud Spanner delivers high availability at scale](https://www.gstatic.com/bricks/image/5dc70af4-31e2-4d02-a95b-d9c0d4706cc0.png) VIDEO How Cloud Spanner delivers high availability at scale 6:43](https://www.youtube.com/watch?v=8-R6k2u6sgk)
 
 ### Guaranteed consistent transactions
 
 Say goodbye to data inconsistencies and the complexities of managing them. Spanner guarantees strong transactional consistency, meaning every read reflects the most recent updates, regardless of the size or distribution of your data. Build with confidence, knowing your applications always have a consistent view of your data.
 
-[](https://youtu.be/sOtlaH-QlxM)
-
-![How Spanner delivers strong consistency at scale](https://www.gstatic.com/bricks/image/WZHtmi1RqvmyG-wS-n2YrWNGcBfb-HYQMwjehW3Dr6r7iYzuDGFFXcMVbrFxSVwck_NgGG2SvgVF.png)
-
-VIDEO
-
-Strong consistency at scale with Spanner
-
-7:20
+[![How Spanner delivers strong consistency at scale](https://www.gstatic.com/bricks/image/WZHtmi1RqvmyG-wS-n2YrWNGcBfb-HYQMwjehW3Dr6r7iYzuDGFFXcMVbrFxSVwck_NgGG2SvgVF.png) VIDEO Strong consistency at scale with Spanner 7:20](https://youtu.be/sOtlaH-QlxM)
 
 ### Trusted security and compliance
 
@@ -140,67 +80,14 @@ Trust your data to a secure and compliant platform with Spanner. Enjoy centraliz
 
 Database comparison
 
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Database attribute</th>
-<th>Other Relational DB</th>
-<th>Other Non-relational DB</th>
-<th>Spanner</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p><strong>Schema</strong></p></td>
-<td><p>Static</p></td>
-<td><p>Dynamic</p></td>
-<td><p>Dynamic</p>
-<p><br />
-</p></td>
-</tr>
-<tr class="even">
-<td><p><strong>SQL</strong></p></td>
-<td><p>Yes</p></td>
-<td><p>No</p></td>
-<td><p>Yes</p>
-<p>(<a href="https://youtu.be/W7R6db_sa0M">PostgreSQL</a>, Google SQL)</p></td>
-</tr>
-<tr class="odd">
-<td><p><strong>Transactions</strong></p></td>
-<td><p>ACID</p>
-<p>(atomicity, consistency, isolation, durability)</p></td>
-<td><p>Eventual</p></td>
-<td><p>Strong-ACID</p>
-<p>with TrueTime ordering</p></td>
-</tr>
-<tr class="even">
-<td><p><strong>Scalability</strong></p></td>
-<td><p>Vertical </p>
-<p>(use a bigger machine)</p></td>
-<td><p>Horizontal</p>
-<p>(add more machines)</p></td>
-<td><p>Horizontal</p></td>
-</tr>
-<tr class="odd">
-<td><p><strong>Availability</strong></p></td>
-<td><p>Failover (downtime)</p></td>
-<td><p>High</p></td>
-<td><p>High 99.999% SLA</p></td>
-</tr>
-<tr class="even">
-<td><p><strong>Replication</strong></p></td>
-<td><p>Configurable</p></td>
-<td><p>Configurable</p></td>
-<td><p>Automatic</p></td>
-</tr>
-</tbody>
-</table>
+| Database attribute | Other Relational DB                                  | Other Non-relational DB        | Spanner                                                      |
+|--------------------|------------------------------------------------------|--------------------------------|--------------------------------------------------------------|
+| **Schema**         | Static                                               | Dynamic                        | Dynamic                                                      |
+| **SQL**            | Yes                                                  | No                             | Yes ([PostgreSQL](https://youtu.be/W7R6db_sa0M), Google SQL) |
+| **Transactions**   | ACID (atomicity, consistency, isolation, durability) | Eventual                       | Strong-ACID with TrueTime ordering                           |
+| **Scalability**    | Vertical  (use a bigger machine)                     | Horizontal (add more machines) | Horizontal                                                   |
+| **Availability**   | Failover (downtime)                                  | High                           | High 99.999% SLA                                             |
+| **Replication**    | Configurable                                         | Configurable                   | Automatic                                                    |
 
 **Gartner®** ranked Spanner \#1 for Lightweight Transaction Use Case. Get the [full report](https://cloud.google.com/resources/content/critical-capabilities-dbms).
 
@@ -308,7 +195,7 @@ How It Works
 
 [View documentation](https://cloud.google.com/spanner/docs)
 
-![Spanner diagram ](https://www.gstatic.com/bricks/image/529ecfec-4630-4e55-ac7c-2ef4ca2a2e4a.png)
+![Spanner diagram](https://www.gstatic.com/bricks/image/529ecfec-4630-4e55-ac7c-2ef4ca2a2e4a.png)
 
 Common Uses
 
@@ -320,17 +207,9 @@ Modernize your sharded MySQL and Cassandra workloads to superpower your developm
 
 [Spanner migration architecture](https://cloud.google.com/spanner#)
 
-  - [](https://cloud.google.com/spanner/docs/migration-overview)
-    
-    Discover how Spanner enables [live migrations of mission-critical workloads](https://cloud.google.com/spanner/docs/migration-overview)
-
-  - [](https://cloud.google.com/spanner/docs/migrating-mysql-to-spanner)
-    
-    [MySQL to Spanner](https://cloud.google.com/spanner/docs/migrating-mysql-to-spanner) migration guide
-
-  - [](https://cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner)
-    
-    [Cassandra to Spanner](https://cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) migration guide
+- [Discover how Spanner enables](https://cloud.google.com/spanner/docs/migration-overview) [live migrations of mission-critical workloads](https://cloud.google.com/spanner/docs/migration-overview)
+- [](https://cloud.google.com/spanner/docs/migrating-mysql-to-spanner) [MySQL to Spanner](https://cloud.google.com/spanner/docs/migrating-mysql-to-spanner) migration guide
+- [](https://cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) [Cassandra to Spanner](https://cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) migration guide
 
 ![{msg desc="Alternative text for a build icon"}build{/msg}](https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/build/wght100fill1/20px.svg)
 
@@ -342,17 +221,9 @@ Modernize your sharded MySQL and Cassandra workloads to superpower your developm
 
 [Spanner migration architecture](https://cloud.google.com/spanner#)
 
-  - [](https://cloud.google.com/spanner/docs/migration-overview)
-    
-    Discover how Spanner enables [live migrations of mission-critical workloads](https://cloud.google.com/spanner/docs/migration-overview)
-
-  - [](https://cloud.google.com/spanner/docs/migrating-mysql-to-spanner)
-    
-    [MySQL to Spanner](https://cloud.google.com/spanner/docs/migrating-mysql-to-spanner) migration guide
-
-  - [](https://cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner)
-    
-    [Cassandra to Spanner](https://cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) migration guide
+- [Discover how Spanner enables](https://cloud.google.com/spanner/docs/migration-overview) [live migrations of mission-critical workloads](https://cloud.google.com/spanner/docs/migration-overview)
+- [](https://cloud.google.com/spanner/docs/migrating-mysql-to-spanner) [MySQL to Spanner](https://cloud.google.com/spanner/docs/migrating-mysql-to-spanner) migration guide
+- [](https://cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) [Cassandra to Spanner](https://cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner) migration guide
 
 ### Hybrid and multicloud resilience
 
@@ -362,17 +233,9 @@ Build truly resilient, high-availability architectures that extend beyond the bo
 
 [Architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://docs.cloud.google.com/spanner-omni/download)
-    
-    [Download](https://docs.cloud.google.com/spanner-omni/download) Spanner Omni
-
-  - [](https://cloud.google.com/blog/products/databases/introducing-spanner-omni)
-    
-    [Read the blog](https://cloud.google.com/blog/products/databases/introducing-spanner-omni) to learn more
-
-  - [](https://docs.cloud.google.com/spanner-omni)
-    
-    Take a [deeper dive](https://docs.cloud.google.com/spanner-omni)
+- [](https://docs.cloud.google.com/spanner-omni/download) [Download](https://docs.cloud.google.com/spanner-omni/download) Spanner Omni
+- [](https://cloud.google.com/blog/products/databases/introducing-spanner-omni) [Read the blog](https://cloud.google.com/blog/products/databases/introducing-spanner-omni) to learn more
+- [Take a](https://docs.cloud.google.com/spanner-omni) [deeper dive](https://docs.cloud.google.com/spanner-omni)
 
 ![{msg desc="Alternative text for a build icon"}build{/msg}](https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/build/wght100fill1/20px.svg)
 
@@ -384,17 +247,9 @@ Build truly resilient, high-availability architectures that extend beyond the bo
 
 [Architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://docs.cloud.google.com/spanner-omni/download)
-    
-    [Download](https://docs.cloud.google.com/spanner-omni/download) Spanner Omni
-
-  - [](https://cloud.google.com/blog/products/databases/introducing-spanner-omni)
-    
-    [Read the blog](https://cloud.google.com/blog/products/databases/introducing-spanner-omni) to learn more
-
-  - [](https://docs.cloud.google.com/spanner-omni)
-    
-    Take a [deeper dive](https://docs.cloud.google.com/spanner-omni)
+- [](https://docs.cloud.google.com/spanner-omni/download) [Download](https://docs.cloud.google.com/spanner-omni/download) Spanner Omni
+- [](https://cloud.google.com/blog/products/databases/introducing-spanner-omni) [Read the blog](https://cloud.google.com/blog/products/databases/introducing-spanner-omni) to learn more
+- [Take a](https://docs.cloud.google.com/spanner-omni) [deeper dive](https://docs.cloud.google.com/spanner-omni)
 
 ### User profile and entitlements
 
@@ -404,17 +259,9 @@ User profile management is a critical function that requires Spanner's scalabili
 
 [User Profile and Entitlements architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://youtu.be/cKWJhGPbuRE)
-    
-    How Dragon Quest Walk [handled millions of players](https://youtu.be/cKWJhGPbuRE) with Spanner
-
-  - [](https://codelabs.developers.google.com/codelabs/cloud-spanner-game-tradepost#0)
-    
-    Build a [sample gaming trade post](https://codelabs.developers.google.com/codelabs/cloud-spanner-game-tradepost#0) with Spanner
-
-  - [](https://cloud.google.com/blog/products/databases/how-spanner-makes-multiplayer-game-development-easier)
-    
-    Read this [whitepaper on building multiplayer games](https://cloud.google.com/blog/products/databases/how-spanner-makes-multiplayer-game-development-easier) with Spanner
+- [How Dragon Quest Walk](https://youtu.be/cKWJhGPbuRE) [handled millions of players](https://youtu.be/cKWJhGPbuRE) with Spanner
+- [Build a](https://codelabs.developers.google.com/codelabs/cloud-spanner-game-tradepost#0) [sample gaming trade post](https://codelabs.developers.google.com/codelabs/cloud-spanner-game-tradepost#0) with Spanner
+- [Read this](https://cloud.google.com/blog/products/databases/how-spanner-makes-multiplayer-game-development-easier) [whitepaper on building multiplayer games](https://cloud.google.com/blog/products/databases/how-spanner-makes-multiplayer-game-development-easier) with Spanner
 
 ![{msg desc="Alternative text for a build icon"}build{/msg}](https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/build/wght100fill1/20px.svg)
 
@@ -426,17 +273,9 @@ User profile management is a critical function that requires Spanner's scalabili
 
 [User Profile and Entitlements architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://youtu.be/cKWJhGPbuRE)
-    
-    How Dragon Quest Walk [handled millions of players](https://youtu.be/cKWJhGPbuRE) with Spanner
-
-  - [](https://codelabs.developers.google.com/codelabs/cloud-spanner-game-tradepost#0)
-    
-    Build a [sample gaming trade post](https://codelabs.developers.google.com/codelabs/cloud-spanner-game-tradepost#0) with Spanner
-
-  - [](https://cloud.google.com/blog/products/databases/how-spanner-makes-multiplayer-game-development-easier)
-    
-    Read this [whitepaper on building multiplayer games](https://cloud.google.com/blog/products/databases/how-spanner-makes-multiplayer-game-development-easier) with Spanner
+- [How Dragon Quest Walk](https://youtu.be/cKWJhGPbuRE) [handled millions of players](https://youtu.be/cKWJhGPbuRE) with Spanner
+- [Build a](https://codelabs.developers.google.com/codelabs/cloud-spanner-game-tradepost#0) [sample gaming trade post](https://codelabs.developers.google.com/codelabs/cloud-spanner-game-tradepost#0) with Spanner
+- [Read this](https://cloud.google.com/blog/products/databases/how-spanner-makes-multiplayer-game-development-easier) [whitepaper on building multiplayer games](https://cloud.google.com/blog/products/databases/how-spanner-makes-multiplayer-game-development-easier) with Spanner
 
 ### Financial ledger
 
@@ -446,17 +285,9 @@ Unify financial transactions, trades, settlements, and positions across the glob
 
 [Financial Ledger architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://youtu.be/8RXnNgcEp3o?t=851)
-    
-    Watch how Goldman Sachs [consolidates trade ledgers](https://youtu.be/8RXnNgcEp3o?t=851) on Spanner
-
-  - [](https://youtu.be/IQAy2H3fwp4?t=827)
-    
-    Learn how CERC has disrupted the [**exchange receivables**](https://youtu.be/IQAy2H3fwp4?t=827) market with new Spanner innovations
-
-  - [](https://github.com/GoogleCloudPlatform/cloud-spanner-samples/tree/main/finance)
-    
-    [Sample code](https://github.com/GoogleCloudPlatform/cloud-spanner-samples/tree/main/finance) for a financial application on GitHub
+- [Watch how Goldman Sachs](https://youtu.be/8RXnNgcEp3o?t=851) [consolidates trade ledgers](https://youtu.be/8RXnNgcEp3o?t=851) on Spanner
+- [Learn how CERC has disrupted the](https://youtu.be/IQAy2H3fwp4?t=827) [**exchange receivables**](https://youtu.be/IQAy2H3fwp4?t=827) market with new Spanner innovations
+- [](https://github.com/GoogleCloudPlatform/cloud-spanner-samples/tree/main/finance) [Sample code](https://github.com/GoogleCloudPlatform/cloud-spanner-samples/tree/main/finance) for a financial application on GitHub
 
 ![{msg desc="Alternative text for a build icon"}build{/msg}](https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/build/wght100fill1/20px.svg)
 
@@ -468,17 +299,9 @@ Unify financial transactions, trades, settlements, and positions across the glob
 
 [Financial Ledger architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://youtu.be/8RXnNgcEp3o?t=851)
-    
-    Watch how Goldman Sachs [consolidates trade ledgers](https://youtu.be/8RXnNgcEp3o?t=851) on Spanner
-
-  - [](https://youtu.be/IQAy2H3fwp4?t=827)
-    
-    Learn how CERC has disrupted the [**exchange receivables**](https://youtu.be/IQAy2H3fwp4?t=827) market with new Spanner innovations
-
-  - [](https://github.com/GoogleCloudPlatform/cloud-spanner-samples/tree/main/finance)
-    
-    [Sample code](https://github.com/GoogleCloudPlatform/cloud-spanner-samples/tree/main/finance) for a financial application on GitHub
+- [Watch how Goldman Sachs](https://youtu.be/8RXnNgcEp3o?t=851) [consolidates trade ledgers](https://youtu.be/8RXnNgcEp3o?t=851) on Spanner
+- [Learn how CERC has disrupted the](https://youtu.be/IQAy2H3fwp4?t=827) [**exchange receivables**](https://youtu.be/IQAy2H3fwp4?t=827) market with new Spanner innovations
+- [](https://github.com/GoogleCloudPlatform/cloud-spanner-samples/tree/main/finance) [Sample code](https://github.com/GoogleCloudPlatform/cloud-spanner-samples/tree/main/finance) for a financial application on GitHub
 
 ### Online banking
 
@@ -488,17 +311,9 @@ Consumers expect access to their critical financial data on their devices outsid
 
 [Online Banking architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://codelabs.developers.google.com/spanner-online-banking-app#0)
-    
-    Create an [online banking application](https://codelabs.developers.google.com/spanner-online-banking-app#0) with Spanner
-
-  - [](https://services.google.com/fh/files/misc/future_proofing_retail_banking_with_spanner_paper.pdf)
-    
-    Whitepaper: How Spanner is enabling [next-generation financial services](https://services.google.com/fh/files/misc/future_proofing_retail_banking_with_spanner_paper.pdf)
-
-  - [](https://cloud.google.com/blog/products/databases/minna-bank-colopl-and-7-eleven-japan-build-apps-on-spanner)
-    
-    Learn how Minna Bank built a [digital-native banking application](https://cloud.google.com/blog/products/databases/minna-bank-colopl-and-7-eleven-japan-build-apps-on-spanner) with Spanner
+- [Create an](https://codelabs.developers.google.com/spanner-online-banking-app#0) [online banking application](https://codelabs.developers.google.com/spanner-online-banking-app#0) with Spanner
+- [Whitepaper: How Spanner is enabling](https://services.google.com/fh/files/misc/future_proofing_retail_banking_with_spanner_paper.pdf) [next-generation financial services](https://services.google.com/fh/files/misc/future_proofing_retail_banking_with_spanner_paper.pdf)
+- [Learn how Minna Bank built a](https://cloud.google.com/blog/products/databases/minna-bank-colopl-and-7-eleven-japan-build-apps-on-spanner) [digital-native banking application](https://cloud.google.com/blog/products/databases/minna-bank-colopl-and-7-eleven-japan-build-apps-on-spanner) with Spanner
 
 ![{msg desc="Alternative text for a build icon"}build{/msg}](https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/build/wght100fill1/20px.svg)
 
@@ -510,17 +325,9 @@ Consumers expect access to their critical financial data on their devices outsid
 
 [Online Banking architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://codelabs.developers.google.com/spanner-online-banking-app#0)
-    
-    Create an [online banking application](https://codelabs.developers.google.com/spanner-online-banking-app#0) with Spanner
-
-  - [](https://services.google.com/fh/files/misc/future_proofing_retail_banking_with_spanner_paper.pdf)
-    
-    Whitepaper: How Spanner is enabling [next-generation financial services](https://services.google.com/fh/files/misc/future_proofing_retail_banking_with_spanner_paper.pdf)
-
-  - [](https://cloud.google.com/blog/products/databases/minna-bank-colopl-and-7-eleven-japan-build-apps-on-spanner)
-    
-    Learn how Minna Bank built a [digital-native banking application](https://cloud.google.com/blog/products/databases/minna-bank-colopl-and-7-eleven-japan-build-apps-on-spanner) with Spanner
+- [Create an](https://codelabs.developers.google.com/spanner-online-banking-app#0) [online banking application](https://codelabs.developers.google.com/spanner-online-banking-app#0) with Spanner
+- [Whitepaper: How Spanner is enabling](https://services.google.com/fh/files/misc/future_proofing_retail_banking_with_spanner_paper.pdf) [next-generation financial services](https://services.google.com/fh/files/misc/future_proofing_retail_banking_with_spanner_paper.pdf)
+- [Learn how Minna Bank built a](https://cloud.google.com/blog/products/databases/minna-bank-colopl-and-7-eleven-japan-build-apps-on-spanner) [digital-native banking application](https://cloud.google.com/blog/products/databases/minna-bank-colopl-and-7-eleven-japan-build-apps-on-spanner) with Spanner
 
 ### Loyalty programs and promotions
 
@@ -530,9 +337,7 @@ Track customer participation and preferences in a loyalty program to analyze tre
 
 [Loyalty programs and promotions architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
-    
-    Learn how REWE Group uses Spanner to optimize for [speed and performance](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
+- [Learn how REWE Group uses Spanner to optimize for](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?) [speed and performance](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
 
 ![{msg desc="Alternative text for a build icon"}build{/msg}](https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/build/wght100fill1/20px.svg)
 
@@ -544,9 +349,7 @@ Track customer participation and preferences in a loyalty program to analyze tre
 
 [Loyalty programs and promotions architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
-    
-    Learn how REWE Group uses Spanner to optimize for [speed and performance](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
+- [Learn how REWE Group uses Spanner to optimize for](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?) [speed and performance](https://cloud.google.com/blog/products/databases/rewe-uses-cloud-spanner-to-optimize-for-speed-and-performance?)
 
 ### Omni-channel inventory management
 
@@ -556,17 +359,9 @@ Spanner provides a high-performance, single source of truth for retail inventory
 
 [Omni-channel inventory management architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://www.youtube.com/watch?v=8kj_uA5vJfo)
-    
-    Watch how to build a [real-time inventory management](https://www.youtube.com/watch?v=8kj_uA5vJfo) system with Spanner
-
-  - [](https://www.youtube.com/watch?v=ID77EyMpfZ8)
-    
-    Check out how Walmart [modernized its data management platform](https://www.youtube.com/watch?v=ID77EyMpfZ8) with Spanner
-
-  - [](https://cloud.google.com/blog/products/infrastructure/how-mahindra-reimagined-the-suv-buying-process-with-google-cloud)
-    
-    Learn how Mahindra [reimagined the selling process](https://cloud.google.com/blog/products/infrastructure/how-mahindra-reimagined-the-suv-buying-process-with-google-cloud) and sold 100,000 SUVs in 30 mins
+- [Watch how to build a](https://www.youtube.com/watch?v=8kj_uA5vJfo) [real-time inventory management](https://www.youtube.com/watch?v=8kj_uA5vJfo) system with Spanner
+- [Check out how Walmart](https://www.youtube.com/watch?v=ID77EyMpfZ8) [modernized its data management platform](https://www.youtube.com/watch?v=ID77EyMpfZ8) with Spanner
+- [Learn how Mahindra](https://cloud.google.com/blog/products/infrastructure/how-mahindra-reimagined-the-suv-buying-process-with-google-cloud) [reimagined the selling process](https://cloud.google.com/blog/products/infrastructure/how-mahindra-reimagined-the-suv-buying-process-with-google-cloud) and sold 100,000 SUVs in 30 mins
 
 ![{msg desc="Alternative text for a build icon"}build{/msg}](https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/build/wght100fill1/20px.svg)
 
@@ -578,17 +373,9 @@ Spanner provides a high-performance, single source of truth for retail inventory
 
 [Omni-channel inventory management architecture diagram](https://cloud.google.com/spanner#)
 
-  - [](https://www.youtube.com/watch?v=8kj_uA5vJfo)
-    
-    Watch how to build a [real-time inventory management](https://www.youtube.com/watch?v=8kj_uA5vJfo) system with Spanner
-
-  - [](https://www.youtube.com/watch?v=ID77EyMpfZ8)
-    
-    Check out how Walmart [modernized its data management platform](https://www.youtube.com/watch?v=ID77EyMpfZ8) with Spanner
-
-  - [](https://cloud.google.com/blog/products/infrastructure/how-mahindra-reimagined-the-suv-buying-process-with-google-cloud)
-    
-    Learn how Mahindra [reimagined the selling process](https://cloud.google.com/blog/products/infrastructure/how-mahindra-reimagined-the-suv-buying-process-with-google-cloud) and sold 100,000 SUVs in 30 mins
+- [Watch how to build a](https://www.youtube.com/watch?v=8kj_uA5vJfo) [real-time inventory management](https://www.youtube.com/watch?v=8kj_uA5vJfo) system with Spanner
+- [Check out how Walmart](https://www.youtube.com/watch?v=ID77EyMpfZ8) [modernized its data management platform](https://www.youtube.com/watch?v=ID77EyMpfZ8) with Spanner
+- [Learn how Mahindra](https://cloud.google.com/blog/products/infrastructure/how-mahindra-reimagined-the-suv-buying-process-with-google-cloud) [reimagined the selling process](https://cloud.google.com/blog/products/infrastructure/how-mahindra-reimagined-the-suv-buying-process-with-google-cloud) and sold 100,000 SUVs in 30 mins
 
 ### Knowledge graph
 
@@ -596,13 +383,8 @@ Spanner provides a high-performance, single source of truth for retail inventory
 
 With [Spanner Graph](https://cloud.google.com/products/spanner/graph), you can develop knowledge graphs that capture the complex connections between entities, represented as nodes, and their relationships, represented as edges. These connections provide rich context, making knowledge graphs invaluable for developing knowledge base systems and recommendation engines. With integrated search capabilities, you can seamlessly blend semantic understanding, keyword-based retrieval, and graph for comprehensive results.
 
-  - [](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started#0)
-    
-    [Get started](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started#0) with Spanner Graph
-
-  - [](https://youtu.be/tIYO0aTmv20)
-    
-    Watch the latest [capabilities](https://youtu.be/tIYO0aTmv20) in Spanner Graph
+- [](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started#0) [Get started](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started#0) with Spanner Graph
+- [Watch the latest](https://youtu.be/tIYO0aTmv20) [capabilities](https://youtu.be/tIYO0aTmv20) in Spanner Graph
 
 ![{msg desc="Alternative text for a build icon"}build{/msg}](https://fonts.gstatic.com/s/i/short-term/release/googlesymbols/build/wght100fill1/20px.svg)
 
@@ -612,13 +394,8 @@ With [Spanner Graph](https://cloud.google.com/products/spanner/graph), you can d
 
 With [Spanner Graph](https://cloud.google.com/products/spanner/graph), you can develop knowledge graphs that capture the complex connections between entities, represented as nodes, and their relationships, represented as edges. These connections provide rich context, making knowledge graphs invaluable for developing knowledge base systems and recommendation engines. With integrated search capabilities, you can seamlessly blend semantic understanding, keyword-based retrieval, and graph for comprehensive results.
 
-  - [](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started#0)
-    
-    [Get started](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started#0) with Spanner Graph
-
-  - [](https://youtu.be/tIYO0aTmv20)
-    
-    Watch the latest [capabilities](https://youtu.be/tIYO0aTmv20) in Spanner Graph
+- [](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started#0) [Get started](https://codelabs.developers.google.com/codelabs/spanner-graph-getting-started#0) with Spanner Graph
+- [Watch the latest](https://youtu.be/tIYO0aTmv20) [capabilities](https://youtu.be/tIYO0aTmv20) in Spanner Graph
 
 Generate a solution
 
@@ -626,151 +403,32 @@ What problem are you trying to solve?
 
 What you'll get:
 
-*check\_small*Step-by-step guide
+*check_small*Step-by-step guide
 
-*check\_small*Reference architecture
+*check_small*Reference architecture
 
-*check\_small*Available pre-built solutions
+*check_small*Available pre-built solutions
 
 This service was built with [Gemini Enterprise Agent Platform](https://cloud.google.com/products/gemini-enterprise-agent-platform). You must be 18 or older to use it. Do not enter sensitive, confidential, or personal info.
 
 Pricing
 
-How Spanner pricing works
-
-Spanner pricing is based on compute capacity, Spanner Data Boost, database storage, backup storage, replication, and network usage. Compute pricing varies depending on the edition and configuration selected. Committed use discounts can further reduce the compute price.
-
-Service
-
-Description
-
-Price (USD)
-
-Compute
-
-**Standard edition**
-
-Packed with a comprehensive suite of established capabilities for regional (single-region) configurations
-
-Compute capacity is provisioned as processing units or nodes (1 node = 1000 processing units). 
-
-Starting at
-
-$0.030
-
-per 100 processing units per hour per replica
-
-**Enterprise edition**
-
-Provide additional multi-model and advanced search capabilities with enhanced operational simplicity and efficiency
-
-Compute capacity is provisioned as processing units or nodes (1 node = 1000 processing units).
-
-Starting at
-
-$0.041
-
-per 100 processing units per hour per replica
-
-**Enterprise Plus edition**
-
-Support the most demanding workloads with the highest levels of availability, performance, compliance, and governance
-
-Compute capacity is provisioned as processing units or nodes (1 node = 1000 processing units).
-
-Starting at
-
-$0.057
-
-per 100 processing units per hour per replica
-
-**Data Boost**
-
-On-demand, isolated compute resources, including CPU, memory, and local data transfer
-
-Starting at
-
-$0.00117
-
-per serverless processing unit per hour
-
-**Database storage﻿**
-
-Price is based on the amount of data stored in the database and includes the cost of storage in read-write replicas and read-only replicas; witness replicas are free of charge. 
-
-**SSD storage**
-
-Use SSD storage when you require low latency and high throughput for your operational data.
-
-Starting at
-
-$0.10
-
-per GB per month per replica for SSD
-
-**HDD storage**
-
-Use HDD storage for data that needs to be accessed less frequently and can tolerate higher read latencies and lower throughput. You can also configure tiering policies to move data from SSD to HDD after expiration of a specified time window.
-
-Starting at
-
-$0.02
-
-per GB per month per replica for HDD
-
-**Backup storage**
-
-**Regional configuration**
-
-Pricing is based on the amount of backup storage and includes the cost of storage in all replicas.
-
-Starting at
-
-$0.10
-
-per GB per month (incl. all replicas)
-
-**Dual-region and multi-regional configuration**
-
-Pricing is based on the amount of backup storage and includes the cost of storage in all replicas.
-
-Starting at
-
-$0.30
-
-per GB per month (incl. all replicas)
-
-**Replication**
-
-Intra-region replication
-
-Free
-
-Inter-region replication
-
-Starting at
-
-$0.04
-
-per GB
-
-**Network**
-
-Ingress
-
-Free
-
-Intra-region egress
-
-Free
-
-Inter-region egress
-
-Starting at
-
-$0.01
-
-per GB
+| How Spanner pricing works                                                                                                                                                                                                                                         | Spanner pricing is based on compute capacity, Spanner Data Boost, database storage, backup storage, replication, and network usage. Compute pricing varies depending on the edition and configuration selected. Committed use discounts can further reduce the compute price.                 |                                                                   |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| Service                                                                                                                                                                                                                                                           | Description                                                                                                                                                                                                                                                                                   | Price (USD)                                                       |
+| Compute                                                                                                                                                                                                                                                           | **Standard edition** Packed with a comprehensive suite of established capabilities for regional (single-region) configurations Compute capacity is provisioned as processing units or nodes (1 node = 1000 processing units).                                                                 | Starting at \$0.030 per 100 processing units per hour per replica |
+| **Enterprise edition** Provide additional multi-model and advanced search capabilities with enhanced operational simplicity and efficiency Compute capacity is provisioned as processing units or nodes (1 node = 1000 processing units).                         | Starting at \$0.041 per 100 processing units per hour per replica                                                                                                                                                                                                                             |                                                                   |
+| **Enterprise Plus edition** Support the most demanding workloads with the highest levels of availability, performance, compliance, and governance Compute capacity is provisioned as processing units or nodes (1 node = 1000 processing units).                  | Starting at \$0.057 per 100 processing units per hour per replica                                                                                                                                                                                                                             |                                                                   |
+| **Data Boost**                                                                                                                                                                                                                                                    | On-demand, isolated compute resources, including CPU, memory, and local data transfer                                                                                                                                                                                                         | Starting at \$0.00117 per serverless processing unit per hour     |
+| **Database storage﻿**                                                                                                                                                                                                                                              | Price is based on the amount of data stored in the database and includes the cost of storage in read-write replicas and read-only replicas; witness replicas are free of charge.  **SSD storage** Use SSD storage when you require low latency and high throughput for your operational data. | Starting at \$0.10 per GB per month per replica for SSD           |
+| **HDD storage** Use HDD storage for data that needs to be accessed less frequently and can tolerate higher read latencies and lower throughput. You can also configure tiering policies to move data from SSD to HDD after expiration of a specified time window. | Starting at \$0.02 per GB per month per replica for HDD                                                                                                                                                                                                                                       |                                                                   |
+| **Backup storage**                                                                                                                                                                                                                                                | **Regional configuration** Pricing is based on the amount of backup storage and includes the cost of storage in all replicas.                                                                                                                                                                 | Starting at \$0.10 per GB per month (incl. all replicas)          |
+| **Dual-region and multi-regional configuration** Pricing is based on the amount of backup storage and includes the cost of storage in all replicas.                                                                                                               | Starting at \$0.30 per GB per month (incl. all replicas)                                                                                                                                                                                                                                      |                                                                   |
+| **Replication**                                                                                                                                                                                                                                                   | Intra-region replication                                                                                                                                                                                                                                                                      | Free                                                              |
+| Inter-region replication                                                                                                                                                                                                                                          | Starting at \$0.04 per GB                                                                                                                                                                                                                                                                     |                                                                   |
+| **Network**                                                                                                                                                                                                                                                       | Ingress                                                                                                                                                                                                                                                                                       | Free                                                              |
+| Intra-region egress                                                                                                                                                                                                                                               | Free                                                                                                                                                                                                                                                                                          |                                                                   |
+| Inter-region egress                                                                                                                                                                                                                                               | Starting at \$0.01 per GB                                                                                                                                                                                                                                                                     |                                                                   |
 
 Learn more about Spanner [pricing](https://cloud.google.com/spanner/pricing) and [committed use discounts](https://cloud.google.com/spanner/docs/cuds#pricing).
 
@@ -792,7 +450,7 @@ Price (USD)
 
 Starting at
 
-$0.030
+\$0.030
 
 per 100 processing units per hour per replica
 
@@ -806,7 +464,7 @@ Description
 
 Starting at
 
-$0.041
+\$0.041
 
 per 100 processing units per hour per replica
 
@@ -820,7 +478,7 @@ Description
 
 Starting at
 
-$0.057
+\$0.057
 
 per 100 processing units per hour per replica
 
@@ -834,7 +492,7 @@ Price (USD)
 
 Starting at
 
-$0.00117
+\$0.00117
 
 per serverless processing unit per hour
 
@@ -852,7 +510,7 @@ Price (USD)
 
 Starting at
 
-$0.10
+\$0.10
 
 per GB per month per replica for SSD
 
@@ -864,7 +522,7 @@ Description
 
 Starting at
 
-$0.02
+\$0.02
 
 per GB per month per replica for HDD
 
@@ -880,7 +538,7 @@ Price (USD)
 
 Starting at
 
-$0.10
+\$0.10
 
 per GB per month (incl. all replicas)
 
@@ -892,7 +550,7 @@ Description
 
 Starting at
 
-$0.30
+\$0.30
 
 per GB per month (incl. all replicas)
 
@@ -912,7 +570,7 @@ Description
 
 Starting at
 
-$0.04
+\$0.04
 
 per GB
 
@@ -938,7 +596,7 @@ Description
 
 Starting at
 
-$0.01
+\$0.01
 
 per GB
 
@@ -988,10 +646,10 @@ Business Case
 
 Explore how other businesses built innovative apps to deliver great customer experiences, cut costs, and increase ROI with Spanner.
 
-  - **﻿Forrester's Total Economic Impact™ study** shows Spanner delivers a 132% ROI, 9-month payback period and multi-million dollar benefits for a representative composite organization. [**Download the full study**](https://cloud.google.com/resources/content/forrester-spanner-tei-study) to learn more.
-  - **Gartner®** identifies 13 Critical Capabilities for operational databases, and ranks Spanner \#1 in the Lightweight Transactions Use Case. Get the [**full report**](https://cloud.google.com/resources/content/critical-capabilities-dbms).
+- **﻿Forrester's Total Economic Impact™ study** shows Spanner delivers a 132% ROI, 9-month payback period and multi-million dollar benefits for a representative composite organization. [**Download the full study**](https://cloud.google.com/resources/content/forrester-spanner-tei-study) to learn more.
+- **Gartner®** identifies 13 Critical Capabilities for operational databases, and ranks Spanner \#1 in the Lightweight Transactions Use Case. Get the [**full report**](https://cloud.google.com/resources/content/critical-capabilities-dbms).
 
------
+------------------------------------------------------------------------
 
 ![How does Uber scale to millions of concurrent requests?](https://www.gstatic.com/bricks/image/4D-bjx0ol3VACuH6e3XImwMogylHsAf-r6jFWea5yphYaIXKErYE7yA99-ghJCGt1X_Bolk8tQPCGQ.png)
 
@@ -1003,23 +661,9 @@ Explore how Uber redesigned its fulfillment platform leveraging Spanner.
 
 ### Related Content
 
-  - [](https://cloud.google.com/blog/products/databases/wayfair-migrates-to-cloud-sql-and-cloud-spanner)
-    
-    ![Wayfair logo](https://www.gstatic.com/bricks/image/XxJ90qBFli-ztz2jKtWJsCfK7U-KJCwPIaI8JdXqG3_RwE1bGylW0XSc_jL-3elaIINYICQn_R9_.png)
-    
-    How Wayfair is modernizing, one database at a time
-
-  - [](https://www.youtube.com/watch?v=ih97gwNmkRA)
-    
-    ![Gmail logo](https://www.gstatic.com/bricks/image/6b711ee5-4822-472d-8db1-ce4834e80f20.png)
-    
-    Learn how Gmail migrated billions of users, trillions of emails, and exabytes of data to Spanner
-
-  - [](https://www.youtube.com/watch?v=rvcaA31GKHg)
-    
-    ![DOJO in black text](https://www.gstatic.com/bricks/image/7cde965d-32f6-4ef5-80fc-4acc410317fa.png)
-    
-    Dojo is a payments powerhouse, delivering 60% faster transactions with Spanner
+- [![Wayfair logo](https://www.gstatic.com/bricks/image/XxJ90qBFli-ztz2jKtWJsCfK7U-KJCwPIaI8JdXqG3_RwE1bGylW0XSc_jL-3elaIINYICQn_R9_.png) How Wayfair is modernizing, one database at a time](https://cloud.google.com/blog/products/databases/wayfair-migrates-to-cloud-sql-and-cloud-spanner)
+- [![Gmail logo](https://www.gstatic.com/bricks/image/6b711ee5-4822-472d-8db1-ce4834e80f20.png) Learn how Gmail migrated billions of users, trillions of emails, and exabytes of data to Spanner](https://www.youtube.com/watch?v=ih97gwNmkRA)
+- [![DOJO in black text](https://www.gstatic.com/bricks/image/7cde965d-32f6-4ef5-80fc-4acc410317fa.png) Dojo is a payments powerhouse, delivering 60% faster transactions with Spanner](https://www.youtube.com/watch?v=rvcaA31GKHg)
 
 Featured benefits and customers
 
@@ -1027,55 +671,55 @@ Grow your business with innovative applications that scale limitlessly to meet a
 
 Lower TCO and free your developers from cumbersome operations to dream big and build faster.
 
-Get superior price-performance and pay for what you use, starting at as low as $40 per month.
+Get superior price-performance and pay for what you use, starting at as low as \$40 per month.
 
-  - ![The Home Depot logo](https://www.gstatic.com/bricks/image/OB4rfipFAdWtVOYTorW-M8SknHJDvTKcMbeqv_rI9D3h1TxrkWpXX7mq49NP2vVsLMxT1nF7mAOqOg.webp)
-  - ![Rewe group logo](https://www.gstatic.com/bricks/image/a44e9b02-ed95-4c3d-a5c2-498f82594bbd.png)
-  - ![Shopify Logo](https://www.gstatic.com/bricks/image/0cebcf96-75bf-4eb0-9eb6-865301dddcf7.png)
-  - ![Deutsche bank logo](https://www.gstatic.com/bricks/image/c30be58b-a689-4a13-ab0f-b22547bacc88.png)
-  - ![Equifax logo](https://www.gstatic.com/bricks/image/b11aca4d-acc8-4772-8371-2371c84d459f.png)
-  - ![Arigatobank logo](https://www.gstatic.com/bricks/image/e6d275e3-395c-461d-85da-8eb63e44f874.png)
-  - ![Cerc logo](https://www.gstatic.com/bricks/image/5aa3c766-ac77-4ead-92fe-c07b8fb468ac.png)
-  - ![Mercari logo](https://www.gstatic.com/bricks/image/35d7a68c-6426-486c-a997-beaa05b6f328.png)
-  - ![Niantic logo](https://www.gstatic.com/bricks/image/7Tl3fESCCLbolPmGHKjLRyrYQmR0GM_Ye8Hu9ndf8ONrdFjZvLoCvo2MJHZ7vXQsf1YbsuYQwmp85g.png)
-  - ![Colopl logo](https://www.gstatic.com/bricks/image/-SHBNfjdVBb91OfB36exlzv7j_oA4eFD0RIS3cEdrFCOUigSHW6fg9A-fSd3oJIJYxq4EC_0RU0.png)
-  - ![PaloAltoNetworks Logo](https://www.gstatic.com/bricks/image/1660c0e2-11d2-4c46-805a-0f2a87dd5353.png)
-  - ![Sabre logo](https://www.gstatic.com/bricks/image/f3035d96-f55d-4b9b-a439-fa996c2551eb.png)
-  - ![Prefab logo](https://www.gstatic.com/bricks/image/ab239ad6-3886-4fd6-a4b2-29763574d591.png)
-  - ![Sharechat logo](https://www.gstatic.com/bricks/image/e3f03e09-62f0-426c-9983-38f66681f8f4.png)
-  - ![Mahindra logo](https://www.gstatic.com/bricks/image/c645c43a-968d-411e-a2fc-71e0902be771.png)
+- ![The Home Depot logo](https://www.gstatic.com/bricks/image/OB4rfipFAdWtVOYTorW-M8SknHJDvTKcMbeqv_rI9D3h1TxrkWpXX7mq49NP2vVsLMxT1nF7mAOqOg.webp)
+- ![Rewe group logo](https://www.gstatic.com/bricks/image/a44e9b02-ed95-4c3d-a5c2-498f82594bbd.png)
+- ![Shopify Logo](https://www.gstatic.com/bricks/image/0cebcf96-75bf-4eb0-9eb6-865301dddcf7.png)
+- ![Deutsche bank logo](https://www.gstatic.com/bricks/image/c30be58b-a689-4a13-ab0f-b22547bacc88.png)
+- ![Equifax logo](https://www.gstatic.com/bricks/image/b11aca4d-acc8-4772-8371-2371c84d459f.png)
+- ![Arigatobank logo](https://www.gstatic.com/bricks/image/e6d275e3-395c-461d-85da-8eb63e44f874.png)
+- ![Cerc logo](https://www.gstatic.com/bricks/image/5aa3c766-ac77-4ead-92fe-c07b8fb468ac.png)
+- ![Mercari logo](https://www.gstatic.com/bricks/image/35d7a68c-6426-486c-a997-beaa05b6f328.png)
+- ![Niantic logo](https://www.gstatic.com/bricks/image/7Tl3fESCCLbolPmGHKjLRyrYQmR0GM_Ye8Hu9ndf8ONrdFjZvLoCvo2MJHZ7vXQsf1YbsuYQwmp85g.png)
+- ![Colopl logo](https://www.gstatic.com/bricks/image/-SHBNfjdVBb91OfB36exlzv7j_oA4eFD0RIS3cEdrFCOUigSHW6fg9A-fSd3oJIJYxq4EC_0RU0.png)
+- ![PaloAltoNetworks Logo](https://www.gstatic.com/bricks/image/1660c0e2-11d2-4c46-805a-0f2a87dd5353.png)
+- ![Sabre logo](https://www.gstatic.com/bricks/image/f3035d96-f55d-4b9b-a439-fa996c2551eb.png)
+- ![Prefab logo](https://www.gstatic.com/bricks/image/ab239ad6-3886-4fd6-a4b2-29763574d591.png)
+- ![Sharechat logo](https://www.gstatic.com/bricks/image/e3f03e09-62f0-426c-9983-38f66681f8f4.png)
+- ![Mahindra logo](https://www.gstatic.com/bricks/image/c645c43a-968d-411e-a2fc-71e0902be771.png)
 
 Partners & Integration
 
 ##### Take advantage of partners with Spanner expertise to help you at every step of the journey, from assessments and business case to migrations and building new apps on Spanner.
 
-  - ![Searce logo](https://www.gstatic.com/bricks/image/Ome-BlOiQFfrmrvIug67GyXuOvx_dZxGGoyQhMVpx9mU0zUvflAmKhc7ZV73l2J3szDEtl5qhM0.png)
-  - ![Softserve](https://www.gstatic.com/bricks/image/r1goLzkUEdIbuspGsPOwMRXPhDOS839DYTDrJm-9C2LrAvwNFBVpYQFCMotTK-RE0zZWrkevNbgeeQ.png)
-  - ![Insight logo](https://www.gstatic.com/bricks/image/d543dbab-d0ea-46d7-b450-e1deddb0089c.png)
-  - ![Pythian](https://www.gstatic.com/bricks/image/X3G1yGqYCqsJzy_sy9cSlJrxqlhNIyBkK6IMotSj_XDzPjwcRLPt8iEi0w3qHAjbKRGk3kENBoKH4g.jpeg)
-  - ![Cloud Cover](https://www.gstatic.com/bricks/image/gTj0en2pVan6vSSzolRYDzqY5R485gjijqV-Yd12h69HvWtmBBzcwoDozWaGxFOVFX6oAu-Iri0.png)
-  - ![Zencore](https://www.gstatic.com/bricks/image/Flf2NClHoXe7lCHbcoYYYgYNDt-N8_pa0-9Fvlpzu0emEuyt28KaXAwISm_W_zeBXmrEmHHqvBeY8g.png)
-  - ![66 degrees logo](https://www.gstatic.com/bricks/image/5UnRnEPPNACxsAXj9U98X-AMgfr4WZQKQXwiIqalHmpcXstOwTpOSUszFPxkE8HM-85nSs67w-K5lg.jpeg)
-  - ![Wipro](https://www.gstatic.com/bricks/image/d99f60a8-97e7-46bb-a406-d6f6df50d38a.png)
-  - ![Accenture](https://www.gstatic.com/bricks/image/1577fa83-204e-4953-aab3-7c18f96359c7.png)
-  - ![Tensure](https://www.gstatic.com/bricks/image/8b1e1aed-2bab-4da5-85fa-d63175a4a5ea.png)
-  - ![Amarello](https://www.gstatic.com/bricks/image/13097e62-60e0-4aa9-b200-555b7c7951e5.png)
-  - ![Ollion](https://www.gstatic.com/bricks/image/eae72cce-4a05-4252-832d-a233f989286b.png)
+- ![Searce logo](https://www.gstatic.com/bricks/image/Ome-BlOiQFfrmrvIug67GyXuOvx_dZxGGoyQhMVpx9mU0zUvflAmKhc7ZV73l2J3szDEtl5qhM0.png)
+- ![Softserve](https://www.gstatic.com/bricks/image/r1goLzkUEdIbuspGsPOwMRXPhDOS839DYTDrJm-9C2LrAvwNFBVpYQFCMotTK-RE0zZWrkevNbgeeQ.png)
+- ![Insight logo](https://www.gstatic.com/bricks/image/d543dbab-d0ea-46d7-b450-e1deddb0089c.png)
+- ![Pythian](https://www.gstatic.com/bricks/image/X3G1yGqYCqsJzy_sy9cSlJrxqlhNIyBkK6IMotSj_XDzPjwcRLPt8iEi0w3qHAjbKRGk3kENBoKH4g.jpeg)
+- ![Cloud Cover](https://www.gstatic.com/bricks/image/gTj0en2pVan6vSSzolRYDzqY5R485gjijqV-Yd12h69HvWtmBBzcwoDozWaGxFOVFX6oAu-Iri0.png)
+- ![Zencore](https://www.gstatic.com/bricks/image/Flf2NClHoXe7lCHbcoYYYgYNDt-N8_pa0-9Fvlpzu0emEuyt28KaXAwISm_W_zeBXmrEmHHqvBeY8g.png)
+- ![66 degrees logo](https://www.gstatic.com/bricks/image/5UnRnEPPNACxsAXj9U98X-AMgfr4WZQKQXwiIqalHmpcXstOwTpOSUszFPxkE8HM-85nSs67w-K5lg.jpeg)
+- ![Wipro](https://www.gstatic.com/bricks/image/d99f60a8-97e7-46bb-a406-d6f6df50d38a.png)
+- ![Accenture](https://www.gstatic.com/bricks/image/1577fa83-204e-4953-aab3-7c18f96359c7.png)
+- ![Tensure](https://www.gstatic.com/bricks/image/8b1e1aed-2bab-4da5-85fa-d63175a4a5ea.png)
+- ![Amarello](https://www.gstatic.com/bricks/image/13097e62-60e0-4aa9-b200-555b7c7951e5.png)
+- ![Ollion](https://www.gstatic.com/bricks/image/eae72cce-4a05-4252-832d-a233f989286b.png)
 
 #### System integrators
 
-  - ![Searce logo](https://www.gstatic.com/bricks/image/Ome-BlOiQFfrmrvIug67GyXuOvx_dZxGGoyQhMVpx9mU0zUvflAmKhc7ZV73l2J3szDEtl5qhM0.png)
-  - ![Softserve](https://www.gstatic.com/bricks/image/r1goLzkUEdIbuspGsPOwMRXPhDOS839DYTDrJm-9C2LrAvwNFBVpYQFCMotTK-RE0zZWrkevNbgeeQ.png)
-  - ![Insight logo](https://www.gstatic.com/bricks/image/d543dbab-d0ea-46d7-b450-e1deddb0089c.png)
-  - ![Pythian](https://www.gstatic.com/bricks/image/X3G1yGqYCqsJzy_sy9cSlJrxqlhNIyBkK6IMotSj_XDzPjwcRLPt8iEi0w3qHAjbKRGk3kENBoKH4g.jpeg)
-  - ![Cloud Cover](https://www.gstatic.com/bricks/image/gTj0en2pVan6vSSzolRYDzqY5R485gjijqV-Yd12h69HvWtmBBzcwoDozWaGxFOVFX6oAu-Iri0.png)
-  - ![Zencore](https://www.gstatic.com/bricks/image/Flf2NClHoXe7lCHbcoYYYgYNDt-N8_pa0-9Fvlpzu0emEuyt28KaXAwISm_W_zeBXmrEmHHqvBeY8g.png)
-  - ![66 degrees logo](https://www.gstatic.com/bricks/image/5UnRnEPPNACxsAXj9U98X-AMgfr4WZQKQXwiIqalHmpcXstOwTpOSUszFPxkE8HM-85nSs67w-K5lg.jpeg)
-  - ![Wipro](https://www.gstatic.com/bricks/image/d99f60a8-97e7-46bb-a406-d6f6df50d38a.png)
-  - ![Accenture](https://www.gstatic.com/bricks/image/1577fa83-204e-4953-aab3-7c18f96359c7.png)
-  - ![Tensure](https://www.gstatic.com/bricks/image/8b1e1aed-2bab-4da5-85fa-d63175a4a5ea.png)
-  - ![Amarello](https://www.gstatic.com/bricks/image/13097e62-60e0-4aa9-b200-555b7c7951e5.png)
-  - ![Ollion](https://www.gstatic.com/bricks/image/eae72cce-4a05-4252-832d-a233f989286b.png)
+- ![Searce logo](https://www.gstatic.com/bricks/image/Ome-BlOiQFfrmrvIug67GyXuOvx_dZxGGoyQhMVpx9mU0zUvflAmKhc7ZV73l2J3szDEtl5qhM0.png)
+- ![Softserve](https://www.gstatic.com/bricks/image/r1goLzkUEdIbuspGsPOwMRXPhDOS839DYTDrJm-9C2LrAvwNFBVpYQFCMotTK-RE0zZWrkevNbgeeQ.png)
+- ![Insight logo](https://www.gstatic.com/bricks/image/d543dbab-d0ea-46d7-b450-e1deddb0089c.png)
+- ![Pythian](https://www.gstatic.com/bricks/image/X3G1yGqYCqsJzy_sy9cSlJrxqlhNIyBkK6IMotSj_XDzPjwcRLPt8iEi0w3qHAjbKRGk3kENBoKH4g.jpeg)
+- ![Cloud Cover](https://www.gstatic.com/bricks/image/gTj0en2pVan6vSSzolRYDzqY5R485gjijqV-Yd12h69HvWtmBBzcwoDozWaGxFOVFX6oAu-Iri0.png)
+- ![Zencore](https://www.gstatic.com/bricks/image/Flf2NClHoXe7lCHbcoYYYgYNDt-N8_pa0-9Fvlpzu0emEuyt28KaXAwISm_W_zeBXmrEmHHqvBeY8g.png)
+- ![66 degrees logo](https://www.gstatic.com/bricks/image/5UnRnEPPNACxsAXj9U98X-AMgfr4WZQKQXwiIqalHmpcXstOwTpOSUszFPxkE8HM-85nSs67w-K5lg.jpeg)
+- ![Wipro](https://www.gstatic.com/bricks/image/d99f60a8-97e7-46bb-a406-d6f6df50d38a.png)
+- ![Accenture](https://www.gstatic.com/bricks/image/1577fa83-204e-4953-aab3-7c18f96359c7.png)
+- ![Tensure](https://www.gstatic.com/bricks/image/8b1e1aed-2bab-4da5-85fa-d63175a4a5ea.png)
+- ![Amarello](https://www.gstatic.com/bricks/image/13097e62-60e0-4aa9-b200-555b7c7951e5.png)
+- ![Ollion](https://www.gstatic.com/bricks/image/eae72cce-4a05-4252-832d-a233f989286b.png)
 
 [Spanner partners](https://cloud.google.com/blog/products/databases/unlocking-the-power-of-spanner) help you modernize applications and migrate to the cloud seamlessly. Find your ideal partner or third-party integration in [our directory](https://cloud.google.com/find-a-partner/?search=relational%20databases).
 

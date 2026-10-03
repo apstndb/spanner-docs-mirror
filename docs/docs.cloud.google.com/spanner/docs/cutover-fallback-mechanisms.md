@@ -14,9 +14,9 @@ Reverse replication lets you fallback by replicating data written on Spanner bac
 
 Your reverse replication process needs to do the following:
 
-  - Handle changes in data types or content.
-  - Reverse any transformations performed during the migration.
-  - Push the data to the appropriate destination, taking into account sharding schemes on the source database.
+- Handle changes in data types or content.
+- Reverse any transformations performed during the migration.
+- Push the data to the appropriate destination, taking into account sharding schemes on the source database.
 
 Consider the following high-level approach to building a reverse replication flow:
 

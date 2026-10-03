@@ -26,9 +26,9 @@ To optimize your schema and application for performance, you might need to itera
 
 To design a schema that meets your application needs, gather the following requirements:
 
-  - Data modeling
-  - Common query patterns
-  - Latency and throughput requirements
+- Data modeling
+- Common query patterns
+- Latency and throughput requirements
 
 ## Design your Spanner Graph schema
 
@@ -64,8 +64,8 @@ To move data from a graph database or a non-relational database, you can persist
 
 If your schema has constraints defined on input tables, make sure those constraints aren't violated during data import. Constraints include the following:
 
-  - **Foreign Keys** : A foreign key constraint might be defined for an edge's reference to a node.
-  - **Interleaving** : An edge input table might be interleaved in a node input table. This interleaving defines a parent-child relationship, with the implicit constraint that the parent must exist before the child is created.
+- **Foreign Keys** : A foreign key constraint might be defined for an edge's reference to a node.
+- **Interleaving** : An edge input table might be interleaved in a node input table. This interleaving defines a parent-child relationship, with the implicit constraint that the parent must exist before the child is created.
 
 The parent in an interleaved organization and the referenced entity in the foreign key constraint must be loaded first. This means that you must first load nodes in the graph and then load the edges. When you load edges before you load the nodes that the edges connect to, you might encounter errors during the loading process that indicate certain keys don't exist.
 
@@ -73,8 +73,8 @@ To achieve the correct import order, use Google-provided templates to define sep
 
 For more information about Google-provided templates, see the following:
 
-  - [Cloud Storage Text to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) .
-  - [Cloud Storage Avro to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/avro-to-cloud-spanner) .
+- [Cloud Storage Text to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) .
+- [Cloud Storage Avro to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/avro-to-cloud-spanner) .
 
 If you import in the wrong order, the job might fail, or only part of your data might be migrated. If only part of your data is migrated, perform the migration again.
 
@@ -86,9 +86,9 @@ To improve data loading efficiency, create secondary indexes and define foreign 
 
 After you migrate your data, perform basic queries to verify data correctness. Run the following queries on both source and destination databases to verify that the results match:
 
-  - Count the number of nodes and edges.
-  - Count the number of nodes and edges per label.
-  - Compute stats (count, sum, avg, min, max) on each node and edge property.
+- Count the number of nodes and edges.
+- Count the number of nodes and edges per label.
+- Compute stats (count, sum, avg, min, max) on each node and edge property.
 
 ## Configure cutover and failover mechanism
 
@@ -96,5 +96,5 @@ After you migrate your data, perform basic queries to verify data correctness. R
 
 ## What's next
 
-  - [Compare Spanner Graph and openCypher](https://docs.cloud.google.com/spanner/docs/graph/opencypher-reference) .
-  - [Troubleshoot Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/troubleshoot) .
+- [Compare Spanner Graph and openCypher](https://docs.cloud.google.com/spanner/docs/graph/opencypher-reference) .
+- [Troubleshoot Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/troubleshoot) .

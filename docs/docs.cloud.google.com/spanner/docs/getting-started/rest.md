@@ -10,12 +10,12 @@ data_source: docs.cloud.google.com
 
 This tutorial walks you through the following steps using the Cloud Spanner API with REST:
 
-  - Create a Spanner instance and database.
-  - Write, read, and execute SQL queries on data in the database.
-  - Update the database schema.
-  - Add a secondary index to the database.
-  - Use the index to read and execute SQL queries on data.
-  - Retrieve data using a read-only transaction.
+- Create a Spanner instance and database.
+- Write, read, and execute SQL queries on data in the database.
+- Update the database schema.
+- Add a secondary index to the database.
+- Use the index to read and execute SQL queries on data.
+- Retrieve data using a read-only transaction.
 
 If you want to use Spanner client libraries instead of using the REST API, see [Tutorials](https://docs.cloud.google.com/spanner/docs/tutorials) .
 
@@ -29,23 +29,23 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 You can make Spanner REST calls using:
 
-  - The **Try-It\!** feature found in the [Spanner API reference documentation](https://docs.cloud.google.com/spanner/docs/reference/rest) .
-  - [Google APIs Explorer](https://developers.google.com/explorer-help/) , which contains the [Cloud Spanner API](https://developers.google.com/apis-explorer/#p/spanner.googleapis.com/v1/) and other Google APIs.
-  - Other tools or frameworks that support HTTP REST calls.
+- The **Try-It!** feature found in the [Spanner API reference documentation](https://docs.cloud.google.com/spanner/docs/reference/rest) .
+- [Google APIs Explorer](https://developers.google.com/explorer-help/) , which contains the [Cloud Spanner API](https://developers.google.com/apis-explorer/#p/spanner.googleapis.com/v1/) and other Google APIs.
+- Other tools or frameworks that support HTTP REST calls.
 
 ## Conventions used on this page
 
-  - The examples use `<var>PROJECT_ID</var>` as the Google Cloud project ID. Substitute your Google Cloud project ID for `<var>PROJECT_ID</var>` .
+- The examples use `<var>PROJECT_ID</var>` as the Google Cloud project ID. Substitute your Google Cloud project ID for `<var>PROJECT_ID</var>` .
 
-  - The examples create and use an instance ID of `test-instance` . Substitute your instance ID if you are not using `test-instance` .
+- The examples create and use an instance ID of `test-instance` . Substitute your instance ID if you are not using `test-instance` .
 
-  - The examples create and use a database ID of `example-db` . Substitute your database ID if you are not using `example-db` .
+- The examples create and use a database ID of `example-db` . Substitute your database ID if you are not using `example-db` .
 
-  - The examples use `<var>SESSION</var>` as part of a session name. Substitute the value you receive when you [create a session](https://docs.cloud.google.com/spanner/docs/getting-started/rest#create_a_session) for `<var>SESSION</var>` .
+- The examples use `<var>SESSION</var>` as part of a session name. Substitute the value you receive when you [create a session](https://docs.cloud.google.com/spanner/docs/getting-started/rest#create_a_session) for `<var>SESSION</var>` .
 
-  - The examples use a transaction ID of `<var>TRANSACTION_ID</var>` . Substitute the value you receive when you create a transaction for `<var>TRANSACTION_ID</var>` .
+- The examples use a transaction ID of `<var>TRANSACTION_ID</var>` . Substitute the value you receive when you create a transaction for `<var>TRANSACTION_ID</var>` .
 
-  - The **Try-It\!** functionality supports interactively adding individual HTTP request fields. Most examples in this document provide the entire request instead of describing how to interactively add individual fields to the request.
+- The **Try-It!** functionality supports interactively adding individual HTTP request fields. Most examples in this document provide the entire request instead of describing how to interactively add individual fields to the request.
 
 ## Instances
 
@@ -60,24 +60,26 @@ Use `projects.instanceConfigs.list` to determine which configurations are availa
 1.  Click .
 
 2.  For **parent** , enter:
-    
-    projects/ PROJECT\_ID
+
+    projects/ ` PROJECT_ID `
 
 3.  Click **Execute** . The response shows the available instance configurations. Here's an example response (your project may have different instance configurations):
-    
-        { "instanceConfigs": [ { "name":
-        "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-asia-south1", "displayName":
-        "asia-south1" }, { "name":
-        "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-asia-east1", "displayName":
-        "asia-east1" }, { "name":
-        "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-asia-northeast1",
-        "displayName": "asia-northeast1" }, { "name":
-        "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-europe-west1",
-        "displayName": "europe-west1" }, { "name":
-        "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-us-east4", "displayName":
-        "us-east4" }, { "name":
-        "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-us-central1", "displayName":
-        "us-central1" } ] }
+
+    ```
+    { "instanceConfigs": [ { "name":
+    "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-asia-south1", "displayName":
+    "asia-south1" }, { "name":
+    "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-asia-east1", "displayName":
+    "asia-east1" }, { "name":
+    "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-asia-northeast1",
+    "displayName": "asia-northeast1" }, { "name":
+    "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-europe-west1",
+    "displayName": "europe-west1" }, { "name":
+    "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-us-east4", "displayName":
+    "us-east4" }, { "name":
+    "projects/<var>PROJECT_ID</var>/instanceConfigs/regional-us-central1", "displayName":
+    "us-central1" } ] }
+    ```
 
 You use the `name` value for one of the instance configurations when you create your instance.
 
@@ -86,23 +88,25 @@ You use the `name` value for one of the instance configurations when you create 
 1.  Click .
 
 2.  For **parent** , enter:
-    
-        projects/<var>PROJECT_ID</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>
+    ```
 
 3.  Click **Add request body parameters** and select `instance` .
 
 4.  Click the hint bubble for **instance** to see the possible fields. Add values for the following fields:
-    
-      - `nodeCount` : Enter `1` .
-      - `config` : Enter the `name` value of one of the regional instance configurations returned when you [list instance configurations](https://docs.cloud.google.com/spanner/docs/getting-started/rest#listing_instance_configurations) .
-      - `displayName` : Enter `Test Instance` .
+
+    - `nodeCount` : Enter `1` .
+    - `config` : Enter the `name` value of one of the regional instance configurations returned when you [list instance configurations](https://docs.cloud.google.com/spanner/docs/getting-started/rest#listing_instance_configurations) .
+    - `displayName` : Enter `Test Instance` .
 
 5.  Click the hint bubble that follows the closing bracket for **instance** and select **instanceId** .
 
 6.  For `instanceId` , enter `test-instance` .  
-    Your **Try It\!** instance creation page should now look like this:
-    
-    ![Instance creation page in the Try-It\! feature](https://docs.cloud.google.com/static/spanner/docs/images/create_instance_try_it.png)
+    Your **Try It!** instance creation page should now look like this:
+
+    ![Instance creation page in the Try-It! feature](https://docs.cloud.google.com/static/spanner/docs/images/create_instance_try_it.png)
 
 7.  Click **Execute** . The response returns a [long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) . Query this operation to check its status.
 
@@ -115,14 +119,18 @@ Create a database named `example-db` .
 1.  Click .
 
 2.  For **parent** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance
+    ```
 
 3.  Click **Add request body parameters** and select `createStatement` .
 
 4.  For `createStatement` , enter:
-    
-        CREATE DATABASE `example-db`
+
+    ```
+    CREATE DATABASE `example-db`
+    ```
 
 The database name, `example-db` , contains a hyphen, so enclose it in backticks ( `` ` `` ).
 
@@ -137,18 +145,22 @@ Use Spanner's [Data Definition Language](https://docs.cloud.google.com/spanner/d
 1.  Click .
 
 2.  For **database** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-          "statements": [
-            "CREATE TABLE Singers ( SingerId INT64 NOT NULL, FirstName STRING(1024), LastName STRING(1024), SingerInfo BYTES(MAX) ) PRIMARY KEY (SingerId)",
-           "CREATE TABLE Albums ( SingerId INT64 NOT NULL, AlbumId INT64 NOT NULL, AlbumTitle STRING(MAX)) PRIMARY KEY (SingerId, AlbumId), INTERLEAVE IN PARENT Singers ON DELETE CASCADE"
-          ]
-        }
-    
+
+    ```
+    {
+      "statements": [
+        "CREATE TABLE Singers ( SingerId INT64 NOT NULL, FirstName STRING(1024), LastName STRING(1024), SingerInfo BYTES(MAX) ) PRIMARY KEY (SingerId)",
+       "CREATE TABLE Albums ( SingerId INT64 NOT NULL, AlbumId INT64 NOT NULL, AlbumTitle STRING(MAX)) PRIMARY KEY (SingerId, AlbumId), INTERLEAVE IN PARENT Singers ON DELETE CASCADE"
+      ]
+    }
+    ```
+
     The `statements` array contains the DDL statements that define the schema.
 
 4.  Click **Execute** . The response returns a [long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) . Query this operation to check its status.
@@ -164,15 +176,19 @@ Before you add, update, delete, or query data, create a [session](https://docs.c
 1.  Click .
 
 2.  For **database** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+    ```
 
 3.  Click **Execute** .
 
 4.  The response shows the session that you created, in the form
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
-    
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
+
     Use this session when you read or write to your database.
 
 Sessions are intended to be long-lived. The Spanner database service deletes a session when the session is idle for more than one hour. Attempts to use a deleted session result in `NOT_FOUND` . If you encounter this error, create and use a new session. See if a session is still alive using .
@@ -190,12 +206,14 @@ You write data using the [`Mutation`](https://docs.cloud.google.com/spanner/docs
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request body** , use the following:
-    
-    ``` 
+
+    ```
      {
        "singleUseTransaction": {
          "readWrite": {}
@@ -290,14 +308,18 @@ For information on how to encode data types, see [TypeCode](https://docs.cloud.g
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-          "sql": "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
-        }
+
+    ```
+    {
+      "sql": "SELECT SingerId, AlbumId, AlbumTitle FROM Albums"
+    }
+    ```
 
 4.  Click **Execute** . The response shows the query results.
 
@@ -306,22 +328,26 @@ For information on how to encode data types, see [TypeCode](https://docs.cloud.g
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-          "table": "Albums",
-          "columns": [
-            "SingerId",
-            "AlbumId",
-            "AlbumTitle"
-          ],
-          "keySet": {
-            "all": true
-          }
-        }
+
+    ```
+    {
+      "table": "Albums",
+      "columns": [
+        "SingerId",
+        "AlbumId",
+        "AlbumTitle"
+      ],
+      "keySet": {
+        "all": true
+      }
+    }
+    ```
 
 4.  Click **Execute** . The response shows the read results.
 
@@ -334,19 +360,21 @@ Add a new column called `MarketingBudget` to the `Albums` table. This requires a
 1.  Click .
 
 2.  For **database** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+    ```
 
 3.  For **Request body** , use the following:
-    
-    ```` 
+
+    ````
      {
        "statements": [
          "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64"
        ]
      }
      ```
-    
+
     The `statements` array contains the DDL statements that define the schema.
     ````
 
@@ -359,16 +387,16 @@ This code writes data to the new column. It sets `MarketingBudget` to `100000` f
 1.  Click .
 
 2.  For **session** , enter:
-    
-    ``` 
+
+    ```
          projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
     ```
-    
+
     (You receive this value when you [create a session](https://docs.cloud.google.com/spanner/docs/getting-started/rest#create_a_session) .)
 
 3.  For **Request body** , use the following:
-    
-    ``` 
+
+    ```
      {
        "singleUseTransaction": {
          "readWrite": {}
@@ -407,20 +435,22 @@ Execute a SQL query or a read call to fetch the values you just wrote.
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request body** , use the following:
-    
-    ``` 
+
+    ```
      {
        "sql": "SELECT SingerId, AlbumId, MarketingBudget FROM Albums"
      }
     ```
 
 4.  Click **Execute** . The response shows two rows that contain the updated `MarketingBudget` values:
-    
-    ``` 
+
+    ```
      "rows": [
        [
          "1",
@@ -465,16 +495,20 @@ Add an index using `updateDdl` .
 1.  Click .
 
 2.  For **database** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-           "statements": [
-             "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"
-           ]
-        }
+
+    ```
+    {
+       "statements": [
+         "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"
+       ]
+    }
+    ```
 
 4.  Click **Execute** . This may take a few minutes to complete, even after the REST call returns a response. The response returns a [long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) . Query this operation to check its status.
 
@@ -483,76 +517,88 @@ Add an index using `updateDdl` .
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-          "sql": "SELECT AlbumId, AlbumTitle, MarketingBudget FROM Albums WHERE AlbumTitle >= 'Aardvark' AND AlbumTitle < 'Goo'"
-        }
+
+    ```
+    {
+      "sql": "SELECT AlbumId, AlbumTitle, MarketingBudget FROM Albums WHERE AlbumTitle >= 'Aardvark' AND AlbumTitle < 'Goo'"
+    }
+    ```
 
 4.  Click **Execute** . The response shows the following rows:
-    
-        "rows": [
-           [
-             "2",
-             "Go, Go, Go",
-             null
-           ],
-           [
-             "2",
-             "Forever Hold Your Peace",
-             "500000"
-           ]
-        ]
+
+    ```
+    "rows": [
+       [
+         "2",
+         "Go, Go, Go",
+         null
+       ],
+       [
+         "2",
+         "Forever Hold Your Peace",
+         "500000"
+       ]
+    ]
+    ```
 
 ### Read using the index
 
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-           "table": "Albums",
-           "columns": [
-             "AlbumId",
-             "AlbumTitle"
-           ],
-           "keySet": {
-             "all": true
-           },
-           "index": "AlbumsByAlbumTitle"
-        }
+
+    ```
+    {
+       "table": "Albums",
+       "columns": [
+         "AlbumId",
+         "AlbumTitle"
+       ],
+       "keySet": {
+         "all": true
+       },
+       "index": "AlbumsByAlbumTitle"
+    }
+    ```
 
 4.  Click **Execute** . The response shows the following rows:
-    
-        "rows": [
-           [
-             "2",
-             "Forever Hold Your Peace"
-           ],
-           [
-             "2",
-             "Go, Go, Go"
-           ],
-           [
-             "1",
-             "Green"
-           ],
-           [
-             "3",
-             "Terrified"
-           ],
-           [
-             "1",
-             "Total Junk"
-           ]
-        ]
+
+    ```
+    "rows": [
+       [
+         "2",
+         "Forever Hold Your Peace"
+       ],
+       [
+         "2",
+         "Go, Go, Go"
+       ],
+       [
+         "1",
+         "Green"
+       ],
+       [
+         "3",
+         "Terrified"
+       ],
+       [
+         "1",
+         "Total Junk"
+       ]
+    ]
+    ```
 
 ### Add an index with the STORING clause
 
@@ -565,16 +611,20 @@ Add a STORING index using `updateDdl` .
 1.  Click .
 
 2.  For **database** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-          "statements": [
-            "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)"
-          ]
-        }
+
+    ```
+    {
+      "statements": [
+        "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)"
+      ]
+    }
+    ```
 
 4.  Click **Execute** . This may take a few minutes to complete, even after the REST call returns a response. The response returns a [long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) . Query this operation to check its status.
 
@@ -583,53 +633,59 @@ Now, execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBu
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-          "table": "Albums",
-          "columns": [
-            "AlbumId",
-            "AlbumTitle",
-            "MarketingBudget"
-          ],
-          "keySet": {
-            "all": true
-          },
-          "index": "AlbumsByAlbumTitle2"
-        }
+
+    ```
+    {
+      "table": "Albums",
+      "columns": [
+        "AlbumId",
+        "AlbumTitle",
+        "MarketingBudget"
+      ],
+      "keySet": {
+        "all": true
+      },
+      "index": "AlbumsByAlbumTitle2"
+    }
+    ```
 
 4.  Click **Execute** . The response shows the following rows:
-    
-        "rows": [
-           [
-             "2",
-             "Forever Hold Your Peace",
-             "500000"
-           ],
-           [
-             "2",
-             "Go, Go, Go",
-             null
-           ],
-           [
-             "1",
-             "Green",
-             null
-           ],
-           [
-             "3",
-             "Terrified",
-             null
-           ],
-           [
-             "1",
-             "Total Junk",
-             "100000"
-           ]
-        ]
+
+    ```
+    "rows": [
+       [
+         "2",
+         "Forever Hold Your Peace",
+         "500000"
+       ],
+       [
+         "2",
+         "Go, Go, Go",
+         null
+       ],
+       [
+         "1",
+         "Green",
+         null
+       ],
+       [
+         "3",
+         "Terrified",
+         null
+       ],
+       [
+         "1",
+         "Total Junk",
+         "100000"
+       ]
+    ]
+    ```
 
 ## Retrieve data using read-only transactions
 
@@ -640,16 +696,20 @@ To execute more than one read at the same timestamp, use [Read-only transactions
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request Body** , use the following:
-    
-        {
-          "options": {
-            "readOnly": {}
-          }
-        }
+
+    ```
+    {
+      "options": {
+        "readOnly": {}
+      }
+    }
+    ```
 
 4.  Click **Execute** .
 
@@ -662,104 +722,116 @@ Use the read-only transaction to retrieve data at a consistent timestamp, even i
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-          "sql": "SELECT SingerId, AlbumId, AlbumTitle FROM Albums",
-          "transaction": {
-            "id": "<var>TRANSACTION_ID</var>"
-          }
-        }
+
+    ```
+    {
+      "sql": "SELECT SingerId, AlbumId, AlbumTitle FROM Albums",
+      "transaction": {
+        "id": "<var>TRANSACTION_ID</var>"
+      }
+    }
+    ```
 
 4.  Click **Execute** . The response shows rows similar to the following:
-    
-        "rows": [
-           [
-             "2",
-             "2",
-             "Forever Hold Your Peace"
-           ],
-           [
-             "1",
-             "2",
-             "Go, Go, Go"
-           ],
-           [
-             "2",
-             "1",
-             "Green"
-           ],
-           [
-             "2",
-             "3",
-             "Terrified"
-           ],
-           [
-             "1",
-             "1",
-             "Total Junk"
-           ]
-        ]
+
+    ```
+    "rows": [
+       [
+         "2",
+         "2",
+         "Forever Hold Your Peace"
+       ],
+       [
+         "1",
+         "2",
+         "Go, Go, Go"
+       ],
+       [
+         "2",
+         "1",
+         "Green"
+       ],
+       [
+         "2",
+         "3",
+         "Terrified"
+       ],
+       [
+         "1",
+         "1",
+         "Total Junk"
+       ]
+    ]
+    ```
 
 ### Read using the read-only transaction
 
 1.  Click .
 
 2.  For **session** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db/sessions/<var>SESSION</var>
+    ```
 
 3.  For **Request body** , use the following:
-    
-        {
-           "table": "Albums",
-           "columns": [
-             "SingerId",
-             "AlbumId",
-             "AlbumTitle"
-           ],
-           "keySet": {
-             "all": true
-           },
-           "transaction": {
-             "id": "<var>TRANSACTION_ID</var>"
-           }
-        }
+
+    ```
+    {
+       "table": "Albums",
+       "columns": [
+         "SingerId",
+         "AlbumId",
+         "AlbumTitle"
+       ],
+       "keySet": {
+         "all": true
+       },
+       "transaction": {
+         "id": "<var>TRANSACTION_ID</var>"
+       }
+    }
+    ```
 
 4.  Click **Execute** . The response shows rows similar to the following:
-    
-        "rows": [
-           [
-             "1",
-             "1",
-             "Total Junk"
-           ],
-           [
-             "1",
-             "2",
-             "Go, Go, Go"
-           ],
-           [
-             "2",
-             "1",
-             "Green"
-           ],
-           [
-             "2",
-             "2",
-             "Forever Hold Your Peace"
-           ],
-           [
-             "2",
-             "3",
-             "Terrified"
-           ]
-        ]
 
-Spanner also supports read-write transactions, which execute a set of reads and writes atomically at a single logical point in time. For more information, see [Read-write transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) . (The **Try-It\!** functionality is not suitable for demonstrating a read-write transaction.)
+    ```
+    "rows": [
+       [
+         "1",
+         "1",
+         "Total Junk"
+       ],
+       [
+         "1",
+         "2",
+         "Go, Go, Go"
+       ],
+       [
+         "2",
+         "1",
+         "Green"
+       ],
+       [
+         "2",
+         "2",
+         "Forever Hold Your Peace"
+       ],
+       [
+         "2",
+         "3",
+         "Terrified"
+       ]
+    ]
+    ```
+
+Spanner also supports read-write transactions, which execute a set of reads and writes atomically at a single logical point in time. For more information, see [Read-write transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) . (The **Try-It!** functionality is not suitable for demonstrating a read-write transaction.)
 
 ## Cleanup
 
@@ -770,8 +842,10 @@ To avoid additional charges to your Google Cloud account for the resources used 
 1.  Click .
 
 2.  For **name** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance/databases/example-db
+    ```
 
 3.  Click **Execute** .
 
@@ -780,12 +854,14 @@ To avoid additional charges to your Google Cloud account for the resources used 
 1.  Click .
 
 2.  For **name** , enter:
-    
-        projects/<var>PROJECT_ID</var>/instances/test-instance
+
+    ```
+    projects/<var>PROJECT_ID</var>/instances/test-instance
+    ```
 
 3.  Click **Execute** .
 
 ## What's next
 
-  - [Access Spanner in a Virtual Machine Instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) : create a virtual machine instance with access to your Spanner database.
-  - Learn more about [Spanner concepts](https://docs.cloud.google.com/spanner/docs/concepts) .
+- [Access Spanner in a Virtual Machine Instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) : create a virtual machine instance with access to your Spanner database.
+- Learn more about [Spanner concepts](https://docs.cloud.google.com/spanner/docs/concepts) .

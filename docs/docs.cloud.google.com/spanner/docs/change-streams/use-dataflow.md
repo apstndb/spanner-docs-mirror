@@ -55,24 +55,24 @@ Apache Beam contains [built-in I/O connectors](https://beam.apache.org/documenta
 
 For Spanner change streams, we provide three Dataflow flex templates:
 
-  - [Spanner change streams to BigQuery](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-bigquery)
+- [Spanner change streams to BigQuery](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-bigquery)
 
-  - [Spanner change streams to Google Cloud Storage](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-cloud-storage)
+- [Spanner change streams to Google Cloud Storage](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-cloud-storage)
 
-  - [Spanner change streams to Pub/Sub](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-pubsub)
+- [Spanner change streams to Pub/Sub](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-pubsub)
 
 The following restrictions apply when you use the [Spanner change streams to Pub/Sub](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-%0Aspanner-change-streams-to-pubsub) template:
 
-  - Pub/Sub has a 10 MB message size limitation. For more information, see [Pub/Sub quotas and limits](https://docs.cloud.google.com/pubsub/quotas) .
+- Pub/Sub has a 10 MB message size limitation. For more information, see [Pub/Sub quotas and limits](https://docs.cloud.google.com/pubsub/quotas) .
 
-  - The [Spanner change streams to Pub/Sub](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-pubsub) template doesn't support handling of large messages because of Pub/Sub limitations.
+- The [Spanner change streams to Pub/Sub](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-pubsub) template doesn't support handling of large messages because of Pub/Sub limitations.
 
 #### Set IAM Permissions for Dataflow templates
 
 Before creating a Dataflow job with the three flex templates listed, ensure that you have the [required Identity and Access Management (IAM) permissions](https://docs.cloud.google.com/dataflow/docs/concepts/dataflow-templates#set-iam-permissions) for the following service accounts:
 
-  - the [Dataflow service account](https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions#df-service-account)
-  - the [worker service account](https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions#worker-service-account)
+- the [Dataflow service account](https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions#df-service-account)
+- the [worker service account](https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions#worker-service-account)
 
 If you don't have the required IAM permissions, then you must [specify a user-managed worker service account](https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions#user-managed) to create the Dataflow job. For more information, see [Dataflow security and permissions](https://docs.cloud.google.com/dataflow/docs/concepts/security-and-permissions) .
 
@@ -100,11 +100,13 @@ The Apache Beam SpannerIO connector encapsulates the complexity of consuming the
 
 These objects can be consumed in other stages of the user's Dataflow pipeline. The change stream integration is part of the SpannerIO connector. To be able to use the SpannerIO connector, the dependency needs to be added to your `pom.xml` file:
 
-    <dependency>
-      <groupId>org.apache.beam</groupId>
-      <artifactId>beam-sdks-java-io-google-cloud-platform</artifactId>
-      <version>${beam-version}</version> <!-- available from version 2.38.0 -->
-    </dependency>
+```
+<dependency>
+  <groupId>org.apache.beam</groupId>
+  <artifactId>beam-sdks-java-io-google-cloud-platform</artifactId>
+  <version>${beam-version}</version> <!-- available from version 2.38.0 -->
+</dependency>
+```
 
 ### Create a metadata database
 
@@ -116,42 +118,44 @@ As described in [Change streams best practices](https://docs.cloud.google.com/sp
 
 The owner of a Dataflow job that uses the SpannerIO connector needs to have the following [IAM permissions](https://docs.cloud.google.com/spanner/docs/iam) set with this metadata database:
 
-  - `spanner.databases.updateDdl`
-  - `spanner.databases.beginReadOnlyTransaction`
-  - `spanner.databases.beginOrRollbackReadWriteTransaction`
-  - `spanner.databases.read`
-  - `spanner.databases.select`
-  - `spanner.databases.write`
-  - `spanner.sessions.create`
-  - `spanner.sessions.get`
+- `spanner.databases.updateDdl`
+- `spanner.databases.beginReadOnlyTransaction`
+- `spanner.databases.beginOrRollbackReadWriteTransaction`
+- `spanner.databases.read`
+- `spanner.databases.select`
+- `spanner.databases.write`
+- `spanner.sessions.create`
+- `spanner.sessions.get`
 
 ### Configure the connector
 
 The Spanner change streams connector can be configured as follows:
 
-    SpannerConfig spannerConfig = SpannerConfig
-      .create()
-      .withProjectId("my-project-id")
-      .withInstanceId("my-instance-id")
-      .withDatabaseId("my-database-id")
-      .withDatabaseRole("my-database-role");    // Needed for fine-grained access control only
-    
-    Timestamp startTime = Timestamp.now();
-    Timestamp endTime = Timestamp.ofTimeSecondsAndNanos(
-       startTime.getSeconds() + (10 * 60),
-       startTime.getNanos()
-    );
-    
-    SpannerIO
-      .readChangeStream()
-      .withSpannerConfig(spannerConfig)
-      .withChangeStreamName("my-change-stream")
-      .withMetadataInstance("my-meta-instance-id")
-      .withMetadataDatabase("my-meta-database-id")
-      .withMetadataTable("my-meta-table-name")
-      .withRpcPriority(RpcPriority.MEDIUM)
-      .withInclusiveStartAt(startTime)
-      .withInclusiveEndAt(endTime);
+```
+SpannerConfig spannerConfig = SpannerConfig
+  .create()
+  .withProjectId("my-project-id")
+  .withInstanceId("my-instance-id")
+  .withDatabaseId("my-database-id")
+  .withDatabaseRole("my-database-role");    // Needed for fine-grained access control only
+
+Timestamp startTime = Timestamp.now();
+Timestamp endTime = Timestamp.ofTimeSecondsAndNanos(
+   startTime.getSeconds() + (10 * 60),
+   startTime.getNanos()
+);
+
+SpannerIO
+  .readChangeStream()
+  .withSpannerConfig(spannerConfig)
+  .withChangeStreamName("my-change-stream")
+  .withMetadataInstance("my-meta-instance-id")
+  .withMetadataDatabase("my-meta-database-id")
+  .withMetadataTable("my-meta-table-name")
+  .withRpcPriority(RpcPriority.MEDIUM)
+  .withInclusiveStartAt(startTime)
+  .withInclusiveEndAt(endTime);
+```
 
 The following are descriptions of the `readChangeStream()` options:
 
@@ -203,33 +207,35 @@ You can define your own transforms and specify sinks to write the data into. Apa
 
 This code sample emits data change records ordered by commit timestamp and grouped by primary keys using the Dataflow connector.
 
-    pipeline
-      .apply(SpannerIO
-        .readChangeStream()
-        .withSpannerConfig(SpannerConfig
-          .create()
-          .withProjectId("my-project-id")
-          .withInstanceId("my-instance-id")
-          .withDatabaseId("my-database-id")
-          .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
-        .withChangeStreamName("my-change-stream")
-        .withMetadataInstance("my-metadata-instance-id")
-        .withMetadataDatabase("my-metadata-database-id")
-        .withInclusiveStartAt(Timestamp.now()))
-      .apply(ParDo.of(new BreakRecordByModFn()))
-      .apply(ParDo.of(new KeyByIdFn()))
-      .apply(ParDo.of(new BufferKeyUntilOutputTimestamp()))
-      // Subsequent processing goes here
+```
+pipeline
+  .apply(SpannerIO
+    .readChangeStream()
+    .withSpannerConfig(SpannerConfig
+      .create()
+      .withProjectId("my-project-id")
+      .withInstanceId("my-instance-id")
+      .withDatabaseId("my-database-id")
+      .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
+    .withChangeStreamName("my-change-stream")
+    .withMetadataInstance("my-metadata-instance-id")
+    .withMetadataDatabase("my-metadata-database-id")
+    .withInclusiveStartAt(Timestamp.now()))
+  .apply(ParDo.of(new BreakRecordByModFn()))
+  .apply(ParDo.of(new KeyByIdFn()))
+  .apply(ParDo.of(new BufferKeyUntilOutputTimestamp()))
+  // Subsequent processing goes here
+```
 
 This code sample uses states and timers to buffer records for each key, and sets the expiration time of the timer to some user-configured time `T` in the future (defined in the [BufferKeyUntilOutputTimestamp](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#bufferkeyuntiloutputtimestamp) function). When the Dataflow watermark passes time `T` , this code flushes all records in the buffer with timestamp less than `T` , orders these records by commit timestamp, and outputs a key-value pair where:
 
-  - The key is the input key, that is the primary key hashed to a bucket array of size 1000.
-  - The value is the ordered data change records that were buffered for the key.
+- The key is the input key, that is the primary key hashed to a bucket array of size 1000.
+- The value is the ordered data change records that were buffered for the key.
 
 For each key, we have the following guarantees:
 
-  - Timers are guaranteed to fire in order of expiration timestamp.
-  - Downstream stages are guaranteed to receive the elements in the same order that they were produced.
+- Timers are guaranteed to fire in order of expiration timestamp.
+- Downstream stages are guaranteed to receive the elements in the same order that they were produced.
 
 For example, with a key of the value 100, the timer fires at `T1` and `T10` respectively, producing a bundle of data change records at each timestamp. Because the data change records outputted at `T1` were produced before the data change records outputted at `T10` , the data change records outputted at `T1` are also guaranteed to be received by the next stage before the data change records outputted at `T10` . This mechanism helps us guarantee strict commit timestamp ordering per primary key for downstream processing.
 
@@ -241,59 +247,63 @@ Note that this code sample uses states and timers, instead of windows, to perfor
 
 Each data change record may contain several mods. Each mod represents an insert, update, or delete to a single primary key value. This function breaks each data change record into separate data change records, one per mod.
 
-    private static class BreakRecordByModFn extends DoFn<DataChangeRecord,
-                                                         DataChangeRecord>  {
-      @ProcessElement
-      public void processElement(
-          @Element DataChangeRecord record, OutputReceiver<DataChangeRecord>
-        outputReceiver) {
-        record.getMods().stream()
-          .map(
-              mod ->
-                  new DataChangeRecord(
-                      record.getPartitionToken(),
-                      record.getCommitTimestamp(),
-                      record.getServerTransactionId(),
-                      record.isLastRecordInTransactionInPartition(),
-                      record.getRecordSequence(),
-                      record.getTableName(),
-                      record.getRowType(),
-                      Collections.singletonList(mod),
-                      record.getModType(),
-                      record.getValueCaptureType(),
-                      record.getNumberOfRecordsInTransaction(),
-                      record.getNumberOfPartitionsInTransaction(),
-                      record.getTransactionTag(),
-                      record.isSystemTransaction(),
-                      record.getMetadata()))
-          .forEach(outputReceiver::output);
-      }
-    }
+```
+private static class BreakRecordByModFn extends DoFn<DataChangeRecord,
+                                                     DataChangeRecord>  {
+  @ProcessElement
+  public void processElement(
+      @Element DataChangeRecord record, OutputReceiver<DataChangeRecord>
+    outputReceiver) {
+    record.getMods().stream()
+      .map(
+          mod ->
+              new DataChangeRecord(
+                  record.getPartitionToken(),
+                  record.getCommitTimestamp(),
+                  record.getServerTransactionId(),
+                  record.isLastRecordInTransactionInPartition(),
+                  record.getRecordSequence(),
+                  record.getTableName(),
+                  record.getRowType(),
+                  Collections.singletonList(mod),
+                  record.getModType(),
+                  record.getValueCaptureType(),
+                  record.getNumberOfRecordsInTransaction(),
+                  record.getNumberOfPartitionsInTransaction(),
+                  record.getTransactionTag(),
+                  record.isSystemTransaction(),
+                  record.getMetadata()))
+      .forEach(outputReceiver::output);
+  }
+}
+```
 
 #### KeyByIdFn
 
 This function takes in a `DataChangeRecord` and outputs a `DataChangeRecord` keyed by the Spanner primary key hashed to an integer value.
 
-    private static class KeyByIdFn extends DoFn<DataChangeRecord, KV<String, DataChangeRecord>>  {
-      // NUMBER_OF_BUCKETS should be configured by the user to match their key cardinality
-      // Here, we are choosing to hash the Spanner primary keys to a bucket index, in order to have a deterministic number
-      // of states and timers for performance purposes.
-      // Note that having too many buckets might have undesirable effects if it results in a low number of records per bucket
-      // On the other hand, having too few buckets might also be problematic, since many keys will be contained within them.
-      private static final int NUMBER_OF_BUCKETS = 1000;
-    
-      @ProcessElement
-      public void processElement(
-          @Element DataChangeRecord record,
-          OutputReceiver<KV<String, DataChangeRecord>> outputReceiver) {
-        int hashCode = (int) record.getMods().get(0).getKeysJson().hashCode();
-        // Hash the received keys into a bucket in order to have a
-        // deterministic number of buffers and timers.
-        String bucketIndex = String.valueOf(hashCode % NUMBER_OF_BUCKETS);
-    
-        outputReceiver.output(KV.of(bucketIndex, record));
-      }
-    }
+```
+private static class KeyByIdFn extends DoFn<DataChangeRecord, KV<String, DataChangeRecord>>  {
+  // NUMBER_OF_BUCKETS should be configured by the user to match their key cardinality
+  // Here, we are choosing to hash the Spanner primary keys to a bucket index, in order to have a deterministic number
+  // of states and timers for performance purposes.
+  // Note that having too many buckets might have undesirable effects if it results in a low number of records per bucket
+  // On the other hand, having too few buckets might also be problematic, since many keys will be contained within them.
+  private static final int NUMBER_OF_BUCKETS = 1000;
+
+  @ProcessElement
+  public void processElement(
+      @Element DataChangeRecord record,
+      OutputReceiver<KV<String, DataChangeRecord>> outputReceiver) {
+    int hashCode = (int) record.getMods().get(0).getKeysJson().hashCode();
+    // Hash the received keys into a bucket in order to have a
+    // deterministic number of buffers and timers.
+    String bucketIndex = String.valueOf(hashCode % NUMBER_OF_BUCKETS);
+
+    outputReceiver.output(KV.of(bucketIndex, record));
+  }
+}
+```
 
 #### BufferKeyUntilOutputTimestamp
 
@@ -305,125 +315,125 @@ This code utilizes a looping timer to determine when to flush the buffer:
 2.  When the timer fires, it adds all data change records in the buffer with timestamp less than the timer's expiration time to `recordsToOutput` . If the buffer has data change records whose timestamp is greater than or equal to the timer's expiration time, it adds those data change records back into the buffer instead of outputting them. It then sets the next timer to the current timer's expiration time plus `incrementIntervalInSeconds` .
 3.  If `recordsToOutput` is not empty, the function orders the data change records in `recordsToOutput` by commit timestamp and transaction ID and then outputs them.
 
-<!-- end list -->
+```
+private static class BufferKeyUntilOutputTimestamp extends
+    DoFn<KV<String, DataChangeRecord>, KV<String, Iterable<DataChangeRecord>>>  {
+  private static final Logger LOG =
+      LoggerFactory.getLogger(BufferKeyUntilOutputTimestamp.class);
 
-    private static class BufferKeyUntilOutputTimestamp extends
-        DoFn<KV<String, DataChangeRecord>, KV<String, Iterable<DataChangeRecord>>>  {
-      private static final Logger LOG =
-          LoggerFactory.getLogger(BufferKeyUntilOutputTimestamp.class);
-    
-      private final long incrementIntervalInSeconds = 2;
-    
-      private BufferKeyUntilOutputTimestamp(long incrementIntervalInSeconds) {
-        this.incrementIntervalInSeconds = incrementIntervalInSeconds;
-      }
-    
-      @SuppressWarnings("unused")
-      @TimerId("timer")
-      private final TimerSpec timerSpec = TimerSpecs.timer(TimeDomain.EVENT_TIME);
-    
-      @StateId("buffer")
-      private final StateSpec<BagState<DataChangeRecord>> buffer = StateSpecs.bag();
-    
-      @StateId("keyString")
-      private final StateSpec<ValueState<String>> keyString =
-          StateSpecs.value(StringUtf8Coder.of());
-    
-      @ProcessElement
-      public void process(
-          @Element KV<String, DataChangeRecord> element,
-          @StateId("buffer") BagState<DataChangeRecord> buffer,
-          @TimerId("timer") Timer timer,
-          @StateId("keyString") ValueState<String> keyString) {
-        buffer.add(element.getValue());
-    
-        // Only set the timer if this is the first time we are receiving a data change
-        // record with this key.
-        String elementKey = keyString.read();
-        if (elementKey == null) {
-          Instant commitTimestamp =
-              new Instant(element.getValue().getCommitTimestamp().toSqlTimestamp());
-          Instant outputTimestamp =
-              commitTimestamp.plus(Duration.standardSeconds(incrementIntervalInSeconds));
-          timer.set(outputTimestamp);
-          keyString.write(element.getKey());
-        }
-      }
-    
-      @OnTimer("timer")
-      public void onExpiry(
-          OnTimerContext context,
-          @StateId("buffer") BagState<DataChangeRecord> buffer,
-          @TimerId("timer") Timer timer,
-          @StateId("keyString") ValueState<String> keyString) {
-        if (!buffer.isEmpty().read()) {
-          String elementKey = keyString.read();
-    
-          final List<DataChangeRecord> records =
-              StreamSupport.stream(buffer.read().spliterator(), false)
-                  .collect(Collectors.toList());
-          buffer.clear();
-    
-          List<DataChangeRecord> recordsToOutput = new ArrayList<>();
-          for (DataChangeRecord record : records) {
-            Instant recordCommitTimestamp =
-                new Instant(record.getCommitTimestamp().toSqlTimestamp());
-            final String recordString =
-                record.getMods().get(0).getNewValuesJson().isEmpty()
-                    ? "Deleted record"
-                    : record.getMods().get(0).getNewValuesJson();
-            // When the watermark passes time T, this means that all records with
-            // event time < T have been processed and successfully committed. Since the
-            // timer fires when the watermark passes the expiration time, we should
-            // only output records with event time < expiration time.
-            if (recordCommitTimestamp.isBefore(context.timestamp())) {
-              LOG.info(
-                 "Outputting record with key {} and value {} at expiration " +
-                 "timestamp {}",
-                  elementKey,
-                  recordString,
-                  context.timestamp().toString());
-              recordsToOutput.add(record);
-            } else {
-              LOG.info(
-                  "Expired at {} but adding record with key {} and value {} back to " +
-                  "buffer due to commit timestamp {}",
-                  context.timestamp().toString(),
-                  elementKey,
-                  recordString,
-                  recordCommitTimestamp.toString());
-              buffer.add(record);
-            }
-          }
-    
-          // Output records, if there are any to output.
-          if (!recordsToOutput.isEmpty()) {
-            // Order the records in place, and output them. The user would need
-            // to implement DataChangeRecordComparator class that sorts the
-            // data change records by commit timestamp and transaction ID.
-            Collections.sort(recordsToOutput, new DataChangeRecordComparator());
-            context.outputWithTimestamp(
-                KV.of(elementKey, recordsToOutput), context.timestamp());
-            LOG.info(
-                "Expired at {}, outputting records for key {}",
-                context.timestamp().toString(),
-                elementKey);
-          } else {
-            LOG.info("Expired at {} with no records", context.timestamp().toString());
-          }
-        }
-    
-        Instant nextTimer = context.timestamp().plus(Duration.standardSeconds(incrementIntervalInSeconds));
-        if (buffer.isEmpty() != null && !buffer.isEmpty().read()) {
-          LOG.info("Setting next timer to {}", nextTimer.toString());
-          timer.set(nextTimer);
+  private final long incrementIntervalInSeconds = 2;
+
+  private BufferKeyUntilOutputTimestamp(long incrementIntervalInSeconds) {
+    this.incrementIntervalInSeconds = incrementIntervalInSeconds;
+  }
+
+  @SuppressWarnings("unused")
+  @TimerId("timer")
+  private final TimerSpec timerSpec = TimerSpecs.timer(TimeDomain.EVENT_TIME);
+
+  @StateId("buffer")
+  private final StateSpec<BagState<DataChangeRecord>> buffer = StateSpecs.bag();
+
+  @StateId("keyString")
+  private final StateSpec<ValueState<String>> keyString =
+      StateSpecs.value(StringUtf8Coder.of());
+
+  @ProcessElement
+  public void process(
+      @Element KV<String, DataChangeRecord> element,
+      @StateId("buffer") BagState<DataChangeRecord> buffer,
+      @TimerId("timer") Timer timer,
+      @StateId("keyString") ValueState<String> keyString) {
+    buffer.add(element.getValue());
+
+    // Only set the timer if this is the first time we are receiving a data change
+    // record with this key.
+    String elementKey = keyString.read();
+    if (elementKey == null) {
+      Instant commitTimestamp =
+          new Instant(element.getValue().getCommitTimestamp().toSqlTimestamp());
+      Instant outputTimestamp =
+          commitTimestamp.plus(Duration.standardSeconds(incrementIntervalInSeconds));
+      timer.set(outputTimestamp);
+      keyString.write(element.getKey());
+    }
+  }
+
+  @OnTimer("timer")
+  public void onExpiry(
+      OnTimerContext context,
+      @StateId("buffer") BagState<DataChangeRecord> buffer,
+      @TimerId("timer") Timer timer,
+      @StateId("keyString") ValueState<String> keyString) {
+    if (!buffer.isEmpty().read()) {
+      String elementKey = keyString.read();
+
+      final List<DataChangeRecord> records =
+          StreamSupport.stream(buffer.read().spliterator(), false)
+              .collect(Collectors.toList());
+      buffer.clear();
+
+      List<DataChangeRecord> recordsToOutput = new ArrayList<>();
+      for (DataChangeRecord record : records) {
+        Instant recordCommitTimestamp =
+            new Instant(record.getCommitTimestamp().toSqlTimestamp());
+        final String recordString =
+            record.getMods().get(0).getNewValuesJson().isEmpty()
+                ? "Deleted record"
+                : record.getMods().get(0).getNewValuesJson();
+        // When the watermark passes time T, this means that all records with
+        // event time < T have been processed and successfully committed. Since the
+        // timer fires when the watermark passes the expiration time, we should
+        // only output records with event time < expiration time.
+        if (recordCommitTimestamp.isBefore(context.timestamp())) {
+          LOG.info(
+             "Outputting record with key {} and value {} at expiration " +
+             "timestamp {}",
+              elementKey,
+              recordString,
+              context.timestamp().toString());
+          recordsToOutput.add(record);
         } else {
           LOG.info(
-              "Timer not being set since the buffer is empty: ");
-          keyString.clear();
+              "Expired at {} but adding record with key {} and value {} back to " +
+              "buffer due to commit timestamp {}",
+              context.timestamp().toString(),
+              elementKey,
+              recordString,
+              recordCommitTimestamp.toString());
+          buffer.add(record);
         }
       }
+
+      // Output records, if there are any to output.
+      if (!recordsToOutput.isEmpty()) {
+        // Order the records in place, and output them. The user would need
+        // to implement DataChangeRecordComparator class that sorts the
+        // data change records by commit timestamp and transaction ID.
+        Collections.sort(recordsToOutput, new DataChangeRecordComparator());
+        context.outputWithTimestamp(
+            KV.of(elementKey, recordsToOutput), context.timestamp());
+        LOG.info(
+            "Expired at {}, outputting records for key {}",
+            context.timestamp().toString(),
+            elementKey);
+      } else {
+        LOG.info("Expired at {} with no records", context.timestamp().toString());
+      }
     }
+
+    Instant nextTimer = context.timestamp().plus(Duration.standardSeconds(incrementIntervalInSeconds));
+    if (buffer.isEmpty() != null && !buffer.isEmpty().read()) {
+      LOG.info("Setting next timer to {}", nextTimer.toString());
+      timer.set(nextTimer);
+    } else {
+      LOG.info(
+          "Timer not being set since the buffer is empty: ");
+      keyString.clear();
+    }
+  }
+}
+```
 
 #### Ordering transactions
 
@@ -435,35 +445,39 @@ This code sample reads data change records, assembles all data change records be
 
 This code sample uses buffers to assemble transactions from data change records. Upon receiving a data change record belonging to a transaction for the first time, it reads the `numberOfRecordsInTransaction` field in the data change record, which describes the expected number of data change records belonging to that transaction. It buffers the data change records belonging to that transaction until the number of buffered records matches `numberOfRecordsInTransaction` , upon which it outputs the bundled data change records.
 
-    pipeline
-      .apply(SpannerIO
-        .readChangeStream()
-        .withSpannerConfig(SpannerConfig
-          .create()
-          .withProjectId("my-project-id")
-          .withInstanceId("my-instance-id")
-          .withDatabaseId("my-database-id")
-          .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
-        .withChangeStreamName("my-change-stream")
-        .withMetadataInstance("my-metadata-instance-id")
-        .withMetadataDatabase("my-metadata-database-id")
-        .withInclusiveStartAt(Timestamp.now()))
-      .apply(ParDo.of(new KeyByTransactionIdFn()))
-      .apply(ParDo.of(new TransactionBoundaryFn()))
-      // Subsequent processing goes here
+```
+pipeline
+  .apply(SpannerIO
+    .readChangeStream()
+    .withSpannerConfig(SpannerConfig
+      .create()
+      .withProjectId("my-project-id")
+      .withInstanceId("my-instance-id")
+      .withDatabaseId("my-database-id")
+      .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
+    .withChangeStreamName("my-change-stream")
+    .withMetadataInstance("my-metadata-instance-id")
+    .withMetadataDatabase("my-metadata-database-id")
+    .withInclusiveStartAt(Timestamp.now()))
+  .apply(ParDo.of(new KeyByTransactionIdFn()))
+  .apply(ParDo.of(new TransactionBoundaryFn()))
+  // Subsequent processing goes here
+```
 
 #### KeyByTransactionIdFn
 
 This function takes in a `DataChangeRecord` and outputs a `DataChangeRecord` keyed by the transaction ID.
 
-    private static class KeyByTransactionIdFn extends DoFn<DataChangeRecord, KV<String, DataChangeRecord>>  {
-      @ProcessElement
-      public void processElement(
-          @Element DataChangeRecord record,
-          OutputReceiver<KV<String, DataChangeRecord>> outputReceiver) {
-        outputReceiver.output(KV.of(record.getServerTransactionId(), record));
-      }
-    }
+```
+private static class KeyByTransactionIdFn extends DoFn<DataChangeRecord, KV<String, DataChangeRecord>>  {
+  @ProcessElement
+  public void processElement(
+      @Element DataChangeRecord record,
+      OutputReceiver<KV<String, DataChangeRecord>> outputReceiver) {
+    outputReceiver.output(KV.of(record.getServerTransactionId(), record));
+  }
+}
+```
 
 #### TransactionBoundaryFn
 
@@ -471,46 +485,48 @@ This function takes in a `DataChangeRecord` and outputs a `DataChangeRecord` key
 
 Here, we are assuming that `SortKey` is a user-defined class that represents a `{CommitTimestamp, TransactionId}` pair. For more information about the `SortKey` , see the [sample implementation](https://github.com/apache/beam/blob/master/sdks/java/io/google-cloud-platform/src/test/java/org/apache/beam/sdk/io/gcp/spanner/changestreams/it/SpannerChangeStreamTransactionBoundariesIT.java#L251) .
 
-    private static class TransactionBoundaryFn extends DoFn<KV<String, DataChangeRecord>, KV<SortKey, Iterable<DataChangeRecord>>>  {
-      @StateId("buffer")
-      private final StateSpec<BagState<DataChangeRecord>> buffer = StateSpecs.bag();
-    
-      @StateId("count")
-      private final StateSpec<ValueState<Integer>> countState = StateSpecs.value();
-    
-      @ProcessElement
-      public void process(
-          ProcessContext context,
-          @StateId("buffer") BagState<DataChangeRecord> buffer,
-          @StateId("count") ValueState<Integer> countState) {
-        final KV<String, DataChangeRecord> element = context.element();
-        final DataChangeRecord record = element.getValue();
-    
-        buffer.add(record);
-        int count = (countState.read() != null ? countState.read() : 0);
-        count = count + 1;
-        countState.write(count);
-    
-        if (count == record.getNumberOfRecordsInTransaction()) {
-          final List<DataChangeRecord> sortedRecords =
-              StreamSupport.stream(buffer.read().spliterator(), false)
-                  .sorted(Comparator.comparing(DataChangeRecord::getRecordSequence))
-                  .collect(Collectors.toList());
-    
-          final Instant commitInstant =
-              new Instant(sortedRecords.get(0).getCommitTimestamp().toSqlTimestamp()
-                  .getTime());
-          context.outputWithTimestamp(
-              KV.of(
-                  new SortKey(sortedRecords.get(0).getCommitTimestamp(),
-                              sortedRecords.get(0).getServerTransactionId()),
-                  sortedRecords),
-              commitInstant);
-          buffer.clear();
-          countState.clear();
-        }
-      }
+```
+private static class TransactionBoundaryFn extends DoFn<KV<String, DataChangeRecord>, KV<SortKey, Iterable<DataChangeRecord>>>  {
+  @StateId("buffer")
+  private final StateSpec<BagState<DataChangeRecord>> buffer = StateSpecs.bag();
+
+  @StateId("count")
+  private final StateSpec<ValueState<Integer>> countState = StateSpecs.value();
+
+  @ProcessElement
+  public void process(
+      ProcessContext context,
+      @StateId("buffer") BagState<DataChangeRecord> buffer,
+      @StateId("count") ValueState<Integer> countState) {
+    final KV<String, DataChangeRecord> element = context.element();
+    final DataChangeRecord record = element.getValue();
+
+    buffer.add(record);
+    int count = (countState.read() != null ? countState.read() : 0);
+    count = count + 1;
+    countState.write(count);
+
+    if (count == record.getNumberOfRecordsInTransaction()) {
+      final List<DataChangeRecord> sortedRecords =
+          StreamSupport.stream(buffer.read().spliterator(), false)
+              .sorted(Comparator.comparing(DataChangeRecord::getRecordSequence))
+              .collect(Collectors.toList());
+
+      final Instant commitInstant =
+          new Instant(sortedRecords.get(0).getCommitTimestamp().toSqlTimestamp()
+              .getTime());
+      context.outputWithTimestamp(
+          KV.of(
+              new SortKey(sortedRecords.get(0).getCommitTimestamp(),
+                          sortedRecords.get(0).getServerTransactionId()),
+              sortedRecords),
+          commitInstant);
+      buffer.clear();
+      countState.clear();
     }
+  }
+}
+```
 
 ### Sample: Filter by transaction tag
 
@@ -518,53 +534,59 @@ When a transaction modifying user data is tagged, the corresponding tag and its 
 
 User-defined tag filtering for `my-tx-tag` :
 
-    pipeline
-      .apply(SpannerIO
-        .readChangeStream()
-        .withSpannerConfig(SpannerConfig
-          .create()
-          .withProjectId("my-project-id")
-          .withInstanceId("my-instance-id")
-          .withDatabaseId("my-database-id")
-          .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
-        .withChangeStreamName("my-change-stream")
-        .withMetadataInstance("my-metadata-instance-id")
-        .withMetadataDatabase("my-metadata-database-id")
-        .withInclusiveStartAt(Timestamp.now()))
-      .apply(Filter.by(record ->
-               !record.isSystemTransaction()
-               && record.getTransactionTag().equalsIgnoreCase("my-tx-tag")))
-      // Subsequent processing goes here
+```
+pipeline
+  .apply(SpannerIO
+    .readChangeStream()
+    .withSpannerConfig(SpannerConfig
+      .create()
+      .withProjectId("my-project-id")
+      .withInstanceId("my-instance-id")
+      .withDatabaseId("my-database-id")
+      .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
+    .withChangeStreamName("my-change-stream")
+    .withMetadataInstance("my-metadata-instance-id")
+    .withMetadataDatabase("my-metadata-database-id")
+    .withInclusiveStartAt(Timestamp.now()))
+  .apply(Filter.by(record ->
+           !record.isSystemTransaction()
+           && record.getTransactionTag().equalsIgnoreCase("my-tx-tag")))
+  // Subsequent processing goes here
+```
 
 System tag filtering/ [TTL](https://docs.cloud.google.com/spanner/docs/ttl) auditing:
 
-    pipeline
-      .apply(SpannerIO
-        .readChangeStream()
-        .withSpannerConfig(SpannerConfig
-          .create()
-          .withProjectId("my-project-id")
-          .withInstanceId("my-instance-id")
-          .withDatabaseId("my-database-id")
-          .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
-        .withChangeStreamName("my-change-stream")
-        .withMetadataInstance("my-metadata-instance-id")
-        .withMetadataDatabase("my-metadata-database-id")
-        .withInclusiveStartAt(Timestamp.now()))
-      .apply(Filter.by(record ->
-               record.isSystemTransaction()
-               && record.getTransactionTag().equals("RowDeletionPolicy")))
-      // Subsequent processing goes here
+```
+pipeline
+  .apply(SpannerIO
+    .readChangeStream()
+    .withSpannerConfig(SpannerConfig
+      .create()
+      .withProjectId("my-project-id")
+      .withInstanceId("my-instance-id")
+      .withDatabaseId("my-database-id")
+      .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
+    .withChangeStreamName("my-change-stream")
+    .withMetadataInstance("my-metadata-instance-id")
+    .withMetadataDatabase("my-metadata-database-id")
+    .withInclusiveStartAt(Timestamp.now()))
+  .apply(Filter.by(record ->
+           record.isSystemTransaction()
+           && record.getTransactionTag().equals("RowDeletionPolicy")))
+  // Subsequent processing goes here
+```
 
 ### Sample: Fetch full row
 
 This example works with a Spanner table named `Singer` that has the following definition:
 
-    CREATE TABLE Singers (
-      SingerId INT64 NOT NULL,
-      FirstName STRING(1024),
-      LastName STRING(1024)
-    ) PRIMARY KEY (SingerId);
+```
+CREATE TABLE Singers (
+  SingerId INT64 NOT NULL,
+  FirstName STRING(1024),
+  LastName STRING(1024)
+) PRIMARY KEY (SingerId);
+```
 
 Under the default `OLD_AND_NEW_VALUES` value capture mode of change streams, when there is an update to a Spanner row, the data change record received will contain only the columns that were changed. Tracked but unchanged columns will not be included in the record. The primary key of the mod can be used to do a Spanner snapshot read at the commit timestamp of the data change record to fetch the unchanged columns or even retrieve the full row.
 
@@ -572,109 +594,113 @@ Note that the database retention policy might need to be changed to a value grea
 
 Also note that using the `NEW_ROW` value capture type is the recommended and more efficient way to do this, since it returns all tracked columns of the row by default and does not require an extra snapshot read into Spanner.
 
-    SpannerConfig spannerConfig = SpannerConfig
-       .create()
-       .withProjectId("my-project-id")
-       .withInstanceId("my-instance-id")
-       .withDatabaseId("my-database-id")
-       .withDatabaseRole("my-database-role");   // Needed for fine-grained access control only
-    
-    pipeline
-       .apply(SpannerIO
-           .readChangeStream()
-           .withSpannerConfig(spannerConfig)
-           // Assume we have a change stream "my-change-stream" that watches Singers table.
-           .withChangeStreamName("my-change-stream")
-           .withMetadataInstance("my-metadata-instance-id")
-           .withMetadataDatabase("my-metadata-database-id")
-           .withInclusiveStartAt(Timestamp.now()))
-       .apply(ParDo.of(new ToFullRowJsonFn(spannerConfig)))
-       // Subsequent processing goes here
+```
+SpannerConfig spannerConfig = SpannerConfig
+   .create()
+   .withProjectId("my-project-id")
+   .withInstanceId("my-instance-id")
+   .withDatabaseId("my-database-id")
+   .withDatabaseRole("my-database-role");   // Needed for fine-grained access control only
+
+pipeline
+   .apply(SpannerIO
+       .readChangeStream()
+       .withSpannerConfig(spannerConfig)
+       // Assume we have a change stream "my-change-stream" that watches Singers table.
+       .withChangeStreamName("my-change-stream")
+       .withMetadataInstance("my-metadata-instance-id")
+       .withMetadataDatabase("my-metadata-database-id")
+       .withInclusiveStartAt(Timestamp.now()))
+   .apply(ParDo.of(new ToFullRowJsonFn(spannerConfig)))
+   // Subsequent processing goes here
+```
 
 #### ToFullRowJsonFn
 
 This transformation will perform a stale read at the commit timestamp of each record received, and map the full row to JSON.
 
-    public class ToFullRowJsonFn extends DoFn<DataChangeRecord, String> {
-     // Since each instance of this DoFn will create its own session pool and will
-     // perform calls to Spanner sequentially, we keep the number of sessions in
-     // the pool small. This way, we avoid wasting resources.
-     private static final int MIN_SESSIONS = 1;
-     private static final int MAX_SESSIONS = 5;
-     private final String projectId;
-     private final String instanceId;
-     private final String databaseId;
-    
-     private transient DatabaseClient client;
-     private transient Spanner spanner;
-    
-     public ToFullRowJsonFn(SpannerConfig spannerConfig) {
-       this.projectId = spannerConfig.getProjectId().get();
-       this.instanceId = spannerConfig.getInstanceId().get();
-       this.databaseId = spannerConfig.getDatabaseId().get();
-     }
-    
-     @Setup
-     public void setup() {
-       SessionPoolOptions sessionPoolOptions = SessionPoolOptions
-          .newBuilder()
-          .setMinSessions(MIN_SESSIONS)
-          .setMaxSessions(MAX_SESSIONS)
-          .build();
-       SpannerOptions options = SpannerOptions
-           .newBuilder()
-           .setProjectId(projectId)
-           .setSessionPoolOption(sessionPoolOptions)
-           .build();
-       DatabaseId id = DatabaseId.of(projectId, instanceId, databaseId);
-       spanner = options.getService();
-       client = spanner.getDatabaseClient(id);
-     }
-    
-     @Teardown
-     public void teardown() {
-       spanner.close();
-     }
-    
-     @ProcessElement
-     public void process(
-       @Element DataChangeRecord element,
-       OutputReceiver<String> output) {
-       com.google.cloud.Timestamp commitTimestamp = element.getCommitTimestamp();
-       element.getMods().forEach(mod -> {
-         JSONObject keysJson = new JSONObject(mod.getKeysJson());
-         JSONObject newValuesJson = new JSONObject(mod.getNewValuesJson());
-         ModType modType = element.getModType();
-         JSONObject jsonRow = new JSONObject();
-         long singerId = keysJson.getLong("SingerId");
-         jsonRow.put("SingerId", singerId);
-         if (modType == ModType.INSERT) {
-           // For INSERT mod, get non-primary key columns from mod.
-           jsonRow.put("FirstName", newValuesJson.get("FirstName"));
-           jsonRow.put("LastName", newValuesJson.get("LastName"));
-         } else if (modType == ModType.UPDATE) {
-           // For UPDATE mod, get non-primary key columns by doing a snapshot read using the primary key column from mod.
-           try (ResultSet resultSet = client
-             .singleUse(TimestampBound.ofReadTimestamp(commitTimestamp))
-             .read(
-               "Singers",
-               KeySet.singleKey(com.google.cloud.spanner.Key.of(singerId)),
-                 Arrays.asList("FirstName", "LastName"))) {
-             if (resultSet.next()) {
-               jsonRow.put("FirstName", resultSet.isNull("FirstName") ?
-                 JSONObject.NULL : resultSet.getString("FirstName"));
-               jsonRow.put("LastName", resultSet.isNull("LastName") ?
-                 JSONObject.NULL : resultSet.getString("LastName"));
-             }
-           }
-         } else {
-           // For DELETE mod, there is nothing to do, as we already set SingerId.
+```
+public class ToFullRowJsonFn extends DoFn<DataChangeRecord, String> {
+ // Since each instance of this DoFn will create its own session pool and will
+ // perform calls to Spanner sequentially, we keep the number of sessions in
+ // the pool small. This way, we avoid wasting resources.
+ private static final int MIN_SESSIONS = 1;
+ private static final int MAX_SESSIONS = 5;
+ private final String projectId;
+ private final String instanceId;
+ private final String databaseId;
+
+ private transient DatabaseClient client;
+ private transient Spanner spanner;
+
+ public ToFullRowJsonFn(SpannerConfig spannerConfig) {
+   this.projectId = spannerConfig.getProjectId().get();
+   this.instanceId = spannerConfig.getInstanceId().get();
+   this.databaseId = spannerConfig.getDatabaseId().get();
+ }
+
+ @Setup
+ public void setup() {
+   SessionPoolOptions sessionPoolOptions = SessionPoolOptions
+      .newBuilder()
+      .setMinSessions(MIN_SESSIONS)
+      .setMaxSessions(MAX_SESSIONS)
+      .build();
+   SpannerOptions options = SpannerOptions
+       .newBuilder()
+       .setProjectId(projectId)
+       .setSessionPoolOption(sessionPoolOptions)
+       .build();
+   DatabaseId id = DatabaseId.of(projectId, instanceId, databaseId);
+   spanner = options.getService();
+   client = spanner.getDatabaseClient(id);
+ }
+
+ @Teardown
+ public void teardown() {
+   spanner.close();
+ }
+
+ @ProcessElement
+ public void process(
+   @Element DataChangeRecord element,
+   OutputReceiver<String> output) {
+   com.google.cloud.Timestamp commitTimestamp = element.getCommitTimestamp();
+   element.getMods().forEach(mod -> {
+     JSONObject keysJson = new JSONObject(mod.getKeysJson());
+     JSONObject newValuesJson = new JSONObject(mod.getNewValuesJson());
+     ModType modType = element.getModType();
+     JSONObject jsonRow = new JSONObject();
+     long singerId = keysJson.getLong("SingerId");
+     jsonRow.put("SingerId", singerId);
+     if (modType == ModType.INSERT) {
+       // For INSERT mod, get non-primary key columns from mod.
+       jsonRow.put("FirstName", newValuesJson.get("FirstName"));
+       jsonRow.put("LastName", newValuesJson.get("LastName"));
+     } else if (modType == ModType.UPDATE) {
+       // For UPDATE mod, get non-primary key columns by doing a snapshot read using the primary key column from mod.
+       try (ResultSet resultSet = client
+         .singleUse(TimestampBound.ofReadTimestamp(commitTimestamp))
+         .read(
+           "Singers",
+           KeySet.singleKey(com.google.cloud.spanner.Key.of(singerId)),
+             Arrays.asList("FirstName", "LastName"))) {
+         if (resultSet.next()) {
+           jsonRow.put("FirstName", resultSet.isNull("FirstName") ?
+             JSONObject.NULL : resultSet.getString("FirstName"));
+           jsonRow.put("LastName", resultSet.isNull("LastName") ?
+             JSONObject.NULL : resultSet.getString("LastName"));
          }
-    
-         output.output(jsonRow.toString());
-       });
+       }
+     } else {
+       // For DELETE mod, there is nothing to do, as we already set SingerId.
      }
-    }
+
+     output.output(jsonRow.toString());
+   });
+ }
+}
+```
 
 This code creates a Spanner database client to perform the full row fetch, and configures the session pool to have just a few sessions, performing reads in one instance of the `ToFullReowJsonFn` sequentially. Dataflow makes sure to spawn many instances of this function, each with its own client pool.
 
@@ -684,21 +710,23 @@ This code creates a Spanner database client to perform the full row fetch, and c
 
 In this scenario, the caller streams records to Pub/Sub as fast as possible, without any grouping or aggregation. This is a good fit for triggering downstream processing, as as streaming all new rows inserted into a Spanner table to [Pub/Sub](https://docs.cloud.google.com/pubsub/docs) for further processing.
 
-    pipeline
-      .apply(SpannerIO
-        .readChangeStream()
-        .withSpannerConfig(SpannerConfig
-          .create()
-          .withProjectId("my-project-id")
-          .withInstanceId("my-instance-id")
-          .withDatabaseId("my-database-id")
-          .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
-        .withChangeStreamName("my-change-stream")
-        .withMetadataInstance("my-metadata-instance-id")
-        .withMetadataDatabase("my-metadata-database-id")
-        .withInclusiveStartAt(Timestamp.now()))
-      .apply(MapElements.into(TypeDescriptors.strings()).via(Object::toString))
-      .apply(PubsubIO.writeStrings().to("my-topic"));
+```
+pipeline
+  .apply(SpannerIO
+    .readChangeStream()
+    .withSpannerConfig(SpannerConfig
+      .create()
+      .withProjectId("my-project-id")
+      .withInstanceId("my-instance-id")
+      .withDatabaseId("my-database-id")
+      .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
+    .withChangeStreamName("my-change-stream")
+    .withMetadataInstance("my-metadata-instance-id")
+    .withMetadataDatabase("my-metadata-database-id")
+    .withInclusiveStartAt(Timestamp.now()))
+  .apply(MapElements.into(TypeDescriptors.strings()).via(Object::toString))
+  .apply(PubsubIO.writeStrings().to("my-topic"));
+```
 
 Note that the Pub/Sub sink can be configured to assure [exactly-once](https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery) semantics.
 
@@ -706,27 +734,29 @@ Note that the Pub/Sub sink can be configured to assure [exactly-once](https://do
 
 In this scenario, the caller groups all the records within a given window and saves the group in separate Cloud Storage files. This is a good fit for analytics and point-in-time archival, which is independent from Spanner's retention period.
 
-    pipeline
-      .apply(SpannerIO
-        .readChangeStream()
-        .withSpannerConfig(SpannerConfig
-          .create()
-          .withProjectId("my-project-id")
-          .withInstanceId("my-instance-id")
-          .withDatabaseId("my-database-id")
-          .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
-        .withChangeStreamName("my-change-stream")
-        .withMetadataInstance("my-metadata-instance-id")
-        .withMetadataDatabase("my-metadata-database-id")
-        .withInclusiveStartAt(Timestamp.now()))
-      .apply(MapElements.into(TypeDescriptors.strings()).via(Object::toString))
-      .apply(Window.into(FixedWindows.of(Duration.standardMinutes(1))))
-      .apply(TextIO
-        .write()
-        .to("gs://my-bucket/change-stream-results-")
-        .withSuffix(".txt")
-        .withWindowedWrites()
-        .withNumShards(1));
+```
+pipeline
+  .apply(SpannerIO
+    .readChangeStream()
+    .withSpannerConfig(SpannerConfig
+      .create()
+      .withProjectId("my-project-id")
+      .withInstanceId("my-instance-id")
+      .withDatabaseId("my-database-id")
+      .withDatabaseRole("my-database-role"))    // Needed for fine-grained access control only
+    .withChangeStreamName("my-change-stream")
+    .withMetadataInstance("my-metadata-instance-id")
+    .withMetadataDatabase("my-metadata-database-id")
+    .withInclusiveStartAt(Timestamp.now()))
+  .apply(MapElements.into(TypeDescriptors.strings()).via(Object::toString))
+  .apply(Window.into(FixedWindows.of(Duration.standardMinutes(1))))
+  .apply(TextIO
+    .write()
+    .to("gs://my-bucket/change-stream-results-")
+    .withSuffix(".txt")
+    .withWindowedWrites()
+    .withNumShards(1));
+```
 
 Note that the Cloud Storage sink provides at-least-once semantics by default. [With extra processing](https://cloud.google.com/blog/products/gcp/after-lambda-exactly-once-processing-in-cloud-dataflow-part-3-sources-and-sinks) , it can be modified to have exactly-once semantics.
 
@@ -736,58 +766,60 @@ We also provide a Dataflow template for this use case: see [Connect change strea
 
 Here, the caller streams change records into BigQuery. Each data change record is reflected as one row in BigQuery. This is a good fit for analytics. This code uses the functions defined earlier, in the [Fetch full row](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#fetch-full-row) section, to retrieve the full row of the record and write it into BigQuery.
 
-    SpannerConfig spannerConfig = SpannerConfig
-      .create()
-      .withProjectId("my-project-id")
-      .withInstanceId("my-instance-id")
-      .withDatabaseId("my-database-id")
-      .withDatabaseRole("my-database-role");   // Needed for fine-grained access control only
-    
-    pipeline
-      .apply(SpannerIO
-        .readChangeStream()
-        .withSpannerConfig(spannerConfig)
-        .withChangeStreamName("my-change-stream")
-        .withMetadataInstance("my-metadata-instance-id")
-        .withMetadataDatabase("my-metadata-database-id")
-        .withInclusiveStartAt(Timestamp.now()))
-      .apply(ParDo.of(new ToFullRowJsonFn(spannerConfig)))
-      .apply(BigQueryIO
-        .<String>write()
-        .to("my-bigquery-table")
-        .withCreateDisposition(CreateDisposition.CREATE_IF_NEEDED)
-        .withWriteDisposition(Write.WriteDisposition.WRITE_APPEND)
-        .withSchema(new TableSchema().setFields(Arrays.asList(
-          new TableFieldSchema()
-            .setName("SingerId")
-            .setType("INT64")
-            .setMode("REQUIRED"),
-          new TableFieldSchema()
-            .setName("FirstName")
-            .setType("STRING")
-            .setMode("REQUIRED"),
-          new TableFieldSchema()
-            .setName("LastName")
-            .setType("STRING")
-            .setMode("REQUIRED")
-        )))
-        .withAutoSharding()
-        .optimizedWrites()
-        .withFormatFunction((String element) -> {
-          ObjectMapper objectMapper = new ObjectMapper();
-          JsonNode jsonNode = null;
-          try {
-            jsonNode = objectMapper.readTree(element);
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
-          return new TableRow()
-            .set("SingerId", jsonNode.get("SingerId").asInt())
-            .set("FirstName", jsonNode.get("FirstName").asText())
-            .set("LastName", jsonNode.get("LastName").asText());
-        }
-      )
-    );
+```
+SpannerConfig spannerConfig = SpannerConfig
+  .create()
+  .withProjectId("my-project-id")
+  .withInstanceId("my-instance-id")
+  .withDatabaseId("my-database-id")
+  .withDatabaseRole("my-database-role");   // Needed for fine-grained access control only
+
+pipeline
+  .apply(SpannerIO
+    .readChangeStream()
+    .withSpannerConfig(spannerConfig)
+    .withChangeStreamName("my-change-stream")
+    .withMetadataInstance("my-metadata-instance-id")
+    .withMetadataDatabase("my-metadata-database-id")
+    .withInclusiveStartAt(Timestamp.now()))
+  .apply(ParDo.of(new ToFullRowJsonFn(spannerConfig)))
+  .apply(BigQueryIO
+    .<String>write()
+    .to("my-bigquery-table")
+    .withCreateDisposition(CreateDisposition.CREATE_IF_NEEDED)
+    .withWriteDisposition(Write.WriteDisposition.WRITE_APPEND)
+    .withSchema(new TableSchema().setFields(Arrays.asList(
+      new TableFieldSchema()
+        .setName("SingerId")
+        .setType("INT64")
+        .setMode("REQUIRED"),
+      new TableFieldSchema()
+        .setName("FirstName")
+        .setType("STRING")
+        .setMode("REQUIRED"),
+      new TableFieldSchema()
+        .setName("LastName")
+        .setType("STRING")
+        .setMode("REQUIRED")
+    )))
+    .withAutoSharding()
+    .optimizedWrites()
+    .withFormatFunction((String element) -> {
+      ObjectMapper objectMapper = new ObjectMapper();
+      JsonNode jsonNode = null;
+      try {
+        jsonNode = objectMapper.readTree(element);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      return new TableRow()
+        .set("SingerId", jsonNode.get("SingerId").asInt())
+        .set("FirstName", jsonNode.get("FirstName").asText())
+        .set("LastName", jsonNode.get("LastName").asText());
+    }
+  )
+);
+```
 
 Note that the BigQuery sink provides at-least-once semantics by default. [With extra processing](https://cloud.google.com/blog/products/gcp/after-lambda-exactly-once-processing-in-cloud-dataflow-part-3-sources-and-sinks) , it can be modified to have exactly-once semantics.
 
@@ -813,16 +845,16 @@ If the pipeline is under-resourced, you can see that effect in these two metrics
 
 These metrics are exposed in Cloud Monitoring and include:
 
-  - Bucketed (histogram) latency between a record being committed in Spanner to it being emitted into a PCollection by the connector. This metric can be used to see any performance (latency) issues with the pipeline.
-  - Total number of data records read. This is an overall indication of the number of records emitted by the connector. This number should be ever-increasing, mirroring the trend of writes in the underlying Spanner database.
-  - Number of partitions that are being read. There should always be partitions being read. If this number is zero, it indicates that an error has occurred in the pipeline.
-  - Total number of queries issued during the execution of the connector. This is an overall indication of change stream queries made to the Spanner instance throughout the execution of the pipeline. This can be used to get an estimate of the load from the connector to the Spanner database.
+- Bucketed (histogram) latency between a record being committed in Spanner to it being emitted into a PCollection by the connector. This metric can be used to see any performance (latency) issues with the pipeline.
+- Total number of data records read. This is an overall indication of the number of records emitted by the connector. This number should be ever-increasing, mirroring the trend of writes in the underlying Spanner database.
+- Number of partitions that are being read. There should always be partitions being read. If this number is zero, it indicates that an error has occurred in the pipeline.
+- Total number of queries issued during the execution of the connector. This is an overall indication of change stream queries made to the Spanner instance throughout the execution of the pipeline. This can be used to get an estimate of the load from the connector to the Spanner database.
 
 ## Update an existing pipeline
 
 It is possible to update a running pipeline that uses the SpannerIO connector to process change streams if the [job compatibility checks](https://docs.cloud.google.com/dataflow/docs/guides/updating-a-pipeline#CCheck) pass. To do this, you have to explicitly set the metadata table name parameter of the new job when updating it. Use the value of the `metadataTable` pipeline option from the job you are updating.
 
-If you are using a Google-provided Dataflow template, set the table name using the parameter `spannerMetadataTableName` . You can also modify your existing job to explicitly use the metadata table with the method `withMetadataTable( your-metadata-table-name )` in the connector configuration. After that is done, you can follow the instructions in [Launching your replacement job](https://docs.cloud.google.com/dataflow/docs/guides/updating-a-pipeline#Launching) from the Dataflow documentation to update a running job.
+If you are using a Google-provided Dataflow template, set the table name using the parameter `spannerMetadataTableName` . You can also modify your existing job to explicitly use the metadata table with the method `withMetadataTable( `` your-metadata-table-name `` )` in the connector configuration. After that is done, you can follow the instructions in [Launching your replacement job](https://docs.cloud.google.com/dataflow/docs/guides/updating-a-pipeline#Launching) from the Dataflow documentation to update a running job.
 
 ## Best practices for change streams and Dataflow
 
@@ -858,8 +890,8 @@ The Spanner change streams connector requires the [Dataflow Portable Runner](htt
 
 You can specify the `Portable Runner` by configuring your job with the following flag:
 
-  - Beam SDK 2.74 or later: `--experiments=enable_portable_runner` .
-  - Beam SDK 2.73 or earlier: `--experiments=use_runner_v2` .
+- Beam SDK 2.74 or later: `--experiments=enable_portable_runner` .
+- Beam SDK 2.73 or earlier: `--experiments=use_runner_v2` .
 
 ### Snapshot
 
@@ -879,16 +911,20 @@ To use [OpenCensus](https://opencensus.io/) to monitor your pipeline, specify ve
 
 [A bug](https://issues.apache.org/jira/browse/BEAM-14405) in Apache Beam version `2.38.0` can cause a `NullPointerException` when starting the pipeline under certain conditions. This would prevent your job from starting, and display this error message instead:
 
-    java.lang.NullPointerException: null value in entry: Cloud Storage_PROJECT_ID=null
+```
+java.lang.NullPointerException: null value in entry: Cloud Storage_PROJECT_ID=null
+```
 
 To address this issue, either use Apache Beam version `2.39.0` or later, or manually specify the version of `beam-sdks-java-core` as `2.37.0` :
 
-    <dependency>
-      <groupId>org.apache.beam</groupId>
-      <artifactId>beam-sdks-java-core</artifactId>
-      <version>2.37.0</version>
-    </dependency>
+```
+<dependency>
+  <groupId>org.apache.beam</groupId>
+  <artifactId>beam-sdks-java-core</artifactId>
+  <version>2.37.0</version>
+</dependency>
+```
 
 ## More information
 
-  - [Change streams best practices](https://docs.cloud.google.com/spanner/docs/change-streams/manage#best-practices)
+- [Change streams best practices](https://docs.cloud.google.com/spanner/docs/change-streams/manage#best-practices)

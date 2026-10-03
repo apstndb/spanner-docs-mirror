@@ -29,11 +29,11 @@ Spanner Omni doesn't use Cloud Monitoring. Instead, use the [system insights das
 1.  In the Spanner Omni console, click **System Insights** in the navigation pane.
 
 2.  In the system insights dashboard, check the latency charts for the following:
-    
-      - Request latency ( `P50` , `P90` , `P99` )
-    
-      - Transaction latency ( `P50` , `P90` , `P99` )
-    
+
+    - Request latency ( `P50` , `P90` , `P99` )
+
+    - Transaction latency ( `P50` , `P90` , `P99` )
+
     Check the 99th percentile ( `P99` ) for write operations on the latency charts. If you observe a spike in latency without a corresponding spike in CPU utilization or errors, the latency is likely due to lock contention issues.
 
 ## Check for lock contention issues
@@ -62,6 +62,6 @@ For details on transaction statistics tables, see [Transaction statistics](https
 
 ## What's next
 
-  - [Use Prometheus alerts to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/prometheus-alerts) .
+- [Use Prometheus alerts to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/prometheus-alerts) .
 
-  - [Use Grafana dashboards to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/grafana-dashboards) .
+- [Use Grafana dashboards to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/grafana-dashboards) .

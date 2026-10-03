@@ -18,15 +18,15 @@ The following diagram shows a basic database schema where data in a table has a 
 
 There are three tables in the schema shown in Figure 1:
 
-  - The `Customers` table records the names of each customer.
-  - The `Orders` tables keeps track of all orders made.
-  - The `Products` table stores the product information for every product.
+- The `Customers` table records the names of each customer.
+- The `Orders` tables keeps track of all orders made.
+- The `Products` table stores the product information for every product.
 
 There are two foreign key relationships between these tables:
 
-  - A foreign key relationship is defined between the `Orders` table and the `Customers` table to ensure that an order can't be created unless there is a corresponding customer.
+- A foreign key relationship is defined between the `Orders` table and the `Customers` table to ensure that an order can't be created unless there is a corresponding customer.
 
-  - A foreign key relationship between the `Orders` table and the `Products` table ensures that an order can't be created for a product that doesn't exist.
+- A foreign key relationship between the `Orders` table and the `Products` table ensures that an order can't be created for a product that doesn't exist.
 
 Using the previous schema as an example, this topic discusses the Data Definition Language ( *DDL* ) `CONSTRAINT` statements that you can use to manage relationships between tables in a database.
 
@@ -42,34 +42,38 @@ The following example shows how to use the `CREATE TABLE` DDL statement to creat
 
 ### GoogleSQL
 
-    CREATE TABLE Orders (
-    OrderID INT64 NOT NULL,
-    CustomerID INT64 NOT NULL,
-    Quantity INT64 NOT NULL,
-    ProductID INT64 NOT NULL,
-    CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID)
-    ) PRIMARY KEY (OrderID);
+```
+CREATE TABLE Orders (
+OrderID INT64 NOT NULL,
+CustomerID INT64 NOT NULL,
+Quantity INT64 NOT NULL,
+ProductID INT64 NOT NULL,
+CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID)
+) PRIMARY KEY (OrderID);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE Orders (
-    OrderID BIGINT NOT NULL,
-    CustomerID BIGINT NOT NULL,
-    Quantity BIGINT NOT NULL,
-    ProductID BIGINT NOT NULL,
-    CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
-    PRIMARY KEY (OrderID)
-    );
+```
+CREATE TABLE Orders (
+OrderID BIGINT NOT NULL,
+CustomerID BIGINT NOT NULL,
+Quantity BIGINT NOT NULL,
+ProductID BIGINT NOT NULL,
+CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
+PRIMARY KEY (OrderID)
+);
+```
 
 The previous statement contains a `CONSTRAINT` clause that has the following characteristics:
 
-  - Use of the `CONSTRAINT` syntax to name a constraint, making it easier to drop the table using the name you've chosen.
+- Use of the `CONSTRAINT` syntax to name a constraint, making it easier to drop the table using the name you've chosen.
 
-  - The constraint has the name `FK_CustomerOrder` . Constraint names are scoped to the schema and must be unique within the schema.
+- The constraint has the name `FK_CustomerOrder` . Constraint names are scoped to the schema and must be unique within the schema.
 
-  - The `Orders` table, on which you define the constraint, is the referencing table. The `Customers` table is the referenced table.
+- The `Orders` table, on which you define the constraint, is the referencing table. The `Customers` table is the referenced table.
 
-  - The referencing column in the referencing table is `CustomerID` . It references the `CustomerID` field in the `Customers` table. If someone tries to insert a row into `Orders` with a `CustomerID` that doesn't exist in `Customers` , the insert fails.
+- The referencing column in the referencing table is `CustomerID` . It references the `CustomerID` field in the `Customers` table. If someone tries to insert a row into `Orders` with a `CustomerID` that doesn't exist in `Customers` , the insert fails.
 
 > **Note:** Often the referenced columns of the referenced table correspond to the primary key columns, but this is not required. A referencing table may also reference non-primary columns of a referenced table.
 
@@ -77,23 +81,27 @@ The following example shows an alternative table creation statement. Here, the f
 
 ### GoogleSQL
 
-    CREATE TABLE Orders (
-    OrderID INT64 NOT NULL,
-    CustomerID INT64 NOT NULL,
-    ProductID INT64 NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID)
-    ) PRIMARY KEY (OrderID);
+```
+CREATE TABLE Orders (
+OrderID INT64 NOT NULL,
+CustomerID INT64 NOT NULL,
+ProductID INT64 NOT NULL,
+FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID)
+) PRIMARY KEY (OrderID);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE Orders (
-    OrderID BIGINT NOT NULL,
-    CustomerID BIGINT NOT NULL,
-    Quantity BIGINT NOT NULL,
-    ProductID BIGINT NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
-    PRIMARY KEY (OrderID)
-    );
+```
+CREATE TABLE Orders (
+OrderID BIGINT NOT NULL,
+CustomerID BIGINT NOT NULL,
+Quantity BIGINT NOT NULL,
+ProductID BIGINT NOT NULL,
+FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID),
+PRIMARY KEY (OrderID)
+);
+```
 
 ## Add a foreign key to an existing table
 
@@ -101,13 +109,17 @@ You also want to make sure that customers can only order products that exist. If
 
 If your table has no existing constraints, you can use the `ALTER TABLE` DDL statement to add an [enforced foreign key constraint](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#constraint_validation) to the existing `Orders` table as shown in the following example:
 
-    ALTER TABLE Orders
-      ADD CONSTRAINT DB_ProductOrder FOREIGN KEY (ProductID) REFERENCES Products (ProductID);
+```
+ALTER TABLE Orders
+  ADD CONSTRAINT DB_ProductOrder FOREIGN KEY (ProductID) REFERENCES Products (ProductID);
+```
 
 The referencing column in `Orders` is `ProductID` , and it references the `ProductID` column in `Products` . If you are fine with Spanner naming these constraints for you, use the following syntax:
 
-    ALTER TABLE Orders
-      ADD FOREIGN KEY (ProductID) REFERENCES Products (ProductID);
+```
+ALTER TABLE Orders
+  ADD FOREIGN KEY (ProductID) REFERENCES Products (ProductID);
+```
 
 ## Add a foreign key with a delete action to a new table
 
@@ -117,26 +129,30 @@ The following `CREATE TABLE` DDL statement for the `Orders` table includes the f
 
 ### GoogleSQL
 
-    CREATE TABLE Orders (
-    OrderID INT64 NOT NULL,
-    CustomerID INT64 NOT NULL,
-    Quantity INT64 NOT NULL,
-    ProductID INT64 NOT NULL,
-    CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID)
-      REFERENCES Customers (CustomerID) ON DELETE CASCADE
-    ) PRIMARY KEY (OrderID);
+```
+CREATE TABLE Orders (
+OrderID INT64 NOT NULL,
+CustomerID INT64 NOT NULL,
+Quantity INT64 NOT NULL,
+ProductID INT64 NOT NULL,
+CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID)
+  REFERENCES Customers (CustomerID) ON DELETE CASCADE
+) PRIMARY KEY (OrderID);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE Orders (
-    OrderID BIGINT NOT NULL,
-    CustomerID BIGINT NOT NULL,
-    Quantity BIGINT NOT NULL,
-    ProductID BIGINT NOT NULL,
-    FOREIGN KEY (CustomerID)
-      REFERENCES Customers (CustomerID) ON DELETE CASCADE,
-    PRIMARY KEY (OrderID)
-    );
+```
+CREATE TABLE Orders (
+OrderID BIGINT NOT NULL,
+CustomerID BIGINT NOT NULL,
+Quantity BIGINT NOT NULL,
+ProductID BIGINT NOT NULL,
+FOREIGN KEY (CustomerID)
+  REFERENCES Customers (CustomerID) ON DELETE CASCADE,
+PRIMARY KEY (OrderID)
+);
+```
 
 The previous statement contains a foreign key constraint with an `ON DELETE CASCADE` clause. The `CustomerID` column is a foreign key that references the `CustomerID` field in the `Customers` table. This means that each `CustomerID` value in the `Orders` table must also exist in the `Customers` table. If someone tries to delete a row from the `Customers` table, all of the rows in the `Orders` table that reference the deleted `CustomerID` value are also deleted in the same transaction.
 
@@ -146,9 +162,11 @@ The previous statement contains a foreign key constraint with an `ON DELETE CASC
 
 You also want to make sure that orders are only created for products that exist. You can use `ALTER TABLE` to add another foreign key constraint with `ON DELETE CASCADE` action to the orders table as follows:
 
-    ALTER TABLE Orders
-      ADD CONSTRAINT DB_ProductOrder FOREIGN KEY (ProductID)
-        REFERENCES Products (ProductID) ON DELETE CASCADE;
+```
+ALTER TABLE Orders
+  ADD CONSTRAINT DB_ProductOrder FOREIGN KEY (ProductID)
+    REFERENCES Products (ProductID) ON DELETE CASCADE;
+```
 
 Deleting a row from the `Products` table deletes all of the rows in the `Orders` table that reference the deleted `ProductID` value.
 
@@ -162,14 +180,16 @@ Continuing with the previous example, imagine you want to model the relationship
 
 You can create the `Orders` table using informational foreign keys:
 
-    CREATE TABLE Orders (
-        OrderID INT64 NOT NULL,
-        CustomerID INT64 NOT NULL,
-        Quantity INT64 NOT NULL,
-        ProductID INT64 NOT NULL,
-        CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID) NOT ENFORCED,
-        CONSTRAINT FK_ProductOrder FOREIGN KEY (ProductID) REFERENCES Products (ProductID) NOT ENFORCED
-    ) PRIMARY KEY (OrderID);
+```
+CREATE TABLE Orders (
+    OrderID INT64 NOT NULL,
+    CustomerID INT64 NOT NULL,
+    Quantity INT64 NOT NULL,
+    ProductID INT64 NOT NULL,
+    CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID) REFERENCES Customers (CustomerID) NOT ENFORCED,
+    CONSTRAINT FK_ProductOrder FOREIGN KEY (ProductID) REFERENCES Products (ProductID) NOT ENFORCED
+) PRIMARY KEY (OrderID);
+```
 
 By creating an informational foreign key with `NOT ENFORCED` , you allow for the possibility that an order might reference a non-existent customer or product. Using an informational foreign key instead of an enforced foreign key constraint is a good choice if a customer account might be deleted or a product might be discontinued. With an informational foreign key, Spanner doesn't perform referential integrity validation. This reduces the write overhead, potentially improving performance during peak order processing times.
 
@@ -179,9 +199,11 @@ You can allow the query optimizer to use the relationships to generate efficient
 
 ## Query data across foreign key relationships
 
-    SELECT * FROM Orders
-      INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
-      INNER JOIN Products ON Orders.ProductsID = Products.ProductID;
+```
+SELECT * FROM Orders
+  INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+  INNER JOIN Products ON Orders.ProductsID = Products.ProductID;
+```
 
 ## Referential integrity with enforced foreign keys
 
@@ -195,73 +217,87 @@ Consider the data in Figure 2. Some customers have ordered products, as shown in
 
 The following examples show what happens when you try to modify the data in a way that would break referential integrity.
 
-  - Add a row into the `Orders` table with a `CustomerID` value that does not exist in `Customers`
-    
-    What happens if you try the following modification, given the sample data from the preceding diagram?
-    
-        INSERT INTO Orders (OrderID, ProductID, Quantity, CustomerID)
-        VALUES (19, 337876, 4, 447);
-    
-    In this case, the system would try to insert a row into `Orders` with a `CustomerID` (447) that doesn't exist in the `Customers` table. If the system did this, you would have an invalid order in your system. However, with the enforced foreign key constraint you added to your `Orders` table, your table is protected. The `INSERT` fails with the following message, assuming the constraint is called `FK_CustomerOrder` .
-    
-        Foreign key constraint `FK_CustomerOrder` is violated on table `Orders`.
-        Cannot find referenced values in Customers(CustomerID).
-    
-    Unlike enforced foreign keys, informational foreign keys don't enforce referential integrity. If `FK_CustomerOrder` is an informational foreign key, then the insert statement succeeds because Spanner doesn't validate that the corresponding `CustomerID` exists in the `Customers` table. Because of this, the data might not conform to the referential integrity defined by `FK_CustomerOrder` .
+- Add a row into the `Orders` table with a `CustomerID` value that does not exist in `Customers`
 
-  - Attempt to delete a row from the `Customers` table when the customer is referenced in an [enforced foreign key constraint](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#constraint_validation) .
-    
-    Imagine a situation where a customer unsubscribes from your online store. You want to remove the customer from your backend, so you attempt the following operation.
-    
-        DELETE FROM Customers WHERE CustomerID = 721;
-    
-    In this example, Spanner detects through the foreign key constraint that there are still records in the `Orders` table that reference the customer row you are trying to delete. The following error is displayed in this case.
-    
-    ``Foreign key constraint violation when deleting or updating referenced row(s): referencing row(s) found in table `Orders`.``
-    
-    To fix this issue, you delete all referencing entries in `Orders` first. You can also define the foreign key with the `ON DELETE CASCADE` action to let Spanner handle deletion of referencing entries.
-    
-    <span id="view_props"></span>
-    
-    Similarly, if `FK_CustomerOrder` is an informational foreign key, then the delete action succeeds because Spanner doesn't guarantee the referential integrity of informational foreign keys.
+  What happens if you try the following modification, given the sample data from the preceding diagram?
+
+  ```
+  INSERT INTO Orders (OrderID, ProductID, Quantity, CustomerID)
+  VALUES (19, 337876, 4, 447);
+  ```
+
+  In this case, the system would try to insert a row into `Orders` with a `CustomerID` (447) that doesn't exist in the `Customers` table. If the system did this, you would have an invalid order in your system. However, with the enforced foreign key constraint you added to your `Orders` table, your table is protected. The `INSERT` fails with the following message, assuming the constraint is called `FK_CustomerOrder` .
+
+  ```
+  Foreign key constraint `FK_CustomerOrder` is violated on table `Orders`.
+  Cannot find referenced values in Customers(CustomerID).
+  ```
+
+  Unlike enforced foreign keys, informational foreign keys don't enforce referential integrity. If `FK_CustomerOrder` is an informational foreign key, then the insert statement succeeds because Spanner doesn't validate that the corresponding `CustomerID` exists in the `Customers` table. Because of this, the data might not conform to the referential integrity defined by `FK_CustomerOrder` .
+
+- Attempt to delete a row from the `Customers` table when the customer is referenced in an [enforced foreign key constraint](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#constraint_validation) .
+
+  Imagine a situation where a customer unsubscribes from your online store. You want to remove the customer from your backend, so you attempt the following operation.
+
+  ```
+  DELETE FROM Customers WHERE CustomerID = 721;
+  ```
+
+  In this example, Spanner detects through the foreign key constraint that there are still records in the `Orders` table that reference the customer row you are trying to delete. The following error is displayed in this case.
+
+  `` Foreign key constraint violation when deleting or updating referenced row(s): referencing row(s) found in table `Orders`. ``
+
+  To fix this issue, you delete all referencing entries in `Orders` first. You can also define the foreign key with the `ON DELETE CASCADE` action to let Spanner handle deletion of referencing entries.
+
+  Similarly, if `FK_CustomerOrder` is an informational foreign key, then the delete action succeeds because Spanner doesn't guarantee the referential integrity of informational foreign keys.
 
 ## View properties of a foreign key relationship
 
-Spanner's [INFORMATION\_SCHEMA](https://docs.cloud.google.com/spanner/docs/information-schema) contains information about foreign keys and their backing indexes. The following are some examples of the questions you can answer by querying the INFORMATION SCHEMA.
+Spanner's [INFORMATION_SCHEMA](https://docs.cloud.google.com/spanner/docs/information-schema) contains information about foreign keys and their backing indexes. The following are some examples of the questions you can answer by querying the INFORMATION SCHEMA.
 
 For more information on backing indexes, see [Foreign keys backing indexes](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#backing-indexes) .
 
 *What constraints are defined in my database?*
 
-    SELECT tc.CONSTRAINT_NAME, tc.TABLE_NAME, tc.CONSTRAINT_TYPE
-    FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS as tc
-    WHERE tc.CONSTRAINT_TYPE = 'FOREIGN KEY';
+```
+SELECT tc.CONSTRAINT_NAME, tc.TABLE_NAME, tc.CONSTRAINT_TYPE
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS as tc
+WHERE tc.CONSTRAINT_TYPE = 'FOREIGN KEY';
+```
 
 *What foreign keys are defined in my database?*
 
-    SELECT rc.CONSTRAINT_NAME, rc.UNIQUE_CONSTRAINT_NAME, rc.SPANNER_STATE
-    FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS as rc;
+```
+SELECT rc.CONSTRAINT_NAME, rc.UNIQUE_CONSTRAINT_NAME, rc.SPANNER_STATE
+FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS as rc;
+```
 
 *Which indexes are secondary indexes for foreign keys, also known as backing indexes?*
 
 Foreign key backing indexes are managed by Spanner , so querying for `SPANNER_IS_MANAGED` on the `INDEXES` view returns all backing indexes.
 
-    SELECT i.TABLE_NAME, i.INDEX_NAME, i.INDEX_TYPE, i.INDEX_STATE,
-      i.IS_UNIQUE, i.IS_NULL_FILTERED, i.SPANNER_IS_MANAGED
-    FROM INFORMATION_SCHEMA.INDEXES as i
-    WHERE SPANNER_IS_MANAGED = 'YES';
+```
+SELECT i.TABLE_NAME, i.INDEX_NAME, i.INDEX_TYPE, i.INDEX_STATE,
+  i.IS_UNIQUE, i.IS_NULL_FILTERED, i.SPANNER_IS_MANAGED
+FROM INFORMATION_SCHEMA.INDEXES as i
+WHERE SPANNER_IS_MANAGED = 'YES';
+```
 
 *What is the referential action defined with the foreign key constraint?*
 
-    SELECT rc.CONSTRAINT_NAME, rc.UNIQUE_CONSTRAINT_NAME, rc.DELETE_RULE,
-      rc.UPDATE_RULE
-    FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS as rc;
+```
+SELECT rc.CONSTRAINT_NAME, rc.UNIQUE_CONSTRAINT_NAME, rc.DELETE_RULE,
+  rc.UPDATE_RULE
+FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS as rc;
+```
 
 *Is a foreign key [enforced](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#enforced-foreign-keys) or [not enforced](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys) ?*
 
-    SELECT tc.CONSTRAINT_NAME, tc.TABLE_NAME, tc.CONSTRAINT_TYPE, tc.ENFORCED
-    FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS as tc
-    WHERE tc.CONSTRAINT_TYPE = 'FOREIGN KEY';
+```
+SELECT tc.CONSTRAINT_NAME, tc.TABLE_NAME, tc.CONSTRAINT_TYPE, tc.ENFORCED
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS as tc
+WHERE tc.CONSTRAINT_TYPE = 'FOREIGN KEY';
+```
 
 For more information, see [Information Schema](https://docs.cloud.google.com/spanner/docs/information-schema) .
 
@@ -269,8 +305,10 @@ For more information, see [Information Schema](https://docs.cloud.google.com/spa
 
 The following DDL drops a foreign key constraint from the `Orders` table.
 
-    ALTER TABLE Orders
-      DROP CONSTRAINT FK_CustomerOrder;
+```
+ALTER TABLE Orders
+  DROP CONSTRAINT FK_CustomerOrder;
+```
 
 The foreign key backing indexes are dropped automatically when the constraint itself is dropped.
 
@@ -284,44 +322,48 @@ Foreign keys can reference multiple columns. The list of columns form a key that
 
 In the following example, the enforced foreign key definitions indicate that:
 
-  - Each `SongName` value in the `TopHits` table must have a matching value in the `Songs` table.
+- Each `SongName` value in the `TopHits` table must have a matching value in the `Songs` table.
 
-  - Each `SingerFirstName` and `SingerLastName` pair of values must have a matching `FirstName` and `LastName` pair of values in the `Singers` table.
+- Each `SingerFirstName` and `SingerLastName` pair of values must have a matching `FirstName` and `LastName` pair of values in the `Singers` table.
 
 ### GoogleSQL
 
-    CREATE TABLE TopHits (
-    Rank INT64 NOT NULL,
-    SongName STRING(MAX),
-    SingerFirstName STRING(MAX),
-    SingerLastName STRING(MAX),
-    
-    -- Song names must either be NULL or have matching values in Songs.
-    FOREIGN KEY (SongName) REFERENCES Songs (SongName),
-    
-    -- Singer names must either be NULL or have matching values in Singers.
-    FOREIGN KEY (SingerFirstName, SingerLastName)
-    REFERENCES Singers (FirstName, LastName)
-    
-    ) PRIMARY KEY (Rank);
+```
+CREATE TABLE TopHits (
+Rank INT64 NOT NULL,
+SongName STRING(MAX),
+SingerFirstName STRING(MAX),
+SingerLastName STRING(MAX),
+
+-- Song names must either be NULL or have matching values in Songs.
+FOREIGN KEY (SongName) REFERENCES Songs (SongName),
+
+-- Singer names must either be NULL or have matching values in Singers.
+FOREIGN KEY (SingerFirstName, SingerLastName)
+REFERENCES Singers (FirstName, LastName)
+
+) PRIMARY KEY (Rank);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE TopHits (
-    Rank BIGINT NOT NULL,
-    SongName VARCHAR,
-    SingerFirstName VARCHAR,
-    SingerLastName VARCHAR,
-    
-    -- Song names must either be NULL or have matching values in Songs.
-    FOREIGN KEY (SongName) REFERENCES Songs (SongName),
-    
-    -- Singer names must either be NULL or have matching values in Singers.
-    FOREIGN KEY (SingerFirstName, SingerLastName)
-    REFERENCES Singers (FirstName, LastName),
-    
-    PRIMARY KEY (Rank)
-    );
+```
+CREATE TABLE TopHits (
+Rank BIGINT NOT NULL,
+SongName VARCHAR,
+SingerFirstName VARCHAR,
+SingerLastName VARCHAR,
+
+-- Song names must either be NULL or have matching values in Songs.
+FOREIGN KEY (SongName) REFERENCES Songs (SongName),
+
+-- Singer names must either be NULL or have matching values in Singers.
+FOREIGN KEY (SingerFirstName, SingerLastName)
+REFERENCES Singers (FirstName, LastName),
+
+PRIMARY KEY (Rank)
+);
+```
 
 ### Circular references
 
@@ -337,25 +379,29 @@ One special type of circular reference is a table that defines a foreign key tha
 
 ### GoogleSQL
 
-    CREATE TABLE Employees (
-    EmployeeId INT64 NOT NULL,
-    EmployeeName STRING(MAX) NOT NULL,
-    ManagerId INT64,
-    FOREIGN KEY (ManagerId) REFERENCES Employees (EmployeeId)
-    ) PRIMARY KEY (EmployeeId);
+```
+CREATE TABLE Employees (
+EmployeeId INT64 NOT NULL,
+EmployeeName STRING(MAX) NOT NULL,
+ManagerId INT64,
+FOREIGN KEY (ManagerId) REFERENCES Employees (EmployeeId)
+) PRIMARY KEY (EmployeeId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE Employees (
-    EmployeeId BIGINT NOT NULL,
-    EmployeeName VARCHAR NOT NULL,
-    ManagerId BIGINT,
-    FOREIGN KEY (ManagerId) REFERENCES Employees (EmployeeId),
-    PRIMARY KEY (EmployeeId)
-    );
+```
+CREATE TABLE Employees (
+EmployeeId BIGINT NOT NULL,
+EmployeeName VARCHAR NOT NULL,
+ManagerId BIGINT,
+FOREIGN KEY (ManagerId) REFERENCES Employees (EmployeeId),
+PRIMARY KEY (EmployeeId)
+);
+```
 
 ## What's next
 
-  - Learn more about [foreign keys support in Spanner](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) .
+- Learn more about [foreign keys support in Spanner](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) .
 
-  - Learn more about Spanner's [INFORMATION SCHEMA](https://docs.cloud.google.com/spanner/docs/information-schema) .
+- Learn more about Spanner's [INFORMATION SCHEMA](https://docs.cloud.google.com/spanner/docs/information-schema) .

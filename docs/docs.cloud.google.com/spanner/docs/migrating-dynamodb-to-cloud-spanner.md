@@ -16,28 +16,28 @@ The following architectural diagram outlines the components used in the tutorial
 
 ## Objectives
 
-  - Migrate data from Amazon DynamoDB to Spanner.
-  - Create a Spanner database and migration table.
-  - Map a NoSQL schema to a relational schema.
-  - Create and export a sample dataset that uses Amazon DynamoDB.
-  - Transfer data between Amazon S3 and Cloud Storage.
-  - Use Dataflow to load data into Spanner.
+- Migrate data from Amazon DynamoDB to Spanner.
+- Create a Spanner database and migration table.
+- Map a NoSQL schema to a relational schema.
+- Create and export a sample dataset that uses Amazon DynamoDB.
+- Transfer data between Amazon S3 and Cloud Storage.
+- Use Dataflow to load data into Spanner.
 
 ## Costs
 
 This tutorial uses the following billable components of Google Cloud:
 
-  - [Pub/Sub](https://docs.cloud.google.com/pubsub/docs/overview)
-  - [Cloud Storage](https://docs.cloud.google.com/storage/docs/introduction)
-  - [Dataflow](https://cloud.google.com/dataflow)
+- [Pub/Sub](https://docs.cloud.google.com/pubsub/docs/overview)
+- [Cloud Storage](https://docs.cloud.google.com/storage/docs/introduction)
+- [Dataflow](https://cloud.google.com/dataflow)
 
 Spanner charges are based on the amount of compute capacity in your instance and the amount of data stored during the monthly billing cycle. During the tutorial, you use a minimal configuration of these resources, which are [cleaned up at the end](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#clean-up) . For real-world scenarios, estimate your throughput and storage requirements, and then use the [Spanner instances documentation](https://docs.cloud.google.com/spanner/docs/instances) to determine the amount of compute capacity that you need.
 
 In addition to Google Cloud resources, this tutorial uses the following Amazon Web Services (AWS) resources:
 
-  - AWS Lambda
-  - Amazon S3
-  - Amazon DynamoDB
+- AWS Lambda
+- Amazon S3
+- Amazon DynamoDB
 
 These services are only needed during the migration process. At the end of the tutorial, follow the instructions to clean up all resources to prevent unnecessary charges. Use the [AWS pricing calculator](https://calculator.s3.amazonaws.com/index.html) to estimate these costs.
 
@@ -52,7 +52,7 @@ When you finish the tasks that are described in this document, you can avoid con
 In this tutorial, you run commands in Cloud Shell. Cloud Shell gives you access to the command line in Google Cloud, and includes the Google Cloud CLI and other tools that you need for Google Cloud development. Cloud Shell can take several minutes to initialize.
 
 1.  In the Google Cloud console, activate Cloud Shell.
-    
+
     At the bottom of the Google Cloud console, a [Cloud Shell](https://docs.cloud.google.com/shell/docs/how-cloud-shell-works) session starts and displays a command-line prompt. Cloud Shell is a shell environment with the Google Cloud CLI already installed and with values already set for your current project. It can take a few seconds for the session to initialize.
 
 2.  Set the default Compute Engine zone. For example, `us-central1-b` . gcloud config set compute/zone us-central1-b
@@ -91,16 +91,16 @@ Follow these steps to create an AWS IAM user with programmatic access to AWS res
 2.  In the **User name** box, enter `dynamodb-spanner-migration` .
 
 3.  Under **Access type** , select the checkbox to the left of **Access key - Programmatic access** .
-    
+
     > **Note:** Do not enable management console access, because you will not use this IAM user to sign in to the console.
 
 4.  Click **Next: Permissions** .
 
 5.  Click **Attach existing policies directly** , and using the **Search** box to filter, select the checkbox next to each of the following three policies:
-    
-      - `AmazonDynamoDBFullAccess`
-      - `AmazonS3FullAccess`
-      - `AWSLambda_FullAccess`
+
+    - `AmazonDynamoDBFullAccess`
+    - `AmazonS3FullAccess`
+    - `AWSLambda_FullAccess`
 
 6.  Click **Next: Tags** and **Next: Review** , and then click **Create user** .
 
@@ -109,20 +109,22 @@ Follow these steps to create an AWS IAM user with programmatic access to AWS res
 ### Configure AWS command-line interface
 
 1.  In Cloud Shell, configure the AWS Command Line Interface (CLI).
-    
-        aws configure
-    
+
+    ```
+    aws configure
+    ```
+
     The following output appears:
-    
+
     ```console
     AWS Access Key ID [None]: PASTE_YOUR_ACCESS_KEY_ID
     AWS Secret Access Key [None]: PASTE_YOUR_SECRET_ACCESS_KEY
     Default region name [None]: us-west-2
     Default output format [None]:
     ```
-    
-      - Enter the `ACCESS KEY ID` and `SECRET ACCESS KEY` from the AWS IAM account that you created.
-      - In the **Default region name** field, enter `us-west-2` . Leave other fields at their default values.
+
+    - Enter the ` ``ACCESS KEY ID`` ` and ` ``SECRET ACCESS KEY`` ` from the AWS IAM account that you created.
+    - In the **Default region name** field, enter `us-west-2` . Leave other fields at their default values.
 
 2.  Close the AWS IAM console window.
 
@@ -135,7 +137,7 @@ The following section outlines the similarities and differences between data typ
 Spanner uses GoogleSQL data types. The following table describes how Amazon DynamoDB [data types](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes) map to Spanner [data types](https://docs.cloud.google.com/spanner/docs/data-types) .
 
 | **Amazon DynamoDB** | **Spanner**                                                                                      |
-| ------------------- | ------------------------------------------------------------------------------------------------ |
+|---------------------|--------------------------------------------------------------------------------------------------|
 | Number              | Depending on precision or intended usage, might be mapped to INT64, FLOAT64, TIMESTAMP, or DATE. |
 | String              | String                                                                                           |
 | Boolean             | BOOL                                                                                             |
@@ -157,7 +159,7 @@ Both Amazon DynamoDB and Spanner support creating an index on a non-primary key 
 To facilitate this tutorial, you migrate the following sample table from Amazon DynamoDB to Spanner:
 
 |              | Amazon DynamoDB                                                                 | Spanner                                                                  |
-| ------------ | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+|--------------|---------------------------------------------------------------------------------|--------------------------------------------------------------------------|
 | Table name   | `Migration`                                                                     | `Migration`                                                              |
 | Primary key  | `"Username" : String`                                                           | `"Username" : STRING(1024)`                                              |
 | Key type     | Hash                                                                            | n/a                                                                      |
@@ -168,21 +170,27 @@ To facilitate this tutorial, you migrate the following sample table from Amazon 
 In the following section, you create an Amazon DynamoDB source table and populate it with data.
 
 1.  In Cloud Shell, create an Amazon DynamoDB table that uses the [sample table](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#sample_table) attributes.
-    
-        aws dynamodb create-table --table-name Migration \
-            --attribute-definitions AttributeName=Username,AttributeType=S \
-            --key-schema AttributeName=Username,KeyType=HASH \
-            --provisioned-throughput ReadCapacityUnits=75,WriteCapacityUnits=75
+
+    ```
+    aws dynamodb create-table --table-name Migration \
+        --attribute-definitions AttributeName=Username,AttributeType=S \
+        --key-schema AttributeName=Username,KeyType=HASH \
+        --provisioned-throughput ReadCapacityUnits=75,WriteCapacityUnits=75
+    ```
 
 2.  Verify that the table status is `ACTIVE` .
-    
-        aws dynamodb describe-table --table-name Migration \
-            --query 'Table.TableStatus'
+
+    ```
+    aws dynamodb describe-table --table-name Migration \
+        --query 'Table.TableStatus'
+    ```
 
 3.  Populate the table with sample data.
-    
-        python3 make-fake-data.py --table Migration --items 25000
-    
+
+    ```
+    python3 make-fake-data.py --table Migration --items 25000
+    ```
+
     > **Note:** If slightly fewer than the number of requested records are created, you can ignore the discrepancy. Fewer records might be created if duplicate sample usernames were generated.
 
 ## Create a Spanner database
@@ -194,22 +202,26 @@ In this example, you create a table schema at the same time as the database. It 
 > **Note:** Both Amazon DynamoDB and Spanner support the use of secondary indexes. The best practices for [bulk loading](https://docs.cloud.google.com/spanner/docs/bulk-loading) Spanner recommend that you create secondary indexes *after* you load your initial data. You [set up a secondary index](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#apply_secondary_indexes) later in this tutorial.
 
 1.  Create a Spanner instance in the same region where you set the default Compute Engine zone. For example, `us-central1` .
-    
-        gcloud beta spanner instances create spanner-migration \
-            --config=regional-us-central1 --processing-units=100 \
-            --description="Migration Demo"
+
+    ```
+    gcloud beta spanner instances create spanner-migration \
+        --config=regional-us-central1 --processing-units=100 \
+        --description="Migration Demo"
+    ```
 
 2.  Create a database in the Spanner instance along with the sample table.
-    
-        gcloud spanner databases create migrationdb \
-            --instance=spanner-migration \
-            --ddl "CREATE TABLE Migration ( \
-                    Username STRING(1024) NOT NULL, \
-                    PointsEarned INT64, \
-                    ReminderDate DATE, \
-                    Subscribed BOOL, \
-                    Zipcode INT64, \
-                 ) PRIMARY KEY (Username)"
+
+    ```
+    gcloud spanner databases create migrationdb \
+        --instance=spanner-migration \
+        --ddl "CREATE TABLE Migration ( \
+                Username STRING(1024) NOT NULL, \
+                PointsEarned INT64, \
+                ReminderDate DATE, \
+                Subscribed BOOL, \
+                Zipcode INT64, \
+             ) PRIMARY KEY (Username)"
+    ```
 
 ## Prepare the migration
 
@@ -222,39 +234,47 @@ The next sections show you how to export the Amazon DynamoDB source table and se
 You use an AWS Lambda function to stream database changes to Pub/Sub.
 
 1.  In Cloud Shell, enable Amazon DynamoDB streams on your source table.
-    
-        aws dynamodb update-table --table-name Migration \
-            --stream-specification StreamEnabled=true,StreamViewType=NEW_AND_OLD_IMAGES
+
+    ```
+    aws dynamodb update-table --table-name Migration \
+        --stream-specification StreamEnabled=true,StreamViewType=NEW_AND_OLD_IMAGES
+    ```
 
 2.  Set up a Pub/Sub topic to receive the changes.
-    
-        gcloud pubsub topics create spanner-migration
-    
+
+    ```
+    gcloud pubsub topics create spanner-migration
+    ```
+
     The following output appears:
-    
+
     ```console
     Created topic [projects/your-project/topics/spanner-migration].
     ```
 
 3.  Create an IAM service account to push table updates to the Pub/Sub topic.
-    
-        gcloud iam service-accounts create spanner-migration \
-            --display-name="Spanner Migration"
-    
+
+    ```
+    gcloud iam service-accounts create spanner-migration \
+        --display-name="Spanner Migration"
+    ```
+
     The following output appears:
-    
+
     ```console
     Created service account [spanner-migration].
     ```
 
-4.  Create an IAM policy binding so that the service account has permission to publish to Pub/Sub. Replace `GOOGLE_CLOUD_PROJECT` with the name of your Google Cloud project.
-    
-        gcloud projects add-iam-policy-binding GOOGLE_CLOUD_PROJECT \
-            --role roles/pubsub.publisher \
-            --member serviceAccount:spanner-migration@GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
-    
+4.  Create an IAM policy binding so that the service account has permission to publish to Pub/Sub. Replace ` ``GOOGLE_CLOUD_PROJECT`` ` with the name of your Google Cloud project.
+
+    ```
+    gcloud projects add-iam-policy-binding GOOGLE_CLOUD_PROJECT \
+        --role roles/pubsub.publisher \
+        --member serviceAccount:spanner-migration@GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
+    ```
+
     The following output appears:
-    
+
     ```console
     bindings:
     (...truncated...)
@@ -264,46 +284,54 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     ```
 
 5.  Create credentials for the service account.
-    
-        gcloud iam service-accounts keys create credentials.json \
-            --iam-account spanner-migration@GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
-    
+
+    ```
+    gcloud iam service-accounts keys create credentials.json \
+        --iam-account spanner-migration@GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com
+    ```
+
     The following output appears:
-    
+
     ```console
     created key [5e559d9f6bd8293da31b472d85a233a3fd9b381c] of type [json] as [credentials.json] for [spanner-migration@your-project.iam.gserviceaccount.com]
     ```
 
 6.  Prepare and package the AWS Lambda function to push Amazon DynamoDB table changes to the Pub/Sub topic.
-    
-        pip3 install --ignore-installed --target=lambda-deps google-cloud-pubsub
-        
-        cd lambda-deps; zip -r9 ../pubsub-lambda.zip *; cd -
-        
-        zip -g pubsub-lambda.zip ddbpubsub.py
+
+    ```
+    pip3 install --ignore-installed --target=lambda-deps google-cloud-pubsub
+
+    cd lambda-deps; zip -r9 ../pubsub-lambda.zip *; cd -
+
+    zip -g pubsub-lambda.zip ddbpubsub.py
+    ```
 
 7.  Create a variable to capture the Amazon Resource Name (ARN) of the Lambda execution role that you created earlier.
-    
-        LAMBDA_ROLE=$(aws iam list-roles \
-            --query 'Roles[?RoleName==`dynamodb-spanner-lambda-role`].[Arn]' \
-            --output text)
+
+    ```
+    LAMBDA_ROLE=$(aws iam list-roles \
+        --query 'Roles[?RoleName==`dynamodb-spanner-lambda-role`].[Arn]' \
+        --output text)
+    ```
 
 8.  Use the `pubsub-lambda.zip` package to create the AWS Lambda function.
-    
-        aws lambda create-function --function-name dynamodb-spanner-lambda \
-            --runtime python3.9 --role ${LAMBDA_ROLE} \
-            --handler ddbpubsub.lambda_handler --zip fileb://pubsub-lambda.zip \
-            --environment Variables="{SVCACCT=$(base64 -w 0 credentials.json),PROJECT=GOOGLE_CLOUD_PROJECT,TOPIC=spanner-migration}"
-    
+
+    ```
+    aws lambda create-function --function-name dynamodb-spanner-lambda \
+        --runtime python3.9 --role ${LAMBDA_ROLE} \
+        --handler ddbpubsub.lambda_handler --zip fileb://pubsub-lambda.zip \
+        --environment Variables="{SVCACCT=$(base64 -w 0 credentials.json),PROJECT=GOOGLE_CLOUD_PROJECT,TOPIC=spanner-migration}"
+    ```
+
     The following output appears:
-    
+
     ```console
     {
         "FunctionName": "dynamodb-spanner-lambda",
         "LastModified": "2022-03-17T23:45:26.445+0000",
         "RevisionId": "e58e8408-cd3a-4155-a184-4efc0da80bfb",
         "MemorySize": 128,
-    
+
     ... truncated output...
         "PackageType": "Zip",
         "Architectures": [
@@ -313,22 +341,26 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
     ```
 
 9.  Create a variable to capture the ARN of the Amazon DynamoDB stream for your table.
-    
-        STREAMARN=$(aws dynamodb describe-table \
-            --table-name Migration \
-            --query "Table.LatestStreamArn" \
-            --output text)
+
+    ```
+    STREAMARN=$(aws dynamodb describe-table \
+        --table-name Migration \
+        --query "Table.LatestStreamArn" \
+        --output text)
+    ```
 
 10. Attach the Lambda function to the Amazon DynamoDB table.
-    
-        aws lambda create-event-source-mapping --event-source ${STREAMARN} \
-            --function-name dynamodb-spanner-lambda --enabled \
-            --starting-position TRIM_HORIZON
+
+    ```
+    aws lambda create-event-source-mapping --event-source ${STREAMARN} \
+        --function-name dynamodb-spanner-lambda --enabled \
+        --starting-position TRIM_HORIZON
+    ```
 
 11. To optimize responsiveness during testing, add `--batch-size 1` to the end of the previous command, which triggers the function every time you create, update, or delete an item.
-    
+
     You will see output similar to the following:
-    
+
     ```console
     {
         "UUID": "44e4c2bf-493a-4ba2-9859-cde0ae5c5e92",
@@ -345,12 +377,16 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
 ### Export the Amazon DynamoDB table to Amazon S3
 
 1.  In Cloud Shell, create a variable for a bucket name that you use in several of the following sections.
-    
-        BUCKET=${DEVSHELL_PROJECT_ID}-dynamodb-spanner-export
+
+    ```
+    BUCKET=${DEVSHELL_PROJECT_ID}-dynamodb-spanner-export
+    ```
 
 2.  Create an Amazon S3 bucket to receive the DynamoDB export.
-    
-        aws s3 mb s3://${BUCKET}
+
+    ```
+    aws s3 mb s3://${BUCKET}
+    ```
 
 3.  In the AWS Management Console, go to **DynamoDB** , and click **Tables** .
 
@@ -365,13 +401,15 @@ You use an AWS Lambda function to stream database changes to Pub/Sub.
 8.  Click **Export** .
 
 9.  Click the **Refresh** *icon* to update the status of the export job. The job takes several minutes to finish exporting.
-    
+
     When the process finishes, look at the output bucket.
-    
-        aws s3 ls --recursive s3://${BUCKET}
-    
+
+    ```
+    aws s3 ls --recursive s3://${BUCKET}
+    ```
+
     Expect this step to take about 5 minutes. After it is complete, you see output like the following:
-    
+
     ```console
     2022-02-17 04:41:46          0 AWSDynamoDB/01645072900758-ee1232a3/_started
     2022-02-17 04:46:04     500441 AWSDynamoDB/01645072900758-ee1232a3/data/xygt7i2gje4w7jtdw5652s43pa.json.gz
@@ -390,51 +428,59 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
 ### Copy the exported table to Cloud Storage
 
 1.  In Cloud Shell, create a Cloud Storage bucket to receive the exported files from Amazon S3.
-    
-        gcloud storage buckets create gs://${BUCKET}
+
+    ```
+    gcloud storage buckets create gs://${BUCKET}
+    ```
 
 2.  [Sync](https://docs.cloud.google.com/sdk/gcloud/reference/storage/rsync) the files from Amazon S3 into Cloud Storage. For most copy operations, the `rsync` command is effective. If your export files are large (several GBs or more), use the [Cloud Storage transfer service](https://docs.cloud.google.com/storage-transfer/docs/overview) to manage the transfer in the background.
-    
-        gcloud storage rsync s3://${BUCKET} gs://${BUCKET} --recursive --delete-unmatched-destination-objects
+
+    ```
+    gcloud storage rsync s3://${BUCKET} gs://${BUCKET} --recursive --delete-unmatched-destination-objects
+    ```
 
 ### Batch import the data
 
 1.  To write the data from the exported files into the Spanner table, run a Dataflow job with sample Apache Beam code.
-    
-        cd dataflow
-        mvn compile
-        mvn exec:java \
-        -Dexec.mainClass=com.example.spanner_migration.SpannerBulkWrite \
-        -Pdataflow-runner \
-        -Dexec.args="--project=GOOGLE_CLOUD_PROJECT \
-                     --instanceId=spanner-migration \
-                     --databaseId=migrationdb \
-                     --table=Migration \
-                     --importBucket=$BUCKET \
-                     --runner=DataflowRunner \
-                     --region=us-central1"
-    
+
+    ```
+    cd dataflow
+    mvn compile
+    mvn exec:java \
+    -Dexec.mainClass=com.example.spanner_migration.SpannerBulkWrite \
+    -Pdataflow-runner \
+    -Dexec.args="--project=GOOGLE_CLOUD_PROJECT \
+                 --instanceId=spanner-migration \
+                 --databaseId=migrationdb \
+                 --table=Migration \
+                 --importBucket=$BUCKET \
+                 --runner=DataflowRunner \
+                 --region=us-central1"
+    ```
+
     1.  To watch the progress of the import job, in the Google Cloud console, go to Dataflow.
-    
+
     2.  While the job is running, you can watch the execution graph to examine the logs. Click the job that shows the **Status** of **Running** .
-        
+
         ![Running import job](https://docs.cloud.google.com/static/spanner/docs/images/migrating-dynamodb-to-cloud-spanner-2running-status.png)
 
 2.  Click each stage to see how many elements have been processed. The import is complete when all stages say **Succeeded** . The same number of elements that were created in your Amazon DynamoDB table display as processed at each stage.
-    
+
     ![Stages of success of import job](https://docs.cloud.google.com/static/spanner/docs/images/migrating-dynamodb-to-cloud-spanner-3succeeded.png)
 
 3.  Verify that the number of records in the destination Spanner table matches the number of items in the Amazon DynamoDB table.
-    
-        aws dynamodb describe-table --table-name Migration --query Table.ItemCount
-        
-        gcloud spanner databases execute-sql migrationdb \
-        --instance=spanner-migration --sql="select count(*) from Migration"
-    
+
+    ```
+    aws dynamodb describe-table --table-name Migration --query Table.ItemCount
+
+    gcloud spanner databases execute-sql migrationdb \
+    --instance=spanner-migration --sql="select count(*) from Migration"
+    ```
+
     > **Note:** Since Amazon DynamoDB item count is based on table metadata that is only updated every six hours, output from this command may not immediately reflect the total number of items in the table. The Spanner item count is based on a table query and accurately reflects the number of rows in the table when you run the query.
-    
+
     The following output appears:
-    
+
     ```console
     $ aws dynamodb describe-table --table-name Migration --query Table.ItemCount
     25000
@@ -443,13 +489,15 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
     ```
 
 4.  Sample random entries in each table to make sure the data is consistent.
-    
-        gcloud spanner databases execute-sql migrationdb \
-            --instance=spanner-migration \
-            --sql="select * from Migration limit 1"
-    
+
+    ```
+    gcloud spanner databases execute-sql migrationdb \
+        --instance=spanner-migration \
+        --sql="select * from Migration limit 1"
+    ```
+
     The following output appears:
-    
+
     ```console
      Username: aadams4495
      PointsEarned: 5247
@@ -458,13 +506,15 @@ Now that the Pub/Sub delivery is in place, you can push forward any table change
      Zipcode: 58057
     ```
 
-5.  Query the Amazon DynamoDB table with the same `Username` that was returned from the Spanner query in the previous step. For example, `aallen2538` . The value is specific to the sample data in your database.
-    
-        aws dynamodb get-item --table-name Migration \
-            --key '{"Username": {"S": "aadams4495"}}'
-    
+5.  Query the Amazon DynamoDB table with the same `Username` that was returned from the Spanner query in the previous step. For example, ` ``aallen2538`` ` . The value is specific to the sample data in your database.
+
+    ```
+    aws dynamodb get-item --table-name Migration \
+        --key '{"Username": {"S": "aadams4495"}}'
+    ```
+
     The values of the other fields should match those from the Spanner output. The following output appears:
-    
+
     ```console
     {
         "Item": {
@@ -494,40 +544,44 @@ When the batch import job is complete, you set up a streaming job to write ongoi
 The Lambda function you created is configured to capture changes to the source Amazon DynamoDB table and publish them to Pub/Sub.
 
 1.  Create a subscription to the Pub/Sub topic that AWS Lambda sends events to.
-    
-        gcloud pubsub subscriptions create spanner-migration \
-            --topic spanner-migration
-    
+
+    ```
+    gcloud pubsub subscriptions create spanner-migration \
+        --topic spanner-migration
+    ```
+
     The following output appears:
-    
+
     ```console
     Created subscription [projects/your-project/subscriptions/spanner-migration].
     ```
 
 2.  To stream the changes coming into Pub/Sub to write to the Spanner table, run the Dataflow job from Cloud Shell.
-    
-        mvn exec:java \
-        -Dexec.mainClass=com.example.spanner_migration.SpannerStreamingWrite \
-        -Pdataflow-runner \
-        -Dexec.args="--project=GOOGLE_CLOUD_PROJECT \
-                     --instanceId=spanner-migration \
-                     --databaseId=migrationdb \
-                     --table=Migration \
-                     --experiments=allow_non_updatable_job \
-        --subscription=projects/GOOGLE_CLOUD_PROJECT/subscriptions/spanner-migration \
-        --runner=DataflowRunner \
-        --region=us-central1"
-    
+
+    ```
+    mvn exec:java \
+    -Dexec.mainClass=com.example.spanner_migration.SpannerStreamingWrite \
+    -Pdataflow-runner \
+    -Dexec.args="--project=GOOGLE_CLOUD_PROJECT \
+                 --instanceId=spanner-migration \
+                 --databaseId=migrationdb \
+                 --table=Migration \
+                 --experiments=allow_non_updatable_job \
+    --subscription=projects/GOOGLE_CLOUD_PROJECT/subscriptions/spanner-migration \
+    --runner=DataflowRunner \
+    --region=us-central1"
+    ```
+
     > **Note:** To improve responsiveness during testing, you can set the [Windowing](https://beam.apache.org/documentation/programming-guide/#windowing) to `5` seconds by adding `--window 5` to the end of this command. The default is set to `60` seconds.
-    
+
     1.  Similar to the [batch load](https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner#batch_import_the_data) step, to watch the progress of the job, in the Google Cloud console, go to Dataflow.
-    
+
     2.  Click the job that has the **Status** of **Running** .
-        
+
         ![Running job](https://docs.cloud.google.com/static/spanner/docs/images/migrating-dynamodb-to-cloud-spanner-4running.png)
-        
+
         The processing graph shows a similar output as before, but each processed item is counted in the status window. The system lag time is a rough estimate of how much delay to expect before changes appear in the Spanner table.
-        
+
         ![Running processes due to lag time](https://docs.cloud.google.com/static/spanner/docs/images/migrating-dynamodb-to-cloud-spanner-5system-lag.png)
 
 The Dataflow job that you ran in the batch loading phase was a finite set of input, also known as a *bounded* dataset. This Dataflow job uses Pub/Sub as a streaming source and is considered *unbounded* . For more information about these two types of sources, review the section on PCollections in the [Apache Beam programming guide](https://beam.apache.org/documentation/programming-guide/#pcollections) . The Dataflow job in this step is meant to stay active, so it does not terminate when finished. The streaming Dataflow job remains in the **Running** status, instead of the **Succeeded** status.
@@ -539,27 +593,33 @@ You make some changes to the source table to verify that the changes are replica
 > **Note:** The changes are asynchronous and might take several moments to appear in Spanner. Wait a few minutes before each step.
 
 1.  Query a nonexistent row in Spanner.
-    
-        gcloud spanner databases execute-sql migrationdb \
-            --instance=spanner-migration \
-            --sql="SELECT * FROM Migration WHERE Username='my-test-username'"
-    
+
+    ```
+    gcloud spanner databases execute-sql migrationdb \
+        --instance=spanner-migration \
+        --sql="SELECT * FROM Migration WHERE Username='my-test-username'"
+    ```
+
     The operation will not return any results.
 
 2.  Create a record in Amazon DynamoDB with the same key that you used in the Spanner query. If the command runs successfully, there is no output.
-    
-        aws dynamodb put-item \
-            --table-name Migration \
-            --item '{"Username" : {"S" : "my-test-username"}, "Subscribed" : {"BOOL" : false}}'
+
+    ```
+    aws dynamodb put-item \
+        --table-name Migration \
+        --item '{"Username" : {"S" : "my-test-username"}, "Subscribed" : {"BOOL" : false}}'
+    ```
 
 3.  Run that same query again to verify that the row is now in Spanner.
-    
-        gcloud spanner databases execute-sql migrationdb \
-            --instance=spanner-migration \
-            --sql="SELECT * FROM Migration WHERE Username='my-test-username'"
-    
+
+    ```
+    gcloud spanner databases execute-sql migrationdb \
+        --instance=spanner-migration \
+        --sql="SELECT * FROM Migration WHERE Username='my-test-username'"
+    ```
+
     The output shows the inserted row:
-    
+
     ```console
     Username: my-test-username
     PointsEarned: None
@@ -569,16 +629,18 @@ You make some changes to the source table to verify that the changes are replica
     ```
 
 4.  Change some attributes in the original item and update the Amazon DynamoDB table.
-    
-        aws dynamodb update-item \
-            --table-name Migration \
-            --key '{"Username": {"S":"my-test-username"}}' \
-            --update-expression "SET PointsEarned = :pts, Subscribed = :sub" \
-            --expression-attribute-values '{":pts": {"N":"4500"}, ":sub": {"BOOL":true}}'\
-            --return-values ALL_NEW
-    
+
+    ```
+    aws dynamodb update-item \
+        --table-name Migration \
+        --key '{"Username": {"S":"my-test-username"}}' \
+        --update-expression "SET PointsEarned = :pts, Subscribed = :sub" \
+        --expression-attribute-values '{":pts": {"N":"4500"}, ":sub": {"BOOL":true}}'\
+        --return-values ALL_NEW
+    ```
+
     You will see output similar to the following:
-    
+
     ```console
     {
         "Attributes": {
@@ -596,29 +658,35 @@ You make some changes to the source table to verify that the changes are replica
     ```
 
 5.  Verify that the changes are propagated to the Spanner table.
-    
-        gcloud spanner databases execute-sql migrationdb \
-            --instance=spanner-migration \
-            --sql="SELECT * FROM Migration WHERE Username='my-test-username'"
-    
+
+    ```
+    gcloud spanner databases execute-sql migrationdb \
+        --instance=spanner-migration \
+        --sql="SELECT * FROM Migration WHERE Username='my-test-username'"
+    ```
+
     The output appears as follows:
-    
+
     ```console
     Username          PointsEarned  ReminderDate  Subscribed  Zipcode
     my-test-username  4500          None          True
     ```
 
 6.  Delete the test item from the Amazon DynamoDB source table.
-    
-        aws dynamodb delete-item \
-            --table-name Migration \
-            --key '{"Username": {"S":"my-test-username"}}'
+
+    ```
+    aws dynamodb delete-item \
+        --table-name Migration \
+        --key '{"Username": {"S":"my-test-username"}}'
+    ```
 
 7.  Verify that the corresponding row is deleted from the Spanner table. When the change is propagated, the following command returns zero rows:
-    
-        gcloud spanner databases execute-sql migrationdb \
-            --instance=spanner-migration \
-            --sql="SELECT * FROM Migration WHERE Username='my-test-username'"
+
+    ```
+    gcloud spanner databases execute-sql migrationdb \
+        --instance=spanner-migration \
+        --sql="SELECT * FROM Migration WHERE Username='my-test-username'"
+    ```
 
 ## Use interleaved tables
 
@@ -637,47 +705,53 @@ Run a query that does not use any indexes. You are looking for the top *N* occur
 1.  Go to Spanner.
 
 2.  Click **Spanner Studio** .
-    
+
     ![Query button](https://docs.cloud.google.com/static/spanner/docs/images/migrating-dynamodb-to-cloud-spanner-7query.png)
 
 3.  In the **Query** field, enter the following query, and then click **Run query** .
-    
-        SELECT Username,PointsEarned
-          FROM Migration
-         WHERE Subscribed=true
-           AND ReminderDate > DATE_SUB(DATE(current_timestamp()), INTERVAL 14 DAY)
-         ORDER BY ReminderDate DESC
-         LIMIT 10
-    
+
+    ```
+    SELECT Username,PointsEarned
+      FROM Migration
+     WHERE Subscribed=true
+       AND ReminderDate > DATE_SUB(DATE(current_timestamp()), INTERVAL 14 DAY)
+     ORDER BY ReminderDate DESC
+     LIMIT 10
+    ```
+
     After the query runs, click **Explanation** and take note of the **Rows scanned** versus **Rows returned** . Without an index, Spanner scans the entire table to return a small subset of data that matches the query.
-    
+
     ![Rows scanned compared to rows returned](https://docs.cloud.google.com/static/spanner/docs/images/migrating-dynamodb-to-cloud-spanner-8explanation.png)
 
 4.  If this represents a commonly occurring query, create a composite index on the Subscribed and ReminderDate columns. On the Spanner console, select **Indexes** left navigation pane, and then click **Create Index** .
 
 5.  In the text box, enter the index definition.
-    
-        CREATE INDEX SubscribedDateDesc
-        ON Migration (
-          Subscribed,
-          ReminderDate DESC
-        )
+
+    ```
+    CREATE INDEX SubscribedDateDesc
+    ON Migration (
+      Subscribed,
+      ReminderDate DESC
+    )
+    ```
 
 6.  To begin building the database in the background, click **Create** .
-    
+
     ![Schema update in progress](https://docs.cloud.google.com/static/spanner/docs/images/migrating-dynamodb-to-cloud-spanner-10in-progress-smaller.png)
 
 7.  After the index is created, run the query again and add the index.
-    
-        SELECT Username,PointsEarned
-          FROM Migration@{FORCE_INDEX=SubscribedDateDesc}
-         WHERE Subscribed=true
-           AND ReminderDate > DATE_SUB(DATE(current_timestamp()), INTERVAL 14 DAY)
-         ORDER BY ReminderDate DESC
-         LIMIT 10
-    
+
+    ```
+    SELECT Username,PointsEarned
+      FROM Migration@{FORCE_INDEX=SubscribedDateDesc}
+     WHERE Subscribed=true
+       AND ReminderDate > DATE_SUB(DATE(current_timestamp()), INTERVAL 14 DAY)
+     ORDER BY ReminderDate DESC
+     LIMIT 10
+    ```
+
     Examine the query explanation again. Notice that the number of **Rows scanned** has decreased. The **Rows returned** at each step matches the number returned by the query.
-    
+
     ![Explanation of query](https://docs.cloud.google.com/static/spanner/docs/images/migrating-dynamodb-to-cloud-spanner-11decrease.png)
 
 ### Interleaved indexes
@@ -689,72 +763,76 @@ You can set up interleaved indexes in Spanner. The secondary indexes discussed i
 In order to adapt the migration portion of this tutorial to your own situation, modify your Apache Beam source files. It is important that you do not change the source schema during the actual migration window, otherwise you can lose data.
 
 1.  To parse incoming JSON and build mutations, use [GSON](https://github.com/google/gson/blob/master/UserGuide.md) . Adjust the JSON definition to match your data.
-    
-        public static class Record implements Serializable {
-        
-          private Item Item;
-        
-        }
-        
-        public static class Item implements Serializable {
-        
-          private Username Username;
-          private PointsEarned PointsEarned;
-          private Subscribed Subscribed;
-          private ReminderDate ReminderDate;
-          private Zipcode Zipcode;
-        
-        }
-        
-        public static class Username implements Serializable {
-        
-          private String S;
-        
-        }
-        
-        public static class PointsEarned implements Serializable {
-        
-          private String N;
-        
-        }
-        
-        public static class Subscribed implements Serializable {
-        
-          private String BOOL;
-        
-        }
-        
-        public static class ReminderDate implements Serializable {
-        
-          private String S;
-        
-        }
-        
-        public static class Zipcode implements Serializable {
-        
-          private String N;
-        
-        }
+
+    ```
+    public static class Record implements Serializable {
+
+      private Item Item;
+
+    }
+
+    public static class Item implements Serializable {
+
+      private Username Username;
+      private PointsEarned PointsEarned;
+      private Subscribed Subscribed;
+      private ReminderDate ReminderDate;
+      private Zipcode Zipcode;
+
+    }
+
+    public static class Username implements Serializable {
+
+      private String S;
+
+    }
+
+    public static class PointsEarned implements Serializable {
+
+      private String N;
+
+    }
+
+    public static class Subscribed implements Serializable {
+
+      private String BOOL;
+
+    }
+
+    public static class ReminderDate implements Serializable {
+
+      private String S;
+
+    }
+
+    public static class Zipcode implements Serializable {
+
+      private String N;
+
+    }
+    ```
 
 2.  Adjust the corresponding JSON mapping.
-    
-        mutation.set("Username").to(record.Item.Username.S);
-        
-        Optional.ofNullable(record.Item.Zipcode).ifPresent(x -> {
-          mutation.set("Zipcode").to(Integer.parseInt(x.N));
-        });
-        
-        Optional.ofNullable(record.Item.Subscribed).ifPresent(x -> {
-          mutation.set("Subscribed").to(Boolean.parseBoolean(x.BOOL));
-        });
-        
-        Optional.ofNullable(record.Item.ReminderDate).ifPresent(x -> {
-          mutation.set("ReminderDate").to(Date.parseDate(x.S));
-        });
-        
-        Optional.ofNullable(record.Item.PointsEarned).ifPresent(x -> {
-          mutation.set("PointsEarned").to(Integer.parseInt(x.N));
-        });
+
+    ```
+    mutation.set("Username").to(record.Item.Username.S);
+
+    Optional.ofNullable(record.Item.Zipcode).ifPresent(x -> {
+      mutation.set("Zipcode").to(Integer.parseInt(x.N));
+    });
+
+    Optional.ofNullable(record.Item.Subscribed).ifPresent(x -> {
+      mutation.set("Subscribed").to(Boolean.parseBoolean(x.BOOL));
+    });
+
+    Optional.ofNullable(record.Item.ReminderDate).ifPresent(x -> {
+      mutation.set("ReminderDate").to(Date.parseDate(x.S));
+    });
+
+    Optional.ofNullable(record.Item.PointsEarned).ifPresent(x -> {
+      mutation.set("PointsEarned").to(Integer.parseInt(x.N));
+    });
+    ```
 
 In the previous steps, you modified the Apache Beam source code for bulk import. Modify the source code for the streaming part of the pipeline in a similar manner. Finally, adjust the table creation scripts, schemas, and indexes of your Spanner target database.
 
@@ -765,15 +843,13 @@ To avoid incurring charges to your Google Cloud account for the resources used i
 ### Delete the project
 
 > **Caution** : Deleting a project has the following effects:
-> 
->   - **Everything in the project is deleted.** If you used an existing project for the tasks in this document, when you delete it, you also delete any other work you've done in the project.
->   - **Custom project IDs are lost.** When you created this project, you might have created a custom project ID that you want to use in the future. To preserve the URLs that use the project ID, such as an `appspot.com` URL, delete selected resources inside the project instead of deleting the whole project.
+>
+> - **Everything in the project is deleted.** If you used an existing project for the tasks in this document, when you delete it, you also delete any other work you've done in the project.
+> - **Custom project IDs are lost.** When you created this project, you might have created a custom project ID that you want to use in the future. To preserve the URLs that use the project ID, such as an `appspot.com` URL, delete selected resources inside the project instead of deleting the whole project.
 
-In the Google Cloud console, go to the **Manage resources** page.
-
-In the project list, select the project that you want to delete, and then click **Delete** .
-
-In the dialog, type the project ID, and then click **Shut down** to delete the project.
+1.  In the Google Cloud console, go to the **Manage resources** page.
+2.  In the project list, select the project that you want to delete, and then click **Delete** .
+3.  In the dialog, type the project ID, and then click **Shut down** to delete the project.
 
 ### Delete AWS resources
 
@@ -785,5 +861,5 @@ If your AWS account is used outside of this tutorial, use caution when you delet
 
 ## What's next
 
-  - Read about how to [optimize your Spanner schema](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .
-  - Learn how to use [Dataflow](https://docs.cloud.google.com/dataflow/docs/how-to) for more complex situations.
+- Read about how to [optimize your Spanner schema](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .
+- Learn how to use [Dataflow](https://docs.cloud.google.com/dataflow/docs/how-to) for more complex situations.

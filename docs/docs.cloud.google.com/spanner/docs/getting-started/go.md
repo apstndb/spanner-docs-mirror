@@ -10,13 +10,13 @@ data_source: docs.cloud.google.com
 
 This tutorial walks you through the following steps using the Spanner client library for Go:
 
-  - Create a Spanner instance and database.
-  - Write, read, and execute SQL queries on data in the database.
-  - Update the database schema.
-  - Update data using a read-write transaction.
-  - Add a secondary index to the database.
-  - Use the index to read and execute SQL queries on data.
-  - Retrieve data using a read-only transaction.
+- Create a Spanner instance and database.
+- Write, read, and execute SQL queries on data in the database.
+- Update the database schema.
+- Update data using a read-write transaction.
+- Add a secondary index to the database.
+- Use the index to read and execute SQL queries on data.
+- Retrieve data using a read-only transaction.
 
 ## Costs
 
@@ -37,16 +37,22 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 2.  Configure the `GOPATH` environment variable if it is not already configured, as described in [Test your installation](https://golang.org/doc/install#testing) .
 
 3.  Download the samples to your machine.
-    
-        git clone https://github.com/GoogleCloudPlatform/golang-samples $GOPATH/src/github.com/GoogleCloudPlatform/golang-samples
+
+    ```
+    git clone https://github.com/GoogleCloudPlatform/golang-samples $GOPATH/src/github.com/GoogleCloudPlatform/golang-samples
+    ```
 
 4.  Change to the directory that contains the Spanner sample code:
-    
-        cd $GOPATH/src/github.com/GoogleCloudPlatform/golang-samples/spanner/spanner_snippets
+
+    ```
+    cd $GOPATH/src/github.com/GoogleCloudPlatform/golang-samples/spanner/spanner_snippets
+    ```
 
 5.  Set the `PROJECT_ID` environment variable to your Google Cloud project ID:
-    
-        export PROJECT_ID=[MY_PROJECT_ID]
+
+    ```
+    export PROJECT_ID=[MY_PROJECT_ID]
+    ```
 
 ## Create an instance
 
@@ -54,9 +60,9 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
-  - The Google Cloud CLI
-  - The Google Cloud console
-  - A client library (C++, C\#, Go, Java, Node.js, PHP, Python, or Ruby)
+- The Google Cloud CLI
+- The Google Cloud console
+- A client library (C++, C#, Go, Java, Node.js, PHP, Python, or Ruby)
 
 ## Look through sample files
 
@@ -68,15 +74,21 @@ Take a look through the `snippet.go` file, which shows how to use Spanner. The c
 
 ### GoogleSQL
 
-    go run snippet.go createdatabase projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go createdatabase projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    go run snippet.go pgcreatedatabase projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go pgcreatedatabase projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see:
 
-    Created database [example-db]
+```
+Created database [example-db]
+```
 
 The following code creates a database and two tables in the database.
 
@@ -84,132 +96,136 @@ The following code creates a database and two tables in the database.
 
 ### GoogleSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-     "regexp"
-    
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
-    )
-    
-    func createDatabase(ctx context.Context, w io.Writer, db string) error {
-     matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
-     if matches == nil || len(matches) != 3 {
-         return fmt.Errorf("Invalid database id %s", db)
-     }
-    
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
-     if err != nil {
-         return err
-     }
-     defer adminClient.Close()
-    
-     op, err := adminClient.CreateDatabase(ctx, &adminpb.CreateDatabaseRequest{
-         Parent:          matches[1],
-         CreateStatement: "CREATE DATABASE `" + matches[2] + "`",
-         ExtraStatements: []string{
-             `CREATE TABLE Singers (
-                 SingerId   INT64 NOT NULL,
-                 FirstName  STRING(1024),
-                 LastName   STRING(1024),
-                 SingerInfo BYTES(MAX),
-                 FullName   STRING(2048) AS (
-                     ARRAY_TO_STRING([FirstName, LastName], " ")
-                 ) STORED
-             ) PRIMARY KEY (SingerId)`,
-             `CREATE TABLE Albums (
-                 SingerId     INT64 NOT NULL,
-                 AlbumId      INT64 NOT NULL,
-                 AlbumTitle   STRING(MAX)
-             ) PRIMARY KEY (SingerId, AlbumId),
-             INTERLEAVE IN PARENT Singers ON DELETE CASCADE`,
-         },
-     })
-     if err != nil {
-         return err
-     }
-     if _, err := op.Wait(ctx); err != nil {
-         return err
-     }
-     fmt.Fprintf(w, "Created database [%s]\n", db)
-     return nil
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+    "regexp"
+
+    database "cloud.google.com/go/spanner/admin/database/apiv1"
+    adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+)
+
+func createDatabase(ctx context.Context, w io.Writer, db string) error {
+    matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
+    if matches == nil || len(matches) != 3 {
+        return fmt.Errorf("Invalid database id %s", db)
     }
+
+    adminClient, err := database.NewDatabaseAdminClient(ctx)
+    if err != nil {
+        return err
+    }
+    defer adminClient.Close()
+
+    op, err := adminClient.CreateDatabase(ctx, &adminpb.CreateDatabaseRequest{
+        Parent:          matches[1],
+        CreateStatement: "CREATE DATABASE `" + matches[2] + "`",
+        ExtraStatements: []string{
+            `CREATE TABLE Singers (
+                SingerId   INT64 NOT NULL,
+                FirstName  STRING(1024),
+                LastName   STRING(1024),
+                SingerInfo BYTES(MAX),
+                FullName   STRING(2048) AS (
+                    ARRAY_TO_STRING([FirstName, LastName], " ")
+                ) STORED
+            ) PRIMARY KEY (SingerId)`,
+            `CREATE TABLE Albums (
+                SingerId     INT64 NOT NULL,
+                AlbumId      INT64 NOT NULL,
+                AlbumTitle   STRING(MAX)
+            ) PRIMARY KEY (SingerId, AlbumId),
+            INTERLEAVE IN PARENT Singers ON DELETE CASCADE`,
+        },
+    })
+    if err != nil {
+        return err
+    }
+    if _, err := op.Wait(ctx); err != nil {
+        return err
+    }
+    fmt.Fprintf(w, "Created database [%s]\n", db)
+    return nil
+}
+```
 
 ### PostgreSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-     "regexp"
-    
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
-    )
-    
-    // pgCreateDatabase shows how to create a Spanner database that uses the
-    // PostgreSQL dialect.
-    func pgCreateDatabase(ctx context.Context, w io.Writer, db string) error {
-     // db := "projects/my-project/instances/my-instance/databases/my-database"
-     matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
-     if matches == nil || len(matches) != 3 {
-         return fmt.Errorf("invalid database id %v", db)
-     }
-    
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
-     if err != nil {
-         return err
-     }
-     defer adminClient.Close()
-    
-     // Databases with PostgreSQL dialect do not support extra DDL statements in the `CreateDatabase` call.
-     req := &adminpb.CreateDatabaseRequest{
-         Parent:          matches[1],
-         DatabaseDialect: adminpb.DatabaseDialect_POSTGRESQL,
-         // Note that PostgreSQL uses double quotes for quoting identifiers. This also
-         // includes database names in the CREATE DATABASE statement.
-         CreateStatement: `CREATE DATABASE "` + matches[2] + `"`,
-     }
-     opCreate, err := adminClient.CreateDatabase(ctx, req)
-     if err != nil {
-         return err
-     }
-     if _, err := opCreate.Wait(ctx); err != nil {
-         return err
-     }
-     updateReq := &adminpb.UpdateDatabaseDdlRequest{
-         Database: db,
-         Statements: []string{
-             `CREATE TABLE Singers (
-                 SingerId   bigint NOT NULL PRIMARY KEY,
-                 FirstName  varchar(1024),
-                 LastName   varchar(1024),
-                 SingerInfo bytea
-             )`,
-             `CREATE TABLE Albums (
-                 AlbumId      bigint NOT NULL,
-                 SingerId     bigint NOT NULL REFERENCES Singers (SingerId),
-                 AlbumTitle   text,
-                    PRIMARY KEY(SingerId, AlbumId)
-             )`,
-             `CREATE TABLE Venues (
-                 VenueId  bigint NOT NULL PRIMARY KEY,
-                 Name     varchar(1024) NOT NULL
-             )`,
-         },
-     }
-     opUpdate, err := adminClient.UpdateDatabaseDdl(ctx, updateReq)
-     if err != nil {
-         return err
-     }
-     if err := opUpdate.Wait(ctx); err != nil {
-         return err
-     }
-     fmt.Fprintf(w, "Created Spanner PostgreSQL database [%v]\n", db)
-     return nil
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+    "regexp"
+
+    database "cloud.google.com/go/spanner/admin/database/apiv1"
+    adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+)
+
+// pgCreateDatabase shows how to create a Spanner database that uses the
+// PostgreSQL dialect.
+func pgCreateDatabase(ctx context.Context, w io.Writer, db string) error {
+    // db := "projects/my-project/instances/my-instance/databases/my-database"
+    matches := regexp.MustCompile("^(.*)/databases/(.*)$").FindStringSubmatch(db)
+    if matches == nil || len(matches) != 3 {
+        return fmt.Errorf("invalid database id %v", db)
     }
+
+    adminClient, err := database.NewDatabaseAdminClient(ctx)
+    if err != nil {
+        return err
+    }
+    defer adminClient.Close()
+
+    // Databases with PostgreSQL dialect do not support extra DDL statements in the `CreateDatabase` call.
+    req := &adminpb.CreateDatabaseRequest{
+        Parent:          matches[1],
+        DatabaseDialect: adminpb.DatabaseDialect_POSTGRESQL,
+        // Note that PostgreSQL uses double quotes for quoting identifiers. This also
+        // includes database names in the CREATE DATABASE statement.
+        CreateStatement: `CREATE DATABASE "` + matches[2] + `"`,
+    }
+    opCreate, err := adminClient.CreateDatabase(ctx, req)
+    if err != nil {
+        return err
+    }
+    if _, err := opCreate.Wait(ctx); err != nil {
+        return err
+    }
+    updateReq := &adminpb.UpdateDatabaseDdlRequest{
+        Database: db,
+        Statements: []string{
+            `CREATE TABLE Singers (
+                SingerId   bigint NOT NULL PRIMARY KEY,
+                FirstName  varchar(1024),
+                LastName   varchar(1024),
+                SingerInfo bytea
+            )`,
+            `CREATE TABLE Albums (
+                AlbumId      bigint NOT NULL,
+                SingerId     bigint NOT NULL REFERENCES Singers (SingerId),
+                AlbumTitle   text,
+                PRIMARY KEY(SingerId, AlbumId)
+            )`,
+            `CREATE TABLE Venues (
+                VenueId  bigint NOT NULL PRIMARY KEY,
+                Name     varchar(1024) NOT NULL
+            )`,
+        },
+    }
+    opUpdate, err := adminClient.UpdateDatabaseDdl(ctx, updateReq)
+    if err != nil {
+        return err
+    }
+    if err := opUpdate.Wait(ctx); err != nil {
+        return err
+    }
+    fmt.Fprintf(w, "Created Spanner PostgreSQL database [%v]\n", db)
+    return nil
+}
+```
 
 The next step is to write data to your database.
 
@@ -217,34 +233,36 @@ The next step is to write data to your database.
 
 Before you can do reads or writes, you must create a [`Client`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client) :
 
-    import (
-     "context"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-    )
-    
-    func createClients(w io.Writer, db string) error {
-     ctx := context.Background()
-    
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
-     if err != nil {
-         return err
-     }
-     defer adminClient.Close()
-    
-     dataClient, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer dataClient.Close()
-    
-     _ = adminClient
-     _ = dataClient
-    
-     return nil
+```go
+import (
+    "context"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    database "cloud.google.com/go/spanner/admin/database/apiv1"
+)
+
+func createClients(w io.Writer, db string) error {
+    ctx := context.Background()
+
+    adminClient, err := database.NewDatabaseAdminClient(ctx)
+    if err != nil {
+        return err
     }
+    defer adminClient.Close()
+
+    dataClient, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
+    }
+    defer dataClient.Close()
+
+    _ = adminClient
+    _ = dataClient
+
+    return nil
+}
+```
 
 You can think of a `Client` as a database connection: all of your interactions with Spanner must go through a `Client` . Typically you create a `Client` when your application starts up, then you re-use that `Client` to read, write, and execute transactions. Each client uses resources in Spanner.
 
@@ -254,8 +272,6 @@ Read more in the [`Client`](https://pkg.go.dev/cloud.google.com/go/spanner/#Clie
 
 The code in the previous example also shows how to create a [`DatabaseAdminClient`](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient) , which is used to create a database.
 
-<span id="write_data"></span>
-
 ## Write data with DML
 
 You can insert data using Data Manipulation Language (DML) in a read-write transaction.
@@ -264,93 +280,101 @@ You use the `Update()` method to execute a DML statement.
 
 ### GoogleSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func writeUsingDML(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{
-             SQL: `INSERT Singers (SingerId, FirstName, LastName) VALUES
-                 (12, 'Melissa', 'Garcia'),
-                 (13, 'Russell', 'Morales'),
-                 (14, 'Jacqueline', 'Long'),
-                 (15, 'Dylan', 'Shaw')`,
-         }
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)
-         return err
-     })
-     return err
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func writeUsingDML(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{
+            SQL: `INSERT Singers (SingerId, FirstName, LastName) VALUES
+                (12, 'Melissa', 'Garcia'),
+                (13, 'Russell', 'Morales'),
+                (14, 'Jacqueline', 'Long'),
+                (15, 'Dylan', 'Shaw')`,
+        }
+        rowCount, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)
+        return err
+    })
+    return err
+}
+```
 
 ### PostgreSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func pgWriteUsingDML(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         stmt := spanner.Statement{
-             SQL: `INSERT INTO Singers (SingerId, FirstName, LastName) VALUES
-                 (12, 'Melissa', 'Garcia'),
-                 (13, 'Russell', 'Morales'),
-                 (14, 'Jacqueline', 'Long'),
-                 (15, 'Dylan', 'Shaw')`,
-         }
-         rowCount, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)
-         return err
-     })
-     return err
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func pgWriteUsingDML(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        stmt := spanner.Statement{
+            SQL: `INSERT INTO Singers (SingerId, FirstName, LastName) VALUES
+                (12, 'Melissa', 'Garcia'),
+                (13, 'Russell', 'Morales'),
+                (14, 'Jacqueline', 'Long'),
+                (15, 'Dylan', 'Shaw')`,
+        }
+        rowCount, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d record(s) inserted.\n", rowCount)
+        return err
+    })
+    return err
+}
+```
 
 Run the sample using the `dmlwrite` argument for Google SQL and the `pgdmlwrite` argument for PostgreSQL:
 
 ### GoogleSQL
 
-    go run snippet.go dmlwrite projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go dmlwrite projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    go run snippet.go pgdmlwrite projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go pgdmlwrite projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see:
 
-    4 record(s) inserted.
+```
+4 record(s) inserted.
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
-
-<span id="write_data_with_mutations"></span>
 
 ## Write data with mutations
 
@@ -364,42 +388,46 @@ Use [`Mutation.InsertOrUpdate()`](https://pkg.go.dev/cloud.google.com/go/spanner
 
 This code shows how to write the data using mutations:
 
-    import (
-     "context"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func write(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     singerColumns := []string{"SingerId", "FirstName", "LastName"}
-     albumColumns := []string{"SingerId", "AlbumId", "AlbumTitle"}
-     m := []*spanner.Mutation{
-         spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{1, "Marc", "Richards"}),
-         spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{2, "Catalina", "Smith"}),
-         spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{3, "Alice", "Trentor"}),
-         spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{4, "Lea", "Martin"}),
-         spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{5, "David", "Lomond"}),
-         spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{1, 1, "Total Junk"}),
-         spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{1, 2, "Go, Go, Go"}),
-         spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 1, "Green"}),
-         spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 2, "Forever Hold Your Peace"}),
-         spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 3, "Terrified"}),
-     }
-     _, err = client.Apply(ctx, m)
-     return err
+```go
+import (
+    "context"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func write(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    singerColumns := []string{"SingerId", "FirstName", "LastName"}
+    albumColumns := []string{"SingerId", "AlbumId", "AlbumTitle"}
+    m := []*spanner.Mutation{
+        spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{1, "Marc", "Richards"}),
+        spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{2, "Catalina", "Smith"}),
+        spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{3, "Alice", "Trentor"}),
+        spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{4, "Lea", "Martin"}),
+        spanner.InsertOrUpdate("Singers", singerColumns, []interface{}{5, "David", "Lomond"}),
+        spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{1, 1, "Total Junk"}),
+        spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{1, 2, "Go, Go, Go"}),
+        spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 1, "Green"}),
+        spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 2, "Forever Hold Your Peace"}),
+        spanner.InsertOrUpdate("Albums", albumColumns, []interface{}{2, 3, "Terrified"}),
+    }
+    _, err = client.Apply(ctx, m)
+    return err
+}
+```
 
 Run the sample using the `write` argument:
 
-    go run snippet.go write projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go write projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see the command run successfully.
 
@@ -415,24 +443,30 @@ Execute the following SQL statement to read the values of all columns from the `
 
 ### GoogleSQL
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
 
 ### GoogleSQL Pipe syntax
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
 
 > **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
-    SingerId AlbumId AlbumTitle
-    1        1       Total Junk
-    1        2       Go, Go, Go
-    2        1       Green
-    2        2       Forever Hold Your Peace
-    2        3       Terrified
+```
+SingerId AlbumId AlbumTitle
+1        1       Total Junk
+1        2       Go, Go, Go
+2        1       Green
+2        2       Forever Hold Your Peace
+2        3       Terrified
+```
 
 ### Use the Spanner client library for Go
 
@@ -440,61 +474,67 @@ In addition to executing a SQL statement on the command line, you can issue the 
 
 The following methods and types are used to run the SQL query:
 
-  - [`Client.Single()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Single) : use this to read the value of one or more columns from one or more rows in a Spanner table. `Client.Single` returns a [`ReadOnlyTransaction`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction) , which is used for running a read or SQL statement.
-  - [`ReadOnlyTransaction.Query()`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction.Query) : use this method to execute a query against a database.
-  - The [`Statement`](https://pkg.go.dev/cloud.google.com/go/spanner/#Statement) type: use this to construct a SQL string.
-  - The [`Row`](https://pkg.go.dev/cloud.google.com/go/spanner/#Row) type: use this to access the data returned by a SQL statement or read call.
+- [`Client.Single()`](https://pkg.go.dev/cloud.google.com/go/spanner/#Client.Single) : use this to read the value of one or more columns from one or more rows in a Spanner table. `Client.Single` returns a [`ReadOnlyTransaction`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction) , which is used for running a read or SQL statement.
+- [`ReadOnlyTransaction.Query()`](https://pkg.go.dev/cloud.google.com/go/spanner/#ReadOnlyTransaction.Query) : use this method to execute a query against a database.
+- The [`Statement`](https://pkg.go.dev/cloud.google.com/go/spanner/#Statement) type: use this to construct a SQL string.
+- The [`Row`](https://pkg.go.dev/cloud.google.com/go/spanner/#Row) type: use this to access the data returned by a SQL statement or read call.
 
 Here's how to issue the query and access the data:
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func query(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, AlbumTitle FROM Albums`}
-     iter := client.Single().Query(ctx, stmt)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var singerID, albumID int64
-         var albumTitle string
-         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+func query(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, AlbumTitle FROM Albums`}
+    iter := client.Single().Query(ctx, stmt)
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var singerID, albumID int64
+        var albumTitle string
+        if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
+    }
+}
+```
 
 Run the sample using the `query` argument.
 
-    go run snippet.go query projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go query projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see the following result:
 
-    1 1 Total Junk
-    1 2 Go, Go, Go
-    2 1 Green
-    2 2 Forever Hold Your Peace
-    2 3 Terrified
+```
+1 1 Total Junk
+1 2 Go, Go, Go
+2 1 Green
+2 2 Forever Hold Your Peace
+2 3 Terrified
+```
 
 ### Query using a SQL parameter
 
@@ -504,114 +544,124 @@ Here is an example of using a parameter in the `WHERE` clause to query records c
 
 ### GoogleSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func queryWithParameter(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     stmt := spanner.Statement{
-         SQL: `SELECT SingerId, FirstName, LastName FROM Singers
-             WHERE LastName = @lastName`,
-         Params: map[string]interface{}{
-             "lastName": "Garcia",
-         },
-     }
-     iter := client.Single().Query(ctx, stmt)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var singerID int64
-         var firstName, lastName string
-         if err := row.Columns(&singerID, &firstName, &lastName); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %s %s\n", singerID, firstName, lastName)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+func queryWithParameter(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    stmt := spanner.Statement{
+        SQL: `SELECT SingerId, FirstName, LastName FROM Singers
+            WHERE LastName = @lastName`,
+        Params: map[string]interface{}{
+            "lastName": "Garcia",
+        },
+    }
+    iter := client.Single().Query(ctx, stmt)
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var singerID int64
+        var firstName, lastName string
+        if err := row.Columns(&singerID, &firstName, &lastName); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %s %s\n", singerID, firstName, lastName)
+    }
+}
+```
 
 ### PostgreSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    // pgQueryParameter shows how to execute a query with parameters on a Spanner
-    // PostgreSQL database. The PostgreSQL dialect uses positional parameters, as
-    // opposed to the named parameters of Cloud Spanner.
-    func pgQueryParameter(w io.Writer, db string) error {
-     // db := "projects/my-project/instances/my-instance/databases/my-database"
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     stmt := spanner.Statement{
-         SQL: `SELECT SingerId, FirstName, LastName FROM Singers
-             WHERE LastName = $1`,
-         Params: map[string]interface{}{
-             "p1": "Garcia",
-         },
-     }
-     type Singers struct {
-         SingerID            int64
-         FirstName, LastName string
-     }
-     iter := client.Single().Query(ctx, stmt)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var val Singers
-         if err := row.ToStruct(&val); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %s %s\n", val.SingerID, val.FirstName, val.LastName)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+// pgQueryParameter shows how to execute a query with parameters on a Spanner
+// PostgreSQL database. The PostgreSQL dialect uses positional parameters, as
+// opposed to the named parameters of Cloud Spanner.
+func pgQueryParameter(w io.Writer, db string) error {
+    // db := "projects/my-project/instances/my-instance/databases/my-database"
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    stmt := spanner.Statement{
+        SQL: `SELECT SingerId, FirstName, LastName FROM Singers
+            WHERE LastName = $1`,
+        Params: map[string]interface{}{
+            "p1": "Garcia",
+        },
+    }
+    type Singers struct {
+        SingerID            int64
+        FirstName, LastName string
+    }
+    iter := client.Single().Query(ctx, stmt)
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var val Singers
+        if err := row.ToStruct(&val); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %s %s\n", val.SingerID, val.FirstName, val.LastName)
+    }
+}
+```
 
 Run the sample using the `querywithparameter` argument for Google SQL and the `pgqueryparameter` argument for PostgreSQL.
 
 ### GoogleSQL
 
-    go run snippet.go querywithparameter projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go querywithparameter projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    go run snippet.go pgqueryparameter projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go pgqueryparameter projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see output similar to:
 
-    12 Melissa Garcia
+```
+12 Melissa Garcia
+```
 
 ## Read data using the read API
 
@@ -621,54 +671,60 @@ Use [`ReadOnlyTransaction.Read()`](https://pkg.go.dev/cloud.google.com/go/spanne
 
 Here's how to read the data:
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func read(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     iter := client.Single().Read(ctx, "Albums", spanner.AllKeys(),
-         []string{"SingerId", "AlbumId", "AlbumTitle"})
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var singerID, albumID int64
-         var albumTitle string
-         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+func read(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    iter := client.Single().Read(ctx, "Albums", spanner.AllKeys(),
+        []string{"SingerId", "AlbumId", "AlbumTitle"})
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var singerID, albumID int64
+        var albumTitle string
+        if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
+    }
+}
+```
 
 Run the sample using the `read` argument.
 
-    go run snippet.go read projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go read projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see output similar to:
 
-    1 1 Total Junk
-    1 2 Go, Go, Go
-    2 1 Green
-    2 2 Forever Hold Your Peace
-    2 3 Terrified
+```
+1 1 Total Junk
+1 2 Go, Go, Go
+2 1 Green
+2 2 Forever Hold Your Peace
+2 3 Terrified
+```
 
 ## Update the database schema
 
@@ -684,17 +740,23 @@ Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/ref
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Use the Spanner client library for Go
 
@@ -702,117 +764,131 @@ Use [`DatabaseAdminClient.UpdateDatabaseDdl()`](https://pkg.go.dev/cloud.google.
 
 ### GoogleSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
-    )
-    
-    func addNewColumn(ctx context.Context, w io.Writer, db string) error {
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
-     if err != nil {
-         return err
-     }
-     defer adminClient.Close()
-    
-     op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
-         Database: db,
-         Statements: []string{
-             "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64",
-         },
-     })
-     if err != nil {
-         return err
-     }
-     if err := op.Wait(ctx); err != nil {
-         return err
-     }
-     fmt.Fprintf(w, "Added MarketingBudget column\n")
-     return nil
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    database "cloud.google.com/go/spanner/admin/database/apiv1"
+    adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+)
+
+func addNewColumn(ctx context.Context, w io.Writer, db string) error {
+    adminClient, err := database.NewDatabaseAdminClient(ctx)
+    if err != nil {
+        return err
     }
+    defer adminClient.Close()
+
+    op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
+        Database: db,
+        Statements: []string{
+            "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64",
+        },
+    })
+    if err != nil {
+        return err
+    }
+    if err := op.Wait(ctx); err != nil {
+        return err
+    }
+    fmt.Fprintf(w, "Added MarketingBudget column\n")
+    return nil
+}
+```
 
 ### PostgreSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
-    )
-    
-    func pgAddNewColumn(ctx context.Context, w io.Writer, db string) error {
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
-     if err != nil {
-         return err
-     }
-     defer adminClient.Close()
-    
-     op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
-         Database: db,
-         Statements: []string{
-             "ALTER TABLE Albums ADD COLUMN MarketingBudget bigint",
-         },
-     })
-     if err != nil {
-         return err
-     }
-     if err := op.Wait(ctx); err != nil {
-         return err
-     }
-     fmt.Fprintf(w, "Added MarketingBudget column\n")
-     return nil
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    database "cloud.google.com/go/spanner/admin/database/apiv1"
+    adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+)
+
+func pgAddNewColumn(ctx context.Context, w io.Writer, db string) error {
+    adminClient, err := database.NewDatabaseAdminClient(ctx)
+    if err != nil {
+        return err
     }
+    defer adminClient.Close()
+
+    op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
+        Database: db,
+        Statements: []string{
+            "ALTER TABLE Albums ADD COLUMN MarketingBudget bigint",
+        },
+    })
+    if err != nil {
+        return err
+    }
+    if err := op.Wait(ctx); err != nil {
+        return err
+    }
+    fmt.Fprintf(w, "Added MarketingBudget column\n")
+    return nil
+}
+```
 
 Run the sample using the `addnewcolumn` argument for Google SQL and the `pgaddnewcolumn` argument for PostgreSQL.
 
 ### GoogleSQL
 
-    go run snippet.go addnewcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go addnewcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    go run snippet.go pgaddnewcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go pgaddnewcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see:
 
-    Added MarketingBudget column.
+```
+Added MarketingBudget column.
+```
 
 ### Write data to the new column
 
 The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
-    import (
-     "context"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func update(w io.Writer, db string) error {
-     ctx := context.Background()
-    
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     cols := []string{"SingerId", "AlbumId", "MarketingBudget"}
-     _, err = client.Apply(ctx, []*spanner.Mutation{
-         spanner.Update("Albums", cols, []interface{}{1, 1, 100000}),
-         spanner.Update("Albums", cols, []interface{}{2, 2, 500000}),
-     })
-     return err
+```go
+import (
+    "context"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func update(w io.Writer, db string) error {
+    ctx := context.Background()
+
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    cols := []string{"SingerId", "AlbumId", "MarketingBudget"}
+    _, err = client.Apply(ctx, []*spanner.Mutation{
+        spanner.Update("Albums", cols, []interface{}{1, 1, 100000}),
+        spanner.Update("Albums", cols, []interface{}{2, 2, 500000}),
+    })
+    return err
+}
+```
 
 Run the sample using the `update` argument.
 
-    go run snippet.go update projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go update projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You can also execute a SQL query or a read call to fetch the values that you just wrote.
 
@@ -820,121 +896,131 @@ Here's the code to execute the query:
 
 ### GoogleSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-     "strconv"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func queryNewColumn(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, MarketingBudget FROM Albums`}
-     iter := client.Single().Query(ctx, stmt)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var singerID, albumID int64
-         var marketingBudget spanner.NullInt64
-         if err := row.ColumnByName("SingerId", &singerID); err != nil {
-             return err
-         }
-         if err := row.ColumnByName("AlbumId", &albumID); err != nil {
-             return err
-         }
-         if err := row.ColumnByName("MarketingBudget", &marketingBudget); err != nil {
-             return err
-         }
-         budget := "NULL"
-         if marketingBudget.Valid {
-             budget = strconv.FormatInt(marketingBudget.Int64, 10)
-         }
-         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, budget)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+    "strconv"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+func queryNewColumn(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, MarketingBudget FROM Albums`}
+    iter := client.Single().Query(ctx, stmt)
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var singerID, albumID int64
+        var marketingBudget spanner.NullInt64
+        if err := row.ColumnByName("SingerId", &singerID); err != nil {
+            return err
+        }
+        if err := row.ColumnByName("AlbumId", &albumID); err != nil {
+            return err
+        }
+        if err := row.ColumnByName("MarketingBudget", &marketingBudget); err != nil {
+            return err
+        }
+        budget := "NULL"
+        if marketingBudget.Valid {
+            budget = strconv.FormatInt(marketingBudget.Int64, 10)
+        }
+        fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, budget)
+    }
+}
+```
 
 ### PostgreSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-     "strconv"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func pgQueryNewColumn(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, MarketingBudget FROM Albums`}
-     iter := client.Single().Query(ctx, stmt)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var singerID, albumID int64
-         var marketingBudget spanner.NullInt64
-         if err := row.ColumnByName("singerid", &singerID); err != nil {
-             return err
-         }
-         if err := row.ColumnByName("albumid", &albumID); err != nil {
-             return err
-         }
-         if err := row.ColumnByName("marketingbudget", &marketingBudget); err != nil {
-             return err
-         }
-         budget := "NULL"
-         if marketingBudget.Valid {
-             budget = strconv.FormatInt(marketingBudget.Int64, 10)
-         }
-         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, budget)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+    "strconv"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+func pgQueryNewColumn(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, MarketingBudget FROM Albums`}
+    iter := client.Single().Query(ctx, stmt)
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var singerID, albumID int64
+        var marketingBudget spanner.NullInt64
+        if err := row.ColumnByName("singerid", &singerID); err != nil {
+            return err
+        }
+        if err := row.ColumnByName("albumid", &albumID); err != nil {
+            return err
+        }
+        if err := row.ColumnByName("marketingbudget", &marketingBudget); err != nil {
+            return err
+        }
+        budget := "NULL"
+        if marketingBudget.Valid {
+            budget = strconv.FormatInt(marketingBudget.Int64, 10)
+        }
+        fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, budget)
+    }
+}
+```
 
 To execute this query, run the sample using the `querynewcolumn` argument for Google SQL and the `pgquerynewcolumn` argument for PostgreSQL.
 
 ### GoogleSQL
 
-    go run snippet.go querynewcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go querynewcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    go run snippet.go pgquerynewcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go pgquerynewcolumn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see:
 
-    1 1 100000
-    1 2 NULL
-    2 1 NULL
-    2 2 500000
-    2 3 NULL
+```
+1 1 100000
+1 2 NULL
+2 1 NULL
+2 2 500000
+2 3 NULL
+```
 
 ## Update data
 
@@ -944,165 +1030,173 @@ You use the `Update()` method to execute a DML statement.
 
 ### GoogleSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func writeWithTransactionUsingDML(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         // getBudget returns the budget for a record with a given albumId and singerId.
-         getBudget := func(albumID, singerID int64) (int64, error) {
-             key := spanner.Key{albumID, singerID}
-             row, err := txn.ReadRow(ctx, "Albums", key, []string{"MarketingBudget"})
-             if err != nil {
-                 return 0, err
-             }
-             var budget int64
-             if err := row.Column(0, &budget); err != nil {
-                 return 0, err
-             }
-             return budget, nil
-         }
-         // updateBudget updates the budget for a record with a given albumId and singerId.
-         updateBudget := func(singerID, albumID, albumBudget int64) error {
-             stmt := spanner.Statement{
-                 SQL: `UPDATE Albums
-                     SET MarketingBudget = @AlbumBudget
-                     WHERE SingerId = @SingerId and AlbumId = @AlbumId`,
-                 Params: map[string]interface{}{
-                     "SingerId":    singerID,
-                     "AlbumId":     albumID,
-                     "AlbumBudget": albumBudget,
-                 },
-             }
-             _, err := txn.Update(ctx, stmt)
-             return err
-         }
-    
-         // Transfer the marketing budget from one album to another. By keeping the actions
-         // in a single transaction, it ensures the movement is atomic.
-         const transferAmt = 200000
-         album2Budget, err := getBudget(2, 2)
-         if err != nil {
-             return err
-         }
-         // The transaction will only be committed if this condition still holds at the time
-         // of commit. Otherwise it will be aborted and the callable will be rerun by the
-         // client library.
-         if album2Budget >= transferAmt {
-             album1Budget, err := getBudget(1, 1)
-             if err != nil {
-                 return err
-             }
-             if err = updateBudget(1, 1, album1Budget+transferAmt); err != nil {
-                 return err
-             }
-             if err = updateBudget(2, 2, album2Budget-transferAmt); err != nil {
-                 return err
-             }
-             fmt.Fprintf(w, "Moved %d from Album2's MarketingBudget to Album1's.", transferAmt)
-         }
-         return nil
-     })
-     return err
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func writeWithTransactionUsingDML(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        // getBudget returns the budget for a record with a given albumId and singerId.
+        getBudget := func(albumID, singerID int64) (int64, error) {
+            key := spanner.Key{albumID, singerID}
+            row, err := txn.ReadRow(ctx, "Albums", key, []string{"MarketingBudget"})
+            if err != nil {
+                return 0, err
+            }
+            var budget int64
+            if err := row.Column(0, &budget); err != nil {
+                return 0, err
+            }
+            return budget, nil
+        }
+        // updateBudget updates the budget for a record with a given albumId and singerId.
+        updateBudget := func(singerID, albumID, albumBudget int64) error {
+            stmt := spanner.Statement{
+                SQL: `UPDATE Albums
+                    SET MarketingBudget = @AlbumBudget
+                    WHERE SingerId = @SingerId and AlbumId = @AlbumId`,
+                Params: map[string]interface{}{
+                    "SingerId":    singerID,
+                    "AlbumId":     albumID,
+                    "AlbumBudget": albumBudget,
+                },
+            }
+            _, err := txn.Update(ctx, stmt)
+            return err
+        }
+
+        // Transfer the marketing budget from one album to another. By keeping the actions
+        // in a single transaction, it ensures the movement is atomic.
+        const transferAmt = 200000
+        album2Budget, err := getBudget(2, 2)
+        if err != nil {
+            return err
+        }
+        // The transaction will only be committed if this condition still holds at the time
+        // of commit. Otherwise it will be aborted and the callable will be rerun by the
+        // client library.
+        if album2Budget >= transferAmt {
+            album1Budget, err := getBudget(1, 1)
+            if err != nil {
+                return err
+            }
+            if err = updateBudget(1, 1, album1Budget+transferAmt); err != nil {
+                return err
+            }
+            if err = updateBudget(2, 2, album2Budget-transferAmt); err != nil {
+                return err
+            }
+            fmt.Fprintf(w, "Moved %d from Album2's MarketingBudget to Album1's.", transferAmt)
+        }
+        return nil
+    })
+    return err
+}
+```
 
 ### PostgreSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-    )
-    
-    func pgWriteWithTransactionUsingDML(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         // getBudget returns the budget for a record with a given albumId and singerId.
-         getBudget := func(albumID, singerID int64) (int64, error) {
-             key := spanner.Key{albumID, singerID}
-             row, err := txn.ReadRow(ctx, "Albums", key, []string{"MarketingBudget"})
-             if err != nil {
-                 return 0, fmt.Errorf("error reading marketing budget for album_id=%v,singer_id=%v: %w",
-                     albumID, singerID, err)
-             }
-             var budget int64
-             if err := row.Column(0, &budget); err != nil {
-                 return 0, fmt.Errorf("error decoding marketing budget for album_id=%v,singer_id=%v: %w",
-                     albumID, singerID, err)
-             }
-             return budget, nil
-         }
-         // updateBudget updates the budget for a record with a given albumId and singerId.
-         updateBudget := func(singerID, albumID, albumBudget int64) error {
-             stmt := spanner.Statement{
-                 SQL: `UPDATE Albums
-                     SET MarketingBudget = $1
-                     WHERE SingerId = $2 and AlbumId = $3`,
-                 Params: map[string]interface{}{
-                     "p1": albumBudget,
-                     "p2": singerID,
-                     "p3": albumID,
-                 },
-             }
-             _, err := txn.Update(ctx, stmt)
-             return err
-         }
-    
-         // Transfer the marketing budget from one album to another. By keeping the actions
-         // in a single transaction, it ensures the movement is atomic.
-         const transferAmt = 200000
-         album2Budget, err := getBudget(2, 2)
-         if err != nil {
-             return err
-         }
-         // The transaction will only be committed if this condition still holds at the time
-         // of commit. Otherwise it will be aborted and the callable will be rerun by the
-         // client library.
-         if album2Budget >= transferAmt {
-             album1Budget, err := getBudget(1, 1)
-             if err != nil {
-                 return err
-             }
-             if err = updateBudget(1, 1, album1Budget+transferAmt); err != nil {
-                 return err
-             }
-             if err = updateBudget(2, 2, album2Budget-transferAmt); err != nil {
-                 return err
-             }
-             fmt.Fprintf(w, "Moved %d from Album2's MarketingBudget to Album1's.", transferAmt)
-         }
-         return nil
-     })
-     return err
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+)
+
+func pgWriteWithTransactionUsingDML(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        // getBudget returns the budget for a record with a given albumId and singerId.
+        getBudget := func(albumID, singerID int64) (int64, error) {
+            key := spanner.Key{albumID, singerID}
+            row, err := txn.ReadRow(ctx, "Albums", key, []string{"MarketingBudget"})
+            if err != nil {
+                return 0, fmt.Errorf("error reading marketing budget for album_id=%v,singer_id=%v: %w",
+                    albumID, singerID, err)
+            }
+            var budget int64
+            if err := row.Column(0, &budget); err != nil {
+                return 0, fmt.Errorf("error decoding marketing budget for album_id=%v,singer_id=%v: %w",
+                    albumID, singerID, err)
+            }
+            return budget, nil
+        }
+        // updateBudget updates the budget for a record with a given albumId and singerId.
+        updateBudget := func(singerID, albumID, albumBudget int64) error {
+            stmt := spanner.Statement{
+                SQL: `UPDATE Albums
+                    SET MarketingBudget = $1
+                    WHERE SingerId = $2 and AlbumId = $3`,
+                Params: map[string]interface{}{
+                    "p1": albumBudget,
+                    "p2": singerID,
+                    "p3": albumID,
+                },
+            }
+            _, err := txn.Update(ctx, stmt)
+            return err
+        }
+
+        // Transfer the marketing budget from one album to another. By keeping the actions
+        // in a single transaction, it ensures the movement is atomic.
+        const transferAmt = 200000
+        album2Budget, err := getBudget(2, 2)
+        if err != nil {
+            return err
+        }
+        // The transaction will only be committed if this condition still holds at the time
+        // of commit. Otherwise it will be aborted and the callable will be rerun by the
+        // client library.
+        if album2Budget >= transferAmt {
+            album1Budget, err := getBudget(1, 1)
+            if err != nil {
+                return err
+            }
+            if err = updateBudget(1, 1, album1Budget+transferAmt); err != nil {
+                return err
+            }
+            if err = updateBudget(2, 2, album2Budget-transferAmt); err != nil {
+                return err
+            }
+            fmt.Fprintf(w, "Moved %d from Album2's MarketingBudget to Album1's.", transferAmt)
+        }
+        return nil
+    })
+    return err
+}
+```
 
 Run the sample using the `dmlwritetxn` argument.
 
-    go run snippet.go dmlwritetxn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go dmlwritetxn projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see:
 
-    Moved 200000 from Album2's MarketingBudget to Album1's.
+```
+Moved 200000 from Album2's MarketingBudget to Album1's.
+```
 
 > **Note:** You can also [update data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api#updating_rows_in_a_table) .
 
@@ -1122,52 +1216,60 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for Go
 
 Use [`UpdateDatabaseDdl()`](https://pkg.go.dev/cloud.google.com/go/spanner//admin/database/apiv1#DatabaseAdminClient.UpdateDatabaseDdl) to add an index:
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
-    )
-    
-    func addIndex(ctx context.Context, w io.Writer, db string) error {
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
-     if err != nil {
-         return err
-     }
-     defer adminClient.Close()
-    
-     op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
-         Database: db,
-         Statements: []string{
-             "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)",
-         },
-     })
-     if err != nil {
-         return err
-     }
-     if err := op.Wait(ctx); err != nil {
-         return err
-     }
-     fmt.Fprintf(w, "Added index\n")
-     return nil
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    database "cloud.google.com/go/spanner/admin/database/apiv1"
+    adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+)
+
+func addIndex(ctx context.Context, w io.Writer, db string) error {
+    adminClient, err := database.NewDatabaseAdminClient(ctx)
+    if err != nil {
+        return err
     }
+    defer adminClient.Close()
+
+    op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
+        Database: db,
+        Statements: []string{
+            "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)",
+        },
+    })
+    if err != nil {
+        return err
+    }
+    if err := op.Wait(ctx); err != nil {
+        return err
+    }
+    fmt.Fprintf(w, "Added index\n")
+    return nil
+}
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Added index
+```
+Added index
+```
 
 ### Read using the index
 
@@ -1177,54 +1279,60 @@ To use the index in the read interface, use [`ReadOnlyTransaction.ReadUsingIndex
 
 The following code fetches all `AlbumId` , and `AlbumTitle` columns from the `AlbumsByAlbumTitle` index.
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func readUsingIndex(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     iter := client.Single().ReadUsingIndex(ctx, "Albums", "AlbumsByAlbumTitle", spanner.AllKeys(),
-         []string{"AlbumId", "AlbumTitle"})
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var albumID int64
-         var albumTitle string
-         if err := row.Columns(&albumID, &albumTitle); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %s\n", albumID, albumTitle)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+func readUsingIndex(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    iter := client.Single().ReadUsingIndex(ctx, "Albums", "AlbumsByAlbumTitle", spanner.AllKeys(),
+        []string{"AlbumId", "AlbumTitle"})
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var albumID int64
+        var albumTitle string
+        if err := row.Columns(&albumID, &albumTitle); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %s\n", albumID, albumTitle)
+    }
+}
+```
 
 Run the sample using the `readindex` argument.
 
-    go run snippet.go readindex projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go readindex projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see:
 
-    2 Forever Hold Your Peace
-    2 Go, Go, Go
-    1 Green
-    3 Terrified
-    1 Total Junk
+```
+2 Forever Hold Your Peace
+2 Go, Go, Go
+1 Green
+3 Terrified
+1 Total Junk
+```
 
 ### Add an index for index-only reads
 
@@ -1236,17 +1344,23 @@ Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `Ma
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for Go
 
@@ -1254,146 +1368,162 @@ Use [`UpdateDatabaseDdl()`](https://pkg.go.dev/cloud.google.com/go/spanner//admi
 
 ### GoogleSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
-    )
-    
-    func addStoringIndex(ctx context.Context, w io.Writer, db string) error {
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
-     if err != nil {
-         return err
-     }
-     defer adminClient.Close()
-    
-     op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
-         Database: db,
-         Statements: []string{
-             "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)",
-         },
-     })
-     if err != nil {
-         return err
-     }
-     if err := op.Wait(ctx); err != nil {
-         return err
-     }
-     fmt.Fprintf(w, "Added storing index\n")
-     return nil
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    database "cloud.google.com/go/spanner/admin/database/apiv1"
+    adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+)
+
+func addStoringIndex(ctx context.Context, w io.Writer, db string) error {
+    adminClient, err := database.NewDatabaseAdminClient(ctx)
+    if err != nil {
+        return err
     }
+    defer adminClient.Close()
+
+    op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
+        Database: db,
+        Statements: []string{
+            "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)",
+        },
+    })
+    if err != nil {
+        return err
+    }
+    if err := op.Wait(ctx); err != nil {
+        return err
+    }
+    fmt.Fprintf(w, "Added storing index\n")
+    return nil
+}
+```
 
 ### PostgreSQL
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     database "cloud.google.com/go/spanner/admin/database/apiv1"
-     adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
-    )
-    
-    // pgAddStoringIndex shows how to create 'STORING' indexes on a Spanner
-    // PostgreSQL database. The PostgreSQL dialect uses INCLUDE keyword, as
-    // opposed to the STORING keyword of Cloud Spanner.
-    func pgAddStoringIndex(ctx context.Context, w io.Writer, db string) error {
-     // db := "projects/my-project/instances/my-instance/databases/my-database"
-     adminClient, err := database.NewDatabaseAdminClient(ctx)
-     if err != nil {
-         return fmt.Errorf("failed to initialize spanner database admin client: %w", err)
-     }
-     defer adminClient.Close()
-    
-     op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
-         Database: db,
-         Statements: []string{
-             "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)",
-         },
-     })
-     if err != nil {
-         return fmt.Errorf("failed to execute spanner database DDL request: %w", err)
-     }
-     if err := op.Wait(ctx); err != nil {
-         return fmt.Errorf("failed to complete spanner database DDL request: %w", err)
-     }
-     fmt.Fprintf(w, "Added storing index\n")
-     return nil
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    database "cloud.google.com/go/spanner/admin/database/apiv1"
+    adminpb "cloud.google.com/go/spanner/admin/database/apiv1/databasepb"
+)
+
+// pgAddStoringIndex shows how to create 'STORING' indexes on a Spanner
+// PostgreSQL database. The PostgreSQL dialect uses INCLUDE keyword, as
+// opposed to the STORING keyword of Cloud Spanner.
+func pgAddStoringIndex(ctx context.Context, w io.Writer, db string) error {
+    // db := "projects/my-project/instances/my-instance/databases/my-database"
+    adminClient, err := database.NewDatabaseAdminClient(ctx)
+    if err != nil {
+        return fmt.Errorf("failed to initialize spanner database admin client: %w", err)
     }
+    defer adminClient.Close()
+
+    op, err := adminClient.UpdateDatabaseDdl(ctx, &adminpb.UpdateDatabaseDdlRequest{
+        Database: db,
+        Statements: []string{
+            "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)",
+        },
+    })
+    if err != nil {
+        return fmt.Errorf("failed to execute spanner database DDL request: %w", err)
+    }
+    if err := op.Wait(ctx); err != nil {
+        return fmt.Errorf("failed to complete spanner database DDL request: %w", err)
+    }
+    fmt.Fprintf(w, "Added storing index\n")
+    return nil
+}
+```
 
 Run the sample using the `addstoringindex` argument.
 
 ### GoogleSQL
 
-    go run snippet.go addstoringindex projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go addstoringindex projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 ### PostgreSQL
 
-    go run snippet.go pgaddstoringindex projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go pgaddstoringindex projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Added storing index
+```
+Added storing index
+```
 
 Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
-    import (
-     "context"
-     "fmt"
-     "io"
-     "strconv"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func readStoringIndex(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     iter := client.Single().ReadUsingIndex(ctx, "Albums", "AlbumsByAlbumTitle2", spanner.AllKeys(),
-         []string{"AlbumId", "AlbumTitle", "MarketingBudget"})
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var albumID int64
-         var marketingBudget spanner.NullInt64
-         var albumTitle string
-         if err := row.Columns(&albumID, &albumTitle, &marketingBudget); err != nil {
-             return err
-         }
-         budget := "NULL"
-         if marketingBudget.Valid {
-             budget = strconv.FormatInt(marketingBudget.Int64, 10)
-         }
-         fmt.Fprintf(w, "%d %s %s\n", albumID, albumTitle, budget)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+    "strconv"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+func readStoringIndex(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    iter := client.Single().ReadUsingIndex(ctx, "Albums", "AlbumsByAlbumTitle2", spanner.AllKeys(),
+        []string{"AlbumId", "AlbumTitle", "MarketingBudget"})
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var albumID int64
+        var marketingBudget spanner.NullInt64
+        var albumTitle string
+        if err := row.Columns(&albumID, &albumTitle, &marketingBudget); err != nil {
+            return err
+        }
+        budget := "NULL"
+        if marketingBudget.Valid {
+            budget = strconv.FormatInt(marketingBudget.Int64, 10)
+        }
+        fmt.Fprintf(w, "%d %s %s\n", albumID, albumTitle, budget)
+    }
+}
+```
 
 Run the sample using the `readstoringindex` argument.
 
-    go run snippet.go readstoringindex projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go readstoringindex projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see output similar to:
 
-    2 Forever Hold Your Peace 300000
-    2 Go, Go, Go NULL
-    1 Green NULL
-    3 Terrified NULL
-    1 Total Junk 300000
+```
+2 Forever Hold Your Peace 300000
+2 Go, Go, Go NULL
+1 Green NULL
+3 Terrified NULL
+1 Total Junk 300000
+```
 
 ## Retrieve data using read-only transactions
 
@@ -1401,81 +1531,87 @@ Suppose you want to execute more than one read at the same timestamp. [Read-only
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     "google.golang.org/api/iterator"
-    )
-    
-    func readOnlyTransaction(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     ro := client.ReadOnlyTransaction()
-     defer ro.Close()
-     stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, AlbumTitle FROM Albums`}
-     iter := ro.Query(ctx, stmt)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             break
-         }
-         if err != nil {
-             return err
-         }
-         var singerID int64
-         var albumID int64
-         var albumTitle string
-         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
-     }
-    
-     iter = ro.Read(ctx, "Albums", spanner.AllKeys(), []string{"SingerId", "AlbumId", "AlbumTitle"})
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var singerID int64
-         var albumID int64
-         var albumTitle string
-         if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
-     }
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    "google.golang.org/api/iterator"
+)
+
+func readOnlyTransaction(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    ro := client.ReadOnlyTransaction()
+    defer ro.Close()
+    stmt := spanner.Statement{SQL: `SELECT SingerId, AlbumId, AlbumTitle FROM Albums`}
+    iter := ro.Query(ctx, stmt)
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            break
+        }
+        if err != nil {
+            return err
+        }
+        var singerID int64
+        var albumID int64
+        var albumTitle string
+        if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
+    }
+
+    iter = ro.Read(ctx, "Albums", spanner.AllKeys(), []string{"SingerId", "AlbumId", "AlbumTitle"})
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var singerID int64
+        var albumID int64
+        var albumTitle string
+        if err := row.Columns(&singerID, &albumID, &albumTitle); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %d %s\n", singerID, albumID, albumTitle)
+    }
+}
+```
 
 Run the sample using the `readonlytransaction` argument.
 
-    go run snippet.go readonlytransaction projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
+go run snippet.go readonlytransaction projects/PROJECT_ID/instances/test-instance/databases/example-db
+```
 
 You should see output similar to:
 
-    2 2 Forever Hold Your Peace
-    1 2 Go, Go, Go
-    2 1 Green
-    2 3 Terrified
-    1 1 Total Junk
-    1 1 Total Junk
-    1 2 Go, Go, Go
-    2 1 Green
-    2 2 Forever Hold Your Peace
-    2 3 Terrified
+```
+2 2 Forever Hold Your Peace
+1 2 Go, Go, Go
+2 1 Green
+2 3 Terrified
+1 1 Total Junk
+1 1 Total Junk
+1 2 Go, Go, Go
+2 1 Green
+2 2 Forever Hold Your Peace
+2 3 Terrified
+```
 
 ## Cleanup
 
@@ -1487,7 +1623,9 @@ If you delete an instance, all databases within it are automatically deleted. Th
 
 #### On the command line
 
-    gcloud spanner databases delete example-db --instance=test-instance
+```
+gcloud spanner databases delete example-db --instance=test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1507,7 +1645,9 @@ Deleting an instance automatically drops all databases created in that instance.
 
 #### On the command line
 
-    gcloud spanner instances delete test-instance
+```
+gcloud spanner instances delete test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -1521,8 +1661,8 @@ Deleting an instance automatically drops all databases created in that instance.
 
 ## What's next
 
-  - Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
+- Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
 
-  - Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
 
-  - Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .

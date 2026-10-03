@@ -10,13 +10,13 @@ data_source: docs.cloud.google.com
 
 This tutorial walks you through the following steps using the Spanner client library for Ruby:
 
-  - Create a Spanner instance and database.
-  - Write, read, and execute SQL queries on data in the database.
-  - Update the database schema.
-  - Update data using a read-write transaction.
-  - Add a secondary index to the database.
-  - Use the index to read and execute SQL queries on data.
-  - Retrieve data using a read-only transaction.
+- Create a Spanner instance and database.
+- Write, read, and execute SQL queries on data in the database.
+- Update the database schema.
+- Update data using a read-write transaction.
+- Add a secondary index to the database.
+- Use the index to read and execute SQL queries on data.
+- Retrieve data using a read-only transaction.
 
 ## Costs
 
@@ -33,27 +33,35 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 ## Prepare your local Ruby environment
 
 1.  Install the following on your development machine if they are not already installed:
-    
-      - [Ruby](https://www.ruby-lang.org/en/downloads/)
-      - [Bundler](https://bundler.io/#getting-started)
+
+    - [Ruby](https://www.ruby-lang.org/en/downloads/)
+    - [Bundler](https://bundler.io/#getting-started)
 
 2.  Clone the sample app repository to your local machine:
-    
-        git clone https://github.com/GoogleCloudPlatform/ruby-docs-samples
-    
+
+    ```
+    git clone https://github.com/GoogleCloudPlatform/ruby-docs-samples
+    ```
+
     Alternatively, you can [download the sample](https://github.com/GoogleCloudPlatform/ruby-docs-samples/archive/main.zip) as a zip file and extract it.
 
 3.  Change to the directory that contains the Spanner sample code:
-    
-        cd ruby-docs-samples/spanner/
+
+    ```
+    cd ruby-docs-samples/spanner/
+    ```
 
 4.  Install dependencies:
-    
-        bundle install
 
-5.  Set the GOOGLE\_CLOUD\_PROJECT environment variable to your Google Cloud project ID:
-    
-        export GOOGLE_CLOUD_PROJECT=[MY_PROJECT_ID]
+    ```
+    bundle install
+    ```
+
+5.  Set the GOOGLE_CLOUD_PROJECT environment variable to your Google Cloud project ID:
+
+    ```
+    export GOOGLE_CLOUD_PROJECT=[MY_PROJECT_ID]
+    ```
 
 ## Create an instance
 
@@ -61,9 +69,9 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
-  - The Google Cloud CLI
-  - The Google Cloud console
-  - A client library (C++, C\#, Go, Java, Node.js, PHP, Python, or Ruby)
+- The Google Cloud CLI
+- The Google Cloud console
+- A client library (C++, C#, Go, Java, Node.js, PHP, Python, or Ruby)
 
 ## Look through sample files
 
@@ -75,15 +83,21 @@ Take a look through the `spanner_samples.rb` file, which shows how to use Spanne
 
 ### GoogleSQL
 
-    bundle exec ruby spanner_samples.rb create_database test-instance example-db
+```
+bundle exec ruby spanner_samples.rb create_database test-instance example-db
+```
 
 ### PostgreSQL
 
-    bundle exec ruby spanner_postgresql_create_database.rb postgresql_create_database MY_PROJECT_ID test-instance example-db
+```
+bundle exec ruby spanner_postgresql_create_database.rb postgresql_create_database MY_PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Created database example-db on instance test-instance
+```
+Created database example-db on instance test-instance
+```
 
 The following code creates a database and two tables in the database.
 
@@ -91,65 +105,69 @@ The following code creates a database and two tables in the database.
 
 ### GoogleSQL
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    require "google/cloud/spanner/admin/database"
-    
-    database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin
-    
-    instance_path = database_admin_client.instance_path project: project_id, instance: instance_id
-    
-    job = database_admin_client.create_database parent: instance_path,
-                                                create_statement: "CREATE DATABASE `#{database_id}`",
-                                                extra_statements: [
-                                                  "CREATE TABLE Singers (
-          SingerId     INT64 NOT NULL,
-          FirstName    STRING(1024),
-          LastName     STRING(1024),
-          SingerInfo   BYTES(MAX)
-        ) PRIMARY KEY (SingerId)",
-    
-                                                  "CREATE TABLE Albums (
-          SingerId     INT64 NOT NULL,
-          AlbumId      INT64 NOT NULL,
-          AlbumTitle   STRING(MAX)
-        ) PRIMARY KEY (SingerId, AlbumId),
-        INTERLEAVE IN PARENT Singers ON DELETE CASCADE"
-                                                ]
-    
-    puts "Waiting for create database operation to complete"
-    
-    job.wait_until_done!
-    
-    puts "Created database #{database_id} on instance #{instance_id}"
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+require "google/cloud/spanner/admin/database"
+
+database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin
+
+instance_path = database_admin_client.instance_path project: project_id, instance: instance_id
+
+job = database_admin_client.create_database parent: instance_path,
+                                            create_statement: "CREATE DATABASE `#{database_id}`",
+                                            extra_statements: [
+                                              "CREATE TABLE Singers (
+      SingerId     INT64 NOT NULL,
+      FirstName    STRING(1024),
+      LastName     STRING(1024),
+      SingerInfo   BYTES(MAX)
+    ) PRIMARY KEY (SingerId)",
+
+                                              "CREATE TABLE Albums (
+      SingerId     INT64 NOT NULL,
+      AlbumId      INT64 NOT NULL,
+      AlbumTitle   STRING(MAX)
+    ) PRIMARY KEY (SingerId, AlbumId),
+    INTERLEAVE IN PARENT Singers ON DELETE CASCADE"
+                                            ]
+
+puts "Waiting for create database operation to complete"
+
+job.wait_until_done!
+
+puts "Created database #{database_id} on instance #{instance_id}"
+```
 
 ### PostgreSQL
 
-    require "google/cloud/spanner"
-    require "google/cloud/spanner/admin/database"
-    
-    def postgresql_create_database project_id:, instance_id:, database_id:
-      # project_id  = "Your Google Cloud project ID"
-      # instance_id = "Your Spanner instance ID"
-      # database_id = "Your Spanner database ID"
-    
-      database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin project: project_id
-    
-      instance_path = database_admin_client.instance_path project: project_id, instance: instance_id
-    
-      job = database_admin_client.create_database parent: instance_path,
-                                                  create_statement: "CREATE DATABASE \"#{database_id}\"",
-                                                  database_dialect: :POSTGRESQL
-    
-      puts "Waiting for create database operation to complete"
-    
-      job.wait_until_done!
-    
-      puts "Created database #{database_id} on instance #{instance_id}"
-    end
+```ruby
+require "google/cloud/spanner"
+require "google/cloud/spanner/admin/database"
+
+def postgresql_create_database project_id:, instance_id:, database_id:
+  # project_id  = "Your Google Cloud project ID"
+  # instance_id = "Your Spanner instance ID"
+  # database_id = "Your Spanner database ID"
+
+  database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin project: project_id
+
+  instance_path = database_admin_client.instance_path project: project_id, instance: instance_id
+
+  job = database_admin_client.create_database parent: instance_path,
+                                              create_statement: "CREATE DATABASE \"#{database_id}\"",
+                                              database_dialect: :POSTGRESQL
+
+  puts "Waiting for create database operation to complete"
+
+  job.wait_until_done!
+
+  puts "Created database #{database_id} on instance #{instance_id}"
+end
+```
 
 The next step is to write data to your database.
 
@@ -157,33 +175,33 @@ The next step is to write data to your database.
 
 Before you can do reads or writes, you must create a [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) . You can think of a `Client` as a database connection: all of your interactions with Spanner must go through a `Client` . Typically you create a `Client` when your application starts up, then you re-use that `Client` to read, write, and execute transactions. The following code shows how to create a client.
 
-    # Imports the Google Cloud client library
-    require "google/cloud/spanner"
-    
-    # Your Google Cloud Platform project ID
-    project_id = "YOUR_PROJECT_ID"
-    
-    # Instantiates a client
-    spanner = Google::Cloud::Spanner.new project: project_id
-    
-    # Your Cloud Spanner instance ID
-    instance_id = "my-instance"
-    
-    # Your Cloud Spanner database ID
-    database_id = "my-database"
-    
-    # Gets a reference to a Cloud Spanner instance database
-    database_client = spanner.client instance_id, database_id
-    
-    # Execute a simple SQL statement
-    results = database_client.execute_query "SELECT 1"
-    results.rows.each do |row|
-      puts row
-    end
+```ruby
+# Imports the Google Cloud client library
+require "google/cloud/spanner"
+
+# Your Google Cloud Platform project ID
+project_id = "YOUR_PROJECT_ID"
+
+# Instantiates a client
+spanner = Google::Cloud::Spanner.new project: project_id
+
+# Your Cloud Spanner instance ID
+instance_id = "my-instance"
+
+# Your Cloud Spanner database ID
+database_id = "my-database"
+
+# Gets a reference to a Cloud Spanner instance database
+database_client = spanner.client instance_id, database_id
+
+# Execute a simple SQL statement
+results = database_client.execute_query "SELECT 1"
+results.rows.each do |row|
+  puts row
+end
+```
 
 Read more in the [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) reference.
-
-<span id="write_data"></span>
 
 ## Write data with DML
 
@@ -191,51 +209,53 @@ You can insert data using Data Manipulation Language (DML) in a read-write trans
 
 You use the `execute_update()` method to execute a DML statement.
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    row_count = 0
-    
-    client.transaction do |transaction|
-      row_count = transaction.execute_update(
-        "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES
-         (12, 'Melissa', 'Garcia'),
-         (13, 'Russell', 'Morales'),
-         (14, 'Jacqueline', 'Long'),
-         (15, 'Dylan', 'Shaw'),
-         (16, 'Billie', 'Eillish'),
-         (17, 'Judy', 'Garland'),
-         (18, 'Taylor', 'Swift'),
-         (19, 'Miley', 'Cyrus'),
-         (20, 'Michael', 'Jackson'),
-         (21, 'Ariana', 'Grande'),
-         (22, 'Elvis', 'Presley'),
-         (23, 'Kanye', 'West'),
-         (24, 'Lady', 'Gaga'),
-         (25, 'Nick', 'Jonas')"
-      )
-    end
-    
-    puts "#{row_count} records inserted."
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+row_count = 0
+
+client.transaction do |transaction|
+  row_count = transaction.execute_update(
+    "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES
+     (12, 'Melissa', 'Garcia'),
+     (13, 'Russell', 'Morales'),
+     (14, 'Jacqueline', 'Long'),
+     (15, 'Dylan', 'Shaw'),
+     (16, 'Billie', 'Eillish'),
+     (17, 'Judy', 'Garland'),
+     (18, 'Taylor', 'Swift'),
+     (19, 'Miley', 'Cyrus'),
+     (20, 'Michael', 'Jackson'),
+     (21, 'Ariana', 'Grande'),
+     (22, 'Elvis', 'Presley'),
+     (23, 'Kanye', 'West'),
+     (24, 'Lady', 'Gaga'),
+     (25, 'Nick', 'Jonas')"
+  )
+end
+
+puts "#{row_count} records inserted."
+```
 
 Run the sample using the `write_using_dml` argument.
 
-    bundle exec ruby spanner_samples.rb write_using_dml test-instance example-db
+```
+bundle exec ruby spanner_samples.rb write_using_dml test-instance example-db
+```
 
 You should see:
 
-``` 
+```
  4 records inserted.
 ```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
-
-<span id="write_data_with_mutations"></span>
 
 ## Write data with mutations
 
@@ -245,41 +265,47 @@ You write data using a [`Client`](https://docs.cloud.google.com/ruby/docs/refere
 
 This code shows how to write the data using mutations:
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    client.commit do |c|
-      c.insert "Singers", [
-        { SingerId: 1, FirstName: "Marc",     LastName: "Richards" },
-        { SingerId: 2, FirstName: "Catalina", LastName: "Smith"    },
-        { SingerId: 3, FirstName: "Alice",    LastName: "Trentor"  },
-        { SingerId: 4, FirstName: "Lea",      LastName: "Martin"   },
-        { SingerId: 5, FirstName: "David",    LastName: "Lomond"   }
-      ]
-      c.insert "Albums", [
-        { SingerId: 1, AlbumId: 1, AlbumTitle: "Total Junk" },
-        { SingerId: 1, AlbumId: 2, AlbumTitle: "Go, Go, Go" },
-        { SingerId: 2, AlbumId: 1, AlbumTitle: "Green" },
-        { SingerId: 2, AlbumId: 2, AlbumTitle: "Forever Hold Your Peace" },
-        { SingerId: 2, AlbumId: 3, AlbumTitle: "Terrified" }
-      ]
-    end
-    
-    puts "Inserted data"
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+client.commit do |c|
+  c.insert "Singers", [
+    { SingerId: 1, FirstName: "Marc",     LastName: "Richards" },
+    { SingerId: 2, FirstName: "Catalina", LastName: "Smith"    },
+    { SingerId: 3, FirstName: "Alice",    LastName: "Trentor"  },
+    { SingerId: 4, FirstName: "Lea",      LastName: "Martin"   },
+    { SingerId: 5, FirstName: "David",    LastName: "Lomond"   }
+  ]
+  c.insert "Albums", [
+    { SingerId: 1, AlbumId: 1, AlbumTitle: "Total Junk" },
+    { SingerId: 1, AlbumId: 2, AlbumTitle: "Go, Go, Go" },
+    { SingerId: 2, AlbumId: 1, AlbumTitle: "Green" },
+    { SingerId: 2, AlbumId: 2, AlbumTitle: "Forever Hold Your Peace" },
+    { SingerId: 2, AlbumId: 3, AlbumTitle: "Terrified" }
+  ]
+end
+
+puts "Inserted data"
+```
 
 Run the sample using the `insert_data` argument.
 
-    bundle exec ruby spanner_samples.rb insert_data test-instance example-db
+```
+bundle exec ruby spanner_samples.rb insert_data test-instance example-db
+```
 
 You should see:
 
-    Inserted data
+```
+Inserted data
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
@@ -293,24 +319,30 @@ Execute the following SQL statement to read the values of all columns from the `
 
 ### GoogleSQL
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
 
 ### GoogleSQL Pipe syntax
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
 
 > **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
-    SingerId AlbumId AlbumTitle
-    1        1       Total Junk
-    1        2       Go, Go, Go
-    2        1       Green
-    2        2       Forever Hold Your Peace
-    2        3       Terrified
+```
+SingerId AlbumId AlbumTitle
+1        1       Total Junk
+1        2       Go, Go, Go
+2        1       Green
+2        2       Forever Hold Your Peace
+2        3       Terrified
+```
 
 ### Use the Spanner client library for Ruby
 
@@ -320,30 +352,36 @@ Use the [`Client#execute`](https://docs.cloud.google.com/ruby/docs/reference/goo
 
 Here's how to issue the query and access the data:
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    client.execute("SELECT SingerId, AlbumId, AlbumTitle FROM Albums").rows.each do |row|
-      puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:AlbumTitle]}"
-    end
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+client.execute("SELECT SingerId, AlbumId, AlbumTitle FROM Albums").rows.each do |row|
+  puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:AlbumTitle]}"
+end
+```
 
 Run the sample using the `query_data` argument.
 
-    bundle exec ruby spanner_samples.rb query_data test-instance example-db
+```
+bundle exec ruby spanner_samples.rb query_data test-instance example-db
+```
 
 You should see the following result:
 
-    1 1 Total Junk
-    1 2 Go, Go, Go
-    2 1 Green
-    2 2 Forever Hold Your Peace
-    2 3 Terrified
+```
+1 1 Total Junk
+1 2 Go, Go, Go
+2 1 Green
+2 2 Forever Hold Your Peace
+2 3 Terrified
+```
 
 ### Query using a SQL parameter
 
@@ -353,57 +391,65 @@ Here is an example of using a parameter in the `WHERE` clause to query records c
 
 ### GoogleSQL
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    sql_query = "SELECT SingerId, FirstName, LastName
-                 FROM Singers
-                 WHERE LastName = @lastName"
-    
-    params      = { lastName: "Garcia" }
-    param_types = { lastName: :STRING }
-    
-    client.execute(sql_query, params: params, types: param_types).rows.each do |row|
-      puts "#{row[:SingerId]} #{row[:FirstName]} #{row[:LastName]}"
-    end
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+sql_query = "SELECT SingerId, FirstName, LastName
+             FROM Singers
+             WHERE LastName = @lastName"
+
+params      = { lastName: "Garcia" }
+param_types = { lastName: :STRING }
+
+client.execute(sql_query, params: params, types: param_types).rows.each do |row|
+  puts "#{row[:SingerId]} #{row[:FirstName]} #{row[:LastName]}"
+end
+```
 
 ### PostgreSQL
 
-    def spanner_postgresql_query_parameter project_id:, instance_id:, database_id:
-      # project_id  = "Your Google Cloud project ID"
-      # instance_id = "Your Spanner instance ID"
-      # database_id = "Your Spanner database ID"
-    
-      require "google/cloud/spanner"
-    
-      spanner = Google::Cloud::Spanner.new project: project_id
-      client  = spanner.client instance_id, database_id
-    
-      sql_query = "SELECT SingerId, FirstName, LastName FROM Singers WHERE FirstName LIKE $1"
-      params = { p1: "A%" }
-    
-      results = client.execute sql_query, params: params
-    
-      results.rows.each do |row|
-        puts "SingerId: #{row[:singerid]}"
-        puts "FirstName: #{row[:firstname]}"
-        puts "LastName: #{row[:lastname]}"
-      end
-    end
+```ruby
+def spanner_postgresql_query_parameter project_id:, instance_id:, database_id:
+  # project_id  = "Your Google Cloud project ID"
+  # instance_id = "Your Spanner instance ID"
+  # database_id = "Your Spanner database ID"
 
-Run the sample using the query\_with\_parameter argument.
+  require "google/cloud/spanner"
 
-    bundle exec ruby spanner_samples.rb query_with_parameter test-instance example-db
+  spanner = Google::Cloud::Spanner.new project: project_id
+  client  = spanner.client instance_id, database_id
+
+  sql_query = "SELECT SingerId, FirstName, LastName FROM Singers WHERE FirstName LIKE $1"
+  params = { p1: "A%" }
+
+  results = client.execute sql_query, params: params
+
+  results.rows.each do |row|
+    puts "SingerId: #{row[:singerid]}"
+    puts "FirstName: #{row[:firstname]}"
+    puts "LastName: #{row[:lastname]}"
+  end
+end
+```
+
+Run the sample using the query_with_parameter argument.
+
+```
+bundle exec ruby spanner_samples.rb query_with_parameter test-instance example-db
+```
 
 You should see the following result:
 
-    12 Melissa Garcia
+```
+12 Melissa Garcia
+```
 
 ## Read data using the read API
 
@@ -413,30 +459,36 @@ Use the [`Client#read`](https://docs.cloud.google.com/ruby/docs/reference/google
 
 Here's how to read the data:
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    client.read("Albums", [:SingerId, :AlbumId, :AlbumTitle]).rows.each do |row|
-      puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:AlbumTitle]}"
-    end
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+client.read("Albums", [:SingerId, :AlbumId, :AlbumTitle]).rows.each do |row|
+  puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:AlbumTitle]}"
+end
+```
 
 Run the sample using the `read_data` argument.
 
-    bundle exec ruby spanner_samples.rb read_data test-instance example-db
+```
+bundle exec ruby spanner_samples.rb read_data test-instance example-db
+```
 
 You should see output similar to:
 
-    1 1 Total Junk
-    1 2 Go, Go, Go
-    2 1 Green
-    2 2 Forever Hold Your Peace
-    2 3 Terrified
+```
+1 1 Total Junk
+1 2 Go, Go, Go
+2 1 Green
+2 2 Forever Hold Your Peace
+2 3 Terrified
+```
 
 ## Update the database schema
 
@@ -452,17 +504,23 @@ Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/ref
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Use the Spanner client library for Ruby
 
@@ -470,127 +528,147 @@ Use the [`Database#update`](https://docs.cloud.google.com/ruby/docs/reference/go
 
 ### GoogleSQL
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    require "google/cloud/spanner/admin/database"
-    
-    database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin
-    
-    db_path = database_admin_client.database_path project: project_id,
-                                                  instance: instance_id,
-                                                  database: database_id
-    
-    job = database_admin_client.update_database_ddl database: db_path,
-                                                    statements: [
-                                                      "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64"
-                                                    ]
-    
-    puts "Waiting for database update to complete"
-    
-    job.wait_until_done!
-    
-    puts "Added the MarketingBudget column"
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+require "google/cloud/spanner/admin/database"
+
+database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin
+
+db_path = database_admin_client.database_path project: project_id,
+                                              instance: instance_id,
+                                              database: database_id
+
+job = database_admin_client.update_database_ddl database: db_path,
+                                                statements: [
+                                                  "ALTER TABLE Albums ADD COLUMN MarketingBudget INT64"
+                                                ]
+
+puts "Waiting for database update to complete"
+
+job.wait_until_done!
+
+puts "Added the MarketingBudget column"
+```
 
 ### PostgreSQL
 
-    require "google/cloud/spanner"
-    require "google/cloud/spanner/admin/database"
-    
-    def spanner_postgresql_add_column project_id:, instance_id:, database_id:
-      # project_id  = "Your Google Cloud project ID"
-      # instance_id = "Your Spanner instance ID"
-      # database_id = "Your Spanner database ID"
-    
-      db_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin project: project_id
-    
-      db_path = db_admin_client.database_path project: project_id,
-                                              instance: instance_id,
-                                              database: database_id
-    
-      add_column_query = "ALTER TABLE Singers ADD COLUMN Age INTEGER"
-    
-      job = db_admin_client.update_database_ddl database: db_path,
-                                                statements: [add_column_query]
-    
-      job.wait_until_done!
-    
-      if job.error?
-        puts "Error while adding column. Code: #{job.error.code}. Message: #{job.error.message}"
-        raise GRPC::BadStatus.new(job.error.code, job.error.message)
-      end
-    
-      puts "Added Age column to Singers table in datbase #{database_id}"
-    end
+```ruby
+require "google/cloud/spanner"
+require "google/cloud/spanner/admin/database"
+
+def spanner_postgresql_add_column project_id:, instance_id:, database_id:
+  # project_id  = "Your Google Cloud project ID"
+  # instance_id = "Your Spanner instance ID"
+  # database_id = "Your Spanner database ID"
+
+  db_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin project: project_id
+
+  db_path = db_admin_client.database_path project: project_id,
+                                          instance: instance_id,
+                                          database: database_id
+
+  add_column_query = "ALTER TABLE Singers ADD COLUMN Age INTEGER"
+
+  job = db_admin_client.update_database_ddl database: db_path,
+                                            statements: [add_column_query]
+
+  job.wait_until_done!
+
+  if job.error?
+    puts "Error while adding column. Code: #{job.error.code}. Message: #{job.error.message}"
+    raise GRPC::BadStatus.new(job.error.code, job.error.message)
+  end
+
+  puts "Added Age column to Singers table in datbase #{database_id}"
+end
+```
 
 Run the sample using the `add_column` argument.
 
-    bundle exec ruby spanner_samples.rb add_column test-instance example-db
+```
+bundle exec ruby spanner_samples.rb add_column test-instance example-db
+```
 
 You should see:
 
-    Added the MarketingBudget column
+```
+Added the MarketingBudget column
+```
 
 ### Write data to the new column
 
 The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    client.commit do |c|
-      c.update "Albums", [
-        { SingerId: 1, AlbumId: 1, MarketingBudget: 100_000 },
-        { SingerId: 2, AlbumId: 2, MarketingBudget: 500_000 }
-      ]
-    end
-    
-    puts "Updated data"
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+client.commit do |c|
+  c.update "Albums", [
+    { SingerId: 1, AlbumId: 1, MarketingBudget: 100_000 },
+    { SingerId: 2, AlbumId: 2, MarketingBudget: 500_000 }
+  ]
+end
+
+puts "Updated data"
+```
 
 Run the sample using the `update_data` argument.
 
-    bundle exec ruby spanner_samples.rb update_data test-instance example-db
+```
+bundle exec ruby spanner_samples.rb update_data test-instance example-db
+```
 
 You should see:
 
-    Updated data
+```
+Updated data
+```
 
 You can also execute a SQL query or a read call to fetch the values that you just wrote.
 
 Here's the code to execute the query:
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    client.execute("SELECT SingerId, AlbumId, MarketingBudget FROM Albums").rows.each do |row|
-      puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:MarketingBudget]}"
-    end
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+client.execute("SELECT SingerId, AlbumId, MarketingBudget FROM Albums").rows.each do |row|
+  puts "#{row[:SingerId]} #{row[:AlbumId]} #{row[:MarketingBudget]}"
+end
+```
 
 To execute this query, run the sample using the `query_data_with_new_column` argument.
 
-    bundle exec ruby spanner_samples.rb query_data_with_new_column test-instance example-db
+```
+bundle exec ruby spanner_samples.rb query_data_with_new_column test-instance example-db
+```
 
 You should see:
 
-    1 1 100000
-    1 2
-    2 1
-    2 2 500000
-    2 3
+```
+1 1 100000
+1 2
+2 1
+2 2 500000
+2 3
+```
 
 ## Update data
 
@@ -600,72 +678,80 @@ You use the `execute_update()` method to execute a DML statement.
 
 ### GoogleSQL
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner         = Google::Cloud::Spanner.new project: project_id
-    client          = spanner.client instance_id, database_id
-    transfer_amount = 200_000
-    
-    client.transaction do |transaction|
-      first_album = transaction.execute(
-        "SELECT MarketingBudget from Albums
-         WHERE SingerId = 1 and AlbumId = 1"
-      ).rows.first
-      second_album = transaction.execute(
-        "SELECT MarketingBudget from Albums
-        WHERE SingerId = 2 and AlbumId = 2"
-      ).rows.first
-      raise "The second album does not have enough funds to transfer" if second_album[:MarketingBudget] < transfer_amount
-    
-      new_first_album_budget  = first_album[:MarketingBudget] + transfer_amount
-      new_second_album_budget = second_album[:MarketingBudget] - transfer_amount
-    
-      transaction.execute_update(
-        "UPDATE Albums SET MarketingBudget = @albumBudget WHERE SingerId = 1 and AlbumId = 1",
-        params: { albumBudget: new_first_album_budget }
-      )
-      transaction.execute_update(
-        "UPDATE Albums SET MarketingBudget = @albumBudget WHERE SingerId = 2 and AlbumId = 2",
-        params: { albumBudget: new_second_album_budget }
-      )
-    end
-    
-    puts "Transaction complete"
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner         = Google::Cloud::Spanner.new project: project_id
+client          = spanner.client instance_id, database_id
+transfer_amount = 200_000
+
+client.transaction do |transaction|
+  first_album = transaction.execute(
+    "SELECT MarketingBudget from Albums
+     WHERE SingerId = 1 and AlbumId = 1"
+  ).rows.first
+  second_album = transaction.execute(
+    "SELECT MarketingBudget from Albums
+    WHERE SingerId = 2 and AlbumId = 2"
+  ).rows.first
+  raise "The second album does not have enough funds to transfer" if second_album[:MarketingBudget] < transfer_amount
+
+  new_first_album_budget  = first_album[:MarketingBudget] + transfer_amount
+  new_second_album_budget = second_album[:MarketingBudget] - transfer_amount
+
+  transaction.execute_update(
+    "UPDATE Albums SET MarketingBudget = @albumBudget WHERE SingerId = 1 and AlbumId = 1",
+    params: { albumBudget: new_first_album_budget }
+  )
+  transaction.execute_update(
+    "UPDATE Albums SET MarketingBudget = @albumBudget WHERE SingerId = 2 and AlbumId = 2",
+    params: { albumBudget: new_second_album_budget }
+  )
+end
+
+puts "Transaction complete"
+```
 
 ### PostgreSQL
 
-    def spanner_postgresql_dml_getting_started_update project_id:, instance_id:, database_id:
-      # project_id  = "Your Google Cloud project ID"
-      # instance_id = "Your Spanner instance ID"
-      # database_id = "Your Spanner database ID"
-    
-      require "google/cloud/spanner"
-    
-      spanner = Google::Cloud::Spanner.new project: project_id
-      client = spanner.client instance_id, database_id
-    
-      client.transaction do |transaction|
-        transaction.execute_update(
-          "UPDATE Singers SET Rating = $1 WHERE SingerId = 1",
-          params: { p1: BigDecimal(4) },
-          types: { p1: :PG_NUMERIC }
-        )
-      end
-    
-      puts "Transaction complete"
-    end
+```ruby
+def spanner_postgresql_dml_getting_started_update project_id:, instance_id:, database_id:
+  # project_id  = "Your Google Cloud project ID"
+  # instance_id = "Your Spanner instance ID"
+  # database_id = "Your Spanner database ID"
+
+  require "google/cloud/spanner"
+
+  spanner = Google::Cloud::Spanner.new project: project_id
+  client = spanner.client instance_id, database_id
+
+  client.transaction do |transaction|
+    transaction.execute_update(
+      "UPDATE Singers SET Rating = $1 WHERE SingerId = 1",
+      params: { p1: BigDecimal(4) },
+      types: { p1: :PG_NUMERIC }
+    )
+  end
+
+  puts "Transaction complete"
+end
+```
 
 Run the sample using the `write_with_transaction_using_dml` argument.
 
-    bundle exec ruby spanner_samples.rb write_with_transaction_using_dml test-instance example-db
+```
+bundle exec ruby spanner_samples.rb write_with_transaction_using_dml test-instance example-db
+```
 
 You should see:
 
-    Transaction complete
+```
+Transaction complete
+```
 
 > **Note:** You can also [update data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api#updating_rows_in_a_table) .
 
@@ -685,48 +771,58 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for Ruby
 
 Use the [`Database#update`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database#update-instance_method) method of the [`Database`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database) class to add an index:
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    require "google/cloud/spanner/admin/database"
-    
-    database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin
-    
-    db_path = database_admin_client.database_path project: project_id,
-                                                  instance: instance_id,
-                                                  database: database_id
-    
-    job = database_admin_client.update_database_ddl database: db_path,
-                                                    statements: [
-                                                      "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"
-                                                    ]
-    
-    puts "Waiting for database update to complete"
-    
-    job.wait_until_done!
-    
-    puts "Added the AlbumsByAlbumTitle index"
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+require "google/cloud/spanner/admin/database"
+
+database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin
+
+db_path = database_admin_client.database_path project: project_id,
+                                              instance: instance_id,
+                                              database: database_id
+
+job = database_admin_client.update_database_ddl database: db_path,
+                                                statements: [
+                                                  "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"
+                                                ]
+
+puts "Waiting for database update to complete"
+
+job.wait_until_done!
+
+puts "Added the AlbumsByAlbumTitle index"
+```
 
 Run the sample using the `create_index` argument.
 
-    bundle exec ruby spanner_samples.rb create_index test-instance example-db
+```
+bundle exec ruby spanner_samples.rb create_index test-instance example-db
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Added the AlbumsByAlbumTitle index
+```
+Added the AlbumsByAlbumTitle index
+```
 
 ### Read using the index
 
@@ -734,33 +830,39 @@ For SQL queries, Spanner automatically uses an appropriate index. In the read in
 
 To use the index in the read interface, provide an `index` parameter to the [`read`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client#read-instance_method) method of the [`Client`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Client) class.
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    result = client.read "Albums", [:AlbumId, :AlbumTitle],
-                         index: "AlbumsByAlbumTitle"
-    
-    result.rows.each do |row|
-      puts "#{row[:AlbumId]} #{row[:AlbumTitle]}"
-    end
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+result = client.read "Albums", [:AlbumId, :AlbumTitle],
+                     index: "AlbumsByAlbumTitle"
+
+result.rows.each do |row|
+  puts "#{row[:AlbumId]} #{row[:AlbumTitle]}"
+end
+```
 
 Run the sample using the `read_data_with_index` argument.
 
-    bundle exec ruby spanner_samples.rb read_data_with_index test-instance example-db
+```
+bundle exec ruby spanner_samples.rb read_data_with_index test-instance example-db
+```
 
 You should see:
 
-    2 Forever Hold Your Peace
-    2 Go, Go, Go
-    1 Green
-    3 Terrified
-    1 Total Junk
+```
+2 Forever Hold Your Peace
+2 Go, Go, Go
+1 Green
+3 Terrified
+1 Total Junk
+```
 
 ### Add an index for index-only reads
 
@@ -772,84 +874,102 @@ Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `Ma
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for Ruby
 
 Use the [`Database#update`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database#update-instance_method) method of the [`Database`](https://docs.cloud.google.com/ruby/docs/reference/google-cloud-spanner/latestGoogle/Cloud/Spanner/Database) class to add an index with a `STORING` clause:
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    require "google/cloud/spanner/admin/database"
-    
-    database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin
-    
-    db_path = database_admin_client.database_path project: project_id,
-                                                  instance: instance_id,
-                                                  database: database_id
-    
-    job = database_admin_client.update_database_ddl database: db_path,
-                                                    statements: [
-                                                      "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)
-       STORING (MarketingBudget)"
-                                                    ]
-    
-    puts "Waiting for database update to complete"
-    
-    job.wait_until_done!
-    
-    puts "Added the AlbumsByAlbumTitle2 storing index"
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+require "google/cloud/spanner/admin/database"
+
+database_admin_client = Google::Cloud::Spanner::Admin::Database.database_admin
+
+db_path = database_admin_client.database_path project: project_id,
+                                              instance: instance_id,
+                                              database: database_id
+
+job = database_admin_client.update_database_ddl database: db_path,
+                                                statements: [
+                                                  "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)
+   STORING (MarketingBudget)"
+                                                ]
+
+puts "Waiting for database update to complete"
+
+job.wait_until_done!
+
+puts "Added the AlbumsByAlbumTitle2 storing index"
+```
 
 Run the sample using the `create_storing_index` argument.
 
-    bundle exec ruby spanner_samples.rb create_storing_index test-instance example-db
+```
+bundle exec ruby spanner_samples.rb create_storing_index test-instance example-db
+```
 
 You should see:
 
-    Added the AlbumsByAlbumTitle2 index
+```
+Added the AlbumsByAlbumTitle2 index
+```
 
 Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    result = client.read "Albums", [:AlbumId, :AlbumTitle, :MarketingBudget],
-                         index: "AlbumsByAlbumTitle2"
-    
-    result.rows.each do |row|
-      puts "#{row[:AlbumId]} #{row[:AlbumTitle]} #{row[:MarketingBudget]}"
-    end
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+result = client.read "Albums", [:AlbumId, :AlbumTitle, :MarketingBudget],
+                     index: "AlbumsByAlbumTitle2"
+
+result.rows.each do |row|
+  puts "#{row[:AlbumId]} #{row[:AlbumTitle]} #{row[:MarketingBudget]}"
+end
+```
 
 Run the sample using the `read_data_with_storing_index` argument.
 
-    bundle exec ruby spanner_samples.rb read_data_with_storing_index test-instance example-db
+```
+bundle exec ruby spanner_samples.rb read_data_with_storing_index test-instance example-db
+```
 
 You should see output similar to:
 
-    2 Forever Hold Your Peace 300000
-    2 Go, Go, Go
-    1 Green
-    3 Terrified
-    1 Total Junk 300000
+```
+2 Forever Hold Your Peace 300000
+2 Go, Go, Go
+1 Green
+3 Terrified
+1 Total Junk 300000
+```
 
 ## Retrieve data using read-only transactions
 
@@ -857,43 +977,49 @@ Suppose you want to execute more than one read at the same timestamp. [Read-only
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    client.snapshot do |snapshot|
-      snapshot.execute("SELECT SingerId, AlbumId, AlbumTitle FROM Albums").rows.each do |row|
-        puts "#{row[:AlbumId]} #{row[:AlbumTitle]} #{row[:SingerId]}"
-      end
-    
-      # Even if changes occur in-between the reads, the transaction ensures that
-      # both return the same data.
-      snapshot.read("Albums", [:AlbumId, :AlbumTitle, :SingerId]).rows.each do |row|
-        puts "#{row[:AlbumId]} #{row[:AlbumTitle]} #{row[:SingerId]}"
-      end
-    end
+```ruby
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+client.snapshot do |snapshot|
+  snapshot.execute("SELECT SingerId, AlbumId, AlbumTitle FROM Albums").rows.each do |row|
+    puts "#{row[:AlbumId]} #{row[:AlbumTitle]} #{row[:SingerId]}"
+  end
+
+  # Even if changes occur in-between the reads, the transaction ensures that
+  # both return the same data.
+  snapshot.read("Albums", [:AlbumId, :AlbumTitle, :SingerId]).rows.each do |row|
+    puts "#{row[:AlbumId]} #{row[:AlbumTitle]} #{row[:SingerId]}"
+  end
+end
+```
 
 Run the sample using the `read_only_transaction` argument.
 
-    bundle exec ruby spanner_samples.rb read_only_transaction test-instance example-db
+```
+bundle exec ruby spanner_samples.rb read_only_transaction test-instance example-db
+```
 
 You should see output similar to:
 
-    2 Forever Hold Your Peace 2
-    2 Go, Go, Go 1
-    1 Green 2
-    3 Terrified 2
-    1 Total Junk 1
-    1 Total Junk 1
-    2 Go, Go, Go 1
-    1 Green 2
-    2 Forever Hold Your Peace 2
-    3 Terrified 2
+```
+2 Forever Hold Your Peace 2
+2 Go, Go, Go 1
+1 Green 2
+3 Terrified 2
+1 Total Junk 1
+1 Total Junk 1
+2 Go, Go, Go 1
+1 Green 2
+2 Forever Hold Your Peace 2
+3 Terrified 2
+```
 
 ## Cleanup
 
@@ -905,7 +1031,9 @@ If you delete an instance, all databases within it are automatically deleted. Th
 
 #### On the command line
 
-    gcloud spanner databases delete example-db --instance=test-instance
+```
+gcloud spanner databases delete example-db --instance=test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -925,7 +1053,9 @@ Deleting an instance automatically drops all databases created in that instance.
 
 #### On the command line
 
-    gcloud spanner instances delete test-instance
+```
+gcloud spanner instances delete test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -939,8 +1069,8 @@ Deleting an instance automatically drops all databases created in that instance.
 
 ## What's next
 
-  - Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
+- Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
 
-  - Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
 
-  - Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .

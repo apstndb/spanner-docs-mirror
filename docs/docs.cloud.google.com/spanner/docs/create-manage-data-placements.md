@@ -20,15 +20,15 @@ Choosing where routing metadata resides depends on whether most client requests 
 
 The `per_placement_routing_metadata` option determines where routing metadata resides according to the following settings:
 
-  - `TRUE` : If set to `TRUE` , then routing metadata resides in the same instance partition as the data. Routing metadata is sharded by region. This reduces latency for in-region data requests (that is, the client and the user data requested are in the same region) so that Spanner doesn't have to make out-of-region calls for routing metadata. However, this setting might increase latency for out-of-region requests, for negative lookups where placement rows don't exist, and for queries that need a [global index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#global-index) .
-    
-    We recommend this setting if you expect most requests to be made for user data within the same region as the client, and your default partition does not have read-write or read-only regions that are colocated with all your instance partitions.
+- `TRUE` : If set to `TRUE` , then routing metadata resides in the same instance partition as the data. Routing metadata is sharded by region. This reduces latency for in-region data requests (that is, the client and the user data requested are in the same region) so that Spanner doesn't have to make out-of-region calls for routing metadata. However, this setting might increase latency for out-of-region requests, for negative lookups where placement rows don't exist, and for queries that need a [global index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#global-index) .
 
-  - `FALSE` : Routing metadata is centralized in the default partition.
-    
-    We recommend this setting if you expect clients to frequently look up out-of-region data; for example, a client in the EU region looking up data for users in the US.
-    
-    Also consider this setting if your default instance partition uses a multi-region configuration that provides read-write or read-only regions that are colocated with all your instance partitions. With this setting, a replica of the full routing metadata is stored with every replica of the default instance partition. Therefore all regions with instance partitions have a replica of the routing metadata. This lets both in-region and out-of-region requests look up routing metadata locally.
+  We recommend this setting if you expect most requests to be made for user data within the same region as the client, and your default partition does not have read-write or read-only regions that are colocated with all your instance partitions.
+
+- `FALSE` : Routing metadata is centralized in the default partition.
+
+  We recommend this setting if you expect clients to frequently look up out-of-region data; for example, a client in the EU region looking up data for users in the US.
+
+  Also consider this setting if your default instance partition uses a multi-region configuration that provides read-write or read-only regions that are colocated with all your instance partitions. With this setting, a replica of the full routing metadata is stored with every replica of the default instance partition. Therefore all regions with instance partitions have a replica of the routing metadata. This lets both in-region and out-of-region requests look up routing metadata locally.
 
 > **Note:** Prior to July 2026, the default value was `FALSE` . As of July 2026, the default is `TRUE` . You might see different latency results between databases created before and after the default value change. We recommend that you set this option explicitly to avoid unexpected changes.
 
@@ -42,12 +42,14 @@ The `per_placement_routing_metadata` option accepts boolean values. If this opti
 
 The following example shows a GoogleSQL `ALTER DATABASE` command to set this option:
 
-    ALTER DATABASE DATABASE_NAME SET OPTIONS ( per_placement_routing_metadata = METADATA_BOOLEAN)
+```
+ALTER DATABASE DATABASE_NAME SET OPTIONS ( per_placement_routing_metadata = METADATA_BOOLEAN)
+```
 
 Replace the following:
 
-  - `  DATABASE_NAME  ` : the name of your database.
-  - `  METADATA_BOOLEAN  ` : the `per_placement_routing_metadata` value. If `TRUE` , then routing metadata resides in the same instance partition as the data. If `FALSE` , then routing metadata resides in the default instance partition.
+- `DATABASE_NAME` : the name of your database.
+- `METADATA_BOOLEAN` : the `per_placement_routing_metadata` value. If `TRUE` , then routing metadata resides in the same instance partition as the data. If `FALSE` , then routing metadata resides in the default instance partition.
 
 ## Create a data placement
 
@@ -66,17 +68,21 @@ After you [create your Spanner instance partitions](https://docs.cloud.google.co
 5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 6.  Enter the `CREATE PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement.
-    
+
     For example, you can run the following to create a placement table `europeplacement` in the instance partition `europe-partition` :
-    
+
     ### GoogleSQL
-    
-        CREATE PLACEMENT europeplacement OPTIONS (instance_partition="europe-partition");
-    
+
+    ```
+    CREATE PLACEMENT europeplacement OPTIONS (instance_partition="europe-partition");
+    ```
+
     ### PostgreSQL
-    
-        CREATE PLACEMENT europeplacement WITH (instance_partition='europe-partition');
-    
+
+    ```
+    CREATE PLACEMENT europeplacement WITH (instance_partition='europe-partition');
+    ```
+
     Optional: You can also use the **Object Explorer** pane to view, search, and interact with your Placement objects. For more information, see [Explore your data](https://docs.cloud.google.com/spanner/docs/manage-data-using-console#access-spanner-studio) .
 
 7.  Click **Run** .
@@ -89,15 +95,19 @@ For example, create a placement in the instance partition `europe-partition` :
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db \
-      --instance=test-instance \
-      --ddl="CREATE PLACEMENT europeplacement OPTIONS (instance_partition='europe-partition')"
+```
+gcloud spanner databases ddl update example-db \
+  --instance=test-instance \
+  --ddl="CREATE PLACEMENT europeplacement OPTIONS (instance_partition='europe-partition')"
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db \
-      --instance=test-instance \
-      --ddl="CREATE PLACEMENT europeplacement WITH (instance_partition='europe-partition')"
+```
+gcloud spanner databases ddl update example-db \
+  --instance=test-instance \
+  --ddl="CREATE PLACEMENT europeplacement WITH (instance_partition='europe-partition')"
+```
 
 ### Set the default leader for a placement
 
@@ -118,18 +128,22 @@ If you don't set a leader region, your placement uses the default leader region 
 5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 6.  Enter the `CREATE PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement.
-    
+
     For example, you can run the following to create a placement table `nam8placement` in the instance partition `nam8-partition` with the default leader location set as `us-west1` :
-    
+
     ### GoogleSQL
-    
-        CREATE PLACEMENT `nam8placement`
-          OPTIONS (instance_partition="nam8-partition", default_leader="us-west1");
-    
+
+    ```
+    CREATE PLACEMENT `nam8placement`
+      OPTIONS (instance_partition="nam8-partition", default_leader="us-west1");
+    ```
+
     ### PostgreSQL
-    
-        CREATE PLACEMENT nam8placement WITH (instance_partition='nam8-partition', default_leader='us-west1');
-    
+
+    ```
+    CREATE PLACEMENT nam8placement WITH (instance_partition='nam8-partition', default_leader='us-west1');
+    ```
+
     Optional: You can also use the **Object Explorer** pane to view, search, and interact with your Placement objects. For more information, see [Explore your data](https://docs.cloud.google.com/spanner/docs/manage-data-using-console#access-spanner-studio) .
 
 7.  Click **Run** .
@@ -142,16 +156,20 @@ For example, create a placement table `nam8placement` in the instance partition 
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db \
-      --instance=test-instance \
-      --ddl="CREATE PLACEMENT nam8placement \
-         OPTIONS (instance_partition='nam8-partition', default_leader='us-west1')"
+```
+gcloud spanner databases ddl update example-db \
+  --instance=test-instance \
+  --ddl="CREATE PLACEMENT nam8placement \
+     OPTIONS (instance_partition='nam8-partition', default_leader='us-west1')"
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db \
-      --instance=test-instance \
-      --ddl="CREATE PLACEMENT nam8placement WITH (instance_partition='nam8-partition', default_leader='us-west1')"
+```
+gcloud spanner databases ddl update example-db \
+  --instance=test-instance \
+  --ddl="CREATE PLACEMENT nam8placement WITH (instance_partition='nam8-partition', default_leader='us-west1')"
+```
 
 ## Drop a data placement
 
@@ -164,16 +182,20 @@ Before you drop a placement, you must remove all row data from the placement. Af
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 3.  Enter the `DROP PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop-placement) ) DDL statement.
-    
+
     For example, you can run the following to drop the placement table `europeplacement` :
-    
+
     ### GoogleSQL
-    
-        DROP PLACEMENT europeplacement;
-    
+
+    ```
+    DROP PLACEMENT europeplacement;
+    ```
+
     ### PostgreSQL
-    
-        DROP PLACEMENT europeplacement;
+
+    ```
+    DROP PLACEMENT europeplacement;
+    ```
 
 ### gcloud
 
@@ -181,29 +203,35 @@ To drop a placement with the gcloud CLI command, use `gcloud spanner databases d
 
 For example, drop placement `europeplacement` :
 
-    gcloud spanner databases ddl update example-db \
-      --instance=test-instance \
-      --ddl="DROP PLACEMENT europeplacement"
+```
+gcloud spanner databases ddl update example-db \
+  --instance=test-instance \
+  --ddl="DROP PLACEMENT europeplacement"
+```
 
 ### Drop placement errors
 
-If the placement is in use, then the `DROP PLACEMENT` operation fails with an error message such as: "Statement failed: Placement PLACEMENT\_NAME can't be dropped because it is in use by placement table PLACEMENT\_TABLE\_NAME .". If you encounter this error, complete the following steps:
+If the placement is in use, then the `DROP PLACEMENT` operation fails with an error message such as: "Statement failed: Placement ` PLACEMENT_NAME ` can't be dropped because it is in use by placement table ` PLACEMENT_TABLE_NAME ` .". If you encounter this error, complete the following steps:
 
 1.  Modify your application to stop inserting or updating rows with the placement you want to drop.
 
 2.  Either:
-    
-      - Move existing placement rows that use the placement you want to delete to a different placement with a [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statement like the following:
-        
-            UPDATE PLACEMENT_TABLE_NAME SET LOCATION = NEW_PLACEMENT_NAME
-            WHERE LOCATION = ORIGINAL_PLACEMENT_NAME;
-    
-      - Delete the placement rows with a partitioned DML statement like the following:
-        
-            DELETE FROM PLACEMENT_TABLE_NAME
-            WHERE LOCATION = ORIGINAL_PLACEMENT_NAME;
-        
-        The previous placement-specific DML statements only work with partitioned DML. They will fail as regular DML statements. For more information, see [Limitations](https://docs.cloud.google.com/spanner/docs/geo-partitioning#limitations) . You can also use the mutation API to move or drop placement rows.
+
+    - Move existing placement rows that use the placement you want to delete to a different placement with a [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statement like the following:
+
+      ```
+      UPDATE PLACEMENT_TABLE_NAME SET LOCATION = NEW_PLACEMENT_NAME
+      WHERE LOCATION = ORIGINAL_PLACEMENT_NAME;
+      ```
+
+    - Delete the placement rows with a partitioned DML statement like the following:
+
+      ```
+      DELETE FROM PLACEMENT_TABLE_NAME
+      WHERE LOCATION = ORIGINAL_PLACEMENT_NAME;
+      ```
+
+      The previous placement-specific DML statements only work with partitioned DML. They will fail as regular DML statements. For more information, see [Limitations](https://docs.cloud.google.com/spanner/docs/geo-partitioning#limitations) . You can also use the mutation API to move or drop placement rows.
 
 ### Cancel a `DROP PLACEMENT` operation
 
@@ -218,26 +246,30 @@ You can cancel a `DROP PLACEMENT` operation anytime before the long-running oper
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 3.  Enter the `CREATE TABLE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) ) DDL statement.
-    
+
     For example, you can create a `Singers` table that uses a placement key to partition singer data:
-    
+
     ### GoogleSQL
-    
-        CREATE TABLE Singers (
-          SingerId INT64 NOT NULL,
-          SingerName STRING(MAX) NOT NULL,
-          ...
-          Location STRING(MAX) NOT NULL PLACEMENT KEY
-        ) PRIMARY KEY (SingerId);
-    
+
+    ```
+    CREATE TABLE Singers (
+      SingerId INT64 NOT NULL,
+      SingerName STRING(MAX) NOT NULL,
+      ...
+      Location STRING(MAX) NOT NULL PLACEMENT KEY
+    ) PRIMARY KEY (SingerId);
+    ```
+
     ### PostgreSQL
-    
-        CREATE TABLE Singers (
-          SingerId bigint PRIMARY KEY,
-          SingerName varchar(1024),
-          ...
-          Location varchar(1024) NOT NULL PLACEMENT KEY
-        );
+
+    ```
+    CREATE TABLE Singers (
+      SingerId bigint PRIMARY KEY,
+      SingerName varchar(1024),
+      ...
+      Location varchar(1024) NOT NULL PLACEMENT KEY
+    );
+    ```
 
 ### gcloud
 
@@ -247,15 +279,19 @@ For example, you can create a `Singers` table that uses a placement key to parti
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db \
-      --instance=test-instance \
-      --ddl="CREATE TABLE Singers ( SingerId INT64 NOT NULL, SingerName STRING(MAX) NOT NULL, Location STRING(MAX) NOT NULL PLACEMENT KEY ) PRIMARY KEY (SingerId);"
+```
+gcloud spanner databases ddl update example-db \
+  --instance=test-instance \
+  --ddl="CREATE TABLE Singers ( SingerId INT64 NOT NULL, SingerName STRING(MAX) NOT NULL, Location STRING(MAX) NOT NULL PLACEMENT KEY ) PRIMARY KEY (SingerId);"
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db \
-      --instance=test-instance \
-      --ddl="CREATE TABLE Singers ( SingerId bigint PRIMARY KEY, SingerName varchar(1024), Location varchar(1024) NOT NULL PLACEMENT KEY );"
+```
+gcloud spanner databases ddl update example-db \
+  --instance=test-instance \
+  --ddl="CREATE TABLE Singers ( SingerId bigint PRIMARY KEY, SingerName varchar(1024), Location varchar(1024) NOT NULL PLACEMENT KEY );"
+```
 
 ## Edit a table with a placement key
 
@@ -275,10 +311,12 @@ Before you delete a table with a placement key, you must first:
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 3.  Enter the `DROP TABLE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop-table) ) DDL statement.
-    
+
     For example, drop the `Singers` table:
-    
-        DROP TABLE Singers;
+
+    ```
+    DROP TABLE Singers;
+    ```
 
 ### gcloud
 
@@ -286,9 +324,11 @@ To drop a table, use [`gcloud spanner databases ddl update`](https://docs.cloud.
 
 For example, drop the `Singers` table:
 
-    gcloud spanner databases ddl update example-db \
-      --instance=test-instance \
-      --ddl="DROP TABLE Singers"
+```
+gcloud spanner databases ddl update example-db \
+  --instance=test-instance \
+  --ddl="DROP TABLE Singers"
+```
 
 ## Insert a row in a placement table
 
@@ -299,11 +339,13 @@ For example, drop the `Singers` table:
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 3.  Enter the `INSERT INTO` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-statement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-statement) ) DDL statement.
-    
+
     For example, add a singer, Marc Richards, to the `Singers` table and partition it in `europeplacement` :
-    
-        INSERT INTO Singers(SingerId, SingerName, Location)
-        VALUES (1, 'Marc Richards', 'europeplacement')
+
+    ```
+    INSERT INTO Singers(SingerId, SingerName, Location)
+    VALUES (1, 'Marc Richards', 'europeplacement')
+    ```
 
 ### gcloud
 
@@ -311,8 +353,10 @@ To write data to a table, use [`gcloud spanner rows insert`](https://docs.cloud.
 
 For example, add a singer, Marc Richards, to the `Singers` table and partition it in `europeplacement` :
 
-    gcloud spanner rows insert --table=Singers --database=example-db \
-      --instance=test-instance --data=SingerId=1,SingerName='Marc Richards',Location='europeplacement'
+```
+gcloud spanner rows insert --table=Singers --database=example-db \
+  --instance=test-instance --data=SingerId=1,SingerName='Marc Richards',Location='europeplacement'
+```
 
 ## Update a row in a placement table
 
@@ -323,12 +367,14 @@ For example, add a singer, Marc Richards, to the `Singers` table and partition i
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 3.  Use [DML](https://docs.cloud.google.com/spanner/docs/dml-tasks) or [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) to update data in a placement table.
-    
+
     For example, update the name of `singerid=1` in the `Singers` table to `Catalina Smith` :
-    
-        UPDATE Singers s
-        SET s.name='Catalina Smith'
-        WHERE s.id=1;
+
+    ```
+    UPDATE Singers s
+    SET s.name='Catalina Smith'
+    WHERE s.id=1;
+    ```
 
 ### gcloud
 
@@ -336,8 +382,10 @@ To update data in a placement table, use [`gcloud spanner rows update`](https://
 
 For example, update the name of `singerid=1` in the `Singers` table to `Catalina Smith` :
 
-    gcloud spanner rows update --table=Singers --database=example-db \
-      --instance=test-instance --data=SingerId=1,SingerName='Catalina Smith'
+```
+gcloud spanner rows update --table=Singers --database=example-db \
+  --instance=test-instance --data=SingerId=1,SingerName='Catalina Smith'
+```
 
 ## Move a row in a placement table
 
@@ -350,12 +398,14 @@ For example, update the name of `singerid=1` in the `Singers` table to `Catalina
 3.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 4.  Use [DML](https://docs.cloud.google.com/spanner/docs/dml-tasks) or [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) to move data to the new instance partition.
-    
+
     For example, move `singerid=1` in the `Singers` table to `asiaplacement` :
-    
-        UPDATE Singers s
-        SET s.location='asiaplacement'
-        WHERE s.id=1;
+
+    ```
+    UPDATE Singers s
+    SET s.location='asiaplacement'
+    WHERE s.id=1;
+    ```
 
 ### gcloud
 
@@ -363,8 +413,10 @@ After creating the instance partition and placement where you want to move your 
 
 For example, move `singerid=1` in the `Singers` table to `asiaplacement` :
 
-    gcloud spanner rows update --table=Singers --database=example-db \
-      --instance=test-instance --data=SingerId=1,Location='asiaplacement'
+```
+gcloud spanner rows update --table=Singers --database=example-db \
+  --instance=test-instance --data=SingerId=1,Location='asiaplacement'
+```
 
 ## Delete a row in a placement table
 
@@ -375,11 +427,13 @@ For example, move `singerid=1` in the `Singers` table to `asiaplacement` :
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 3.  Use [DML](https://docs.cloud.google.com/spanner/docs/dml-tasks) or [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) to delete data.
-    
+
     For example, delete `singerid=1` in the `Singers` table:
-    
-        DELETE FROM Singers s
-        WHERE s.id=1;
+
+    ```
+    DELETE FROM Singers s
+    WHERE s.id=1;
+    ```
 
 ### gcloud
 
@@ -387,8 +441,10 @@ To delete data, use [`gcloud spanner rows delete`](https://docs.cloud.google.com
 
 For example, delete `singerid=1` in the `Singers` table:
 
-    gcloud spanner rows delete --table=Singers --database=example-db \
-      --instance=test-instance --keys=1
+```
+gcloud spanner rows delete --table=Singers --database=example-db \
+  --instance=test-instance --keys=1
+```
 
 ## Query data in a placement table
 
@@ -399,10 +455,12 @@ For example, delete `singerid=1` in the `Singers` table:
 2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
 
 3.  Run your query.
-    
+
     For example, query the `Singers` table:
-    
-        SELECT * FROM Singers s WHERE s.SingerId=1;
+
+    ```
+    SELECT * FROM Singers s WHERE s.SingerId=1;
+    ```
 
 ### gcloud
 
@@ -410,12 +468,14 @@ To query data, use [`gcloud spanner databases execute-sql`](https://docs.cloud.g
 
 For example, query the `Singers` table:
 
-    gcloud spanner databases execute-sql example-db \
-      --instance=test-instance \
-      --sql='SELECT * FROM Singers s WHERE s.SingerId=1'
+```
+gcloud spanner databases execute-sql example-db \
+  --instance=test-instance \
+  --sql='SELECT * FROM Singers s WHERE s.SingerId=1'
+```
 
 ## What's next
 
-  - Learn more about [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) .
+- Learn more about [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) .
 
-  - Learn how to [create and manage instance partitions](https://docs.cloud.google.com/spanner/docs/create-manage-partitions) .
+- Learn how to [create and manage instance partitions](https://docs.cloud.google.com/spanner/docs/create-manage-partitions) .

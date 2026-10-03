@@ -6,71 +6,44 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#SCHEMA_REPRESENTATION)
-  - [Link](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#Link)
-      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#Link.SCHEMA_REPRESENTATION)
+- [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#SCHEMA_REPRESENTATION)
+- [Link](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#Link)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#Link.SCHEMA_REPRESENTATION)
 
 Provides links to documentation or for performing an out of band action.
 
 For example, if a quota check failed with an error indicating the calling project hasn't enabled the accessed service, this can contain a URL pointing directly to the right place in the developer console to flip the bit.
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;links&quot;: [{object (Link)}]}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "links": [
+    {
+      object (Link)
+    }
+  ]
+}
+```
 
-`links[]`
-
-` object ( Link  ` )
-
-URL(s) pointing to additional information on handling the current error.
+| Fields    |                                                                                                                                                                          |
+|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `links[]` | `object ( `[`Link`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Help#Link)` )` URL(s) pointing to additional information on handling the current error. |
 
 ## Link
 
 Describes a URL link.
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;description&quot;: string,
-  &quot;url&quot;: string
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "description": string,
+  "url": string
+}
+```
 
-`description`
-
-`string`
-
-Describes what the link offers.
-
-`url`
-
-`string`
-
-The URL of the link.
+| Fields        |                                          |
+|---------------|------------------------------------------|
+| `description` | `string` Describes what the link offers. |
+| `url`         | `string` The URL of the link.            |

@@ -40,99 +40,111 @@ The following example demonstrates the benefit of using repeatable read isolatio
 
 ### GoogleSQL
 
-    -- Transaction 1
-    BEGIN;
-    
-    -- Snapshot established at T1
-    SELECT AlbumId, MarketingBudget
-    FROM Albums
-    WHERE SingerId = 1;
-    
-    /*-----------+------------------*
-    | AlbumId    | MarketingBudget  |
-    +------------+------------------+
-    | 1          | 50000            |
-    | 2          | 100000           |
-    | 3          | 70000            |
-    | 4          | 80000            |
-    *------------+------------------*/
+```
+-- Transaction 1
+BEGIN;
+
+-- Snapshot established at T1
+SELECT AlbumId, MarketingBudget
+FROM Albums
+WHERE SingerId = 1;
+
+/*-----------+------------------*
+| AlbumId    | MarketingBudget  |
++------------+------------------+
+| 1          | 50000            |
+| 2          | 100000           |
+| 3          | 70000            |
+| 4          | 80000            |
+*------------+------------------*/
+```
 
 ### PostgreSQL
 
-    -- Transaction 1
-    BEGIN;
-    
-    -- Snapshot established at T1
-    SELECT albumid, marketingbudget
-    FROM albums
-    WHERE singerid = 1;
-    
-    /*-----------+------------------*
-    | albumid    | marketingbudget  |
-    +------------+------------------+
-    | 1          | 50000            |
-    | 2          | 100000           |
-    | 3          | 70000            |
-    | 4          | 80000            |
-    *------------+------------------*/
+```
+-- Transaction 1
+BEGIN;
+
+-- Snapshot established at T1
+SELECT albumid, marketingbudget
+FROM albums
+WHERE singerid = 1;
+
+/*-----------+------------------*
+| albumid    | marketingbudget  |
++------------+------------------+
+| 1          | 50000            |
+| 2          | 100000           |
+| 3          | 70000            |
+| 4          | 80000            |
+*------------+------------------*/
+```
 
 Then, `Transaction 2` establishes a snapshot timestamp after `Transaction 1` begins but before it commits. Since `Transaction 1` hasn't updated the data, the `SELECT` query in `Transaction 2` reads the same data as `Transaction 1` .
 
 ### GoogleSQL
 
-    -- Transaction 2
-    BEGIN;
-    
-    -- Snapshot established at T2 > T1
-    SELECT AlbumId, MarketingBudget
-    FROM Albums
-    WHERE SingerId = 1;
-    
-    INSERT INTO Albums (SingerId, AlbumId, MarketingBudget) VALUES (1, 5, 50000);
-    
-    COMMIT;
+```
+-- Transaction 2
+BEGIN;
+
+-- Snapshot established at T2 > T1
+SELECT AlbumId, MarketingBudget
+FROM Albums
+WHERE SingerId = 1;
+
+INSERT INTO Albums (SingerId, AlbumId, MarketingBudget) VALUES (1, 5, 50000);
+
+COMMIT;
+```
 
 ### PostgreSQL
 
-    -- Transaction 2
-    BEGIN;
-    
-    -- Snapshot established at T2 > T1
-    SELECT albumid, marketingbudget
-    FROM albums
-    WHERE singerid = 1;
-    
-    INSERT INTO albums (singerid, albumid, marketingbudget) VALUES (1, 5, 50000);
-    
-    COMMIT;
+```
+-- Transaction 2
+BEGIN;
+
+-- Snapshot established at T2 > T1
+SELECT albumid, marketingbudget
+FROM albums
+WHERE singerid = 1;
+
+INSERT INTO albums (singerid, albumid, marketingbudget) VALUES (1, 5, 50000);
+
+COMMIT;
+```
 
 `Transaction 1` continues after `Transaction 2` has committed.
 
 ### GoogleSQL
 
-    -- Transaction 1 continues
-    SELECT SUM(MarketingBudget) as UsedBudget
-    FROM Albums
-    WHERE SingerId = 1;
-    
-    /*-----------*
-    | UsedBudget |
-    +------------+
-    | 300000     |
-    *------------*/
+```
+-- Transaction 1 continues
+SELECT SUM(MarketingBudget) as UsedBudget
+FROM Albums
+WHERE SingerId = 1;
+
+/*-----------*
+| UsedBudget |
++------------+
+| 300000     |
+*------------*/
+```
 
 ### PostgreSQL
 
-    -- Transaction 1 continues
-    SELECT SUM(marketingbudget) AS usedbudget
-    FROM albums
-    WHERE singerid = 1;
-    
-    /*-----------*
-    | usedbudget |
-    +------------+
-    | 300000     |
-    *------------*/
+```
+-- Transaction 1 continues
+SELECT SUM(marketingbudget) AS usedbudget
+FROM albums
+WHERE singerid = 1;
+
+/*-----------*
+| usedbudget |
++------------+
+| 300000     |
+*------------*/
+```
 
 The `UsedBudget` value that Spanner returns is the sum of the budget read by `Transaction 1` . This sum reflects only the data present at the `T1` snapshot. It doesn't include the budget that `Transaction 2` added, because `Transaction 2` committed after `Transaction 1` established snapshot `T1` . Using repeatable read means that `Transaction 1` didn't have to abort even though `Transaction 2` modified the data read by `Transaction 1` . However, the result Spanner returns might or might not be the intended outcome.
 
@@ -144,21 +156,25 @@ For example, assume there is a total budget of `400,000` . Based on the result f
 
 ### GoogleSQL
 
-    -- Transaction 1 continues..
-    UPDATE Albums
-    SET MarketingBudget = MarketingBudget + 100000
-    WHERE SingerId = 1 AND AlbumId = 4;
-    
-    COMMIT;
+```
+-- Transaction 1 continues..
+UPDATE Albums
+SET MarketingBudget = MarketingBudget + 100000
+WHERE SingerId = 1 AND AlbumId = 4;
+
+COMMIT;
+```
 
 ### PostgreSQL
 
-    -- Transaction 1 continues..
-    UPDATE albums
-    SET marketingbudget = marketingbudget + 100000
-    WHERE singerid = 1 AND albumid = 4;
-    
-    COMMIT;
+```
+-- Transaction 1 continues..
+UPDATE albums
+SET marketingbudget = marketingbudget + 100000
+WHERE singerid = 1 AND albumid = 4;
+
+COMMIT;
+```
 
 `Transaction 1` commits successfully, even though `Transaction 2` already allocated `50,000` of the remaining `100,000` budget to a new album `AlbumId = 5` .
 
@@ -166,35 +182,39 @@ You can use the `SELECT...FOR UPDATE` syntax to validate that certain reads of a
 
 ### GoogleSQL
 
-    -- Transaction 1 continues..
-    SELECT SUM(MarketingBudget) AS TotalBudget
-    FROM Albums
-    WHERE SingerId = 1
-    FOR UPDATE;
-    
-    /*-----------*
-    | TotalBudget |
-    +------------+
-    | 300000     |
-    *------------*/
-    
-    COMMIT;
+```
+-- Transaction 1 continues..
+SELECT SUM(MarketingBudget) AS TotalBudget
+FROM Albums
+WHERE SingerId = 1
+FOR UPDATE;
+
+/*-----------*
+| TotalBudget |
++------------+
+| 300000     |
+*------------*/
+
+COMMIT;
+```
 
 ### PostgreSQL
 
-    -- Transaction 1 continues..
-    SELECT SUM(marketingbudget) AS totalbudget
-    FROM albums
-    WHERE singerid = 1
-    FOR UPDATE;
-    
-    /*-------------*
-     | totalbudget |
-     +-------------+
-     | 300000      |
-     *-------------*/
-    
-    COMMIT;
+```
+-- Transaction 1 continues..
+SELECT SUM(marketingbudget) AS totalbudget
+FROM albums
+WHERE singerid = 1
+FOR UPDATE;
+
+/*-------------*
+ | totalbudget |
+ +-------------+
+ | 300000      |
+ *-------------*/
+
+COMMIT;
+```
 
 For more information, see [Use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
 
@@ -210,80 +230,92 @@ In the following example, `Transaction 1` establishes a snapshot timestamp at th
 
 ### GoogleSQL
 
-    -- Transaction 1
-    BEGIN;
-    
-    -- Snapshot established at T1
-    SELECT AlbumId, MarketingBudget
-    FROM Albums
-    WHERE SingerId = 1;
+```
+-- Transaction 1
+BEGIN;
+
+-- Snapshot established at T1
+SELECT AlbumId, MarketingBudget
+FROM Albums
+WHERE SingerId = 1;
+```
 
 ### PostgreSQL
 
-    -- Transaction 1
-    BEGIN;
-    
-    -- Snapshot established at T1
-    SELECT albumid, marketingbudget
-    FROM albums
-    WHERE singerid = 1;
+```
+-- Transaction 1
+BEGIN;
+
+-- Snapshot established at T1
+SELECT albumid, marketingbudget
+FROM albums
+WHERE singerid = 1;
+```
 
 The following `Transaction 2` reads the same data as `Transaction 1` and inserts a new item. `Transaction 2` successfully commits without waiting or aborting.
 
 ### GoogleSQL
 
-    -- Transaction 2
-    BEGIN;
-    
-    -- Snapshot established at T2 (> T1)
-    SELECT AlbumId, MarketingBudget
-    FROM Albums
-    WHERE SingerId = 1;
-    
-    INSERT INTO Albums (SingerId, AlbumId, MarketingBudget) VALUES (1, 5, 50000);
-    
-    COMMIT;
+```
+-- Transaction 2
+BEGIN;
+
+-- Snapshot established at T2 (> T1)
+SELECT AlbumId, MarketingBudget
+FROM Albums
+WHERE SingerId = 1;
+
+INSERT INTO Albums (SingerId, AlbumId, MarketingBudget) VALUES (1, 5, 50000);
+
+COMMIT;
+```
 
 ### PostgreSQL
 
-    -- Transaction 2
-    BEGIN;
-    
-    -- Snapshot established at T2 (> T1)
-    SELECT albumid, marketingbudget
-    FROM albums
-    WHERE singerid = 1;
-    
-    INSERT INTO albums (singerid, albumid, marketingbudget) VALUES (1, 5, 50000);
-    
-    COMMIT;
+```
+-- Transaction 2
+BEGIN;
+
+-- Snapshot established at T2 (> T1)
+SELECT albumid, marketingbudget
+FROM albums
+WHERE singerid = 1;
+
+INSERT INTO albums (singerid, albumid, marketingbudget) VALUES (1, 5, 50000);
+
+COMMIT;
+```
 
 `Transaction 1` continues after `Transaction 2` has committed.
 
 ### GoogleSQL
 
-    -- Transaction 1 continues
-    INSERT INTO Albums (SingerId, AlbumId, MarketingBudget) VALUES (1, 5, 30000);
-    -- Transaction aborts
-    COMMIT;
+```
+-- Transaction 1 continues
+INSERT INTO Albums (SingerId, AlbumId, MarketingBudget) VALUES (1, 5, 30000);
+-- Transaction aborts
+COMMIT;
+```
 
 ### PostgreSQL
 
-    -- Transaction 1 continues
-    INSERT INTO albums (singerid, albumid, marketingbudget) VALUES (1, 5, 30000);
-    -- Transaction aborts
-    COMMIT;
+```
+-- Transaction 1 continues
+INSERT INTO albums (singerid, albumid, marketingbudget) VALUES (1, 5, 30000);
+-- Transaction aborts
+COMMIT;
+```
 
 `Transaction 1` aborts since `Transaction 2` already committed an insertion to the `AlbumId = 5` row.
 
 ## What's next
 
-  - Learn how to [Use repeatable read isolation level](https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation) .
+- Learn how to [Use repeatable read isolation level](https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation) .
 
-  - Learn about [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
+- Learn about [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
 
-  - Learn how to [Use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
+- Learn how to [Use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
 
-  - Learn how to [Use SELECT FOR UPDATE in serializable isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable) .
+- Learn how to [Use SELECT FOR UPDATE in serializable isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable) .
 
-  - Learn more about Spanner serializability and external consistency, see [TrueTime and external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) .
+- Learn more about Spanner serializability and external consistency, see [TrueTime and external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) .

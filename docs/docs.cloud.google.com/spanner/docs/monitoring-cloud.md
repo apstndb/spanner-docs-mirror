@@ -10,9 +10,9 @@ This document describes how to use the Cloud Monitoring console to monitor your 
 
 The Cloud Monitoring console provides several monitoring tools for Spanner:
 
-  - A *curated dashboard* , which shows pre-made charts for your Spanner resources
-  - *Custom charts* , including [ad-hoc charts in the Metrics Explorer](https://docs.cloud.google.com/monitoring/charts/metrics-explorer) as well as [charts in custom dashboards](https://docs.cloud.google.com/monitoring/charts)
-  - *Alerts* , which notify you if a metric exceeds a threshold that you specify
+- A *curated dashboard* , which shows pre-made charts for your Spanner resources
+- *Custom charts* , including [ad-hoc charts in the Metrics Explorer](https://docs.cloud.google.com/monitoring/charts/metrics-explorer) as well as [charts in custom dashboards](https://docs.cloud.google.com/monitoring/charts)
+- *Alerts* , which notify you if a metric exceeds a threshold that you specify
 
 If you prefer to monitor Spanner programmatically, use the [Cloud Client Libraries for Cloud Monitoring](https://docs.cloud.google.com/monitoring/docs/reference/libraries) to retrieve metrics.
 
@@ -22,10 +22,10 @@ If you prefer to monitor Spanner programmatically, use the [Cloud Client Librari
 
 Cloud Monitoring provides you with a curated dashboard that summarizes key information about your Spanner instances, including:
 
-  - *Incidents* : User-created monitoring alerts that are open, active, or resolved
-  - *Events* : A list of Spanner [audit logs](https://docs.cloud.google.com/spanner/docs/logs) (if enabled and available)
-  - *Instances* : A high-level summary of your Spanner instances, including [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) , database count, and instance health
-  - *Aggregated charts* of throughput and storage use
+- *Incidents* : User-created monitoring alerts that are open, active, or resolved
+- *Events* : A list of Spanner [audit logs](https://docs.cloud.google.com/spanner/docs/logs) (if enabled and available)
+- *Instances* : A high-level summary of your Spanner instances, including [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) , database count, and instance health
+- *Aggregated charts* of throughput and storage use
 
 To view the Spanner dashboard, do the following:
 
@@ -44,7 +44,7 @@ From the instance dashboard page, you can also see charts for a specific databas
 1.  On the right-hand side, above the instance metrics charts, click **Database metrics** .
 
 2.  In the **Select a breakdown** drop-down list, select the database that you want to examine.
-    
+
     The Cloud Monitoring console displays charts for the database.
 
 ## Create custom charts for Spanner metrics
@@ -74,10 +74,10 @@ To add latency metrics to the chart, follow these steps:
 3.  In the **Aggregator** drop-down list, click **max** .
 
 4.  Optional: Change the latency percentile:
-    
+
     1.  Click **Show advanced options** .
     2.  Click the **Aligner** drop-down list, then click the latency percentile that you want to view.
-    
+
     In most cases, you should look at either the 50th percentile latency, to understand the typical amount of latency, or the 99th percentile latency, to understand the latency for the slowest 1% of requests.
 
 To add CPU utilization metrics to the chart, follow these steps:
@@ -106,7 +106,7 @@ To create an alerting policy that triggers when your high priority cpu utilizati
 To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
-    
+
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
 2.  If you haven't created your notification channels and if you want to be notified, then click **Edit Notification Channels** and add your notification channels. Return to the **Alerting** page after you add your channels.
@@ -114,7 +114,6 @@ To create an alerting policy, do the following:
 3.  From the **Alerting** page, select **Create policy** .
 
 4.  To select the resource, metric, and filters, expand the **Select a metric** menu and then use the values in the **New condition** table:
-    
     1.  Optional: To limit the menu to relevant entries, enter the resource or metric name in the filter bar.
     2.  Select a **Resource type** . For example, select **VM instance** .
     3.  Select a **Metric category** . For example, select **instance** .
@@ -126,7 +125,7 @@ To create an alerting policy, do the following:
 6.  Click **Next** .
 
 7.  Optional: To add notifications to your alerting policy, click **Notification channels** . In the dialog, select one or more notification channels from the menu, and then click **OK** .
-    
+
     To be notified when alerts are opened and closed, check **Notify on alert closure** . By default, notifications are sent only when alerts are opened.
 
 8.  Optional: Update the **Alert autoclose duration** . This field determines when Monitoring closes alerts in the absence of metric data.
@@ -137,94 +136,22 @@ To create an alerting policy, do the following:
 
 11. Click **Create Policy** .
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>New condition</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Resource and Metric</strong></td>
-<td>In the <strong>Resources</strong> menu, select <strong>Spanner Instance</strong> .<br />
-In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
-In the <strong>Metrics</strong> menu, select <strong>CPU Utilization by priority</strong> .<br />
-<br />
-(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/cpu/utilization_by_priority</code> ).</td>
-</tr>
-<tr class="even">
-<td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">instance_id =           YOUR_INSTANCE_ID         </code><br />
-<code dir="ltr" translate="no">priority = high</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Across time series<br />
-Time series group by</strong></td>
-<td><code dir="ltr" translate="no">location</code> for multi-region instances;<br />
-leave it blank for regional instances.</td>
-</tr>
-<tr class="even">
-<td><strong>Across time series<br />
-Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">sum</code><br />
-</td>
-</tr>
-<tr class="odd">
-<td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">10 m</code><br />
-</td>
-</tr>
-<tr class="even">
-<td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">mean</code></td>
-</tr>
-</tbody>
-</table>
+| **New condition** Field                        | Value                                                                                                                                                                                                                                                                    |
+|------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Resource and Metric**                        | In the **Resources** menu, select **Spanner Instance** . In the **Metric categories** menu, select **Instance** . In the **Metrics** menu, select **CPU Utilization by priority** . (The metric.type is `spanner.googleapis.com/instance/cpu/utilization_by_priority` ). |
+| **Filter**                                     | `instance_id = `` YOUR_INSTANCE_ID` `priority = high`                                                                                                                                                                                                                    |
+| **Across time series Time series group by**    | `location` for multi-region instances; leave it blank for regional instances.                                                                                                                                                                                            |
+| **Across time series Time series aggregation** | `sum`                                                                                                                                                                                                                                                                    |
+| **Rolling window**                             | `10 m`                                                                                                                                                                                                                                                                   |
+| **Rolling window function**                    | `mean`                                                                                                                                                                                                                                                                   |
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Configure alert trigger</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">Threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Alert trigger</strong></td>
-<td><code dir="ltr" translate="no">Any time series violates</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">Above threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Threshold value</strong></td>
-<td><code dir="ltr" translate="no">45%</code> for multi-region instances;<br />
-<code dir="ltr" translate="no">65%</code> for regional instances.</td>
-</tr>
-<tr class="odd">
-<td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">10 minutes</code></td>
-</tr>
-</tbody>
-</table>
+| **Configure alert trigger** Field | Value                                                           |
+|-----------------------------------|-----------------------------------------------------------------|
+| **Condition type**                | `Threshold`                                                     |
+| **Alert trigger**                 | `Any time series violates`                                      |
+| **Threshold position**            | `Above threshold`                                               |
+| **Threshold value**               | `45%` for multi-region instances; `65%` for regional instances. |
+| **Retest window**                 | `10 minutes`                                                    |
 
 ### 24 hour rolling average CPU
 
@@ -235,7 +162,7 @@ To create an alerting policy that triggers when the 24 hour rolling average of y
 To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
-    
+
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
 2.  If you haven't created your notification channels and if you want to be notified, then click **Edit Notification Channels** and add your notification channels. Return to the **Alerting** page after you add your channels.
@@ -243,7 +170,6 @@ To create an alerting policy, do the following:
 3.  From the **Alerting** page, select **Create policy** .
 
 4.  To select the resource, metric, and filters, expand the **Select a metric** menu and then use the values in the **New condition** table:
-    
     1.  Optional: To limit the menu to relevant entries, enter the resource or metric name in the filter bar.
     2.  Select a **Resource type** . For example, select **VM instance** .
     3.  Select a **Metric category** . For example, select **instance** .
@@ -255,7 +181,7 @@ To create an alerting policy, do the following:
 6.  Click **Next** .
 
 7.  Optional: To add notifications to your alerting policy, click **Notification channels** . In the dialog, select one or more notification channels from the menu, and then click **OK** .
-    
+
     To be notified when alerts are opened and closed, check **Notify on alert closure** . By default, notifications are sent only when alerts are opened.
 
 8.  Optional: Update the **Alert autoclose duration** . This field determines when Monitoring closes alerts in the absence of metric data.
@@ -266,86 +192,21 @@ To create an alerting policy, do the following:
 
 11. Click **Create Policy** .
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>New condition</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Resource and Metric</strong></td>
-<td>In the <strong>Resources</strong> menu, select <strong>Spanner Instance</strong> .<br />
-In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
-In the <strong>Metrics</strong> menu, select <strong>Smoothed CPU utilization</strong> .<br />
-<br />
-(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/cpu/smoothed_utilization</code> ).</td>
-</tr>
-<tr class="even">
-<td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">instance_id =           YOUR_INSTANCE_ID         </code></td>
-</tr>
-<tr class="odd">
-<td><strong>Across time series<br />
-Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">sum</code><br />
-</td>
-</tr>
-<tr class="even">
-<td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">10 m</code><br />
-</td>
-</tr>
-<tr class="odd">
-<td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">mean</code></td>
-</tr>
-</tbody>
-</table>
+| **New condition** Field                        | Value                                                                                                                                                                                                                                                              |
+|------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Resource and Metric**                        | In the **Resources** menu, select **Spanner Instance** . In the **Metric categories** menu, select **Instance** . In the **Metrics** menu, select **Smoothed CPU utilization** . (The metric.type is `spanner.googleapis.com/instance/cpu/smoothed_utilization` ). |
+| **Filter**                                     | `instance_id = `` YOUR_INSTANCE_ID`                                                                                                                                                                                                                                |
+| **Across time series Time series aggregation** | `sum`                                                                                                                                                                                                                                                              |
+| **Rolling window**                             | `10 m`                                                                                                                                                                                                                                                             |
+| **Rolling window function**                    | `mean`                                                                                                                                                                                                                                                             |
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Configure alert trigger</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">Threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Alert trigger</strong></td>
-<td><code dir="ltr" translate="no">Any time series violates</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">Above threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Threshold</strong></td>
-<td><code dir="ltr" translate="no">90%</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">10 minutes</code></td>
-</tr>
-</tbody>
-</table>
+| **Configure alert trigger** Field | Value                      |
+|-----------------------------------|----------------------------|
+| **Condition type**                | `Threshold`                |
+| **Alert trigger**                 | `Any time series violates` |
+| **Threshold position**            | `Above threshold`          |
+| **Threshold**                     | `90%`                      |
+| **Retest window**                 | `10 minutes`               |
 
 ### Storage
 
@@ -356,7 +217,7 @@ To create an alerting policy that triggers when your storage for your [Spanner](
 To create an alerting policy, do the following:
 
 1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
-    
+
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
 2.  If you haven't created your notification channels and if you want to be notified, then click **Edit Notification Channels** and add your notification channels. Return to the **Alerting** page after you add your channels.
@@ -364,7 +225,6 @@ To create an alerting policy, do the following:
 3.  From the **Alerting** page, select **Create policy** .
 
 4.  To select the resource, metric, and filters, expand the **Select a metric** menu and then use the values in the **New condition** table:
-    
     1.  Optional: To limit the menu to relevant entries, enter the resource or metric name in the filter bar.
     2.  Select a **Resource type** . For example, select **VM instance** .
     3.  Select a **Metric category** . For example, select **instance** .
@@ -376,7 +236,7 @@ To create an alerting policy, do the following:
 6.  Click **Next** .
 
 7.  Optional: To add notifications to your alerting policy, click **Notification channels** . In the dialog, select one or more notification channels from the menu, and then click **OK** .
-    
+
     To be notified when alerts are opened and closed, check **Notify on alert closure** . By default, notifications are sent only when alerts are opened.
 
 8.  Optional: Update the **Alert autoclose duration** . This field determines when Monitoring closes alerts in the absence of metric data.
@@ -387,91 +247,26 @@ To create an alerting policy, do the following:
 
 11. Click **Create Policy** .
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>New condition</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Resource and Metric</strong></td>
-<td>In the <strong>Resources</strong> menu, select <strong>Spanner Instance</strong> .<br />
-In the <strong>Metric categories</strong> menu, select <strong>Instance</strong> .<br />
-In the <strong>Metrics</strong> menu, select <strong>Storage used</strong> .<br />
-<br />
-(The metric.type is <code dir="ltr" translate="no">spanner.googleapis.com/instance/storage/utilization</code> ).</td>
-</tr>
-<tr class="even">
-<td><strong>Filter</strong></td>
-<td><code dir="ltr" translate="no">instance_id =           YOUR_INSTANCE_ID         </code></td>
-</tr>
-<tr class="odd">
-<td><strong>Across time series<br />
-Time series aggregation</strong></td>
-<td><code dir="ltr" translate="no">sum</code><br />
-</td>
-</tr>
-<tr class="even">
-<td><strong>Rolling window</strong></td>
-<td><code dir="ltr" translate="no">10 m</code><br />
-</td>
-</tr>
-<tr class="odd">
-<td><strong>Rolling window function</strong></td>
-<td><code dir="ltr" translate="no">max</code></td>
-</tr>
-</tbody>
-</table>
+| **New condition** Field                        | Value                                                                                                                                                                                                                                             |
+|------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Resource and Metric**                        | In the **Resources** menu, select **Spanner Instance** . In the **Metric categories** menu, select **Instance** . In the **Metrics** menu, select **Storage used** . (The metric.type is `spanner.googleapis.com/instance/storage/utilization` ). |
+| **Filter**                                     | `instance_id = `` YOUR_INSTANCE_ID`                                                                                                                                                                                                               |
+| **Across time series Time series aggregation** | `sum`                                                                                                                                                                                                                                             |
+| **Rolling window**                             | `10 m`                                                                                                                                                                                                                                            |
+| **Rolling window function**                    | `max`                                                                                                                                                                                                                                             |
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>Configure alert trigger</strong><br />
-Field</th>
-<th><br />
-Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Condition type</strong></td>
-<td><code dir="ltr" translate="no">Threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Condition triggers if</strong></td>
-<td><code dir="ltr" translate="no">Any time series violates</code></td>
-</tr>
-<tr class="odd">
-<td><strong>Threshold position</strong></td>
-<td><code dir="ltr" translate="no">Above threshold</code></td>
-</tr>
-<tr class="even">
-<td><strong>Threshold value</strong></td>
-<td>You don't need to set a specific threshold for the maximum storage per node. However, we recommended that you set up an alert for when you are approaching the maximum storage limit. To learn more, see <a href="https://docs.cloud.google.com/spanner/docs/storage-utilization#recommended-max">Storage utilization metrics</a> .</td>
-</tr>
-<tr class="odd">
-<td><strong>Retest window</strong></td>
-<td><code dir="ltr" translate="no">10 minutes</code></td>
-</tr>
-</tbody>
-</table>
+| **Configure alert trigger** Field | Value                                                                                                                                                                                                                                                                                                                    |
+|-----------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Condition type**                | `Threshold`                                                                                                                                                                                                                                                                                                              |
+| **Condition triggers if**         | `Any time series violates`                                                                                                                                                                                                                                                                                               |
+| **Threshold position**            | `Above threshold`                                                                                                                                                                                                                                                                                                        |
+| **Threshold value**               | You don't need to set a specific threshold for the maximum storage per node. However, we recommended that you set up an alert for when you are approaching the maximum storage limit. To learn more, see [Storage utilization metrics](https://docs.cloud.google.com/spanner/docs/storage-utilization#recommended-max) . |
+| **Retest window**                 | `10 minutes`                                                                                                                                                                                                                                                                                                             |
 
 > **Note:** Spanner usage amounts are calculated in *binary terabytes* , where 1 TB is 2 <sup>40</sup> bytes. This unit of measurement is also known as a [tebibyte (TiB)](https://en.wikipedia.org/wiki/Tebibyte) .
 
 ## What's next
 
-  - Understand the [CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization) and [latency](https://docs.cloud.google.com/spanner/docs/latency-guide) metrics for Spanner.
-  - [Use the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) to get a quick view of the most important metrics for your instance.
-  - Learn more about [Cloud Monitoring](https://docs.cloud.google.com/monitoring/docs) .
+- Understand the [CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization) and [latency](https://docs.cloud.google.com/spanner/docs/latency-guide) metrics for Spanner.
+- [Use the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) to get a quick view of the most important metrics for your instance.
+- Learn more about [Cloud Monitoring](https://docs.cloud.google.com/monitoring/docs) .

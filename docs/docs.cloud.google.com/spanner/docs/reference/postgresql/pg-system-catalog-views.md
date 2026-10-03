@@ -8,14 +8,14 @@ data_source: docs.cloud.google.com
 
 This page lists the PostgreSQL system catalog views that Spanner supports.
 
-### pg\_available\_extension\_versions
+### pg_available_extension_versions
 
 The [`pg_available_extension_versions`](https://www.postgresql.org/docs/current/view-pg-available-extension-versions.html) view has no content.
 
 The following table shows whether columns have content.
 
 | Column name   | Type     | Has content |
-| ------------- | -------- | ----------- |
+|---------------|----------|-------------|
 | `name`        | `text`   | N           |
 | `version`     | `text`   | N           |
 | `installed`   | `bool`   | N           |
@@ -26,20 +26,20 @@ The following table shows whether columns have content.
 | `requires`    | `text[]` | N           |
 | `comment`     | `text`   | N           |
 
-### pg\_available\_extensions
+### pg_available_extensions
 
 The [`pg_available_extensions`](https://www.postgresql.org/docs/current/view-pg-available-extensions.html) view has no content.
 
 The following table shows whether columns have content.
 
 | Column name         | Type   | Has content |
-| ------------------- | ------ | ----------- |
+|---------------------|--------|-------------|
 | `name`              | `text` | N           |
 | `default_version`   | `text` | N           |
 | `installed_version` | `text` | N           |
 | `comment`           | `text` | N           |
 
-### pg\_config
+### pg_config
 
 The [`pg_config`](https://www.postgresql.org/docs/current/view-pg-config.html)
 
@@ -48,11 +48,11 @@ view has no content.
 The following table shows whether columns have content.
 
 | Column name | Type   | Has content |
-| ----------- | ------ | ----------- |
+|-------------|--------|-------------|
 | `name`      | `text` | N           |
 | `setting`   | `text` | N           |
 
-### pg\_cursors
+### pg_cursors
 
 The [`pg_cursors`](https://www.postgresql.org/docs/current/view-pg-cursors.html)
 
@@ -61,7 +61,7 @@ view has no content.
 The following table shows whether columns have content.
 
 | Column name     | Type          | Has content |
-| --------------- | ------------- | ----------- |
+|-----------------|---------------|-------------|
 | `name`          | `text`        | N           |
 | `statement`     | `text`        | N           |
 | `is_holdable`   | `bool`        | N           |
@@ -69,14 +69,14 @@ The following table shows whether columns have content.
 | `is_scrollable` | `bool`        | N           |
 | `creation_time` | `timestamptz` | N           |
 
-### pg\_file\_settings
+### pg_file_settings
 
 The [`pg_file_settings`](https://www.postgresql.org/docs/current/view-pg-file-settings.html) view has no content.
 
 The following table shows whether columns have content.
 
 | Column name  | Type   | Has content |
-| ------------ | ------ | ----------- |
+|--------------|--------|-------------|
 | `sourcefile` | `text` | N           |
 | `sourceline` | `int8` | N           |
 | `seqno`      | `int8` | N           |
@@ -85,14 +85,14 @@ The following table shows whether columns have content.
 | `applied`    | `bool` | N           |
 | `error`      | `text` | N           |
 
-### pg\_hba\_file\_rules
+### pg_hba_file_rules
 
 The [`pg_hba_file_rules`](https://www.postgresql.org/docs/current/view-pg-hba-file-rules.html) view has no content.
 
 The following table shows whether columns have content.
 
 | Column name   | Type     | Has content |
-| ------------- | -------- | ----------- |
+|---------------|----------|-------------|
 | `rule_number` | `int8`   | N           |
 | `file_name`   | `text`   | N           |
 | `line_number` | `int8`   | N           |
@@ -105,7 +105,7 @@ The following table shows whether columns have content.
 | `options`     | `text[]` | N           |
 | `error`       | `text`   | N           |
 
-### pg\_indexes
+### pg_indexes
 
 The [`pg_indexes`](https://www.postgresql.org/docs/current/view-pg-indexes.html)
 
@@ -114,14 +114,14 @@ view has content.
 The following table shows whether columns have content.
 
 | Column name  | Type   | Has content |
-| ------------ | ------ | ----------- |
+|--------------|--------|-------------|
 | `schemaname` | `text` | Y           |
 | `tablename`  | `text` | Y           |
 | `indexname`  | `text` | Y           |
 | `tablespace` | `text` | N           |
 | `indexdef`   | `text` | N           |
 
-### pg\_matviews
+### pg_matviews
 
 The [`pg_matviews`](https://www.postgresql.org/docs/current/view-pg-matviews.html)
 
@@ -130,7 +130,7 @@ view has no content.
 The following table shows whether columns have content.
 
 | Column name    | Type   | Has content |
-| -------------- | ------ | ----------- |
+|----------------|--------|-------------|
 | `schemaname`   | `text` | N           |
 | `matviewname`  | `text` | N           |
 | `matviewowner` | `text` | N           |
@@ -139,7 +139,7 @@ The following table shows whether columns have content.
 | `ispopulated`  | `bool` | N           |
 | `definition`   | `text` | N           |
 
-### pg\_policies
+### pg_policies
 
 The [`pg_policies`](https://www.postgresql.org/docs/current/view-pg-policies.html)
 
@@ -148,7 +148,7 @@ view has no content.
 The following table shows whether columns have content.
 
 | Column name  | Type     | Has content |
-| ------------ | -------- | ----------- |
+|--------------|----------|-------------|
 | `schemaname` | `text`   | N           |
 | `tablename`  | `text`   | N           |
 | `policyname` | `text`   | N           |
@@ -158,42 +158,42 @@ The following table shows whether columns have content.
 | `qual`       | `text`   | N           |
 | `with_check` | `text`   | N           |
 
-### pg\_prepared\_xacts
+### pg_prepared_xacts
 
 The [`pg_prepared_xacts`](https://www.postgresql.org/docs/current/view-pg-prepared-xacts.html) view has no content.
 
 The following table shows whether columns have content.
 
 | Column name   | Type          | Has content |
-| ------------- | ------------- | ----------- |
+|---------------|---------------|-------------|
 | `transaction` | `int8`        | N           |
 | `gid`         | `text`        | N           |
 | `prepared`    | `timestamptz` | N           |
 | `owner`       | `text`        | N           |
 | `database`    | `text`        | N           |
 
-### pg\_publication\_tables
+### pg_publication_tables
 
 The [`pg_publication_tables`](https://www.postgresql.org/docs/current/view-pg-publication-tables.html) view has no content.
 
 The following table shows whether columns have content.
 
 | Column name  | Type     | Has content |
-| ------------ | -------- | ----------- |
+|--------------|----------|-------------|
 | `pubname`    | `text`   | N           |
 | `schemaname` | `text`   | N           |
 | `tablename`  | `text`   | N           |
 | `attnames`   | `text[]` | N           |
 | `rowfilter`  | `text`   | N           |
 
-### pg\_roles
+### pg_roles
 
 The [`pg_roles`](https://www.postgresql.org/docs/current/view-pg-roles.html) view has no content.
 
 The following table shows whether columns have content.
 
 | Column name         | Type          | Has content |
-| ------------------- | ------------- | ----------- |
+|---------------------|---------------|-------------|
 | `rolname`           | `text`        | N           |
 | `rolsuper`          | `bool`        | N           |
 | `rolinherit`        | `bool`        | N           |
@@ -208,20 +208,20 @@ The following table shows whether columns have content.
 | `rolconfig`         | `text[]`      | N           |
 | `oid`               | `oid`         | N           |
 
-### pg\_rules
+### pg_rules
 
 The [`pg_rules`](https://www.postgresql.org/docs/current/view-pg-rules.html) view has no content.
 
 The following table shows whether columns have content.
 
 | Column name  | Type   | Has content |
-| ------------ | ------ | ----------- |
+|--------------|--------|-------------|
 | `schemaname` | `text` | N           |
 | `tablename`  | `text` | N           |
 | `rulename`   | `text` | N           |
 | `definition` | `text` | N           |
 
-### pg\_sequences
+### pg_sequences
 
 The [`pg_sequences`](https://www.postgresql.org/docs/current/view-pg-sequences.html)
 
@@ -230,7 +230,7 @@ view has content.
 The following table shows whether columns have content.
 
 | Column name     | Type   | Has content |
-| --------------- | ------ | ----------- |
+|-----------------|--------|-------------|
 | `schemaname`    | `text` | Y           |
 | `sequencename`  | `text` | Y           |
 | `sequenceowner` | `text` | N           |
@@ -242,7 +242,7 @@ The following table shows whether columns have content.
 | `cache_size`    | `int8` | Y           |
 | `last_value`    | `int8` | N           |
 
-### pg\_settings
+### pg_settings
 
 The [`pg_settings`](https://www.postgresql.org/docs/current/view-pg-settings.html)
 
@@ -251,7 +251,7 @@ view has content.
 The following table shows whether columns have content.
 
 | Column name       | Type     | Has content |
-| ----------------- | -------- | ----------- |
+|-------------------|----------|-------------|
 | `name`            | `text`   | Y           |
 | `setting`         | `text`   | Y           |
 | `unit`            | `text`   | N           |
@@ -270,20 +270,20 @@ The following table shows whether columns have content.
 | `sourceline`      | `int8`   | N           |
 | `pending_restart` | `bool`   | Y           |
 
-### pg\_shmem\_allocations
+### pg_shmem_allocations
 
 The [`pg_shmem_allocations`](https://www.postgresql.org/docs/current/view-pg-shmem-allocations.html) view has no content.
 
 The following table shows whether columns have content.
 
 | Column name      | Type   | Has content |
-| ---------------- | ------ | ----------- |
+|------------------|--------|-------------|
 | `name`           | `text` | N           |
 | `off`            | `int8` | N           |
 | `size`           | `int8` | N           |
 | `allocated_size` | `int8` | N           |
 
-### pg\_tables
+### pg_tables
 
 The [`pg_tables`](https://www.postgresql.org/docs/current/view-pg-tables.html)
 
@@ -292,7 +292,7 @@ view has content.
 The following table shows whether columns have content.
 
 | Column name   | Type   | Has content |
-| ------------- | ------ | ----------- |
+|---------------|--------|-------------|
 | `schemaname`  | `text` | Y           |
 | `tablename`   | `text` | Y           |
 | `tableowner`  | `text` | N           |
@@ -302,14 +302,14 @@ The following table shows whether columns have content.
 | `hastriggers` | `bool` | N           |
 | `rowsecurity` | `bool` | N           |
 
-### pg\_views
+### pg_views
 
 The [`pg_views`](https://www.postgresql.org/docs/current/view-pg-views.html) view has content.
 
 The following table shows whether columns have content.
 
 | Column name  | Type   | Has content |
-| ------------ | ------ | ----------- |
+|--------------|--------|-------------|
 | `schemaname` | `text` | Y           |
 | `viewname`   | `text` | Y           |
 | `viewowner`  | `text` | N           |
@@ -317,4 +317,4 @@ The following table shows whether columns have content.
 
 ## What's next
 
-  - [System catalogs](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables)
+- [System catalogs](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables)

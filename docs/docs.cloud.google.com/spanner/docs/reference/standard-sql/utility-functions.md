@@ -11,13 +11,15 @@ GoogleSQL for Spanner supports the following utility functions.
 ## Function list
 
 | Name                                                                                                                 | Summary                                                                     |
-| -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+|----------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
 | [`GENERATE_UUID`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid) | Produces a random universally unique identifier (UUID) as a `STRING` value. |
 | [`NEW_UUID`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid)           | Produces a random universally unique identifier (UUID) as a `UUID` value.   |
 
 ## `GENERATE_UUID`
 
-    GENERATE_UUID()
+```
+GENERATE_UUID()
+```
 
 **Description**
 
@@ -31,17 +33,21 @@ STRING
 
 The following query generates a random UUID.
 
-    SELECT GENERATE_UUID() AS uuid;
-    
-    /*--------------------------------------+
-     | uuid                                 |
-     +--------------------------------------+
-     | 4192bff0-e1e0-43ce-a4db-912808c32493 |
-     +--------------------------------------*/
+```
+SELECT GENERATE_UUID() AS uuid;
+
+/*--------------------------------------+
+ | uuid                                 |
+ +--------------------------------------+
+ | 4192bff0-e1e0-43ce-a4db-912808c32493 |
+ +--------------------------------------*/
+```
 
 ## `NEW_UUID`
 
-    NEW_UUID()
+```
+NEW_UUID()
+```
 
 **Description**
 
@@ -60,10 +66,12 @@ UUID
 
 The following query generates a random UUID.
 
-    SELECT NEW_UUID() AS uuid;
-    
-    /*--------------------------------------+
-     | uuid                                 |
-     +--------------------------------------+
-     | 4192bff0-e1e0-43ce-a4db-912808c32493 |
-     +--------------------------------------*/
+```
+SELECT NEW_UUID() AS uuid;
+
+/*--------------------------------------+
+ | uuid                                 |
+ +--------------------------------------+
+ | 4192bff0-e1e0-43ce-a4db-912808c32493 |
+ +--------------------------------------*/
+```

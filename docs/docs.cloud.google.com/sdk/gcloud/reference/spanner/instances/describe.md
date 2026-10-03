@@ -12,7 +12,7 @@ gcloud spanner instances describe - describe a Cloud Spanner instance
 
 SYNOPSIS
 
-`gcloud spanner instances describe` `  INSTANCE  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instances describe` [`INSTANCE`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/describe#INSTANCE) \[ [`GCLOUD_WIDE_FLAG`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/describe#GCLOUD-WIDE-FLAGS)` …` \]
 
 DESCRIPTION
 
@@ -22,23 +22,29 @@ EXAMPLES
 
 To describe a Cloud Spanner instance, run:
 
-    gcloud spanner instances describe my-instance-id
+```
+gcloud spanner instances describe my-instance-id
+```
 
 POSITIONAL ARGUMENTS
 
-  - `  INSTANCE  `  
-    Cloud Spanner instance ID.
+`INSTANCE`  
+Cloud Spanner instance ID.
 
 GCLOUD WIDE FLAGS
 
-These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+These flags are available to all commands: [`--access-token-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--access-token-file) , [`--account`](https://docs.cloud.google.com/sdk/gcloud/reference#--account) , [`--billing-project`](https://docs.cloud.google.com/sdk/gcloud/reference#--billing-project) , [`--configuration`](https://docs.cloud.google.com/sdk/gcloud/reference#--configuration) , [`--flags-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--flags-file) , [`--flatten`](https://docs.cloud.google.com/sdk/gcloud/reference#--flatten) , [`--format`](https://docs.cloud.google.com/sdk/gcloud/reference#--format) , [`--help`](https://docs.cloud.google.com/sdk/gcloud/reference#--help) , [`--impersonate-service-account`](https://docs.cloud.google.com/sdk/gcloud/reference#--impersonate-service-account) , [`--log-http`](https://docs.cloud.google.com/sdk/gcloud/reference#--log-http) , [`--project`](https://docs.cloud.google.com/sdk/gcloud/reference#--project) , [`--quiet`](https://docs.cloud.google.com/sdk/gcloud/reference#--quiet) , [`--trace-token`](https://docs.cloud.google.com/sdk/gcloud/reference#--trace-token) , [`--user-output-enabled`](https://docs.cloud.google.com/sdk/gcloud/reference#--user-output-enabled) , [`--verbosity`](https://docs.cloud.google.com/sdk/gcloud/reference#--verbosity) .
 
-Run ` $ gcloud help  ` for details.
+Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for details.
 
 NOTES
 
 These variants are also available:
 
-    gcloud alpha spanner instances describe
+```
+gcloud alpha spanner instances describe
+```
 
-    gcloud beta spanner instances describe
+```
+gcloud beta spanner instances describe
+```

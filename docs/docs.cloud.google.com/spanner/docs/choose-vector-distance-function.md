@@ -12,11 +12,11 @@ This page describes how to choose among the vector distance functions provided i
 
 After you've [generated embeddings](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings) from your Spanner data, you can perform a similarity search using vector distance functions. The following table describes the vector distance functions in Spanner.
 
-| Function           | Description                                                                                                                                                                                                  | Formula                                                        | Relationship to increasing similarity |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- | ------------------------------------- |
-| Dot product        | Calculates the cosine of angle \\(\\theta\\) multiplied by the product of corresponding vector magnitudes.                                                                                                   | \\(a\_1b\_1+a\_2b\_2+...+a\_nb\_n\\) \\(=|a||b|cos(\\theta)\\) | Increases                             |
-| Cosine distance    | The cosine distance function subtracts the cosine similarity from one ( `cosine_distance() = 1 - cosine similarity` ). The cosine similarity measures the cosine of angle \\(\\theta\\) between two vectors. | 1 - \\(\\frac{a^T b}{|a| \\cdot |b|}\\)                        | Decreases                             |
-| Euclidean distance | Measures the straight line distance between two vectors.                                                                                                                                                     | \\(\\sqrt{(a\_1-b\_1)^2+(a\_2-b\_2)^2+...+(a\_N-b\_N)^2}\\)    | Decreases                             |
+| Function           | Description                                                                                                                                                                                                 | Formula                                                     | Relationship to increasing similarity |
+|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|---------------------------------------|
+| Dot product        | Calculates the cosine of angle \\(\theta\\) multiplied by the product of corresponding vector magnitudes.                                                                                                   | \\(a_1b_1+a_2b_2+...+a_nb_n\\) \\(=\|a\|\|b\|cos(\theta)\\) | Increases                             |
+| Cosine distance    | The cosine distance function subtracts the cosine similarity from one ( `cosine_distance() = 1 - cosine similarity` ). The cosine similarity measures the cosine of angle \\(\theta\\) between two vectors. | 1 - \\(\frac{a^T b}{\|a\| \cdot \|b\|}\\)                   | Decreases                             |
+| Euclidean distance | Measures the straight line distance between two vectors.                                                                                                                                                    | \\(\sqrt{(a_1-b_1)^2+(a_2-b_2)^2+...+(a_N-b_N)^2}\\)        | Decreases                             |
 
 ## Choose a similarity measure
 
@@ -38,7 +38,7 @@ If you're unsure whether or not your data is normalized and you want to use `DOT
 
 ## What's next
 
-  - Learn more about how to [perform a vector search by finding the k-nearest neighbor](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
-  - Learn how to [export embeddings to Gemini Enterprise Agent Platform Vector Search](https://docs.cloud.google.com/spanner/docs/vector-search-embeddings) .
-  - Learn more about the [GoogleSQL `COSINE_DISTANCE()` , `EUCLIDEAN_DISTANCE()` , and `DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
-  - Learn more about the [PostgreSQL `spanner.cosine_distance()` , `spanner.euclidean_distance(), and spanner.dot_product()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) functions.
+- Learn more about how to [perform a vector search by finding the k-nearest neighbor](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) .
+- Learn how to [export embeddings to Gemini Enterprise Agent Platform Vector Search](https://docs.cloud.google.com/spanner/docs/vector-search-embeddings) .
+- Learn more about the [GoogleSQL `COSINE_DISTANCE()` , `EUCLIDEAN_DISTANCE()` , and `DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
+- Learn more about the [PostgreSQL `spanner.cosine_distance()` , `spanner.euclidean_distance(), and spanner.dot_product()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#mathematical) functions.

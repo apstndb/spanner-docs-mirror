@@ -35,15 +35,19 @@ Major compactions run as background operations. However, if your instance has co
 4.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
 
 5.  Run one of the following commands to start compaction, based on your database dialect:
-    
+
     ### GoogleSQL
-    
-        CALL compact_all();
-    
+
+    ```
+    CALL compact_all();
+    ```
+
     ### PostgreSQL
-    
-        CALL spanner.compact_all();
-    
+
+    ```
+    CALL spanner.compact_all();
+    ```
+
     This operation returns a long-running operation (LRO) ID that you can use to find the operation in the **Operations** list.
 
 6.  To monitor the progress of the compaction operation, in the navigation menu, click **Operations** .
@@ -52,17 +56,19 @@ Major compactions run as background operations. However, if your instance has co
 
 To trigger compactions programmatically using the C++ client library:
 
-    void Compact(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-    
-      spanner::SqlStatement select("CALL compact_all()");
-      using RowType = std::tuple<std::string>;
-      auto rows = client.ExecuteQuery(std::move(select));
-    
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "Long-running operation ID: " << std::get<0>(*row) << "\n";
-      }
-    }
+```
+void Compact(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+
+  spanner::SqlStatement select("CALL compact_all()");
+  using RowType = std::tuple<std::string>;
+  auto rows = client.ExecuteQuery(std::move(select));
+
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "Long-running operation ID: " << std::get<0>(*row) << "\n";
+  }
+}
+```
 
 You can [check the progress of a long-running database operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#check_the_progress_of_a_long-running_database_operation) . You can also cancel the ongoing major compaction request using the LRO ID. For more information, see [Cancel a long-running database operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#cancel_a_long-running_database_operation) .

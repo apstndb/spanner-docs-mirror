@@ -6,13 +6,13 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.HTTP_TEMPLATE)
-  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.PATH_PARAMETERS)
-  - [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.QUERY_PARAMETERS)
-  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.request_body)
-  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.response_body)
-  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.aspect)
-  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#try-it)
+- [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.HTTP_TEMPLATE)
+- [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.PATH_PARAMETERS)
+- [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.QUERY_PARAMETERS)
+- [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.request_body)
+- [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.response_body)
+- [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#body.aspect)
+- [Try it!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations/list#try-it)
 
 Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns `UNIMPLEMENTED` .
 
@@ -27,45 +27,18 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 ### Path parameters
 
-Parameters
-
-`name`
-
-`string`
-
-The name of the operation's parent resource.
+| Parameters |                                                       |
+|------------|-------------------------------------------------------|
+| `name`     | `string` The name of the operation's parent resource. |
 
 ### Query parameters
 
-Parameters
-
-`filter`
-
-`string`
-
-The standard list filter.
-
-`pageSize`
-
-`integer`
-
-The standard list page size.
-
-`pageToken`
-
-`string`
-
-The standard list page token.
-
-`returnPartialSuccess`
-
-`boolean`
-
-When set to `true` , operations that are reachable are returned as normal, and those that are unreachable are returned in the `  ListOperationsResponse.unreachable  ` field.
-
-This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"` .
-
-This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation.
+| Parameters             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+|------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `filter`               | `string` The standard list filter.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `pageSize`             | `integer` The standard list page size.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `pageToken`            | `string` The standard list page token.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `returnPartialSuccess` | `boolean` When set to `true` , operations that are reachable are returned as normal, and those that are unreachable are returned in the [`ListOperationsResponse.unreachable`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ListOperationsResponse#FIELDS.unreachable) field. This can only be `true` when reading across collections. For example, when `parent` is set to `"projects/example/locations/-"` . This field is not supported by default and will result in an `UNIMPLEMENTED` error if set unless explicitly documented otherwise in service or product specific documentation. |
 
 ### Request body
 
@@ -73,13 +46,13 @@ The request body must be empty.
 
 ### Response body
 
-If successful, the response body contains an instance of `  ListOperationsResponse  ` .
+If successful, the response body contains an instance of [`ListOperationsResponse`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ListOperationsResponse) .
 
 ### Authorization scopes
 
 Requires one of the following OAuth scopes:
 
-  - `https://www.googleapis.com/auth/spanner.admin`
-  - `https://www.googleapis.com/auth/cloud-platform`
+- `https://www.googleapis.com/auth/spanner.admin`
+- `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

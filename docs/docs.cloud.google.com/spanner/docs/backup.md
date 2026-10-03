@@ -26,11 +26,11 @@ For more information about using `createTime` and `versionTime` using the API, s
 
 ## Key features
 
-  - **Data consistency** : Backups of a Spanner database are transactionally and [externally consistent](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) at the `versionTime` of the backup.
+- **Data consistency** : Backups of a Spanner database are transactionally and [externally consistent](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) at the `versionTime` of the backup.
 
-  - **Replication** : Backups reside in the same instance as their source database and are replicated in the same geographic locations. For [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional-configurations) , the backup is stored in each of the three read-write zones. For [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) and [multi-regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) , the backup is stored in all zones that contain either a read-write or read-only replica. If you need to store the backup of your database in a different region or project, you can copy the completed backup from the source instance to a destination instance located in a different region or project. For more information, see [copy a backup](https://docs.cloud.google.com/spanner/docs/backup/copy-backup) .
+- **Replication** : Backups reside in the same instance as their source database and are replicated in the same geographic locations. For [regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional-configurations) , the backup is stored in each of the three read-write zones. For [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) and [multi-regional instances](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) , the backup is stored in all zones that contain either a read-write or read-only replica. If you need to store the backup of your database in a different region or project, you can copy the completed backup from the source instance to a destination instance located in a different region or project. For more information, see [copy a backup](https://docs.cloud.google.com/spanner/docs/backup/copy-backup) .
 
-  - **Automatic expiration** : All backups have a user-specified expiration date which determines when it is automatically deleted. Spanner deletes expired backups asynchronously, so there might be a lag between when a backup is expired and when it's actually deleted.
+- **Automatic expiration** : All backups have a user-specified expiration date which determines when it is automatically deleted. Spanner deletes expired backups asynchronously, so there might be a lag between when a backup is expired and when it's actually deleted.
 
 ## Backup creation
 
@@ -38,15 +38,15 @@ When you create a backup, the backup resides in the same instance, region, and p
 
 A backup contains the following information from the database at the `versionTime` of the backup:
 
-  - A full backup contains all of the data. An incremental backup contains only the data that has changed since a previous backup.
-  - Schema information, including table names, fields, data types, secondary indexes, change streams, and the relationships between these entities.
-  - All database options that are set with the [`ALTER DATABASE SET OPTIONS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) command.
+- A full backup contains all of the data. An incremental backup contains only the data that has changed since a previous backup.
+- Schema information, including table names, fields, data types, secondary indexes, change streams, and the relationships between these entities.
+- All database options that are set with the [`ALTER DATABASE SET OPTIONS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) command.
 
 A Spanner backup does not include the following information:
 
-  - Any modifications to the data or schema after the [`versionTime`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) .
-  - [Identity and Access Management (IAM)](https://docs.cloud.google.com/spanner/docs/iam) policies.
-  - Change stream data records. Although the change streams schema is stored, the change stream data is meant to be streamed out and consumed near-simultaneously with the changes it describes.
+- Any modifications to the data or schema after the [`versionTime`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) .
+- [Identity and Access Management (IAM)](https://docs.cloud.google.com/spanner/docs/iam) policies.
+- Change stream data records. Although the change streams schema is stored, the change stream data is meant to be streamed out and consumed near-simultaneously with the changes it describes.
 
 To help ensure external consistency of the backup, Spanner pins the contents of the database at [`versionTime`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) . This prevents the garbage collection system from removing the relevant data values for the duration of the backup operation. Then, every read-write and read-only zone in the instance begins copying the data in parallel. If any zone is temporarily unavailable, the backup is not complete until the zone comes back online. Backups are restorable as soon as the operation is complete. For multi-region instances, all read-write and read-only zones in all regions must complete their backup replicas before the backup is marked as restorable.
 
@@ -72,28 +72,28 @@ Spanner permits up to 13 incremental backups per chain, in addition to the initi
 
 In some scenarios, Spanner might create a new chain before the maximum chain length occurs. The following are a few of the scenarios:
 
-  - The oldest full backup was taken 28 or more days ago.
-  - The newest backup in the chain is deleted.
-  - The incremental backup schedule is modified.
+- The oldest full backup was taken 28 or more days ago.
+- The newest backup in the chain is deleted.
+- The incremental backup schedule is modified.
 
 Here are some factors that can help you make a decision about using incremental backups:
 
-  - **Restoration** : Restoring an incremental backup might take longer than restoring a full backup that contains the same data.
+- **Restoration** : Restoring an incremental backup might take longer than restoring a full backup that contains the same data.
 
-  - **Deletion** : If you delete a backup in a chain or it expires, Spanner might still keep the backup to support newer backups in the chain, if any exist. Spanner needs all the older backups in the chain to restore an incremental backup. To delete all the data in a chain of backups, including that of expired or deleted backups, delete all the backups in the chain.
+- **Deletion** : If you delete a backup in a chain or it expires, Spanner might still keep the backup to support newer backups in the chain, if any exist. Spanner needs all the older backups in the chain to restore an incremental backup. To delete all the data in a chain of backups, including that of expired or deleted backups, delete all the backups in the chain.
 
-  - **Retention** : Each backup schedule has the following terms that offer information about the schedule:
-    
-      - `creation_interval` : represents the specified schedule frequency for the backup schedule.
-      - `retention_duration` : represents how long the backups created by the schedule are retained. For a given chain, the oldest full backup is retained past its original expiration date if it is needed to support newer backups in the chain. The total retention duration for the full backup is at most the lower of the following values:
-          - `retention_duration` + 28 days
-          - `retention_duration` + ( `creation_interval` \*14)
+- **Retention** : Each backup schedule has the following terms that offer information about the schedule:
 
-  - **Backup copy** : When you copy an incremental backup, Spanner also copies all the older backups in the chain required to restore the copied backup. If the destination instance already contains a backup chain ending with an older backup that was copied from the same source chain, Spanner avoids creating redundant copies of existing backups. Instead, Spanner copies only the incremental backup and any older backups not present in the destination chain, and appends these backups to the existing chain. Spanner charges you based on the total storage used.
-    
-    For example, if you set up a daily incremental backup schedule and copy the latest backup each day, the destination instance maintains a backup chain that mirrors the source chain. Spanner doesn't duplicate previously copied backups within the chain during subsequent copy operations.
-    
-    While Spanner aims to avoid redundant copies, in rare situations, Spanner might need to copy all the older backups in the chain, even if previously copied backups already exist in the destination instance.
+  - `creation_interval` : represents the specified schedule frequency for the backup schedule.
+  - `retention_duration` : represents how long the backups created by the schedule are retained. For a given chain, the oldest full backup is retained past its original expiration date if it is needed to support newer backups in the chain. The total retention duration for the full backup is at most the lower of the following values:
+    - `retention_duration` + 28 days
+    - `retention_duration` + ( `creation_interval` \*14)
+
+- **Backup copy** : When you copy an incremental backup, Spanner also copies all the older backups in the chain required to restore the copied backup. If the destination instance already contains a backup chain ending with an older backup that was copied from the same source chain, Spanner avoids creating redundant copies of existing backups. Instead, Spanner copies only the incremental backup and any older backups not present in the destination chain, and appends these backups to the existing chain. Spanner charges you based on the total storage used.
+
+  For example, if you set up a daily incremental backup schedule and copy the latest backup each day, the destination instance maintains a backup chain that mirrors the source chain. Spanner doesn't duplicate previously copied backups within the chain during subsequent copy operations.
+
+  While Spanner aims to avoid redundant copies, in rare situations, Spanner might need to copy all the older backups in the chain, even if previously copied backups already exist in the destination instance.
 
 For more information about creating incremental backups, see [Create and manage backup schedules](https://docs.cloud.google.com/spanner/docs/backup/create-manage-backup-schedules) .
 
@@ -115,9 +115,9 @@ For instructions on enabling or disabling default backup schedules, see [Edit th
 
 Each Spanner backup has the following fields that offer information about storage consumption:
 
-  - `exclusiveSizeBytes` : shows the number of bytes required by the backup. This size represents the billable size of the backup.
-  - `freeableSizeBytes` : shows the number of bytes that are released if you delete the backup.
-  - `oldestVersionTime` : shows the `versionTime` of the oldest full backup in the chain, even if that backup has expired. You can use this field to understand which data is being stored.
+- `exclusiveSizeBytes` : shows the number of bytes required by the backup. This size represents the billable size of the backup.
+- `freeableSizeBytes` : shows the number of bytes that are released if you delete the backup.
+- `oldestVersionTime` : shows the `versionTime` of the oldest full backup in the chain, even if that backup has expired. You can use this field to understand which data is being stored.
 
 Incremental backups can save you storage costs. An incremental backup might have a significantly smaller `exclusiveSizeBytes` field than a full backup as the incremental backup only needs to store the changes since the previous backup in the chain. Adding this field value for each backup in the chain reflects the total number of bytes used by the backups in the chain.
 
@@ -126,7 +126,7 @@ An incremental backup is dependent on all older backups in the same chain for re
 Consider that you created a full backup schedule and an incremental backup schedule for a database that has a size of 100 GB and increases by 10 GB every day. The following table shows possible storage costs for these backup schedules:
 
 | Day | Full schedule backup size | Incremental schedule backup size |
-| --- | ------------------------- | -------------------------------- |
+|-----|---------------------------|----------------------------------|
 | 1   | 100 GB                    | 100 GB                           |
 | 2   | 110 GB                    | 10 GB                            |
 | 3   | 120 GB                    | 10 GB                            |
@@ -159,13 +159,15 @@ The copied backup has the same [key features](https://docs.cloud.google.com/span
 
 Backups are resources in Spanner. Each [backup resource](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups) is organized under the same instance as its source database in the [resource hierarchy](https://docs.cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy) and has a resource path that uses the following format:
 
-    projects/PROJECT_ID/instances/INSTANCE_ID/backups/BACKUP_NAME
+```
+projects/PROJECT_ID/instances/INSTANCE_ID/backups/BACKUP_NAME
+```
 
 Replace the following:
 
-  - `  PROJECT_ID  ` : the project ID.
-  - `  INSTANCE_ID  ` : the instance ID.
-  - `  BACKUP_NAME  ` : the backup name.
+- `PROJECT_ID` : the project ID.
+- `INSTANCE_ID` : the instance ID.
+- `BACKUP_NAME` : the backup name.
 
 A backup continues to exist even after its source database has been deleted, but it can't outlive its parent instance. To prevent accidental deletion of backups, you can't delete a Spanner instance if it has backups. If you want to delete the instance, we recommend restoring the backup, then [exporting the restored database](https://docs.cloud.google.com/spanner/docs/export) , before deleting the backup and the instance.
 
@@ -205,11 +207,11 @@ A copy of a backup is subject to the [same storage costs](https://cloud.google.c
 
 For example, if you copy your database from the source multi-region instance configuration `nam7` to the destination multi-region instance configuration `nam-eur-asia3` , the following charges apply:
 
-  - No charge for overlapping `us-central1` region
-  - No charge for witness `us-central2` region
-  - *Inter-continental data transfer* charge apply twice: once for each new continent (Europe and Asia)
-  - *Data transfer between regions within the same continent* charge apply once for `us-east1`
-  - *Data transfer between regions within the same continent* charge apply once in Europe
+- No charge for overlapping `us-central1` region
+- No charge for witness `us-central2` region
+- *Inter-continental data transfer* charge apply twice: once for each new continent (Europe and Asia)
+- *Data transfer between regions within the same continent* charge apply once for `us-east1`
+- *Data transfer between regions within the same continent* charge apply once in Europe
 
 Spanner optimizes the copying process to minimize the number of cross-region transfers. This helps to minimize the data transfer costs while providing a fast copy backup experience.
 
@@ -219,6 +221,6 @@ For more complete information on backup costs, see [Spanner pricing](https://clo
 
 ## What's next
 
-  - To create backups, see [Create backups](https://docs.cloud.google.com/spanner/docs/backup/create-backups) .
+- To create backups, see [Create backups](https://docs.cloud.google.com/spanner/docs/backup/create-backups) .
 
-  - To manage backups, see [Manage backups](https://docs.cloud.google.com/spanner/docs/backup/manage-backups) .
+- To manage backups, see [Manage backups](https://docs.cloud.google.com/spanner/docs/backup/manage-backups) .

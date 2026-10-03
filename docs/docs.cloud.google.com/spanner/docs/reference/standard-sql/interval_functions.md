@@ -11,7 +11,7 @@ GoogleSQL for Spanner supports the following interval functions.
 ## Function list
 
 | Name                                                                                                                        | Summary                                                   |
-| --------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+|-----------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------|
 | [`EXTRACT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#extract)                   | Extracts part of an `INTERVAL` value.                     |
 | [`JUSTIFY_DAYS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#justify_days)         | Normalizes the day part of an `INTERVAL` value.           |
 | [`JUSTIFY_HOURS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions#justify_hours)       | Normalizes the time part of an `INTERVAL` value.          |
@@ -20,7 +20,9 @@ GoogleSQL for Spanner supports the following interval functions.
 
 ## `EXTRACT`
 
-    EXTRACT(part FROM interval_expression)
+```
+EXTRACT(part FROM interval_expression)
+```
 
 **Description**
 
@@ -34,57 +36,65 @@ Returns the value corresponding to the specified date part. The `part` must be o
 
 In the following example, different parts of two intervals are extracted.
 
-    SELECT
-      EXTRACT(YEAR FROM i) AS year,
-      EXTRACT(MONTH FROM i) AS month,
-      EXTRACT(DAY FROM i) AS day,
-      EXTRACT(HOUR FROM i) AS hour,
-      EXTRACT(MINUTE FROM i) AS minute,
-      EXTRACT(SECOND FROM i) AS second,
-      EXTRACT(MILLISECOND FROM i) AS milli,
-      EXTRACT(MICROSECOND FROM i) AS micro
-    FROM
-      UNNEST([INTERVAL '1-2 3 4:5:6.789999' YEAR TO SECOND,
-              INTERVAL '0-13 370 48:61:61' YEAR TO SECOND]) AS i
-    
-    /*------+-------+-----+------+--------+--------+-------+--------*
-     | year | month | day | hour | minute | second | milli | micro  |
-     +------+-------+-----+------+--------+--------+-------+--------+
-     | 1    | 2     | 3   | 4    | 5      | 6      | 789   | 789999 |
-     | 1    | 1     | 370 | 49   | 2      | 1      | 0     | 0      |
-     *------+-------+-----+------+--------+--------+-------+--------*/
+```
+SELECT
+  EXTRACT(YEAR FROM i) AS year,
+  EXTRACT(MONTH FROM i) AS month,
+  EXTRACT(DAY FROM i) AS day,
+  EXTRACT(HOUR FROM i) AS hour,
+  EXTRACT(MINUTE FROM i) AS minute,
+  EXTRACT(SECOND FROM i) AS second,
+  EXTRACT(MILLISECOND FROM i) AS milli,
+  EXTRACT(MICROSECOND FROM i) AS micro
+FROM
+  UNNEST([INTERVAL '1-2 3 4:5:6.789999' YEAR TO SECOND,
+          INTERVAL '0-13 370 48:61:61' YEAR TO SECOND]) AS i
+
+/*------+-------+-----+------+--------+--------+-------+--------*
+ | year | month | day | hour | minute | second | milli | micro  |
+ +------+-------+-----+------+--------+--------+-------+--------+
+ | 1    | 2     | 3   | 4    | 5      | 6      | 789   | 789999 |
+ | 1    | 1     | 370 | 49   | 2      | 1      | 0     | 0      |
+ *------+-------+-----+------+--------+--------+-------+--------*/
+```
 
 When a negative sign precedes the time part in an interval, the negative sign distributes over the hours, minutes, and seconds. For example:
 
-    SELECT
-      EXTRACT(HOUR FROM i) AS hour,
-      EXTRACT(MINUTE FROM i) AS minute
-    FROM
-      UNNEST([INTERVAL '10 -12:30' DAY TO MINUTE]) AS i
-    
-    /*------+--------*
-     | hour | minute |
-     +------+--------+
-     | -12  | -30    |
-     *------+--------*/
+```
+SELECT
+  EXTRACT(HOUR FROM i) AS hour,
+  EXTRACT(MINUTE FROM i) AS minute
+FROM
+  UNNEST([INTERVAL '10 -12:30' DAY TO MINUTE]) AS i
+
+/*------+--------*
+ | hour | minute |
+ +------+--------+
+ | -12  | -30    |
+ *------+--------*/
+```
 
 When a negative sign precedes the year and month part in an interval, the negative sign distributes over the years and months. For example:
 
-    SELECT
-      EXTRACT(YEAR FROM i) AS year,
-      EXTRACT(MONTH FROM i) AS month
-    FROM
-      UNNEST([INTERVAL '-22-6 10 -12:30' YEAR TO MINUTE]) AS i
-    
-    /*------+--------*
-     | year | month  |
-     +------+--------+
-     | -22  | -6     |
-     *------+--------*/
+```
+SELECT
+  EXTRACT(YEAR FROM i) AS year,
+  EXTRACT(MONTH FROM i) AS month
+FROM
+  UNNEST([INTERVAL '-22-6 10 -12:30' YEAR TO MINUTE]) AS i
+
+/*------+--------*
+ | year | month  |
+ +------+--------+
+ | -22  | -6     |
+ *------+--------*/
+```
 
 ## `JUSTIFY_DAYS`
 
-    JUSTIFY_DAYS(interval_expression)
+```
+JUSTIFY_DAYS(interval_expression)
+```
 
 **Description**
 
@@ -96,22 +106,26 @@ Normalizes the day part of the interval to the range from -29 to 29 by increment
 
 **Example**
 
-    SELECT
-      JUSTIFY_DAYS(INTERVAL 29 DAY) AS i1,
-      JUSTIFY_DAYS(INTERVAL -30 DAY) AS i2,
-      JUSTIFY_DAYS(INTERVAL 31 DAY) AS i3,
-      JUSTIFY_DAYS(INTERVAL -65 DAY) AS i4,
-      JUSTIFY_DAYS(INTERVAL 370 DAY) AS i5
-    
-    /*--------------+--------------+-------------+---------------+--------------*
-     | i1           | i2           | i3          | i4            | i5           |
-     +--------------+--------------+-------------+---------------+--------------+
-     | 0-0 29 0:0:0 | -0-1 0 0:0:0 | 0-1 1 0:0:0 | -0-2 -5 0:0:0 | 1-0 10 0:0:0 |
-     *--------------+--------------+-------------+---------------+--------------*/
+```
+SELECT
+  JUSTIFY_DAYS(INTERVAL 29 DAY) AS i1,
+  JUSTIFY_DAYS(INTERVAL -30 DAY) AS i2,
+  JUSTIFY_DAYS(INTERVAL 31 DAY) AS i3,
+  JUSTIFY_DAYS(INTERVAL -65 DAY) AS i4,
+  JUSTIFY_DAYS(INTERVAL 370 DAY) AS i5
+
+/*--------------+--------------+-------------+---------------+--------------*
+ | i1           | i2           | i3          | i4            | i5           |
+ +--------------+--------------+-------------+---------------+--------------+
+ | 0-0 29 0:0:0 | -0-1 0 0:0:0 | 0-1 1 0:0:0 | -0-2 -5 0:0:0 | 1-0 10 0:0:0 |
+ *--------------+--------------+-------------+---------------+--------------*/
+```
 
 ## `JUSTIFY_HOURS`
 
-    JUSTIFY_HOURS(interval_expression)
+```
+JUSTIFY_HOURS(interval_expression)
+```
 
 **Description**
 
@@ -123,21 +137,25 @@ Normalizes the time part of the interval to the range from -23:59:59.999999 to 2
 
 **Example**
 
-    SELECT
-      JUSTIFY_HOURS(INTERVAL 23 HOUR) AS i1,
-      JUSTIFY_HOURS(INTERVAL -24 HOUR) AS i2,
-      JUSTIFY_HOURS(INTERVAL 47 HOUR) AS i3,
-      JUSTIFY_HOURS(INTERVAL -12345 MINUTE) AS i4
-    
-    /*--------------+--------------+--------------+-----------------*
-     | i1           | i2           | i3           | i4              |
-     +--------------+--------------+--------------+-----------------+
-     | 0-0 0 23:0:0 | 0-0 -1 0:0:0 | 0-0 1 23:0:0 | 0-0 -8 -13:45:0 |
-     *--------------+--------------+--------------+-----------------*/
+```
+SELECT
+  JUSTIFY_HOURS(INTERVAL 23 HOUR) AS i1,
+  JUSTIFY_HOURS(INTERVAL -24 HOUR) AS i2,
+  JUSTIFY_HOURS(INTERVAL 47 HOUR) AS i3,
+  JUSTIFY_HOURS(INTERVAL -12345 MINUTE) AS i4
+
+/*--------------+--------------+--------------+-----------------*
+ | i1           | i2           | i3           | i4              |
+ +--------------+--------------+--------------+-----------------+
+ | 0-0 0 23:0:0 | 0-0 -1 0:0:0 | 0-0 1 23:0:0 | 0-0 -8 -13:45:0 |
+ *--------------+--------------+--------------+-----------------*/
+```
 
 ## `JUSTIFY_INTERVAL`
 
-    JUSTIFY_INTERVAL(interval_expression)
+```
+JUSTIFY_INTERVAL(interval_expression)
+```
 
 **Description**
 
@@ -149,24 +167,28 @@ Normalizes the days and time parts of the interval.
 
 **Example**
 
-    SELECT JUSTIFY_INTERVAL(INTERVAL '29 49:00:00' DAY TO SECOND) AS i
-    
-    /*-------------*
-     | i           |
-     +-------------+
-     | 0-1 1 1:0:0 |
-     *-------------*/
+```
+SELECT JUSTIFY_INTERVAL(INTERVAL '29 49:00:00' DAY TO SECOND) AS i
+
+/*-------------*
+ | i           |
+ +-------------+
+ | 0-1 1 1:0:0 |
+ *-------------*/
+```
 
 ## `MAKE_INTERVAL`
 
-    MAKE_INTERVAL(
-      [ [ year => ] value ]
-      [, [ month => ] value ]
-      [, [ day => ] value ]
-      [, [ hour => ] value ]
-      [, [ minute => ] value ]
-      [, [ second => ] value ]
-    )
+```
+MAKE_INTERVAL(
+  [ [ year => ] value ]
+  [, [ month => ] value ]
+  [, [ day => ] value ]
+  [, [ hour => ] value ]
+  [, [ minute => ] value ]
+  [, [ second => ] value ]
+)
+```
 
 **Description**
 
@@ -178,13 +200,15 @@ Constructs an [`INTERVAL`](https://docs.cloud.google.com/spanner/docs/reference/
 
 **Example**
 
-    SELECT
-      MAKE_INTERVAL(1, 6, 15) AS i1,
-      MAKE_INTERVAL(hour => 10, second => 20) AS i2,
-      MAKE_INTERVAL(1, minute => 5, day => 2) AS i3
-    
-    /*--------------+---------------+-------------*
-     | i1           | i2            | i3          |
-     +--------------+---------------+-------------+
-     | 1-6 15 0:0:0 | 0-0 0 10:0:20 | 1-0 2 0:5:0 |
-     *--------------+---------------+-------------*/
+```
+SELECT
+  MAKE_INTERVAL(1, 6, 15) AS i1,
+  MAKE_INTERVAL(hour => 10, second => 20) AS i2,
+  MAKE_INTERVAL(1, minute => 5, day => 2) AS i3
+
+/*--------------+---------------+-------------*
+ | i1           | i2            | i3          |
+ +--------------+---------------+-------------+
+ | 1-6 15 0:0:0 | 0-0 0 10:0:20 | 1-0 2 0:5:0 |
+ *--------------+---------------+-------------*/
+```

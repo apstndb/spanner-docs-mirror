@@ -12,8 +12,8 @@ This algorithm computes the [connected components](https://docs.cloud.google.com
 
 The following list summarizes the expectations on the graph passed as input to this algorithm. These expectations complement the ones listed in [General assumptions on input graphs](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/input-graph-assumptions) .
 
->   - [Directed graph](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#directed_graph) or [undirected graph](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#undirected_graph) : The algorithm ignores edge directions; see details in the following [Algorithm description](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/clustering/connected-components#algorithm_description) section.
->   - [Edge weights](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#edge_weights) : The algorithm does not use edge weights.
+> - [Directed graph](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#directed_graph) or [undirected graph](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#undirected_graph) : The algorithm ignores edge directions; see details in the following [Algorithm description](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/clustering/connected-components#algorithm_description) section.
+> - [Edge weights](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#edge_weights) : The algorithm does not use edge weights.
 
 While connected components typically apply to *undirected graphs* only, for performance reasons the implementation also accepts directed graphs. Even when the input is a directed graph, the algorithm still treats edges as though they were undirected. In other words, if the algorithm sees an edge \\(xy\\), then it assumes that an edge \\(yx\\) is implicitly present even if it may not actually be present in the graph.
 
@@ -31,7 +31,7 @@ The algorithm maintains the clustering as a disjoint set forest. While merging t
 
 ## Computational complexity
 
-The algorithm is a parallel algorithm that runs in \\(O(n + m \\log n)\\) [work](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#work) and \\(O(n)\\) [depth](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#depth) , where \\(n\\) and \\(m\\) denote the number of nodes and edges in the input graph, respectively. Running the algorithm on a machine that supports high parallelism tends to lead to a smaller running time.
+The algorithm is a parallel algorithm that runs in \\(O(n + m \log n)\\) [work](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#work) and \\(O(n)\\) [depth](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#depth) , where \\(n\\) and \\(m\\) denote the number of nodes and edges in the input graph, respectively. Running the algorithm on a machine that supports high parallelism tends to lead to a smaller running time.
 
 The algorithm uses \\(O(n)\\) memory.
 
@@ -85,6 +85,6 @@ The clustering on the right is the final result.
 
 ## External references
 
-  - [ConnectIt: A Framework for Static and Incremental Parallel Graph Connectivity Algorithms](https://www.vldb.org/pvldb/vol14/p653-dhulipala.pdf) (Proceedings of the VLDB Endowment, 2020) first published this implementation.
-  - [A Randomized Concurrent Algorithm for Disjoint Set Union](https://dl.acm.org/doi/10.1145/2933057.2933116) (Principles of Distributed Computing, 2016) inspired the asynchronous Union-Find implementation.
-  - An open-source implementation is available on [GitHub](https://github.com/google/graph-mining/tree/main/in_memory/clustering/connected_components) .
+- [ConnectIt: A Framework for Static and Incremental Parallel Graph Connectivity Algorithms](https://www.vldb.org/pvldb/vol14/p653-dhulipala.pdf) (Proceedings of the VLDB Endowment, 2020) first published this implementation.
+- [A Randomized Concurrent Algorithm for Disjoint Set Union](https://dl.acm.org/doi/10.1145/2933057.2933116) (Principles of Distributed Computing, 2016) inspired the asynchronous Union-Find implementation.
+- An open-source implementation is available on [GitHub](https://github.com/google/graph-mining/tree/main/in_memory/clustering/connected_components) .

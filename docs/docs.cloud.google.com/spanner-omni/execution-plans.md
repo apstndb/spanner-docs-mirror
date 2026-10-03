@@ -10,20 +10,20 @@ This document describes how to view Spanner Omni query execution plans. Query ex
 
 To view a Spanner Omni execution plan, use the following command:
 
-``` 
+```
   spanner sql --database DATABASE_ID \
   --execute "EXPLAIN QUERY"
 ```
 
 Replace the following:
 
-  - `  DATABASE_ID  ` : the database identifier. For example, `MY_DATABASE` .
+- `DATABASE_ID` : the database identifier. For example, `MY_DATABASE` .
 
-  - `  QUERY  ` : the query to execute. For example, `SELECT * FROM Songs WHERE SingerId = 1` .
+- `QUERY` : the query to execute. For example, `SELECT * FROM Songs WHERE SingerId = 1` .
 
 To view a Spanner Omni execution plan that includes runtime statistics, use the following command:
 
-``` 
+```
   spanner sql --database DATABASE_ID \
   --execute "EXPLAIN ANALYZE QUERY"
 ```

@@ -18,15 +18,15 @@ To learn more about text embeddings and supported models, see [Get text embeddin
 
 In this tutorial, you learn how to:
 
-  - Register a [Agent Platform text embedding model](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) in a Spanner schema using DDL statements.
-  - Reference the registered model using SQL queries to generate embeddings from data stored in Spanner.
+- Register a [Agent Platform text embedding model](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) in a Spanner schema using DDL statements.
+- Reference the registered model using SQL queries to generate embeddings from data stored in Spanner.
 
 ## Pricing
 
 This tutorial uses billable components of Google Cloud, including:
 
-  - Spanner
-  - Agent Platform
+- Spanner
+- Agent Platform
 
 For more information about Spanner costs, see the [Spanner pricing](https://docs.cloud.google.com/products/gemini-enterprise-agent-platform/pricing) page.
 
@@ -42,27 +42,29 @@ Depending on the model you use, generating embeddings might take some time. For 
 
 In GoogleSQL, you must register a model before using it with the `ML.PREDICT` function. To register the Agent Platform text embedding model in a Spanner database, [execute](https://docs.cloud.google.com/spanner/docs/schema-updates) the following DDL [statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_model) :
 
-    CREATE MODEL MODEL_NAME
-    INPUT(
-      content STRING(MAX),
-      -- Optional: For models that support specifying task type.
-      task_type STRING(MAX),
-    )
-    OUTPUT(
-      embeddings
-        STRUCT<
-          statistics STRUCT<truncated BOOL, token_count FLOAT64>,
-          values ARRAY<FLOAT64>>
-    )
-    REMOTE OPTIONS (
-      endpoint = '//aiplatform.googleapis.com/projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME'
-    );
+```
+CREATE MODEL MODEL_NAME
+INPUT(
+  content STRING(MAX),
+  -- Optional: For models that support specifying task type.
+  task_type STRING(MAX),
+)
+OUTPUT(
+  embeddings
+    STRUCT<
+      statistics STRUCT<truncated BOOL, token_count FLOAT64>,
+      values ARRAY<FLOAT64>>
+)
+REMOTE OPTIONS (
+  endpoint = '//aiplatform.googleapis.com/projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME'
+);
+```
 
 Replace the following:
 
-  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
-  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
-  - `  LOCATION  ` : the location of the Agent Platform endpoint
+- `MODEL_NAME` : the name of the Agent Platform text embedding model
+- `PROJECT` : the project hosting the Agent Platform endpoint
+- `LOCATION` : the location of the Agent Platform endpoint
 
 Spanner grants appropriate permissions automatically. If it doesn't, review the [model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#model_endpoint_access_control) .
 
@@ -72,45 +74,51 @@ Schema discovery and validation is not available for Generative AI models. You a
 
 To generate embeddings, pass a piece of text directly to the [`ML.PREDICT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/ml-functions#mlpredict) function using the following SQL:
 
-    SELECT embeddings.values
-    FROM ML.PREDICT(
-      MODEL MODEL_NAME,
-      (SELECT "A product description" as content)
-    );
+```
+SELECT embeddings.values
+FROM ML.PREDICT(
+  MODEL MODEL_NAME,
+  (SELECT "A product description" as content)
+);
+```
 
 To generate embeddings for data stored in a table, use the following SQL:
 
-    SELECT id, embeddings.values
-    FROM ML.PREDICT(
-      MODEL MODEL_NAME,
-      (SELECT id, description as content FROM Products)
-    );
+```
+SELECT id, embeddings.values
+FROM ML.PREDICT(
+  MODEL MODEL_NAME,
+  (SELECT id, description as content FROM Products)
+);
+```
 
 To specify [task type](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/task-types) and [output dimensions](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#choose_an_embedding_dimension) :
 
-    UPDATE Products p
-    SET description_embedding = (
-      SELECT embeddings.values
+```
+UPDATE Products p
+SET description_embedding = (
+  SELECT embeddings.values
+  FROM ML.PREDICT(
+    MODEL MODEL_NAME,
+    (SELECT p.description as content, "RETRIEVAL_DOCUMENT" as task_type),
+    STRUCT(768 AS outputDimensionality)
+  ));
+
+SELECT p.product_id, p.name, p.description, COSINE_DISTANCE(
+    p.description_embedding,
+    (
+      SELECT embeddings.values 
       FROM ML.PREDICT(
         MODEL MODEL_NAME,
-        (SELECT p.description as content, "RETRIEVAL_DOCUMENT" as task_type),
+        (SELECT @user_query as content, "RETRIEVAL_QUERY" as task_type),
         STRUCT(768 AS outputDimensionality)
-      ));
-    
-    SELECT p.product_id, p.name, p.description, COSINE_DISTANCE(
-        p.description_embedding,
-        (
-          SELECT embeddings.values 
-          FROM ML.PREDICT(
-            MODEL MODEL_NAME,
-            (SELECT @user_query as content, "RETRIEVAL_QUERY" as task_type),
-            STRUCT(768 AS outputDimensionality)
-          ) 
-        )
-      ) AS distance
-    FROM Products p
-    ORDER BY distance
-    LIMIT 5;
+      ) 
+    )
+  ) AS distance
+FROM Products p
+ORDER BY distance
+LIMIT 5;
+```
 
 **Store text embeddings**
 
@@ -118,18 +126,22 @@ After generating the embeddings in a read-only transaction, store them in Spanne
 
 For workloads that are less performance sensitive, you can generate and insert embeddings with the following SQL in a read-write transaction:
 
-    CREATE TABLE Products(
-      id INT64 NOT NULL,
-      description STRING(MAX),
-      embeddings ARRAY<FLOAT32>,
-    ) PRIMARY KEY(id);
+```
+CREATE TABLE Products(
+  id INT64 NOT NULL,
+  description STRING(MAX),
+  embeddings ARRAY<FLOAT32>,
+) PRIMARY KEY(id);
+```
 
-    INSERT INTO Products (id, description, embeddings)
-    SELECT @Id, @Description, embeddings.values
-    FROM ML.PREDICT(
-      MODEL MODEL_NAME,
-      (SELECT @Description as content)
-    );
+```
+INSERT INTO Products (id, description, embeddings)
+SELECT @Id, @Description, embeddings.values
+FROM ML.PREDICT(
+  MODEL MODEL_NAME,
+  (SELECT @Description as content)
+);
+```
 
 ### PostgreSQL
 
@@ -137,76 +149,82 @@ For workloads that are less performance sensitive, you can generate and insert e
 
 To generate embeddings, pass a piece of text directly to the [`spanner.ML_PREDICT_ROW`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#ml) function using the following SQL:
 
-    SELECT
-      spanner.ML_PREDICT_ROW(
-        'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
-        '{"instances": [{"content": "A product description"}]}'::jsonb
-      ) ->'predictions'->0->'embeddings'->'values';
+```
+SELECT
+  spanner.ML_PREDICT_ROW(
+    'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
+    '{"instances": [{"content": "A product description"}]}'::jsonb
+  ) ->'predictions'->0->'embeddings'->'values';
+```
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
-  - `  LOCATION  ` : the location of the Agent Platform endpoint
-  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
+- `PROJECT` : the project hosting the Agent Platform endpoint
+- `LOCATION` : the location of the Agent Platform endpoint
+- `MODEL_NAME` : the name of the Agent Platform text embedding model
 
 To generate embeddings for data stored in a table, use the following SQL:
 
-    SELECT id, spanner.ML_PREDICT_ROW(
-        'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
-        JSONB_BUILD_OBJECT('instances', JSONB_BUILD_ARRAY(JSONB_BUILD_OBJECT('content', description))))
-      ) -> 'predictions'->0->'embeddings'->'values'
-    FROM Products;
+```
+SELECT id, spanner.ML_PREDICT_ROW(
+    'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
+    JSONB_BUILD_OBJECT('instances', JSONB_BUILD_ARRAY(JSONB_BUILD_OBJECT('content', description))))
+  ) -> 'predictions'->0->'embeddings'->'values'
+FROM Products;
+```
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
-  - `  LOCATION  ` : the location of the Agent Platform endpoint
-  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
+- `PROJECT` : the project hosting the Agent Platform endpoint
+- `LOCATION` : the location of the Agent Platform endpoint
+- `MODEL_NAME` : the name of the Agent Platform text embedding model
 
 To specify [task type](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/task-types) and [output dimensions](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#choose_an_embedding_dimension) :
 
-    UPDATE Products p
-    SET description_embedding = spanner.float64_array(
+```
+UPDATE Products p
+SET description_embedding = spanner.float64_array(
+  spanner.ML_PREDICT_ROW(
+   'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
+    JSONB_BUILD_OBJECT(
+      'instances', JSONB_BUILD_ARRAY(
+        JSONB_BUILD_OBJECT(
+          'content', p.description,
+          'task_type', 'RETRIEVAL_DOCUMENT'
+        )
+      ),
+      'parameters', JSONB_BUILD_OBJECT('outputDimensionality', 768)
+    )
+  )->'predictions'->0->'embeddings'->'values'
+);
+
+SELECT p.product_id, p.name, p.description, spanner.COSINE_DISTANCE(
+    p.description_embedding,
+    spanner.float64_array(
       spanner.ML_PREDICT_ROW(
-       'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
+        'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
         JSONB_BUILD_OBJECT(
           'instances', JSONB_BUILD_ARRAY(
             JSONB_BUILD_OBJECT(
-              'content', p.description,
-              'task_type', 'RETRIEVAL_DOCUMENT'
+              'content', $1,
+              'task_type', 'RETRIEVAL_QUERY'
             )
           ),
           'parameters', JSONB_BUILD_OBJECT('outputDimensionality', 768)
         )
       )->'predictions'->0->'embeddings'->'values'
-    );
-    
-    SELECT p.product_id, p.name, p.description, spanner.COSINE_DISTANCE(
-        p.description_embedding,
-        spanner.float64_array(
-          spanner.ML_PREDICT_ROW(
-            'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
-            JSONB_BUILD_OBJECT(
-              'instances', JSONB_BUILD_ARRAY(
-                JSONB_BUILD_OBJECT(
-                  'content', $1,
-                  'task_type', 'RETRIEVAL_QUERY'
-                )
-              ),
-              'parameters', JSONB_BUILD_OBJECT('outputDimensionality', 768)
-            )
-          )->'predictions'->0->'embeddings'->'values'
-        )
-      ) AS distance
-    FROM Products p
-    ORDER BY distance
-    LIMIT 5;
+    )
+  ) AS distance
+FROM Products p
+ORDER BY distance
+LIMIT 5;
+```
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
-  - `  LOCATION  ` : the location of the Agent Platform endpoint
-  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
+- `PROJECT` : the project hosting the Agent Platform endpoint
+- `LOCATION` : the location of the Agent Platform endpoint
+- `MODEL_NAME` : the name of the Agent Platform text embedding model
 
 **Store text embeddings**
 
@@ -214,25 +232,29 @@ After generating the embeddings in a read-only transaction, store them in Spanne
 
 For workloads that are less performance sensitive, you can generate and insert embeddings with the following SQL in a read-write transaction:
 
-    CREATE TABLE Products (
-      id INT8 NOT NULL,
-      description TEXT,
-      embeddings REAL[],
-      PRIMARY KEY(id)
-    );
+```
+CREATE TABLE Products (
+  id INT8 NOT NULL,
+  description TEXT,
+  embeddings REAL[],
+  PRIMARY KEY(id)
+);
+```
 
-    INSERT INTO Products (id, description, embeddings)
-    SELECT @Id, @Description, spanner.FLOAT32_ARRAY(spanner.ML_PREDICT_ROW(
-        'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
-        JSONB_BUILD_OBJECT('instances', JSONB_BUILD_ARRAY(JSONB_BUILD_OBJECT('content', @Description)))
-      ) -> 'predictions'->0->'embeddings'->'values'
-    ));
+```
+INSERT INTO Products (id, description, embeddings)
+SELECT @Id, @Description, spanner.FLOAT32_ARRAY(spanner.ML_PREDICT_ROW(
+    'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
+    JSONB_BUILD_OBJECT('instances', JSONB_BUILD_ARRAY(JSONB_BUILD_OBJECT('content', @Description)))
+  ) -> 'predictions'->0->'embeddings'->'values'
+));
+```
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
-  - `  LOCATION  ` : the location of the Agent Platform endpoint
-  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
+- `PROJECT` : the project hosting the Agent Platform endpoint
+- `LOCATION` : the location of the Agent Platform endpoint
+- `MODEL_NAME` : the name of the Agent Platform text embedding model
 
 ## Update text embeddings
 
@@ -242,40 +264,44 @@ To update the `Products` table in the previous example, use the following SQL:
 
 ### GoogleSQL
 
-    UPDATE Products
-    SET
-      description = @description,
-      embeddings = (SELECT embeddings.values
-                      FROM ML.PREDICT(MODEL MODEL_NAME, (SELECT @description as content))
-                  )
-    WHERE id = @id;
+```
+UPDATE Products
+SET
+  description = @description,
+  embeddings = (SELECT embeddings.values
+                  FROM ML.PREDICT(MODEL MODEL_NAME, (SELECT @description as content))
+              )
+WHERE id = @id;
+```
 
 Replace the following:
 
-  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
+- ` `*`MODEL_NAME`*` ` : the name of the Agent Platform text embedding model
 
 ### PostgreSQL
 
-    UPDATE
-      Products
-    SET
-      description = $1,
-      embeddings = spanner.FLOAT32_ARRAY(
-        spanner.ML_PREDICT_ROW(
-          'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
-          JSONB_BUILD_OBJECT('instances', JSONB_BUILD_ARRAY(JSONB_BUILD_OBJECT('content', $1)))
-        ) -> 'predictions'->0->'embeddings'->'values')
-    WHERE
-      id = $2;
+```
+UPDATE
+  Products
+SET
+  description = $1,
+  embeddings = spanner.FLOAT32_ARRAY(
+    spanner.ML_PREDICT_ROW(
+      'projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME',
+      JSONB_BUILD_OBJECT('instances', JSONB_BUILD_ARRAY(JSONB_BUILD_OBJECT('content', $1)))
+    ) -> 'predictions'->0->'embeddings'->'values')
+WHERE
+  id = $2;
+```
 
 Replace the following:
 
-  - `  PROJECT  ` : the project hosting the Agent Platform endpoint
-  - `  LOCATION  ` : the location of the Agent Platform endpoint
-  - `  MODEL_NAME  ` : the name of the Agent Platform text embedding model
+- `PROJECT` : the project hosting the Agent Platform endpoint
+- `LOCATION` : the location of the Agent Platform endpoint
+- `MODEL_NAME` : the name of the Agent Platform text embedding model
 
 ## What's next
 
-  - Learn [how to use Agent Platform Vector Search](https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/overview) to search for semantically similar items.
-  - Learn more about machine learning and embeddings in our [crash course on embeddings](https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture) .
-  - Learn more about [Agent Platform text embedding models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) .
+- Learn [how to use Agent Platform Vector Search](https://docs.cloud.google.com/gemini-enterprise-agent-platform/build/vector-search/overview) to search for semantically similar items.
+- Learn more about machine learning and embeddings in our [crash course on embeddings](https://developers.google.com/machine-learning/crash-course/embeddings/video-lecture) .
+- Learn more about [Agent Platform text embedding models](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings#supported-models) .

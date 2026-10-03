@@ -12,14 +12,14 @@ Although the Spanner Omni resource model references entities such as projects, o
 
 When using Spanner client libraries with Spanner Omni, note the following differences:
 
-  - The `project` and `instance` must be set to `default` when required by client libraries or tools.
+- The `project` and `instance` must be set to `default` when required by client libraries or tools.
 
-  - Multi-tenancy isn't supported within a Spanner Omni deployment. Each deployment provides a single, precreated default instance (named `instances/default` ), which you can use to create databases and other resources.
+- Multi-tenancy isn't supported within a Spanner Omni deployment. Each deployment provides a single, precreated default instance (named `instances/default` ), which you can use to create databases and other resources.
 
 ## What's next
 
-  - [Use the Go client library to connect to Spanner Omni](https://docs.cloud.google.com/spanner-omni/go) .
+- [Use the Go client library to connect to Spanner Omni](https://docs.cloud.google.com/spanner-omni/go) .
 
-  - [Use the Java client library to connect to Spanner Omni](https://docs.cloud.google.com/spanner-omni/java) .
+- [Use the Java client library to connect to Spanner Omni](https://docs.cloud.google.com/spanner-omni/java) .
 
-  - [Use the Python client library to connect to Spanner Omni](https://docs.cloud.google.com/spanner-omni/python) .
+- [Use the Python client library to connect to Spanner Omni](https://docs.cloud.google.com/spanner-omni/python) .

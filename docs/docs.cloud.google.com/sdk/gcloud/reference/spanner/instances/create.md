@@ -12,7 +12,7 @@ gcloud spanner instances create - create a Cloud Spanner instance
 
 SYNOPSIS
 
-`gcloud spanner instances create` `  INSTANCE  ` `  --config  ` = `  CONFIG  ` `  --description  ` = `  DESCRIPTION  ` \[ `  --async  ` \] \[ `  --default-backup-schedule-type  ` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  ` \] \[ `  --edition  ` = `  EDITION  ` \] \[ `  --expire-behavior  ` = `  EXPIRE_BEHAVIOR  ` \] \[ `  --instance-type  ` = `  INSTANCE_TYPE  ` \] \[ `  --labels  ` =\[ `  KEY  ` = `  VALUE  ` , …\]\] \[ `  --nodes  ` = `  NODES  ` | `  --processing-units  ` = `  PROCESSING_UNITS  ` | \[ `  --autoscaling-storage-target  ` = `  AUTOSCALING_STORAGE_TARGET  ` ( `  --autoscaling-high-priority-cpu-target  ` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  ` `  --autoscaling-total-cpu-target  ` = `  AUTOSCALING_TOTAL_CPU_TARGET  ` ) ( `  --autoscaling-max-nodes  ` = `  AUTOSCALING_MAX_NODES  ` `  --autoscaling-min-nodes  ` = `  AUTOSCALING_MIN_NODES  ` | `  --autoscaling-max-processing-units  ` = `  AUTOSCALING_MAX_PROCESSING_UNITS  ` `  --autoscaling-min-processing-units  ` = `  AUTOSCALING_MIN_PROCESSING_UNITS  ` ) : `  --asymmetric-autoscaling-option  ` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \], \[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \], \[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \], \[ `  location  ` = `  LOCATION  ` \], \[ `  max_nodes  ` = `  MAX_NODES  ` \], \[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \], \[ `  min_nodes  ` = `  MIN_NODES  ` \], \[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \], \[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \] `  --[no-]disable-downscaling  ` \]\] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instances create` [`INSTANCE`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#INSTANCE) [`--config`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--config) = `CONFIG` [`--description`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--description) = `DESCRIPTION` \[ [`--async`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--async) \] \[ [`--default-backup-schedule-type`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--default-backup-schedule-type) = `DEFAULT_BACKUP_SCHEDULE_TYPE` \] \[ [`--edition`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--edition) = `EDITION` \] \[ [`--expire-behavior`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--expire-behavior) = `EXPIRE_BEHAVIOR` \] \[ [`--instance-type`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--instance-type) = `INSTANCE_TYPE` \] \[ [`--labels`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--labels) =\[ `KEY` = `VALUE` , …\]\] \[ [`--nodes`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--nodes) = `NODES` \| [`--processing-units`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--processing-units) = `PROCESSING_UNITS` \| \[ [`--autoscaling-storage-target`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--autoscaling-storage-target) = `AUTOSCALING_STORAGE_TARGET` ( [`--autoscaling-high-priority-cpu-target`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--autoscaling-high-priority-cpu-target) = `AUTOSCALING_HIGH_PRIORITY_CPU_TARGET` [`--autoscaling-total-cpu-target`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--autoscaling-total-cpu-target) = `AUTOSCALING_TOTAL_CPU_TARGET` ) ( [`--autoscaling-max-nodes`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--autoscaling-max-nodes) = `AUTOSCALING_MAX_NODES` [`--autoscaling-min-nodes`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--autoscaling-min-nodes) = `AUTOSCALING_MIN_NODES` \| [`--autoscaling-max-processing-units`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--autoscaling-max-processing-units) = `AUTOSCALING_MAX_PROCESSING_UNITS` [`--autoscaling-min-processing-units`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--autoscaling-min-processing-units) = `AUTOSCALING_MIN_PROCESSING_UNITS` ) : [`--asymmetric-autoscaling-option`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--asymmetric-autoscaling-option) =\[ `disable_high_priority_cpu_autoscaling` = `DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING` \], \[ `disable_total_cpu_autoscaling` = `DISABLE_TOTAL_CPU_AUTOSCALING` \], \[ `high_priority_cpu_target` = `HIGH_PRIORITY_CPU_TARGET` \], \[ `location` = `LOCATION` \], \[ `max_nodes` = `MAX_NODES` \], \[ `max_processing_units` = `MAX_PROCESSING_UNITS` \], \[ `min_nodes` = `MIN_NODES` \], \[ `min_processing_units` = `MIN_PROCESSING_UNITS` \], \[ `total_cpu_target` = `TOTAL_CPU_TARGET` \] [`--[no-]disable-downscaling`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#--%5Bno-%5Ddisable-downscaling) \]\] \[ [`GCLOUD_WIDE_FLAG`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instances/create#GCLOUD-WIDE-FLAGS)` …` \]
 
 DESCRIPTION
 
@@ -22,19 +22,22 @@ EXAMPLES
 
 To create a Cloud Spanner instance, run:
 
-    gcloud spanner instances create my-instance-id --config=regional-us-east1 --description=my-instance-display-name --nodes=3
+```
+gcloud spanner instances create my-instance-id --config=regional-us-east1 --description=my-instance-display-name --nodes=3
+```
 
 POSITIONAL ARGUMENTS
 
-  - `  INSTANCE  `  
-    Cloud Spanner instance ID.
+`INSTANCE`  
+Cloud Spanner instance ID.
 
 REQUIRED FLAGS
 
-  - `--config` = `  CONFIG  `  
-    Instance configuration defines the geographic placement and replication of the databases in that instance. Available configurations can be found by running "gcloud spanner instance-configs list"
-  - `--description` = `  DESCRIPTION  `  
-    Description of the instance.
+`--config` = `CONFIG`  
+Instance configuration defines the geographic placement and replication of the databases in that instance. Available configurations can be found by running "gcloud spanner instance-configs list"
+
+`--description` = `DESCRIPTION`  
+Description of the instance.
 
 OPTIONAL FLAGS
 
@@ -42,49 +45,56 @@ OPTIONAL FLAGS
 
 Return immediately, without waiting for the operation in progress to complete.
 
-`--default-backup-schedule-type` = `  DEFAULT_BACKUP_SCHEDULE_TYPE  `
+`--default-backup-schedule-type` = `DEFAULT_BACKUP_SCHEDULE_TYPE`
 
-The default backup schedule type that is used in the instance. `  DEFAULT_BACKUP_SCHEDULE_TYPE  ` must be one of:
+The default backup schedule type that is used in the instance. `DEFAULT_BACKUP_SCHEDULE_TYPE` must be one of:
 
-  - `AUTOMATIC`  
-    A default backup schedule is created automatically when a new database is created in an instance. You can edit or delete the default backup schedule once it's created. The default backup schedule creates a full backup every 24 hours. These full backups are retained for 7 days.
-  - `DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED`  
-    Not specified.
-  - `NONE`  
-    No default backup schedule is created automatically when a new database is created in an instance.
+`AUTOMATIC`  
+A default backup schedule is created automatically when a new database is created in an instance. You can edit or delete the default backup schedule once it's created. The default backup schedule creates a full backup every 24 hours. These full backups are retained for 7 days.
 
-`--edition` = `  EDITION  `
+`DEFAULT_BACKUP_SCHEDULE_TYPE_UNSPECIFIED`  
+Not specified.
 
-Spanner edition. `  EDITION  ` must be one of:
+`NONE`  
+No default backup schedule is created automatically when a new database is created in an instance.
 
-  - `EDITION_UNSPECIFIED`  
-    Spanner's legacy pricing model. For more information, see the [Spanner editions overview](https://cloud.google.com/spanner/docs/editions-overview)
-  - `ENTERPRISE`  
-    Enterprise edition
-  - `ENTERPRISE_PLUS`  
-    Enterprise Plus edition
-  - `STANDARD`  
-    Standard edition
+`--edition` = `EDITION`
 
-`--expire-behavior` = `  EXPIRE_BEHAVIOR  `
+Spanner edition. `EDITION` must be one of:
 
-The expire behavior of a free trial instance. `  EXPIRE_BEHAVIOR  ` must be one of:
+`EDITION_UNSPECIFIED`  
+Spanner's legacy pricing model. For more information, see the [Spanner editions overview](https://cloud.google.com/spanner/docs/editions-overview)
 
-  - `free-to-provisioned`  
-    When the free trial instance expires, upgrade the instance to a provisioned instance.
-  - `remove-after-grace-period`  
-    When the free trial instance expires, disable the instance, and delete it after the grace period passes if it has not been upgraded to a provisioned instance.
+`ENTERPRISE`  
+Enterprise edition
 
-`--instance-type` = `  INSTANCE_TYPE  `
+`ENTERPRISE_PLUS`  
+Enterprise Plus edition
 
-Specifies the type for this instance. `  INSTANCE_TYPE  ` must be one of:
+`STANDARD`  
+Standard edition
 
-  - `free-instance`  
-    Free trial instances provide no guarantees for dedicated resources, both node\_count and processing\_units should be 0. They come with stricter usage limits and limited support.
-  - `provisioned`  
-    Provisioned instances have dedicated resources, standard usage limits, and support.
+`--expire-behavior` = `EXPIRE_BEHAVIOR`
 
-`--labels` =\[ `  KEY  ` = `  VALUE  ` ,…\]
+The expire behavior of a free trial instance. `EXPIRE_BEHAVIOR` must be one of:
+
+`free-to-provisioned`  
+When the free trial instance expires, upgrade the instance to a provisioned instance.
+
+`remove-after-grace-period`  
+When the free trial instance expires, disable the instance, and delete it after the grace period passes if it has not been upgraded to a provisioned instance.
+
+`--instance-type` = `INSTANCE_TYPE`
+
+Specifies the type for this instance. `INSTANCE_TYPE` must be one of:
+
+`free-instance`  
+Free trial instances provide no guarantees for dedicated resources, both node_count and processing_units should be 0. They come with stricter usage limits and limited support.
+
+`provisioned`  
+Provisioned instances have dedicated resources, standard usage limits, and support.
+
+`--labels` =\[ `KEY` = `VALUE` ,…\]
 
 List of label KEY=VALUE pairs to add.
 
@@ -92,11 +102,11 @@ Keys must start with a lowercase character and contain only hyphens ( `-` ), und
 
 At most one of these can be specified:
 
-`--nodes` = `  NODES  `
+`--nodes` = `NODES`
 
 Number of nodes for the instance.
 
-`--processing-units` = `  PROCESSING_UNITS  `
+`--processing-units` = `PROCESSING_UNITS`
 
 Number of processing units for the instance.
 
@@ -104,13 +114,13 @@ Or at least one of these can be specified:
 
 Autoscaling
 
-`--autoscaling-storage-target` = `  AUTOSCALING_STORAGE_TARGET  `
+`--autoscaling-storage-target` = `AUTOSCALING_STORAGE_TARGET`
 
 Specifies the target percentage of storage the autoscaled instance can utilize.
 
 This flag argument must be specified if any of the other arguments in this group are specified.
 
-`--asymmetric-autoscaling-option` =\[ `  disable_high_priority_cpu_autoscaling  ` = `  DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING  ` \],\[ `  disable_total_cpu_autoscaling  ` = `  DISABLE_TOTAL_CPU_AUTOSCALING  ` \],\[ `  high_priority_cpu_target  ` = `  HIGH_PRIORITY_CPU_TARGET  ` \],\[ `  location  ` = `  LOCATION  ` \],\[ `  max_nodes  ` = `  MAX_NODES  ` \],\[ `  max_processing_units  ` = `  MAX_PROCESSING_UNITS  ` \],\[ `  min_nodes  ` = `  MIN_NODES  ` \],\[ `  min_processing_units  ` = `  MIN_PROCESSING_UNITS  ` \],\[ `  total_cpu_target  ` = `  TOTAL_CPU_TARGET  ` \]
+`--asymmetric-autoscaling-option` =\[ `disable_high_priority_cpu_autoscaling` = `DISABLE_HIGH_PRIORITY_CPU_AUTOSCALING` \],\[ `disable_total_cpu_autoscaling` = `DISABLE_TOTAL_CPU_AUTOSCALING` \],\[ `high_priority_cpu_target` = `HIGH_PRIORITY_CPU_TARGET` \],\[ `location` = `LOCATION` \],\[ `max_nodes` = `MAX_NODES` \],\[ `max_processing_units` = `MAX_PROCESSING_UNITS` \],\[ `min_nodes` = `MIN_NODES` \],\[ `min_processing_units` = `MIN_PROCESSING_UNITS` \],\[ `total_cpu_target` = `TOTAL_CPU_TARGET` \]
 
 Specifies the asymmetric autoscaling option for the instance.
 
@@ -122,47 +132,52 @@ Specify one or both CPU targets:
 
 At least one of these must be specified:
 
-  - `--autoscaling-high-priority-cpu-target` = `  AUTOSCALING_HIGH_PRIORITY_CPU_TARGET  `  
-    Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
-  - `--autoscaling-total-cpu-target` = `  AUTOSCALING_TOTAL_CPU_TARGET  `  
-    Specifies the target percentage of total CPU the autoscaled instance can utilize.
+`--autoscaling-high-priority-cpu-target` = `AUTOSCALING_HIGH_PRIORITY_CPU_TARGET`  
+Specifies the target percentage of high-priority CPU the autoscaled instance can utilize.
+
+`--autoscaling-total-cpu-target` = `AUTOSCALING_TOTAL_CPU_TARGET`  
+Specifies the target percentage of total CPU the autoscaled instance can utilize.
 
 Autoscaling limits can be defined in either nodes or processing units.
 
 Exactly one of these must be specified:
 
-  - Autoscaling limits in nodes:  
-    `--autoscaling-max-nodes` = `  AUTOSCALING_MAX_NODES  `  
-    Maximum number of nodes for the autoscaled instance.
-    
-    This flag argument must be specified if any of the other arguments in this group are specified.
+Autoscaling limits in nodes:  
+`--autoscaling-max-nodes` = `AUTOSCALING_MAX_NODES`  
+Maximum number of nodes for the autoscaled instance.
 
-  - `--autoscaling-min-nodes` = `  AUTOSCALING_MIN_NODES  `  
-    Minimum number of nodes for the autoscaled instance.
-    
-    This flag argument must be specified if any of the other arguments in this group are specified.
+This flag argument must be specified if any of the other arguments in this group are specified.
 
-  - Autoscaling limits in processing units:  
-    `--autoscaling-max-processing-units` = `  AUTOSCALING_MAX_PROCESSING_UNITS  `  
-    Maximum number of processing units for the autoscaled instance.
-    
-    This flag argument must be specified if any of the other arguments in this group are specified.
+`--autoscaling-min-nodes` = `AUTOSCALING_MIN_NODES`  
+Minimum number of nodes for the autoscaled instance.
 
-  - `--autoscaling-min-processing-units` = `  AUTOSCALING_MIN_PROCESSING_UNITS  `  
-    Minimum number of processing units for the autoscaled instance.
-    
-    This flag argument must be specified if any of the other arguments in this group are specified.
+This flag argument must be specified if any of the other arguments in this group are specified.
+
+Autoscaling limits in processing units:  
+`--autoscaling-max-processing-units` = `AUTOSCALING_MAX_PROCESSING_UNITS`  
+Maximum number of processing units for the autoscaled instance.
+
+This flag argument must be specified if any of the other arguments in this group are specified.
+
+`--autoscaling-min-processing-units` = `AUTOSCALING_MIN_PROCESSING_UNITS`  
+Minimum number of processing units for the autoscaled instance.
+
+This flag argument must be specified if any of the other arguments in this group are specified.
 
 GCLOUD WIDE FLAGS
 
-These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+These flags are available to all commands: [`--access-token-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--access-token-file) , [`--account`](https://docs.cloud.google.com/sdk/gcloud/reference#--account) , [`--billing-project`](https://docs.cloud.google.com/sdk/gcloud/reference#--billing-project) , [`--configuration`](https://docs.cloud.google.com/sdk/gcloud/reference#--configuration) , [`--flags-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--flags-file) , [`--flatten`](https://docs.cloud.google.com/sdk/gcloud/reference#--flatten) , [`--format`](https://docs.cloud.google.com/sdk/gcloud/reference#--format) , [`--help`](https://docs.cloud.google.com/sdk/gcloud/reference#--help) , [`--impersonate-service-account`](https://docs.cloud.google.com/sdk/gcloud/reference#--impersonate-service-account) , [`--log-http`](https://docs.cloud.google.com/sdk/gcloud/reference#--log-http) , [`--project`](https://docs.cloud.google.com/sdk/gcloud/reference#--project) , [`--quiet`](https://docs.cloud.google.com/sdk/gcloud/reference#--quiet) , [`--trace-token`](https://docs.cloud.google.com/sdk/gcloud/reference#--trace-token) , [`--user-output-enabled`](https://docs.cloud.google.com/sdk/gcloud/reference#--user-output-enabled) , [`--verbosity`](https://docs.cloud.google.com/sdk/gcloud/reference#--verbosity) .
 
-Run ` $ gcloud help  ` for details.
+Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for details.
 
 NOTES
 
 These variants are also available:
 
-    gcloud alpha spanner instances create
+```
+gcloud alpha spanner instances create
+```
 
-    gcloud beta spanner instances create
+```
+gcloud beta spanner instances create
+```

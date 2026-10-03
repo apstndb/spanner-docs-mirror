@@ -12,11 +12,11 @@ Key Visualizer is enabled in Spanner by default.
 
 To view Key Visualizer, you need the following [Identity and Access Management (IAM) permission](https://docs.cloud.google.com/spanner/docs/iam) :
 
-  - `spanner.databases.read`
+- `spanner.databases.read`
 
 If you are a fine-grained access control user, you must have been granted access to:
 
-  - the `spanner_sys_reader` system role or one of its member roles.
+- the `spanner_sys_reader` system role or one of its member roles.
 
 For more information, see [About fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) and [Fine-grained access control system roles](https://docs.cloud.google.com/spanner/docs/fgac-system-roles) .
 
@@ -38,18 +38,24 @@ Key Visualizer is controlled by the `enable_key_visualizer` database option. The
 
 To disable Key Visualizer, set the value of the `enable_key_visualizer` database option to `false` . The DDL syntax to disable Key Visualizer is:
 
-    ALTER DATABASE `database_id` SET OPTIONS (enable_key_visualizer=false)
+```
+ALTER DATABASE `database_id` SET OPTIONS (enable_key_visualizer=false)
+```
 
 If your database ID contains characters other than letters, numbers, or underscores, be sure to enclose the ID with backticks (\`\`).
 
 The statement can be sent using a gcloud command, or in an `UpdateDatabaseDdl` gRPC/REST request. For example:
 
-    gcloud spanner databases ddl update database_id --instance=instance_id \
-        --ddl='ALTER DATABASE `database_id` SET OPTIONS ( enable_key_visualizer=false )'
+```
+gcloud spanner databases ddl update database_id --instance=instance_id \
+    --ddl='ALTER DATABASE `database_id` SET OPTIONS ( enable_key_visualizer=false )'
+```
 
 Once you've explicitly set the value for `enable_key_visualizer` , you can check its value by clicking **SHOW EQUIVALENT DDL** in the overview page, or using the `ddl describe` gcloud command:
 
-    gcloud spanner databases ddl describe `database_id` --instance=instance_id
+```
+gcloud spanner databases ddl describe `database_id` --instance=instance_id
+```
 
 ## Re-enable Key Visualizer
 
@@ -59,6 +65,6 @@ When first re-enabled for a database, the Key Visualizer heatmap will be empty f
 
 ## What's next
 
-  - Learn to recognize [common patterns in heatmaps](https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns) .
-  - Find out how to [explore a heatmap in depth](https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps) .
-  - Read about the [metrics you can view in a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics) .
+- Learn to recognize [common patterns in heatmaps](https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns) .
+- Find out how to [explore a heatmap in depth](https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps) .
+- Read about the [metrics you can view in a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics) .

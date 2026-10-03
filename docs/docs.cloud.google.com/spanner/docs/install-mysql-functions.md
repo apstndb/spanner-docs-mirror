@@ -44,9 +44,9 @@ You can use the [`gcloud spanner database ddl update`](https://docs.cloud.google
 
 Before using any of the command data below, make the following replacements:
 
-  - DATABASE\_ID : the ID of the database to add the MySQL UDFs.
-  - INSTANCE\_ID : the ID of the instance where the database is located.
-  - DDL\_FILE\_PATH : path to a file containing all the `CREATE OR REPLACE FUNCTION` statements in the [mysql\_udfs.sql](https://github.com/googleapis/spanner-sql-udf/blob/main/mysql/mysql_udfs.sql) file.
+- ` DATABASE_ID ` : the ID of the database to add the MySQL UDFs.
+- ` INSTANCE_ID ` : the ID of the instance where the database is located.
+- ` DDL_FILE_PATH ` : path to a file containing all the `CREATE OR REPLACE FUNCTION` statements in the [mysql_udfs.sql](https://github.com/googleapis/spanner-sql-udf/blob/main/mysql/mysql_udfs.sql) file.
 
 Execute the following command:
 
@@ -54,26 +54,32 @@ Execute the following command:
 
 > **Note:** Ensure you have initialized the Google Cloud CLI with authentication and a project by running either [gcloud init](https://docs.cloud.google.com/sdk/gcloud/reference/init) ; or [gcloud auth login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) and [gcloud config set project](https://docs.cloud.google.com/sdk/gcloud/reference/config/set) .
 
-    gcloud spanner databases ddl update DATABASE_ID \
-    --instance=INSTANCE_ID \
-    --ddl-file=DDL_FILE_PATH
+```
+gcloud spanner databases ddl update DATABASE_ID \
+--instance=INSTANCE_ID \
+--ddl-file=DDL_FILE_PATH
+```
 
 #### Windows (PowerShell)
 
 > **Note:** Ensure you have initialized the Google Cloud CLI with authentication and a project by running either [gcloud init](https://docs.cloud.google.com/sdk/gcloud/reference/init) ; or [gcloud auth login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) and [gcloud config set project](https://docs.cloud.google.com/sdk/gcloud/reference/config/set) .
 
-    gcloud spanner databases ddl update DATABASE_ID `
-    --instance=INSTANCE_ID `
-    --ddl-file=DDL_FILE_PATH
+```
+gcloud spanner databases ddl update DATABASE_ID `
+--instance=INSTANCE_ID `
+--ddl-file=DDL_FILE_PATH
+```
 
 #### Windows (cmd.exe)
 
 > **Note:** Ensure you have initialized the Google Cloud CLI with authentication and a project by running either [gcloud init](https://docs.cloud.google.com/sdk/gcloud/reference/init) ; or [gcloud auth login](https://docs.cloud.google.com/sdk/gcloud/reference/auth/login) and [gcloud config set project](https://docs.cloud.google.com/sdk/gcloud/reference/config/set) .
 
-    gcloud spanner databases ddl update DATABASE_ID ^
-    --instance=INSTANCE_ID ^
-    --ddl-file=DDL_FILE_PATH
+```
+gcloud spanner databases ddl update DATABASE_ID ^
+--instance=INSTANCE_ID ^
+--ddl-file=DDL_FILE_PATH
+```
 
 ## What's next
 
-  - Learn about all the Spanner supported [MySQL user-defined functions](https://docs.cloud.google.com/spanner/docs/reference/mysql/user_defined_functions_all) .
+- Learn about all the Spanner supported [MySQL user-defined functions](https://docs.cloud.google.com/spanner/docs/reference/mysql/user_defined_functions_all) .

@@ -18,397 +18,413 @@ You can set the isolation level on read-write transactions at the database clien
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     pb "cloud.google.com/go/spanner/apiv1/spannerpb"
-    )
-    
-    func writeWithTransactionUsingIsolationLevel(w io.Writer, db string) error {
-     ctx := context.Background()
-    
-     // The isolation level specified at the client-level will be applied
-     // to all RW transactions.
-     cfg := spanner.ClientConfig{
-         TransactionOptions: spanner.TransactionOptions{
-             IsolationLevel: pb.TransactionOptions_SERIALIZABLE,
-         },
-     }
-     client, err := spanner.NewClientWithConfig(ctx, db, cfg)
-     if err != nil {
-         return fmt.Errorf("failed to create client: %w", err)
-     }
-     defer client.Close()
-    
-     // The isolation level specified at the transaction-level takes
-     // precedence over the isolation level configured at the client-level.
-     // REPEATABLE_READ is used here to demonstrate overriding the client-level setting.
-     txnOpts := spanner.TransactionOptions{
-         IsolationLevel: pb.TransactionOptions_REPEATABLE_READ,
-     }
-    
-     _, err = client.ReadWriteTransactionWithOptions(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         // Read the current album title
-         key := spanner.Key{1, 1}
-         row, err := txn.ReadRow(ctx, "Albums", key, []string{"AlbumTitle"})
-         if err != nil {
-             return fmt.Errorf("failed to read album: %v", err)
-         }
-         var title string
-         if err := row.Column(0, &title); err != nil {
-             return fmt.Errorf("failed to get album title: %v", err)
-         }
-         fmt.Fprintf(w, "Current album title: %s\n", title)
-    
-         // Update the album title
-         stmt := spanner.Statement{
-             SQL: `UPDATE Albums
-                 SET AlbumTitle = @AlbumTitle
-                 WHERE SingerId = @SingerId AND AlbumId = @AlbumId`,
-             Params: map[string]interface{}{
-                 "SingerId":   1,
-                 "AlbumId":    1,
-                 "AlbumTitle": "New Album Title",
-             },
-         }
-         count, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return fmt.Errorf("failed to update album: %v", err)
-         }
-         fmt.Fprintf(w, "Updated %d record(s).\n", count)
-         return nil
-     }, txnOpts)
-    
-     if err != nil {
-         return fmt.Errorf("transaction failed: %v", err)
-     }
-     return nil
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    pb "cloud.google.com/go/spanner/apiv1/spannerpb"
+)
+
+func writeWithTransactionUsingIsolationLevel(w io.Writer, db string) error {
+    ctx := context.Background()
+
+    // The isolation level specified at the client-level will be applied
+    // to all RW transactions.
+    cfg := spanner.ClientConfig{
+        TransactionOptions: spanner.TransactionOptions{
+            IsolationLevel: pb.TransactionOptions_SERIALIZABLE,
+        },
     }
+    client, err := spanner.NewClientWithConfig(ctx, db, cfg)
+    if err != nil {
+        return fmt.Errorf("failed to create client: %w", err)
+    }
+    defer client.Close()
+
+    // The isolation level specified at the transaction-level takes
+    // precedence over the isolation level configured at the client-level.
+    // REPEATABLE_READ is used here to demonstrate overriding the client-level setting.
+    txnOpts := spanner.TransactionOptions{
+        IsolationLevel: pb.TransactionOptions_REPEATABLE_READ,
+    }
+
+    _, err = client.ReadWriteTransactionWithOptions(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        // Read the current album title
+        key := spanner.Key{1, 1}
+        row, err := txn.ReadRow(ctx, "Albums", key, []string{"AlbumTitle"})
+        if err != nil {
+            return fmt.Errorf("failed to read album: %v", err)
+        }
+        var title string
+        if err := row.Column(0, &title); err != nil {
+            return fmt.Errorf("failed to get album title: %v", err)
+        }
+        fmt.Fprintf(w, "Current album title: %s\n", title)
+
+        // Update the album title
+        stmt := spanner.Statement{
+            SQL: `UPDATE Albums
+                SET AlbumTitle = @AlbumTitle
+                WHERE SingerId = @SingerId AND AlbumId = @AlbumId`,
+            Params: map[string]interface{}{
+                "SingerId":   1,
+                "AlbumId":    1,
+                "AlbumTitle": "New Album Title",
+            },
+        }
+        count, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return fmt.Errorf("failed to update album: %v", err)
+        }
+        fmt.Fprintf(w, "Updated %d record(s).\n", count)
+        return nil
+    }, txnOpts)
+
+    if err != nil {
+        return fmt.Errorf("transaction failed: %v", err)
+    }
+    return nil
+}
+```
 
 ### Java
 
-    static void isolationLevelSetting(DatabaseId db) {
-      // The isolation level specified at the client-level will be applied to all
-      // RW transactions.
-      DefaultReadWriteTransactionOptions transactionOptions =
-          DefaultReadWriteTransactionOptions.newBuilder()
-              .setIsolationLevel(IsolationLevel.SERIALIZABLE)
-              .build();
-      SpannerOptions options =
-          SpannerOptions.newBuilder()
-              .setDefaultTransactionOptions(transactionOptions)
-              .build();
-      Spanner spanner = options.getService();
-      DatabaseClient dbClient = spanner.getDatabaseClient(db);
-      dbClient
-          // The isolation level specified at the transaction-level takes precedence
-          // over the isolation level configured at the client-level.
-          .readWriteTransaction(Options.isolationLevel(IsolationLevel.REPEATABLE_READ))
-          .run(transaction -> {
-            // Read an AlbumTitle.
-            String selectSql =
-                "SELECT AlbumTitle from Albums WHERE SingerId = 1 and AlbumId = 1";
-            String title = null;
-            try (ResultSet resultSet = transaction.executeQuery(Statement.of(selectSql))) {
-              if (resultSet.next()) {
-                title = resultSet.getString("AlbumTitle");
-              }
-            }
-            System.out.printf("Current album title: %s\n", title);
-    
-            // Update the title.
-            String updateSql =
-                "UPDATE Albums "
-                    + "SET AlbumTitle = 'New Album Title' "
-                    + "WHERE SingerId = 1 and AlbumId = 1";
-            long rowCount = transaction.executeUpdate(Statement.of(updateSql));
-            System.out.printf("%d record updated.\n", rowCount);
-            return null;
-          });
-    }
+```java
+static void isolationLevelSetting(DatabaseId db) {
+  // The isolation level specified at the client-level will be applied to all
+  // RW transactions.
+  DefaultReadWriteTransactionOptions transactionOptions =
+      DefaultReadWriteTransactionOptions.newBuilder()
+          .setIsolationLevel(IsolationLevel.SERIALIZABLE)
+          .build();
+  SpannerOptions options =
+      SpannerOptions.newBuilder()
+          .setDefaultTransactionOptions(transactionOptions)
+          .build();
+  Spanner spanner = options.getService();
+  DatabaseClient dbClient = spanner.getDatabaseClient(db);
+  dbClient
+      // The isolation level specified at the transaction-level takes precedence
+      // over the isolation level configured at the client-level.
+      .readWriteTransaction(Options.isolationLevel(IsolationLevel.REPEATABLE_READ))
+      .run(transaction -> {
+        // Read an AlbumTitle.
+        String selectSql =
+            "SELECT AlbumTitle from Albums WHERE SingerId = 1 and AlbumId = 1";
+        String title = null;
+        try (ResultSet resultSet = transaction.executeQuery(Statement.of(selectSql))) {
+          if (resultSet.next()) {
+            title = resultSet.getString("AlbumTitle");
+          }
+        }
+        System.out.printf("Current album title: %s\n", title);
+
+        // Update the title.
+        String updateSql =
+            "UPDATE Albums "
+                + "SET AlbumTitle = 'New Album Title' "
+                + "WHERE SingerId = 1 and AlbumId = 1";
+        long rowCount = transaction.executeUpdate(Statement.of(updateSql));
+        System.out.printf("%d record updated.\n", rowCount);
+        return null;
+      });
+}
+```
 
 ### Node.js
 
-    // Imports the Google Cloud Spanner client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
-    // The isolation level specified at the client-level will be applied
-    // to all RW transactions.
-    const defaultTransactionOptions = {
-      isolationLevel:
-        protos.google.spanner.v1.TransactionOptions.IsolationLevel.SERIALIZABLE,
-    };
-    
-    // Instantiates a client with defaultTransactionOptions
-    const spanner = new Spanner({
-      projectId: projectId,
-      defaultTransactionOptions,
-    });
-    
-    function runTransactionWithIsolationLevel() {
-      // Gets a reference to a Cloud Spanner instance and database
-      const instance = spanner.instance(instanceId);
-      const database = instance.database(databaseId);
-      // The isolation level specified at the request level takes precedence over the isolation level configured at the client level.
-      const isolationOptionsForTransaction = {
-        isolationLevel:
-          protos.google.spanner.v1.TransactionOptions.IsolationLevel
-            .REPEATABLE_READ,
-      };
-    
-      database.runTransaction(
-        isolationOptionsForTransaction,
-        async (err, transaction) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          try {
-            const query =
-              'SELECT AlbumTitle FROM Albums WHERE SingerId = 1 AND AlbumId = 1';
-            const results = await transaction.run(query);
-            // Gets first album's title
-            const rows = results[0].map(row => row.toJSON());
-            const albumTitle = rows[0].AlbumTitle;
-            console.log(`previous album title ${albumTitle}`);
-    
-            const update =
-              "UPDATE Albums SET AlbumTitle = 'New Album Title' WHERE SingerId = 1 AND AlbumId = 1";
-            const [rowCount] = await transaction.runUpdate(update);
-            console.log(
-              `Successfully updated ${rowCount} record in Albums table.`,
-            );
-            await transaction.commit();
-            console.log(
-              'Successfully executed read-write transaction with isolationLevel option.',
-            );
-          } catch (err) {
-            console.error('ERROR:', err);
-            transaction.end();
-          } finally {
-            // Close the database when finished.
-            await database.close();
-          }
-        },
-      );
-    }
-    runTransactionWithIsolationLevel();
+```javascript
+// Imports the Google Cloud Spanner client library
+const {Spanner, protos} = require('@google-cloud/spanner');
+// The isolation level specified at the client-level will be applied
+// to all RW transactions.
+const defaultTransactionOptions = {
+  isolationLevel:
+    protos.google.spanner.v1.TransactionOptions.IsolationLevel.SERIALIZABLE,
+};
+
+// Instantiates a client with defaultTransactionOptions
+const spanner = new Spanner({
+  projectId: projectId,
+  defaultTransactionOptions,
+});
+
+function runTransactionWithIsolationLevel() {
+  // Gets a reference to a Cloud Spanner instance and database
+  const instance = spanner.instance(instanceId);
+  const database = instance.database(databaseId);
+  // The isolation level specified at the request level takes precedence over the isolation level configured at the client level.
+  const isolationOptionsForTransaction = {
+    isolationLevel:
+      protos.google.spanner.v1.TransactionOptions.IsolationLevel
+        .REPEATABLE_READ,
+  };
+
+  database.runTransaction(
+    isolationOptionsForTransaction,
+    async (err, transaction) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      try {
+        const query =
+          'SELECT AlbumTitle FROM Albums WHERE SingerId = 1 AND AlbumId = 1';
+        const results = await transaction.run(query);
+        // Gets first album's title
+        const rows = results[0].map(row => row.toJSON());
+        const albumTitle = rows[0].AlbumTitle;
+        console.log(`previous album title ${albumTitle}`);
+
+        const update =
+          "UPDATE Albums SET AlbumTitle = 'New Album Title' WHERE SingerId = 1 AND AlbumId = 1";
+        const [rowCount] = await transaction.runUpdate(update);
+        console.log(
+          `Successfully updated ${rowCount} record in Albums table.`,
+        );
+        await transaction.commit();
+        console.log(
+          'Successfully executed read-write transaction with isolationLevel option.',
+        );
+      } catch (err) {
+        console.error('ERROR:', err);
+        transaction.end();
+      } finally {
+        // Close the database when finished.
+        await database.close();
+      }
+    },
+  );
+}
+runTransactionWithIsolationLevel();
+```
 
 ### Python
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    from google.cloud.spanner_v1 import TransactionOptions, DefaultTransactionOptions
-    
-    # The isolation level specified at the client-level will be applied to all RW transactions.
-    isolation_options_for_client = TransactionOptions.IsolationLevel.SERIALIZABLE
-    
-    spanner_client = spanner.Client(
-        default_transaction_options=DefaultTransactionOptions(
-            isolation_level=isolation_options_for_client
-        )
+```python
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+from google.cloud.spanner_v1 import TransactionOptions, DefaultTransactionOptions
+
+# The isolation level specified at the client-level will be applied to all RW transactions.
+isolation_options_for_client = TransactionOptions.IsolationLevel.SERIALIZABLE
+
+spanner_client = spanner.Client(
+    default_transaction_options=DefaultTransactionOptions(
+        isolation_level=isolation_options_for_client
     )
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    # The isolation level specified at the request level takes precedence over the isolation level configured at the client level.
-    isolation_options_for_transaction = (
-        TransactionOptions.IsolationLevel.REPEATABLE_READ
+)
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
+
+# The isolation level specified at the request level takes precedence over the isolation level configured at the client level.
+isolation_options_for_transaction = (
+    TransactionOptions.IsolationLevel.REPEATABLE_READ
+)
+
+def update_albums_with_isolation(transaction):
+    # Read an AlbumTitle.
+    results = transaction.execute_sql(
+        "SELECT AlbumTitle from Albums WHERE SingerId = 1 and AlbumId = 1"
     )
-    
-    def update_albums_with_isolation(transaction):
-        # Read an AlbumTitle.
-        results = transaction.execute_sql(
-            "SELECT AlbumTitle from Albums WHERE SingerId = 1 and AlbumId = 1"
-        )
-        for result in results:
-            print("Current Album Title: {}".format(*result))
-    
-        # Update the AlbumTitle.
-        row_ct = transaction.execute_update(
-            "UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 1 and AlbumId = 1"
-        )
-    
-        print("{} record(s) updated.".format(row_ct))
-    
-    database.run_in_transaction(
-        update_albums_with_isolation, isolation_level=isolation_options_for_transaction
+    for result in results:
+        print("Current Album Title: {}".format(*result))
+
+    # Update the AlbumTitle.
+    row_ct = transaction.execute_update(
+        "UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 1 and AlbumId = 1"
     )
+
+    print("{} record(s) updated.".format(row_ct))
+
+database.run_in_transaction(
+    update_albums_with_isolation, isolation_level=isolation_options_for_transaction
+)
+```
 
 ### C++
 
-    void IsolationLevelSetting(std::string const& project_id,
-                               std::string const& instance_id,
-                               std::string const& database_id) {
-      namespace spanner = ::google::cloud::spanner;
-      using ::google::cloud::Options;
-      using ::google::cloud::StatusOr;
-    
-      auto db = spanner::Database(project_id, instance_id, database_id);
-    
-      // The isolation level specified at the client-level will be applied
-      // to all RW transactions.
-      auto options = Options{}.set<spanner::TransactionIsolationLevelOption>(
-          spanner::Transaction::IsolationLevel::kSerializable);
-      auto client = spanner::Client(spanner::MakeConnection(db, options));
-    
-      auto commit = client.Commit(
-          [&client](
-              spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
-            // Read an AlbumTitle.
-            auto sql = spanner::SqlStatement(
-                "SELECT AlbumTitle from Albums WHERE SingerId = @SingerId and "
-                "AlbumId = @AlbumId",
-                {{"SingerId", spanner::Value(1)}, {"AlbumId", spanner::Value(1)}});
-            auto rows = client.ExecuteQuery(txn, std::move(sql));
-            for (auto const& row :
-                 spanner::StreamOf<std::tuple<std::string>>(rows)) {
-              if (!row) return row.status();
-              std::cout << "Current album title: " << std::get<0>(*row) << "\n";
-            }
-    
-            // Update the title.
-            auto update_sql = spanner::SqlStatement(
-                "UPDATE Albums "
-                "SET AlbumTitle = @AlbumTitle "
-                "WHERE SingerId = @SingerId and AlbumId = @AlbumId",
-                {{"AlbumTitle", spanner::Value("New Album Title")},
-                 {"SingerId", spanner::Value(1)},
-                 {"AlbumId", spanner::Value(1)}});
-            auto result = client.ExecuteDml(txn, std::move(update_sql));
-            if (!result) return result.status();
-            std::cout << result->RowsModified() << " record updated.\n";
-    
-            return spanner::Mutations{};
-          },
-          // The isolation level specified at the transaction-level takes
-          // precedence over the isolation level configured at the client-level.
-          // kRepeatableRead is used here to demonstrate overriding the client-level
-          // setting.
-          Options{}.set<spanner::TransactionIsolationLevelOption>(
-              spanner::Transaction::IsolationLevel::kRepeatableRead));
-    
-      if (!commit) throw std::move(commit).status();
-      std::cout << "Update was successful [spanner_isolation_level_setting]\n";
-    }
+```cpp
+void IsolationLevelSetting(std::string const& project_id,
+                           std::string const& instance_id,
+                           std::string const& database_id) {
+  namespace spanner = ::google::cloud::spanner;
+  using ::google::cloud::Options;
+  using ::google::cloud::StatusOr;
 
-### C\#
+  auto db = spanner::Database(project_id, instance_id, database_id);
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using IsolationLevel = System.Data.IsolationLevel;
-    
-    public class IsolationLevelAsyncSample
-    {
-        public async Task IsolationLevelAsync(string projectId, string instanceId, string databaseId)
-        {
-            // Create client with IsolationLevel=Serializable.
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId};IsolationLevel=Serializable";
-    
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            // Create transaction options overriding IsolationLevel to RepeatableRead.
-            var transactionOptions = SpannerTransactionCreationOptions.ReadWrite
-                .WithIsolationLevel(IsolationLevel.RepeatableRead);
-    
-            using var transaction = await connection.BeginTransactionAsync(transactionOptions, null, CancellationToken.None);
-    
-            using var cmd = connection.CreateSelectCommand("SELECT AlbumTitle FROM Albums WHERE SingerId = 1 AND AlbumId = 1");
-            cmd.Transaction = transaction;
-            using (var reader = await cmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
-                {
-                    Console.WriteLine($"AlbumTitle: {reader.GetFieldValue<string>("AlbumTitle")}");
-                }
-            }
-    
-            using var updateCmd = connection.CreateDmlCommand("UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 1 AND AlbumId = 1");
-            updateCmd.Transaction = transaction;
-            var rowCount = await updateCmd.ExecuteNonQueryAsync();
-            Console.WriteLine($"{rowCount} records updated.");
-    
-            await transaction.CommitAsync();
+  // The isolation level specified at the client-level will be applied
+  // to all RW transactions.
+  auto options = Options{}.set<spanner::TransactionIsolationLevelOption>(
+      spanner::Transaction::IsolationLevel::kSerializable);
+  auto client = spanner::Client(spanner::MakeConnection(db, options));
+
+  auto commit = client.Commit(
+      [&client](
+          spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
+        // Read an AlbumTitle.
+        auto sql = spanner::SqlStatement(
+            "SELECT AlbumTitle from Albums WHERE SingerId = @SingerId and "
+            "AlbumId = @AlbumId",
+            {{"SingerId", spanner::Value(1)}, {"AlbumId", spanner::Value(1)}});
+        auto rows = client.ExecuteQuery(txn, std::move(sql));
+        for (auto const& row :
+             spanner::StreamOf<std::tuple<std::string>>(rows)) {
+          if (!row) return row.status();
+          std::cout << "Current album title: " << std::get<0>(*row) << "\n";
         }
+
+        // Update the title.
+        auto update_sql = spanner::SqlStatement(
+            "UPDATE Albums "
+            "SET AlbumTitle = @AlbumTitle "
+            "WHERE SingerId = @SingerId and AlbumId = @AlbumId",
+            {{"AlbumTitle", spanner::Value("New Album Title")},
+             {"SingerId", spanner::Value(1)},
+             {"AlbumId", spanner::Value(1)}});
+        auto result = client.ExecuteDml(txn, std::move(update_sql));
+        if (!result) return result.status();
+        std::cout << result->RowsModified() << " record updated.\n";
+
+        return spanner::Mutations{};
+      },
+      // The isolation level specified at the transaction-level takes
+      // precedence over the isolation level configured at the client-level.
+      // kRepeatableRead is used here to demonstrate overriding the client-level
+      // setting.
+      Options{}.set<spanner::TransactionIsolationLevelOption>(
+          spanner::Transaction::IsolationLevel::kRepeatableRead));
+
+  if (!commit) throw std::move(commit).status();
+  std::cout << "Update was successful [spanner_isolation_level_setting]\n";
+}
+```
+
+### C#
+
+```
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using IsolationLevel = System.Data.IsolationLevel;
+
+public class IsolationLevelAsyncSample
+{
+    public async Task IsolationLevelAsync(string projectId, string instanceId, string databaseId)
+    {
+        // Create client with IsolationLevel=Serializable.
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId};IsolationLevel=Serializable";
+
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        // Create transaction options overriding IsolationLevel to RepeatableRead.
+        var transactionOptions = SpannerTransactionCreationOptions.ReadWrite
+            .WithIsolationLevel(IsolationLevel.RepeatableRead);
+
+        using var transaction = await connection.BeginTransactionAsync(transactionOptions, null, CancellationToken.None);
+
+        using var cmd = connection.CreateSelectCommand("SELECT AlbumTitle FROM Albums WHERE SingerId = 1 AND AlbumId = 1");
+        cmd.Transaction = transaction;
+        using (var reader = await cmd.ExecuteReaderAsync())
+        {
+            while (await reader.ReadAsync())
+            {
+                Console.WriteLine($"AlbumTitle: {reader.GetFieldValue<string>("AlbumTitle")}");
+            }
+        }
+
+        using var updateCmd = connection.CreateDmlCommand("UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 1 AND AlbumId = 1");
+        updateCmd.Transaction = transaction;
+        var rowCount = await updateCmd.ExecuteNonQueryAsync();
+        Console.WriteLine($"{rowCount} records updated.");
+
+        await transaction.CommitAsync();
     }
+}
+```
 
 ### PHP
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use Google\Cloud\Spanner\Transaction;
-    use Google\Cloud\Spanner\V1\TransactionOptions\IsolationLevel;
-    
-    /**
-     * Shows how to run a Read Write transaction with isolation level options.
-     *
-     * Example:
-     * ```
-     * isolation_level($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function isolation_level(string $instanceId, string $databaseId): void
-    {
-        // The isolation level specified at the client-level will be applied to all
-        // RW transactions.
-        $spanner = new SpannerClient([
-            'isolationLevel' => IsolationLevel::SERIALIZABLE
-        ]);
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        // The isolation level specified at the request level takes precedence over
-        // the isolation level configured at the client level.
-        $database->runTransaction(function (Transaction $t) {
-            // Read an AlbumTitle.
-            $results = $t->execute('SELECT AlbumTitle from Albums WHERE SingerId = 1 and AlbumId = 1');
-            foreach ($results as $row) {
-                printf('Current Album Title: %s' . PHP_EOL, $row['AlbumTitle']);
-            }
-    
-            // Update the AlbumTitle.
-            $rowCount = $t->executeUpdate('UPDATE Albums SET AlbumTitle = \'A New Title\' WHERE SingerId = 1 and AlbumId = 1');
-    
-            // Commit the transaction!
-            $t->commit();
-    
-            printf('%d record(s) updated.' . PHP_EOL, $rowCount);
-        }, [
-            'transactionOptions' => [
-                'isolationLevel' => IsolationLevel::REPEATABLE_READ
-            ]
-        ]);
-    }
+```
+use Google\Cloud\Spanner\SpannerClient;
+use Google\Cloud\Spanner\Transaction;
+use Google\Cloud\Spanner\V1\TransactionOptions\IsolationLevel;
+
+/**
+ * Shows how to run a Read Write transaction with isolation level options.
+ *
+ * Example:
+ * ```
+ * isolation_level($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function isolation_level(string $instanceId, string $databaseId): void
+{
+    // The isolation level specified at the client-level will be applied to all
+    // RW transactions.
+    $spanner = new SpannerClient([
+        'isolationLevel' => IsolationLevel::SERIALIZABLE
+    ]);
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    // The isolation level specified at the request level takes precedence over
+    // the isolation level configured at the client level.
+    $database->runTransaction(function (Transaction $t) {
+        // Read an AlbumTitle.
+        $results = $t->execute('SELECT AlbumTitle from Albums WHERE SingerId = 1 and AlbumId = 1');
+        foreach ($results as $row) {
+            printf('Current Album Title: %s' . PHP_EOL, $row['AlbumTitle']);
+        }
+
+        // Update the AlbumTitle.
+        $rowCount = $t->executeUpdate('UPDATE Albums SET AlbumTitle = \'A New Title\' WHERE SingerId = 1 and AlbumId = 1');
+
+        // Commit the transaction!
+        $t->commit();
+
+        printf('%d record(s) updated.' . PHP_EOL, $rowCount);
+    }, [
+        'transactionOptions' => [
+            'isolationLevel' => IsolationLevel::REPEATABLE_READ
+        ]
+    ]);
+}
+```
 
 ### Ruby
 
-    require "google/cloud/spanner"
-    
-    def spanner_isolation_level project_id:, instance_id:, database_id:
-      # Instantiates a client with isolation_level: :SERIALIZABLE
-      spanner = Google::Cloud::Spanner.new project: project_id
-      client = spanner.client instance_id, database_id, isolation_level: :SERIALIZABLE
-    
-      # Overrides isolation_level to :REPEATABLE_READ at transaction level
-      client.transaction isolation_level: :REPEATABLE_READ do |tx|
-        results = tx.execute_query "SELECT AlbumTitle FROM Albums WHERE SingerId = 1 AND AlbumId = 1"
-    
-        results.rows.each do |row|
-          puts "AlbumTitle: #{row[:AlbumTitle]}"
-        end
-    
-        row_count = tx.execute_update "UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 1 AND AlbumId = 1"
-    
-        puts "#{row_count} records updated."
-      end
+```
+require "google/cloud/spanner"
+
+def spanner_isolation_level project_id:, instance_id:, database_id:
+  # Instantiates a client with isolation_level: :SERIALIZABLE
+  spanner = Google::Cloud::Spanner.new project: project_id
+  client = spanner.client instance_id, database_id, isolation_level: :SERIALIZABLE
+
+  # Overrides isolation_level to :REPEATABLE_READ at transaction level
+  client.transaction isolation_level: :REPEATABLE_READ do |tx|
+    results = tx.execute_query "SELECT AlbumTitle FROM Albums WHERE SingerId = 1 AND AlbumId = 1"
+
+    results.rows.each do |row|
+      puts "AlbumTitle: #{row[:AlbumTitle]}"
     end
+
+    row_count = tx.execute_update "UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 1 AND AlbumId = 1"
+
+    puts "#{row_count} records updated."
+  end
+end
+```
 
 ### REST
 
@@ -420,16 +436,16 @@ You can also configure the locking concurrency for each isolation level. For mor
 
 ## Unsupported use cases
 
-  - You can't set repeatable read isolation on partitioned DML transactions.
-  - All read-only transactions already operate at a fixed snapshot and don't require locks, so setting repeatable read isolation in this transaction type doesn't change any behavior.
-  - You can't set repeatable read isolation on read-only, single-use, and partition operations using the Spanner client libraries Spanner client libraries won't have the option to set the repeatable read isolation on read-only, single-use and partition query operations.
+- You can't set repeatable read isolation on partitioned DML transactions.
+- All read-only transactions already operate at a fixed snapshot and don't require locks, so setting repeatable read isolation in this transaction type doesn't change any behavior.
+- You can't set repeatable read isolation on read-only, single-use, and partition operations using the Spanner client libraries Spanner client libraries won't have the option to set the repeatable read isolation on read-only, single-use and partition query operations.
 
 ## What's next
 
-  - Learn more about [isolation levels](https://docs.cloud.google.com/spanner/docs/isolation-levels) .
+- Learn more about [isolation levels](https://docs.cloud.google.com/spanner/docs/isolation-levels) .
 
-  - Learn about [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
+- Learn about [Concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) .
 
-  - Learn how to [use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
+- Learn how to [use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
 
-  - Learn more about Spanner serializability and external consistency, see [TrueTime and external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) .
+- Learn more about Spanner serializability and external consistency, see [TrueTime and external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) .

@@ -12,12 +12,12 @@ In addition to managing how your application connects to Spanner, you also have 
 
 Complete the following steps manually to migrate your application to Spanner:
 
-  - Spanner doesn't support running user code in the database, so you need to move any procedures and triggers stored at the database level into the application.
+- Spanner doesn't support running user code in the database, so you need to move any procedures and triggers stored at the database level into the application.
 
-  - Use Spanner client libraries and ORMs. For more information, see [Overview of APIs, client libraries, and ORM drivers](https://docs.cloud.google.com/spanner/docs/api-libraries-overview) .
+- Use Spanner client libraries and ORMs. For more information, see [Overview of APIs, client libraries, and ORM drivers](https://docs.cloud.google.com/spanner/docs/api-libraries-overview) .
 
-  - Take note of [Spanner partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) , [read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) , [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) , and read timestamps and how they can optimize application performance.
+- Take note of [Spanner partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) , [read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) , [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) , and read timestamps and how they can optimize application performance.
 
-  - You also might need to make changes to transaction handling. Consider the following:
-    
-      - The mutations per commit limit is 80,000. Each secondary index on a table is an additional mutation per row. To modify data using mutations, see [Insert, update, and delete data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) . To modify a large amount of data, use [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .
+- You also might need to make changes to transaction handling. Consider the following:
+
+  - The mutations per commit limit is 80,000. Each secondary index on a table is an additional mutation per row. To modify data using mutations, see [Insert, update, and delete data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) . To modify a large amount of data, use [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) .

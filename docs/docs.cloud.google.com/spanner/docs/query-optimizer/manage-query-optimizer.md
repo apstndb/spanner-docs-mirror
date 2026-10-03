@@ -10,17 +10,21 @@ This page describes how to manage the query optimizer in Spanner for GoogleSQL-d
 
 The Spanner query optimizer determines the most efficient way to execute a SQL query. However, the query plan determined by the optimizer might change slightly when the query optimizer itself evolves, or when the database statistics are updated. To minimize any potential for performance regression when the query optimizer or statistics change, Spanner provides the following query options.
 
-  - **optimizer\_version** : Changes to the query optimizer are bundled and released as optimizer versions. Spanner starts using the latest version of the optimizer as the default at least 30 days after that version is released. You can use the query optimizer version option to run queries against an older version of the optimizer.
+- **optimizer_version** : Changes to the query optimizer are bundled and released as optimizer versions. Spanner starts using the latest version of the optimizer as the default at least 30 days after that version is released. You can use the query optimizer version option to run queries against an older version of the optimizer.
 
-  - **optimizer\_statistics\_package** : Spanner updates optimizer statistics regularly. New statistics are made available as a package. This query option specifies a statistics package for the query optimizer to use when compiling a SQL query. The specified package must have garbage collection disabled:
-    
-    ### GoogleSQL
-    
-        ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
-    
-    ### PostgreSQL
-    
-        ALTER STATISTICS spanner."<package_name>" SET OPTIONS (allow_gc = false)
+- **optimizer_statistics_package** : Spanner updates optimizer statistics regularly. New statistics are made available as a package. This query option specifies a statistics package for the query optimizer to use when compiling a SQL query. The specified package must have garbage collection disabled:
+
+  ### GoogleSQL
+
+  ```
+  ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
+  ```
+
+  ### PostgreSQL
+
+  ```
+  ALTER STATISTICS spanner."<package_name>" SET OPTIONS (allow_gc = false)
+  ```
 
 This guide shows how to set these individual options at different scopes in Spanner.
 
@@ -34,7 +38,9 @@ The query optimizer version is an integer value, incremented by 1 with each upda
 
 Execute the following SQL statement to return a list of all supported optimizer versions, along with their corresponding release dates and whether that version is the default. The largest version number returned is the latest supported version of the optimizer.
 
-    SELECT * FROM SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS;
+```
+SELECT * FROM SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS;
+```
 
 #### Default version
 
@@ -42,7 +48,9 @@ By default, Spanner starts using the latest version of the optimizer at least 30
 
 To find the default version, execute the following SQL statement:
 
-    SELECT * FROM SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS;
+```
+SELECT * FROM SPANNER_SYS.SUPPORTED_OPTIMIZER_VERSIONS;
+```
 
 The query returns a list of all supported optimizer versions. The `IS_DEFAULT` column specifies which version is the current default.
 
@@ -52,9 +60,11 @@ For details about each version, see [Query optimizer version history](https://do
 
 Each new optimizer statistics package that Spanner creates is assigned a package name that's guaranteed to be unique within the given database.
 
-The format of the package name is `auto_{PACKAGE_TIMESTAMP}UTC` . In GoogleSQL, the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) statement triggers the creation of the statistics package name. In PostgreSQL, the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#analyze-statistics) statement performs this task. The format of the statistics package name is `  analyze_ {PACKAGE_TIMESTAMP} UTC  ` , where `{PACKAGE_TIMESTAMP}` is the timestamp, in UTC timezone, of when the statistics construction started. Execute the following SQL statement to return a list of all available optimizer statistics packages.
+The format of the package name is `auto_{PACKAGE_TIMESTAMP}UTC` . In GoogleSQL, the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) statement triggers the creation of the statistics package name. In PostgreSQL, the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#analyze-statistics) statement performs this task. The format of the statistics package name is **`analyze_`**` {PACKAGE_TIMESTAMP} `**`UTC`** , where `{PACKAGE_TIMESTAMP}` is the timestamp, in UTC timezone, of when the statistics construction started. Execute the following SQL statement to return a list of all available optimizer statistics packages.
 
-    SELECT * FROM INFORMATION_SCHEMA.SPANNER_STATISTICS;
+```
+SELECT * FROM INFORMATION_SCHEMA.SPANNER_STATISTICS;
+```
 
 By default, Spanner uses the latest optimizer statistics package unless the database or query is pinned to an older package using one of the methods described on this page.
 
@@ -74,13 +84,13 @@ The following sections provided more details about each method.
 
 You can set the default optimizer option through the following methods:
 
-  - [At the database level](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#db-option)
-  - [For a query using a statement hint](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint)
-  - [With client libraries](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#client-libraries)
-      - [For a database client](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#client-app)
-      - [With environment variables](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#environment-variable)
-      - [For a client query](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#client-query)
-  - [Using the Spanner JDBC driver](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#jdbc-driver)
+- [At the database level](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#db-option)
+- [For a query using a statement hint](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint)
+- [With client libraries](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#client-libraries)
+  - [For a database client](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#client-app)
+  - [With environment variables](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#environment-variable)
+  - [For a client query](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#client-query)
+- [Using the Spanner JDBC driver](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#jdbc-driver)
 
 In some cases, Spanner might use an older query optimizer version for a specific query shape, even if you have pinned a newer version. This is an expected internal behavior to ensure query stability and performance. You can identify the optimizer version that was used for a particular query by examining the [query execution plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) .
 
@@ -90,44 +100,58 @@ To set the default optimizer version on a database, use the following [`ALTER DA
 
 ### GoogleSQL
 
-    ALTER DATABASE MyDatabase
-    SET OPTIONS (optimizer_version =  9);
+```
+ALTER DATABASE MyDatabase
+SET OPTIONS (optimizer_version =  9);
+```
 
 ### PostgreSQL
 
-    ALTER DATABASE MyDatabase SET spanner.optimizer_version = 5;
+```
+ALTER DATABASE MyDatabase SET spanner.optimizer_version = 5;
+```
 
 You can set the statistics package similarly, as shown in the following example.
 
 ### GoogleSQL
 
-    ALTER DATABASE MyDatabase
-    SET OPTIONS (optimizer_statistics_package = "auto_20191128_14_47_22UTC");
+```
+ALTER DATABASE MyDatabase
+SET OPTIONS (optimizer_statistics_package = "auto_20191128_14_47_22UTC");
+```
 
 ### PostgreSQL
 
-    ALTER DATABASE MyDatabase
-    SET spanner.optimizer_statistics_package = "auto_20191128_14_47_22UTC";
+```
+ALTER DATABASE MyDatabase
+SET spanner.optimizer_statistics_package = "auto_20191128_14_47_22UTC";
+```
 
 You can also set more than one option at the same time, as shown in the following DDL command.
 
 ### GoogleSQL
 
-    ALTER DATABASE MyDatabase
-    SET OPTIONS (optimizer_version = 9,
-                optimizer_statistics_package = "auto_20191128_14_47_22UTC");
+```
+ALTER DATABASE MyDatabase
+SET OPTIONS (optimizer_version = 9,
+            optimizer_statistics_package = "auto_20191128_14_47_22UTC");
+```
 
 You can run `ALTER DATABASE` in gcloud CLI with the [`gcloud CLI databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command as follows.
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update MyDatabase --instance=test-instance \
-        --ddl='ALTER DATABASE MyDatabase SET OPTIONS ( optimizer_version = 9 )'
+```
+gcloud spanner databases ddl update MyDatabase --instance=test-instance \
+    --ddl='ALTER DATABASE MyDatabase SET OPTIONS ( optimizer_version = 9 )'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update MyDatabase --instance=test-instance \
-      --ddl='ALTER DATABASE MyDatabase SET spanner.optimizer_version = 9'
+```
+gcloud spanner databases ddl update MyDatabase --instance=test-instance \
+  --ddl='ALTER DATABASE MyDatabase SET spanner.optimizer_version = 9'
+```
 
 Setting a database option to `NULL` (in GoogleSQL) or `DEFAULT` (in PostgreSQL) clears it so that the default value is used.
 
@@ -135,18 +159,20 @@ To see the current value of these options for a database, query the [`INFORMATIO
 
 ### GoogleSQL
 
-    SELECT
-      s.OPTION_NAME,
-      s.OPTION_VALUE
-    FROM
-      INFORMATION_SCHEMA.DATABASE_OPTIONS s
-    WHERE
-      s.SCHEMA_NAME=""
-      AND s.OPTION_NAME IN ('optimizer_version', 'optimizer_statistics_package')
+```
+SELECT
+  s.OPTION_NAME,
+  s.OPTION_VALUE
+FROM
+  INFORMATION_SCHEMA.DATABASE_OPTIONS s
+WHERE
+  s.SCHEMA_NAME=""
+  AND s.OPTION_NAME IN ('optimizer_version', 'optimizer_statistics_package')
+```
 
 ### PostgreSQL
 
-``` 
+```
   SELECT
     s.option_name,
     s.option_value
@@ -166,51 +192,71 @@ The `OPTIMIZER_VERSION` hint has the highest optimizer version precedence. If th
 
 ### GoogleSQL
 
-    @{OPTIMIZER_VERSION=9} SELECT * FROM MyTable;
+```
+@{OPTIMIZER_VERSION=9} SELECT * FROM MyTable;
+```
 
 ### PostgreSQL
 
-    /*@OPTIMIZER_VERSION=9*/ SELECT * FROM MyTable;
+```
+/*@OPTIMIZER_VERSION=9*/ SELECT * FROM MyTable;
+```
 
-You can also use the **latest\_version** literal to set the optimizer version for a query to the latest version as shown here.
+You can also use the **latest_version** literal to set the optimizer version for a query to the latest version as shown here.
 
 ### GoogleSQL
 
-    @{OPTIMIZER_VERSION=latest_version} SELECT * FROM MyTable;
+```
+@{OPTIMIZER_VERSION=latest_version} SELECT * FROM MyTable;
+```
 
 ### PostgreSQL
 
-    /*@OPTIMIZER_VERSION=latest_version*/ SELECT * FROM MyTable;
+```
+/*@OPTIMIZER_VERSION=latest_version*/ SELECT * FROM MyTable;
+```
 
 Setting the `OPTIMIZER_STATISTICS_PACKAGE` hint on a statement forces that query to run using the specified query optimizer statistics package version. The specified package [must have garbage collection disabled](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#handle-invalid-setting) :
 
 ### GoogleSQL
 
-    ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
+```
+ALTER STATISTICS <package_name> SET OPTIONS (allow_gc=false)
+```
 
 ### PostgreSQL
 
-    ALTER STATISTICS spanner."<package_name>" SET OPTIONS (allow_gc=false)
+```
+ALTER STATISTICS spanner."<package_name>" SET OPTIONS (allow_gc=false)
+```
 
 The `OPTIMIZER_STATISTICS_PACKAGE` hint has the highest optimizer package setting precedence. If the statement hint is specified, it's used regardless of all other optimizer package version settings.
 
-    @{OPTIMIZER_STATISTICS_PACKAGE=auto_20191128_14_47_22UTC} SELECT * FROM MyTable;
+```
+@{OPTIMIZER_STATISTICS_PACKAGE=auto_20191128_14_47_22UTC} SELECT * FROM MyTable;
+```
 
 You can also use the **latest** literal to use the latest statistics package.
 
-    @{OPTIMIZER_STATISTICS_PACKAGE=latest} SELECT * FROM MyTable;
+```
+@{OPTIMIZER_STATISTICS_PACKAGE=latest} SELECT * FROM MyTable;
+```
 
 Both hints can be set in a single statement as shown in the following example.
 
-The **default\_version** literal sets the optimizer version for a query to the default version, which might be different than the latest version. See [Default version](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#default-version) for details.
+The **default_version** literal sets the optimizer version for a query to the default version, which might be different than the latest version. See [Default version](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#default-version) for details.
 
 ### GoogleSQL
 
-    @{OPTIMIZER_VERSION=default_version, OPTIMIZER_STATISTICS_PACKAGE=auto_20191128_14_47_22UTC} SELECT * FROM MyTable;
+```
+@{OPTIMIZER_VERSION=default_version, OPTIMIZER_STATISTICS_PACKAGE=auto_20191128_14_47_22UTC} SELECT * FROM MyTable;
+```
 
 ### PostgreSQL
 
-    /*@OPTIMIZER_VERSION=default_version, OPTIMIZER_STATISTICS_PACKAGE=auto_20191128_14_47_22UTC*/ SELECT * FROM KeyValue;
+```
+/*@OPTIMIZER_VERSION=default_version, OPTIMIZER_STATISTICS_PACKAGE=auto_20191128_14_47_22UTC*/ SELECT * FROM KeyValue;
+```
 
 ### Set optimizer options with client libraries
 
@@ -224,280 +270,296 @@ An application can set optimizer options globally on the client library by confi
 
 ### C++
 
-    namespace spanner = ::google::cloud::spanner;
-    spanner::Client client(
-        spanner::MakeConnection(db),
-        google::cloud::Options{}
-            .set<spanner::QueryOptimizerVersionOption>("1")
-            .set<spanner::QueryOptimizerStatisticsPackageOption>(
-                "auto_20191128_14_47_22UTC"));
+```
+namespace spanner = ::google::cloud::spanner;
+spanner::Client client(
+    spanner::MakeConnection(db),
+    google::cloud::Options{}
+        .set<spanner::QueryOptimizerVersionOption>("1")
+        .set<spanner::QueryOptimizerStatisticsPackageOption>(
+            "auto_20191128_14_47_22UTC"));
+```
 
-### C\#
+### C#
 
-    using Google.Cloud.Spanner.Data;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class CreateConnectionWithQueryOptionsAsyncSample
+```
+using Google.Cloud.Spanner.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class CreateConnectionWithQueryOptionsAsyncSample
+{
+    public class Album
     {
-        public class Album
-        {
-            public int AlbumId { get; set; }
-            public int SingerId { get; set; }
-            public string AlbumTitle { get; set; }
-        }
-    
-        public async Task<List<Album>> CreateConnectionWithQueryOptionsAsync(string projectId, string instanceId, string databaseId)
-        {
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-    
-            using var connection = new SpannerConnection(connectionString)
-            {
-                // Set query options on the connection.
-                QueryOptions = QueryOptions.Empty
-                    .WithOptimizerVersion("1")
-                    // The list of available statistics packages for the database can
-                    // be found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
-                    // table.
-                    .WithOptimizerStatisticsPackage("latest")
-            };
-    
-            var albums = new List<Album>();
-            var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                albums.Add(new Album
-                {
-                    SingerId = reader.GetFieldValue<int>("SingerId"),
-                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
-                });
-            }
-            return albums;
-        }
+        public int AlbumId { get; set; }
+        public int SingerId { get; set; }
+        public string AlbumTitle { get; set; }
     }
+
+    public async Task<List<Album>> CreateConnectionWithQueryOptionsAsync(string projectId, string instanceId, string databaseId)
+    {
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+
+        using var connection = new SpannerConnection(connectionString)
+        {
+            // Set query options on the connection.
+            QueryOptions = QueryOptions.Empty
+                .WithOptimizerVersion("1")
+                // The list of available statistics packages for the database can
+                // be found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
+                // table.
+                .WithOptimizerStatisticsPackage("latest")
+        };
+
+        var albums = new List<Album>();
+        var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            albums.Add(new Album
+            {
+                SingerId = reader.GetFieldValue<int>("SingerId"),
+                AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
+            });
+        }
+        return albums;
+    }
+}
+```
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-     "time"
-    
-     "cloud.google.com/go/spanner"
-     sppb "cloud.google.com/go/spanner/apiv1/spannerpb"
-     "google.golang.org/api/iterator"
-    )
-    
-    func createClientWithQueryOptions(w io.Writer, database string) error {
-     ctx := context.Background()
-     queryOptions := spanner.QueryOptions{
-         Options: &sppb.ExecuteSqlRequest_QueryOptions{
-             OptimizerVersion: "1",
-             // The list of available statistics packages can be found by
-             // querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
-             OptimizerStatisticsPackage: "latest",
-         },
-     }
-     client, err := spanner.NewClientWithConfig(
-         ctx, database, spanner.ClientConfig{QueryOptions: queryOptions},
-     )
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     stmt := spanner.Statement{SQL: `SELECT VenueId, VenueName, LastUpdateTime FROM Venues`}
-     iter := client.Single().Query(ctx, stmt)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var venueID int64
-         var venueName string
-         var lastUpdateTime time.Time
-         if err := row.Columns(&venueID, &venueName, &lastUpdateTime); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %s %s\n", venueID, venueName, lastUpdateTime)
-     }
+```
+import (
+    "context"
+    "fmt"
+    "io"
+    "time"
+
+    "cloud.google.com/go/spanner"
+    sppb "cloud.google.com/go/spanner/apiv1/spannerpb"
+    "google.golang.org/api/iterator"
+)
+
+func createClientWithQueryOptions(w io.Writer, database string) error {
+    ctx := context.Background()
+    queryOptions := spanner.QueryOptions{
+        Options: &sppb.ExecuteSqlRequest_QueryOptions{
+            OptimizerVersion: "1",
+            // The list of available statistics packages can be found by
+            // querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
+            OptimizerStatisticsPackage: "latest",
+        },
     }
+    client, err := spanner.NewClientWithConfig(
+        ctx, database, spanner.ClientConfig{QueryOptions: queryOptions},
+    )
+    if err != nil {
+        return err
+    }
+    defer client.Close()
+
+    stmt := spanner.Statement{SQL: `SELECT VenueId, VenueName, LastUpdateTime FROM Venues`}
+    iter := client.Single().Query(ctx, stmt)
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var venueID int64
+        var venueName string
+        var lastUpdateTime time.Time
+        if err := row.Columns(&venueID, &venueName, &lastUpdateTime); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %s %s\n", venueID, venueName, lastUpdateTime)
+    }
+}
+```
 
 ### Java
 
-    static void clientWithQueryOptions(DatabaseId db) {
-      SpannerOptions options =
-          SpannerOptions.newBuilder()
-              .setDefaultQueryOptions(
-                  db, QueryOptions
-                      .newBuilder()
-                      .setOptimizerVersion("1")
-                      // The list of available statistics packages can be found by querying the
-                      // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
-                      .setOptimizerStatisticsPackage("latest")
-                      .build())
-              .build();
-      Spanner spanner = options.getService();
-      DatabaseClient dbClient = spanner.getDatabaseClient(db);
-      try (ResultSet resultSet =
-          dbClient
-              .singleUse()
-              .executeQuery(Statement.of("SELECT SingerId, AlbumId, AlbumTitle FROM Albums"))) {
-        while (resultSet.next()) {
-          System.out.printf(
-              "%d %d %s\n", resultSet.getLong(0), resultSet.getLong(1), resultSet.getString(2));
-        }
-      }
+```
+static void clientWithQueryOptions(DatabaseId db) {
+  SpannerOptions options =
+      SpannerOptions.newBuilder()
+          .setDefaultQueryOptions(
+              db, QueryOptions
+                  .newBuilder()
+                  .setOptimizerVersion("1")
+                  // The list of available statistics packages can be found by querying the
+                  // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
+                  .setOptimizerStatisticsPackage("latest")
+                  .build())
+          .build();
+  Spanner spanner = options.getService();
+  DatabaseClient dbClient = spanner.getDatabaseClient(db);
+  try (ResultSet resultSet =
+      dbClient
+          .singleUse()
+          .executeQuery(Statement.of("SELECT SingerId, AlbumId, AlbumTitle FROM Albums"))) {
+    while (resultSet.next()) {
+      System.out.printf(
+          "%d %d %s\n", resultSet.getLong(0), resultSet.getLong(1), resultSet.getString(2));
     }
+  }
+}
+```
 
 ### Node.js
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(
-      databaseId,
-      {},
-      {
-        optimizerVersion: '1',
-        // The list of available statistics packages can be found by querying the
-        // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
-        optimizerStatisticsPackage: 'latest',
-      },
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(
+  databaseId,
+  {},
+  {
+    optimizerVersion: '1',
+    // The list of available statistics packages can be found by querying the
+    // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
+    optimizerStatisticsPackage: 'latest',
+  },
+);
+
+const query = {
+  sql: `SELECT AlbumId, AlbumTitle, MarketingBudget
+        FROM Albums
+        ORDER BY AlbumTitle`,
+};
+
+// Queries rows from the Albums table
+try {
+  const [rows] = await database.run(query);
+
+  rows.forEach(row => {
+    const json = row.toJSON();
+    const marketingBudget = json.MarketingBudget
+      ? json.MarketingBudget
+      : null; // This value is nullable
+    console.log(
+      `AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}, MarketingBudget: ${marketingBudget}`,
     );
-    
-    const query = {
-      sql: `SELECT AlbumId, AlbumTitle, MarketingBudget
-            FROM Albums
-            ORDER BY AlbumTitle`,
-    };
-    
-    // Queries rows from the Albums table
-    try {
-      const [rows] = await database.run(query);
-    
-      rows.forEach(row => {
-        const json = row.toJSON();
-        const marketingBudget = json.MarketingBudget
-          ? json.MarketingBudget
-          : null; // This value is nullable
-        console.log(
-          `AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}, MarketingBudget: ${marketingBudget}`,
-        );
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the database when finished.
-      database.close();
-    }
+  });
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the database when finished.
+  database.close();
+}
+```
 
 ### PHP
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use Google\Cloud\Spanner\Database;
-    
-    /**
-     * Create a client with query options.
-     * Example:
-     * ```
-     * create_client_with_query_options($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function create_client_with_query_options(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient([
-            'queryOptions' => [
-                'optimizerVersion' => '1',
-                // Pin the statistics package used for this client instance to the
-                // latest version. The list of available statistics packages can be
-                // found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
-                // table.
-                'optimizerStatisticsPackage' => 'latest'
-            ]
-        ]);
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $results = $database->execute(
-            'SELECT VenueId, VenueName, LastUpdateTime FROM Venues'
-        );
-    
-        foreach ($results as $row) {
-            printf('VenueId: %s, VenueName: %s, LastUpdateTime: %s' . PHP_EOL,
-                $row['VenueId'], $row['VenueName'], $row['LastUpdateTime']);
-        }
+```
+use Google\Cloud\Spanner\SpannerClient;
+use Google\Cloud\Spanner\Database;
+
+/**
+ * Create a client with query options.
+ * Example:
+ * ```
+ * create_client_with_query_options($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function create_client_with_query_options(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient([
+        'queryOptions' => [
+            'optimizerVersion' => '1',
+            // Pin the statistics package used for this client instance to the
+            // latest version. The list of available statistics packages can be
+            // found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
+            // table.
+            'optimizerStatisticsPackage' => 'latest'
+        ]
+    ]);
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $results = $database->execute(
+        'SELECT VenueId, VenueName, LastUpdateTime FROM Venues'
+    );
+
+    foreach ($results as $row) {
+        printf('VenueId: %s, VenueName: %s, LastUpdateTime: %s' . PHP_EOL,
+            $row['VenueId'], $row['VenueName'], $row['LastUpdateTime']);
     }
+}
+```
 
 ### Python
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    spanner_client = spanner.Client(
-        query_options={
-            "optimizer_version": "1",
-            "optimizer_statistics_package": "latest",
-        }
+```
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+spanner_client = spanner.Client(
+    query_options={
+        "optimizer_version": "1",
+        "optimizer_statistics_package": "latest",
+    }
+)
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
+
+with database.snapshot() as snapshot:
+    results = snapshot.execute_sql(
+        "SELECT VenueId, VenueName, LastUpdateTime FROM Venues"
     )
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    with database.snapshot() as snapshot:
-        results = snapshot.execute_sql(
-            "SELECT VenueId, VenueName, LastUpdateTime FROM Venues"
-        )
-    
-        for row in results:
-            print("VenueId: {}, VenueName: {}, LastUpdateTime: {}".format(*row))
+
+    for row in results:
+        print("VenueId: {}, VenueName: {}, LastUpdateTime: {}".format(*row))
+```
 
 ### Ruby
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    query_options = {
-      optimizer_version: "1",
-      # The list of available statistics packages can be
-      # found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
-      # table.
-      optimizer_statistics_package: "latest"
-    }
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id, query_options: query_options
-    
-    sql_query = "SELECT VenueId, VenueName, LastUpdateTime FROM Venues"
-    
-    client.execute(sql_query).rows.each do |row|
-      puts "#{row[:VenueId]} #{row[:VenueName]} #{row[:LastUpdateTime]}"
-    end
+```
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+query_options = {
+  optimizer_version: "1",
+  # The list of available statistics packages can be
+  # found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
+  # table.
+  optimizer_statistics_package: "latest"
+}
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id, query_options: query_options
+
+sql_query = "SELECT VenueId, VenueName, LastUpdateTime FROM Venues"
+
+client.execute(sql_query).rows.each do |row|
+  puts "#{row[:VenueId]} #{row[:VenueName]} #{row[:LastUpdateTime]}"
+end
+```
 
 #### With environment variables
 
@@ -505,13 +567,17 @@ To make it easier to try different optimizer settings without having to recompil
 
 ### Linux / macOS
 
-    export SPANNER_OPTIMIZER_VERSION="9"
-    export SPANNER_OPTIMIZER_STATISTICS_PACKAGE="auto_20191128_14_47_22UTC"
+```
+export SPANNER_OPTIMIZER_VERSION="9"
+export SPANNER_OPTIMIZER_STATISTICS_PACKAGE="auto_20191128_14_47_22UTC"
+```
 
 ### Windows
 
-    set SPANNER_OPTIMIZER_VERSION="9"
-      set SPANNER_OPTIMIZER_STATISTICS_PACKAGE="auto_20191128_14_47_22UTC"
+```
+set SPANNER_OPTIMIZER_VERSION="9"
+  set SPANNER_OPTIMIZER_STATISTICS_PACKAGE="auto_20191128_14_47_22UTC"
+```
 
 The specified query optimizer options values are read and stored in the client instance at client initialization time and apply to all queries run throughout the lifetime of the client.
 
@@ -521,275 +587,291 @@ You can specify a value for optimizer version or statistics package version at t
 
 ### C++
 
-    void QueryWithQueryOptions(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-      auto sql = spanner::SqlStatement("SELECT SingerId, FirstName FROM Singers");
-      auto opts =
-          google::cloud::Options{}
-              .set<spanner::QueryOptimizerVersionOption>("1")
-              .set<spanner::QueryOptimizerStatisticsPackageOption>("latest");
-      auto rows = client.ExecuteQuery(std::move(sql), std::move(opts));
-    
-      using RowType = std::tuple<std::int64_t, std::string>;
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row) << "\t";
-        std::cout << "FirstName: " << std::get<1>(*row) << "\n";
-      }
-      std::cout << "Read completed for [spanner_query_with_query_options]\n";
-    }
+```
+void QueryWithQueryOptions(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+  auto sql = spanner::SqlStatement("SELECT SingerId, FirstName FROM Singers");
+  auto opts =
+      google::cloud::Options{}
+          .set<spanner::QueryOptimizerVersionOption>("1")
+          .set<spanner::QueryOptimizerStatisticsPackageOption>("latest");
+  auto rows = client.ExecuteQuery(std::move(sql), std::move(opts));
 
-### C\#
+  using RowType = std::tuple<std::int64_t, std::string>;
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "SingerId: " << std::get<0>(*row) << "\t";
+    std::cout << "FirstName: " << std::get<1>(*row) << "\n";
+  }
+  std::cout << "Read completed for [spanner_query_with_query_options]\n";
+}
+```
 
-    using Google.Cloud.Spanner.Data;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    
-    public class RunCommandWithQueryOptionsAsyncSample
+### C#
+
+```
+using Google.Cloud.Spanner.Data;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public class RunCommandWithQueryOptionsAsyncSample
+{
+    public class Album
     {
-        public class Album
-        {
-            public int SingerId { get; set; }
-            public int AlbumId { get; set; }
-            public string AlbumTitle { get; set; }
-        }
-    
-        public async Task<List<Album>> RunCommandWithQueryOptionsAsync(string projectId, string instanceId, string databaseId)
-        {
-            var connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
-            using var connection = new SpannerConnection(connectionString);
-            using var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
-    
-            cmd.QueryOptions = QueryOptions.Empty
-                .WithOptimizerVersion("1")
-                // The list of available statistics packages for the database can
-                // be found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
-                // table.
-                .WithOptimizerStatisticsPackage("latest");
-            var albums = new List<Album>();
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
-            {
-                albums.Add(new Album()
-                {
-                    AlbumId = reader.GetFieldValue<int>("AlbumId"),
-                    SingerId = reader.GetFieldValue<int>("SingerId"),
-                    AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
-                });
-            }
-            return albums;
-        }
+        public int SingerId { get; set; }
+        public int AlbumId { get; set; }
+        public string AlbumTitle { get; set; }
     }
+
+    public async Task<List<Album>> RunCommandWithQueryOptionsAsync(string projectId, string instanceId, string databaseId)
+    {
+        var connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId}";
+        using var connection = new SpannerConnection(connectionString);
+        using var cmd = connection.CreateSelectCommand("SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
+
+        cmd.QueryOptions = QueryOptions.Empty
+            .WithOptimizerVersion("1")
+            // The list of available statistics packages for the database can
+            // be found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
+            // table.
+            .WithOptimizerStatisticsPackage("latest");
+        var albums = new List<Album>();
+        using var reader = await cmd.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            albums.Add(new Album()
+            {
+                AlbumId = reader.GetFieldValue<int>("AlbumId"),
+                SingerId = reader.GetFieldValue<int>("SingerId"),
+                AlbumTitle = reader.GetFieldValue<string>("AlbumTitle")
+            });
+        }
+        return albums;
+    }
+}
+```
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-     "time"
-    
-     "cloud.google.com/go/spanner"
-     sppb "cloud.google.com/go/spanner/apiv1/spannerpb"
-     "google.golang.org/api/iterator"
-    )
-    
-    func queryWithQueryOptions(w io.Writer, db string) error {
-     ctx := context.Background()
-     client, err := spanner.NewClient(ctx, db)
-     if err != nil {
-         return err
-     }
-     defer client.Close()
-    
-     stmt := spanner.Statement{SQL: `SELECT VenueId, VenueName, LastUpdateTime FROM Venues`}
-     queryOptions := spanner.QueryOptions{
-         Options: &sppb.ExecuteSqlRequest_QueryOptions{
-             OptimizerVersion: "1",
-             // The list of available statistics packages can be found by
-             // querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
-             OptimizerStatisticsPackage: "latest",
-         },
-     }
-     iter := client.Single().QueryWithOptions(ctx, stmt, queryOptions)
-     defer iter.Stop()
-     for {
-         row, err := iter.Next()
-         if err == iterator.Done {
-             return nil
-         }
-         if err != nil {
-             return err
-         }
-         var venueID int64
-         var venueName string
-         var lastUpdateTime time.Time
-         if err := row.Columns(&venueID, &venueName, &lastUpdateTime); err != nil {
-             return err
-         }
-         fmt.Fprintf(w, "%d %s %s\n", venueID, venueName, lastUpdateTime)
-     }
+```
+import (
+    "context"
+    "fmt"
+    "io"
+    "time"
+
+    "cloud.google.com/go/spanner"
+    sppb "cloud.google.com/go/spanner/apiv1/spannerpb"
+    "google.golang.org/api/iterator"
+)
+
+func queryWithQueryOptions(w io.Writer, db string) error {
+    ctx := context.Background()
+    client, err := spanner.NewClient(ctx, db)
+    if err != nil {
+        return err
     }
+    defer client.Close()
+
+    stmt := spanner.Statement{SQL: `SELECT VenueId, VenueName, LastUpdateTime FROM Venues`}
+    queryOptions := spanner.QueryOptions{
+        Options: &sppb.ExecuteSqlRequest_QueryOptions{
+            OptimizerVersion: "1",
+            // The list of available statistics packages can be found by
+            // querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
+            OptimizerStatisticsPackage: "latest",
+        },
+    }
+    iter := client.Single().QueryWithOptions(ctx, stmt, queryOptions)
+    defer iter.Stop()
+    for {
+        row, err := iter.Next()
+        if err == iterator.Done {
+            return nil
+        }
+        if err != nil {
+            return err
+        }
+        var venueID int64
+        var venueName string
+        var lastUpdateTime time.Time
+        if err := row.Columns(&venueID, &venueName, &lastUpdateTime); err != nil {
+            return err
+        }
+        fmt.Fprintf(w, "%d %s %s\n", venueID, venueName, lastUpdateTime)
+    }
+}
+```
 
 ### Java
 
-    static void queryWithQueryOptions(DatabaseClient dbClient) {
-      try (ResultSet resultSet =
-          dbClient
-              .singleUse()
-              .executeQuery(
-                  Statement
-                      .newBuilder("SELECT SingerId, AlbumId, AlbumTitle FROM Albums")
-                      .withQueryOptions(QueryOptions
-                          .newBuilder()
-                          .setOptimizerVersion("1")
-                          // The list of available statistics packages can be found by querying the
-                          // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
-                          .setOptimizerStatisticsPackage("latest")
-                          .build())
-                      .build())) {
-        while (resultSet.next()) {
-          System.out.printf(
-              "%d %d %s\n", resultSet.getLong(0), resultSet.getLong(1), resultSet.getString(2));
-        }
-      }
+```
+static void queryWithQueryOptions(DatabaseClient dbClient) {
+  try (ResultSet resultSet =
+      dbClient
+          .singleUse()
+          .executeQuery(
+              Statement
+                  .newBuilder("SELECT SingerId, AlbumId, AlbumTitle FROM Albums")
+                  .withQueryOptions(QueryOptions
+                      .newBuilder()
+                      .setOptimizerVersion("1")
+                      // The list of available statistics packages can be found by querying the
+                      // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
+                      .setOptimizerStatisticsPackage("latest")
+                      .build())
+                  .build())) {
+    while (resultSet.next()) {
+      System.out.printf(
+          "%d %d %s\n", resultSet.getLong(0), resultSet.getLong(1), resultSet.getString(2));
     }
+  }
+}
+```
 
 ### Node.js
 
-    // Imports the Google Cloud client library
-    const {Spanner} = require('@google-cloud/spanner');
-    
-    /**
-     * TODO(developer): Uncomment the following lines before running the sample.
-     */
-    // const projectId = 'my-project-id';
-    // const instanceId = 'my-instance';
-    // const databaseId = 'my-database';
-    
-    // Creates a client
-    const spanner = new Spanner({
-      projectId: projectId,
-    });
-    
-    // Gets a reference to a Cloud Spanner instance and database
-    const instance = spanner.instance(instanceId);
-    const database = instance.database(databaseId);
-    
-    const query = {
-      sql: `SELECT AlbumId, AlbumTitle, MarketingBudget
-            FROM Albums
-            ORDER BY AlbumTitle`,
-      queryOptions: {
-        optimizerVersion: 'latest',
-        // The list of available statistics packages can be found by querying the
-        // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
-        optimizerStatisticsPackage: 'latest',
-      },
-    };
-    
-    // Queries rows from the Albums table
-    try {
-      const [rows] = await database.run(query);
-    
-      rows.forEach(row => {
-        const json = row.toJSON();
-        const marketingBudget = json.MarketingBudget
-          ? json.MarketingBudget
-          : null; // This value is nullable
-        console.log(
-          `AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}, MarketingBudget: ${marketingBudget}`,
-        );
-      });
-    } catch (err) {
-      console.error('ERROR:', err);
-    } finally {
-      // Close the database when finished.
-      database.close();
-    }
+```
+// Imports the Google Cloud client library
+const {Spanner} = require('@google-cloud/spanner');
+
+/**
+ * TODO(developer): Uncomment the following lines before running the sample.
+ */
+// const projectId = 'my-project-id';
+// const instanceId = 'my-instance';
+// const databaseId = 'my-database';
+
+// Creates a client
+const spanner = new Spanner({
+  projectId: projectId,
+});
+
+// Gets a reference to a Cloud Spanner instance and database
+const instance = spanner.instance(instanceId);
+const database = instance.database(databaseId);
+
+const query = {
+  sql: `SELECT AlbumId, AlbumTitle, MarketingBudget
+        FROM Albums
+        ORDER BY AlbumTitle`,
+  queryOptions: {
+    optimizerVersion: 'latest',
+    // The list of available statistics packages can be found by querying the
+    // "INFORMATION_SCHEMA.SPANNER_STATISTICS" table.
+    optimizerStatisticsPackage: 'latest',
+  },
+};
+
+// Queries rows from the Albums table
+try {
+  const [rows] = await database.run(query);
+
+  rows.forEach(row => {
+    const json = row.toJSON();
+    const marketingBudget = json.MarketingBudget
+      ? json.MarketingBudget
+      : null; // This value is nullable
+    console.log(
+      `AlbumId: ${json.AlbumId}, AlbumTitle: ${json.AlbumTitle}, MarketingBudget: ${marketingBudget}`,
+    );
+  });
+} catch (err) {
+  console.error('ERROR:', err);
+} finally {
+  // Close the database when finished.
+  database.close();
+}
+```
 
 ### PHP
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use Google\Cloud\Spanner\Database;
-    
-    /**
-     * Queries sample data using SQL with query options.
-     * Example:
-     * ```
-     * query_data_with_query_options($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function query_data_with_query_options(string $instanceId, string $databaseId): void
-    {
-        $spanner = new SpannerClient();
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        $results = $database->execute(
-            'SELECT VenueId, VenueName, LastUpdateTime FROM Venues',
-            [
-                'queryOptions' => [
-                    'optimizerVersion' => '1',
-                    // Pin the statistics package to the latest version just for
-                    // this query.
-                    'optimizerStatisticsPackage' => 'latest'
-                ]
+```
+use Google\Cloud\Spanner\SpannerClient;
+use Google\Cloud\Spanner\Database;
+
+/**
+ * Queries sample data using SQL with query options.
+ * Example:
+ * ```
+ * query_data_with_query_options($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function query_data_with_query_options(string $instanceId, string $databaseId): void
+{
+    $spanner = new SpannerClient();
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    $results = $database->execute(
+        'SELECT VenueId, VenueName, LastUpdateTime FROM Venues',
+        [
+            'queryOptions' => [
+                'optimizerVersion' => '1',
+                // Pin the statistics package to the latest version just for
+                // this query.
+                'optimizerStatisticsPackage' => 'latest'
             ]
-        );
-    
-        foreach ($results as $row) {
-            printf('VenueId: %s, VenueName: %s, LastUpdateTime: %s' . PHP_EOL,
-                $row['VenueId'], $row['VenueName'], $row['LastUpdateTime']);
-        }
+        ]
+    );
+
+    foreach ($results as $row) {
+        printf('VenueId: %s, VenueName: %s, LastUpdateTime: %s' . PHP_EOL,
+            $row['VenueId'], $row['VenueName'], $row['LastUpdateTime']);
     }
+}
+```
 
 ### Python
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    spanner_client = spanner.Client()
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    with database.snapshot() as snapshot:
-        results = snapshot.execute_sql(
-            "SELECT VenueId, VenueName, LastUpdateTime FROM Venues",
-            query_options={
-                "optimizer_version": "1",
-                "optimizer_statistics_package": "latest",
-            },
-        )
-    
-        for row in results:
-            print("VenueId: {}, VenueName: {}, LastUpdateTime: {}".format(*row))
+```
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+spanner_client = spanner.Client()
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
+
+with database.snapshot() as snapshot:
+    results = snapshot.execute_sql(
+        "SELECT VenueId, VenueName, LastUpdateTime FROM Venues",
+        query_options={
+            "optimizer_version": "1",
+            "optimizer_statistics_package": "latest",
+        },
+    )
+
+    for row in results:
+        print("VenueId: {}, VenueName: {}, LastUpdateTime: {}".format(*row))
+```
 
 ### Ruby
 
-    # project_id  = "Your Google Cloud project ID"
-    # instance_id = "Your Spanner instance ID"
-    # database_id = "Your Spanner database ID"
-    
-    require "google/cloud/spanner"
-    
-    spanner = Google::Cloud::Spanner.new project: project_id
-    client  = spanner.client instance_id, database_id
-    
-    sql_query = "SELECT VenueId, VenueName, LastUpdateTime FROM Venues"
-    query_options = {
-      optimizer_version: "1",
-      # The list of available statistics packagebs can be
-      # found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
-      # table.
-      optimizer_statistics_package: "latest"
-    }
-    
-    client.execute(sql_query, query_options: query_options).rows.each do |row|
-      puts "#{row[:VenueId]} #{row[:VenueName]} #{row[:LastUpdateTime]}"
-    end
+```
+# project_id  = "Your Google Cloud project ID"
+# instance_id = "Your Spanner instance ID"
+# database_id = "Your Spanner database ID"
+
+require "google/cloud/spanner"
+
+spanner = Google::Cloud::Spanner.new project: project_id
+client  = spanner.client instance_id, database_id
+
+sql_query = "SELECT VenueId, VenueName, LastUpdateTime FROM Venues"
+query_options = {
+  optimizer_version: "1",
+  # The list of available statistics packagebs can be
+  # found by querying the "INFORMATION_SCHEMA.SPANNER_STATISTICS"
+  # table.
+  optimizer_statistics_package: "latest"
+}
+
+client.execute(sql_query, query_options: query_options).rows.each do |row|
+  puts "#{row[:VenueId]} #{row[:VenueName]} #{row[:LastUpdateTime]}"
+end
+```
 
 ### Set optimizer options when using the Spanner JDBC driver
 
@@ -797,94 +879,98 @@ You can override the default value of the optimizer version and statistics packa
 
 These options are only supported in the latest versions of the [Spanner JDBC driver](https://docs.cloud.google.com/spanner/docs/open-source-jdbc) .
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.ResultSet;
-    import java.sql.SQLException;
-    import java.sql.Statement;
-    
-    class ConnectionWithQueryOptionsExample {
-    
-      static void connectionWithQueryOptions() throws SQLException {
-        // TODO(developer): Replace these variables before running the sample.
-        String projectId = "my-project";
-        String instanceId = "my-instance";
-        String databaseId = "my-database";
-        connectionWithQueryOptions(projectId, instanceId, databaseId);
+```
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+class ConnectionWithQueryOptionsExample {
+
+  static void connectionWithQueryOptions() throws SQLException {
+    // TODO(developer): Replace these variables before running the sample.
+    String projectId = "my-project";
+    String instanceId = "my-instance";
+    String databaseId = "my-database";
+    connectionWithQueryOptions(projectId, instanceId, databaseId);
+  }
+
+  static void connectionWithQueryOptions(String projectId, String instanceId, String databaseId)
+      throws SQLException {
+    String optimizerVersion = "1";
+    String connectionUrl =
+        String.format(
+            "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s?optimizerVersion=%s",
+            projectId, instanceId, databaseId, optimizerVersion);
+    try (Connection connection = DriverManager.getConnection(connectionUrl);
+        Statement statement = connection.createStatement()) {
+      // Execute a query using the optimizer version '1'.
+      try (ResultSet rs =
+          statement.executeQuery(
+              "SELECT SingerId, FirstName, LastName FROM Singers ORDER BY LastName")) {
+        while (rs.next()) {
+          System.out.printf("%d %s %s%n", rs.getLong(1), rs.getString(2), rs.getString(3));
+        }
       }
-    
-      static void connectionWithQueryOptions(String projectId, String instanceId, String databaseId)
-          throws SQLException {
-        String optimizerVersion = "1";
-        String connectionUrl =
-            String.format(
-                "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s?optimizerVersion=%s",
-                projectId, instanceId, databaseId, optimizerVersion);
-        try (Connection connection = DriverManager.getConnection(connectionUrl);
-            Statement statement = connection.createStatement()) {
-          // Execute a query using the optimizer version '1'.
-          try (ResultSet rs =
-              statement.executeQuery(
-                  "SELECT SingerId, FirstName, LastName FROM Singers ORDER BY LastName")) {
-            while (rs.next()) {
-              System.out.printf("%d %s %s%n", rs.getLong(1), rs.getString(2), rs.getString(3));
-            }
-          }
-          try (ResultSet rs = statement.executeQuery("SHOW VARIABLE OPTIMIZER_VERSION")) {
-            while (rs.next()) {
-              System.out.printf("Optimizer version: %s%n", rs.getString(1));
-            }
-          }
+      try (ResultSet rs = statement.executeQuery("SHOW VARIABLE OPTIMIZER_VERSION")) {
+        while (rs.next()) {
+          System.out.printf("Optimizer version: %s%n", rs.getString(1));
         }
       }
     }
+  }
+}
+```
 
 You can also set the query optimizer version using the `SET OPTIMIZER_VERSION` statement as shown in the following example.
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.ResultSet;
-    import java.sql.SQLException;
-    import java.sql.Statement;
-    
-    class SetQueryOptionsExample {
-    
-      static void setQueryOptions() throws SQLException {
-        // TODO(developer): Replace these variables before running the sample.
-        String projectId = "my-project";
-        String instanceId = "my-instance";
-        String databaseId = "my-database";
-        setQueryOptions(projectId, instanceId, databaseId);
+```
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+class SetQueryOptionsExample {
+
+  static void setQueryOptions() throws SQLException {
+    // TODO(developer): Replace these variables before running the sample.
+    String projectId = "my-project";
+    String instanceId = "my-instance";
+    String databaseId = "my-database";
+    setQueryOptions(projectId, instanceId, databaseId);
+  }
+
+  static void setQueryOptions(String projectId, String instanceId, String databaseId)
+      throws SQLException {
+    String connectionUrl =
+        String.format(
+            "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
+            projectId, instanceId, databaseId);
+    try (Connection connection = DriverManager.getConnection(connectionUrl);
+        Statement statement = connection.createStatement()) {
+      // Instruct the JDBC connection to use version '1' of the query optimizer.
+      // NOTE: Use `SET SPANNER.OPTIMIZER_VERSION='1`` when connected to a PostgreSQL database.
+      statement.execute("SET OPTIMIZER_VERSION='1'");
+      // Execute a query using the latest optimizer version.
+      try (ResultSet rs =
+          statement.executeQuery(
+              "SELECT SingerId, FirstName, LastName FROM Singers ORDER BY LastName")) {
+        while (rs.next()) {
+          System.out.printf("%d %s %s%n", rs.getLong(1), rs.getString(2), rs.getString(3));
+        }
       }
-    
-      static void setQueryOptions(String projectId, String instanceId, String databaseId)
-          throws SQLException {
-        String connectionUrl =
-            String.format(
-                "jdbc:cloudspanner:/projects/%s/instances/%s/databases/%s",
-                projectId, instanceId, databaseId);
-        try (Connection connection = DriverManager.getConnection(connectionUrl);
-            Statement statement = connection.createStatement()) {
-          // Instruct the JDBC connection to use version '1' of the query optimizer.
-          // NOTE: Use `SET SPANNER.OPTIMIZER_VERSION='1`` when connected to a PostgreSQL database.
-          statement.execute("SET OPTIMIZER_VERSION='1'");
-          // Execute a query using the latest optimizer version.
-          try (ResultSet rs =
-              statement.executeQuery(
-                  "SELECT SingerId, FirstName, LastName FROM Singers ORDER BY LastName")) {
-            while (rs.next()) {
-              System.out.printf("%d %s %s%n", rs.getLong(1), rs.getString(2), rs.getString(3));
-            }
-          }
-          // NOTE: Use `SHOW SPANNER.OPTIMIZER_VERSION` when connected to a PostgreSQL database.
-          try (ResultSet rs = statement.executeQuery("SHOW VARIABLE OPTIMIZER_VERSION")) {
-            while (rs.next()) {
-              System.out.printf("Optimizer version: %s%n", rs.getString(1));
-            }
-          }
+      // NOTE: Use `SHOW SPANNER.OPTIMIZER_VERSION` when connected to a PostgreSQL database.
+      try (ResultSet rs = statement.executeQuery("SHOW VARIABLE OPTIMIZER_VERSION")) {
+        while (rs.next()) {
+          System.out.printf("Optimizer version: %s%n", rs.getString(1));
         }
       }
     }
+  }
+}
+```
 
 For more details on using the open source driver, see [Using the open source JDBC driver](https://docs.cloud.google.com/spanner/docs/use-oss-jdbc) .
 
@@ -898,8 +984,8 @@ Spanner supports a [range](https://docs.cloud.google.com/spanner/docs/query-opti
 
 You can pin your database or query to any [available statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) using one of the methods described earlier on this page. A query fails if an invalid statistics package name is provided. A statistics package specified by a query needs to be either:
 
-  - [set at the database level](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#db-option) ; or
-  - [marked as `ALLOW_GC=false`](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint)
+- [set at the database level](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#db-option) ; or
+- [marked as `ALLOW_GC=false`](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#statement-hint)
 
 ## Determine the query optimizer version used to run a query
 
@@ -915,8 +1001,10 @@ Query optimizer version: 9
 
 To see the version used when running a query in gcloud CLI, set the `--query-mode` flag to `PROFILE` as shown in the following snippet.
 
-    gcloud spanner databases execute-sql MyDatabase --instance=test-instance \
-        --query-mode=PROFILE --sql='SELECT * FROM MyTable'
+```
+gcloud spanner databases execute-sql MyDatabase --instance=test-instance \
+    --query-mode=PROFILE --sql='SELECT * FROM MyTable'
+```
 
 ## Visualize query optimizer version in Metrics Explorer
 

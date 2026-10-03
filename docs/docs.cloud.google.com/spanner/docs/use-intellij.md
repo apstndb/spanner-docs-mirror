@@ -29,7 +29,7 @@ You can connect to both GoogleSQL-dialect databases and PostgreSQL-dialect datab
 5.  In the Databases window, expand the data source that you just added. Then click the `...` button next to the text `No schemas selected` .
 
 6.  Select the option `All schemas` to instruct IntelliJ to introspect all schemas in the database. IntelliJ will then populate the database view with all tables and views in your database.
-    
+
     ![Connect to Spanner tool window](https://docs.cloud.google.com/static/spanner/docs/images/intellij-select-all-schemas.png)
 
 ## Connect to the Spanner Emulator
@@ -37,7 +37,7 @@ You can connect to both GoogleSQL-dialect databases and PostgreSQL-dialect datab
 You can also connect IntelliJ to a database in the [Spanner Emulator](https://docs.cloud.google.com/spanner/docs/emulator) :
 
 1.  First start the emulator with one of the following commands:
-    
+
     1.  `gcloud emulators spanner start`
     2.  `docker run -p 9010:9010 -p 9020:9020 gcr.io/cloud-spanner-emulator/emulator`
 
@@ -52,7 +52,7 @@ You can also connect IntelliJ to a database in the [Spanner Emulator](https://do
 6.  Modify the value of `autoConfigEmulator` to `true` .
 
 7.  Click OK to accept all changes. The project, instance, and database will be created on the emulator automatically if these don't exist already.
-    
+
     ![Connect to Spanner tool window](https://docs.cloud.google.com/static/spanner/docs/images/intellij-emulator.png)
 
 8.  In the Databases window, expand the data source that you just added. Click the `...` button next to the text `No schemas selected` .
@@ -61,5 +61,5 @@ You can also connect IntelliJ to a database in the [Spanner Emulator](https://do
 
 ## What's next
 
-  - For more documentation on how to add and work with data sources in IntelliJ, visit [IntelliJ Data sources](https://www.jetbrains.com/help/idea/managing-data-sources.html) .
-  - Learn more about the [Spanner Emulator](https://docs.cloud.google.com/spanner/docs/emulator) .
+- For more documentation on how to add and work with data sources in IntelliJ, visit [IntelliJ Data sources](https://www.jetbrains.com/help/idea/managing-data-sources.html) .
+- Learn more about the [Spanner Emulator](https://docs.cloud.google.com/spanner/docs/emulator) .

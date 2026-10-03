@@ -20,7 +20,7 @@ An MCP service endpoint is the network address and communication interface (usua
 
 The spanner.googleapis.com MCP server has the following MCP endpoint:
 
-  - https://spanner.googleapis.com/mcp
+- https://spanner.googleapis.com/mcp
 
 ## MCP Tools
 
@@ -28,115 +28,125 @@ An [MCP tool](https://modelcontextprotocol.io/legacy/concepts/tools) is a functi
 
 The spanner.googleapis.com MCP server has the following tools:
 
-MCP Tools
-
-[get\_instance](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/get_instance)
-
-Get information about a Spanner instance
-
-[list\_instances](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_instances)
-
-List Spanner instances in a given project.
-
-  - Response may include next\_page\_token to fetch additional instances using list\_instances tool with page\_token set.
-
-[list\_configs](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_configs)
-
-List instance configs in a given project.
-
-  - Response may include next\_page\_token to fetch additional configs using list\_configs tool with page\_token set.
-
-[get\_config](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/get_config)
-
-Get information about a specific Spanner instance configuration.
-
-[create\_instance](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/create_instance)
-
-Create a Spanner instance in a given project.
-
-[update\_instance](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/update_instance)
-
-Update a Spanner instance.
-
-  - While updating an instance always include instance name and config.
-
-[create\_database](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/create_database)
-
-Create a Spanner database in a given instance.
-
-[get\_database\_ddl](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/get_database_ddl)
-
-Get database schema for a given database.
-
-[list\_databases](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_databases)
-
-List Spanner databases in a given spanner instance. \* Response may include next\_page\_token to fetch additional databases using list\_databases tool with page\_token set.
-
-[create\_session](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/create_session)
-
-Create a session in a given database for query executions using execute\_sql tool.
-
-  - Session can be reused to execute multiple concurrent operations.
-
-[execute\_sql](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/execute_sql)
-
-Execute SQL statement using a given session.
-
-  - execute\_sql tool can be used to execute DQL as well as DML statements.
-  - Prefer using parameterized queries over literal values.
-  - Use commit tool to commit result of a DML statement.
-  - DDL statements are only supported using update\_database\_schema tool.
-
-[execute\_sql\_readonly](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/execute_sql_readonly)
-
-Execute SQL query statement using a given session in a read-only transaction.
-
-  - execute\_sql\_readonly tool can be used to execute DQL statements.
-  - Prefer using parameterized queries over literal values.
-  - DML statements and multi read transactions are only supported via execute\_sql tool.
-  - The transaction bit should not be set in the request and will default to single-use read-only transaction.
-
-[commit](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/commit)
-
-Commit a transaction in a given session.
-
-  - If commit is finalizing the result of a DML statement then commit request should include latest precommit\_token returned by execute\_sql tool.
-  - If response to commit includes another precommit\_token then issue another commit call to finalize the transaction with the latest precommit\_token.
-
-[update\_database\_schema](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/update_database_schema)
-
-Update schema for a given database.
-
-[get\_operation](https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/get_operation)
-
-Get status of a long-running operation.
-
-  - Long running operation may take several minutes to complete. get\_operation tool can be used to poll the status of a long running operation.
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>MCP Tools</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/get_instance">get_instance</a></td>
+<td>Get information about a Spanner instance</td>
+</tr>
+<tr class="even">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_instances">list_instances</a></td>
+<td><p>List Spanner instances in a given project.</p>
+<ul>
+<li>Response may include next_page_token to fetch additional instances using list_instances tool with page_token set.</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_configs">list_configs</a></td>
+<td><p>List instance configs in a given project.</p>
+<ul>
+<li>Response may include next_page_token to fetch additional configs using list_configs tool with page_token set.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/get_config">get_config</a></td>
+<td>Get information about a specific Spanner instance configuration.</td>
+</tr>
+<tr class="odd">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/create_instance">create_instance</a></td>
+<td>Create a Spanner instance in a given project.</td>
+</tr>
+<tr class="even">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/update_instance">update_instance</a></td>
+<td><p>Update a Spanner instance.</p>
+<ul>
+<li>While updating an instance always include instance name and config.</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/create_database">create_database</a></td>
+<td>Create a Spanner database in a given instance.</td>
+</tr>
+<tr class="even">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/get_database_ddl">get_database_ddl</a></td>
+<td>Get database schema for a given database.</td>
+</tr>
+<tr class="odd">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/list_databases">list_databases</a></td>
+<td>List Spanner databases in a given spanner instance. * Response may include next_page_token to fetch additional databases using list_databases tool with page_token set.</td>
+</tr>
+<tr class="even">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/create_session">create_session</a></td>
+<td><p>Create a session in a given database for query executions using execute_sql tool.</p>
+<ul>
+<li>Session can be reused to execute multiple concurrent operations.</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/execute_sql">execute_sql</a></td>
+<td><p>Execute SQL statement using a given session.</p>
+<ul>
+<li>execute_sql tool can be used to execute DQL as well as DML statements.</li>
+<li>Prefer using parameterized queries over literal values.</li>
+<li>Use commit tool to commit result of a DML statement.</li>
+<li>DDL statements are only supported using update_database_schema tool.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/execute_sql_readonly">execute_sql_readonly</a></td>
+<td><p>Execute SQL query statement using a given session in a read-only transaction.</p>
+<ul>
+<li>execute_sql_readonly tool can be used to execute DQL statements.</li>
+<li>Prefer using parameterized queries over literal values.</li>
+<li>DML statements and multi read transactions are only supported via execute_sql tool.</li>
+<li>The transaction bit should not be set in the request and will default to single-use read-only transaction.</li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/commit">commit</a></td>
+<td><p>Commit a transaction in a given session.</p>
+<ul>
+<li>If commit is finalizing the result of a DML statement then commit request should include latest precommit_token returned by execute_sql tool.</li>
+<li>If response to commit includes another precommit_token then issue another commit call to finalize the transaction with the latest precommit_token.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/update_database_schema">update_database_schema</a></td>
+<td>Update schema for a given database.</td>
+</tr>
+<tr class="odd">
+<td><a href="https://docs.cloud.google.com/spanner/docs/reference/mcp/spanner/mcp/tools_list/get_operation">get_operation</a></td>
+<td><p>Get status of a long-running operation.</p>
+<ul>
+<li>Long running operation may take several minutes to complete. get_operation tool can be used to poll the status of a long running operation.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
 
 ### Get MCP tool specifications
 
 To get the MCP tool specifications for all tools in an MCP server, use the `tools/list` method. The following example demonstrates how to use `curl` to list all tools and their specifications currently available within the MCP server.
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Curl Request</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" data-syntax="Bash" translate="no"><code>                      curl --location &#39;https://spanner.googleapis.com/mcp&#39; \
---header &#39;content-type: application/json&#39; \
---header &#39;accept: application/json, text/event-stream&#39; \
---data &#39;{
-    &quot;method&quot;: &quot;tools/list&quot;,
-    &quot;jsonrpc&quot;: &quot;2.0&quot;,
-    &quot;id&quot;: 1
-}&#39;
-                    </code></pre></td>
-</tr>
-</tbody>
-</table>
+**Curl Request**
+
+```
+curl --location 'https://spanner.googleapis.com/mcp' \
+--header 'content-type: application/json' \
+--header 'accept: application/json, text/event-stream' \
+--data '{
+    "method": "tools/list",
+    "jsonrpc": "2.0",
+    "id": 1
+}'
+```

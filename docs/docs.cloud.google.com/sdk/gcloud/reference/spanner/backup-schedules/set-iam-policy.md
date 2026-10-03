@@ -12,7 +12,7 @@ gcloud spanner backup-schedules set-iam-policy - set the IAM policy for a Cloud 
 
 SYNOPSIS
 
-`gcloud spanner backup-schedules set-iam-policy` ( `  BACKUP_SCHEDULE  ` : `  --database  ` = `  DATABASE  ` `  --instance  ` = `  INSTANCE  ` ) `  POLICY_FILE  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner backup-schedules set-iam-policy` ( [`BACKUP_SCHEDULE`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/set-iam-policy#BACKUP_SCHEDULE) : [`--database`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/set-iam-policy#--database) = `DATABASE` [`--instance`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/set-iam-policy#--instance) = `INSTANCE` ) [`POLICY_FILE`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/set-iam-policy#POLICY_FILE) \[ [`GCLOUD_WIDE_FLAG`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backup-schedules/set-iam-policy#GCLOUD-WIDE-FLAGS)` …` \]
 
 DESCRIPTION
 
@@ -22,7 +22,9 @@ EXAMPLES
 
 The following command reads an IAM policy defined in a JSON file `policy.json` and sets it for a Cloud Spanner backup schedule:
 
-    gcloud spanner backup-schedules set-iam-policy backup-schedule-id --instance=instance-id --database=database-id policy.json
+```
+gcloud spanner backup-schedules set-iam-policy backup-schedule-id --instance=instance-id --database=database-id policy.json
+```
 
 See <https://cloud.google.com/iam/docs/managing-policies> for details of the policy file format and contents.
 
@@ -32,35 +34,35 @@ BackupSchedule resource - The Cloud Spanner backup schedule to set the IAM polic
 
 To set the `project` attribute:
 
-  - provide the argument `backup_schedule` on the command line with a fully specified name;
-  - provide the argument `--project` on the command line;
-  - set the property `core/project` .
+- provide the argument `backup_schedule` on the command line with a fully specified name;
+- provide the argument `--project` on the command line;
+- set the property `core/project` .
 
 This must be specified.
 
-  - `  BACKUP_SCHEDULE  `  
-    ID of the backupSchedule or fully qualified identifier for the backupSchedule.
-    
-    To set the `backup_schedule` attribute:
-    
-      - provide the argument `backup_schedule` on the command line.
-    
-    This positional argument must be specified if any of the other arguments in this group are specified.
+`BACKUP_SCHEDULE`  
+ID of the backupSchedule or fully qualified identifier for the backupSchedule.
 
-  - `--database` = `  DATABASE  `  
-    The name of the Cloud Spanner database. To set the `database` attribute:
-    
-      - provide the argument `backup_schedule` on the command line with a fully specified name;
-      - provide the argument `--database` on the command line.
+To set the `backup_schedule` attribute:
 
-  - `--instance` = `  INSTANCE  `  
-    The name of the Cloud Spanner instance. To set the `instance` attribute:
-    
-      - provide the argument `backup_schedule` on the command line with a fully specified name;
-      - provide the argument `--instance` on the command line;
-      - set the property `spanner/instance` .
+- provide the argument `backup_schedule` on the command line.
 
-`  POLICY_FILE  `
+This positional argument must be specified if any of the other arguments in this group are specified.
+
+`--database` = `DATABASE`  
+The name of the Cloud Spanner database. To set the `database` attribute:
+
+- provide the argument `backup_schedule` on the command line with a fully specified name;
+- provide the argument `--database` on the command line.
+
+`--instance` = `INSTANCE`  
+The name of the Cloud Spanner instance. To set the `instance` attribute:
+
+- provide the argument `backup_schedule` on the command line with a fully specified name;
+- provide the argument `--instance` on the command line;
+- set the property `spanner/instance` .
+
+`POLICY_FILE`
 
 Path to a local JSON or YAML formatted file containing a valid policy.
 
@@ -68,9 +70,9 @@ The output of the `get-iam-policy` command is a valid file, as is any JSON or YA
 
 GCLOUD WIDE FLAGS
 
-These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+These flags are available to all commands: [`--access-token-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--access-token-file) , [`--account`](https://docs.cloud.google.com/sdk/gcloud/reference#--account) , [`--billing-project`](https://docs.cloud.google.com/sdk/gcloud/reference#--billing-project) , [`--configuration`](https://docs.cloud.google.com/sdk/gcloud/reference#--configuration) , [`--flags-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--flags-file) , [`--flatten`](https://docs.cloud.google.com/sdk/gcloud/reference#--flatten) , [`--format`](https://docs.cloud.google.com/sdk/gcloud/reference#--format) , [`--help`](https://docs.cloud.google.com/sdk/gcloud/reference#--help) , [`--impersonate-service-account`](https://docs.cloud.google.com/sdk/gcloud/reference#--impersonate-service-account) , [`--log-http`](https://docs.cloud.google.com/sdk/gcloud/reference#--log-http) , [`--project`](https://docs.cloud.google.com/sdk/gcloud/reference#--project) , [`--quiet`](https://docs.cloud.google.com/sdk/gcloud/reference#--quiet) , [`--trace-token`](https://docs.cloud.google.com/sdk/gcloud/reference#--trace-token) , [`--user-output-enabled`](https://docs.cloud.google.com/sdk/gcloud/reference#--user-output-enabled) , [`--verbosity`](https://docs.cloud.google.com/sdk/gcloud/reference#--verbosity) .
 
-Run ` $ gcloud help  ` for details.
+Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for details.
 
 API REFERENCE
 
@@ -80,6 +82,10 @@ NOTES
 
 These variants are also available:
 
-    gcloud alpha spanner backup-schedules set-iam-policy
+```
+gcloud alpha spanner backup-schedules set-iam-policy
+```
 
-    gcloud beta spanner backup-schedules set-iam-policy
+```
+gcloud beta spanner backup-schedules set-iam-policy
+```

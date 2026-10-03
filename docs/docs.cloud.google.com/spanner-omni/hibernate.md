@@ -16,21 +16,25 @@ Using Hibernate with Spanner Omni lets you use your existing Hibernate experienc
 
 To use Hibernate with Spanner Omni, include the following Maven dependencies in your project:
 
-  - **Spanner Hibernate dialect** : Add the following to your `pom.xml` file. Use [version 4.3.0](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/releases/tag/v4.3.0) or later.
-    
-        <dependency>
-          <groupId>com.google.cloud</groupId>
-          <artifactId>google-cloud-spanner-hibernate-dialect</artifactId>
-          <version>4.3.0</version>
-        </dependency>
+- **Spanner Hibernate dialect** : Add the following to your `pom.xml` file. Use [version 4.3.0](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/releases/tag/v4.3.0) or later.
 
-  - **Spanner JDBC driver** : Add the following to your `pom.xml` file. Use [version 2.41.0](https://github.com/googleapis/java-spanner-jdbc/releases/tag/v2.41.0) or later.
-    
-        <dependency>
-          <groupId>com.google.cloud</groupId>
-          <artifactId>google-cloud-spanner-jdbc</artifactId>
-          <version>2.41.0</version>
-        </dependency>
+  ```
+  <dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>google-cloud-spanner-hibernate-dialect</artifactId>
+    <version>4.3.0</version>
+  </dependency>
+  ```
+
+- **Spanner JDBC driver** : Add the following to your `pom.xml` file. Use [version 2.41.0](https://github.com/googleapis/java-spanner-jdbc/releases/tag/v2.41.0) or later.
+
+  ```
+  <dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>google-cloud-spanner-jdbc</artifactId>
+    <version>2.41.0</version>
+  </dependency>
+  ```
 
 > **Note:** Formal support for Hibernate ORM with Spanner Omni is provided through the open-source Spanner JDBC driver.
 
@@ -38,14 +42,16 @@ To use Hibernate with Spanner Omni, include the following Maven dependencies in 
 
 Configure the `SpannerDialect` and Spanner driver class in the `hibernate.properties` file using standard Hibernate dialect conventions:
 
-    hibernate.dialect=com.google.cloud.spanner.hibernate.SpannerDialect
-    hibernate.connection.driver_class=com.google.cloud.spanner.jdbc.JdbcDriver
-    hibernate.connection.url=jdbc:spanner://ENDPOINT/databases/DATABASE_ID?type=omni
+```
+hibernate.dialect=com.google.cloud.spanner.hibernate.SpannerDialect
+hibernate.connection.driver_class=com.google.cloud.spanner.jdbc.JdbcDriver
+hibernate.connection.url=jdbc:spanner://ENDPOINT/databases/DATABASE_ID?type=omni
+```
 
 Replace the following:
 
-  - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance, for example, `localhost:15000` .
+- `ENDPOINT` : the endpoint of your Spanner Omni instance, for example, `localhost:15000` .
 
-  - `  DATABASE_ID  ` : the ID of your Spanner Omni database, for example, `test-db` .
+- `DATABASE_ID` : the ID of your Spanner Omni database, for example, `test-db` .
 
 Update the `hibernate.connection.url` to establish a Spanner Omni connection using your security configuration. For more information, see [Establish a Spanner Omni connection](https://docs.cloud.google.com/spanner-omni/jdbc-driver#establish-jdbc-connection) . For encrypted connection types (TLS, TLS with credentials, and mTLS), add the CA certificate to the Java truststore. For more information, see [Configure the Java truststore](https://docs.cloud.google.com/spanner-omni/java#configure-truststore) .

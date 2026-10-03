@@ -6,8 +6,6 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-<span id="standard-sql-tables"></span>
-
 This page discusses Spanner schema requirements, how to use the schema to create hierarchical relationships, and schema features. It also introduces interleaved tables, which can improve query performance when querying tables in a parent-child relationship.
 
 A schema is a namespace that contains database objects, such as tables, views, indexes, and functions. You use schemas to organize objects, apply fine-grained access control privileges, and avoid naming collisions. You must define a schema for each database in Spanner.
@@ -26,10 +24,10 @@ Often your application already has a field that's a natural fit for use as the p
 
 In all cases, you should be careful not to create hotspots with the choice of your primary key. For example, if you insert records with a monotonically increasing integer as the key, you'll always insert at the end of your key space. This is undesirable because Spanner divides data among servers by key ranges, which means your inserts will be directed at a single server, creating a hotspot. There are techniques that can spread the load across multiple servers and avoid hotspots:
 
-  - [Hash the key](https://docs.cloud.google.com/spanner/docs/schema-design#fix_hash_the_key) and store it in a column. Use the hash column (or the hash column and the unique key columns together) as the primary key.
-  - [Swap the order](https://docs.cloud.google.com/spanner/docs/schema-design#fix_swap_key_order) of the columns in the primary key.
-  - [Use a Universally Unique Identifier (UUID)](https://docs.cloud.google.com/spanner/docs/schema-design#uuid_primary_key) . Version 4 [UUID](https://tools.ietf.org/html/rfc4122) is recommended, because it uses random values in the high-order bits. Don't use a UUID algorithm (such as version 1 UUID) that stores the timestamp in the high order bits.
-  - [Bit-reverse](https://docs.cloud.google.com/spanner/docs/schema-design#bit_reverse_primary_key) sequential values.
+- [Hash the key](https://docs.cloud.google.com/spanner/docs/schema-design#fix_hash_the_key) and store it in a column. Use the hash column (or the hash column and the unique key columns together) as the primary key.
+- [Swap the order](https://docs.cloud.google.com/spanner/docs/schema-design#fix_swap_key_order) of the columns in the primary key.
+- [Use a Universally Unique Identifier (UUID)](https://docs.cloud.google.com/spanner/docs/schema-design#uuid_primary_key) . Version 4 [UUID](https://tools.ietf.org/html/rfc4122) is recommended, because it uses random values in the high-order bits. Don't use a UUID algorithm (such as version 1 UUID) that stores the timestamp in the high order bits.
+- [Bit-reverse](https://docs.cloud.google.com/spanner/docs/schema-design#bit_reverse_primary_key) sequential values.
 
 ## Parent-child table relationships
 
@@ -75,16 +73,16 @@ In the `CREATE SCHEMA` DDL, table objects are given both an FQN, for example, `s
 
 The following database objects support named schemas:
 
-  - `TABLE`
-      - `CREATE`
-      - `INTERLEAVE IN [PARENT]`
-      - `FOREIGN KEY`
-      - `SYNONYM`
-  - `VIEW`
-  - `INDEX`
-  - `SEARCH INDEX`
+- `TABLE`
+  - `CREATE`
+  - `INTERLEAVE IN [PARENT]`
   - `FOREIGN KEY`
-  - `SEQUENCE`
+  - `SYNONYM`
+- `VIEW`
+- `INDEX`
+- `SEARCH INDEX`
+- `FOREIGN KEY`
+- `SEQUENCE`
 
 For more information about using named schemas, see [Manage named schemas](https://docs.cloud.google.com/spanner/docs/named-schemas) .
 
@@ -112,28 +110,32 @@ You can define the table with the following DDL:
 
 ### GoogleSQL
 
-    CREATE TABLE Singers (
-    SingerId   INT64 NOT NULL PRIMARY KEY,
-    FirstName  STRING(1024),
-    LastName   STRING(1024),
-    SingerInfo BYTES(MAX),
-    );
+```
+CREATE TABLE Singers (
+SingerId   INT64 NOT NULL PRIMARY KEY,
+FirstName  STRING(1024),
+LastName   STRING(1024),
+SingerInfo BYTES(MAX),
+);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE singers (
-    singer_id   BIGINT PRIMARY KEY,
-    first_name  VARCHAR(1024),
-    last_name   VARCHAR(1024),
-    singer_info BYTEA
-    );
+```
+CREATE TABLE singers (
+singer_id   BIGINT PRIMARY KEY,
+first_name  VARCHAR(1024),
+last_name   VARCHAR(1024),
+singer_info BYTEA
+);
+```
 
 Note the following about the example schema:
 
-  - `Singers` is a table at the root of the database hierarchy (because it's not defined as an interleaved child of another table).
-  - For GoogleSQL-dialect databases, primary key columns are usually annotated with `NOT NULL` (though you can omit this annotation if you want to allow `NULL` values in key columns. For more information, see [Key Columns](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#notes_about_key_columns) ).
-  - Columns that are not included in the primary key are called non-key columns, and they can have an optional `NOT NULL` annotation.
-  - Columns that use the `STRING` or `BYTES` type in GoogleSQL must be defined with a length, which represents the maximum number of Unicode characters that can be stored in the field. The length specification is optional for the PostgreSQL `varchar` and `character varying` types. For more information, see [Scalar Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#scalars) for GoogleSQL-dialect databases and [PostgreSQL data types](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) for PostgreSQL-dialect databases.
+- `Singers` is a table at the root of the database hierarchy (because it's not defined as an interleaved child of another table).
+- For GoogleSQL-dialect databases, primary key columns are usually annotated with `NOT NULL` (though you can omit this annotation if you want to allow `NULL` values in key columns. For more information, see [Key Columns](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#notes_about_key_columns) ).
+- Columns that are not included in the primary key are called non-key columns, and they can have an optional `NOT NULL` annotation.
+- Columns that use the `STRING` or `BYTES` type in GoogleSQL must be defined with a length, which represents the maximum number of Unicode characters that can be stored in the field. The length specification is optional for the PostgreSQL `varchar` and `character varying` types. For more information, see [Scalar Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#scalars) for GoogleSQL-dialect databases and [PostgreSQL data types](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) for PostgreSQL-dialect databases.
 
 What does the physical layout of the rows in the `Singers` table look like? The following diagram shows rows of the `Singers` table stored by primary key ("Singers(1)", and then "Singers(2)", where the number in parentheses is the primary key value.
 
@@ -149,40 +151,46 @@ Assume that you now want to add some basic data about each singer's albums to th
 
 Note that the primary key of `Albums` is composed of two columns: `SingerId` and `AlbumId` , to associate each album with its singer. The following example schema defines both the `Albums` and `Singers` tables at the root of the database hierarchy, which makes them sibling tables.
 
-    -- Schema hierarchy:
-    -- + Singers (sibling table of Albums)
-    -- + Albums (sibling table of Singers)
+```
+-- Schema hierarchy:
+-- + Singers (sibling table of Albums)
+-- + Albums (sibling table of Singers)
+```
 
 ### GoogleSQL
 
-    CREATE TABLE Singers (
-     SingerId   INT64 NOT NULL PRIMARY KEY,
-     FirstName  STRING(1024),
-     LastName   STRING(1024),
-     SingerInfo BYTES(MAX),
-    );
-    
-    CREATE TABLE Albums (
-    SingerId     INT64 NOT NULL,
-    AlbumId      INT64 NOT NULL,
-    AlbumTitle   STRING(MAX),
-    ) PRIMARY KEY (SingerId, AlbumId);
+```
+CREATE TABLE Singers (
+ SingerId   INT64 NOT NULL PRIMARY KEY,
+ FirstName  STRING(1024),
+ LastName   STRING(1024),
+ SingerInfo BYTES(MAX),
+);
+
+CREATE TABLE Albums (
+SingerId     INT64 NOT NULL,
+AlbumId      INT64 NOT NULL,
+AlbumTitle   STRING(MAX),
+) PRIMARY KEY (SingerId, AlbumId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE singers (
-    singer_id   BIGINT PRIMARY KEY,
-    first_name  VARCHAR(1024),
-    last_name   VARCHAR(1024),
-    singer_info BYTEA
-    );
-    
-    CREATE TABLE albums (
-    singer_id     BIGINT,
-    album_id      BIGINT,
-    album_title   VARCHAR,
-    PRIMARY KEY (singer_id, album_id)
-    );
+```
+CREATE TABLE singers (
+singer_id   BIGINT PRIMARY KEY,
+first_name  VARCHAR(1024),
+last_name   VARCHAR(1024),
+singer_info BYTEA
+);
+
+CREATE TABLE albums (
+singer_id     BIGINT,
+album_id      BIGINT,
+album_title   VARCHAR,
+PRIMARY KEY (singer_id, album_id)
+);
+```
 
 The physical layout of the rows of `Singers` and `Albums` looks like the following diagram, with rows of the `Albums` table stored by contiguous primary key, then rows of `Singers` stored by contiguous primary key:
 
@@ -200,52 +208,58 @@ After you interleave a table, it's permanent. You can't undo the interleaving. I
 
 As you're designing your music application, suppose you realize that the app needs to frequently access rows from the `Albums` table when it accesses a `Singers` row. For example, when you access the row `Singers(1)` , you also need to access the rows `Albums(1, 1)` and `Albums(1, 2)` . In this case, `Singers` and `Albums` need to have a strong data locality relationship. You can declare this data locality relationship by creating `Albums` as an interleaved child table of `Singers` .
 
-    -- Schema hierarchy:
-    -- + Singers
-    --   + Albums (interleaved table, child table of Singers)
+```
+-- Schema hierarchy:
+-- + Singers
+--   + Albums (interleaved table, child table of Singers)
+```
 
 The bolded line in the following schema shows how to create `Albums` as an interleaved table of `Singers` .
 
 ### GoogleSQL
 
-    CREATE TABLE Singers (
-     SingerId   INT64 NOT NULL PRIMARY KEY,
-     FirstName  STRING(1024),
-     LastName   STRING(1024),
-     SingerInfo BYTES(MAX),
-     );
-    
-    CREATE TABLE Albums (
-     SingerId     INT64 NOT NULL,
-     AlbumId      INT64 NOT NULL,
-     AlbumTitle   STRING(MAX),
-     ) PRIMARY KEY (SingerId, AlbumId),
-    INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
+CREATE TABLE Singers (
+ SingerId   INT64 NOT NULL PRIMARY KEY,
+ FirstName  STRING(1024),
+ LastName   STRING(1024),
+ SingerInfo BYTES(MAX),
+ );
+
+CREATE TABLE Albums (
+ SingerId     INT64 NOT NULL,
+ AlbumId      INT64 NOT NULL,
+ AlbumTitle   STRING(MAX),
+ ) PRIMARY KEY (SingerId, AlbumId),
+INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
 
 ### PostgreSQL
 
-    CREATE TABLE singers (
-     singer_id   BIGINT PRIMARY KEY,
-     first_name  VARCHAR(1024),
-     last_name   VARCHAR(1024),
-     singer_info BYTEA
-     );
-    
-    CREATE TABLE albums (
-     singer_id     BIGINT,
-     album_id      BIGINT,
-     album_title   VARCHAR,
-     PRIMARY KEY (singer_id, album_id)
-     )
-     INTERLEAVE IN PARENT singers ON DELETE CASCADE;
+```
+CREATE TABLE singers (
+ singer_id   BIGINT PRIMARY KEY,
+ first_name  VARCHAR(1024),
+ last_name   VARCHAR(1024),
+ singer_info BYTEA
+ );
+
+CREATE TABLE albums (
+ singer_id     BIGINT,
+ album_id      BIGINT,
+ album_title   VARCHAR,
+ PRIMARY KEY (singer_id, album_id)
+ )
+ INTERLEAVE IN PARENT singers ON DELETE CASCADE;
+```
 
 Notes about this schema:
 
-  - `SingerId` , which is the first part of the primary key of the child table `Albums` , is also the primary key of its parent table `Singers` .
-  - The [`ON DELETE CASCADE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) annotation signifies that when a row from the parent table is deleted, its child rows are automatically deleted as well. If a child table doesn't have this annotation, or the annotation is `ON DELETE NO ACTION` , then you must delete the child rows before you can delete the parent row.
-  - Interleaved rows are ordered first by rows of the parent table, then by contiguous rows of the child table that share the parent's primary key. For example, "Singers(1)", then "Albums(1, 1)", and then "Albums(1, 2)".
-  - The data locality relationship of each singer and their album data is preserved if this database splits, provided that the size of a `Singers` row and all its `Albums` rows stays below the split size limit and that there is no hotspot in any of these `Albums` rows.
-  - The parent row must exist before you can insert child rows. The parent row can either already exist in the database or can be inserted before the insertion of the child rows in the same transaction.
+- `SingerId` , which is the first part of the primary key of the child table `Albums` , is also the primary key of its parent table `Singers` .
+- The [`ON DELETE CASCADE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) annotation signifies that when a row from the parent table is deleted, its child rows are automatically deleted as well. If a child table doesn't have this annotation, or the annotation is `ON DELETE NO ACTION` , then you must delete the child rows before you can delete the parent row.
+- Interleaved rows are ordered first by rows of the parent table, then by contiguous rows of the child table that share the parent's primary key. For example, "Singers(1)", then "Albums(1, 1)", and then "Albums(1, 2)".
+- The data locality relationship of each singer and their album data is preserved if this database splits, provided that the size of a `Singers` row and all its `Albums` rows stays below the split size limit and that there is no hotspot in any of these `Albums` rows.
+- The parent row must exist before you can insert child rows. The parent row can either already exist in the database or can be inserted before the insertion of the child rows in the same transaction.
 
 ![Albums rows are interleaved between Singers rows](https://docs.cloud.google.com/static/spanner/docs/images/singers_albums_interleaved_physical.svg)
 
@@ -253,31 +267,35 @@ Suppose you'd like to model `Projects` and their `Resources` as interleaved tabl
 
 ### GoogleSQL
 
-    CREATE TABLE Projects (
-      ProjectId   INT64 NOT NULL,
-      ProjectName STRING(1024),
-    ) PRIMARY KEY (ProjectId);
-    
-    CREATE TABLE Resources (
-      ProjectId    INT64 NOT NULL,
-      ResourceId   INT64 NOT NULL,
-      ResourceName STRING(1024),
-    ) PRIMARY KEY (ProjectId, ResourceId),
-      INTERLEAVE IN Projects;
+```
+CREATE TABLE Projects (
+  ProjectId   INT64 NOT NULL,
+  ProjectName STRING(1024),
+) PRIMARY KEY (ProjectId);
+
+CREATE TABLE Resources (
+  ProjectId    INT64 NOT NULL,
+  ResourceId   INT64 NOT NULL,
+  ResourceName STRING(1024),
+) PRIMARY KEY (ProjectId, ResourceId),
+  INTERLEAVE IN Projects;
+```
 
 ### PostgreSQL
 
-    CREATE TABLE Projects (
-      ProjectId   BIGINT PRIMARY KEY,
-      ProjectName VARCHAR(1024),
-    );
-    
-    CREATE TABLE Resources (
-      ProjectId    BIGINT,
-      ResourceId   BIGINT,
-      ResourceName VARCHAR(1024),
-      PRIMARY KEY (ProjectId, ResourceId)
-    ) INTERLEAVE IN Projects;
+```
+CREATE TABLE Projects (
+  ProjectId   BIGINT PRIMARY KEY,
+  ProjectName VARCHAR(1024),
+);
+
+CREATE TABLE Resources (
+  ProjectId    BIGINT,
+  ResourceId   BIGINT,
+  ResourceName VARCHAR(1024),
+  PRIMARY KEY (ProjectId, ResourceId)
+) INTERLEAVE IN Projects;
+```
 
 Note that in this example we use the `INTERLEAVE IN Projects` clause, rather than `INTERLEAVE IN PARENT Projects` . This indicates we don't enforce the parent-child relationship between Projects and Resources.
 
@@ -291,60 +309,66 @@ The parent-child relationship between `Singers` and `Albums` can be extended to 
 
 `Songs` must have a primary key that includes all the primary keys of the tables that are at a higher level in the hierarchy, that is, `SingerId` and `AlbumId` .
 
-    -- Schema hierarchy:
-    -- + Singers
-    --   + Albums (interleaved table, child table of Singers)
-    --     + Songs (interleaved table, child table of Albums)
+```
+-- Schema hierarchy:
+-- + Singers
+--   + Albums (interleaved table, child table of Singers)
+--     + Songs (interleaved table, child table of Albums)
+```
 
 ### GoogleSQL
 
-    CREATE TABLE Singers (
-     SingerId   INT64 NOT NULL PRIMARY KEY,
-     FirstName  STRING(1024),
-     LastName   STRING(1024),
-     SingerInfo BYTES(MAX),
-    );
-    
-    CREATE TABLE Albums (
-     SingerId     INT64 NOT NULL,
-     AlbumId      INT64 NOT NULL,
-     AlbumTitle   STRING(MAX),
-    ) PRIMARY KEY (SingerId, AlbumId),
-     INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
-    
-    CREATE TABLE Songs (
-     SingerId     INT64 NOT NULL,
-     AlbumId      INT64 NOT NULL,
-     TrackId      INT64 NOT NULL,
-     SongName     STRING(MAX),
-    ) PRIMARY KEY (SingerId, AlbumId, TrackId),
-     INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
+```
+CREATE TABLE Singers (
+ SingerId   INT64 NOT NULL PRIMARY KEY,
+ FirstName  STRING(1024),
+ LastName   STRING(1024),
+ SingerInfo BYTES(MAX),
+);
+
+CREATE TABLE Albums (
+ SingerId     INT64 NOT NULL,
+ AlbumId      INT64 NOT NULL,
+ AlbumTitle   STRING(MAX),
+) PRIMARY KEY (SingerId, AlbumId),
+ INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+
+CREATE TABLE Songs (
+ SingerId     INT64 NOT NULL,
+ AlbumId      INT64 NOT NULL,
+ TrackId      INT64 NOT NULL,
+ SongName     STRING(MAX),
+) PRIMARY KEY (SingerId, AlbumId, TrackId),
+ INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
+```
 
 ### PostgreSQL
 
-    CREATE TABLE singers (
-     singer_id   BIGINT PRIMARY KEY,
-     first_name  VARCHAR(1024),
-     last_name   VARCHAR(1024),
-     singer_info BYTEA
-     );
-    
-    CREATE TABLE albums (
-     singer_id     BIGINT,
-     album_id      BIGINT,
-     album_title   VARCHAR,
-     PRIMARY KEY (singer_id, album_id)
-     )
-     INTERLEAVE IN PARENT singers ON DELETE CASCADE;
-    
-    CREATE TABLE songs (
-     singer_id     BIGINT,
-     album_id      BIGINT,
-     track_id      BIGINT,
-     song_name     VARCHAR,
-     PRIMARY KEY (singer_id, album_id, track_id)
-     )
-     INTERLEAVE IN PARENT albums ON DELETE CASCADE;
+```
+CREATE TABLE singers (
+ singer_id   BIGINT PRIMARY KEY,
+ first_name  VARCHAR(1024),
+ last_name   VARCHAR(1024),
+ singer_info BYTEA
+ );
+
+CREATE TABLE albums (
+ singer_id     BIGINT,
+ album_id      BIGINT,
+ album_title   VARCHAR,
+ PRIMARY KEY (singer_id, album_id)
+ )
+ INTERLEAVE IN PARENT singers ON DELETE CASCADE;
+
+CREATE TABLE songs (
+ singer_id     BIGINT,
+ album_id      BIGINT,
+ track_id      BIGINT,
+ song_name     VARCHAR,
+ PRIMARY KEY (singer_id, album_id, track_id)
+ )
+ INTERLEAVE IN PARENT albums ON DELETE CASCADE;
+```
 
 The following diagram represents a physical view of interleaved rows.
 
@@ -360,13 +384,17 @@ If possible, join data in interleaved tables by primary key. Because each interl
 
 ### GoogleSQL
 
-    SELECT s.FirstName, a.AlbumTitle
-    FROM Singers AS s JOIN Albums AS a ON s.SingerId = a.SingerId;
+```
+SELECT s.FirstName, a.AlbumTitle
+FROM Singers AS s JOIN Albums AS a ON s.SingerId = a.SingerId;
+```
 
 ### PostgreSQL
 
-    SELECT s.first_name, a.album_title
-    FROM singers AS s JOIN albums AS a ON s.singer_id = a.singer_id;
+```
+SELECT s.first_name, a.album_title
+FROM singers AS s JOIN albums AS a ON s.singer_id = a.singer_id;
+```
 
 ### Locality groups
 
@@ -374,9 +402,9 @@ If possible, join data in interleaved tables by primary key. Because each interl
 
 Spanner uses locality groups to preserve data locality relationships across table columns. If you don't explicitly create any locality groups for your tables, Spanner groups all columns into the `default` locality group and stores the data of all tables on SSD storage. You can use locality groups to do the following:
 
-  - Use [tiered storage](https://docs.cloud.google.com/spanner/docs/tiered-storage) . Tiered storage is a fully-managed storage feature that lets you choose whether to store your data on solid-state drives (SSD) or hard disk drives (HDD). By default, without using tiered storage, Spanner stores all data on SSD storage.
+- Use [tiered storage](https://docs.cloud.google.com/spanner/docs/tiered-storage) . Tiered storage is a fully-managed storage feature that lets you choose whether to store your data on solid-state drives (SSD) or hard disk drives (HDD). By default, without using tiered storage, Spanner stores all data on SSD storage.
 
-  - Use column-grouping to store specified columns separately from other columns. Because the data for the specified columns are stored separately, reading data from those columns is faster than if all data is grouped together. To use column-grouping, you need to [create a locality group](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#create-locality-group) without specifying any tiered storage options. Spanner uses locality groups to store the specified columns separately. If specified, the columns inherit their tiered storage policy from the table or default locality group. Then, use the `CREATE TABLE` DDL statement to [set a locality group for the specified columns](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#set-locality-group-column) or use the `ALTER TABLE` DDL statement to [alter the locality group used by a table's column](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#alter-column-locality-group) . The DDL statement determines the columns that are stored in the locality group. Finally, you can [read data](https://docs.cloud.google.com/spanner/docs/reads) in these columns more efficiently.
+- Use column-grouping to store specified columns separately from other columns. Because the data for the specified columns are stored separately, reading data from those columns is faster than if all data is grouped together. To use column-grouping, you need to [create a locality group](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#create-locality-group) without specifying any tiered storage options. Spanner uses locality groups to store the specified columns separately. If specified, the columns inherit their tiered storage policy from the table or default locality group. Then, use the `CREATE TABLE` DDL statement to [set a locality group for the specified columns](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#set-locality-group-column) or use the `ALTER TABLE` DDL statement to [alter the locality group used by a table's column](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#alter-column-locality-group) . The DDL statement determines the columns that are stored in the locality group. Finally, you can [read data](https://docs.cloud.google.com/spanner/docs/reads) in these columns more efficiently.
 
 ## Key columns
 
@@ -392,33 +420,37 @@ In GoogleSQL, if you would like to store NULL in a primary key column, omit the 
 
 Here's an example of omitting the `NOT NULL` clause on the primary key column `SingerId` . Note that because `SingerId` is the primary key, there can be only one row that stores `NULL` in that column.
 
-    CREATE TABLE Singers (
-      SingerId   INT64 PRIMARY KEY,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-    );
+```
+CREATE TABLE Singers (
+  SingerId   INT64 PRIMARY KEY,
+  FirstName  STRING(1024),
+  LastName   STRING(1024),
+);
+```
 
 The nullable property of the primary key column must match between the parent and the child table declarations. In this example, `NOT NULL` for the column `Albums.SingerId` is not allowed because `Singers.SingerId` omits it.
 
-    CREATE TABLE Singers (
-      SingerId   INT64 PRIMARY KEY,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-    );
-    
-    CREATE TABLE Albums (
-      SingerId     INT64 NOT NULL,
-      AlbumId      INT64 NOT NULL,
-      AlbumTitle   STRING(MAX),
-    ) PRIMARY KEY (SingerId, AlbumId),
-      INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
+CREATE TABLE Singers (
+  SingerId   INT64 PRIMARY KEY,
+  FirstName  STRING(1024),
+  LastName   STRING(1024),
+);
+
+CREATE TABLE Albums (
+  SingerId     INT64 NOT NULL,
+  AlbumId      INT64 NOT NULL,
+  AlbumTitle   STRING(MAX),
+) PRIMARY KEY (SingerId, AlbumId),
+  INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
 
 ### Disallowed types
 
 The following columns cannot be of type `ARRAY` :
 
-  - A table's key columns.
-  - An index's key columns.
+- A table's key columns.
+- An index's key columns.
 
 ## Design for multi-tenancy
 
@@ -429,32 +461,32 @@ You might want to implement multi-tenancy if you are storing data that belongs t
 The classic way to design for multi-tenancy is to create a separate database for each customer. In this example, each database has its own `Singers` table:
 
 | SingerId | FirstName | LastName |
-| -------- | --------- | -------- |
+|----------|-----------|----------|
 | 1        | Marc      | Richards |
 | 2        | Catalina  | Smith    |
 
-Database 1: Ackworth Records 
+Database 1: Ackworth Records
 
 | SingerId | FirstName | LastName |
-| -------- | --------- | -------- |
+|----------|-----------|----------|
 | 1        | Alice     | Trentor  |
 | 2        | Gabriel   | Wright   |
 
-Database 2: Cama Records 
+Database 2: Cama Records
 
 | SingerId | FirstName | LastName |
-| -------- | --------- | -------- |
+|----------|-----------|----------|
 | 1        | Benjamin  | Martinez |
 | 2        | Hannah    | Harris   |
 
-Database 3: Eagan Records 
+Database 3: Eagan Records
 
 ### Schema-managed multi-tenancy
 
 Another way to design for multi-tenancy in Spanner is to have all customers in a single table in a single database, and to use a different primary key value for each customer. For example, you could include a `CustomerId` key column in your tables. If you make `CustomerId` the first key column, then the data for each customer has good locality. Spanner can then effectively use [database splits](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) to maximize performance based on data size and load patterns. In the following example, there is a single `Singers` table for all customers:
 
 | CustomerId | SingerId | FirstName | LastName |
-| ---------- | -------- | --------- | -------- |
+|------------|----------|-----------|----------|
 | 1          | 1        | Marc      | Richards |
 | 1          | 2        | Catalina  | Smith    |
 | 2          | 1        | Alice     | Trentor  |
@@ -462,12 +494,12 @@ Another way to design for multi-tenancy in Spanner is to have all customers in a
 | 3          | 1        | Benjamin  | Martinez |
 | 3          | 2        | Hannah    | Harris   |
 
-Spanner multi-tenancy database 
+Spanner multi-tenancy database
 
 If you must have separate databases for each tenant, there are constraints to be aware of:
 
-  - There are [limits](https://docs.cloud.google.com/spanner/quotas) on the number of databases per instance and the number of tables and indexes per database. Depending on the number of customers, it might not be possible to have separate databases or tables.
-  - Adding new tables and non-interleaved indexes [can take a long time](https://docs.cloud.google.com/spanner/docs/schema-updates#schema_update_performance) . You might not be able to get the performance you want if your schema design depends on adding new tables and indexes.
+- There are [limits](https://docs.cloud.google.com/spanner/quotas) on the number of databases per instance and the number of tables and indexes per database. Depending on the number of customers, it might not be possible to have separate databases or tables.
+- Adding new tables and non-interleaved indexes [can take a long time](https://docs.cloud.google.com/spanner/docs/schema-updates#schema_update_performance) . You might not be able to get the performance you want if your schema design depends on adding new tables and indexes.
 
 If you want to create separate databases, you might have more success if you distribute your tables across databases in such a way that each database has a [low number of schema changes per week](https://docs.cloud.google.com/spanner/docs/schema-updates#frequency) .
 

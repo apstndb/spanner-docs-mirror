@@ -33,10 +33,10 @@ For all available skills, see the [Spanner skills on GitHub](https://github.com/
 2.  [Create or select a Spanner instance and database](https://docs.cloud.google.com/spanner/docs/create-query-database-console) .
 
 3.  Configure the required roles and permissions to complete this task. The user invoking the LLM agents needs the following roles at the database level:
-    
-      - Cloud Spanner Database Reader ( `roles/spanner.databaseReader` ) to execute DQL queries and list tables.
-    
-      - Cloud Spanner Database User ( `roles/spanner.databaseUser` ) to execute DML queries.
+
+    - Cloud Spanner Database Reader ( `roles/spanner.databaseReader` ) to execute DQL queries and list tables.
+
+    - Cloud Spanner Database User ( `roles/spanner.databaseUser` ) to execute DML queries.
 
 4.  Configure [Application Default Credentials (ADC)](https://docs.cloud.google.com/docs/authentication/set-up-adc-local-dev-environment) for your environment.
 
@@ -45,30 +45,42 @@ For all available skills, see the [Spanner skills on GitHub](https://github.com/
 > **Note:** MCP Toolbox is only required for MCP clients other than Gemini CLI, Gemini Code Assist, or Antigravity. Skip this section if you are using Gemini CLI, Gemini Code Assist, or Antigravity.
 
 1.  Download the latest version of MCP Toolbox as a binary. Select the [binary](https://github.com/googleapis/mcp-toolbox/releases/latest) corresponding to your operating system (OS) and CPU architecture. You must use MCP Toolbox version 0.15.0 or later:
-    
+
     ### linux/amd64
-    
-        curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/linux/amd64/toolbox
-    
+
+    ```
+    curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/linux/amd64/toolbox
+    ```
+
     ### darwin/arm64
-    
-        curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/darwin/arm64/toolbox
-    
+
+    ```
+    curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/darwin/arm64/toolbox
+    ```
+
     ### darwin/amd64
-    
-        curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/darwin/amd64/toolbox
-    
+
+    ```
+    curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/darwin/amd64/toolbox
+    ```
+
     ### windows/amd64
-    
-        curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/windows/amd64/toolbox
+
+    ```
+    curl -O https://storage.googleapis.com/mcp-toolbox-for-databases/version/windows/amd64/toolbox
+    ```
 
 2.  Make the binary executable:
-    
-        chmod +x toolbox
+
+    ```
+    chmod +x toolbox
+    ```
 
 3.  Verify the installation:
-    
-        ./toolbox --version
+
+    ```
+    ./toolbox --version
+    ```
 
 ## Set up clients and connections
 
@@ -79,29 +91,35 @@ This section describes how to configure various developer tools to connect to yo
 1.  Install the [Gemini CLI.](https://github.com/google-gemini/gemini-cli?tab=readme-ov-file#-installation)
 
 2.  Install the Spanner extension for Gemini CLI from the GitHub repository using the following command:
-    
-        gemini extensions install https://github.com/gemini-cli-extensions/spanner
+
+    ```
+    gemini extensions install https://github.com/gemini-cli-extensions/spanner
+    ```
 
 3.  Set the following environment variables to connect to your Spanner instance:
-    
-        export SPANNER_PROJECT="PROJECT_ID"
-        export SPANNER_INSTANCE="INSTANCE_NAME"
-        export SPANNER_DATABASE="DATABASE_NAME"
-        export SPANNER_DIALECT="DIALECT_NAME"
-    
+
+    ```
+    export SPANNER_PROJECT="PROJECT_ID"
+    export SPANNER_INSTANCE="INSTANCE_NAME"
+    export SPANNER_DATABASE="DATABASE_NAME"
+    export SPANNER_DIALECT="DIALECT_NAME"
+    ```
+
     Replace the following:
-    
-      - PROJECT\_ID : The Google Cloud project ID.
-      - INSTANCE\_NAME : The Spanner instance name.
-      - DATABASE\_NAME : The Spanner database name.
-      - DIALECT\_NAME : The Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
+
+    - ` PROJECT_ID ` : The Google Cloud project ID.
+    - ` INSTANCE_NAME ` : The Spanner instance name.
+    - ` DATABASE_NAME ` : The Spanner database name.
+    - ` DIALECT_NAME ` : The Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
 
 4.  Start the Gemini CLI in interactive mode:
-    
-        gemini
-    
+
+    ```
+    gemini
+    ```
+
     The CLI automatically loads the Spanner extension for Gemini CLI and its skills, which you can use to interact with your database.
-    
+
     In the Gemini CLI, use the [`/extensions`](https://github.com/google-gemini/gemini-cli/blob/bbcc90613390e4d3d3aed911fbc1535af80d643b/docs/cli/commands.md) command to verify the extension is installed.
 
 ### Gemini Code Assist
@@ -109,81 +127,85 @@ This section describes how to configure various developer tools to connect to yo
 We strongly recommend configuring Gemini Code Assist to use the [Gemini CLI](https://docs.cloud.google.com/spanner/docs/pre-built-tools-with-mcp-toolbox#mcp-configure-your-mcp-client-geminicli) , as this approach removes the need to manually configure an MCP server. However, the directions to manually configure an MCP server are still available in the following section:
 
   
-1\. Install the [Gemini Code Assist](https://marketplace.visualstudio.com/items?itemName=Google.geminicodeassist) extension in VS Code.  
-2\. [Enable agent mode](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode) and switch the agent model to Gemini.  
-3\. In your project root directory, create a folder named `.gemini` and, within it, a `settings.json` file.  
-4\. Add one of the following configurations based on your Spanner dialect in the `settings.json` file.  
-5\. Replace the following variables with your values:  
+1. Install the [Gemini Code Assist](https://marketplace.visualstudio.com/items?itemName=Google.geminicodeassist) extension in VS Code.  
+2. [Enable agent mode](https://code.visualstudio.com/docs/copilot/chat/chat-agent-mode) and switch the agent model to Gemini.  
+3. In your project root directory, create a folder named `.gemini` and, within it, a `settings.json` file.  
+4. Add one of the following configurations based on your Spanner dialect in the `settings.json` file.  
+5. Replace the following variables with your values:  
 
-  - `  PROJECT_ID  ` : your Google Cloud project ID.
-  - `  INSTANCE_NAME  ` : your Spanner instance name.
-  - `  DATABASE_NAME  ` : your Spanner database name.
+- `PROJECT_ID` : your Google Cloud project ID.
+- `INSTANCE_NAME` : your Spanner instance name.
+- `DATABASE_NAME` : your Spanner database name.
 
 6\. Save the file.  
   
 Spanner with **GoogleSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner-postgres","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner-postgres","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
 ### Claude Code
 
 1.  Install [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview) .
 
 2.  Set the environment variables to connect to your Spanner instance:
-    
+
     ```sh
     export SPANNER_PROJECT="PROJECT_ID"
     export SPANNER_INSTANCE="INSTANCE_NAME"
     export SPANNER_DATABASE="DATABASE_NAME"
     export SPANNER_DIALECT="DIALECT_NAME"
     ```
-    
+
     Replace the following:
-    
-      - PROJECT\_ID : The Google Cloud project ID.
-      - INSTANCE\_NAME : The Spanner instance name.
-      - DATABASE\_NAME : The Spanner database name.
-      - DIALECT\_NAME : The Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
+
+    - ` PROJECT_ID ` : The Google Cloud project ID.
+    - ` INSTANCE_NAME ` : The Spanner instance name.
+    - ` DATABASE_NAME ` : The Spanner database name.
+    - ` DIALECT_NAME ` : The Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
 
 3.  Start the agent:
-    
+
     ```sh
     claude
     ```
 
 4.  Install the plugin:
-    
+
     ```sh
     /plugin install spanner@claude-plugins-official
     ```
@@ -193,35 +215,35 @@ Spanner with **PostgreSQL** dialect:
 ### Codex
 
 1.  Install the Data Cloud Plugins marketplace:
-    
+
     ```sh
     codex plugin marketplace add GoogleCloudPlatform/data-cloud-plugins
     ```
 
 2.  Install the Spanner plugin:
-    
+
     ```sh
     codex plugin install spanner@data-cloud-plugins
     ```
 
 3.  Configure the environment variables to connect to your Spanner instance:
-    
+
     ```sh
     export SPANNER_PROJECT="PROJECT_ID"
     export SPANNER_INSTANCE="INSTANCE_NAME"
     export SPANNER_DATABASE="DATABASE_NAME"
     export SPANNER_DIALECT="DIALECT_NAME"
     ```
-    
+
     Replace the following:
-    
-      - PROJECT\_ID : The Google Cloud project ID.
-      - INSTANCE\_NAME : The Spanner instance name.
-      - DATABASE\_NAME : The Spanner database name.
-      - DIALECT\_NAME : The Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
+
+    - ` PROJECT_ID ` : The Google Cloud project ID.
+    - ` INSTANCE_NAME ` : The Spanner instance name.
+    - ` DATABASE_NAME ` : The Spanner database name.
+    - ` DIALECT_NAME ` : The Spanner SQL dialect. Accepts `googlesql` or `postgresql` . Defaults to `googlesql` if undefined.
 
 4.  Optional. Update the marketplace:
-    
+
     ```sh
     codex plugin marketplace upgrade data-cloud-plugins
     ```
@@ -229,91 +251,99 @@ Spanner with **PostgreSQL** dialect:
 ### Claude for Desktop
 
   
-1\. Open [Claude for Desktop](https://claude.ai/download) and navigate to **Settings** .  
-2\. In the **Developer** tab, click **Edit Config** to open the configuration file.  
-3\. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
+1. Open [Claude for Desktop](https://claude.ai/download) and navigate to **Settings** .  
+2. In the **Developer** tab, click **Edit Config** to open the configuration file.  
+3. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
   
 Spanner with **GoogleSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner-postgres","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner-postgres","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
   
-4\. Restart Claude for Desktop.  
-5\. The new chat screen displays a hammer (MCP) icon with the new MCP server.  
+4. Restart Claude for Desktop.  
+5. The new chat screen displays a hammer (MCP) icon with the new MCP server.  
   
 
 ### Cline
 
   
-1\. Open [Cline](https://github.com/cline/cline) extension in VS Code and click **MCP Servers** icon.  
-2\. Tap Configure MCP Servers to open the configuration file.  
-3\. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
+1. Open [Cline](https://github.com/cline/cline) extension in VS Code and click **MCP Servers** icon.  
+2. Tap Configure MCP Servers to open the configuration file.  
+3. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
   
 Spanner with **GoogleSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner-postgres","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner-postgres","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
   
 A green active status appears after the server connects successfully.  
@@ -322,139 +352,151 @@ A green active status appears after the server connects successfully.
 ### Cursor
 
   
-1\. Create the `.cursor` directory in your project root if it doesn't exist.  
-2\. Create the `.cursor/mcp.json` file if it doesn't exist and open it.  
-3\. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
+1. Create the `.cursor` directory in your project root if it doesn't exist.  
+2. Create the `.cursor/mcp.json` file if it doesn't exist and open it.  
+3. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
   
 Spanner with **GoogleSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner-postgres","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner-postgres","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
   
-4\. Open [Cursor](https://www.cursor.com/) and navigate to **Settings \> Cursor Settings \> MCP** . A green active status appears when the server connects.  
+4. Open [Cursor](https://www.cursor.com/) and navigate to **Settings \> Cursor Settings \> MCP** . A green active status appears when the server connects.  
   
 
 ### Visual Studio Code (Copilot)
 
   
-1\. Open [VS Code](https://code.visualstudio.com/docs/copilot/overview) and create `.vscode` directory in your project root if it does not exist.  
-2\. Create the `.vscode/mcp.json` file if it doesn't exist, and open it.  
-3\. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
+1. Open [VS Code](https://code.visualstudio.com/docs/copilot/overview) and create `.vscode` directory in your project root if it does not exist.  
+2. Create the `.vscode/mcp.json` file if it doesn't exist, and open it.  
+3. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
   
 Spanner with **GoogleSQL** dialect:  
   
 
-    {
-      "servers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner","--stdio"],
-          "env": {
-            "SPANNER_PROJECT": "PROJECT_ID",
-            "SPANNER_INSTANCE": "INSTANCE_NAME",
-            "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "servers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner","--stdio"],
+      "env": {
+        "SPANNER_PROJECT": "PROJECT_ID",
+        "SPANNER_INSTANCE": "INSTANCE_NAME",
+        "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-    {
-      "servers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner-postgres","--stdio"],
-          "env": {
-            "SPANNER_PROJECT": "PROJECT_ID",
-            "SPANNER_INSTANCE": "INSTANCE_NAME",
-            "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "servers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner-postgres","--stdio"],
+      "env": {
+        "SPANNER_PROJECT": "PROJECT_ID",
+        "SPANNER_INSTANCE": "INSTANCE_NAME",
+        "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
 ### Windsurf
 
   
-1\. Open [Windsurf](https://docs.codeium.com/windsurf) and navigate to Cascade assistant.  
-2\. Click the MCP icon, then click **Configure** to open the configuration file.  
-3\. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
+1. Open [Windsurf](https://docs.codeium.com/windsurf) and navigate to Cascade assistant.  
+2. Click the MCP icon, then click **Configure** to open the configuration file.  
+3. Add one of the following configurations based on your Spanner dialect, replace the environment variables with your values, and save the file:  
   
 Spanner with **GoogleSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
   
 Spanner with **PostgreSQL** dialect:  
   
 
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "./PATH/TO/toolbox",
-          "args": ["--prebuilt","spanner-postgres","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "./PATH/TO/toolbox",
+      "args": ["--prebuilt","spanner-postgres","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME"
       }
     }
+  }
+}
+```
 
 ## Connect with Antigravity
 
 You can connect Spanner to Antigravity in the following ways:
 
-  - Using the MCP Store
-  - Using a custom configuration
+- Using the MCP Store
+- Using a custom configuration
 
 ### MCP Store
 
@@ -476,31 +518,31 @@ To connect to a custom MCP server, do the following steps:
 3.  Click **Manage MCP Servers \> View raw config** to open the `mcp_config.json` file.
 4.  Add the following configuration, replace the environment variables with your values, and save.
 
-<!-- end list -->
-
-    {
-      "mcpServers": {
-        "spanner": {
-          "command": "npx",
-          "args": ["-y","@toolbox-sdk/server","--prebuilt","spanner","--stdio"],
-          "env": {
-              "SPANNER_PROJECT": "PROJECT_ID",
-              "SPANNER_INSTANCE": "INSTANCE_NAME",
-              "SPANNER_DATABASE": "DATABASE_NAME",
-              "SPANNER_DIALECT": "DIALECT_NAME"
-          }
-        }
+```
+{
+  "mcpServers": {
+    "spanner": {
+      "command": "npx",
+      "args": ["-y","@toolbox-sdk/server","--prebuilt","spanner","--stdio"],
+      "env": {
+          "SPANNER_PROJECT": "PROJECT_ID",
+          "SPANNER_INSTANCE": "INSTANCE_NAME",
+          "SPANNER_DATABASE": "DATABASE_NAME",
+          "SPANNER_DIALECT": "DIALECT_NAME"
       }
     }
+  }
+}
+```
 
 Once you configure the custom MCP server, the resources and skills from the Spanner server are available to the editor.
 
 Replace the following:
 
-  - `  PROJECT_ID  ` : your Google Cloud project ID.
-  - `  INSTANCE_NAME  ` : your Spanner instance name.
-  - `  DATABASE_NAME  ` : your Spanner database name.
-  - `  DIALECT_NAME  ` : your Spanner SQL dialect. Accepts `googlesql` or `postgresql` . If you don't specify a dialect, the default is `googlesql` .
+- `PROJECT_ID` : your Google Cloud project ID.
+- `INSTANCE_NAME` : your Spanner instance name.
+- `DATABASE_NAME` : your Spanner database name.
+- `DIALECT_NAME` : your Spanner SQL dialect. Accepts `googlesql` or `postgresql` . If you don't specify a dialect, the default is `googlesql` .
 
 ## Connect to Spanner using Data Agent Kit
 

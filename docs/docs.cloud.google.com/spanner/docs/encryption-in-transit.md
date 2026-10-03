@@ -16,6 +16,6 @@ Spanner APIs are hosted on Google Front Ends (GFEs) and [encrypt data in transit
 
 ## What's next
 
-  - Learn more about [Access control with IAM](https://docs.cloud.google.com/spanner/docs/iam) .
-  - Learn more about [Fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
-  - Learn more about [Customer-managed encryption keys (CMEK)](https://docs.cloud.google.com/spanner/docs/cmek) .
+- Learn more about [Access control with IAM](https://docs.cloud.google.com/spanner/docs/iam) .
+- Learn more about [Fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .
+- Learn more about [Customer-managed encryption keys (CMEK)](https://docs.cloud.google.com/spanner/docs/cmek) .

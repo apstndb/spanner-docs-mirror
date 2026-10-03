@@ -16,11 +16,11 @@ Artifact Registry hosts Spanner Omni container images at `us-docker.pkg.dev/span
 
 The following container images are available:
 
-  - `spanner-omni` : includes Spanner Omni, the Spanner Omni CLI, and the Spanner Omni console.
+- `spanner-omni` : includes Spanner Omni, the Spanner Omni CLI, and the Spanner Omni console.
 
-  - `spanner-omni-server` : includes Spanner Omni and the Spanner Omni CLI.
+- `spanner-omni-server` : includes Spanner Omni and the Spanner Omni CLI.
 
-  - `spanner-omni-ui` : includes only the Spanner Omni console.
+- `spanner-omni-ui` : includes only the Spanner Omni console.
 
 Specify the exact version tag when pulling a container image.
 
@@ -29,12 +29,14 @@ Specify the exact version tag when pulling a container image.
 The following table lists the available container image versions.
 
 | Version tag   | Release date       |
-| ------------- | ------------------ |
+|---------------|--------------------|
 | `2026.r4-lts` | September 30, 2026 |
 
 For example, to download the `spanner-omni` image for the 2026.r4-lts release, run the following command:
 
-    docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r4-lts
+```
+docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r4-lts
+```
 
 ## Helm charts
 
@@ -47,16 +49,20 @@ Specify the exact version tag when you download a chart.
 The following table lists the available Helm chart versions.
 
 | Version tag | Release date       |
-| ----------- | ------------------ |
+|-------------|--------------------|
 | `1.0.0`     | September 30, 2026 |
 
 For example, to download the Helm chart for version 1.0.0 from Artifact Registry, run the following command:
 
-    helm pull oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0
+```
+helm pull oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.0.0
+```
 
 To clone the open-source Helm charts from GitHub, run the following command:
 
-    git clone https://github.com/GoogleCloudPlatform/spanner-omni.git
+```
+git clone https://github.com/GoogleCloudPlatform/spanner-omni.git
+```
 
 ## Standalone binaries
 
@@ -69,7 +75,7 @@ Each release is in a folder named after the version tag.
 The following table lists the available Spanner Omni server and component packages.
 
 | Filename                                              | Description                                                                     |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------- |
+|-------------------------------------------------------|---------------------------------------------------------------------------------|
 | `spanner-omni-2026.r4-lts-linux-x86_64.tar.gz`        | Spanner Omni server, Spanner Omni CLI, and Spanner Omni console for Linux (x86) |
 | `spanner-omni-server-2026.r4-lts-linux-x86_64.tar.gz` | Spanner Omni server and Spanner Omni CLI for Linux (x86)                        |
 | `spanner-omni-ui-2026.r4-lts-linux-x86_64.tar.gz`     | Spanner Omni console for Linux (x86)                                            |
@@ -79,7 +85,7 @@ The following table lists the available Spanner Omni server and component packag
 The following table lists the available Spanner Omni CLI binaries.
 
 | Filename                                            | Description                           |
-| --------------------------------------------------- | ------------------------------------- |
+|-----------------------------------------------------|---------------------------------------|
 | `spanner-omni-cli-2026.r4-lts-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
 | `spanner-omni-cli-2026.r4-lts-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
 | `spanner-omni-cli-2026.r4-lts-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
@@ -87,5 +93,7 @@ The following table lists the available Spanner Omni CLI binaries.
 
 For example, to download the current version of the Spanner Omni CLI for Linux (x86), run the following command:
 
-    # Download CLI for Linux (x86)
-    curl -O https://storage.googleapis.com/spanner-omni/2026.r4-lts/spanner-omni-cli-2026.r4-lts-linux-x86_64.tar.gz
+```
+# Download CLI for Linux (x86)
+curl -O https://storage.googleapis.com/spanner-omni/2026.r4-lts/spanner-omni-cli-2026.r4-lts-linux-x86_64.tar.gz
+```

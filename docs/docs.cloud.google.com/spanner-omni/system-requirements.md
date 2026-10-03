@@ -22,8 +22,8 @@ Server hardware should meet the following recommended configurations:
 
 <table>
 <colgroup>
-<col style="width: 30%" />
-<col style="width: 70%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -57,8 +57,8 @@ The Spanner Omni CLI should meet the following recommended hardware configuratio
 
 <table>
 <colgroup>
-<col style="width: 30%" />
-<col style="width: 70%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -96,8 +96,8 @@ Server software should meet the following requirements:
 
 <table>
 <colgroup>
-<col style="width: 30%" />
-<col style="width: 70%" />
+<col style="width: 50%" />
+<col style="width: 50%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -135,7 +135,7 @@ Server software should meet the following requirements:
 The Spanner Omni CLI software should meet the following requirements:
 
 | OS and platform | Software requirements |
-| --------------- | --------------------- |
+|-----------------|-----------------------|
 | **Linux**       | RHEL 8+, Ubuntu 20+   |
 | **macOS**       | macOS 14.7+           |
 
@@ -143,11 +143,11 @@ The Spanner Omni CLI software should meet the following requirements:
 
 Proper storage setup is important for data durability and high performance. Use these recommendations for SSDs, file systems, and disk I/O to meet high-availability standards.
 
-  - For each VM, use a dedicated, persistent, and attachable solid-state drive (SSD) with an `ext4` file system to store your data.
-  - Allocate 500 GB of storage per vCPU.
-  - Make sure the storage is durable enough for a high-availability system.
-  - Spanner Omni is tested with Dell PowerFlex block storage, which is recommended for production usage.
-  - Local disks aren't supported.
+- For each VM, use a dedicated, persistent, and attachable solid-state drive (SSD) with an `ext4` file system to store your data.
+- Allocate 500 GB of storage per vCPU.
+- Make sure the storage is durable enough for a high-availability system.
+- Spanner Omni is tested with Dell PowerFlex block storage, which is recommended for production usage.
+- Local disks aren't supported.
 
 #### Disk I/O
 
@@ -165,9 +165,9 @@ Review the compute and storage specifications for Google Kubernetes Engine (GKE)
 
 A GKE-based deployment has the following requirements:
 
-  - Nodes with at least 4 vCPU and at least 16 GB RAM
+- Nodes with at least 4 vCPU and at least 16 GB RAM
 
-  - Zonal persistent disk ( `pd-ssd` ) or Hyperdisk Balanced for storage
+- Zonal persistent disk ( `pd-ssd` ) or Hyperdisk Balanced for storage
 
 #### VM-based deployment on Google Cloud
 
@@ -184,10 +184,10 @@ All AWS deployments must access the `/dev/vmclock0` device. To support this, do 
 2.  Enable read permissions on the host by running `sudo chmod a+r /dev/vmclock0` .
 
 3.  Ensure the application can access the device:
-    
-      - For Docker, pass the device using `--device /dev/vmclock0` .
-    
-      - For Kubernetes, mount the device path into the Pod specification.
+
+    - For Docker, pass the device using `--device /dev/vmclock0` .
+
+    - For Kubernetes, mount the device path into the Pod specification.
 
 #### EKS-based deployment
 

@@ -6,70 +6,44 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#SCHEMA_REPRESENTATION)
-  - [Partition](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#Partition)
-      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#Partition.SCHEMA_REPRESENTATION)
+- [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#SCHEMA_REPRESENTATION)
+- [Partition](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#Partition)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#Partition.SCHEMA_REPRESENTATION)
 
-The response for `  sessions.partitionQuery  ` or `  sessions.partitionRead  `
+The response for [`sessions.partitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionQuery#google.spanner.v1.Spanner.PartitionQuery) or [`sessions.partitionRead`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions/partitionRead#google.spanner.v1.Spanner.PartitionRead)
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;partitions&quot;: [{object (Partition)}],&quot;transaction&quot;: {object (Transaction)}}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "partitions": [
+    {
+      object (Partition)
+    }
+  ],
+  "transaction": {
+    object (Transaction)
+  }
+}
+```
 
-`partitions[]`
-
-` object ( Partition  ` )
-
-Partitions created by this request.
-
-`transaction`
-
-` object ( Transaction  ` )
-
-Transaction created by this request.
+| Fields         |                                                                                                                                                            |
+|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `partitions[]` | `object ( `[`Partition`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartitionResponse#Partition)` )` Partitions created by this request. |
+| `transaction`  | `object ( `[`Transaction`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Transaction)` )` Transaction created by this request.              |
 
 ## Partition
 
 Information returned for each partition returned in a PartitionResponse.
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;partitionToken&quot;: string
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "partitionToken": string
+}
+```
 
-`partitionToken`
-
-`string ( bytes format)`
-
-This token can be passed to `sessions.read` , `sessions.streamingRead` , `ExecuteSql` , or `sessions.executeStreamingSql` requests to restrict the results to those identified by this partition token.
-
-A base64-encoded string.
+| Fields           |                                                                                                                                                                                                                                                                                                                         |
+|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `partitionToken` | `string ( `[`bytes`](https://developers.google.com/discovery/v1/type-format)` format)` This token can be passed to `sessions.read` , `sessions.streamingRead` , `ExecuteSql` , or `sessions.executeStreamingSql` requests to restrict the results to those identified by this partition token. A base64-encoded string. |

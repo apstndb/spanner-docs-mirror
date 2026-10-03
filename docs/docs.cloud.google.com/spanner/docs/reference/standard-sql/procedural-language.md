@@ -8,14 +8,16 @@ data_source: docs.cloud.google.com
 
 The GoogleSQL procedural language lets you execute multiple statements in one query as a multi-statement query. You can use a multi-statement query to:
 
-  - Run multiple statements in a sequence, with shared state.
-  - Automate management tasks such as creating or dropping tables.
+- Run multiple statements in a sequence, with shared state.
+- Automate management tasks such as creating or dropping tables.
 
 ## `CALL`
 
 **Syntax**
 
-    CALL procedure_name (procedure_argument[, …])
+```
+CALL procedure_name (procedure_argument[, …])
+```
 
 **Description**
 
@@ -27,4 +29,6 @@ The maximum depth of procedure calls is 50 frames.
 
 The following example cancels a query with the query ID `12345` .
 
-    CALL cancel_query("12345");
+```
+CALL cancel_query("12345");
+```

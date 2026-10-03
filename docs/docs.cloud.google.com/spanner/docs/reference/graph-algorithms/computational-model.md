@@ -10,10 +10,10 @@ With the exception of [Clique aggregator clustering](https://docs.cloud.google.c
 
 Two quantities measure the computational complexity of each algorithm:
 
-  - **Work** : The total number of operations that the algorithm performs. This corresponds to the running time of the algorithm if it runs sequentially.
-  - **Depth** : The length of the longest chain of dependent operations that the algorithm must execute sequentially. This quantity, also known as *span* , determines the inherent parallelizability of the algorithm.
+- **Work** : The total number of operations that the algorithm performs. This corresponds to the running time of the algorithm if it runs sequentially.
+- **Depth** : The length of the longest chain of dependent operations that the algorithm must execute sequentially. This quantity, also known as *span* , determines the inherent parallelizability of the algorithm.
 
 When executed with a parallelism level of \\(P\\), the running time of an algorithm with work \\(W\\) and depth \\(D\\) is approximately \\(O(W/P + D)\\). This implies that:
 
-  - When sufficient parallelism is available (large \\(P\\)), the depth \\(D\\) dominates the running time. Algorithms with low depth can take full advantage of high parallelism.
-  - When parallelism is limited (small \\(P\\)), the work \\(W\\) dominates. In this regime, work-efficient algorithms (those with work close to the best sequential algorithm) perform well.
+- When sufficient parallelism is available (large \\(P\\)), the depth \\(D\\) dominates the running time. Algorithms with low depth can take full advantage of high parallelism.
+- When parallelism is limited (small \\(P\\)), the work \\(W\\) dominates. In this regime, work-efficient algorithms (those with work close to the best sequential algorithm) perform well.

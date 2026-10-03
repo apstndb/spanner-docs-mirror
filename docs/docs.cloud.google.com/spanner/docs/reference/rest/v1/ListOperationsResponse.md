@@ -6,42 +6,28 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ListOperationsResponse#SCHEMA_REPRESENTATION)
+- [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ListOperationsResponse#SCHEMA_REPRESENTATION)
 
-The response message for `  Operations.ListOperations  ` .
+The response message for [`Operations.ListOperations`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations/list#google.longrunning.Operations.ListOperations) .
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;operations&quot;: [{object (Operation)}],&quot;nextPageToken&quot;: string,&quot;unreachable&quot;: [string]}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "operations": [
+    {
+      object (Operation)
+    }
+  ],
+  "nextPageToken": string,
+  "unreachable": [
+    string
+  ]
+}
+```
 
-`operations[]`
-
-` object ( Operation  ` )
-
-A list of operations that matches the specified filter in the request.
-
-`nextPageToken`
-
-`string`
-
-The standard List next-page token.
-
-`unreachable[]`
-
-`string`
-
-Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections. For example, when attempting to list all resources across all supported locations.
+| Fields          |                                                                                                                                                                                                                                                 |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `operations[]`  | `object ( `[`Operation`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations#Operation)` )` A list of operations that matches the specified filter in the request.                                 |
+| `nextPageToken` | `string` The standard List next-page token.                                                                                                                                                                                                     |
+| `unreachable[]` | `string` Unordered list. Unreachable resources. Populated when the request sets `ListOperationsRequest.return_partial_success` and reads across collections. For example, when attempting to list all resources across all supported locations. |

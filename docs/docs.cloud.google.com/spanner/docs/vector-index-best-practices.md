@@ -16,13 +16,13 @@ If you don't specify any vector index options, Spanner attempts to choose optimi
 
 Here are some helpful guidelines to follow when picking appropriate values:
 
-  - `tree_depth` (tree level): If the table you're indexing has fewer than 10 million rows, use a `tree_depth` of `2` . Otherwise, a `tree_depth` of `3` supports tables of up to about 10 billion rows. If not specified, Spanner will automatically determine the value for `tree_depth` .
+- `tree_depth` (tree level): If the table you're indexing has fewer than 10 million rows, use a `tree_depth` of `2` . Otherwise, a `tree_depth` of `3` supports tables of up to about 10 billion rows. If not specified, Spanner will automatically determine the value for `tree_depth` .
 
-  - `num_leaves` : We recommend targeting 200-1000 rows per leaf. A larger value of `num_leaves` increases the vector index build time, but can reduce the query cost for a given target recall. However, overly large values of `num_leaves` can cause query cost to increase again due to overheads associated with searching many leaf clusters that are very small. If not specified, Spanner automatically determines the value for `num_leaves` .
+- `num_leaves` : We recommend targeting 200-1000 rows per leaf. A larger value of `num_leaves` increases the vector index build time, but can reduce the query cost for a given target recall. However, overly large values of `num_leaves` can cause query cost to increase again due to overheads associated with searching many leaf clusters that are very small. If not specified, Spanner automatically determines the value for `num_leaves` .
 
-  - `num_branches` : This option is only applicable when `tree_depth` is 3. We recommend targeting 50-500 leaves per branch, and `num_branches` should be less than `num_leaves` . A larger value of `num_branches` increases vector index build time, but can reduce query cost for a given target recall. However, overly large values of `num_branches` can cause query cost to increase again due to overheads associated with searching many leaf clusters that are very small. If not specified, Spanner automatically determines the value for `num_branches` .
+- `num_branches` : This option is only applicable when `tree_depth` is 3. We recommend targeting 50-500 leaves per branch, and `num_branches` should be less than `num_leaves` . A larger value of `num_branches` increases vector index build time, but can reduce query cost for a given target recall. However, overly large values of `num_branches` can cause query cost to increase again due to overheads associated with searching many leaf clusters that are very small. If not specified, Spanner automatically determines the value for `num_branches` .
 
-  - `num_leaves_to_search` : This option specifies how many leaf nodes of the index are searched. Increasing `num_leaves_to_search` improves recall but also increases latency and cost. We recommend using a number that is 1% the total number of leaves defined in the `CREATE VECTOR INDEX` statement as the value for `num_leaves_to_search` . If you're using a filter clause, increase this value to widen the search.
+- `num_leaves_to_search` : This option specifies how many leaf nodes of the index are searched. Increasing `num_leaves_to_search` improves recall but also increases latency and cost. We recommend using a number that is 1% the total number of leaves defined in the `CREATE VECTOR INDEX` statement as the value for `num_leaves_to_search` . If you're using a filter clause, increase this value to widen the search.
 
 If acceptable recall is achieved, but the cost of querying is too high, resulting in low maximum QPS, try increasing `num_leaves` by following these steps:
 
@@ -36,14 +36,16 @@ To determine the `tree_depth` , `num_leaves` , and `num_branches` parameters tha
 
 Run this query to display the parameter values:
 
-    SELECT
-      opt.option_name,
-      opt.option_type,
-      opt.option_value
-    FROM
-      INFORMATION_SCHEMA.INDEX_OPTIONS AS opt
-    WHERE
-      opt.index_name = @vector_index_name;
+```
+SELECT
+  opt.option_name,
+  opt.option_type,
+  opt.option_value
+FROM
+  INFORMATION_SCHEMA.INDEX_OPTIONS AS opt
+WHERE
+  opt.index_name = @vector_index_name;
+```
 
 The query returns rows including `option_name` : `system_optimized_tree_depth` , `system_optimized_num_leaves` , and `system_optimized_num_branches` , which reflect parameters used by the index.
 
@@ -61,44 +63,48 @@ The tree structure of the vector index is optimized for the dataset at the time 
 
 To refresh your vector index without downtime, choose one of the following options:
 
-  - **Option 1: In-place reindex with the same options (by using DDL)**
-    
-    If you want to perform an in-place reindex of your vector index with the same index options, you can issue the following DDL statement depending on your database dialect. Reindexing occurs in the background and allows read and write operations on the index to continue.
-    
-    ### GoogleSQL
-    
-        ALTER VECTOR INDEX IncidentVectorIndex REBUILD;
-    
-    ### PostgreSQL
-    
-        REINDEX INDEX CONCURRENTLY incidentvectorindex;
+- **Option 1: In-place reindex with the same options (by using DDL)**
 
-  - **Option 2: Manually reindex with modified options**
-    
-    If you need to change index options (such as `num_leaves` , `tree_depth` , etc.), complete the following steps:
-    
-    1.  Create a new vector index on the same embedding column as the current vector index, updating parameters (for example, `OPTIONS` ) as appropriate. After the index creation completes, evaluate which index performs better.
-    
-    2.  Spanner automatically decides which index to use in the query execution. Choose one of the following methods to evaluate and compare your indexes:
-        
-        a. Change your application: You can update a subset of your queries so that they use the [`FORCE_INDEX` hint](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) to point at the new index to update the vector search query. This ensures that the query uses the new vector index. Using this method, you might need to retune `num_leaves_to_search` in your new query.
-        
-        b. Change your schema: You can set the `disable_search` option on one of your vector indexes. When set to `true` , Spanner disables the vector index. You can do this by running the `ALTER VECTOR INDEX` schema change statement:
-        
-        ``` 
-           ALTER VECTOR INDEX IncidentVectorIndex SET OPTIONS (disable_search=true);
-        ```
-        
-        This method prevents Spanner from using this vector index in your database. If you have two indexes and set this option on the older index, all queries use the new index after the schema change applies. If you use the `FORCE_INDEX` hint to specify a vector index that has the `disable_search` option set to `true` , the query fails.
-    
-    3.  Drop the outdated vector index.
+  If you want to perform an in-place reindex of your vector index with the same index options, you can issue the following DDL statement depending on your database dialect. Reindexing occurs in the background and allows read and write operations on the index to continue.
+
+  ### GoogleSQL
+
+  ```
+  ALTER VECTOR INDEX IncidentVectorIndex REBUILD;
+  ```
+
+  ### PostgreSQL
+
+  ```
+  REINDEX INDEX CONCURRENTLY incidentvectorindex;
+  ```
+
+- **Option 2: Manually reindex with modified options**
+
+  If you need to change index options (such as `num_leaves` , `tree_depth` , etc.), complete the following steps:
+
+  1.  Create a new vector index on the same embedding column as the current vector index, updating parameters (for example, `OPTIONS` ) as appropriate. After the index creation completes, evaluate which index performs better.
+
+  2.  Spanner automatically decides which index to use in the query execution. Choose one of the following methods to evaluate and compare your indexes:
+
+      a\. Change your application: You can update a subset of your queries so that they use the [`FORCE_INDEX` hint](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) to point at the new index to update the vector search query. This ensures that the query uses the new vector index. Using this method, you might need to retune `num_leaves_to_search` in your new query.
+
+      b\. Change your schema: You can set the `disable_search` option on one of your vector indexes. When set to `true` , Spanner disables the vector index. You can do this by running the `ALTER VECTOR INDEX` schema change statement:
+
+      ```
+         ALTER VECTOR INDEX IncidentVectorIndex SET OPTIONS (disable_search=true);
+      ```
+
+      This method prevents Spanner from using this vector index in your database. If you have two indexes and set this option on the older index, all queries use the new index after the schema change applies. If you use the `FORCE_INDEX` hint to specify a vector index that has the `disable_search` option set to `true` , the query fails.
+
+  3.  Drop the outdated vector index.
 
 ## What's next
 
-  - Learn more about Spanner [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) .
+- Learn more about Spanner [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) .
 
-  - Learn more about Spanner [approximate nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
+- Learn more about Spanner [approximate nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
 
-  - Learn more about the [GoogleSQL `APPROXIMATE_COSINE_DISTANCE()` , `APPROXIMATE_EUCLIDEAN_DISTANCE()` , `APPROXIMATE_DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
+- Learn more about the [GoogleSQL `APPROXIMATE_COSINE_DISTANCE()` , `APPROXIMATE_EUCLIDEAN_DISTANCE()` , `APPROXIMATE_DOT_PRODUCT()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) functions.
 
-  - Learn more about the [GoogleSQL `VECTOR INDEX` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .
+- Learn more about the [GoogleSQL `VECTOR INDEX` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) .

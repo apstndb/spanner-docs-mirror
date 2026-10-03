@@ -16,8 +16,8 @@ Spanner provides the [`SEARCH`](https://docs.cloud.google.com/spanner/docs/refer
 
 The `SEARCH` function requires two arguments:
 
-  - A search index name
-  - A search query
+- A search index name
+- A search query
 
 The `SEARCH` function only works when a search index is defined. The `SEARCH` function can be combined with any arbitrary SQL constructs, such as filters, aggregations, or joins.
 
@@ -27,17 +27,21 @@ The following query uses the `SEARCH` function to return all albums that have ei
 
 ### GoogleSQL
 
-    SELECT AlbumId
-    FROM Albums
-    WHERE SEARCH(AlbumTitle_Tokens, 'friday OR monday')
+```
+SELECT AlbumId
+FROM Albums
+WHERE SEARCH(AlbumTitle_Tokens, 'friday OR monday')
+```
 
 ### PostgreSQL
 
 This example uses [spanner.search](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spannersearch) .
 
-    SELECT albumid
-    FROM albums
-    WHERE spanner.search(albumtitle_tokens, 'friday OR monday')
+```
+SELECT albumid
+FROM albums
+WHERE spanner.search(albumtitle_tokens, 'friday OR monday')
+```
 
 ### Search query
 
@@ -59,20 +63,20 @@ With the words dialect, `AND` is implicitly applied to all terms, and is require
 
 For information about using the words dialect, see [words syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#words-syntax) .
 
-#### words\_phrase dialect
+#### words_phrase dialect
 
-The words\_phrase dialect doesn't use any special operators and all terms are treated as a phrase, meaning the terms are required to be adjacent and in the order specified.
+The words_phrase dialect doesn't use any special operators and all terms are treated as a phrase, meaning the terms are required to be adjacent and in the order specified.
 
-Same as rquery, the words\_phrase dialect follows the same rules as the plain-text tokenizer when splitting the input search query into terms.
+Same as rquery, the words_phrase dialect follows the same rules as the plain-text tokenizer when splitting the input search query into terms.
 
-For information about using the words\_phrase dialect, see [words phrase syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#words-phrase-syntax) .
+For information about using the words_phrase dialect, see [words phrase syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#words-phrase-syntax) .
 
 ### Expand search queries to increase related results
 
 You can increase the likelihood of finding relevant results with Spanner's advanced capabilities to expand search queries with related terms, synonyms, and spelling corrections. These capabilities include:
 
-  - [Enhanced query](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#enhanced-query)
-  - [Custom dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries)
+- [Enhanced query](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#enhanced-query)
+- [Custom dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries)
 
 For more information, see [Search with query enhancement](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement) .
 
@@ -82,67 +86,75 @@ There are several conditions that a SQL query must meet to use a search index. I
 
 Queries must meet the following conditions:
 
-  - [SEARCH function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) and [`SEARCH_SUBSTRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_substring) functions require a search index. Spanner doesn't support these functions in queries against the base table or secondary indexes.
+- [SEARCH function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_fulltext) and [`SEARCH_SUBSTRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_substring) functions require a search index. Spanner doesn't support these functions in queries against the base table or secondary indexes.
 
-  - [Partitioned indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index) must have all partition columns bound by an equality condition in the `WHERE` clause of the query.
-    
-    For example, if a search index is defined as `PARTITION BY x, y` , the query must have a conjunct in the `WHERE` clause of `x = <parameter or constant> AND y = <parameter or constant>` . That search index isn't considered by the query optimizer if such a condition is missing.
+- [Partitioned indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index) must have all partition columns bound by an equality condition in the `WHERE` clause of the query.
 
-  - All `TOKENLIST` columns referenced by `SEARCH` and `SEARCH_SUBSTRING` operators must be indexed in the same search index.
-    
-    For example, consider the following table and index definition:
-    
-    ### GoogleSQL
-    
-        CREATE TABLE Albums (
-            AlbumId STRING(MAX) NOT NULL,
-            AlbumTitle STRING(MAX),
-            AlbumStudio STRING(MAX),
-            AlbumTitle_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumTitle)) HIDDEN,
-            AlbumStudio_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumStudio)) HIDDEN
-        ) PRIMARY KEY(AlbumId);
-        
-        CREATE SEARCH INDEX AlbumsTitleIndex ON Albums(AlbumTitle_Tokens);
-        CREATE SEARCH INDEX AlbumsStudioIndex ON Albums(AlbumStudio_Tokens);
-    
-    ### PostgreSQL
-    
-        CREATE TABLE albums (
-            albumid character varying NOT NULL,
-            albumtitle character varying,
-            albumstudio character varying,
-            albumtitle_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumtitle)) VIRTUAL HIDDEN,
-            albumstudio_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumstudio)) VIRTUAL HIDDEN,
-        PRIMARY KEY(albumid));
-        
-        CREATE SEARCH INDEX albumstitleindex ON albums(albumtitle_tokens);
-        CREATE SEARCH INDEX albumsstudioindex ON albums(albumstudio_tokens);
-    
-    The following query fails because there's no single search index that indexes both `AlbumTitle_Tokens` and `AlbumStudio_Tokens` :
-    
-    ### GoogleSQL
-    
-        SELECT AlbumId
-        FROM Albums
-        WHERE SEARCH(AlbumTitle_Tokens, @p1)
-            AND SEARCH(AlbumStudio_Tokens, @p2)
-    
-    ### PostgreSQL
-    
-    This example uses query parameters `$1` and `$2` which are bound to 'fast car' and 'blue note', respectively.
-    
-        SELECT albumid
-        FROM albums
-        WHERE spanner.search(albumtitle_tokens, $1)
-            AND spanner.search(albumstudio_tokens, $2)
+  For example, if a search index is defined as `PARTITION BY x, y` , the query must have a conjunct in the `WHERE` clause of `x = <parameter or constant> AND y = <parameter or constant>` . That search index isn't considered by the query optimizer if such a condition is missing.
 
-  - If the sort order column is nullable, both the schema and the query must exclude rows where the sort order column is NULL. For details, see [Search index sort order](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#search-index-sort-order) .
+- All `TOKENLIST` columns referenced by `SEARCH` and `SEARCH_SUBSTRING` operators must be indexed in the same search index.
 
-  - If the search index is NULL filtered, the query must include the same NULL-filtering expression that's used in an index. See [NULL-filtered search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#null-filtered-indexes) for details.
+  For example, consider the following table and index definition:
 
-  - [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) and [search functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions) aren't supported in DML, partitioned DML, or partitioned queries.
+  ### GoogleSQL
 
-  - [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) and [search functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions) are typically used in [read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) . If application requirements allow stale results, you might be able to improve latency by running search queries with a staleness duration of 10 seconds or longer. For more information, see [Read stale data](https://docs.cloud.google.com/spanner/docs/samples/spanner-read-stale-data) . This is particularly useful for search queries that fan out to many index splits.
+  ```
+  CREATE TABLE Albums (
+      AlbumId STRING(MAX) NOT NULL,
+      AlbumTitle STRING(MAX),
+      AlbumStudio STRING(MAX),
+      AlbumTitle_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumTitle)) HIDDEN,
+      AlbumStudio_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumStudio)) HIDDEN
+  ) PRIMARY KEY(AlbumId);
+
+  CREATE SEARCH INDEX AlbumsTitleIndex ON Albums(AlbumTitle_Tokens);
+  CREATE SEARCH INDEX AlbumsStudioIndex ON Albums(AlbumStudio_Tokens);
+  ```
+
+  ### PostgreSQL
+
+  ```
+  CREATE TABLE albums (
+      albumid character varying NOT NULL,
+      albumtitle character varying,
+      albumstudio character varying,
+      albumtitle_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumtitle)) VIRTUAL HIDDEN,
+      albumstudio_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumstudio)) VIRTUAL HIDDEN,
+  PRIMARY KEY(albumid));
+
+  CREATE SEARCH INDEX albumstitleindex ON albums(albumtitle_tokens);
+  CREATE SEARCH INDEX albumsstudioindex ON albums(albumstudio_tokens);
+  ```
+
+  The following query fails because there's no single search index that indexes both `AlbumTitle_Tokens` and `AlbumStudio_Tokens` :
+
+  ### GoogleSQL
+
+  ```
+  SELECT AlbumId
+  FROM Albums
+  WHERE SEARCH(AlbumTitle_Tokens, @p1)
+      AND SEARCH(AlbumStudio_Tokens, @p2)
+  ```
+
+  ### PostgreSQL
+
+  This example uses query parameters `$1` and `$2` which are bound to 'fast car' and 'blue note', respectively.
+
+  ```
+  SELECT albumid
+  FROM albums
+  WHERE spanner.search(albumtitle_tokens, $1)
+      AND spanner.search(albumstudio_tokens, $2)
+  ```
+
+- If the sort order column is nullable, both the schema and the query must exclude rows where the sort order column is NULL. For details, see [Search index sort order](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#search-index-sort-order) .
+
+- If the search index is NULL filtered, the query must include the same NULL-filtering expression that's used in an index. See [NULL-filtered search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#null-filtered-indexes) for details.
+
+- [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) and [search functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions) aren't supported in DML, partitioned DML, or partitioned queries.
+
+- [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) and [search functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions) are typically used in [read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) . If application requirements allow stale results, you might be able to improve latency by running search queries with a staleness duration of 10 seconds or longer. For more information, see [Read stale data](https://docs.cloud.google.com/spanner/docs/samples/spanner-read-stale-data) . This is particularly useful for search queries that fan out to many index splits.
 
 [Search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) and [search functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions) are not recommended in [read-write transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) . During execution, search queries lock an entire index partition; as a result, a high rate of search queries in read-write transactions might cause lock conflicts leading to latency spikes. By default, search indexes are not automatically selected in read-write transactions. If a query is forced to use a search index in a read-write transaction it fails by default. It also fails if the query contains any of the search functions. This behavior can be overridden with the GoogleSQL `@{ALLOW_SEARCH_INDEXES_IN_TRANSACTION=TRUE}` statement-level hint (but queries are still prone to lock conflicts).
 
@@ -158,15 +170,19 @@ Spanner typically selects the most efficient index for a query using cost-based 
 
 ### GoogleSQL
 
-    SELECT AlbumId
-    FROM Albums @{FORCE_INDEX=AlbumsIndex}
-    WHERE SEARCH(AlbumTitle_Tokens, "fifth symphony")
+```
+SELECT AlbumId
+FROM Albums @{FORCE_INDEX=AlbumsIndex}
+WHERE SEARCH(AlbumTitle_Tokens, "fifth symphony")
+```
 
 ### PostgreSQL
 
-    SELECT albumid
-    FROM albums/*@force_index=albumsindex*/
-    WHERE spanner.search(albumtitle_tokens, 'fifth symphony')
+```
+SELECT albumid
+FROM albums/*@force_index=albumsindex*/
+WHERE spanner.search(albumtitle_tokens, 'fifth symphony')
+```
 
 If the specified search index isn't [eligible](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#sql-query-requirements) , the query fails, even if there are other eligible search indexes.
 
@@ -189,22 +205,26 @@ For example, the following uses `SNIPPET` to retrieve text from `AlbumTitle` :
 
 ### GoogleSQL
 
-    SELECT AlbumId, SNIPPET(AlbumTitle, "Fast Car")
-    FROM Albums
-    WHERE SEARCH(AlbumTitle_Tokens, "Fast Car")
+```
+SELECT AlbumId, SNIPPET(AlbumTitle, "Fast Car")
+FROM Albums
+WHERE SEARCH(AlbumTitle_Tokens, "Fast Car")
+```
 
 ### PostgreSQL
 
 This example uses [spanner.snippet](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#spannersnippet) .
 
-    SELECT albumid, spanner.snippet(albumtitle, 'Fast Car')
-    FROM albums
-    WHERE spanner.search(albumtitle_tokens, 'Fast Car')
+```
+SELECT albumid, spanner.snippet(albumtitle, 'Fast Car')
+FROM albums
+WHERE spanner.search(albumtitle_tokens, 'Fast Car')
+```
 
 ## What's next
 
-  - Learn how to [rank search results](https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search) .
-  - Learn how to [perform a substring search](https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search) .
-  - Learn how to [paginate search results](https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results) .
-  - Learn how to [mix full-text and non-text queries](https://docs.cloud.google.com/spanner/docs/full-text-search/mix-full-text-and-non-text-queries) .
-  - Learn how to [search multiple columns](https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns) .
+- Learn how to [rank search results](https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search) .
+- Learn how to [perform a substring search](https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search) .
+- Learn how to [paginate search results](https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results) .
+- Learn how to [mix full-text and non-text queries](https://docs.cloud.google.com/spanner/docs/full-text-search/mix-full-text-and-non-text-queries) .
+- Learn how to [search multiple columns](https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns) .

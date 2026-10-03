@@ -8,10 +8,10 @@ data_source: docs.cloud.google.com
 
 This page describes how Spanner works with primary keys and offers primary key migration strategies for the following use cases:
 
-  - [Migrating UUID key databases](https://docs.cloud.google.com/spanner/docs/primary-keys-overview#migrate-uuid)
-  - [Migrating single-instance databases with sequential keys](https://docs.cloud.google.com/spanner/docs/primary-keys-overview#sequential-keys)
-  - [Migrating sequential key databases with live cutover support](https://docs.cloud.google.com/spanner/docs/primary-keys-overview#sequential-keys-live-cutover)
-  - [Migrating sequential key databases with application logic dependencies](https://docs.cloud.google.com/spanner/docs/primary-keys-overview#dependent-application-logic)
+- [Migrating UUID key databases](https://docs.cloud.google.com/spanner/docs/primary-keys-overview#migrate-uuid)
+- [Migrating single-instance databases with sequential keys](https://docs.cloud.google.com/spanner/docs/primary-keys-overview#sequential-keys)
+- [Migrating sequential key databases with live cutover support](https://docs.cloud.google.com/spanner/docs/primary-keys-overview#sequential-keys-live-cutover)
+- [Migrating sequential key databases with application logic dependencies](https://docs.cloud.google.com/spanner/docs/primary-keys-overview#dependent-application-logic)
 
 A typical approach to primary keys is to use surrogate keys such as auto-incrementing numbers. Such primary keys provide flexibility to optimize your keys now and in the future, even if your business logic changes. In a single-instance database at low volume, sequential keys perform well. However, in a distributed system, sequential keys don't scale well.
 
@@ -35,10 +35,10 @@ For more information on choosing a primary key to prevent hotspots, see [Schema 
 
 Depending on your application use case and needs, you can deploy a primary key migration strategy. Each of these migration strategies:
 
-  - Ensure the fidelity and correctness of the migrated primary keys.
-  - Minimize downstream application changes, such as changing types or primary key values.
-  - Implement Spanner best practices for performance and scalability.
-  - Spanner only changes the method for how new data is generated, and doesn't affect existing data.
+- Ensure the fidelity and correctness of the migrated primary keys.
+- Minimize downstream application changes, such as changing types or primary key values.
+- Implement Spanner best practices for performance and scalability.
+- Spanner only changes the method for how new data is generated, and doesn't affect existing data.
 
 ### Migrating UUID key databases
 
@@ -74,4 +74,4 @@ For instructions on migrating sequential key databases with application logic de
 
 ## What's next
 
-  - To view detailed migration workflows, see [Migrate primary keys](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys) .
+- To view detailed migration workflows, see [Migrate primary keys](https://docs.cloud.google.com/spanner/docs/migrating-primary-keys) .

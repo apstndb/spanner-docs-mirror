@@ -12,306 +12,98 @@ Cloud Spanner is a managed, mission-critical, globally consistent and scalable r
 
 The Service name `spanner.googleapis.com` is needed to create RPC client stubs.
 
-## `        google.longrunning.Operations       `
-
-Methods
-
-`  CancelOperation  `
-
-Starts asynchronous cancellation on a long-running operation.
-
-`  DeleteOperation  `
-
-Deletes a long-running operation.
-
-`  GetOperation  `
-
-Gets the latest state of a long-running operation.
-
-`  ListOperations  `
-
-Lists operations that match the specified filter in the request.
-
-`  WaitOperation  `
-
-Waits until the specified long-running operation is done or reaches at most a specified timeout, returning the latest state.
-
-## `        google.spanner.adapter.v1.Adapter       `
-
-Methods
-
-`  AdaptMessage  `
-
-Handles a single message from the client and returns the result as a stream.
-
-`  CreateSession  `
-
-Creates a new session to be used for requests made by the adapter.
-
-## `        google.spanner.admin.database.v1.DatabaseAdmin       `
-
-Methods
-
-`  AddSplitPoints  `
-
-Adds split points to specified tables and indexes of a database.
-
-`  ChangeQuorum  `
-
-`ChangeQuorum` is strictly restricted to databases that use dual-region instance configurations.
-
-`  CopyBackup  `
-
-Starts copying a Cloud Spanner Backup.
-
-`  CreateBackup  `
-
-Starts creating a new Cloud Spanner Backup.
-
-`  CreateBackupSchedule  `
-
-Creates a new backup schedule.
-
-`  CreateDatabase  `
-
-Creates a new Spanner database and starts to prepare it for serving.
-
-`  DeleteBackup  `
-
-Deletes a pending or completed `  Backup  ` .
-
-`  DeleteBackupSchedule  `
-
-Deletes a backup schedule.
-
-`  DropDatabase  `
-
-Drops (aka deletes) a Cloud Spanner database.
-
-`  GetBackup  `
-
-Gets metadata on a pending or completed `  Backup  ` .
-
-`  GetBackupSchedule  `
-
-Gets backup schedule for the input schedule name.
-
-`  GetDatabase  `
-
-Gets the state of a Cloud Spanner database.
-
-`  GetDatabaseDdl  `
-
-Returns the schema of a Cloud Spanner database as a list of formatted DDL statements.
-
-`  GetIamPolicy  `
-
-Gets the access control policy for a database or backup resource.
-
-`  ListBackupOperations  `
-
-Lists the backup long-running operations in the given instance.
-
-`  ListBackupSchedules  `
-
-Lists all the backup schedules for the database.
-
-`  ListBackups  `
-
-Lists completed and pending backups.
-
-`  ListDatabaseOperations  `
-
-Lists database longrunning-operations.
-
-`  ListDatabaseRoles  `
-
-Lists Cloud Spanner database roles.
-
-`  ListDatabases  `
-
-Lists Cloud Spanner databases.
-
-`  RestoreDatabase  `
-
-Create a new database by restoring from a completed backup.
-
-`  SetIamPolicy  `
-
-Sets the access control policy on a database or backup resource.
-
-`  TestIamPermissions  `
-
-Returns permissions that the caller has on the specified database or backup resource.
-
-`  UpdateBackup  `
-
-Updates a pending or completed `  Backup  ` .
-
-`  UpdateBackupSchedule  `
-
-Updates a backup schedule.
-
-`  UpdateDatabase  `
-
-Updates a Cloud Spanner database.
-
-`  UpdateDatabaseDdl  `
-
-Updates the schema of a Cloud Spanner database by creating/altering/dropping tables, columns, indexes, etc.
-
-## `        google.spanner.admin.instance.v1.InstanceAdmin       `
-
-Methods
-
-`  CreateInstance  `
-
-Creates an instance and begins preparing it to begin serving.
-
-`  CreateInstanceConfig  `
-
-Creates an instance configuration and begins preparing it to be used.
-
-`  CreateInstancePartition  `
-
-Creates an instance partition and begins preparing it to be used.
-
-`  DeleteInstance  `
-
-Deletes an instance.
-
-`  DeleteInstanceConfig  `
-
-Deletes the instance configuration.
-
-`  DeleteInstancePartition  `
-
-Deletes an existing instance partition.
-
-`  GetIamPolicy  `
-
-Gets the access control policy for an instance resource.
-
-`  GetInstance  `
-
-Gets information about a particular instance.
-
-`  GetInstanceConfig  `
-
-Gets information about a particular instance configuration.
-
-`  GetInstancePartition  `
-
-Gets information about a particular instance partition.
-
-`  ListInstanceConfigOperations  `
-
-Lists the user-managed instance configuration long-running operations in the given project.
-
-`  ListInstanceConfigs  `
-
-Lists the supported instance configurations for a given project.
-
-`  ListInstancePartitionOperations  `
-
-Lists instance partition long-running operations in the given instance.
-
-`  ListInstancePartitions  `
-
-Lists all instance partitions for the given instance.
-
-`  ListInstances  `
-
-Lists all instances in the given project.
-
-`  MoveInstance  `
-
-Moves an instance to the target instance configuration.
-
-`  SetIamPolicy  `
-
-Sets the access control policy on an instance resource.
-
-`  TestIamPermissions  `
-
-Returns permissions that the caller has on the specified instance resource.
-
-`  UpdateInstance  `
-
-Updates an instance, and begins allocating or releasing resources as requested.
-
-`  UpdateInstanceConfig  `
-
-Updates an instance configuration.
-
-`  UpdateInstancePartition  `
-
-Updates an instance partition, and begins allocating or releasing resources as requested.
-
-## `        google.spanner.v1.Spanner       `
-
-Methods
-
-`  BatchCreateSessions  `
-
-Creates multiple new sessions.
-
-`  BatchWrite  `
-
-Batches the supplied mutation groups in a collection of efficient transactions.
-
-`  BeginTransaction  `
-
-Begins a new transaction.
-
-`  Commit  `
-
-Commits a transaction.
-
-`  CreateSession  `
-
-Creates a new session.
-
-`  DeleteSession  `
-
-Ends a session, releasing server resources associated with it.
-
-`  ExecuteBatchDml  `
-
-Executes a batch of SQL DML statements.
-
-`  ExecuteSql  `
-
-Executes an SQL statement, returning all results in a single reply.
-
-`  ExecuteStreamingSql  `
-
-Like `  ExecuteSql  ` , except returns the result set as a stream.
-
-`  GetSession  `
-
-Gets a session.
-
-`  ListSessions  `
-
-Lists all sessions in a given database.
-
-`  PartitionQuery  `
-
-Creates a set of partition tokens that can be used to execute a query operation in parallel.
-
-`  PartitionRead  `
-
-Creates a set of partition tokens that can be used to execute a read operation in parallel.
-
-`  Read  `
-
-Reads rows from the database using key lookups and scans, as a simple key/value style alternative to `  ExecuteSql  ` .
-
-`  Rollback  `
-
-Rolls back a transaction, releasing any locks it holds.
-
-`  StreamingRead  `
-
-Like `  Read  ` , except returns the result set as a stream.
+## [`google.longrunning.Operations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations)
+
+| Methods                                                                                                                                        |                                                                                                                              |
+|------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| [`CancelOperation`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations.CancelOperation) | Starts asynchronous cancellation on a long-running operation.                                                                |
+| [`DeleteOperation`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations.DeleteOperation) | Deletes a long-running operation.                                                                                            |
+| [`GetOperation`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations.GetOperation)       | Gets the latest state of a long-running operation.                                                                           |
+| [`ListOperations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations.ListOperations)   | Lists operations that match the specified filter in the request.                                                             |
+| [`WaitOperation`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations.WaitOperation)     | Waits until the specified long-running operation is done or reaches at most a specified timeout, returning the latest state. |
+
+## [`google.spanner.adapter.v1.Adapter`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.adapter.v1#google.spanner.adapter.v1.Adapter)
+
+| Methods                                                                                                                                               |                                                                              |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| [`AdaptMessage`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.adapter.v1#google.spanner.adapter.v1.Adapter.AdaptMessage)   | Handles a single message from the client and returns the result as a stream. |
+| [`CreateSession`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.adapter.v1#google.spanner.adapter.v1.Adapter.CreateSession) | Creates a new session to be used for requests made by the adapter.           |
+
+## [`google.spanner.admin.database.v1.DatabaseAdmin`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin)
+
+| Methods                                                                                                                                                                                     |                                                                                                                                                                                         |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`AddSplitPoints`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.AddSplitPoints)                 | Adds split points to specified tables and indexes of a database.                                                                                                                        |
+| [`ChangeQuorum`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.ChangeQuorum)                     | `ChangeQuorum` is strictly restricted to databases that use dual-region instance configurations.                                                                                        |
+| [`CopyBackup`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.CopyBackup)                         | Starts copying a Cloud Spanner Backup.                                                                                                                                                  |
+| [`CreateBackup`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.CreateBackup)                     | Starts creating a new Cloud Spanner Backup.                                                                                                                                             |
+| [`CreateBackupSchedule`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.CreateBackupSchedule)     | Creates a new backup schedule.                                                                                                                                                          |
+| [`CreateDatabase`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase)                 | Creates a new Spanner database and starts to prepare it for serving.                                                                                                                    |
+| [`DeleteBackup`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackup)                     | Deletes a pending or completed [`Backup`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.Backup) .          |
+| [`DeleteBackupSchedule`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.DeleteBackupSchedule)     | Deletes a backup schedule.                                                                                                                                                              |
+| [`DropDatabase`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.DropDatabase)                     | Drops (aka deletes) a Cloud Spanner database.                                                                                                                                           |
+| [`GetBackup`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.GetBackup)                           | Gets metadata on a pending or completed [`Backup`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.Backup) . |
+| [`GetBackupSchedule`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.GetBackupSchedule)           | Gets backup schedule for the input schedule name.                                                                                                                                       |
+| [`GetDatabase`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.GetDatabase)                       | Gets the state of a Cloud Spanner database.                                                                                                                                             |
+| [`GetDatabaseDdl`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.GetDatabaseDdl)                 | Returns the schema of a Cloud Spanner database as a list of formatted DDL statements.                                                                                                   |
+| [`GetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.GetIamPolicy)                     | Gets the access control policy for a database or backup resource.                                                                                                                       |
+| [`ListBackupOperations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.ListBackupOperations)     | Lists the backup long-running operations in the given instance.                                                                                                                         |
+| [`ListBackupSchedules`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.ListBackupSchedules)       | Lists all the backup schedules for the database.                                                                                                                                        |
+| [`ListBackups`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.ListBackups)                       | Lists completed and pending backups.                                                                                                                                                    |
+| [`ListDatabaseOperations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations) | Lists database longrunning-operations.                                                                                                                                                  |
+| [`ListDatabaseRoles`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseRoles)           | Lists Cloud Spanner database roles.                                                                                                                                                     |
+| [`ListDatabases`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.ListDatabases)                   | Lists Cloud Spanner databases.                                                                                                                                                          |
+| [`RestoreDatabase`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.RestoreDatabase)               | Create a new database by restoring from a completed backup.                                                                                                                             |
+| [`SetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.SetIamPolicy)                     | Sets the access control policy on a database or backup resource.                                                                                                                        |
+| [`TestIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.TestIamPermissions)         | Returns permissions that the caller has on the specified database or backup resource.                                                                                                   |
+| [`UpdateBackup`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackup)                     | Updates a pending or completed [`Backup`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.Backup) .          |
+| [`UpdateBackupSchedule`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.UpdateBackupSchedule)     | Updates a backup schedule.                                                                                                                                                              |
+| [`UpdateDatabase`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase)                 | Updates a Cloud Spanner database.                                                                                                                                                       |
+| [`UpdateDatabaseDdl`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl)           | Updates the schema of a Cloud Spanner database by creating/altering/dropping tables, columns, indexes, etc.                                                                             |
+
+## [`google.spanner.admin.instance.v1.InstanceAdmin`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin)
+
+| Methods                                                                                                                                                                                                       |                                                                                             |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| [`CreateInstance`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance)                                   | Creates an instance and begins preparing it to begin serving.                               |
+| [`CreateInstanceConfig`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.CreateInstanceConfig)                       | Creates an instance configuration and begins preparing it to be used.                       |
+| [`CreateInstancePartition`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition)                 | Creates an instance partition and begins preparing it to be used.                           |
+| [`DeleteInstance`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstance)                                   | Deletes an instance.                                                                        |
+| [`DeleteInstanceConfig`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstanceConfig)                       | Deletes the instance configuration.                                                         |
+| [`DeleteInstancePartition`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.DeleteInstancePartition)                 | Deletes an existing instance partition.                                                     |
+| [`GetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.GetIamPolicy)                                       | Gets the access control policy for an instance resource.                                    |
+| [`GetInstance`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.GetInstance)                                         | Gets information about a particular instance.                                               |
+| [`GetInstanceConfig`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.GetInstanceConfig)                             | Gets information about a particular instance configuration.                                 |
+| [`GetInstancePartition`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.GetInstancePartition)                       | Gets information about a particular instance partition.                                     |
+| [`ListInstanceConfigOperations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations)       | Lists the user-managed instance configuration long-running operations in the given project. |
+| [`ListInstanceConfigs`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs)                         | Lists the supported instance configurations for a given project.                            |
+| [`ListInstancePartitionOperations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations) | Lists instance partition long-running operations in the given instance.                     |
+| [`ListInstancePartitions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions)                   | Lists all instance partitions for the given instance.                                       |
+| [`ListInstances`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.ListInstances)                                     | Lists all instances in the given project.                                                   |
+| [`MoveInstance`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.MoveInstance)                                       | Moves an instance to the target instance configuration.                                     |
+| [`SetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.SetIamPolicy)                                       | Sets the access control policy on an instance resource.                                     |
+| [`TestIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.TestIamPermissions)                           | Returns permissions that the caller has on the specified instance resource.                 |
+| [`UpdateInstance`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance)                                   | Updates an instance, and begins allocating or releasing resources as requested.             |
+| [`UpdateInstanceConfig`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstanceConfig)                       | Updates an instance configuration.                                                          |
+| [`UpdateInstancePartition`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstancePartition)                 | Updates an instance partition, and begins allocating or releasing resources as requested.   |
+
+## [`google.spanner.v1.Spanner`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner)
+
+| Methods                                                                                                                                           |                                                                                                                                                                                                                                        |
+|---------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`BatchCreateSessions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.BatchCreateSessions) | Creates multiple new sessions.                                                                                                                                                                                                         |
+| [`BatchWrite`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.BatchWrite)                   | Batches the supplied mutation groups in a collection of efficient transactions.                                                                                                                                                        |
+| [`BeginTransaction`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.BeginTransaction)       | Begins a new transaction.                                                                                                                                                                                                              |
+| [`Commit`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Commit)                           | Commits a transaction.                                                                                                                                                                                                                 |
+| [`CreateSession`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.CreateSession)             | Creates a new session.                                                                                                                                                                                                                 |
+| [`DeleteSession`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.DeleteSession)             | Ends a session, releasing server resources associated with it.                                                                                                                                                                         |
+| [`ExecuteBatchDml`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteBatchDml)         | Executes a batch of SQL DML statements.                                                                                                                                                                                                |
+| [`ExecuteSql`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteSql)                   | Executes an SQL statement, returning all results in a single reply.                                                                                                                                                                    |
+| [`ExecuteStreamingSql`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteStreamingSql) | Like [`ExecuteSql`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteSql) , except returns the result set as a stream.                                                      |
+| [`GetSession`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.GetSession)                   | Gets a session.                                                                                                                                                                                                                        |
+| [`ListSessions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ListSessions)               | Lists all sessions in a given database.                                                                                                                                                                                                |
+| [`PartitionQuery`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.PartitionQuery)           | Creates a set of partition tokens that can be used to execute a query operation in parallel.                                                                                                                                           |
+| [`PartitionRead`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.PartitionRead)             | Creates a set of partition tokens that can be used to execute a read operation in parallel.                                                                                                                                            |
+| [`Read`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Read)                               | Reads rows from the database using key lookups and scans, as a simple key/value style alternative to [`ExecuteSql`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.ExecuteSql) . |
+| [`Rollback`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Rollback)                       | Rolls back a transaction, releasing any locks it holds.                                                                                                                                                                                |
+| [`StreamingRead`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.StreamingRead)             | Like [`Read`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Read) , except returns the result set as a stream.                                                                  |

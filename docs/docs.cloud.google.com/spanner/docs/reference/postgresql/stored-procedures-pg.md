@@ -14,16 +14,18 @@ Because you can't use Spanner to create a stored procedure, Spanner doesn't supp
 
 To run a stored system procedure, you use the [`CALL`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#call) statement:
 
-    CALL procedure_name(parameters);
+```
+CALL procedure_name(parameters);
+```
 
-Replace procedure\_name with the name of the stored system procedure. You can run one stored system procedure at a time.
+Replace ` procedure_name ` with the name of the stored system procedure. You can run one stored system procedure at a time.
 
 ## Stored system procedures
 
 Spanner supports the following stored system procedure:
 
-  - [Query cancellation](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg#query-cancellation)
-  - [Major compaction](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg#major-compaction)
+- [Query cancellation](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg#query-cancellation)
+- [Major compaction](https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg#major-compaction)
 
 ### Query cancellation
 
@@ -33,20 +35,22 @@ This section describes the query cancellation stored system procedure.
 
 The `cancel_query` stored system procedure cancels a query. You specify the query to cancel using its `query_id` .
 
-    CALL spanner.cancel_query(query_id)
+```
+CALL spanner.cancel_query(query_id)
+```
 
 #### Description
 
 The `cancel_query` stored system procedure has the following parameters:
 
 | Parameter  | Type     | Description                                             |
-| ---------- | -------- | ------------------------------------------------------- |
+|------------|----------|---------------------------------------------------------|
 | `query_id` | `STRING` | Specifies the ID for the query that you want to cancel. |
 
 Query cancellations might fail because of one or more of the following:
 
-  - The Spanner servers are busy due to heavy query loads.
-  - The query is in the process of restarting due to an error.
+- The Spanner servers are busy due to heavy query loads.
+- The query is in the process of restarting due to an error.
 
 If one of these causes the query to fail, you can run the query cancellation stored system procedure again.
 
@@ -56,7 +60,9 @@ This section describes the major compaction stored system procedure.
 
 #### Syntax
 
-    CALL spanner.compact_all()
+```
+CALL spanner.compact_all()
+```
 
 #### Description
 

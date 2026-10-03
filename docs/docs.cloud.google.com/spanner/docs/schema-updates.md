@@ -8,66 +8,62 @@ data_source: docs.cloud.google.com
 
 Spanner lets you make schema updates with no downtime. You can update the schema of an existing database in several ways:
 
-  - In the Google Cloud console
-    
-    Submit an `ALTER TABLE` command on the **Spanner Studio** page.
-    
-    To access the **Spanner Studio** page, click **Spanner Studio** from the Database overview or Table overview page.
+- In the Google Cloud console
 
-  - Using the `gcloud spanner` command-line tool
-    
-    Submit an `ALTER TABLE` command by using the [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command.
+  Submit an `ALTER TABLE` command on the **Spanner Studio** page.
 
-  - Using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries)
+  To access the **Spanner Studio** page, click **Spanner Studio** from the Database overview or Table overview page.
 
-  - Using the [`projects.instances.databases.updateDdl`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl) REST API
+- Using the `gcloud spanner` command-line tool
 
-  - Using the [`UpdateDatabaseDdl`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl) RPC API
+  Submit an `ALTER TABLE` command by using the [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) command.
 
-<span id="supported_schema_updates"></span>
+- Using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries)
+
+- Using the [`projects.instances.databases.updateDdl`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/updateDdl) REST API
+
+- Using the [`UpdateDatabaseDdl`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabaseDdl) RPC API
 
 ## Supported schema updates
 
 Spanner supports the following schema updates of an existing database:
 
-  - Add or drop a named schema.
-  - Create a new table. Columns in new tables can be `NOT NULL` .
-  - Delete a table, if no other tables are interleaved within it, and it has no secondary indexes.
-  - Create or delete a table with a foreign key.
-  - Add or remove a foreign key from an existing table.
-  - Add a non-key column to any table. New non-key columns cannot be `NOT NULL` .
-      - Drop a non-key column from any table, unless it is used by a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) , foreign key, stored generated column, or check constraint.
-  - Add `NOT NULL` to a non-key column, excluding `ARRAY` columns.
-  - Remove `NOT NULL` from a non-key column.
-  - Change a `STRING` column to a `BYTES` column or a `BYTES` column to a `STRING` column.
-  - Change a `PROTO` column to a `BYTES` column or a `BYTES` column to a `PROTO` column.
-  - Change the proto message type of a `PROTO` column.
-  - Add new values to an `ENUM` definition and rename existing values using `ALTER PROTO BUNDLE` .
-  - Change messages defined in a `PROTO BUNDLE` in arbitrary ways, provided that modified fields of those messages are not used as keys in any table and that the existing data satisfies the new constraints.
-  - Increase or decrease the length limit for a `STRING` or `BYTES` type ( [including to `MAX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) ), unless it is a primary key column inherited by one or more child tables.
-  - Increase or decrease the length limit for an `ARRAY<STRING>` , `ARRAY<BYTES>` , or `ARRAY<PROTO>` column to the maximum allowed.
-  - Enable or disable [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) in value and primary key columns.
-  - Add or remove a secondary index.
-  - Add or remove a check constraint from an existing table.
-  - Add or remove a stored generated column from an existing table.
-  - Construct a new [optimizer statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#construct-statistics-package) .
-  - Create and manage [views](https://docs.cloud.google.com/spanner/docs/views) .
-  - Create and manage [sequences](https://docs.cloud.google.com/spanner/docs/sequence-tasks) .
-  - Create database roles and grant privileges.
-  - Set, change, or drop the default value of a column.
-  - Change the database options ( `default_leader` or `version_retention_period` for example).
-  - Create and manage [change streams](https://docs.cloud.google.com/spanner/docs/change-streams/manage) .
-  - Create and manage ML models.
+- Add or drop a named schema.
+- Create a new table. Columns in new tables can be `NOT NULL` .
+- Delete a table, if no other tables are interleaved within it, and it has no secondary indexes.
+- Create or delete a table with a foreign key.
+- Add or remove a foreign key from an existing table.
+- Add a non-key column to any table. New non-key columns cannot be `NOT NULL` .
+  - Drop a non-key column from any table, unless it is used by a [secondary index](https://docs.cloud.google.com/spanner/docs/secondary-indexes) , foreign key, stored generated column, or check constraint.
+- Add `NOT NULL` to a non-key column, excluding `ARRAY` columns.
+- Remove `NOT NULL` from a non-key column.
+- Change a `STRING` column to a `BYTES` column or a `BYTES` column to a `STRING` column.
+- Change a `PROTO` column to a `BYTES` column or a `BYTES` column to a `PROTO` column.
+- Change the proto message type of a `PROTO` column.
+- Add new values to an `ENUM` definition and rename existing values using `ALTER PROTO BUNDLE` .
+- Change messages defined in a `PROTO BUNDLE` in arbitrary ways, provided that modified fields of those messages are not used as keys in any table and that the existing data satisfies the new constraints.
+- Increase or decrease the length limit for a `STRING` or `BYTES` type ( [including to `MAX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) ), unless it is a primary key column inherited by one or more child tables.
+- Increase or decrease the length limit for an `ARRAY<STRING>` , `ARRAY<BYTES>` , or `ARRAY<PROTO>` column to the maximum allowed.
+- Enable or disable [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) in value and primary key columns.
+- Add or remove a secondary index.
+- Add or remove a check constraint from an existing table.
+- Add or remove a stored generated column from an existing table.
+- Construct a new [optimizer statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#construct-statistics-package) .
+- Create and manage [views](https://docs.cloud.google.com/spanner/docs/views) .
+- Create and manage [sequences](https://docs.cloud.google.com/spanner/docs/sequence-tasks) .
+- Create database roles and grant privileges.
+- Set, change, or drop the default value of a column.
+- Change the database options ( `default_leader` or `version_retention_period` for example).
+- Create and manage [change streams](https://docs.cloud.google.com/spanner/docs/change-streams/manage) .
+- Create and manage ML models.
 
 ## Unsupported schema updates
 
 Spanner doesn't support the following schema updates of an existing database:
 
-  - If there is a `PROTO` field of the `ENUM` type that is referenced by a table or index key, you can't remove `ENUM` values from the proto enums. (Removal of `ENUM` values from enums used by `ENUM<>` columns is supported, including when those columns are used as keys.)
+- If there is a `PROTO` field of the `ENUM` type that is referenced by a table or index key, you can't remove `ENUM` values from the proto enums. (Removal of `ENUM` values from enums used by `ENUM<>` columns is supported, including when those columns are used as keys.)
 
-  - Change a `STRING(36)` column to a `UUID` column or a `UUID` column to a `STRING(36)` column.
-
-<span id="schema_update_performance"></span>
+- Change a `STRING(36)` column to a `UUID` column or a `UUID` column to a `STRING(36)` column.
 
 ## Schema update performance
 
@@ -79,8 +75,6 @@ The time it takes to execute a DDL statement depends on whether the update requi
 
 In summary, schema updates that don't require Spanner to validate existing data can happen in minutes. Schema updates that require validation can take longer, depending on the amount of existing data that needs to be validated, but data validation happens in the background at a lower priority than production traffic. Schema updates that require data validation are discussed in more detail in the next section.
 
-<span id="validate_view_definitions"></span>
-
 ## Schema updates validated against view definitions
 
 When you make a schema update, Spanner validates that the update won't invalidate the queries used to define existing views. If validation is successful, the schema update succeeds. If validation is not successful, the schema update fails. Check [Best practices when creating views](https://docs.cloud.google.com/spanner/docs/views#create-view-guidance) for details.
@@ -91,7 +85,7 @@ You can make schema updates that require validating that the existing data meets
 
 For example, suppose you have defined the following `music.proto` file with a `RecordLabel` enum and `Songwriter` protocol message:
 
-``` 
+```
   enum RecordLabel {
     COOL_MUSIC_INC = 0;
     PACIFIC_ENTERTAINMENT = 1;
@@ -108,66 +102,78 @@ To add a `Songwriters` table in your schema:
 
 ### GoogleSQL
 
-    CREATE PROTO BUNDLE (
-      googlesql.example.music.Songwriter,
-      googlesql.example.music.RecordLabel,
-    );
-    
-    CREATE TABLE Songwriters (
-      Id         INT64 NOT NULL,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-      Nickname   STRING(MAX),
-      OpaqueData BYTES(MAX),
-      SongWriter googlesql.example.music.Songwriter
-    ) PRIMARY KEY (Id);
-    
-    CREATE TABLE Albums (
-      SongwriterId     INT64 NOT NULL,
-      AlbumId          INT64 NOT NULL,
-      AlbumTitle       STRING(MAX),
-      Label            INT32
-    ) PRIMARY KEY (SongwriterId, AlbumId);
+```
+CREATE PROTO BUNDLE (
+  googlesql.example.music.Songwriter,
+  googlesql.example.music.RecordLabel,
+);
+
+CREATE TABLE Songwriters (
+  Id         INT64 NOT NULL,
+  FirstName  STRING(1024),
+  LastName   STRING(1024),
+  Nickname   STRING(MAX),
+  OpaqueData BYTES(MAX),
+  SongWriter googlesql.example.music.Songwriter
+) PRIMARY KEY (Id);
+
+CREATE TABLE Albums (
+  SongwriterId     INT64 NOT NULL,
+  AlbumId          INT64 NOT NULL,
+  AlbumTitle       STRING(MAX),
+  Label            INT32
+) PRIMARY KEY (SongwriterId, AlbumId);
+```
 
 The following schema updates are allowed, but they require validation and might take longer to complete, depending on the amount of existing data:
 
-  - Adding the `NOT NULL` annotation to a non-key column. For example:
-    
-        ALTER TABLE Songwriters ALTER COLUMN Nickname STRING(MAX) NOT NULL;
+- Adding the `NOT NULL` annotation to a non-key column. For example:
 
-  - Reducing the length of a column. For example:
-    
-        ALTER TABLE Songwriters ALTER COLUMN FirstName STRING(10);
+  ```
+  ALTER TABLE Songwriters ALTER COLUMN Nickname STRING(MAX) NOT NULL;
+  ```
 
-  - Altering from `BYTES` to `STRING` . For example:
-    
-        ALTER TABLE Songwriters ALTER COLUMN OpaqueData STRING(MAX);
+- Reducing the length of a column. For example:
 
-  - Altering from `INT64/INT32` to `ENUM` . For example:
-    
-        ALTER TABLE Albums ALTER COLUMN Label googlesql.example.music.RecordLabel;
+  ```
+  ALTER TABLE Songwriters ALTER COLUMN FirstName STRING(10);
+  ```
 
-  - Removing existing values from the `RecordLabel` enum definition.
+- Altering from `BYTES` to `STRING` . For example:
 
-  - Enabling [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp#converting_a_timestamp_column_to_a_commit_timestamp_column) on an existing `TIMESTAMP` column. For example:
-    
-        ALTER TABLE Albums ALTER COLUMN LastUpdateTime SET OPTIONS (allow_commit_timestamp = true);
+  ```
+  ALTER TABLE Songwriters ALTER COLUMN OpaqueData STRING(MAX);
+  ```
 
-  - Adding a check constraint to an existing table.
+- Altering from `INT64/INT32` to `ENUM` . For example:
 
-  - Adding a stored generated column to an existing table.
+  ```
+  ALTER TABLE Albums ALTER COLUMN Label googlesql.example.music.RecordLabel;
+  ```
 
-  - Creating a new table with a foreign key.
+- Removing existing values from the `RecordLabel` enum definition.
 
-  - Adding a foreign key to an existing table.
+- Enabling [commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp#converting_a_timestamp_column_to_a_commit_timestamp_column) on an existing `TIMESTAMP` column. For example:
+
+  ```
+  ALTER TABLE Albums ALTER COLUMN LastUpdateTime SET OPTIONS (allow_commit_timestamp = true);
+  ```
+
+- Adding a check constraint to an existing table.
+
+- Adding a stored generated column to an existing table.
+
+- Creating a new table with a foreign key.
+
+- Adding a foreign key to an existing table.
 
 These schema updates fail if the underlying data does not satisfy the new constraints. For example, the `ALTER TABLE Songwriters ALTER COLUMN Nickname STRING(MAX) NOT NULL` statement fails if any value in the `Nickname` column is `NULL` , because the existing data does not meet the `NOT NULL` constraint of the new definition.
 
 Data validation can take from several minutes to many hours. The time to complete data validation depends on:
 
-  - The size of the dataset
-  - The compute capacity of the instance
-  - The load on the instance
+- The size of the dataset
+- The compute capacity of the instance
+- The load on the instance
 
 Some schema updates can change the behavior of requests to the database before the schema update completes. For example, if you're adding `NOT NULL` to a column, Spanner almost immediately begins rejecting writes for new requests that use `NULL` for the column. If the new schema update ultimately fails for data validation, there will have been a period of time when writes were blocked, even if they would have been accepted by the old schema.
 
@@ -183,54 +189,16 @@ The schema versions don't necessarily correspond one-to-one with either batches 
 
 The following table shows how long it takes Spanner to update a schema.
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Schema operation</th>
-<th>Estimated duration</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">CREATE TABLE</code></td>
-<td>Minutes</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">CREATE INDEX</code></td>
-<td><p>Minutes to hours, if the base table is created before the index.</p>
-<p>Minutes, if the statement is executed at the same time as the <code dir="ltr" translate="no">CREATE TABLE</code> statement for the base table.</p></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">DROP TABLE</code></td>
-<td>Minutes</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">DROP INDEX</code></td>
-<td>Minutes</td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">ALTER TABLE ... ADD COLUMN</code></td>
-<td>Minutes</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">ALTER TABLE ... ALTER COLUMN</code></td>
-<td><p>Minutes to hours, if <a href="https://docs.cloud.google.com/spanner/docs/schema-updates#updates-that-require-validation">background validation</a> is required.</p>
-<p>Minutes, if background validation is not required.</p></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">ALTER TABLE ... DROP COLUMN</code></td>
-<td>Minutes</td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">ANALYZE</code></td>
-<td><p>Minutes to hours, depending on the database size.</p></td>
-</tr>
-</tbody>
-</table>
+| Schema operation               | Estimated duration                                                                                                                                                                                      |
+|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `CREATE TABLE`                 | Minutes                                                                                                                                                                                                 |
+| `CREATE INDEX`                 | Minutes to hours, if the base table is created before the index. Minutes, if the statement is executed at the same time as the `CREATE TABLE` statement for the base table.                             |
+| `DROP TABLE`                   | Minutes                                                                                                                                                                                                 |
+| `DROP INDEX`                   | Minutes                                                                                                                                                                                                 |
+| `ALTER TABLE ... ADD COLUMN`   | Minutes                                                                                                                                                                                                 |
+| `ALTER TABLE ... ALTER COLUMN` | Minutes to hours, if [background validation](https://docs.cloud.google.com/spanner/docs/schema-updates#updates-that-require-validation) is required. Minutes, if background validation is not required. |
+| `ALTER TABLE ... DROP COLUMN`  | Minutes                                                                                                                                                                                                 |
+| `ANALYZE`                      | Minutes to hours, depending on the database size.                                                                                                                                                       |
 
 ## Data type changes and change streams
 

@@ -16,9 +16,9 @@ To use Spanner, you must first create a Spanner *instance* within your Google Cl
 
 Instance creation includes the following important choices:
 
-  - The [*edition*](https://docs.cloud.google.com/spanner/docs/editions-overview) : Spanner's tier-based pricing model that provides different capabilities at different price points.
-  - The [*instance configuration*](https://docs.cloud.google.com/spanner/docs/instance-configurations) : defines the geographic placement and replication topology of the instance.
-  - The [*compute capacity*](https://docs.cloud.google.com/spanner/docs/compute-capacity) : the amount of server and storage resources that are available to the databases in an instance.
+- The [*edition*](https://docs.cloud.google.com/spanner/docs/editions-overview) : Spanner's tier-based pricing model that provides different capabilities at different price points.
+- The [*instance configuration*](https://docs.cloud.google.com/spanner/docs/instance-configurations) : defines the geographic placement and replication topology of the instance.
+- The [*compute capacity*](https://docs.cloud.google.com/spanner/docs/compute-capacity) : the amount of server and storage resources that are available to the databases in an instance.
 
 Once an instance is created, you can list, edit, or delete it. Spanner is a fully managed database service which oversees its own underlying tasks and resources, including monitoring and restarting processes when necessary with zero downtime. As there is no need to manually stop or restart a given instance, Spanner does not offer a way to do so.
 
@@ -32,9 +32,9 @@ Spanner offers different editions to support your various business and applicati
 
 An instance configuration defines the geographic placement and replication of the databases in that instance. When you create an instance, you must configure it as one of the following:
 
-  - *Regional* : All resources are contained within a single Google Cloud [region](https://docs.cloud.google.com/docs/geography-and-regions) .
-  - *Dual-region* : Resources span two regions in a single country.
-  - *Multi-region* : Resources span across multiple regions
+- *Regional* : All resources are contained within a single Google Cloud [region](https://docs.cloud.google.com/docs/geography-and-regions) .
+- *Dual-region* : Resources span two regions in a single country.
+- *Multi-region* : Resources span across multiple regions
 
 You make this choice by selecting an instance configuration, which determines where your data is stored for that instance.
 
@@ -50,7 +50,7 @@ To learn more about compute capacity, see [Compute capacity, nodes and processin
 
 ## What's next
 
-  - Learn more about [Spanner editions](https://docs.cloud.google.com/spanner/docs/editions-overview) .
-  - Learn more about [regional, dual-region, and multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
-  - Learn more about [compute capacity, processing units, and nodes](https://docs.cloud.google.com/spanner/docs/compute-capacity) .
-  - Learn how to [Create a Spanner instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) .
+- Learn more about [Spanner editions](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+- Learn more about [regional, dual-region, and multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
+- Learn more about [compute capacity, processing units, and nodes](https://docs.cloud.google.com/spanner/docs/compute-capacity) .
+- Learn how to [Create a Spanner instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) .

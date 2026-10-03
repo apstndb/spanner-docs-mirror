@@ -12,11 +12,11 @@ This page provides guidance on migrating an open source PostgreSQL database to S
 
 Migration involves the following tasks:
 
-  - Mapping a PostgreSQL schema to a Spanner schema.
-  - Creating a Spanner instance, database, and schema.
-  - Refactoring the application to work with your Spanner database.
-  - Migrating your data.
-  - Verifying the new system and moving it to production status.
+- Mapping a PostgreSQL schema to a Spanner schema.
+- Creating a Spanner instance, database, and schema.
+- Refactoring the application to work with your Spanner database.
+- Migrating your data.
+- Verifying the new system and moving it to production status.
 
 This page also provides some example schemas using tables from the [MusicBrainz](https://musicbrainz.org/doc/MusicBrainz_Database) PostgreSQL database.
 
@@ -41,191 +41,191 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 </thead>
 <tbody>
 <tr class="odd">
-<td><code dir="ltr" translate="no">Bigint</code>
-<code dir="ltr" translate="no">int8</code></td>
-<td><code dir="ltr" translate="no">INT64</code></td>
+<td><code>Bigint</code>
+<code>int8</code></td>
+<td><code>INT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">Bigserial</code>
-<code dir="ltr" translate="no">serial8</code></td>
-<td><code dir="ltr" translate="no">INT64</code>
+<td><code>Bigserial</code>
+<code>serial8</code></td>
+<td><code>INT64</code>
 <blockquote>
 <strong>Note:</strong> There is no auto-increment capability in Spanner.
 </blockquote></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">bit [ (n) ]</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;BOOL&gt;</code></td>
+<td><code>bit [ (n) ]</code></td>
+<td><code>ARRAY&lt;BOOL&gt;</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">bit varying [ (n) ]</code>
-<code dir="ltr" translate="no">varbit [ (n) ]</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;BOOL&gt;</code></td>
+<td><code>bit varying [ (n) ]</code>
+<code>varbit [ (n) ]</code></td>
+<td><code>ARRAY&lt;BOOL&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">Boolean</code>
-<code dir="ltr" translate="no">bool</code></td>
-<td><code dir="ltr" translate="no">BOOL</code></td>
+<td><code>Boolean</code>
+<code>bool</code></td>
+<td><code>BOOL</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">box</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
+<td><code>box</code></td>
+<td><code>ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">bytea</code></td>
-<td><code dir="ltr" translate="no">BYTES</code></td>
+<td><code>bytea</code></td>
+<td><code>BYTES</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">character [ (n) ]</code>
-<code dir="ltr" translate="no">char [ (n) ]</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>character [ (n) ]</code>
+<code>char [ (n) ]</code></td>
+<td><code>STRING</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">character varying [ (n) ]</code>
-<code dir="ltr" translate="no">varchar [ (n) ]</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>character varying [ (n) ]</code>
+<code>varchar [ (n) ]</code></td>
+<td><code>STRING</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">cidr</code></td>
-<td><code dir="ltr" translate="no">STRING</code> , using standard <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">CIDR</a> notation.</td>
+<td><code>cidr</code></td>
+<td><code>STRING</code> , using standard <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">CIDR</a> notation.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">circle</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
+<td><code>circle</code></td>
+<td><code>ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">date</code></td>
-<td><code dir="ltr" translate="no">DATE</code></td>
+<td><code>date</code></td>
+<td><code>DATE</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">double precision</code>
-<code dir="ltr" translate="no">float8</code></td>
-<td><code dir="ltr" translate="no">FLOAT64</code></td>
+<td><code>double precision</code>
+<code>float8</code></td>
+<td><code>FLOAT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">inet</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>inet</code></td>
+<td><code>STRING</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">Integer</code>
-<code dir="ltr" translate="no">int</code>
-<code dir="ltr" translate="no">int4</code></td>
-<td><code dir="ltr" translate="no">INT64</code></td>
+<td><code>Integer</code>
+<code>int</code>
+<code>int4</code></td>
+<td><code>INT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">interval[ fields ] [ (p) ]</code></td>
-<td><code dir="ltr" translate="no">INT64</code> if storing the value in milliseconds, or <code dir="ltr" translate="no">STRING</code> if storing the value in an application-defined interval format.</td>
+<td><code>interval[ fields ] [ (p) ]</code></td>
+<td><code>INT64</code> if storing the value in milliseconds, or <code>STRING</code> if storing the value in an application-defined interval format.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">json</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>json</code></td>
+<td><code>STRING</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">jsonb</code></td>
-<td><code dir="ltr" translate="no">JSON</code></td>
+<td><code>jsonb</code></td>
+<td><code>JSON</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">line</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
+<td><code>line</code></td>
+<td><code>ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">lseg</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
+<td><code>lseg</code></td>
+<td><code>ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">macaddr</code></td>
-<td><code dir="ltr" translate="no">STRING</code> , using standard <a href="https://en.wikipedia.org/wiki/MAC_address">MAC address</a> notation.</td>
+<td><code>macaddr</code></td>
+<td><code>STRING</code> , using standard <a href="https://en.wikipedia.org/wiki/MAC_address">MAC address</a> notation.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">money</code></td>
-<td><code dir="ltr" translate="no">INT64</code> , or <code dir="ltr" translate="no">STRING</code> for <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">arbitrary precision numbers</a> .</td>
+<td><code>money</code></td>
+<td><code>INT64</code> , or <code>STRING</code> for <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">arbitrary precision numbers</a> .</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">numeric [ (p, s) ]</code>
-<code dir="ltr" translate="no">decimal [ (p, s) ]</code></td>
-<td>In PostgreSQL, the <code dir="ltr" translate="no">NUMERIC</code> and <code dir="ltr" translate="no">DECIMAL</code> data types support up to 2 <sup>17</sup> digits of precision and 2 <sup>14</sup> -1 of scale, as defined in the column declaration.<br />
+<td><code>numeric [ (p, s) ]</code>
+<code>decimal [ (p, s) ]</code></td>
+<td>In PostgreSQL, the <code>NUMERIC</code> and <code>DECIMAL</code> data types support up to 2 <sup>17</sup> digits of precision and 2 <sup>14</sup> -1 of scale, as defined in the column declaration.<br />
 <br />
-The Spanner <code dir="ltr" translate="no">NUMERIC</code> data type supports up to 38 digits of precision and 9 decimal digits of scale.<br />
+The Spanner <code>NUMERIC</code> data type supports up to 38 digits of precision and 9 decimal digits of scale.<br />
 <br />
 If you require greater precision, see <a href="https://docs.cloud.google.com/spanner/docs/storing-numeric-data">Storing arbitrary precision numeric data</a> for alternative mechanisms.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">path</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
+<td><code>path</code></td>
+<td><code>ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">pg_lsn</code></td>
+<td><code>pg_lsn</code></td>
 <td>This data type is PostgreSQL-specific, so there isn't a Spanner equivalent.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">point</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
+<td><code>point</code></td>
+<td><code>ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">polygon</code></td>
-<td><code dir="ltr" translate="no">ARRAY&lt;FLOAT64&gt;</code></td>
+<td><code>polygon</code></td>
+<td><code>ARRAY&lt;FLOAT64&gt;</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">Real</code>
-<code dir="ltr" translate="no">float4</code></td>
-<td><code dir="ltr" translate="no">FLOAT64</code></td>
+<td><code>Real</code>
+<code>float4</code></td>
+<td><code>FLOAT64</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">Smallint</code>
-<code dir="ltr" translate="no">int2</code></td>
-<td><code dir="ltr" translate="no">INT64</code></td>
+<td><code>Smallint</code>
+<code>int2</code></td>
+<td><code>INT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">Smallserial</code>
-<code dir="ltr" translate="no">serial2</code></td>
-<td><code dir="ltr" translate="no">INT64</code></td>
+<td><code>Smallserial</code>
+<code>serial2</code></td>
+<td><code>INT64</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">Serial</code>
-<code dir="ltr" translate="no">serial4</code></td>
-<td><code dir="ltr" translate="no">INT64</code></td>
+<td><code>Serial</code>
+<code>serial4</code></td>
+<td><code>INT64</code></td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">text</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>text</code></td>
+<td><code>STRING</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">time [ (p) ] [ without time zone ]</code></td>
-<td><code dir="ltr" translate="no">STRING</code> , using <code dir="ltr" translate="no">HH:MM:SS.sss</code> notation.</td>
+<td><code>time [ (p) ] [ without time zone ]</code></td>
+<td><code>STRING</code> , using <code>HH:MM:SS.sss</code> notation.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">time [ (p) ] with time zone</code>
-<code dir="ltr" translate="no">timetz</code></td>
-<td><code dir="ltr" translate="no">STRING</code> , using <code dir="ltr" translate="no">HH:MM:SS.sss+ZZZZ</code> notation. Alternately, this can be broken up into two columns, one of type <code dir="ltr" translate="no">TIMESTAMP</code> and another one holding the timezone.</td>
+<td><code>time [ (p) ] with time zone</code>
+<code>timetz</code></td>
+<td><code>STRING</code> , using <code>HH:MM:SS.sss+ZZZZ</code> notation. Alternately, this can be broken up into two columns, one of type <code>TIMESTAMP</code> and another one holding the timezone.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">timestamp [ (p) ] [ without time zone ]</code></td>
-<td>No equivalent. You may store as a <code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">TIMESTAMP</code> at your discretion.</td>
+<td><code>timestamp [ (p) ] [ without time zone ]</code></td>
+<td>No equivalent. You may store as a <code>STRING</code> or <code>TIMESTAMP</code> at your discretion.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">timestamp [ (p) ] with time zone</code>
-<code dir="ltr" translate="no">timestamptz</code></td>
-<td><code dir="ltr" translate="no">TIMESTAMP</code></td>
+<td><code>timestamp [ (p) ] with time zone</code>
+<code>timestamptz</code></td>
+<td><code>TIMESTAMP</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">tsquery</code></td>
+<td><code>tsquery</code></td>
 <td>No equivalent. Define a storage mechanism in your application instead.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">tsvector</code></td>
+<td><code>tsvector</code></td>
 <td>No equivalent. Define a storage mechanism in your application instead.</td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">txid_snapshot</code></td>
+<td><code>txid_snapshot</code></td>
 <td>No equivalent. Define a storage mechanism in your application instead.</td>
 </tr>
 <tr class="even">
-<td><code dir="ltr" translate="no">uuid</code></td>
-<td><code dir="ltr" translate="no">STRING</code> or <code dir="ltr" translate="no">BYTES</code></td>
+<td><code>uuid</code></td>
+<td><code>STRING</code> or <code>BYTES</code></td>
 </tr>
 <tr class="odd">
-<td><code dir="ltr" translate="no">xml</code></td>
-<td><code dir="ltr" translate="no">STRING</code></td>
+<td><code>xml</code></td>
+<td><code>STRING</code></td>
 </tr>
 </tbody>
 </table>
@@ -246,7 +246,7 @@ Learn about [foreign keys support in Spanner](https://docs.cloud.google.com/span
 
 PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-types.html) are similar to [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) in Spanner. In a Spanner database you use secondary indexes to index commonly searched columns for better performance, and to replace any `UNIQUE` constraints specified in your tables. For example, if your PostgreSQL DDL has this statement:
 
-``` 
+```
    CREATE TABLE customer (
       id CHAR (5) PRIMARY KEY,
       first_name VARCHAR (50),
@@ -257,7 +257,7 @@ PostgreSQL [b-tree indexes](https://www.postgresql.org/docs/10/static/indexes-ty
 
 You would use this statement in your Spanner DDL:
 
-``` 
+```
    CREATE TABLE customer (
       id STRING(5),
       first_name STRING(50),
@@ -282,16 +282,16 @@ Learn about [`CHECK` constraint support in Spanner](https://docs.cloud.google.co
 
 You must create the functionality of the following objects in your application logic:
 
-  - Views
-  - Triggers
-  - Stored procedures
-  - User-defined functions (UDFs)
-  - Columns that use `serial` data types as sequence generators
+- Views
+- Triggers
+- Stored procedures
+- User-defined functions (UDFs)
+- Columns that use `serial` data types as sequence generators
 
 Keep the following tips in mind when migrating this functionality into application logic:
 
-  - You must migrate any SQL statements that you use from the PostgreSQL SQL dialect to the [GoogleSQL dialect](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) .
-  - If you use [cursors](https://www.postgresql.org/docs/current/static/plpgsql-cursors.html) , you can rework the query to use [offsets and limits](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
+- You must migrate any SQL statements that you use from the PostgreSQL SQL dialect to the [GoogleSQL dialect](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) .
+- If you use [cursors](https://www.postgresql.org/docs/current/static/plpgsql-cursors.html) , you can rework the query to use [offsets and limits](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#limit_and_offset_clause) .
 
 ## Create your Spanner instance
 
@@ -305,15 +305,10 @@ After you update your DDL statements to conform to Spanner schema requirements, 
 
 1.  
 2.  Click on the name of the instance that you want to create the example database in to open the **Instance details** page.
-
 3.  Click **Create Database** .
-
 4.  Type a name for the database and click **Continue** .
-
 5.  In the **Define your database schema** section, toggle the **Edit as text** control.
-
 6.  Copy and paste your DDL statements into the **DDL statements** field.
-
 7.  Click **Create** .
 
 ### gcloud
@@ -321,15 +316,15 @@ After you update your DDL statements to conform to Spanner schema requirements, 
 1.  Install the [gcloud CLI](https://docs.cloud.google.com/sdk/downloads) .
 
 2.  Use the `gcloud spanner databases create` command to [create the database](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#create_databases) :
-    
-        gcloud spanner databases create DATABASE_NAME --instance=INSTANCE_NAME
-        --ddl='DDL1' --ddl='DDL2'
 
-<!-- end list -->
+    ```
+    gcloud spanner databases create DATABASE_NAME --instance=INSTANCE_NAME
+    --ddl='DDL1' --ddl='DDL2'
+    ```
 
-  - DATABASE\_NAME is the name of your database.
-  - INSTANCE\_NAME is the Spanner instance that you created.
-  - DDL *n* are your modified DDL statements.
+- ` DATABASE_NAME ` is the name of your database.
+- ` INSTANCE_NAME ` is the Spanner instance that you created.
+- ` DDL `*`n`*` ` are your modified DDL statements.
 
 After you create the database, follow the instructions in [Apply IAM roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) to create user accounts and grant permissions to the Spanner instance and database.
 
@@ -341,9 +336,9 @@ The default isolation level of transactions in Spanner is [serializable isolatio
 
 In addition to the code needed to replace the [preceding database objects](https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner#other-database-objects) , you must add application logic to handle the following functionality:
 
-  - Hashing primary keys for writes, for tables that have high write rates to sequential keys.
-  - Validating data, not already covered by `CHECK` constraints.
-  - Referential integrity checks not already covered by foreign keys, table interleaving or application logic, including functionality handled by triggers in the PostgreSQL schema.
+- Hashing primary keys for writes, for tables that have high write rates to sequential keys.
+- Validating data, not already covered by `CHECK` constraints.
+- Referential integrity checks not already covered by foreign keys, table interleaving or application logic, including functionality handled by triggers in the PostgreSQL schema.
 
 We recommend using the following process when refactoring:
 
@@ -358,7 +353,7 @@ After you create your Spanner database and refactor your application code, you c
 1.  Use the PostgreSQL [`COPY`](https://www.postgresql.org/docs/10/static/sql-copy.html) command to dump data to .csv files.
 
 2.  Upload the .csv files to Cloud Storage.
-    
+
     1.  [Create a Cloud Storage bucket](https://docs.cloud.google.com/storage/docs/creating-buckets) .
     2.  In the Cloud Storage console, click on the bucket name to open the bucket browser.
     3.  Click **Upload Files** .
@@ -382,7 +377,7 @@ After you complete the initial application testing, turn up the new system using
 3.  Export all data from the PostgreSQL database and import it into the Spanner database as described in [Migration overview](https://docs.cloud.google.com/spanner/docs/migration-overview) .
 
 4.  Start up the application that targets the Spanner database.
-    
+
     ![Offline migration dataflow.](https://docs.cloud.google.com/static/spanner/docs/images/offline-migration.png)
 
 Live migration is possible and requires extensive changes to your application to support the migration.
@@ -391,110 +386,122 @@ Live migration is possible and requires extensive changes to your application to
 
 These examples show the `CREATE TABLE` statements for several tables in the [MusicBrainz](https://musicbrainz.org/) PostgreSQL database [schema](https://musicbrainz.org/doc/MusicBrainz_Database/Schema) . Each example includes both the PostgreSQL schema and the Spanner schema.
 
-### artist\_credit table
+### artist_credit table
 
 ### GoogleSQL
 
-    CREATE TABLE artist_credit (
-     hashed_id STRING(4),
-     id INT64,
-     name STRING(MAX) NOT NULL,
-     artist_count INT64 NOT NULL,
-     ref_count INT64,
-     created TIMESTAMP OPTIONS (
-        allow_commit_timestamp = true
-     ),
-    ) PRIMARY KEY(hashed_id, id);
+```
+CREATE TABLE artist_credit (
+ hashed_id STRING(4),
+ id INT64,
+ name STRING(MAX) NOT NULL,
+ artist_count INT64 NOT NULL,
+ ref_count INT64,
+ created TIMESTAMP OPTIONS (
+    allow_commit_timestamp = true
+ ),
+) PRIMARY KEY(hashed_id, id);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE artist_credit (
-     id SERIAL,
-     name VARCHAR NOT NULL,
-     artist_count SMALLINT NOT NULL,
-     ref_count INTEGER DEFAULT 0,
-     created TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-    );
+```
+CREATE TABLE artist_credit (
+ id SERIAL,
+ name VARCHAR NOT NULL,
+ artist_count SMALLINT NOT NULL,
+ ref_count INTEGER DEFAULT 0,
+ created TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+```
 
 ### recording table
 
 ### GoogleSQL
 
-    CREATE TABLE recording (
-      hashed_id STRING(36),
-      id INT64,
-      gid STRING(36) NOT NULL,
-      name STRING(MAX) NOT NULL,
-      artist_credit_hid STRING(36) NOT NULL,
-      artist_credit_id INT64 NOT NULL,
-      length INT64,
-      comment STRING(255) NOT NULL,
-      edits_pending INT64 NOT NULL,
-      last_updated TIMESTAMP OPTIONS (
-         allow_commit_timestamp = true
-      ),
-      video BOOL NOT NULL,
-    ) PRIMARY KEY(hashed_id, id);
+```
+CREATE TABLE recording (
+  hashed_id STRING(36),
+  id INT64,
+  gid STRING(36) NOT NULL,
+  name STRING(MAX) NOT NULL,
+  artist_credit_hid STRING(36) NOT NULL,
+  artist_credit_id INT64 NOT NULL,
+  length INT64,
+  comment STRING(255) NOT NULL,
+  edits_pending INT64 NOT NULL,
+  last_updated TIMESTAMP OPTIONS (
+     allow_commit_timestamp = true
+  ),
+  video BOOL NOT NULL,
+) PRIMARY KEY(hashed_id, id);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE recording (
-      id SERIAL,
-      gid UUID NOT NULL,
-      name VARCHAR NOT NULL,
-      artist_credit INTEGER NOT NULL, -- references artist_credit.id
-      length INTEGER CHECK (length IS NULL OR length > 0),
-      comment VARCHAR(255) NOT NULL DEFAULT '',
-      edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-      last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-      video BOOLEAN NOT NULL DEFAULT FALSE
-    );
+```
+CREATE TABLE recording (
+  id SERIAL,
+  gid UUID NOT NULL,
+  name VARCHAR NOT NULL,
+  artist_credit INTEGER NOT NULL, -- references artist_credit.id
+  length INTEGER CHECK (length IS NULL OR length > 0),
+  comment VARCHAR(255) NOT NULL DEFAULT '',
+  edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+  last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  video BOOLEAN NOT NULL DEFAULT FALSE
+);
+```
 
 ### recording-alias table
 
 ### GoogleSQL
 
-    CREATE TABLE recording_alias (
-      hashed_id STRING(36)  NOT NULL,
-      id INT64  NOT NULL,
-      alias_id INT64,
-      name STRING(MAX)  NOT NULL,
-      locale STRING(MAX),
-      edits_pending INT64  NOT NULL,
-      last_updated TIMESTAMP NOT NULL OPTIONS (
-         allow_commit_timestamp = true
-      ),
-      type INT64,
-      sort_name STRING(MAX)  NOT NULL,
-      begin_date_year INT64,
-      begin_date_month INT64,
-      begin_date_day INT64,
-      end_date_year INT64,
-      end_date_month INT64,
-      end_date_day INT64,
-      primary_for_locale BOOL NOT NULL,
-      ended BOOL NOT NULL,
-    ) PRIMARY KEY(hashed_id, id, alias_id),
-     INTERLEAVE IN PARENT recording ON DELETE NO ACTION;
+```
+CREATE TABLE recording_alias (
+  hashed_id STRING(36)  NOT NULL,
+  id INT64  NOT NULL,
+  alias_id INT64,
+  name STRING(MAX)  NOT NULL,
+  locale STRING(MAX),
+  edits_pending INT64  NOT NULL,
+  last_updated TIMESTAMP NOT NULL OPTIONS (
+     allow_commit_timestamp = true
+  ),
+  type INT64,
+  sort_name STRING(MAX)  NOT NULL,
+  begin_date_year INT64,
+  begin_date_month INT64,
+  begin_date_day INT64,
+  end_date_year INT64,
+  end_date_month INT64,
+  end_date_day INT64,
+  primary_for_locale BOOL NOT NULL,
+  ended BOOL NOT NULL,
+) PRIMARY KEY(hashed_id, id, alias_id),
+ INTERLEAVE IN PARENT recording ON DELETE NO ACTION;
+```
 
 ### PostgreSQL
 
-    CREATE TABLE recording_alias (
-      id SERIAL, --PK
-      recording INTEGER NOT NULL, -- references recording.id
-      name VARCHAR NOT NULL,
-      locale TEXT,
-      edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
-      last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-      type INTEGER, -- references recording_alias_type.id
-      sort_name VARCHAR NOT NULL,
-      begin_date_year SMALLINT,
-      begin_date_month SMALLINT,
-      begin_date_day SMALLINT,
-      end_date_year SMALLINT,
-      end_date_month SMALLINT,
-      end_date_day SMALLINT,
-      primary_for_locale BOOLEAN NOT NULL DEFAULT false,
-      ended BOOLEAN NOT NULL DEFAULT FALSE
-      -- CHECK constraint skipped for brevity
-    );
+```
+CREATE TABLE recording_alias (
+  id SERIAL, --PK
+  recording INTEGER NOT NULL, -- references recording.id
+  name VARCHAR NOT NULL,
+  locale TEXT,
+  edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
+  last_updated TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  type INTEGER, -- references recording_alias_type.id
+  sort_name VARCHAR NOT NULL,
+  begin_date_year SMALLINT,
+  begin_date_month SMALLINT,
+  begin_date_day SMALLINT,
+  end_date_year SMALLINT,
+  end_date_month SMALLINT,
+  end_date_day SMALLINT,
+  primary_for_locale BOOLEAN NOT NULL DEFAULT false,
+  ended BOOLEAN NOT NULL DEFAULT FALSE
+  -- CHECK constraint skipped for brevity
+);
+```

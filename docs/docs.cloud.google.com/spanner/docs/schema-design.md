@@ -12,8 +12,6 @@ This page describes best practices for designing your schemas to avoid creating 
 
 Spanner automatically detects opportunities to apply [schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) . If recommendations are available for a database, you can view them on the **Spanner Studio** page for that database. For more information, see [View schema design best practice recommendations](https://docs.cloud.google.com/spanner/docs/manage-data-using-console#recommend-schema-best) .
 
-<span id="choosing_a_primary_key_to_prevent_hotspots"></span> <span id="choose_a_primary_key_to_prevent_hotspots"></span>
-
 ## Choose a primary key to prevent hotspots
 
 To avoid creating hotspots in your database, carefully [choose a primary key](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#choosing_a_primary_key) during schema design.
@@ -24,20 +22,24 @@ For example, suppose you want to maintain a last access timestamp column on rows
 
 ### GoogleSQL
 
-    CREATE TABLE UserAccessLogs (
-      LastAccess TIMESTAMP NOT NULL,
-      UserId STRING(1024),
-      ...
-    ) PRIMARY KEY (LastAccess, UserId);
+```
+CREATE TABLE UserAccessLogs (
+  LastAccess TIMESTAMP NOT NULL,
+  UserId STRING(1024),
+  ...
+) PRIMARY KEY (LastAccess, UserId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE useraccesslogs (
-      lastaccess timestamptz NOT NULL,
-      userid text,
-      ...
-    PRIMARY KEY (lastaccess, userid)
-    );
+```
+CREATE TABLE useraccesslogs (
+  lastaccess timestamptz NOT NULL,
+  userid text,
+  ...
+PRIMARY KEY (lastaccess, userid)
+);
+```
 
 The problem here is that rows are written to this table in order of last access timestamp, and because last access timestamps are always increasing, they're always written to the end of the table. The hotspot is created because a single Spanner server receives all of the writes, which overloads that one server.
 
@@ -59,8 +61,8 @@ You can use a universally unique identifier (UUID) as defined by [RFC 9562](http
 
 Consider the following before deciding to use UUIDs:
 
-  - They function independently of the record's content. Unlike semantic keys such as `SingerId` and `AlbumId` , a UUID is strictly a unique identifier unrelated to the data itself.
-  - They don't keep locality between related records, which is why using a UUID eliminates hotspots.
+- They function independently of the record's content. Unlike semantic keys such as `SingerId` and `AlbumId` , a UUID is strictly a unique identifier unrelated to the data itself.
+- They don't keep locality between related records, which is why using a UUID eliminates hotspots.
 
 For a `UUID` column, you can use the Spanner [`NEW_UUID()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) GoogleSQL function or the [`gen_random_uuid()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) PostgreSQL function to create UUID values.
 
@@ -68,7 +70,7 @@ For example, for the following table:
 
 ### GoogleSQL
 
-``` 
+```
   CREATE TABLE UserAccessLogs (
     LogEntryId UUID DEFAULT (NEW_UUID()),
     LastAccess TIMESTAMP NOT NULL,
@@ -78,7 +80,7 @@ For example, for the following table:
 
 ### PostgreSQL
 
-``` 
+```
   CREATE TABLE useraccesslogs (
     logentryid uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     lastaccess timestamptz NOT NULL,
@@ -89,13 +91,17 @@ You can use the generated UUID function to create new `LogEntryId` values.
 
 ### GoogleSQL
 
-    INSERT INTO UserAccessLogs (LastAccess, UserId)
-    VALUES ('2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
+INSERT INTO UserAccessLogs (LastAccess, UserId)
+VALUES ('2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
 
 ### PostgreSQL
 
-    INSERT INTO UserAccessLogs (LastAccess, UserId)
-    VALUES ('2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
+INSERT INTO UserAccessLogs (LastAccess, UserId)
+VALUES ('2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
 
 For a `UUID` column, you can use the Spanner [`NEW_UUID()`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) GoogleSQL function or the [`gen_random_uuid()`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#utility) PostgreSQL function as the column default value so that Spanner automatically generates UUID values.
 
@@ -103,51 +109,63 @@ For example, for the following table:
 
 ### GoogleSQL
 
-    CREATE TABLE UserAccessLogs (
-      LogEntryId UUID NOT NULL,
-      LastAccess TIMESTAMP NOT NULL,
-      UserId STRING(1024),
-      ...
-    ) PRIMARY KEY (LogEntryId);
+```
+CREATE TABLE UserAccessLogs (
+  LogEntryId UUID NOT NULL,
+  LastAccess TIMESTAMP NOT NULL,
+  UserId STRING(1024),
+  ...
+) PRIMARY KEY (LogEntryId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE useraccesslogs (
-      logentryid uuid PRIMARY KEY NOT NULL,
-      lastaccess timestamptz NOT NULL,
-      userid text);
+```
+CREATE TABLE useraccesslogs (
+  logentryid uuid PRIMARY KEY NOT NULL,
+  lastaccess timestamptz NOT NULL,
+  userid text);
+```
 
 You can insert GoogleSQL `NEW_UUID()` or PostgreSQL `gen_random_uuid()` to generate the `LogEntryId` values. These functions produce a `UUID` value, so the `LogEntryId` column must use the `UUID` type for GoogleSQL or PostgreSQL.
 
 ### GoogleSQL
 
-    INSERT INTO
-      UserAccessLogs (LogEntryId, LastAccess, UserId)
-    VALUES
-      (NEW_UUID(), '2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
+INSERT INTO
+  UserAccessLogs (LogEntryId, LastAccess, UserId)
+VALUES
+  (NEW_UUID(), '2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
 
 ### PostgreSQL
 
-    INSERT INTO
-      useraccesslogs (logentryid, lastaccess, userid)
-    VALUES
-      (gen_random_uuid(),'2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
+INSERT INTO
+  useraccesslogs (logentryid, lastaccess, userid)
+VALUES
+  (gen_random_uuid(),'2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
 
 You can also insert UUID values you've generated elsewhere, such as your backend application. This is because UUIDs are unique, regardless of where they are generated.
 
 ### GoogleSQL
 
-    INSERT INTO
-      UserAccessLogs (LogEntryId, LastAccess, UserId)
-    VALUES
-      ('4192bff0-e1e0-43ce-a4db-912808c32493', '2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
+INSERT INTO
+  UserAccessLogs (LogEntryId, LastAccess, UserId)
+VALUES
+  ('4192bff0-e1e0-43ce-a4db-912808c32493', '2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
 
 ### PostgreSQL
 
-    INSERT INTO
-      useraccesslogs (logentryid, lastaccess, userid)
-    VALUES
-      ('4192bff0-e1e0-43ce-a4db-912808c32493','2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
+INSERT INTO
+  useraccesslogs (logentryid, lastaccess, userid)
+VALUES
+  ('4192bff0-e1e0-43ce-a4db-912808c32493','2016-01-25 10:10:10.555555-05:00', 'TomSmith');
+```
 
 ### Bit-reverse sequential values
 
@@ -161,20 +179,24 @@ One way to spread writes over the key space more uniformly is to swap the order 
 
 ### GoogleSQL
 
-    CREATE TABLE UserAccessLogs (
-    UserId     INT64 NOT NULL,
-    LastAccess TIMESTAMP NOT NULL,
-    ...
-    ) PRIMARY KEY (UserId, LastAccess);
+```
+CREATE TABLE UserAccessLogs (
+UserId     INT64 NOT NULL,
+LastAccess TIMESTAMP NOT NULL,
+...
+) PRIMARY KEY (UserId, LastAccess);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE useraccesslogs (
-    userid bigint NOT NULL,
-    lastaccess TIMESTAMPTZ NOT NULL,
-    ...
-    PRIMARY KEY (UserId, LastAccess)
-    );
+```
+CREATE TABLE useraccesslogs (
+userid bigint NOT NULL,
+lastaccess TIMESTAMPTZ NOT NULL,
+...
+PRIMARY KEY (UserId, LastAccess)
+);
+```
 
 In this modified schema, inserts are now first ordered by `UserId` , rather than by chronological last access timestamp. This schema spreads writes among different splits because it's unlikely that a single user produces thousands of events per second.
 
@@ -192,28 +214,34 @@ You can use the hash value to create logical shards, or partitions, in your data
 
 ### GoogleSQL
 
-    CREATE TABLE UserAccessLogs (
-    ShardId     INT64 NOT NULL,
-    LastAccess  TIMESTAMP NOT NULL,
-    UserId      INT64 NOT NULL,
-    ...
-    ) PRIMARY KEY (ShardId, LastAccess, UserId);
+```
+CREATE TABLE UserAccessLogs (
+ShardId     INT64 NOT NULL,
+LastAccess  TIMESTAMP NOT NULL,
+UserId      INT64 NOT NULL,
+...
+) PRIMARY KEY (ShardId, LastAccess, UserId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE useraccesslogs (
-    shardid bigint NOT NULL,
-    lastaccess TIMESTAMPTZ NOT NULL,
-    userid bigint NOT NULL,
-    ...
-    PRIMARY KEY (shardid, lastaccess, userid)
-    );
+```
+CREATE TABLE useraccesslogs (
+shardid bigint NOT NULL,
+lastaccess TIMESTAMPTZ NOT NULL,
+userid bigint NOT NULL,
+...
+PRIMARY KEY (shardid, lastaccess, userid)
+);
+```
 
 To compute the `ShardId` , hash a combination of the primary key columns and then calculate modulo N of the hash. For example:
 
 ### GoogleSQL
 
-    ShardId = hash(LastAccess and UserId) % N
+```
+ShardId = hash(LastAccess and UserId) % N
+```
 
 Your choice of hash function and combination of columns determines how the rows are spread across the key space. Spanner will then create splits across the rows to optimize performance.
 
@@ -223,47 +251,51 @@ Here the `UserAccessLogs` table is ordered by `ShardId` , which is calculated as
 
 Spanner also lets you create a hash function in a [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) .
 
-To do this in GoogleSQL, use the [FARM\_FINGERPRINT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions) function during write time, as shown in the following example:
+To do this in GoogleSQL, use the [FARM_FINGERPRINT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions) function during write time, as shown in the following example:
 
 ### GoogleSQL
 
-    CREATE TABLE UserAccessLogs (
-    ShardId INT64 NOT NULL
-    AS (MOD(FARM_FINGERPRINT(CAST(LastAccess AS STRING)), 2048)) STORED,
-    LastAccess TIMESTAMP NOT NULL,
-    UserId    INT64 NOT NULL,
-    ) PRIMARY KEY (ShardId, LastAccess, UserId);
+```
+CREATE TABLE UserAccessLogs (
+ShardId INT64 NOT NULL
+AS (MOD(FARM_FINGERPRINT(CAST(LastAccess AS STRING)), 2048)) STORED,
+LastAccess TIMESTAMP NOT NULL,
+UserId    INT64 NOT NULL,
+) PRIMARY KEY (ShardId, LastAccess, UserId);
+```
 
 Your choice of hash function determines how well your insertions are spread across the key range. You don't need a cryptographic hash, although a cryptographic hash might be a good choice. When picking a hash function, you need to consider the following factors:
 
-  - Hotspot avoidance. A function that results in more hash values tends to reduce hotspots.
-  - Read efficiency. Reads across all hash values are faster if there are fewer hash values to scan.
-  - Node count.
+- Hotspot avoidance. A function that results in more hash values tends to reduce hotspots.
+- Read efficiency. Reads across all hash values are faster if there are fewer hash values to scan.
+- Node count.
 
 When using a `ShardId` to prevent hotspots, use the following guidelines to choose the value of N, the number of logical shards:
 
-  - **Correlate N with the number of nodes:** set N to be equal to the number of nodes you expect your instance to have. For example, if you expect your instance to scale up to 10 nodes, a value of N=10 is an effective starting point. This helps Spanner distribute the write load evenly across the nodes.
+- **Correlate N with the number of nodes:** set N to be equal to the number of nodes you expect your instance to have. For example, if you expect your instance to scale up to 10 nodes, a value of N=10 is an effective starting point. This helps Spanner distribute the write load evenly across the nodes.
 
-  - **N is a static value:** changing N after initial setup requires a schema update and potentially a data backfill. Therefore, you must choose a value for N that can accommodate your scaling needs.
+- **N is a static value:** changing N after initial setup requires a schema update and potentially a data backfill. Therefore, you must choose a value for N that can accommodate your scaling needs.
 
-  - **Avoid excessively large values for N:** while it might be tempting to choose a very large value for N to prepare for growth, it isn't generally necessary. More shards than the physical servers won't improve the performance significantly compared to the additional Spanner cost. Aligning N with the number of nodes is an effective strategy for distributing the workload.
+- **Avoid excessively large values for N:** while it might be tempting to choose a very large value for N to prepare for growth, it isn't generally necessary. More shards than the physical servers won't improve the performance significantly compared to the additional Spanner cost. Aligning N with the number of nodes is an effective strategy for distributing the workload.
 
 ## Use descending order for timestamp-based keys
 
 If you have a table for your history that uses the timestamp as a key, consider using descending order for the key column if any of the following apply:
 
-  - **If you want to read the most recent history, you're using an interleaved table for the history, and you're reading the parent row** . In this case, with a `DESC` timestamp column, the latest history entries are stored adjacent to the parent row. Otherwise, reading the parent row and its recent history will require a seek in the middle to skip over the older history.
-  - **If you're reading sequential entries in reverse chronological order, and you don't know exactly how far back you're going** . For example, you might use a SQL query with a `LIMIT` to get the most recent N events, or you might plan to cancel the read after you've read a certain number of rows. In these cases, you want to start with the most recent entries and read sequentially older entries until your condition has been met, which Spanner does more efficiently for timestamp keys that Spanner stores in descending order.
+- **If you want to read the most recent history, you're using an interleaved table for the history, and you're reading the parent row** . In this case, with a `DESC` timestamp column, the latest history entries are stored adjacent to the parent row. Otherwise, reading the parent row and its recent history will require a seek in the middle to skip over the older history.
+- **If you're reading sequential entries in reverse chronological order, and you don't know exactly how far back you're going** . For example, you might use a SQL query with a `LIMIT` to get the most recent N events, or you might plan to cancel the read after you've read a certain number of rows. In these cases, you want to start with the most recent entries and read sequentially older entries until your condition has been met, which Spanner does more efficiently for timestamp keys that Spanner stores in descending order.
 
 Add the `DESC` keyword to make the timestamp key descending. For example:
 
 ### GoogleSQL
 
-    CREATE TABLE UserAccessLogs (
-    UserId     INT64 NOT NULL,
-    LastAccess TIMESTAMP NOT NULL,
-    ...
-    ) PRIMARY KEY (UserId, LastAccess DESC);
+```
+CREATE TABLE UserAccessLogs (
+UserId     INT64 NOT NULL,
+LastAccess TIMESTAMP NOT NULL,
+...
+) PRIMARY KEY (UserId, LastAccess DESC);
+```
 
 **Schema design best practice \#2: Descending order or ascending order depends on the user queries, for example, top being the newest, or top being the oldest.**
 
@@ -277,31 +309,39 @@ For example, suppose you define the following table, in which `LastAccess` is a 
 
 ### GoogleSQL
 
-    CREATE TABLE Users (
-    UserId     INT64 NOT NULL,
-    LastAccess TIMESTAMP,
-    ...
-    ) PRIMARY KEY (UserId);
+```
+CREATE TABLE Users (
+UserId     INT64 NOT NULL,
+LastAccess TIMESTAMP,
+...
+) PRIMARY KEY (UserId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE Users (
-    userid     bigint NOT NULL,
-    lastaccess TIMESTAMPTZ,
-    ...
-    PRIMARY KEY (userid)
-    );
+```
+CREATE TABLE Users (
+userid     bigint NOT NULL,
+lastaccess TIMESTAMPTZ,
+...
+PRIMARY KEY (userid)
+);
+```
 
 It might seem convenient to define an index on the `LastAccess` column for quickly querying the database for user accesses "since time X", like this:
 
 ### GoogleSQL
 
-    CREATE NULL_FILTERED INDEX UsersByLastAccess ON Users(LastAccess);
+```
+CREATE NULL_FILTERED INDEX UsersByLastAccess ON Users(LastAccess);
+```
 
 ### PostgreSQL
 
-    CREATE INDEX usersbylastaccess ON users(lastaccess)
-    WHERE lastaccess IS NOT NULL;
+```
+CREATE INDEX usersbylastaccess ON users(lastaccess)
+WHERE lastaccess IS NOT NULL;
+```
 
 However, this results in the same pitfall as described in the previous best practice, because Spanner implements indexes as tables under the hood, and the resulting index table uses a column whose value monotonically increases as its first key part.
 
@@ -309,19 +349,23 @@ It's okay to create an interleaved index where last access rows are interleaved 
 
 ### GoogleSQL
 
-    CREATE NULL_FILTERED INDEX UsersByLastAccess
-    ON Users(UserId, LastAccess),
-    INTERLEAVE IN Users;
+```
+CREATE NULL_FILTERED INDEX UsersByLastAccess
+ON Users(UserId, LastAccess),
+INTERLEAVE IN Users;
+```
 
 ### PostgreSQL
 
-    CREATE INDEX usersbylastaccess ON users(userid, lastaccess)
-    WHERE lastaccess IS NOT NULL,
-    INTERLEAVE IN Users;
+```
+CREATE INDEX usersbylastaccess ON users(userid, lastaccess)
+WHERE lastaccess IS NOT NULL,
+INTERLEAVE IN Users;
+```
 
 **Schema design best practice \#3: Don't create a non-interleaved index on a high write rate column whose value monotonically increases or decreases. Use an interleaved index, or use techniques like those you would use for the base table primary key design when designing index columns—for example, add \`shardId\`.**
 
 ## What's next
 
-  - Look through [examples of schema designs](https://cloudplatform.googleblog.com/2018/06/What-DBAs-need-to-know-about-Cloud-Spanner-part-1-Keys-and-indexes.html) .
-  - Learn about [bulk loading data](https://docs.cloud.google.com/spanner/docs/bulk-loading) .
+- Look through [examples of schema designs](https://cloudplatform.googleblog.com/2018/06/What-DBAs-need-to-know-about-Cloud-Spanner-part-1-Keys-and-indexes.html) .
+- Learn about [bulk loading data](https://docs.cloud.google.com/spanner/docs/bulk-loading) .

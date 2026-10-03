@@ -12,7 +12,7 @@ gcloud spanner databases ddl - manage the DDL for Cloud Spanner databases
 
 SYNOPSIS
 
-`gcloud spanner databases ddl` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner databases ddl` [`COMMAND`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl#COMMAND) \[ [`GCLOUD_WIDE_FLAG`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl#GCLOUD-WIDE-FLAGS)` …` \]
 
 DESCRIPTION
 
@@ -20,23 +20,28 @@ Manage the DDL for Cloud Spanner databases.
 
 GCLOUD WIDE FLAGS
 
-These flags are available to all commands: `  --help  ` .
+These flags are available to all commands: [`--help`](https://docs.cloud.google.com/sdk/gcloud/reference#--help) .
 
-Run ` $ gcloud help  ` for details.
+Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for details.
 
 COMMANDS
 
-`  COMMAND  ` is one of the following:
+`COMMAND` is one of the following:
 
-  - `  describe  `  
-    Describe the DDL for a Cloud Spanner database.
-  - `  update  `  
-    Update the DDL for a Cloud Spanner database.
+[`describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/describe)  
+Describe the DDL for a Cloud Spanner database.
+
+[`update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update)  
+Update the DDL for a Cloud Spanner database.
 
 NOTES
 
 These variants are also available:
 
-    gcloud alpha spanner databases ddl
+```
+gcloud alpha spanner databases ddl
+```
 
-    gcloud beta spanner databases ddl
+```
+gcloud beta spanner databases ddl
+```

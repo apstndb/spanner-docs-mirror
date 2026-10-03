@@ -14,17 +14,17 @@ This issue occurs when a query that you expect to use a [vector index](https://d
 
 To resolve this issue, check for the following common causes:
 
-  - **Distance type mismatch** : Verify that the distance type defined on the index matches the distance type used in the query.
-  - **Index backfilling** : Confirm that the index backfilling process is complete. Vector indexes aren't available for queries until backfilling finishes. For more information, see [manage and observe long-running operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations) .
-  - **Missing `IS NOT NULL` filter** : Ensure your query includes an `IS NOT NULL` filter on the embedding column. This filter must match the filter in the vector index definition for the query optimizer to consider the index.
+- **Distance type mismatch** : Verify that the distance type defined on the index matches the distance type used in the query.
+- **Index backfilling** : Confirm that the index backfilling process is complete. Vector indexes aren't available for queries until backfilling finishes. For more information, see [manage and observe long-running operations](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations) .
+- **Missing `IS NOT NULL` filter** : Ensure your query includes an `IS NOT NULL` filter on the embedding column. This filter must match the filter in the vector index definition for the query optimizer to consider the index.
 
 ## A query fails with an 'unsupported use of an approximate distance function' error
 
 Not all query patterns support ANN search. Review the approximate distance function documentation for detailed usage information and limitations:
 
-  - [`APPROX_COSINE_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_cosine_distance)
-  - [`APPROX_DOT_PRODUCT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product)
-  - [`APPROX_EUCLIDEAN_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_euclidean_distance)
+- [`APPROX_COSINE_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_cosine_distance)
+- [`APPROX_DOT_PRODUCT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_dot_product)
+- [`APPROX_EUCLIDEAN_DISTANCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#approx_euclidean_distance)
 
 ## Verify that a query uses a vector index
 
@@ -34,7 +34,7 @@ In the query execution plan, look for `Scan` nodes that reference your vector in
 
 ## What's next
 
-  - [Perform K-nearest neighbors (KNN) search](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors)
-  - [Perform approximate nearest neighbors (ANN) search with vector indexes](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors)
-  - [Vector indexing best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices)
-  - [Vector search best practices](https://docs.cloud.google.com/spanner/docs/vector-search-best-practices)
+- [Perform K-nearest neighbors (KNN) search](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors)
+- [Perform approximate nearest neighbors (ANN) search with vector indexes](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors)
+- [Vector indexing best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices)
+- [Vector search best practices](https://docs.cloud.google.com/spanner/docs/vector-search-best-practices)

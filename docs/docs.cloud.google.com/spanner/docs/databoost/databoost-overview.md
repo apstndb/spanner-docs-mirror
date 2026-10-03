@@ -10,8 +10,8 @@ Spanner Data Boost is a fully managed, serverless service that provides independ
 
 Data Boost is most impactful in the following scenarios where you want to avoid negative impacts to the existing transactional system due to resource contention:
 
-  - Ad hoc or infrequent queries that involve processing large amounts of data. A typical example is a [federated query](https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries) from BigQuery to Spanner.
-  - Reporting or data export jobs. An example is a Dataflow job to export Spanner data to Cloud Storage.
+- Ad hoc or infrequent queries that involve processing large amounts of data. A typical example is a [federated query](https://docs.cloud.google.com/bigquery/docs/spanner-federated-queries) from BigQuery to Spanner.
+- Reporting or data export jobs. An example is a Dataflow job to export Spanner data to Cloud Storage.
 
 The following diagram illustrates how Data Boost coordinates with the Spanner instance to provide independent compute resources.
 
@@ -21,12 +21,12 @@ The following diagram illustrates how Data Boost coordinates with the Spanner in
 
 Data Boost offers the following benefits:
 
-  - Provides workload isolation. You can run supported queries against the latest data with near-zero impact on existing transactional workloads regardless of query complexity or amount of data processed.
-  - Provides equal or better latency.
-  - Prevents over-provisioning of Spanner instances just to support occasional analytics queries.
-  - Offers a high degree of scalability with greater query parallelism that scales elastically with burst loads.
-  - Provides comprehensive metrics, which let administrators identify the most expensive queries and determine the cost component to optimize. Administrators can then verify the impact of their optimizations by monitoring the query's serverless processing unit consumption in its next execution.
-  - Requires no additional operational overhead. There is no extra service to manage, no capacity planning or provisioning, no need to wait for scaling, and no maintenance.
+- Provides workload isolation. You can run supported queries against the latest data with near-zero impact on existing transactional workloads regardless of query complexity or amount of data processed.
+- Provides equal or better latency.
+- Prevents over-provisioning of Spanner instances just to support occasional analytics queries.
+- Offers a high degree of scalability with greater query parallelism that scales elastically with burst loads.
+- Provides comprehensive metrics, which let administrators identify the most expensive queries and determine the cost component to optimize. Administrators can then verify the impact of their optimizations by monitoring the query's serverless processing unit consumption in its next execution.
+- Requires no additional operational overhead. There is no extra service to manage, no capacity planning or provisioning, no need to wait for scaling, and no maintenance.
 
 ## Permissions
 
@@ -38,8 +38,8 @@ You pay only for actual processing units used by queries that run on Data Boost.
 
 ## What's next
 
-  - [Run federated queries with Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries)
-  - [Export data with Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-export)
-  - [Use Data Boost in your applications](https://docs.cloud.google.com/spanner/docs/databoost/databoost-applications)
-  - [Monitor Data Boost usage](https://docs.cloud.google.com/spanner/docs/databoost/databoost-monitor)
-  - [Monitor and manage Data Boost quota usage](https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas)
+- [Run federated queries with Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries)
+- [Export data with Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-export)
+- [Use Data Boost in your applications](https://docs.cloud.google.com/spanner/docs/databoost/databoost-applications)
+- [Monitor Data Boost usage](https://docs.cloud.google.com/spanner/docs/databoost/databoost-monitor)
+- [Monitor and manage Data Boost quota usage](https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas)

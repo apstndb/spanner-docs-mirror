@@ -12,13 +12,13 @@ This page gives an overview of the high-level components involved in a Spanner r
 
 The high-level components that are used to make a Spanner API request include:
 
-  - [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , which provide a layer of abstraction on top of gRPC, and handle server communication details, such as session management, transactions, and retries.
+- [Spanner client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , which provide a layer of abstraction on top of gRPC, and handle server communication details, such as session management, transactions, and retries.
 
-  - The Google Front End (GFE), which is an infrastructure service that's common to all Google Cloud services, including Spanner. The GFE verifies that all Transport Layer Security (TLS) connections are stopped and applies protections against Denial of Service attacks. To learn more about the GFE, see [Google Front End Service](https://docs.cloud.google.com/docs/security/infrastructure/design#google-frontend-service) .
+- The Google Front End (GFE), which is an infrastructure service that's common to all Google Cloud services, including Spanner. The GFE verifies that all Transport Layer Security (TLS) connections are stopped and applies protections against Denial of Service attacks. To learn more about the GFE, see [Google Front End Service](https://docs.cloud.google.com/docs/security/infrastructure/design#google-frontend-service) .
 
-  - The Spanner API frontend (AFE), which performs various checks on the API request (including authentication, authorization, and quota checks) , and maintains sessions and transaction states.
+- The Spanner API frontend (AFE), which performs various checks on the API request (including authentication, authorization, and quota checks) , and maintains sessions and transaction states.
 
-  - The Spanner database, which executes reads and writes to the database.
+- The Spanner database, which executes reads and writes to the database.
 
 When you make a remote procedure call to Spanner, the Spanner client libraries prepare the API request. Then, the API request passes through both the GFE and the Spanner AFE before reaching the Spanner database.
 
@@ -32,13 +32,13 @@ The following sections explain each type of latency you see in the previous diag
 
 Application traffic that meets certain criteria can be routed directly to Spanner, bypassing the Google Front End (GFE) and optimizing performance. Direct connectivity can be turned on for applications that satisfy the following criteria:
 
-  - Running on Compute Engine or Google Kubernetes Engine.
-  - Use the [**global endpoint**](https://docs.cloud.google.com/spanner/docs/endpoints) .
-  - In a network configured with routes and firewall rules that allow egress traffic to reach `34.126.0.0/18` and `2001:4860:8040::/42` .
-  - Uses the client library versions:
-      - **Java** : 6.111.0 or later.
-      - **Go** : 1.88.0 or later.
-  - The credentials you use for the applications have the [`spanner.databases.get`](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databases.get) permission.
+- Running on Compute Engine or Google Kubernetes Engine.
+- Use the [**global endpoint**](https://docs.cloud.google.com/spanner/docs/endpoints) .
+- In a network configured with routes and firewall rules that allow egress traffic to reach `34.126.0.0/18` and `2001:4860:8040::/42` .
+- Uses the client library versions:
+  - **Java** : 6.111.0 or later.
+  - **Go** : 1.88.0 or later.
+- The credentials you use for the applications have the [`spanner.databases.get`](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databases.get) permission.
 
 This feature can be enabled by setting the `GOOGLE_SPANNER_ENABLE_DIRECT_ACCESS` environment variable to `true` or through your client library configuration ( [`setEnableDirectAccess(true)`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.SpannerOptions.Builder#com_google_cloud_spanner_SpannerOptions_Builder_setEnableDirectAccess_boolean_) in Java, [`ClientConfig.EnableDirectAccess`](https://docs.cloud.google.com/go/docs/reference/cloud.google.com/go/spanner/latest#cloud_google_com_go_spanner_ClientConfig) in Go, or connection property `enableDirectAccess=true` in the [JDBC driver](https://docs.cloud.google.com/spanner/docs/getting-started/jdbc) ).
 
@@ -92,4 +92,4 @@ To capture and visualize query latency, see [Capture query latency with OpenTele
 
 ## What's next
 
-  - Learn how to [identify latency points](https://docs.cloud.google.com/spanner/docs/identify-latency-point) in Spanner components.
+- Learn how to [identify latency points](https://docs.cloud.google.com/spanner/docs/identify-latency-point) in Spanner components.

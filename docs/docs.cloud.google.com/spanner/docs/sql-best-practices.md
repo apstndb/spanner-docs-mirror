@@ -12,46 +12,48 @@ The example SQL statements shown in this page use the following sample schema:
 
 ### GoogleSQL
 
-    CREATE TABLE Singers (
-     SingerId   INT64 NOT NULL,
-     FirstName  STRING(1024),
-     LastName   STRING(1024),
-     SingerInfo BYTES(MAX),
-     BirthDate  DATE
-    ) PRIMARY KEY (SingerId);
-    
-    CREATE TABLE Albums (
-     SingerId     INT64 NOT NULL,
-     AlbumId      INT64 NOT NULL,
-     AlbumTitle   STRING(MAX),
-     ReleaseDate  DATE
-    ) PRIMARY KEY (SingerId, AlbumId),
-    INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
+CREATE TABLE Singers (
+ SingerId   INT64 NOT NULL,
+ FirstName  STRING(1024),
+ LastName   STRING(1024),
+ SingerInfo BYTES(MAX),
+ BirthDate  DATE
+) PRIMARY KEY (SingerId);
+
+CREATE TABLE Albums (
+ SingerId     INT64 NOT NULL,
+ AlbumId      INT64 NOT NULL,
+ AlbumTitle   STRING(MAX),
+ ReleaseDate  DATE
+) PRIMARY KEY (SingerId, AlbumId),
+INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
 
 For the complete SQL reference, refer to [Statement syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) , [Functions and operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-and-operators) , and [Lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical) .
 
 ### PostgreSQL
 
-    CREATE TABLE Singers (
-     SingerId   BIGINT PRIMARY KEY,
-     FirstName  VARCHAR(1024),
-     LastName   VARCHAR(1024),
-     SingerInfo BYTEA,
-     BirthDate  TIMESTAMPTZ
-    );
-    
-    CREATE TABLE Albums (
-     SingerId        BIGINT NOT NULL,
-     AlbumId         BIGINT NOT NULL,
-     AlbumTitle      VARCHAR(1024),
-     ReleaseDate     DATE,
-     PRIMARY KEY(SingerId, AlbumId),
-     FOREIGN KEY (SingerId) REFERENCES Singers(SingerId)
-    ) INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
+CREATE TABLE Singers (
+ SingerId   BIGINT PRIMARY KEY,
+ FirstName  VARCHAR(1024),
+ LastName   VARCHAR(1024),
+ SingerInfo BYTEA,
+ BirthDate  TIMESTAMPTZ
+);
+
+CREATE TABLE Albums (
+ SingerId        BIGINT NOT NULL,
+ AlbumId         BIGINT NOT NULL,
+ AlbumTitle      VARCHAR(1024),
+ ReleaseDate     DATE,
+ PRIMARY KEY(SingerId, AlbumId),
+ FOREIGN KEY (SingerId) REFERENCES Singers(SingerId)
+) INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+```
 
 For more information, refer to [The PostgreSQL language in Spanner](https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview) .
-
-<span id="use_query_parameters_to_speed_up_frequently_executed_queries"></span>
 
 ## Use query parameters
 
@@ -61,13 +63,13 @@ Parameters can appear anywhere that a literal value is expected. The same parame
 
 In summary, query parameters support query execution in the following ways:
 
-  - Pre-optimized plans: Queries that use parameters can be executed faster on each invocation because the parameterization makes it easier for Spanner to cache the execution plan.
-  - Simplified query composition: You don't need to escape string values when providing them in query parameters. Query parameters also reduce the risk of syntax errors.
-  - Security: Query parameters make your queries more secure by protecting you from various SQL injection attacks. This protection is especially important for queries that you construct from user input.
+- Pre-optimized plans: Queries that use parameters can be executed faster on each invocation because the parameterization makes it easier for Spanner to cache the execution plan.
+- Simplified query composition: You don't need to escape string values when providing them in query parameters. Query parameters also reduce the risk of syntax errors.
+- Security: Query parameters make your queries more secure by protecting you from various SQL injection attacks. This protection is especially important for queries that you construct from user input.
 
 To improve performance, Spanner converts literal values hardcoded in SQL into parameters if the optimal query execution plan doesn't depend on the specific literal values. This lets Spanner reduce latency and CPU costs by caching and reusing the query plan. However, this doesn't offer the same SQL injection protections and simpler query composition benefits. Using query parameters in the application code is the best practice.
 
-> **Note:** Queries where the optimal query plan might depend on the values of literals are not automatically converted to parameterized SQL. To force the conversion of literals into parameters, use the [auto\_parameter hint](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints) .
+> **Note:** Queries where the optimal query plan might depend on the values of literals are not automatically converted to parameterized SQL. To force the conversion of literals into parameters, use the [auto_parameter hint](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints) .
 
 ## Understand how Spanner executes queries
 
@@ -89,14 +91,12 @@ To get a query execution plan for a specific query using the Google Cloud consol
 
 5.  Click **Explanation**  
     . The Google Cloud console displays a visual execution plan for your query.
-    
+
     ![Screenshot of visual execution plan in Cloud console](https://docs.cloud.google.com/static/spanner/docs/images/console/plan-visual-after-expanded.png)
 
 For more information on how to understand visual plans and use them to debug your queries, see [Tune a query using the query plan visualizer](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer) .
 
 You can also view samples of historic query plans and compare the performance of a query over time for certain queries. To learn more, see [Sampled query plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans#sampled-plans) .
-
-<span id="use_secondary_indexes_to_speed_up_common_queries"></span>
 
 ## Use secondary indexes
 
@@ -104,15 +104,19 @@ Like other relational databases, Spanner offers secondary indexes, which you can
 
 For example, suppose you wanted to fetch the IDs of all the singers with a specific last name. One way to write such a SQL query is:
 
-    SELECT s.SingerId
-    FROM Singers AS s
-    WHERE s.LastName = 'Smith';
+```
+SELECT s.SingerId
+FROM Singers AS s
+WHERE s.LastName = 'Smith';
+```
 
 This query would return the results that you expect, but it might take a long time to return the results. The timing would depend on the number of rows in the `Singers` table and how many satisfy the predicate `WHERE s.LastName = 'Smith'` . If there is no secondary index that contains the `LastName` column to read from, the query plan would read the entire `Singers` table to find rows that match the predicate. Reading the entire table is called a *full table scan* . A full table scan is an expensive way to obtain the results when the table contains only a small percentage of `Singers` with that last name.
 
 You can improve the performance of this query by defining a secondary index on the last name column:
 
-    CREATE INDEX SingersByLastName ON Singers (LastName);
+```
+CREATE INDEX SingersByLastName ON Singers (LastName);
+```
 
 Because the secondary index `SingersByLastName` contains the indexed table column `LastName` and the primary key column `SingerId` , Spanner can fetch all the data from the much smaller index table instead of scanning the full `Singers` table.
 
@@ -120,39 +124,51 @@ In this scenario, Spanner automatically uses the secondary index `SingersByLastN
 
 ### GoogleSQL
 
-    SELECT s.SingerId
-    FROM Singers@{FORCE_INDEX=SingersByLastName} AS s
-    WHERE s.LastName = 'Smith';
+```
+SELECT s.SingerId
+FROM Singers@{FORCE_INDEX=SingersByLastName} AS s
+WHERE s.LastName = 'Smith';
+```
 
 ### PostgreSQL
 
-    SELECT s.SingerId
-    FROM Singers /*@ FORCE_INDEX=SingersByLastName */ AS s
-    WHERE s.LastName = 'Smith';
+```
+SELECT s.SingerId
+FROM Singers /*@ FORCE_INDEX=SingersByLastName */ AS s
+WHERE s.LastName = 'Smith';
+```
 
 If you're using [named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) , use the following syntax for the `FROM` clause:
 
 ### GoogleSQL
 
-    FROM NAMED_SCHEMA_NAME.TABLE_NAME@{FORCE_INDEX="NAMED_SCHEMA_NAME.TABLE_INDEX_NAME"}
+```
+FROM NAMED_SCHEMA_NAME.TABLE_NAME@{FORCE_INDEX="NAMED_SCHEMA_NAME.TABLE_INDEX_NAME"}
+```
 
 ### PostgreSQL
 
-    FROM NAMED_SCHEMA_NAME.TABLE_NAME /*@ FORCE_INDEX = TABLE_INDEX_NAME */
+```
+FROM NAMED_SCHEMA_NAME.TABLE_NAME /*@ FORCE_INDEX = TABLE_INDEX_NAME */
+```
 
 Now suppose you also wanted to fetch the singer's first name in addition to the ID. Even though the `FirstName` column is not contained in the index, you should still specify the index directive as before:
 
 ### GoogleSQL
 
-    SELECT s.SingerId, s.FirstName
-    FROM Singers@{FORCE_INDEX=SingersByLastName} AS s
-    WHERE s.LastName = 'Smith';
+```
+SELECT s.SingerId, s.FirstName
+FROM Singers@{FORCE_INDEX=SingersByLastName} AS s
+WHERE s.LastName = 'Smith';
+```
 
 ### PostgreSQL
 
-    SELECT s.SingerId, s.FirstName
-    FROM Singers /*@ FORCE_INDEX=SingersByLastName */ AS s
-    WHERE s.LastName = 'Smith';
+```
+SELECT s.SingerId, s.FirstName
+FROM Singers /*@ FORCE_INDEX=SingersByLastName */ AS s
+WHERE s.LastName = 'Smith';
+```
 
 You still get a performance benefit from using the index because Spanner doesn't need to do a full table scan when executing the query plan. Instead, it selects the subset of rows that satisfy the predicate from the `SingersByLastName` index, and then does a lookup from the base table `Singers` to fetch the first name for only that subset of rows.
 
@@ -160,47 +176,59 @@ If you want Spanner to not have to fetch any rows from the base table at all, yo
 
 ### GoogleSQL
 
-    CREATE INDEX SingersByLastName ON Singers (LastName) STORING (FirstName);
+```
+CREATE INDEX SingersByLastName ON Singers (LastName) STORING (FirstName);
+```
 
 ### PostgreSQL
 
-    CREATE INDEX SingersByLastName ON Singers (LastName) INCLUDE (FirstName);
+```
+CREATE INDEX SingersByLastName ON Singers (LastName) INCLUDE (FirstName);
+```
 
 Using a `STORING` clause (for the GoogleSQL dialect) or an `INCLUDE` clause (for the PostgreSQL dialect) like this costs extra storage but it provides the following advantages:
 
-  - SQL queries that use the index and select columns stored in the `STORING` or `INCLUDE` clause don't require an extra join to the base table.
-  - Read calls that use the index can read columns stored in the `STORING` or `INCLUDE` clause.
+- SQL queries that use the index and select columns stored in the `STORING` or `INCLUDE` clause don't require an extra join to the base table.
+- Read calls that use the index can read columns stored in the `STORING` or `INCLUDE` clause.
 
 The preceding examples illustrate how secondary indexes can speed up queries when the rows chosen by the `WHERE` clause of a query can be quickly identified using the secondary index.
 
 Another scenario in which secondary indexes can offer performance benefits is for certain queries that return ordered results. For example, suppose you want to fetch all album titles and their release dates in ascending order of release date and descending order of album title. You could write a SQL query as follows:
 
-    SELECT a.AlbumTitle, a.ReleaseDate
-    FROM Albums AS a
-    ORDER BY a.ReleaseDate, a.AlbumTitle DESC;
+```
+SELECT a.AlbumTitle, a.ReleaseDate
+FROM Albums AS a
+ORDER BY a.ReleaseDate, a.AlbumTitle DESC;
+```
 
 Without a secondary index, this query requires a potentially expensive sorting step in the execution plan. You could speed up query execution by defining this secondary index:
 
-    CREATE INDEX AlbumsByReleaseDateTitleDesc on Albums (ReleaseDate, AlbumTitle DESC);
+```
+CREATE INDEX AlbumsByReleaseDateTitleDesc on Albums (ReleaseDate, AlbumTitle DESC);
+```
 
 Then, rewrite the query to use the secondary index:
 
 ### GoogleSQL
 
-    SELECT a.AlbumTitle, a.ReleaseDate
-    FROM Albums@{FORCE_INDEX=AlbumsByReleaseDateTitleDesc} AS a
-    ORDER BY a.ReleaseDate, a.AlbumTitle DESC;
+```
+SELECT a.AlbumTitle, a.ReleaseDate
+FROM Albums@{FORCE_INDEX=AlbumsByReleaseDateTitleDesc} AS a
+ORDER BY a.ReleaseDate, a.AlbumTitle DESC;
+```
 
 ### PostgreSQL
 
-    SELECT a.AlbumTitle, a.ReleaseDate
-    FROM Albums /*@ FORCE_INDEX=AlbumsByReleaseDateTitleDesc */ AS s
-    ORDER BY a.ReleaseDate, a.AlbumTitle DESC;
+```
+SELECT a.AlbumTitle, a.ReleaseDate
+FROM Albums /*@ FORCE_INDEX=AlbumsByReleaseDateTitleDesc */ AS s
+ORDER BY a.ReleaseDate, a.AlbumTitle DESC;
+```
 
 This query and index definition meet both of the following criteria:
 
-  - To remove the sorting step, ensure that the column list in the `ORDER BY` clause is a prefix of the index key list.
-  - To avoid joining back from the base table to fetch any missing columns, ensure that the index covers all columns in the table that the query uses.
+- To remove the sorting step, ensure that the column list in the `ORDER BY` clause is a prefix of the index key list.
+- To avoid joining back from the base table to fetch any missing columns, ensure that the index covers all columns in the table that the query uses.
 
 Although secondary indexes can speed up common queries, adding secondary indexes can add latency to your commit operations, because each secondary index typically requires involving an extra node in each commit. For most workloads, having a few secondary indexes is fine. However, you should consider whether you care more about read or write latency, and consider which operations are most critical for your workload. Benchmark your workload to ensure that it's performing as you expect.
 
@@ -216,19 +244,19 @@ The Spanner scan operation always starts execution in the row-oriented method. D
 
 Queries with the following characteristics generally benefit from the use of batch-oriented processing:
 
-  - Large scans over infrequently updated data.
-  - Scans with predicates on fixed width columns.
-  - Scans with large seek counts. (A seek uses an index to retrieve records.)
+- Large scans over infrequently updated data.
+- Scans with predicates on fixed width columns.
+- Scans with large seek counts. (A seek uses an index to retrieve records.)
 
 ### Use cases without performance gains
 
 Not all queries benefit from batch-oriented processing. The following query types perform better with row-oriented scan processing:
 
-  - Point lookup queries: queries that only fetch one row.
-  - Small scan queries: table scans that only scan a few rows unless they have large seek counts.
-  - Queries that use `LIMIT` .
-  - Queries that read high churn data: queries in which more than \~10% of the data read is frequently updated.
-  - Queries with rows containing large values: large value rows are those containing values larger than 32,000 bytes (pre-compression) in a single column.
+- Point lookup queries: queries that only fetch one row.
+- Small scan queries: table scans that only scan a few rows unless they have large seek counts.
+- Queries that use `LIMIT` .
+- Queries that read high churn data: queries in which more than \~10% of the data read is frequently updated.
+- Queries with rows containing large values: large value rows are those containing values larger than 32,000 bytes (pre-compression) in a single column.
 
 ### Check the scan method used by a query
 
@@ -247,17 +275,17 @@ To check if your query uses batch-oriented processing, row-oriented processing, 
 6.  When the query editor appears, write your query.
 
 7.  Click **Run** .
-    
+
     Spanner runs the query and shows the results.
 
 8.  Click the **Explanation** tab below the query editor.
-    
+
     Spanner shows a [query execution plan visualizer](https://docs.cloud.google.com/spanner/docs/query-execution-plans) . Each card on the graph represents an iterator.
 
 9.  Click the **Table scan** iterator card to open an information panel.
-    
+
     The information panel shows contextual information about the selected scan. The scan method is shown on this card. **Automatic** indicates that Spanner determines the scanning method. Other possible values include **Batch** for batch-oriented processing and **Row** for row-oriented processing.
-    
+
     ![A table scan card shows the scan method as Automatic](https://docs.cloud.google.com/static/spanner/docs/images/automatic-table-scan.png)
 
 ### Enforce the scan method used by a query
@@ -272,31 +300,39 @@ To enforce the batch-oriented scan method at the table level, use a table hint i
 
 ### GoogleSQL
 
-    SELECT ...
-    FROM (t1@{SCAN_METHOD=BATCH} JOIN t2 ON ...)
-    WHERE ...
+```
+SELECT ...
+FROM (t1@{SCAN_METHOD=BATCH} JOIN t2 ON ...)
+WHERE ...
+```
 
 ### PostgreSQL
 
-    SELECT ...
-    FROM (t1/*@ scan_method=batch */ JOIN t2 on ...)
-    WHERE ...
+```
+SELECT ...
+FROM (t1/*@ scan_method=batch */ JOIN t2 on ...)
+WHERE ...
+```
 
 To enforce the batch-oriented scan method at the statement level, use a statement hint in your query:
 
 ### GoogleSQL
 
-    @{SCAN_METHOD=BATCH}
-    SELECT ...
-    FROM ...
-    WHERE ...
+```
+@{SCAN_METHOD=BATCH}
+SELECT ...
+FROM ...
+WHERE ...
+```
 
 ### PostgreSQL
 
-    /*@ scan_method=batch */
-    SELECT ...
-    FROM ...
-    WHERE ...
+```
+/*@ scan_method=batch */
+SELECT ...
+FROM ...
+WHERE ...
+```
 
 #### Disable automatic scanning and enforce row-oriented scanning
 
@@ -306,31 +342,39 @@ To disable the automatic scan method and enforce row processing at the table lev
 
 ### GoogleSQL
 
-    SELECT ...
-    FROM (t1@{SCAN_METHOD=ROW} JOIN t2 ON ...)
-    WHERE ...
+```
+SELECT ...
+FROM (t1@{SCAN_METHOD=ROW} JOIN t2 ON ...)
+WHERE ...
+```
 
 ### PostgreSQL
 
-    SELECT ...
-    FROM (t1/*@ scan_method=row */ JOIN t2 on ...)
-    WHERE ...
+```
+SELECT ...
+FROM (t1/*@ scan_method=row */ JOIN t2 on ...)
+WHERE ...
+```
 
 To disable the automatic scan method and enforce row processing at the statement level, use a statement hint in your query:
 
 ### GoogleSQL
 
-    @{SCAN_METHOD=ROW}
-    SELECT ...
-    FROM ...
-    WHERE ...
+```
+@{SCAN_METHOD=ROW}
+SELECT ...
+FROM ...
+WHERE ...
+```
 
 ### PostgreSQL
 
-    /*@ scan_method=row */
-    SELECT ...
-    FROM ...
-    WHERE ...
+```
+/*@ scan_method=row */
+SELECT ...
+FROM ...
+WHERE ...
+```
 
 ## Optimize query execution
 
@@ -354,17 +398,21 @@ To enforce the batch-oriented execution method at the statement level, use a sta
 
 ### GoogleSQL
 
-    @{EXECUTION_METHOD=BATCH}
-    SELECT ...
-    FROM ...
-    WHERE ...
+```
+@{EXECUTION_METHOD=BATCH}
+SELECT ...
+FROM ...
+WHERE ...
+```
 
 ### PostgreSQL
 
-    /*@ execution_method=batch */
-    SELECT ...
-    FROM ...
-    WHERE ...
+```
+/*@ execution_method=batch */
+SELECT ...
+FROM ...
+WHERE ...
+```
 
 Although we don't recommend disabling the automatic execution method set by Spanner, you might decide to disable it and use the row-oriented execution method for troubleshooting purposes, such as diagnosing latency.
 
@@ -372,17 +420,21 @@ To disable the automatic execution method and enforce the row-oriented execution
 
 ### GoogleSQL
 
-    @{EXECUTION_METHOD=ROW}
-    SELECT ...
-    FROM ...
-    WHERE ...
+```
+@{EXECUTION_METHOD=ROW}
+SELECT ...
+FROM ...
+WHERE ...
+```
 
 ### PostgreSQL
 
-    /*@ execution_method=row */
-    SELECT ...
-    FROM ...
-    WHERE ...
+```
+/*@ execution_method=row */
+SELECT ...
+FROM ...
+WHERE ...
+```
 
 ### Check which execution method is enabled
 
@@ -396,96 +448,114 @@ A common use of a SQL query is to read multiple rows from Spanner based on a lis
 
 The following best practices help you write efficient queries when fetching data by a range of keys:
 
-  - If the list of keys is sparse and not adjacent, use query parameters and `UNNEST` to construct your query.
-    
-    For example, if your key list is `{1, 5, 1000}` , write the query like this:
-    
-    ### GoogleSQL
-    
-        SELECT *
-        FROM Table AS t
-        WHERE t.Key IN UNNEST (@KeyList)
-    
-    ### PostgreSQL
-    
-        SELECT *
-        FROM Table AS t
-        WHERE t.Key IN UNNEST ($1)
-    
-    Notes:
-    
-      - The array [UNNEST](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest) operator flattens an input array into rows of elements.
-    
-      - The query parameter, which is `@KeyList` for GoogleSQL and `$1` for PostgreSQL, can speed up your query as discussed in the [preceding best practice](https://docs.cloud.google.com/spanner/docs/sql-best-practices#use_query_parameters_to_speed_up_frequently_executed_queries) .
+- If the list of keys is sparse and not adjacent, use query parameters and `UNNEST` to construct your query.
 
-  - If the list of keys is adjacent and within a range, specify the lower and higher limits of the key range in the `WHERE` clause.
-    
-    For example, if your key list is `{1,2,3,4,5}` , construct the query as follows:
-    
-    ### GoogleSQL
-    
-        SELECT *
-        FROM Table AS t
-        WHERE t.Key BETWEEN @min AND @max
-    
-    > **Note:** Here, `@min` and `@max` are query parameters that are bound to the values 1 and 5, respectively.
-    
-    ### PostgreSQL
-    
-        SELECT *
-        FROM Table AS t
-        WHERE t.Key BETWEEN $1 AND $2
-    
-    > **Note:** Here, `$1` and `$2` are query parameters that are bound to the values 1 and 5, respectively.
-    
-    This query is only more efficient if the keys in the key range are adjacent. In other words, if your key list is `{1, 5, 1000}` , don't specify the lower and higher limits like in the preceding query because the resulting query would scan through every value between 1 and 1000.
+  For example, if your key list is `{1, 5, 1000}` , write the query like this:
+
+  ### GoogleSQL
+
+  ```
+  SELECT *
+  FROM Table AS t
+  WHERE t.Key IN UNNEST (@KeyList)
+  ```
+
+  ### PostgreSQL
+
+  ```
+  SELECT *
+  FROM Table AS t
+  WHERE t.Key IN UNNEST ($1)
+  ```
+
+  Notes:
+
+  - The array [UNNEST](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest) operator flattens an input array into rows of elements.
+
+  - The query parameter, which is `@KeyList` for GoogleSQL and `$1` for PostgreSQL, can speed up your query as discussed in the [preceding best practice](https://docs.cloud.google.com/spanner/docs/sql-best-practices#use_query_parameters_to_speed_up_frequently_executed_queries) .
+
+- If the list of keys is adjacent and within a range, specify the lower and higher limits of the key range in the `WHERE` clause.
+
+  For example, if your key list is `{1,2,3,4,5}` , construct the query as follows:
+
+  ### GoogleSQL
+
+  ```
+  SELECT *
+  FROM Table AS t
+  WHERE t.Key BETWEEN @min AND @max
+  ```
+
+  > **Note:** Here, `@min` and `@max` are query parameters that are bound to the values 1 and 5, respectively.
+
+  ### PostgreSQL
+
+  ```
+  SELECT *
+  FROM Table AS t
+  WHERE t.Key BETWEEN $1 AND $2
+  ```
+
+  > **Note:** Here, `$1` and `$2` are query parameters that are bound to the values 1 and 5, respectively.
+
+  This query is only more efficient if the keys in the key range are adjacent. In other words, if your key list is `{1, 5, 1000}` , don't specify the lower and higher limits like in the preceding query because the resulting query would scan through every value between 1 and 1000.
 
 ## Optimize joins
 
 Join operations can be expensive because they can significantly increase the number of rows that your query needs to scan, which results in slower queries. In addition to the techniques that you're accustomed to using in other relational databases to optimize join queries, here are some best practices for a more efficient JOIN when using Spanner SQL:
 
-  - If possible, join data in interleaved tables by primary key. For example:
-    
-        SELECT s.FirstName, a.ReleaseDate
-        FROM Singers AS s JOIN Albums AS a ON s.SingerId = a.SingerId;
-    
-    The rows in the interleaved table `Albums` are physically stored in the same splits as the parent row in `Singers` , as discussed in [Schema and Data Model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) . Therefore, joins can be completed locally without sending lots of data across the network.
+- If possible, join data in interleaved tables by primary key. For example:
 
-  - Use the join directive if you want to force the order of the join. For example:
-    
-    ### GoogleSQL
-    
-        SELECT *
-        FROM Singers AS s JOIN@{FORCE_JOIN_ORDER=TRUE} Albums AS a
-        ON s.SingerId = a.Singerid
-        WHERE s.LastName LIKE '%x%' AND a.AlbumTitle LIKE '%love%';
-    
-    ### PostgreSQL
-    
-        SELECT *
-        FROM Singers AS s JOIN/*@ FORCE_JOIN_ORDER=TRUE */ Albums AS a
-        ON s.SingerId = a.Singerid
-        WHERE s.LastName LIKE '%x%' AND a.AlbumTitle LIKE '%love%';
-    
-    The join directive `FORCE_JOIN_ORDER` tells Spanner to use the join order specified in the query (that is, `Singers JOIN Albums` , not `Albums JOIN Singers` ). The returned results are the same, regardless of the order that Spanner chooses. However, you might want to use this join directive if you notice in the query plan that Spanner has changed the join order and caused undesirable consequences, such as larger intermediate results, or has missed opportunities for seeking rows.
+  ```
+  SELECT s.FirstName, a.ReleaseDate
+  FROM Singers AS s JOIN Albums AS a ON s.SingerId = a.SingerId;
+  ```
 
-  - Use a join directive to choose a join implementation. When you use SQL to query multiple tables, Spanner automatically uses a join method that is likely to make the query more efficient. However, Google advises you to test with different join algorithms. Choosing the right join algorithm can improve latency, memory consumption, or both. This query demonstrates the syntax for using a JOIN directive with the `JOIN_METHOD` hint to choose a `HASH JOIN` :
-    
-    ### GoogleSQL
-    
-        SELECT *
-        FROM Singers s JOIN@{JOIN_METHOD=HASH_JOIN} Albums AS a
-        ON a.SingerId = a.SingerId
-    
-    ### PostgreSQL
-    
-        SELECT *
-        FROM Singers s JOIN/*@ JOIN_METHOD=HASH_JOIN */ Albums AS a
-        ON a.SingerId = a.SingerId
+  The rows in the interleaved table `Albums` are physically stored in the same splits as the parent row in `Singers` , as discussed in [Schema and Data Model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) . Therefore, joins can be completed locally without sending lots of data across the network.
 
-  - If you're using a `HASH JOIN` or `APPLY JOIN` and if you have a `WHERE` clause that is highly selective on one side of your `JOIN` , put the table that produces the smallest number of rows as the first table in the `FROM` clause of the join. This structure helps because in `HASH JOIN` , Spanner always picks the left-hand side table as build and the right-hand side table as probe. Similarly, for `APPLY JOIN` , Spanner picks the left-hand side table as outer and the right-hand side table as inner. See more about these join types: [Hash join](https://docs.cloud.google.com/spanner/docs/query-execution-operators#hash-join) and [Apply join](https://docs.cloud.google.com/spanner/docs/query-execution-operators#cross-apply) .
+- Use the join directive if you want to force the order of the join. For example:
 
-  - For queries that are critical for your workload, specify the most performant join method and join order in your SQL statements for more consistent performance.
+  ### GoogleSQL
+
+  ```
+  SELECT *
+  FROM Singers AS s JOIN@{FORCE_JOIN_ORDER=TRUE} Albums AS a
+  ON s.SingerId = a.Singerid
+  WHERE s.LastName LIKE '%x%' AND a.AlbumTitle LIKE '%love%';
+  ```
+
+  ### PostgreSQL
+
+  ```
+  SELECT *
+  FROM Singers AS s JOIN/*@ FORCE_JOIN_ORDER=TRUE */ Albums AS a
+  ON s.SingerId = a.Singerid
+  WHERE s.LastName LIKE '%x%' AND a.AlbumTitle LIKE '%love%';
+  ```
+
+  The join directive `FORCE_JOIN_ORDER` tells Spanner to use the join order specified in the query (that is, `Singers JOIN Albums` , not `Albums JOIN Singers` ). The returned results are the same, regardless of the order that Spanner chooses. However, you might want to use this join directive if you notice in the query plan that Spanner has changed the join order and caused undesirable consequences, such as larger intermediate results, or has missed opportunities for seeking rows.
+
+- Use a join directive to choose a join implementation. When you use SQL to query multiple tables, Spanner automatically uses a join method that is likely to make the query more efficient. However, Google advises you to test with different join algorithms. Choosing the right join algorithm can improve latency, memory consumption, or both. This query demonstrates the syntax for using a JOIN directive with the `JOIN_METHOD` hint to choose a `HASH JOIN` :
+
+  ### GoogleSQL
+
+  ```
+  SELECT *
+  FROM Singers s JOIN@{JOIN_METHOD=HASH_JOIN} Albums AS a
+  ON a.SingerId = a.SingerId
+  ```
+
+  ### PostgreSQL
+
+  ```
+  SELECT *
+  FROM Singers s JOIN/*@ JOIN_METHOD=HASH_JOIN */ Albums AS a
+  ON a.SingerId = a.SingerId
+  ```
+
+- If you're using a `HASH JOIN` or `APPLY JOIN` and if you have a `WHERE` clause that is highly selective on one side of your `JOIN` , put the table that produces the smallest number of rows as the first table in the `FROM` clause of the join. This structure helps because in `HASH JOIN` , Spanner always picks the left-hand side table as build and the right-hand side table as probe. Similarly, for `APPLY JOIN` , Spanner picks the left-hand side table as outer and the right-hand side table as inner. See more about these join types: [Hash join](https://docs.cloud.google.com/spanner/docs/query-execution-operators#hash-join) and [Apply join](https://docs.cloud.google.com/spanner/docs/query-execution-operators#cross-apply) .
+
+- For queries that are critical for your workload, specify the most performant join method and join order in your SQL statements for more consistent performance.
 
 ## Optimize queries with timestamp predicate pushdown
 
@@ -495,29 +565,33 @@ With timestamp predicate pushdown, the database engine analyzes the query and id
 
 To optimize queries to only access data stored on SSD, the following must apply:
 
-  - The query must have the timestamp predicate pushdown enabled. For more information, see [GoogleSQL statement hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints) and [PostgreSQL statement hints](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#statement-hints)
+- The query must have the timestamp predicate pushdown enabled. For more information, see [GoogleSQL statement hints](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#statement_hints) and [PostgreSQL statement hints](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#statement-hints)
 
-  - The query must use an age-based restriction equal to or less than the age specified in the data's spill policy (set with the `ssd_to_hdd_spill_timespan` option in the `CREATE LOCALITY GROUP` or `ALTER LOCALITY GROUP` DDL statement). For more information, see [GoogleSQL `LOCALITY GROUP` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#locality-group-statements) and [PostgreSQL `LOCALITY GROUP` statements](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#locality-group-statements) .
-    
-      - The column being filtered in the query must be a timestamp column that contains the commit timestamp. For details on how to create a commit timestamp column, see [Commit timestamps in GoogleSQL](https://docs.cloud.google.com/spanner/docs/commit-timestamp) and [Commit timestamps in PostgreSQL](https://docs.cloud.google.com/spanner/docs/commit-timestamp-postgresql) . These columns must be updated alongside the timestamp column, and reside within the same the same locality group, which has an age-based tiered storage policy.
-        
-        If, for a given row, some of the columns being queried reside on SSD and some of the columns reside on HDD (due to columns being updated at different times and aging to HDD at different times), then the performance of the query might be worse when you use the hint. This is because the query has to fill in data from the different storage layers. As a result of using the hint, Spanner ages data at the individual cell-level (row-and-column granularity level) based on the commit timestamp of each cell, slowing down the query. To prevent this issue, make sure to routinely update all columns being queried using this optimization technique in the same transaction so all columns share the same commit timestamp and benefit from the optimization.
+- The query must use an age-based restriction equal to or less than the age specified in the data's spill policy (set with the `ssd_to_hdd_spill_timespan` option in the `CREATE LOCALITY GROUP` or `ALTER LOCALITY GROUP` DDL statement). For more information, see [GoogleSQL `LOCALITY GROUP` statements](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#locality-group-statements) and [PostgreSQL `LOCALITY GROUP` statements](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#locality-group-statements) .
+
+  - The column being filtered in the query must be a timestamp column that contains the commit timestamp. For details on how to create a commit timestamp column, see [Commit timestamps in GoogleSQL](https://docs.cloud.google.com/spanner/docs/commit-timestamp) and [Commit timestamps in PostgreSQL](https://docs.cloud.google.com/spanner/docs/commit-timestamp-postgresql) . These columns must be updated alongside the timestamp column, and reside within the same the same locality group, which has an age-based tiered storage policy.
+
+    If, for a given row, some of the columns being queried reside on SSD and some of the columns reside on HDD (due to columns being updated at different times and aging to HDD at different times), then the performance of the query might be worse when you use the hint. This is because the query has to fill in data from the different storage layers. As a result of using the hint, Spanner ages data at the individual cell-level (row-and-column granularity level) based on the commit timestamp of each cell, slowing down the query. To prevent this issue, make sure to routinely update all columns being queried using this optimization technique in the same transaction so all columns share the same commit timestamp and benefit from the optimization.
 
 To enable timestamp predicate pushdown at the statement level, use a statement hint in your query. For example:
 
 ### GoogleSQL
 
-    @{allow_timestamp_predicate_pushdown=TRUE}
-    SELECT s.SingerInfo
-    FROM Singers s
-    WHERE s.ModificationTime > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 12 HOUR);
+```
+@{allow_timestamp_predicate_pushdown=TRUE}
+SELECT s.SingerInfo
+FROM Singers s
+WHERE s.ModificationTime > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 12 HOUR);
+```
 
 ### PostgreSQL
 
-    /*@allow_timestamp_predicate_pushdown=TRUE*/
-    SELECT s.SingerInfo
-    FROM Singers s
-    WHERE s.ModificationTime > CURRENT_TIMESTAMP - INTERVAL '12 hours';
+```
+/*@allow_timestamp_predicate_pushdown=TRUE*/
+SELECT s.SingerInfo
+FROM Singers s
+WHERE s.ModificationTime > CURRENT_TIMESTAMP - INTERVAL '12 hours';
+```
 
 ## Avoid large reads inside read-write transactions
 
@@ -535,8 +609,8 @@ In some cases, the following pattern can yield better results:
 2.  Optional: Do any processing required on the data you just read.
 3.  Start a read-write transaction.
 4.  Verify that the critical rows have not changed values since you performed the read-only transaction in step 1.
-      - If the rows have changed, roll back your transaction and start again at step 1.
-      - If everything looks okay, commit your mutations.
+    - If the rows have changed, roll back your transaction and start again at step 1.
+    - If everything looks okay, commit your mutations.
 
 One way to ensure that you're avoiding large reads in read-write transactions is to look at the execution plans that your queries generate.
 
@@ -544,16 +618,20 @@ One way to ensure that you're avoiding large reads in read-write transactions is
 
 If you're expecting a certain ordering for the results of a `SELECT` query, explicitly include the `ORDER BY` clause. For example, if you want to list all singers in primary key order, use this query:
 
-    SELECT * FROM Singers
-    ORDER BY SingerId;
+```
+SELECT * FROM Singers
+ORDER BY SingerId;
+```
 
 Spanner guarantees result ordering only if the `ORDER BY` clause is present in the query. In other words, consider this query without the `ORDER BY` :
 
-    SELECT * FROM Singers;
+```
+SELECT * FROM Singers;
+```
 
 Spanner does not guarantee that the results of this query will be in primary key order. Furthermore, the ordering of results can change at any time and is not guaranteed to be consistent from invocation to invocation. If a query has an `ORDER BY` clause, and Spanner uses an index that provides the required order, then Spanner doesn't explicitly sort the data. Therefore, don't worry about the performance impact of including this clause. You can check whether an explicit sort operation is included in the execution by looking at the query plan.
 
-## Use STARTS\_WITH instead of LIKE
+## Use STARTS_WITH instead of LIKE
 
 Because Spanner does not evaluate parameterized `LIKE` patterns until execution time, Spanner must read all rows and evaluate them against the `LIKE` expression to filter out rows that don't match.
 
@@ -563,15 +641,19 @@ Not recommended:
 
 ### GoogleSQL
 
-    SELECT a.AlbumTitle FROM Albums a
-    WHERE a.AlbumTitle LIKE @like_clause;
+```
+SELECT a.AlbumTitle FROM Albums a
+WHERE a.AlbumTitle LIKE @like_clause;
+```
 
 > **Note:** This example assumes `@like_clause` is bound to `'Love%'` .
 
 ### PostgreSQL
 
-    SELECT a.AlbumTitle FROM Albums a
-    WHERE a.AlbumTitle LIKE $1;
+```
+SELECT a.AlbumTitle FROM Albums a
+WHERE a.AlbumTitle LIKE $1;
+```
 
 > **Note:** This example assumes `$1` is bound to `'Love%'` .
 
@@ -579,15 +661,19 @@ Recommended:
 
 ### GoogleSQL
 
-    SELECT a.AlbumTitle FROM Albums a
-    WHERE STARTS_WITH(a.AlbumTitle, @prefix);
+```
+SELECT a.AlbumTitle FROM Albums a
+WHERE STARTS_WITH(a.AlbumTitle, @prefix);
+```
 
 > **Note:** This example assumes `@prefix` is bound to `'Love'` . This query is more efficient than the previous query. It runs faster if an index is defined on `Albums.AlbumTitle` .
 
 ### PostgreSQL
 
-    SELECT a.AlbumTitle FROM Albums a
-    WHERE STARTS_WITH(a.AlbumTitle, $2);
+```
+SELECT a.AlbumTitle FROM Albums a
+WHERE STARTS_WITH(a.AlbumTitle, $2);
+```
 
 > **Note:** This example assumes `$2` is bound to `'Love'` . This query is more efficient than the previous query. It runs faster if an index is defined on `Albums.AlbumTitle` .
 

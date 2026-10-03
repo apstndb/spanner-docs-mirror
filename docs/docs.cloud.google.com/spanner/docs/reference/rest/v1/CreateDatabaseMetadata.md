@@ -6,32 +6,18 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CreateDatabaseMetadata#SCHEMA_REPRESENTATION)
+- [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CreateDatabaseMetadata#SCHEMA_REPRESENTATION)
 
-Metadata type for the operation returned by `  databases.create  ` .
+Metadata type for the operation returned by [`databases.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/create#google.spanner.admin.database.v1.DatabaseAdmin.CreateDatabase) .
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;database&quot;: string
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "database": string
+}
+```
 
-`database`
-
-`string`
-
-The database being created.
+| Fields     |                                      |
+|------------|--------------------------------------|
+| `database` | `string` The database being created. |

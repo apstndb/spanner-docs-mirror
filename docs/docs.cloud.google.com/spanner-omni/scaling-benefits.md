@@ -12,16 +12,16 @@ Adjust Spanner Omni cluster capacity to meet evolving workload demands and data 
 
 Sizing and scaling your deployment lets you:
 
-  - **Maintain low query latencies** : Add servers or upgrade CPU and memory resources to ensure your database performs efficiently during peak traffic windows.
+- **Maintain low query latencies** : Add servers or upgrade CPU and memory resources to ensure your database performs efficiently during peak traffic windows.
 
-  - **Manage expanding databases** : Add storage capacity or partitions to accommodate database growth.
+- **Manage expanding databases** : Add storage capacity or partitions to accommodate database growth.
 
-  - **Optimize costs** : Scale down resources or decommission server nodes during quiet periods to reduce infrastructure costs.
+- **Optimize costs** : Scale down resources or decommission server nodes during quiet periods to reduce infrastructure costs.
 
 ## Next steps
 
-  - [Scale a Kubernetes deployment](https://docs.cloud.google.com/spanner-omni/scale-kubernetes-deployment) .
+- [Scale a Kubernetes deployment](https://docs.cloud.google.com/spanner-omni/scale-kubernetes-deployment) .
 
-  - [Scale a VM deployment](https://docs.cloud.google.com/spanner-omni/scale-vm-deployment) .
+- [Scale a VM deployment](https://docs.cloud.google.com/spanner-omni/scale-vm-deployment) .
 
-  - Learn how to [maintain a deployment](https://docs.cloud.google.com/spanner-omni/maintain-deployment) .
+- Learn how to [maintain a deployment](https://docs.cloud.google.com/spanner-omni/maintain-deployment) .

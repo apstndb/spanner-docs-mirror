@@ -18,14 +18,14 @@ In a live data migration, you need to configure the network infrastructure requi
 
 A live data migration consists of two components:
 
-  - Migrating the data in a consistent snapshot of your source database.
-  - Migrating the stream of changes (inserts, updates and deletes) since that snapshot, referred to as change data capture (CDC).
+- Migrating the data in a consistent snapshot of your source database.
+- Migrating the stream of changes (inserts, updates and deletes) since that snapshot, referred to as change data capture (CDC).
 
 While live data migrations help protect your data, the process involves challenges, including the following:
 
-  - Storing CDC data while the snapshot is migrating.
-  - Writing the CDC data to Spanner while capturing the incoming CDC stream.
-  - Ensuring that the migration of CDC data to Spanner is faster than the incoming CDC stream.
+- Storing CDC data while the snapshot is migrating.
+- Writing the CDC data to Spanner while capturing the incoming CDC stream.
+- Ensuring that the migration of CDC data to Spanner is faster than the incoming CDC stream.
 
 ## Migration with downtime
 
@@ -43,9 +43,9 @@ Generating multiple small dump files makes it quicker to write to Spanner, as Sp
 
 When generating a dump file from the source database, keep the following in mind to generate a consistent snapshot of data:
 
-  - Before you perform the dump, apply a read lock on the source database to prevent the data from changing during the generation of the dump file.
-  - Alternatively, generate the dump file using a read replica from the source database with replication disabled.
+- Before you perform the dump, apply a read lock on the source database to prevent the data from changing during the generation of the dump file.
+- Alternatively, generate the dump file using a read replica from the source database with replication disabled.
 
 ## Source specific guides
 
-  - MySQL: [MySQL live data migration](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration) .
+- MySQL: [MySQL live data migration](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration) .

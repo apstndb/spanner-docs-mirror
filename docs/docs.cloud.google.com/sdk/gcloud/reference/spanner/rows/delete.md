@@ -12,21 +12,23 @@ gcloud spanner rows delete - delete a row in a Cloud Spanner database
 
 SYNOPSIS
 
-`gcloud spanner rows delete` `  --keys  ` = \[ `  KEY  ` , …\] `  --table  ` = `  TABLE  ` ( `  --database  ` = `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner rows delete` [`--keys`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/delete#--keys) = \[ `KEY` , …\] [`--table`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/delete#--table) = `TABLE` ( [`--database`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/delete#--database) = `DATABASE` : [`--instance`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/delete#--instance) = `INSTANCE` ) \[ [`GCLOUD_WIDE_FLAG`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/delete#GCLOUD-WIDE-FLAGS)` …` \]
 
 EXAMPLES
 
 To delete a row with primary keys of SingerId=1,SingName=abc in table Singers under my-database and my-instance, run:
 
-    gcloud spanner rows delete --table=Singers --database=my-database --instance=my-instance --keys=1,abc
+```
+gcloud spanner rows delete --table=Singers --database=my-database --instance=my-instance --keys=1,abc
+```
 
 REQUIRED FLAGS
 
-`--keys` =\[ `  KEY  ` ,…\]
+`--keys` =\[ `KEY` ,…\]
 
 The primary key values of the row to delete.
 
-`--table` = `  TABLE  `
+`--table` = `TABLE`
 
 The Cloud Spanner table name.
 
@@ -34,40 +36,44 @@ Database resource - The Cloud Spanner database in which to delete a row. The arg
 
 To set the `project` attribute:
 
-  - provide the argument `--database` on the command line with a fully specified name;
-  - provide the argument `--project` on the command line;
-  - set the property `core/project` .
+- provide the argument `--database` on the command line with a fully specified name;
+- provide the argument `--project` on the command line;
+- set the property `core/project` .
 
 This must be specified.
 
-  - `--database` = `  DATABASE  `  
-    ID of the database or fully qualified identifier for the database.
-    
-    To set the `database` attribute:
-    
-      - provide the argument `--database` on the command line.
-    
-    This flag argument must be specified if any of the other arguments in this group are specified.
+`--database` = `DATABASE`  
+ID of the database or fully qualified identifier for the database.
 
-  - `--instance` = `  INSTANCE  `  
-    The Cloud Spanner instance for the database.
-    
-    To set the `instance` attribute:
-    
-      - provide the argument `--database` on the command line with a fully specified name;
-      - provide the argument `--instance` on the command line;
-      - set the property `spanner/instance` .
+To set the `database` attribute:
+
+- provide the argument `--database` on the command line.
+
+This flag argument must be specified if any of the other arguments in this group are specified.
+
+`--instance` = `INSTANCE`  
+The Cloud Spanner instance for the database.
+
+To set the `instance` attribute:
+
+- provide the argument `--database` on the command line with a fully specified name;
+- provide the argument `--instance` on the command line;
+- set the property `spanner/instance` .
 
 GCLOUD WIDE FLAGS
 
-These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+These flags are available to all commands: [`--access-token-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--access-token-file) , [`--account`](https://docs.cloud.google.com/sdk/gcloud/reference#--account) , [`--billing-project`](https://docs.cloud.google.com/sdk/gcloud/reference#--billing-project) , [`--configuration`](https://docs.cloud.google.com/sdk/gcloud/reference#--configuration) , [`--flags-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--flags-file) , [`--flatten`](https://docs.cloud.google.com/sdk/gcloud/reference#--flatten) , [`--format`](https://docs.cloud.google.com/sdk/gcloud/reference#--format) , [`--help`](https://docs.cloud.google.com/sdk/gcloud/reference#--help) , [`--impersonate-service-account`](https://docs.cloud.google.com/sdk/gcloud/reference#--impersonate-service-account) , [`--log-http`](https://docs.cloud.google.com/sdk/gcloud/reference#--log-http) , [`--project`](https://docs.cloud.google.com/sdk/gcloud/reference#--project) , [`--quiet`](https://docs.cloud.google.com/sdk/gcloud/reference#--quiet) , [`--trace-token`](https://docs.cloud.google.com/sdk/gcloud/reference#--trace-token) , [`--user-output-enabled`](https://docs.cloud.google.com/sdk/gcloud/reference#--user-output-enabled) , [`--verbosity`](https://docs.cloud.google.com/sdk/gcloud/reference#--verbosity) .
 
-Run ` $ gcloud help  ` for details.
+Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for details.
 
 NOTES
 
 These variants are also available:
 
-    gcloud alpha spanner rows delete
+```
+gcloud alpha spanner rows delete
+```
 
-    gcloud beta spanner rows delete
+```
+gcloud beta spanner rows delete
+```

@@ -12,32 +12,38 @@ When you call a function, specific rules may apply. You can also add the `SAFE.`
 
 The following rules apply to all built-in GoogleSQL functions unless explicitly indicated otherwise in the function description:
 
-  - If an operand is `NULL` , the function result is `NULL` .
-  - For functions that are time zone sensitive, the default time zone, America/Los\_Angeles, is used when a time zone isn't specified.
+- If an operand is `NULL` , the function result is `NULL` .
+- For functions that are time zone sensitive, the default time zone, America/Los_Angeles, is used when a time zone isn't specified.
 
 ## Lambdas
 
 **Syntax:**
 
-    (arg[, ...]) -> body_expression
+```
+(arg[, ...]) -> body_expression
+```
 
-    arg -> body_expression
+```
+arg -> body_expression
+```
 
 **Description**
 
 For some functions, GoogleSQL supports lambdas as builtin function arguments. A lambda takes a list of arguments and an expression as the lambda body.
 
-  - `arg` :
-      - Name of the lambda argument is defined by the user.
-      - No type is specified for the lambda argument. The type is inferred from the context.
-  - `body_expression` :
-      - The lambda body can be any valid scalar expression.
+- `arg` :
+  - Name of the lambda argument is defined by the user.
+  - No type is specified for the lambda argument. The type is inferred from the context.
+- `body_expression` :
+  - The lambda body can be any valid scalar expression.
 
 ## SAFE. prefix
 
 **Syntax:**
 
-    SAFE.function_name()
+```
+SAFE.function_name()
+```
 
 **Description**
 
@@ -45,32 +51,36 @@ If you begin a scalar function with the `SAFE.` prefix, it will return `NULL` in
 
 **Exclusions**
 
-  - [Operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) , such as `+` and `=` , don't support the `SAFE.` prefix. To prevent errors from a division operation, use [SAFE\_DIVIDE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#safe_divide) .
-  - Some operators, such as `IN` , `ARRAY` , and `UNNEST` , resemble functions but don't support the `SAFE.` prefix.
-  - The `CAST` and `EXTRACT` functions don't support the `SAFE.` prefix. To prevent errors from casting, use [SAFE\_CAST](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions#safe_casting) .
-  - You can't append the `SAFE.` prefix to a function that contains a [lambda](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference#lambdas) .
+- [Operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators) , such as `+` and `=` , don't support the `SAFE.` prefix. To prevent errors from a division operation, use [SAFE_DIVIDE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#safe_divide) .
+- Some operators, such as `IN` , `ARRAY` , and `UNNEST` , resemble functions but don't support the `SAFE.` prefix.
+- The `CAST` and `EXTRACT` functions don't support the `SAFE.` prefix. To prevent errors from casting, use [SAFE_CAST](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions#safe_casting) .
+- You can't append the `SAFE.` prefix to a function that contains a [lambda](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference#lambdas) .
 
 **Example**
 
 In the following example, the first use of the `SUBSTR` function would normally return an error, because the function doesn't support length arguments with negative values. However, the `SAFE.` prefix causes the function to return `NULL` instead. The second use of the `SUBSTR` function provides the expected output: the `SAFE.` prefix has no effect.
 
-    SELECT SAFE.SUBSTR('foo', 0, -2) AS safe_output UNION ALL
-    SELECT SAFE.SUBSTR('bar', 0, 2) AS safe_output;
-    
-    /*-------------+
-     | safe_output |
-     +-------------+
-     | NULL        |
-     | ba          |
-     +-------------*/
+```
+SELECT SAFE.SUBSTR('foo', 0, -2) AS safe_output UNION ALL
+SELECT SAFE.SUBSTR('bar', 0, 2) AS safe_output;
+
+/*-------------+
+ | safe_output |
+ +-------------+
+ | NULL        |
+ | ba          |
+ +-------------*/
+```
 
 ## Function hints
 
 The following hints are available for GoogleSQL functions:
 
-### DISABLE\_INLINE
+### DISABLE_INLINE
 
-    function_name() @{DISABLE_INLINE = TRUE}
+```
+function_name() @{DISABLE_INLINE = TRUE}
+```
 
 To disable other parts of a query from using the function as an inline expression, add the `@{DISABLE_INLINE = TRUE}` hint after a scalar function. This allows the function to be computed once instead of each time another part of a query references it.
 
@@ -82,14 +92,18 @@ You can't use `DISABLE_INLINE` with a few functions, including those that don't 
 
 In the following example, inline expressions are enabled by default for `x` . `x` is computed twice, once by each reference:
 
-    SELECT
-      SUBSTRING(CAST(x AS STRING), 2, 5) AS w,
-      SUBSTRING(CAST(x AS STRING), 3, 7) AS y
-    FROM (SELECT SHA512(z) AS x FROM t)
+```
+SELECT
+  SUBSTRING(CAST(x AS STRING), 2, 5) AS w,
+  SUBSTRING(CAST(x AS STRING), 3, 7) AS y
+FROM (SELECT SHA512(z) AS x FROM t)
+```
 
 In the following example, inline expressions are disabled for `x` . `x` is computed once, and the result is used by each reference:
 
-    SELECT
-      SUBSTRING(CAST(x AS STRING), 2, 5) AS w,
-      SUBSTRING(CAST(x AS STRING), 3, 7) AS y
-    FROM (SELECT SHA512(z) @{DISABLE_INLINE = TRUE} AS x FROM t)
+```
+SELECT
+  SUBSTRING(CAST(x AS STRING), 2, 5) AS w,
+  SUBSTRING(CAST(x AS STRING), 3, 7) AS y
+FROM (SELECT SHA512(z) @{DISABLE_INLINE = TRUE} AS x FROM t)
+```

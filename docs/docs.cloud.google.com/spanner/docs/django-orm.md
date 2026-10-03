@@ -20,8 +20,8 @@ Refer to the [django-google-spanner documentation](https://pypi.org/project/djan
 
 ## What's next
 
-  - Read our [blog post](https://cloud.google.com/blog/topics/developers-practitioners/django-orm-support-cloud-spanner-now-generally-available) for a walkthrough and insight into how the code is designed.
-  - See [code examples](https://github.com/googleapis/google-cloud-python/tree/main/packages/django-google-spanner/examples) using Django with Spanner.
-  - Learn more about the [Django project](https://www.djangoproject.com/) .
-  - Learn more about [DB API](https://www.python.org/dev/peps/pep-0249/) .
-  - [File a GitHub issue](https://github.com/googleapis/google-cloud-python/issues) to report a bug or ask a question about using the Django ORM with Spanner.
+- Read our [blog post](https://cloud.google.com/blog/topics/developers-practitioners/django-orm-support-cloud-spanner-now-generally-available) for a walkthrough and insight into how the code is designed.
+- See [code examples](https://github.com/googleapis/google-cloud-python/tree/main/packages/django-google-spanner/examples) using Django with Spanner.
+- Learn more about the [Django project](https://www.djangoproject.com/) .
+- Learn more about [DB API](https://www.python.org/dev/peps/pep-0249/) .
+- [File a GitHub issue](https://github.com/googleapis/google-cloud-python/issues) to report a bug or ask a question about using the Django ORM with Spanner.

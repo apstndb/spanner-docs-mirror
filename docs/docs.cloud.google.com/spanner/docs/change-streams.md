@@ -14,11 +14,11 @@ This page offers a high-level overview of Spanner change streams: what they do, 
 
 Change streams provide a flexible, scalable way to stream data changes to other services. Common use cases include:
 
-  - Replicating Spanner data changes to a data warehouse, such as [BigQuery](https://docs.cloud.google.com/bigquery) , for analytics.
+- Replicating Spanner data changes to a data warehouse, such as [BigQuery](https://docs.cloud.google.com/bigquery) , for analytics.
 
-  - Triggering application logic based on data changes sent to a message queue, such as [Pub/Sub](https://docs.cloud.google.com/pubsub) .
+- Triggering application logic based on data changes sent to a message queue, such as [Pub/Sub](https://docs.cloud.google.com/pubsub) .
 
-  - Storing data changes in [Cloud Storage](https://docs.cloud.google.com/storage) , for compliance or archival purposes.
+- Storing data changes in [Cloud Storage](https://docs.cloud.google.com/storage) , for compliance or archival purposes.
 
 ## Change stream configuration
 
@@ -28,11 +28,11 @@ You can configure a change stream to watch data changes across an entire databas
 
 You can optionally configure a change stream with the following:
 
-  - [Specify the data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) to override the default, seven-days retention period.
-  - [Specify the value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) to override the default value capture type `OLD_AND_NEW_VALUES` .
-  - [Apply a TTL-based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) to filter out TTL-based deletes from your change streams.
-  - [Apply a table modifications filter](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) to exclude all `INSERT` , `UPDATE` , or `DELETE` table modifications.
-  - [Enable transaction-level records exclusion](https://docs.cloud.google.com/spanner/docs/change-streams#transaction-exclusion) to exclude certain transactions from your change streams.
+- [Specify the data retention period](https://docs.cloud.google.com/spanner/docs/change-streams#data-retention) to override the default, seven-days retention period.
+- [Specify the value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) to override the default value capture type `OLD_AND_NEW_VALUES` .
+- [Apply a TTL-based deletes filter](https://docs.cloud.google.com/spanner/docs/change-streams#ttl-filter) to filter out TTL-based deletes from your change streams.
+- [Apply a table modifications filter](https://docs.cloud.google.com/spanner/docs/change-streams#mod-type-filter) to exclude all `INSERT` , `UPDATE` , or `DELETE` table modifications.
+- [Enable transaction-level records exclusion](https://docs.cloud.google.com/spanner/docs/change-streams#transaction-exclusion) to exclude certain transactions from your change streams.
 
 Issuing the DDL that creates a change stream starts a [long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations) . When it completes, the new change stream immediately begins to watch the tables and columns assigned to it.
 
@@ -52,13 +52,13 @@ The database's schema treats change streams as dependent objects of any columns 
 
 The data changes that a change stream watches include all inserts, updates, and deletes made to the tables and columns that it watches. These changes can come from:
 
-  - [DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks)
+- [DML statements](https://docs.cloud.google.com/spanner/docs/dml-tasks)
 
-  - [Mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api)
+- [Mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api)
 
-  - Cascading deletes on [interleaved child tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables)
+- Cascading deletes on [interleaved child tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables)
 
-  - Deletes resulting from [time to live](https://docs.cloud.google.com/spanner/docs/ttl) rules
+- Deletes resulting from [time to live](https://docs.cloud.google.com/spanner/docs/ttl) rules
 
 Change streams can watch data changes only in user-created columns and tables. They don't watch indexes, views, other change streams, or system tables such as the information schema or statistics tables. Change streams don't watch generated columns unless the column is part of the primary key. Primary key columns are always tracked.
 
@@ -72,25 +72,25 @@ Every time Spanner detects a data change in a column being watched by a change s
 
 Every data change record written by a change stream includes the following information about the data change:
 
-  - The name of the affected table
+- The name of the affected table
 
-  - The names, values, and data types of the primary keys identifying the changed row
+- The names, values, and data types of the primary keys identifying the changed row
 
-  - The names and data types of the changed row's columns that were captured based on the change stream definition.
+- The names and data types of the changed row's columns that were captured based on the change stream definition.
 
-  - The old values of the row's columns. The availability of the old values and the content they track, which can be either the modified columns only or the entire tracked row, depends on the user-configured [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) .
+- The old values of the row's columns. The availability of the old values and the content they track, which can be either the modified columns only or the entire tracked row, depends on the user-configured [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) .
 
-  - The new values of the row's columns. The availability of the new values and the content they track depends on the user-configured [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) .
+- The new values of the row's columns. The availability of the new values and the content they track depends on the user-configured [value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) .
 
-  - The modification type (insert, update, or delete)
+- The modification type (insert, update, or delete)
 
-  - The commit timestamp
+- The commit timestamp
 
-  - The transaction ID
+- The transaction ID
 
-  - The record sequence number
+- The record sequence number
 
-  - The data change record's value capture type.
+- The data change record's value capture type.
 
 For a deeper look at the structure of data change records, see [Data change records](https://docs.cloud.google.com/spanner/docs/change-streams/details#data-change-records) .
 
@@ -106,13 +106,13 @@ This data retention period presents a trade-off; a longer retention period carri
 
 A change stream's *value capture type* configuration option controls the way that it stores a changed row's values. [You can use DDL](https://docs.cloud.google.com/spanner/docs/change-streams/manage) to specify one of the following value capture types for a change stream:
 
-  - `OLD_AND_NEW_VALUES` : Captures both old and new values of a row's modified columns.
+- `OLD_AND_NEW_VALUES` : Captures both old and new values of a row's modified columns.
 
-  - `NEW_VALUES` : Captures only the new values of the non-key columns, but no old values.
+- `NEW_VALUES` : Captures only the new values of the non-key columns, but no old values.
 
-  - `NEW_ROW` : Captures all new values of watched columns, both modified and unmodified, whenever any of those columns change. No old values are captured.
+- `NEW_ROW` : Captures all new values of watched columns, both modified and unmodified, whenever any of those columns change. No old values are captured.
 
-  - `NEW_ROW_AND_OLD_VALUES` : Captures all new values for both modified and unmodified columns, and old values for modified columns.
+- `NEW_ROW_AND_OLD_VALUES` : Captures all new values for both modified and unmodified columns, and old values for modified columns.
 
 ### Exclude time-to-live based deletes
 
@@ -124,9 +124,9 @@ The default value for this filter is `false` . To exclude TTL-based deletes, set
 
 By default, change streams include all table modifications, such as inserts, updates, and deletes. You can filter one or more of these table modifications from your change stream's scope using the following available filter options:
 
-  - `exclude_insert` : exclude all `INSERT` table modifications
-  - `exclude_update` : exclude all `UPDATE` table modifications
-  - `exclude_delete` : exclude all `DELETE` table modifications
+- `exclude_insert` : exclude all `INSERT` table modifications
+- `exclude_update` : exclude all `UPDATE` table modifications
+- `exclude_delete` : exclude all `DELETE` table modifications
 
 The default value for these filters is `false` . To exclude a specific type of table modification, set the filter to `true` . You can set one or more filters at the same time.
 
@@ -146,8 +146,8 @@ You can't set this parameter to `true` for read-only transactions. If you do thi
 
 For change streams monitoring columns modified by transactions, when `exclude_txn_from_change_streams` is set to `true` , two scenarios are possible:
 
-  - If the DDL option `allow_txn_exclusion` is set to `true` , then the updates made within this transaction aren't recorded in the change stream.
-  - If you don't set the DDL option `allow_txn_exclusion` or if it's set to `false` , then the updates made within this transaction are recorded in the change stream.
+- If the DDL option `allow_txn_exclusion` is set to `true` , then the updates made within this transaction aren't recorded in the change stream.
+- If you don't set the DDL option `allow_txn_exclusion` or if it's set to `false` , then the updates made within this transaction are recorded in the change stream.
 
 If you don't set the `exclude_txn_from_change_streams` option or if it's set to `false` , then any change streams monitoring columns modified by transactions will capture the updates made within that transaction.
 
@@ -155,13 +155,13 @@ If you don't set the `exclude_txn_from_change_streams` option or if it's set to 
 
 Spanner offers multiple ways to read a change stream's data:
 
-  - Directly, using the Spanner API.
+- Directly, using the Spanner API.
 
-  - Through Dataflow, using the Apache Beam SpannerIO connector. Google also provides Dataflow templates for common use cases.
+- Through Dataflow, using the Apache Beam SpannerIO connector. Google also provides Dataflow templates for common use cases.
 
-  - Through using the Debezium-based Kafka connector for Spanner change streams. This connector streams change records directly into Kafka topics.
+- Through using the Debezium-based Kafka connector for Spanner change streams. This connector streams change records directly into Kafka topics.
 
-  - Using Datastream to directly stream your changes to BigQuery, BigLake Iceberg tables, or Cloud Storage.
+- Using Datastream to directly stream your changes to BigQuery, BigLake Iceberg tables, or Cloud Storage.
 
 You can provide partial isolation for change streams reads by using directed reads. Directed reads can help to minimize impact on transactional workloads in your database. You can use the Spanner API to route change streams reads to a specific replica type or region within a multi-region instance configuration or a custom regional configuration with optional read-only regions. For more information, see [directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) .
 
@@ -169,10 +169,10 @@ You can provide partial isolation for change streams reads by using directed rea
 
 You can write code to use the Spanner API to read change stream records directly. This method provides the lowest possible read latency and the highest code flexibility. However, using the API directly requires you to manage several tasks in your code:
 
-  - Track returned partition tokens and their states.
-  - Divide large time windows into smaller, non-overlapping windows.
-  - Continuously read from partitions and track their states.
-  - Manage commits or checkpoints for efficient retry and error recovery.
+- Track returned partition tokens and their states.
+- Divide large time windows into smaller, non-overlapping windows.
+- Continuously read from partitions and track their states.
+- Manage commits or checkpoints for efficient retry and error recovery.
 
 For more information on how to query change streams and interpret the records returned, see [Change streams partitions, records, and queries](https://docs.cloud.google.com/spanner/docs/change-streams/details) .
 
@@ -206,20 +206,20 @@ There are several limits on change streams, including the maximum number of chan
 
 Change streams uses the following:
 
-  - Creating, updating, or dropping change streams requires `spanner.databases.updateDdl` .
+- Creating, updating, or dropping change streams requires `spanner.databases.updateDdl` .
 
-  - Reading a change stream's data requires `spanner.databases.select` .
+- Reading a change stream's data requires `spanner.databases.select` .
 
 If using the SpannerIO connector, then the owner of the Dataflow job that reads change stream data requires additional Identity and Access Management (IAM) permissions, either on your application database or on a separate metadata database; see [Create a metadata database](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow#metadata) .
 
 ## What's next
 
-  - Learn the DDL syntax to [create and manage change streams](https://docs.cloud.google.com/spanner/docs/change-streams/manage) .
+- Learn the DDL syntax to [create and manage change streams](https://docs.cloud.google.com/spanner/docs/change-streams/manage) .
 
-  - Use change streams and templates to replicate changes from Spanner [to BigQuery](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-bigquery) or [to Cloud Storage](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-cloud-storage) .
+- Use change streams and templates to replicate changes from Spanner [to BigQuery](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-bigquery) or [to Cloud Storage](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-streaming#cloud-spanner-change-streams-to-cloud-storage) .
 
-  - Learn more about [building Dataflow pipelines to process change stream data](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow) .
+- Learn more about [building Dataflow pipelines to process change stream data](https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow) .
 
-  - Further explore [change streams details](https://docs.cloud.google.com/spanner/docs/change-streams/details) , including more details on the change stream architecture, how to query change streams using the API and interpret the records returned.
+- Further explore [change streams details](https://docs.cloud.google.com/spanner/docs/change-streams/details) , including more details on the change stream architecture, how to query change streams using the API and interpret the records returned.
 
-  - Learn more about [using the Kafka connector to process change stream data](https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka) .
+- Learn more about [using the Kafka connector to process change stream data](https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka) .

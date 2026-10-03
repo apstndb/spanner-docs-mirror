@@ -12,8 +12,8 @@ Liquibase is an open-source database-independent library for tracking, managing,
 
 Liquibase can target Spanner databases. It supports all Spanner features, with some limitations.
 
-  - To see general limitations, see [limitations](https://github.com/cloudspannerecosystem/liquibase-spanner/blob/master/limitations.md) .
-  - To see additional information for PostgreSQL-dialect databases, such as Liquibase requirements, supported change types, and limitations, see [PGAdapter and Liquibase](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/liquibase) .
+- To see general limitations, see [limitations](https://github.com/cloudspannerecosystem/liquibase-spanner/blob/master/limitations.md) .
+- To see additional information for PostgreSQL-dialect databases, such as Liquibase requirements, supported change types, and limitations, see [PGAdapter and Liquibase](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/liquibase) .
 
 ## Install Liquibase
 
@@ -31,9 +31,8 @@ To use Liquibase with GoogleSQL-dialect databases, you have to install the Spann
 
 In the `liquibase.properties` configuration file, set the `url` property as follows.
 
-``` 
+```
  jdbc:cloudspanner:/projects/PROJECT/instances/INSTANCE/databases/DATABASE
- 
 ```
 
 Your `liquibase.properties` configuration file can contain only this property. Other properties are optional.
@@ -46,7 +45,7 @@ Your `liquibase.properties` configuration file can contain only this property. O
 
 In the `liquibase.properties` configuration file, set the `url` property as follows.
 
-``` 
+```
   jdbc:postgresql://localhost:5432/DATABASE_NAME?options=-c%20spanner.ddl_transaction_mode=AutocommitExplicitTransaction
   
 ```
@@ -71,55 +70,61 @@ This quickstart shows you how to use Liquibase to add a `Singers` table to a dat
 
 ### Before you begin
 
-  - Make sure that you have completed the preceding steps to [install](https://docs.cloud.google.com/spanner/docs/use-liquibase#install-liq) Liquibase.
+- Make sure that you have completed the preceding steps to [install](https://docs.cloud.google.com/spanner/docs/use-liquibase#install-liq) Liquibase.
 
-  - Create a Spanner instance.
+- Create a Spanner instance.
 
-  - Create a GoogleSQL-dialect database or PostgreSQL-dialect database.
+- Create a GoogleSQL-dialect database or PostgreSQL-dialect database.
 
-  - For PostgreSQL-dialect databases only, ensure that PGAdapter is started and running on the same machine as your Liquibase installation. For more information, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
+- For PostgreSQL-dialect databases only, ensure that PGAdapter is started and running on the same machine as your Liquibase installation. For more information, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
-  - For PostgreSQL-dialect databases only, use the [create\_database\_change\_log.sql](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/liquibase/create_database_change_log.sql) script to create the `databasechangeloglock` and `databasechangelog` metadata tables. You must create these tables to override the tables that Liquibase creates automatically in your database. This is to ensure that the correct PostgreSQL data types for Spanner are used in these tables.
-    
-    You can run the script with the following command:
-    
-        psql -h localhost -d DATABASE_NAME -f create_database_change_log.sql
+- For PostgreSQL-dialect databases only, use the [create_database_change_log.sql](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/liquibase/create_database_change_log.sql) script to create the `databasechangeloglock` and `databasechangelog` metadata tables. You must create these tables to override the tables that Liquibase creates automatically in your database. This is to ensure that the correct PostgreSQL data types for Spanner are used in these tables.
 
-  - Give the Spanner Liquibase extension temporary use of your Spanner user credentials for API access by running the following `gcloud` command:
-    
-        gcloud auth application-default login
+  You can run the script with the following command:
+
+  ```
+  psql -h localhost -d DATABASE_NAME -f create_database_change_log.sql
+  ```
+
+- Give the Spanner Liquibase extension temporary use of your Spanner user credentials for API access by running the following `gcloud` command:
+
+  ```
+  gcloud auth application-default login
+  ```
 
 ### Create a changelog.yaml
 
 1.  Enter the following YAML into your favorite editor.
-    
-        databaseChangeLog:
-          - preConditions:
-             onFail: HALT
-             onError: HALT
-        
-          - changeSet:
-             id: create-singers-table
-             author: spanner-examples
-             changes:
-               - createTable:
-                  tableName: Singers
-                  columns:
-                    -  column:
-                        name:    SingerId
-                        type:    BIGINT
-                        constraints:
-                          primaryKey: true
-                          primaryKeyName: pk_Singers
-                    -  column:
-                        name:    Name
-                        type:    VARCHAR(255)
-    
+
+    ```
+    databaseChangeLog:
+      - preConditions:
+         onFail: HALT
+         onError: HALT
+
+      - changeSet:
+         id: create-singers-table
+         author: spanner-examples
+         changes:
+           - createTable:
+              tableName: Singers
+              columns:
+                -  column:
+                    name:    SingerId
+                    type:    BIGINT
+                    constraints:
+                      primaryKey: true
+                      primaryKeyName: pk_Singers
+                -  column:
+                    name:    Name
+                    type:    VARCHAR(255)
+    ```
+
     This YAML defines a table called `Singers` with a primary key `SingerId` and a column called `Name` to store the singer's name.
-    
+
     For PostgreSQL-dialect databases, we recommend using all lower case for table and column names. For more information, see [PostgreSQL case sensitivity](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical#case-sensitivity) .
-    
-    Note that the `createTable` change set must include a primary key constraint, and the name of the primary key constraint must be pk\_ table\_name .
+
+    Note that the `createTable` change set must include a primary key constraint, and the name of the primary key constraint must be pk\_ ` table_name ` .
 
 2.  Save your changes as `changelog.yaml` .
 
@@ -127,11 +132,15 @@ This quickstart shows you how to use Liquibase to add a `Singers` table to a dat
 
 Apply the changeset in `changelog.yaml` by executing the following command:
 
-    liquibase --changeLogFile changelog.yaml update
+```
+liquibase --changeLogFile changelog.yaml update
+```
 
 Liquibase uses the URL that you defined in the `liquibase.properties` file. You can override the value in the file by adding the following argument to the preceding command:
 
-    --url URL
+```
+--url URL
+```
 
 ### Verify your changes
 
@@ -139,13 +148,15 @@ The updates in the preceding step caused the `Singer` table to be added to your 
 
 You can verify the existence of these tables through the Google Cloud console or gcloud CLI. For example, running the SQL query `SELECT * FROM INFORMATION_SCHEMA.TABLES` returns a list of all tables in your database.
 
-    gcloud spanner databases execute-sql DATABASE_NAME --instance=INSTANCE \
-        --sql='SELECT * FROM INFORMATION_SCHEMA.TABLES'
+```
+gcloud spanner databases execute-sql DATABASE_NAME --instance=INSTANCE \
+    --sql='SELECT * FROM INFORMATION_SCHEMA.TABLES'
+```
 
 You can see a record of the changes that were applied by querying the contents of `DATABASECHANGELOG` .
 
 ## What's next
 
-  - For more documentation, visit the [Spanner Liquibase Extension](https://github.com/cloudspannerecosystem/liquibase-spanner) GitHub repository.
+- For more documentation, visit the [Spanner Liquibase Extension](https://github.com/cloudspannerecosystem/liquibase-spanner) GitHub repository.
 
-  - To learn more about Liquibase, see [Getting Started with Liquibase](https://www.liquibase.org/get-started) .
+- To learn more about Liquibase, see [Getting Started with Liquibase](https://www.liquibase.org/get-started) .

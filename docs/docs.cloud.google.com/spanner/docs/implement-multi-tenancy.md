@@ -22,23 +22,23 @@ Spanner is Google Cloud's fully managed, enterprise-grade, distributed, and cons
 
 In a multi-tenant application, each tenant's data is isolated in one of several architecture approaches in the underlying Spanner database. The following list outlines the different architecture approaches used to map a tenant's data to Spanner:
 
-  - **Instance:** A tenant resides exclusively in one Spanner instance, with exactly one database for that tenant.
-  - **Database:** A tenant resides in a database in a single Spanner instance containing multiple databases.
-  - **Table:** A tenant resides in exclusive tables within a database, and several tenants can be located in the same database.
-  - **Row:** Tenant data are rows in database tables. Those tables are shared with other tenants.
+- **Instance:** A tenant resides exclusively in one Spanner instance, with exactly one database for that tenant.
+- **Database:** A tenant resides in a database in a single Spanner instance containing multiple databases.
+- **Table:** A tenant resides in exclusive tables within a database, and several tenants can be located in the same database.
+- **Row:** Tenant data are rows in database tables. Those tables are shared with other tenants.
 
 The preceding criteria are called data management patterns and are discussed in detail in the [Multi-tenancy data management patterns](https://docs.cloud.google.com/spanner/docs/implement-multi-tenancy#multi-tenancy_data_management_patterns) section. That discussion is based on the following criteria:
 
-  - **Data isolation:** The degree of data isolation across multiple tenants is a major consideration for multi-tenancy. For example, whether data needs to be physically or logically separated, and whether there are independent ACLs (Access Control Lists) that can be set for each tenant's data. Isolation is driven by the choices made for the criteria under other categories. For example, certain regulatory and compliance requirements might dictate a greater degree of isolation.
-  - **Agility:** The ease of onboarding and offboarding activities for a tenant with respect to creating an instance, database, table, or row.
-  - **Operations:** The availability or complexity of implementing typical, tenant-specific, database operations, and administration activities. For example, regular maintenance, logging, backups, or disaster recovery operations.
-  - **Scale:** The ability to scale seamlessly to allow for future growth. The description of each pattern contains the number of tenants the pattern can support.
-  - **Performance:**
-      - **Resource isolation** : The ability to allocate exclusive resources to each tenant, address the [noisy neighbor](https://wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors) phenomenon, and enable predictable read and write performance for each tenant.
-      - **Minimum resources per tenant** : The average minimum amount of resources per tenant. This doesn't necessarily mean that you need to pay at least this amount for each individual tenant, but rather you need to pay at least N \* this amount for all the N tenants together.
-      - **Resource efficiency** : The ability to use idle resources of other tenants to save overall cost.
-      - **Location selection for latency optimization** : The ability to pick specific replication topology for each tenant so that the data for each tenant can be placed in the location that provides the best latency for the tenant.
-  - **Regulations and compliance:** The ability to address the requirements of highly regulated industries and countries that require the complete isolation of resources and maintenance operations. For example, data residency requirements for France require that personally identifiable information is physically stored exclusively within France. Financial industries usually require [customer-managed encryption keys (CMEK)](https://docs.cloud.google.com/kms/docs/cmek) , and each tenant might want to use its own encryption key.
+- **Data isolation:** The degree of data isolation across multiple tenants is a major consideration for multi-tenancy. For example, whether data needs to be physically or logically separated, and whether there are independent ACLs (Access Control Lists) that can be set for each tenant's data. Isolation is driven by the choices made for the criteria under other categories. For example, certain regulatory and compliance requirements might dictate a greater degree of isolation.
+- **Agility:** The ease of onboarding and offboarding activities for a tenant with respect to creating an instance, database, table, or row.
+- **Operations:** The availability or complexity of implementing typical, tenant-specific, database operations, and administration activities. For example, regular maintenance, logging, backups, or disaster recovery operations.
+- **Scale:** The ability to scale seamlessly to allow for future growth. The description of each pattern contains the number of tenants the pattern can support.
+- **Performance:**
+  - **Resource isolation** : The ability to allocate exclusive resources to each tenant, address the [noisy neighbor](https://wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors) phenomenon, and enable predictable read and write performance for each tenant.
+  - **Minimum resources per tenant** : The average minimum amount of resources per tenant. This doesn't necessarily mean that you need to pay at least this amount for each individual tenant, but rather you need to pay at least N \* this amount for all the N tenants together.
+  - **Resource efficiency** : The ability to use idle resources of other tenants to save overall cost.
+  - **Location selection for latency optimization** : The ability to pick specific replication topology for each tenant so that the data for each tenant can be placed in the location that provides the best latency for the tenant.
+- **Regulations and compliance:** The ability to address the requirements of highly regulated industries and countries that require the complete isolation of resources and maintenance operations. For example, data residency requirements for France require that personally identifiable information is physically stored exclusively within France. Financial industries usually require [customer-managed encryption keys (CMEK)](https://docs.cloud.google.com/kms/docs/cmek) , and each tenant might want to use its own encryption key.
 
 Each data management pattern as it relates to these criteria is detailed in the next section. Use the same criteria when selecting a data management pattern for a specific set of tenants.
 
@@ -133,14 +133,14 @@ The following table outlines how the instance data management pattern affects di
 
 In summary, the key takeaways are:
 
-  - **Advantage:** Highest level of isolation
-  - **Disadvantage:** Greatest operational overhead and potentially higher cost due to the 100 PU minimum per tenant. Sharing resources across tenants is unsupported.
+- **Advantage:** Highest level of isolation
+- **Disadvantage:** Greatest operational overhead and potentially higher cost due to the 100 PU minimum per tenant. Sharing resources across tenants is unsupported.
 
 The instance data management pattern is best suited for the following scenarios:
 
-  - Different tenants are spread across a wide range of regions and need a localized solution.
-  - Regulatory and compliance requirements for some tenants demand greater levels of security and auditing protocols.
-  - Tenant size varies significantly, such that sharing resources among high-volume, high-traffic tenants might cause contention and mutual degradation.
+- Different tenants are spread across a wide range of regions and need a localized solution.
+- Regulatory and compliance requirements for some tenants demand greater levels of security and auditing protocols.
+- Tenant size varies significantly, such that sharing resources among high-volume, high-traffic tenants might cause contention and mutual degradation.
 
 ### Database
 
@@ -207,15 +207,17 @@ The following table outlines how the database data management pattern affects di
 </tr>
 <tr class="odd">
 <td>Performance</td>
-<td><strong>Resource isolation</strong> : contention among multiple databases
+<td><ul>
+<li><strong>Resource isolation</strong> : contention among multiple databases
 <ul>
 <li>Databases spread across Spanner instance nodes</li>
 <li>Databases share infrastructure</li>
 <li>Noisy neighbors affect performance</li>
-</ul>
-<strong>Minimum resources per tenant</strong> : Because there is a limit of 100 databases per instance, the minimum compute capacity for 100 databases (or 100 tenants) is 1 node. Even for a granular instance, the minimum compute capacity per 100 tenants is still 1 node. Although each granular instance can use as few as 100 processing units, Spanner only allows a limit of 10 databases per 100 processing units.
-<strong>Resource efficiency</strong> : Tenants share the resources of one instance. Tenants can use the idle resources of other tenants.
-<strong>Location selection for latency optimization</strong> : If you're not using the geo-partitioning feature, then the location of the database is the same as the instance configuration. You can't customize the location of the database for each tenant. However, if you're using the geo-partitioning feature, you can create instance partitions in different locations, and you can place data in different locations using a row placement key. Using geo-partitioning optimizes latency for each tenant.</td>
+</ul></li>
+<li><strong>Minimum resources per tenant</strong> : Because there is a limit of 100 databases per instance, the minimum compute capacity for 100 databases (or 100 tenants) is 1 node. Even for a granular instance, the minimum compute capacity per 100 tenants is still 1 node. Although each granular instance can use as few as 100 processing units, Spanner only allows a limit of 10 databases per 100 processing units.</li>
+<li><strong>Resource efficiency</strong> : Tenants share the resources of one instance. Tenants can use the idle resources of other tenants.</li>
+<li><strong>Location selection for latency optimization</strong> : If you're not using the geo-partitioning feature, then the location of the database is the same as the instance configuration. You can't customize the location of the database for each tenant. However, if you're using the geo-partitioning feature, you can create instance partitions in different locations, and you can place data in different locations using a row placement key. Using geo-partitioning optimizes latency for each tenant.</li>
+</ul></td>
 </tr>
 <tr class="even">
 <td>Regulatory and compliance requirements</td>
@@ -229,15 +231,15 @@ The following table outlines how the database data management pattern affects di
 
 In summary, the key takeaways are:
 
-  - **Advantage:** Moderate level of data isolation, and resource isolation; moderate level of resource efficiency; each tenant can have its own backup and CMEK.
-  - **Disadvantage:** Limited number of tenants per instance; location inflexibility if not using the geo-partitioning feature.
+- **Advantage:** Moderate level of data isolation, and resource isolation; moderate level of resource efficiency; each tenant can have its own backup and CMEK.
+- **Disadvantage:** Limited number of tenants per instance; location inflexibility if not using the geo-partitioning feature.
 
 The database data management pattern is best suited for the following scenarios:
 
-  - Multiple customers are in the same data residency or are under the same regulatory authority.
-  - Tenants require system-based data separation and the ability to backup and restore their data, but are fine with infrastructure resource sharing.
-  - Tenants require their own CMEK.
-  - Cost is an important consideration. The minimum resources needed per tenant are less than the cost of an instance. It is desirable for tenants to use the idle resources of other tenants.
+- Multiple customers are in the same data residency or are under the same regulatory authority.
+- Tenants require system-based data separation and the ability to backup and restore their data, but are fine with infrastructure resource sharing.
+- Tenants require their own CMEK.
+- Cost is an important consideration. The minimum resources needed per tenant are less than the cost of an instance. It is desirable for tenants to use the idle resources of other tenants.
 
 ### Table
 
@@ -278,12 +280,12 @@ The following table outlines how the table data management pattern affects diffe
 </tr>
 <tr class="even">
 <td>Agility</td>
-<td>Requires effort to create or delete the new tables, associated indexes, and any security controls created through FGAC
-<ul>
-</ul>
-Offboarding a customer means deleting tables
+<td><ul>
+<li>Requires effort to create or delete the new tables, associated indexes, and any security controls created through FGAC</li>
+<li>Offboarding a customer means deleting tables
 <ul>
 <li>May have a temporary negative performance impact on other tenants within the database</li>
+</ul></li>
 </ul></td>
 </tr>
 <tr class="odd">
@@ -305,13 +307,15 @@ Offboarding a customer means deleting tables
 </tr>
 <tr class="odd">
 <td>Performance</td>
-<td><strong>Resource isolation</strong> : Shared underlying infrastructure resources. High level of resource contention is possible.
+<td><ul>
+<li><strong>Resource isolation</strong> : Shared underlying infrastructure resources. High level of resource contention is possible.
 <ul>
 <li>Noisy neighbors affect performance.</li>
-</ul>
-<strong>Minimum resources per tenant</strong> : Because there's a limit of 100 databases per instance, and 5,000 tables per database, the minimum compute capacity required per 500,000 tenants is one node.
-<strong>Resource efficiency</strong> : Tenants share the resources of one instance. Each tenant can use the idle resource from other tenants.
-<strong>Location selection for latency optimization</strong> : If you're not using the geo-partitioning feature, then the location of the database is the same as the instance configuration. You can't customize the location of the database for each tenant. However, if you're using the geo-partitioning feature, you can create instance partitions in different locations, and you can place data in different locations using a row placement key. Using geo-partitioning optimizes latency for each tenant.</td>
+</ul></li>
+<li><strong>Minimum resources per tenant</strong> : Because there's a limit of 100 databases per instance, and 5,000 tables per database, the minimum compute capacity required per 500,000 tenants is one node.</li>
+<li><strong>Resource efficiency</strong> : Tenants share the resources of one instance. Each tenant can use the idle resource from other tenants.</li>
+<li><strong>Location selection for latency optimization</strong> : If you're not using the geo-partitioning feature, then the location of the database is the same as the instance configuration. You can't customize the location of the database for each tenant. However, if you're using the geo-partitioning feature, you can create instance partitions in different locations, and you can place data in different locations using a row placement key. Using geo-partitioning optimizes latency for each tenant.</li>
+</ul></td>
 </tr>
 <tr class="even">
 <td>Regulatory and compliance requirements</td>
@@ -325,18 +329,18 @@ Offboarding a customer means deleting tables
 
 In summary, the key takeaways are:
 
-  - **Advantage:** Moderate level of scalability and resource efficiency.
-  - **Disadvantage:**
-      - Moderate level of data isolation, and resource isolation.
-      - Schema update operations can be throttled if tenants are onboarded frequently.
-      - Location inflexibility if not using the geo-partitioning feature.
-      - Inability to separately monitor tenants. The only available table level resource consumption info is [table size statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics) .
-      - Tenants can't have their own CMEK and backups.
+- **Advantage:** Moderate level of scalability and resource efficiency.
+- **Disadvantage:**
+  - Moderate level of data isolation, and resource isolation.
+  - Schema update operations can be throttled if tenants are onboarded frequently.
+  - Location inflexibility if not using the geo-partitioning feature.
+  - Inability to separately monitor tenants. The only available table level resource consumption info is [table size statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics) .
+  - Tenants can't have their own CMEK and backups.
 
 The table data management pattern is best suited for the following scenarios:
 
-  - Multi-tenant applications that doesn't legally require data separation, but you want logical separation and security control.
-  - Cost is an important consideration. The minimum per tenant cost is cheaper than per database cost.
+- Multi-tenant applications that doesn't legally require data separation, but you want logical separation and security control.
+- Cost is an important consideration. The minimum per tenant cost is cheaper than per database cost.
 
 ### Row
 
@@ -373,11 +377,13 @@ The following table outlines how the row data management pattern affects differe
 </tr>
 <tr class="even">
 <td>Agility</td>
-<td>No setup required on the database side when onboarding
+<td><ul>
+<li>No setup required on the database side when onboarding
 <ul>
 <li>The application can directly write data into the existing tables</li>
-</ul>
-Offboarding means deleting the customer's rows in the table</td>
+</ul></li>
+<li>Offboarding means deleting the customer's rows in the table</li>
+</ul></td>
 </tr>
 <tr class="odd">
 <td>Operations</td>
@@ -395,17 +401,21 @@ Offboarding means deleting the customer's rows in the table</td>
 </tr>
 <tr class="odd">
 <td>Performance</td>
-<td><strong>Resource isolation</strong> :
-All the resource isolation problems that occur in the database pattern also apply to this pattern.
-If the primary key spaces are not designed carefully, a high level of resource contention is possible (noisy neighbor).
+<td><ul>
+<li><strong>Resource isolation</strong> :
+<ul>
+<li>All the resource isolation problems that occur in the database pattern also apply to this pattern.</li>
+<li>If the primary key spaces are not designed carefully, a high level of resource contention is possible (noisy neighbor).
 <ul>
 <li>Can prevent concurrency and distribution</li>
 <li>Following best practices is important</li>
 <li>Deleting a tenant's data might have a temporary impact on the load</li>
-</ul>
-<strong>Minimum resources per tenant</strong> : No minimum resources per tenant
-<strong>Resource efficiency</strong> : Tenants share the resources of one instance. Each tenant can use the idle resources of other tenants.
-<strong>Location selection for latency optimization</strong> : If you're not using the geo-partitioning feature, then the location of the database is the same as the instance configuration. You can't customize the location of the database for each tenant. However, if you're using the geo-partitioning feature, you can create instance partitions in different locations, and you can place data in different locations using a row placement key. Using geo-partitioning optimizes latency for each tenant.</td>
+</ul></li>
+</ul></li>
+<li><strong>Minimum resources per tenant</strong> : No minimum resources per tenant</li>
+<li><strong>Resource efficiency</strong> : Tenants share the resources of one instance. Each tenant can use the idle resources of other tenants.</li>
+<li><strong>Location selection for latency optimization</strong> : If you're not using the geo-partitioning feature, then the location of the database is the same as the instance configuration. You can't customize the location of the database for each tenant. However, if you're using the geo-partitioning feature, you can create instance partitions in different locations, and you can place data in different locations using a row placement key. Using geo-partitioning optimizes latency for each tenant.</li>
+</ul></td>
 </tr>
 <tr class="even">
 <td>Regulatory and compliance requirements</td>
@@ -420,20 +430,20 @@ If the primary key spaces are not designed carefully, a high level of resource c
 
 In summary, the key takeaways are:
 
-  - **Advantage:** Highly scalable; has low operational overhead; simplified schema management.
-  - **Disadvantage:** High resource contention; lack of security controls and monitoring for each tenant.
+- **Advantage:** Highly scalable; has low operational overhead; simplified schema management.
+- **Disadvantage:** High resource contention; lack of security controls and monitoring for each tenant.
 
 This pattern is best suited for the following scenarios:
 
-  - Internal applications that cater to different departments where strict data security isolation isn't a prominent concern when compared to ease of maintenance.
-  - Maximum resource sharing for tenants using free-tier application when minimizing resource provisioning at the same time.
+- Internal applications that cater to different departments where strict data security isolation isn't a prominent concern when compared to ease of maintenance.
+- Maximum resource sharing for tenants using free-tier application when minimizing resource provisioning at the same time.
 
 ## Data management patterns and tenant lifecycle management
 
 The following table compares the various data management patterns across all criteria at a high level.
 
 |                                                                            | Instance | Database                                                        | Table                                                           | Row                   |
-| -------------------------------------------------------------------------- | -------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------- |
+|----------------------------------------------------------------------------|----------|-----------------------------------------------------------------|-----------------------------------------------------------------|-----------------------|
 | **Data isolation**                                                         | Complete | High                                                            | Moderate                                                        | Low                   |
 | **Agility**                                                                | Low      | Moderate                                                        | Moderate                                                        | Highest               |
 | **Ease of operations**                                                     | High     | High                                                            | Low                                                             | Low                   |
@@ -454,29 +464,29 @@ Often, a single data management pattern is sufficient to address the requirement
 
 Some multi-tenant applications require several data management patterns at the same time. For example, a multi-tenant application that supports a free tier, a regular tier, and an enterprise tier.
 
-  - **Free tier:**
-    
-      - Must be cost effective
-      - Must have an upper data-volume limit
-      - Usually supports limited features
-      - The row data management pattern is a good free-tier candidate
-          - Tenant management is straightforward
-          - No need to create specific or exclusive tenant resources
+- **Free tier:**
 
-  - **Regular tier:**
-    
-      - Good for paying clients who have no specifically strong scaling or isolation requirements.
-      - The table data management pattern or the database data management pattern is a good regular-tier candidate:
-          - Tables and indexes are exclusive for the tenant.
-          - Backup is straightforward in the database data management pattern
-          - Backup isn't supported for the table data management pattern.
-              - Tenant backup must be implemented as a utility outside Spanner.
+  - Must be cost effective
+  - Must have an upper data-volume limit
+  - Usually supports limited features
+  - The row data management pattern is a good free-tier candidate
+    - Tenant management is straightforward
+    - No need to create specific or exclusive tenant resources
 
-  - **Enterprise tier:**
-    
-      - Usually a high-end tier with full autonomy in all aspects.
-      - Tenant has dedicated resources that include dedicated scaling and full isolation.
-      - The instance data management pattern is well suited for the enterprise tier.
+- **Regular tier:**
+
+  - Good for paying clients who have no specifically strong scaling or isolation requirements.
+  - The table data management pattern or the database data management pattern is a good regular-tier candidate:
+    - Tables and indexes are exclusive for the tenant.
+    - Backup is straightforward in the database data management pattern
+    - Backup isn't supported for the table data management pattern.
+      - Tenant backup must be implemented as a utility outside Spanner.
+
+- **Enterprise tier:**
+
+  - Usually a high-end tier with full autonomy in all aspects.
+  - Tenant has dedicated resources that include dedicated scaling and full isolation.
+  - The instance data management pattern is well suited for the enterprise tier.
 
 A best practice is to keep different data management patterns in different databases. While it's possible to combine different data management patterns in a Spanner database, doing so makes it difficult to implement the application's access logic and lifecycle operations.
 
@@ -486,24 +496,24 @@ The [Application design](https://docs.cloud.google.com/spanner/docs/implement-mu
 
 Tenants have a lifecycle. Therefore, you must implement the corresponding management operations within your multi-tenant application. Beyond the basic operations of creating, updating, and deleting tenants, consider the following additional data-related operations:
 
-  - **Export tenant data:**
-    
-      - When deleting a tenant, it's a best practice to export their data first and possibly make the dataset available to them.
-      - When using the row or table data management pattern, the multi-tenant application system must implement the export or map it to the database feature (database export), and implement custom logic to take the portion of the data that corresponds to the tenant out.
+- **Export tenant data:**
 
-  - **Back up tenant data:**
-    
-      - When using the instance or database data management pattern and backing up data for individual tenants, use the database's export or backup functions.
-      - When using the table or row data management pattern and backing up data for individual tenants, the multi-tenant application must implement this operation. The Spanner database can't determine which data belongs to which tenant.
+  - When deleting a tenant, it's a best practice to export their data first and possibly make the dataset available to them.
+  - When using the row or table data management pattern, the multi-tenant application system must implement the export or map it to the database feature (database export), and implement custom logic to take the portion of the data that corresponds to the tenant out.
 
-  - **Move tenant data:**
-    
-      - Moving a tenant from one data management pattern to another (or moving a tenant within the same data management pattern between instances or databases) requires extracting the data from one data management pattern and inserting that data into the new data management pattern.
-        
-          - When application downtime is possible, perform an export/import.
-          - When downtime isn't possible, perform a [zero downtime database migration](https://medium.com/google-cloud/zero-downtime-database-migration-and-replication-to-and-from-cloud-spanner-99ad0c654d12) .
-    
-      - Mitigating a noisy-neighbor situation is another reason to move tenants.
+- **Back up tenant data:**
+
+  - When using the instance or database data management pattern and backing up data for individual tenants, use the database's export or backup functions.
+  - When using the table or row data management pattern and backing up data for individual tenants, the multi-tenant application must implement this operation. The Spanner database can't determine which data belongs to which tenant.
+
+- **Move tenant data:**
+
+  - Moving a tenant from one data management pattern to another (or moving a tenant within the same data management pattern between instances or databases) requires extracting the data from one data management pattern and inserting that data into the new data management pattern.
+
+    - When application downtime is possible, perform an export/import.
+    - When downtime isn't possible, perform a [zero downtime database migration](https://medium.com/google-cloud/zero-downtime-database-migration-and-replication-to-and-from-cloud-spanner-99ad0c654d12) .
+
+  - Mitigating a noisy-neighbor situation is another reason to move tenants.
 
 ## Application design
 
@@ -515,9 +525,9 @@ From a database perspective, application design means that each query must be ru
 
 Dynamically mapping tenant data to tenant application requests uses a mapping configuration:
 
-  - For database data management patterns or instance data management patterns, a connection string is sufficient to access a tenant's data.
-  - For table data management patterns, the correct table names have to be determined.
-  - For row data management patterns, use the appropriate predicates to retrieve a specific tenant's data.
+- For database data management patterns or instance data management patterns, a connection string is sufficient to access a tenant's data.
+- For table data management patterns, the correct table names have to be determined.
+- For row data management patterns, use the appropriate predicates to retrieve a specific tenant's data.
 
 A tenant can reside in any of the four data management patterns. The following mapping implementation addresses a connection configuration for the general case of a multi-tenant application that uses all the data management patterns at the same time. When a given tenant resides in one pattern, some multi-tenant applications use one data management pattern for all tenants. This case is covered implicitly by the following mapping.
 
@@ -525,8 +535,10 @@ If a tenant executes business logic (for example, an employee logging in with th
 
 This application logic requires tenant-to-data-management pattern mapping. In the following code sample, the `connection string` refers to the database where the tenant data resides. The sample identifies the Spanner instance and the database. For the data management pattern instance and database, the following code is sufficient for the application to connect and execute queries:
 
-    tenant id -> (data management pattern,
-                  database connection string)
+```
+tenant id -> (data management pattern,
+              database connection string)
+```
 
 Additional design is required for the table and row data management patterns.
 
@@ -534,9 +546,9 @@ Additional design is required for the table and row data management patterns.
 
 For the table data management pattern, there are several tenants within the same database. Each tenant has its own set of tables. The tables are distinguished by their name. Which table belongs to which tenant is deterministic.
 
-One approach is to place each tenant's table in a namespace named after the tenant, and fully qualify your table name with `  namespace.name  ` . For example, you put an `EMPLOYEE` table inside the namespace `T356` for the tenant with the ID `356` , and your application can use `T356.EMPLOYEE` to address the requests to the table.
+One approach is to place each tenant's table in a namespace named after the tenant, and fully qualify your table name with `namespace.name` . For example, you put an `EMPLOYEE` table inside the namespace `T356` for the tenant with the ID `356` , and your application can use `T356.EMPLOYEE` to address the requests to the table.
 
-Another approach is to prepend the table names with the tenant ID. For example, the `EMPLOYEE` table is called `T356_EMPLOYEE` for the tenant with the ID `356` . The application has to prepend each table with the prefix `  tenant ID  ` before sending the query to the database that the mapping returned.
+Another approach is to prepend the table names with the tenant ID. For example, the `EMPLOYEE` table is called `T356_EMPLOYEE` for the tenant with the ID `356` . The application has to prepend each table with the prefix `tenant ID` before sending the query to the database that the mapping returned.
 
 If you want to use some other text instead of the tenant ID, you can maintain a mapping from the tenant ID to the named schema namespace or to the table prefix.
 
@@ -546,7 +558,7 @@ To simplify the application logic, you might introduce one level of indirection.
 
 A similar design is required for the row data management pattern. In this pattern, there's a single schema. Tenant data are stored as rows. To properly access the data, append a predicate to each query to select the appropriate tenant.
 
-One approach to find the appropriate tenant is to have a column called `TENANT` in each table. For better data isolation, this column value should be part of the primary key. The column value is `tenant ID` . Each query must append a predicate ` AND TENANT = tenant ID  ` to an existing `WHERE` clause or add a `WHERE` clause with the predicate ` AND TENANT = tenant ID  ` .
+One approach to find the appropriate tenant is to have a column called `TENANT` in each table. For better data isolation, this column value should be part of the primary key. The column value is `tenant ID` . Each query must append a predicate `AND TENANT = `` tenant ID` to an existing `WHERE` clause or add a `WHERE` clause with the predicate `AND TENANT = `` tenant ID` .
 
 To connect to the database and to create the proper queries, the tenant identifier must be available in the application logic. It can be passed in as parameter or stored as thread context.
 
@@ -566,21 +578,27 @@ It would be easier to analyze logs and queries by determining the tenant for a g
 
 The following query selects all employee data for the tenant identified by `TENANT 356` . To avoid parsing the SQL syntax and extracting the tenant ID from the predicate, the tenant ID is added as a comment. A comment can be extracted without having to parse the SQL syntax.
 
-    SELECT * FROM EMPLOYEE
-      -- TENANT 356
-      WHERE TENANT = 'T356';
+```
+SELECT * FROM EMPLOYEE
+  -- TENANT 356
+  WHERE TENANT = 'T356';
+```
 
 or
 
-    SELECT * FROM T356_EMPLOYEE;
-      -- TENANT 356
+```
+SELECT * FROM T356_EMPLOYEE;
+  -- TENANT 356
+```
 
 With this design, every query run for a tenant is attributed to that tenant independent of the data management pattern. If a tenant is moved from one data management pattern to another, the query text might change, but the attribution remains the same in the query text.
 
 The preceding code sample is only one method. Another method is to insert a [JSON](https://www.json.org/) object as a comment instead of a label and value:
 
-    SELECT * FROM T356_EMPLOYEE;
-      -- {"TENANT": 356}
+```
+SELECT * FROM T356_EMPLOYEE;
+  -- {"TENANT": 356}
+```
 
 You can also use [tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) to attribute queries to tenants, and view the statistics in the built-in `spanner_sys` tables.
 
@@ -590,8 +608,8 @@ Depending on your design philosophy, a multi-tenant application can directly imp
 
 Independent of the implementation strategy, lifecycle operations might have to be run without the application logic running at the same time—for example, while moving a tenant from one data management pattern to another, the application logic can't run because the data isn't in a single database. When data isn't in a single database, it requires two additional operations from an application perspective:
 
-  - **Stopping a tenant:** Disables all application logic access while permitting data lifecycle operations.
-  - **Starting a tenant:** Application logic can access a tenant's data while the lifecycle operations that would interfere with the application logic are disabled.
+- **Stopping a tenant:** Disables all application logic access while permitting data lifecycle operations.
+- **Starting a tenant:** Application logic can access a tenant's data while the lifecycle operations that would interfere with the application logic are disabled.
 
 While not often used, an emergency tenant shutdown might be another important lifecycle operation. Use this shut down when you suspect a breach, and you need to prohibit all access to a tenant's data—not only application logic, but lifecycle operations as well. A breach can originate from inside or outside the database.
 

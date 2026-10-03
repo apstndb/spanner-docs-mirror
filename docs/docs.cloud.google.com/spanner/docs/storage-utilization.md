@@ -14,8 +14,8 @@ By default, your data is stored on solid-state drives (SSD) storage. You can cho
 
 Spanner provides the following storage metrics:
 
-  - **Total database storage** : The amount of data that is stored in the database or the databases in the instance. This is subject to the [storage limit](https://docs.cloud.google.com/spanner/quotas#database_limits) .
-  - **Total backup storage** : The amount of data that is stored by the backups associated with the instance or database. Backup storage is stored and billed separately and there is no limit on the amount you can store.
+- **Total database storage** : The amount of data that is stored in the database or the databases in the instance. This is subject to the [storage limit](https://docs.cloud.google.com/spanner/quotas#database_limits) .
+- **Total backup storage** : The amount of data that is stored by the backups associated with the instance or database. Backup storage is stored and billed separately and there is no limit on the amount you can store.
 
 You can view charts for these metrics [in the Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) or [in the Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
@@ -53,9 +53,9 @@ We recommend keeping your total database storage below the [storage limit](https
 
 If you are approaching the limit, Spanner may prevent you from performing operations that put you over the limit, such as:
 
-  - Restoring a database from a backup.
-  - Modifying the database's schema (for example, adding an index).
-  - Reducing the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) of your instance.
+- Restoring a database from a backup.
+- Modifying the database's schema (for example, adding an index).
+- Reducing the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) of your instance.
 
 If you are over the storage limit, Spanner will attempt to operate normally, but you may experience degraded performance or failure due to resource pressure. If you do approach or exceed the recommended maximum, Google Cloud console displays a warning reading " **The instance has reached its maximum storage capacity and may experience degraded activity** " when displaying the affected instance.
 
@@ -65,9 +65,9 @@ You can also [create alerts in Cloud Monitoring](https://docs.cloud.google.com/s
 
 To reduce an instance's database storage utilization, you can:
 
-  - [Add more compute capacity](https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity) .
-  - [Delete unused databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases#delete-database) .
-  - [Delete data](https://docs.cloud.google.com/spanner/docs/dml-tasks) from a database. Even though data deletion takes effect immediately from a data-visibility perspective, it might not affect the storage utilization metric until Spanner compacts the data, which usually happens within 12 hours for significant data deletions or within a week otherwise. Therefore, you might notice a delay between when data is deleted and when the changes appear in the metric. To reclaim storage faster, you can [manually trigger a major compaction](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) .
+- [Add more compute capacity](https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity) .
+- [Delete unused databases](https://docs.cloud.google.com/spanner/docs/create-manage-databases#delete-database) .
+- [Delete data](https://docs.cloud.google.com/spanner/docs/dml-tasks) from a database. Even though data deletion takes effect immediately from a data-visibility perspective, it might not affect the storage utilization metric until Spanner compacts the data, which usually happens within 12 hours for significant data deletions or within a week otherwise. Therefore, you might notice a delay between when data is deleted and when the changes appear in the metric. To reclaim storage faster, you can [manually trigger a major compaction](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) .
 
 In general, we recommend that you add [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to your instance as a starting point. After you add compute capacity, you can investigate and address the root causes of high storage utilization.
 
@@ -75,6 +75,6 @@ If you want to automate this process, you can create an application that monitor
 
 ## What's next
 
-  - Monitor your instance with the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) or the [Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
-  - [Create alerts for Spanner](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-alert) .
-  - Find out how to [change the compute capacity](https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity) of a Spanner instance.
+- Monitor your instance with the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/monitoring-console) or the [Cloud Monitoring console](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
+- [Create alerts for Spanner](https://docs.cloud.google.com/spanner/docs/monitoring-cloud#create-alert) .
+- Find out how to [change the compute capacity](https://docs.cloud.google.com/spanner/docs/create-manage-instances#change-compute-capacity) of a Spanner instance.

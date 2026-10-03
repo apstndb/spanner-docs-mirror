@@ -14,67 +14,67 @@ Spanner is a fully managed, mission-critical database service that brings togeth
 
 Not sure what database option is right for you? Learn more about our [database services](https://cloud.google.com/products/databases/) .
 
-format\_list\_numbered
+format_list_numbered
 
 ### Guides
 
-  - [Quickstart: Create and query a database by using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console)
+- [Quickstart: Create and query a database by using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console)
 
-  - [Create and manage instances](https://docs.cloud.google.com/spanner/docs/create-manage-instances)
+- [Create and manage instances](https://docs.cloud.google.com/spanner/docs/create-manage-instances)
 
-  - [Choose GoogleSQL or PostgreSQL Google Cloud console](https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres)
+- [Choose GoogleSQL or PostgreSQL Google Cloud console](https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres)
 
-  - [Import and export data in CSV format](https://docs.cloud.google.com/spanner/docs/import-export-csv)
+- [Import and export data in CSV format](https://docs.cloud.google.com/spanner/docs/import-export-csv)
 
-  - [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to)
+- [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to)
 
-  - [Insert, update, and delete data using Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/dml-tasks)
+- [Insert, update, and delete data using Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/dml-tasks)
 
-  - [Insert, update, and delete data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api)
+- [Insert, update, and delete data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api)
 
-  - [Use the Dataflow connector](https://docs.cloud.google.com/spanner/docs/dataflow-connector)
+- [Use the Dataflow connector](https://docs.cloud.google.com/spanner/docs/dataflow-connector)
 
-  - [Set up and query Spanner Graph using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/graph/set-up)
+- [Set up and query Spanner Graph using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/graph/set-up)
 
-  - [Monitor instances with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud)
+- [Monitor instances with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud)
 
-  - [Emulate Spanner locally](https://docs.cloud.google.com/spanner/docs/emulator)
+- [Emulate Spanner locally](https://docs.cloud.google.com/spanner/docs/emulator)
 
-  - [Troubleshoot performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions)
+- [Troubleshoot performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions)
 
-find\_in\_page
+find_in_page
 
 ### Reference
 
-  - [Client libraries and drivers](https://docs.cloud.google.com/spanner/docs/reference/libraries)
+- [Client libraries and drivers](https://docs.cloud.google.com/spanner/docs/reference/libraries)
 
-  - [REST API](https://docs.cloud.google.com/spanner/docs/reference/rest)
+- [REST API](https://docs.cloud.google.com/spanner/docs/reference/rest)
 
-  - [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc)
+- [RPC API](https://docs.cloud.google.com/spanner/docs/reference/rpc)
 
-  - [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical)
+- [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical)
 
-  - [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview)
+- [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview)
 
-  - [Graph Query Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro)
+- [Graph Query Language](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro)
 
-  - [Information schema](https://docs.cloud.google.com/spanner/docs/information-schema)
+- [Information schema](https://docs.cloud.google.com/spanner/docs/information-schema)
 
-  - [Query execution operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators)
+- [Query execution operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators)
 
-  - [gcloud command-line tool](https://docs.cloud.google.com/sdk/gcloud/reference/spanner)
+- [gcloud command-line tool](https://docs.cloud.google.com/sdk/gcloud/reference/spanner)
 
 info
 
 ### Resources
 
-  - [Pricing](https://docs.cloud.google.com/spanner/pricing)
+- [Pricing](https://docs.cloud.google.com/spanner/pricing)
 
-  - [Quotas and limits](https://docs.cloud.google.com/spanner/quotas)
+- [Quotas and limits](https://docs.cloud.google.com/spanner/quotas)
 
-  - [Release notes](https://docs.cloud.google.com/spanner/docs/release-notes)
+- [Release notes](https://docs.cloud.google.com/spanner/docs/release-notes)
 
-  - [Get support](https://docs.cloud.google.com/spanner/docs/getting-support)
+- [Get support](https://docs.cloud.google.com/spanner/docs/getting-support)
 
 Training
 
@@ -186,9 +186,9 @@ Code sample
 
 Code Samples
 
-### [Getting started with Spanner in C\#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
+### [Getting started with Spanner in C#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp)
 
-First steps using Spanner with C\#
+First steps using Spanner with C#
 
 Code sample
 

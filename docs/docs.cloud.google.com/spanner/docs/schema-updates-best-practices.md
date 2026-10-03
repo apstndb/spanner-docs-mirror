@@ -12,14 +12,14 @@ This document describes best practices for updating schemas.
 
 Before you issue a schema update:
 
-  - Ensure that all existing data in the database complies with the constraints introduced by the schema update. Since some schema updates depend on the actual data, not just the current schema, a successful update in a test database doesn't guarantee success in a production database. Here are some common examples:
-    
-      - If you're adding a `NOT NULL` annotation to an existing column, check that the column does not contain any existing `NULL` values.
-      - If you're shortening the allowed length of a `STRING` or `BYTES` column, check that all existing values in that column meet the length constraint.
+- Ensure that all existing data in the database complies with the constraints introduced by the schema update. Since some schema updates depend on the actual data, not just the current schema, a successful update in a test database doesn't guarantee success in a production database. Here are some common examples:
 
-  - If you're writing to a column, table, or index that is undergoing a schema update, ensure that the values that you're writing meet the new constraints.
+  - If you're adding a `NOT NULL` annotation to an existing column, check that the column does not contain any existing `NULL` values.
+  - If you're shortening the allowed length of a `STRING` or `BYTES` column, check that all existing values in that column meet the length constraint.
 
-  - If you're dropping a column, table, or index, make sure you are not still writing to or reading from it.
+- If you're writing to a column, table, or index that is undergoing a schema update, ensure that the values that you're writing meet the new constraints.
+
+- If you're dropping a column, table, or index, make sure you are not still writing to or reading from it.
 
 ## Limit the frequency of schema updates
 
@@ -29,16 +29,16 @@ How your DDL statements are batched, and their order within each batch, can affe
 
 As described in [schema versions](https://docs.cloud.google.com/spanner/docs/schema-updates#schema-versions) , some DDL statements will create multiple schema versions, and these are important when considering batching and order within each batch. There are two main types of statements that might create multiple schema versions:
 
-  - Statements that might need to backfill index data, like [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-index) .
-  - Statements that force Spanner to validate existing data, like adding `NOT NULL` or length constraints.
+- Statements that might need to backfill index data, like [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-index) .
+- Statements that force Spanner to validate existing data, like adding `NOT NULL` or length constraints.
 
 These types of statements don't *always* create multiple schema versions, though. Spanner will try to detect when these types of statements can be optimized to avoid using multiple schema versions, which depends on batching. For example, a `CREATE INDEX` statement that occurs in the same batch as a `CREATE TABLE` statement for the index's base table, without any intervening statements for other tables, can avoid needing to backfill the index data because Spanner can guarantee that the base table is empty at the time the index is created. The [large updates](https://docs.cloud.google.com/spanner/docs/schema-updates-best-practices#large-updates) section describes how to use this property to create many indexes efficiently.
 
 If you cannot batch your DDL statements to avoid creating many schema versions, you should limit the number of schema updates to a single database's schema within its retention period. Increase the time window in which you make schema updates to allow Spanner to remove earlier versions of the schema before new versions are created.
 
-  - For some relational database management systems, there are software packages that make a long series of upgrade and downgrade schema updates to the database on every production deployment. These types of processes are not recommended for Spanner.
-  - Spanner is optimized to use primary keys to partition data for [multi-tenancy solutions](https://docs.cloud.google.com/spanner/docs/implement-multi-tenancy) . If you use a multi-tenancy solution that uses separate tables for each customer, be aware that schema updates across many customers at once can result in a large backlog of schema update operations that take a long time to complete.
-  - Schema updates that require validation or index backfill use more server resources because each statement creates multiple versions of the schema internally.
+- For some relational database management systems, there are software packages that make a long series of upgrade and downgrade schema updates to the database on every production deployment. These types of processes are not recommended for Spanner.
+- Spanner is optimized to use primary keys to partition data for [multi-tenancy solutions](https://docs.cloud.google.com/spanner/docs/implement-multi-tenancy) . If you use a multi-tenancy solution that uses separate tables for each customer, be aware that schema updates across many customers at once can result in a large backlog of schema update operations that take a long time to complete.
+- Schema updates that require validation or index backfill use more server resources because each statement creates multiple versions of the schema internally.
 
 ## Order of execution of statements in batches
 
@@ -46,7 +46,7 @@ If you use the Google Cloud CLI, REST API, or the RPC API, you can issue a batch
 
 Spanner applies statements from the same batch in order, stopping at the first error. If applying a statement results in an error, that statement is rolled back. The results of any previously applied statements in the batch are not rolled back. This in-order statement application means that if you would like statements that require unavoidable backfill to run in parallel (like creating multiple indexes on large, existing tables), you should submit those statements in separate batches, because each backfill could take a long time. If you are creating a new table with indexes, on the other hand, the best practice is to [place them together (CREATE TABLE followed by CREATE INDEX)](https://docs.cloud.google.com/spanner/docs/schema-updates-best-practices#large-updates) in a single batch to avoid backfill entirely.
 
-Spanner might combine and reorder statements from different batches, potentially mixing statements from different batches into one atomic change that is applied to the database. Within each atomic change, statements from different batches happen in an arbitrary order. For example, if one batch of statements contains `ALTER TABLE table_name ALTER COLUMN column_name STRING(50)` and another batch of statements contains `ALTER TABLE table_name ALTER COLUMN column_name STRING(20)` , Spanner will leave that column in one of those two states, but the state it is left in is not deterministic.
+Spanner might combine and reorder statements from different batches, potentially mixing statements from different batches into one atomic change that is applied to the database. Within each atomic change, statements from different batches happen in an arbitrary order. For example, if one batch of statements contains `ALTER TABLE `` table_name `` ALTER COLUMN `` column_name `` STRING(50)` and another batch of statements contains `ALTER TABLE `` table_name `` ALTER COLUMN `` column_name `` STRING(20)` , Spanner will leave that column in one of those two states, but the state it is left in is not deterministic.
 
 ## Options for large schema updates
 
@@ -58,47 +58,51 @@ For example, this batch of statements will use a single schema version:
 
 ### GoogleSQL
 
-    CREATE TABLE Singers (
-    SingerId   INT64 NOT NULL,
-    FirstName  STRING(1024),
-    LastName   STRING(1024),
-    ) PRIMARY KEY (SingerId);
-    
-    CREATE INDEX SingersByFirstName ON Singers(FirstName);
-    
-    CREATE INDEX SingersByLastName ON Singers(LastName);
-    
-    CREATE TABLE Albums (
-    SingerId   INT64 NOT NULL,
-    AlbumId    INT64 NOT NULL,
-    AlbumTitle STRING(MAX),
-    ) PRIMARY KEY (SingerId, AlbumId);
-    
-    CREATE INDEX AlbumsByTitle ON Albums(AlbumTitle);
+```
+CREATE TABLE Singers (
+SingerId   INT64 NOT NULL,
+FirstName  STRING(1024),
+LastName   STRING(1024),
+) PRIMARY KEY (SingerId);
+
+CREATE INDEX SingersByFirstName ON Singers(FirstName);
+
+CREATE INDEX SingersByLastName ON Singers(LastName);
+
+CREATE TABLE Albums (
+SingerId   INT64 NOT NULL,
+AlbumId    INT64 NOT NULL,
+AlbumTitle STRING(MAX),
+) PRIMARY KEY (SingerId, AlbumId);
+
+CREATE INDEX AlbumsByTitle ON Albums(AlbumTitle);
+```
 
 In contrast, this batch will use many schema versions, because `UnrelatedIndex` requires backfilling (since its base table must have already existed), and that forces all the following indexes to also require backfilling (even though they're in the same batch as their base tables):
 
 ### GoogleSQL
 
-    CREATE TABLE Singers (
-    SingerId   INT64 NOT NULL,
-    FirstName  STRING(1024),
-    LastName   STRING(1024),
-    ) PRIMARY KEY (SingerId);
-    
-    CREATE TABLE Albums (
-    SingerId   INT64 NOT NULL,
-    AlbumId    INT64 NOT NULL,
-    AlbumTitle STRING(MAX),
-    ) PRIMARY KEY (SingerId, AlbumId);
-    
-    CREATE INDEX UnrelatedIndex ON UnrelatedTable(UnrelatedIndexKey);
-    
-    CREATE INDEX SingersByFirstName ON Singers(FirstName);
-    
-    CREATE INDEX SingersByLastName ON Singers(LastName);
-    
-    CREATE INDEX AlbumsByTitle ON Albums(AlbumTitle);
+```
+CREATE TABLE Singers (
+SingerId   INT64 NOT NULL,
+FirstName  STRING(1024),
+LastName   STRING(1024),
+) PRIMARY KEY (SingerId);
+
+CREATE TABLE Albums (
+SingerId   INT64 NOT NULL,
+AlbumId    INT64 NOT NULL,
+AlbumTitle STRING(MAX),
+) PRIMARY KEY (SingerId, AlbumId);
+
+CREATE INDEX UnrelatedIndex ON UnrelatedTable(UnrelatedIndexKey);
+
+CREATE INDEX SingersByFirstName ON Singers(FirstName);
+
+CREATE INDEX SingersByLastName ON Singers(LastName);
+
+CREATE INDEX AlbumsByTitle ON Albums(AlbumTitle);
+```
 
 It would be better to move the creation of `UnrelatedIndex` to the end of the batch, or to a different batch, to minimize schema versions.
 

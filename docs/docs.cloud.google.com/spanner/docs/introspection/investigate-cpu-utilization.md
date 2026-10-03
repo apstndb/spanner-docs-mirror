@@ -32,87 +32,18 @@ Next, you'll examine the **CPU Utilization by operation type** chart in Google C
 
 A *user-initiated* operation is an operation that is initiated through an API request. Spanner groups these requests into operation types or categories, and you can display each operation type as a line on the **CPU utilization by operation type** chart. The following table describes the API methods that are included in each operation type.
 
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Operation</th>
-<th>API methods</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>read_readonly</td>
-<td>Read<br />
-StreamingRead</td>
-<td>Includes reads which fetch rows from the database using key lookups and scans.</td>
-</tr>
-<tr class="even">
-<td>read_readwrite</td>
-<td>Read<br />
-StreamingRead</td>
-<td>Includes reads inside read-write transactions.</td>
-</tr>
-<tr class="odd">
-<td>read_withpartitiontoken</td>
-<td>Read<br />
-StreamingRead</td>
-<td>Includes read operations performed using a set of partition tokens.</td>
-</tr>
-<tr class="even">
-<td>executesql_select_readonly</td>
-<td>ExecuteSql<br />
-ExecuteStreamingSql</td>
-<td>Includes execute Select SQL statement and change stream queries.</td>
-</tr>
-<tr class="odd">
-<td>executesql_select_readwrite</td>
-<td>ExecuteSql<br />
-ExecuteStreamingSql</td>
-<td>Includes execute Select statement inside read-write transactions.</td>
-</tr>
-<tr class="even">
-<td>executesql_select_withpartitiontoken</td>
-<td>ExecuteSql<br />
-ExecuteStreamingSql</td>
-<td>Includes execute Select statement performed using a set of partition tokens.</td>
-</tr>
-<tr class="odd">
-<td>executesql_dml_readwrite</td>
-<td>ExecuteSql<br />
-ExecuteStreamingSql<br />
-ExecuteBatchDml</td>
-<td>Includes execute DML SQL statement.</td>
-</tr>
-<tr class="even">
-<td>executesql_dml_partitioned</td>
-<td>ExecuteSql<br />
-ExecuteStreamingSql<br />
-ExecuteBatchDml</td>
-<td>Includes execute Partitioned DML SQL statement.</td>
-</tr>
-<tr class="odd">
-<td>beginorcommit</td>
-<td>BeginTransaction<br />
-Commit<br />
-Rollback</td>
-<td>Includes begin, commit, and rollback transactions.</td>
-</tr>
-<tr class="even">
-<td>misc</td>
-<td>PartitionQuery<br />
-PartitionRead<br />
-GetSession<br />
-CreateSession</td>
-<td>Includes PartitionQuery, PartitionRead, Create Database, Create Instance, session related operations, internal time-critical serving operations, etc.</td>
-</tr>
-</tbody>
-</table>
+| Operation                            | API methods                                           | Description                                                                                                                                           |
+|--------------------------------------|-------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| read_readonly                        | Read StreamingRead                                    | Includes reads which fetch rows from the database using key lookups and scans.                                                                        |
+| read_readwrite                       | Read StreamingRead                                    | Includes reads inside read-write transactions.                                                                                                        |
+| read_withpartitiontoken              | Read StreamingRead                                    | Includes read operations performed using a set of partition tokens.                                                                                   |
+| executesql_select_readonly           | ExecuteSql ExecuteStreamingSql                        | Includes execute Select SQL statement and change stream queries.                                                                                      |
+| executesql_select_readwrite          | ExecuteSql ExecuteStreamingSql                        | Includes execute Select statement inside read-write transactions.                                                                                     |
+| executesql_select_withpartitiontoken | ExecuteSql ExecuteStreamingSql                        | Includes execute Select statement performed using a set of partition tokens.                                                                          |
+| executesql_dml_readwrite             | ExecuteSql ExecuteStreamingSql ExecuteBatchDml        | Includes execute DML SQL statement.                                                                                                                   |
+| executesql_dml_partitioned           | ExecuteSql ExecuteStreamingSql ExecuteBatchDml        | Includes execute Partitioned DML SQL statement.                                                                                                       |
+| beginorcommit                        | BeginTransaction Commit Rollback                      | Includes begin, commit, and rollback transactions.                                                                                                    |
+| misc                                 | PartitionQuery PartitionRead GetSession CreateSession | Includes PartitionQuery, PartitionRead, Create Database, Create Instance, session related operations, internal time-critical serving operations, etc. |
 
 Here's an example chart of the **CPU utilization by operation types** metric.
 
@@ -136,61 +67,63 @@ While the **CPU utilization by priority** metric in the preceding section helped
 
 ## Identify which user request is contributing to increased CPU usage
 
-To determine which specific user request is responsible for the spike in CPU utilization in the **executesql\_select\_readonly** operation type graph you see in **Figure 2** , you'll use the built-in introspection statistics tables to gain more insight.
+To determine which specific user request is responsible for the spike in CPU utilization in the **executesql_select_readonly** operation type graph you see in **Figure 2** , you'll use the built-in introspection statistics tables to gain more insight.
 
 Use the following table as a guide to determine which statistics table to query based on the operation type that is causing high CPU usage.
 
-| Operation type                         | Query | Read | Transaction |
-| -------------------------------------- | :---: | :--: | :---------: |
-| read\_readonly                         |  No   | Yes  |     No      |
-| read\_readwrite                        |  No   | Yes  |     Yes     |
-| read\_withpartitiontoken               |  No   | Yes  |     No      |
-| executesql\_select\_readonly           |  Yes  |  No  |     No      |
-| executesql\_select\_withpartitiontoken |  Yes  |  No  |     No      |
-| executesql\_select\_readwrite          |  Yes  |  No  |     Yes     |
-| executesql\_dml\_readwrite             |  Yes  |  No  |     Yes     |
-| executesql\_dml\_partitioned           |  No   |  No  |     Yes     |
-| beginorcommit                          |  No   |  No  |     Yes     |
+| Operation type                       | Query | Read | Transaction |
+|--------------------------------------|-------|------|-------------|
+| read_readonly                        | No    | Yes  | No          |
+| read_readwrite                       | No    | Yes  | Yes         |
+| read_withpartitiontoken              | No    | Yes  | No          |
+| executesql_select_readonly           | Yes   | No   | No          |
+| executesql_select_withpartitiontoken | Yes   | No   | No          |
+| executesql_select_readwrite          | Yes   | No   | Yes         |
+| executesql_dml_readwrite             | Yes   | No   | Yes         |
+| executesql_dml_partitioned           | No    | No   | Yes         |
+| beginorcommit                        | No    | No   | Yes         |
 
 > **Note:** Query statistics and read statistics tables both contain CPU usage data. However, the transaction statistics table doesn't contain CPU usage data per transaction shape. To troubleshoot elevated CPU using transaction statistics, you can use `AVG_TOTAL_LATENCY_SECONDS` or `AVG_COMMIT_LATENCY_SECONDS` because, as the latency increases, CPU usage to process the transaction increases accordingly.
 
-For example, if **read\_withpartitiontoken** is the problem, troubleshoot using [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) .
+For example, if **read_withpartitiontoken** is the problem, troubleshoot using [read statistics](https://docs.cloud.google.com/spanner/docs/introspection/read-statistics) .
 
-In this scenario, the **executesql\_select\_readonly** operation seems to be the reason for the CPU usage increase you are observing. Based on the preceding table, you should look at [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) next to find out what queries are expensive, run frequently or scan a lot of data.
+In this scenario, the **executesql_select_readonly** operation seems to be the reason for the CPU usage increase you are observing. Based on the preceding table, you should look at [query statistics](https://docs.cloud.google.com/spanner/docs/introspection/query-statistics) next to find out what queries are expensive, run frequently or scan a lot of data.
 
 To find out the queries with the highest CPU usage in the previous hour, you can run the following query on the `query_stats_top_hour` statistics table.
 
-    SELECT text,
-           execution_count AS count,
-           avg_latency_seconds AS latency,
-           avg_cpu_seconds AS cpu,
-           execution_count * avg_cpu_seconds AS total_cpu
-    FROM spanner_sys.query_stats_top_hour
-    WHERE interval_end =
-      (SELECT MAX(interval_end)
-       FROM spanner_sys.query_stats_top_hour)
-    ORDER BY total_cpu DESC;
+```
+SELECT text,
+       execution_count AS count,
+       avg_latency_seconds AS latency,
+       avg_cpu_seconds AS cpu,
+       execution_count * avg_cpu_seconds AS total_cpu
+FROM spanner_sys.query_stats_top_hour
+WHERE interval_end =
+  (SELECT MAX(interval_end)
+   FROM spanner_sys.query_stats_top_hour)
+ORDER BY total_cpu DESC;
+```
 
 The output will show queries sorted by CPU usage. Once you identify the query with the highest CPU usage, you can try the following options to tune it.
 
-  - Review the [query execution plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) to identify any possible inefficiencies that might contribute to high CPU utilization.
+- Review the [query execution plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) to identify any possible inefficiencies that might contribute to high CPU utilization.
 
-  - Review your query to make sure it is following [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
+- Review your query to make sure it is following [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
 
-  - Review the database [schema design](https://docs.cloud.google.com/spanner/docs/schema-design) and update the schema to allow for more efficient queries.
+- Review the database [schema design](https://docs.cloud.google.com/spanner/docs/schema-design) and update the schema to allow for more efficient queries.
 
-  - Establish a baseline for the number of times Spanner executes a query during an interval. Using this baseline, you'll be able to detect and investigate the cause of any unexpected deviations from normal behavior.
+- Establish a baseline for the number of times Spanner executes a query during an interval. Using this baseline, you'll be able to detect and investigate the cause of any unexpected deviations from normal behavior.
 
 If you didn't manage to find a CPU-intensive query, add [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to the instance. Adding compute capacity provides more CPU resources and enables Spanner to handle a larger workload. For more information, see [Increasing compute capacity](https://docs.cloud.google.com/spanner/docs/cpu-utilization#add-compute-capacity) .
 
 ## What's next
 
-  - Learn about [CPU utilization metrics](https://docs.cloud.google.com/spanner/docs/cpu-utilization) .
+- Learn about [CPU utilization metrics](https://docs.cloud.google.com/spanner/docs/cpu-utilization) .
 
-  - Learn about other [Introspection tools](https://docs.cloud.google.com/spanner/docs/introspection) .
+- Learn about other [Introspection tools](https://docs.cloud.google.com/spanner/docs/introspection) .
 
-  - Learn about [Monitoring with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
+- Learn about [Monitoring with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
-  - Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) for Spanner.
+- Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) for Spanner.
 
-  - See the list of [Metrics from Spanner](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .
+- See the list of [Metrics from Spanner](https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner) .

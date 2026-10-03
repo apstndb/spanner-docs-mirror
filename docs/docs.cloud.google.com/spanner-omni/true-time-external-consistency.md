@@ -22,9 +22,9 @@ For more information about how the managed version of Spanner uses TrueTime, see
 
 The cluster-based architecture uses two core components to provide TrueTime across your deployment:
 
-  - **Time server** : The cluster designates one database server as the primary time server. The server is the authoritative single source of truth for the entire Spanner Omni deployment, providing time from its local, high-precision clock. To ensure high availability, if the primary server stops responding, the cluster dynamically promotes another database server to assume this role. The time server is bundled within the Spanner Omni binary, requiring no separate infrastructure or external dependencies.
+- **Time server** : The cluster designates one database server as the primary time server. The server is the authoritative single source of truth for the entire Spanner Omni deployment, providing time from its local, high-precision clock. To ensure high availability, if the primary server stops responding, the cluster dynamically promotes another database server to assume this role. The time server is bundled within the Spanner Omni binary, requiring no separate infrastructure or external dependencies.
 
-  - **Time client** : A background daemon runs on each host machine in the deployment. It periodically queries the primary time server to retrieve current time parameters and publishes them to the processes running on the machine.
+- **Time client** : A background daemon runs on each host machine in the deployment. It periodically queries the primary time server to retrieve current time parameters and publishes them to the processes running on the machine.
 
 TrueTime calculates time intervals based on bounded clock drift and the network round-trip time (RTT) between the Spanner Omni database servers and the primary time server. All host machines in the deployment must have local clocks that operate within a known bound on their rate error.
 
@@ -32,9 +32,9 @@ TrueTime calculates time intervals based on bounded clock drift and the network 
 
 TrueTime represents time as an interval, `[earliest, latest]` , rather than a single value. TrueTime calculates the size of this uncertainty interval based on two factors:
 
-  - **Network round-trip time (RTT)** : The latency during synchronization between the time client and the primary time server. Time clients located in the same data center as the primary time server experience significantly lower uncertainty than clients in remote data centers.
+- **Network round-trip time (RTT)** : The latency during synchronization between the time client and the primary time server. Time clients located in the same data center as the primary time server experience significantly lower uncertainty than clients in remote data centers.
 
-  - **Clock drift** : The natural drift of the physical clocks on the client and server machines between synchronizations.
+- **Clock drift** : The natural drift of the physical clocks on the client and server machines between synchronizations.
 
 High uncertainty can increase transaction commit wait times. However, because Paxos replication also requires network communication, TrueTime uncertainty doesn't increase transaction commit latency as long as the uncertainty is smaller than the Paxos round-trip latency.
 
@@ -44,8 +44,8 @@ For more details, see [Spanner under the hood: Understanding strict serializabil
 
 For software-based TrueTime to function correctly, the underlying hardware must meet the following requirements:
 
-  - <span id="clock-rate-error">**Timestamp counter** : You must use a hardware timestamp counter. On Linux x86 architectures, this counter is the Time Stamp Counter (TSC).</span>
-  - **Bounded clock rate error** : Local clocks must operate within a known and bounded rate error from their nominal frequency. You can monitor violations of the clock rate error using the `sla_tester_violation_count` metric. For more information, see [TrueTime observability](https://docs.cloud.google.com/spanner-omni/true-time-external-consistency#observability) .
+- <span id="clock-rate-error">**Timestamp counter** : You must use a hardware timestamp counter. On Linux x86 architectures, this counter is the Time Stamp Counter (TSC).</span>
+- **Bounded clock rate error** : Local clocks must operate within a known and bounded rate error from their nominal frequency. You can monitor violations of the clock rate error using the `sla_tester_violation_count` metric. For more information, see [TrueTime observability](https://docs.cloud.google.com/spanner-omni/true-time-external-consistency#observability) .
 
 ## Limitations
 
@@ -56,7 +56,7 @@ TrueTime isn't supported during live migrations of [virtual machines](https://do
 You can use the [TrueTime dashboard](https://docs.cloud.google.com/spanner-omni/grafana-dashboards#truetime) in Grafana to monitor the following metrics. Use these metrics to ensure software-based TrueTime is operating within your expected parameters:
 
 | Metric                           | Description                                                                                                                                                                 | Recommended action                                                                                                                                                                           |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `true_time_is_available`         | Checks if the TrueTime API is available.                                                                                                                                    | Configure alerts for any unavailability. If TrueTime is unavailable, Spanner Omni is also likely unavailable. The unavailability can be transient or persistent, and requires investigation. |
 | `sla_tester_violation_count`     | Indicates potential [clock behavior issues](https://docs.cloud.google.com/spanner-omni/true-time-external-consistency#clock-rate-error) or hardware requirement violations. | Investigate to identify the cause of the violations. Possible causes might be live migrations, VM suspensions, or the TSC operating outside its expected bound clock rate.                   |
 | `true_time_interval_uncertainty` | Tracks the [epsilon](https://docs.cloud.google.com/spanner-omni/true-time-external-consistency#uncertainty-latency-impact) of the TrueTime interval.                        | Monitor this metric to minimize transaction latency. High uncertainty increases commit wait times, which can increase overall transaction latency.                                           |

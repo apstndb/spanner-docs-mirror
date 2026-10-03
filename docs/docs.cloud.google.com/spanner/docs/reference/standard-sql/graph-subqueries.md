@@ -11,7 +11,7 @@ The following subqueries are supported in GQL query statements:
 ## Subquery list
 
 | Name                                                                                                                    | Summary                                           |
-| ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+|-------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
 | [`ARRAY` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#array_subquery)   | Subquery expression that produces an array.       |
 | [`EXISTS` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#exists_subquery) | Checks if a subquery produces at least one row.   |
 | [`IN` subquery](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries#in_subquery)         | Checks if a subquery produces a specified value.  |
@@ -19,7 +19,9 @@ The following subqueries are supported in GQL query statements:
 
 ## `ARRAY` subquery
 
-    ARRAY { gql_query_expr }
+```
+ARRAY { gql_query_expr }
+```
 
 #### Description
 
@@ -27,7 +29,7 @@ Subquery expression that produces an array. If the subquery produces zero rows, 
 
 #### Definitions
 
-  - `gql_query_expr` : A GQL query expression.
+- `gql_query_expr` : A GQL query expression.
 
 #### Return type
 
@@ -39,31 +41,39 @@ Subquery expression that produces an array. If the subquery produces zero rows, 
 
 In the following query, an array of transfer amounts is produced for each `Account` owned by each `Person` node:
 
-    GRAPH FinGraph
-    MATCH (p:Person)-[:Owns]->(account:Account)
-    RETURN
-     p.name, account.id AS account_id,
-     ARRAY {
-       MATCH (a:Account)-[transfer:Transfers]->(:Account)
-       WHERE a = account
-       RETURN transfer.amount AS transfers
-     } AS transfers;
-    
-    /*-------------------------------+
-     | name | account_id | transfers |
-     +-------------------+-----------+
-     | Alex | 7          | [300,100] |
-     | Dana | 20         | [500,200] |
-     | Lee  | 16         | [300]     |
-     +-------------------------------*/
+```
+GRAPH FinGraph
+MATCH (p:Person)-[:Owns]->(account:Account)
+RETURN
+ p.name, account.id AS account_id,
+ ARRAY {
+   MATCH (a:Account)-[transfer:Transfers]->(:Account)
+   WHERE a = account
+   RETURN transfer.amount AS transfers
+ } AS transfers;
+
+/*-------------------------------+
+ | name | account_id | transfers |
+ +-------------------+-----------+
+ | Alex | 7          | [300,100] |
+ | Dana | 20         | [500,200] |
+ | Lee  | 16         | [300]     |
+ +-------------------------------*/
+```
 
 ## `EXISTS` subquery
 
-    EXISTS { gql_query_expr }
+```
+EXISTS { gql_query_expr }
+```
 
-    EXISTS { match_statement }
+```
+EXISTS { match_statement }
+```
 
-    EXISTS { graph_pattern }
+```
+EXISTS { graph_pattern }
+```
 
 #### Description
 
@@ -71,9 +81,9 @@ Checks if the subquery produces at least one row. Returns `TRUE` if at least one
 
 #### Definitions
 
-  - `gql_query_expr` : A GQL query expression.
-  - `match_statement` : A pattern matching operation to perform on a graph. For more information, see [`MATCH` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match) .
-  - `graph_pattern` : A pattern to match in a graph. For more information, see [graph pattern definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
+- `gql_query_expr` : A GQL query expression.
+- `match_statement` : A pattern matching operation to perform on a graph. For more information, see [`MATCH` statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match) .
+- `graph_pattern` : A pattern to match in a graph. For more information, see [graph pattern definition](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#graph_pattern_definition) .
 
 #### Return type
 
@@ -85,46 +95,54 @@ Checks if the subquery produces at least one row. Returns `TRUE` if at least one
 
 The following query checks whether any person named `"Lee"` owns an account. The subquery contains a graph query expression.
 
-    GRAPH FinGraph
-    RETURN EXISTS {
-      MATCH (p:Person {Name: "Lee"})-[o:Owns]->(a:Account)
-      RETURN p.Name
-      LIMIT 1
-    } AS results;
-    
-    /*---------+
-     | results |
-     +---------+
-     | true    |
-     +---------*/
+```
+GRAPH FinGraph
+RETURN EXISTS {
+  MATCH (p:Person {Name: "Lee"})-[o:Owns]->(a:Account)
+  RETURN p.Name
+  LIMIT 1
+} AS results;
+
+/*---------+
+ | results |
+ +---------+
+ | true    |
+ +---------*/
+```
 
 You can include a `MATCH` statement or a graph pattern in an `EXISTS` subquery. The following examples include two ways to construct the subquery and produce similar results:
 
-    GRAPH FinGraph
-    RETURN EXISTS {
-      MATCH (p:Person {Name: "Lee"})-[o:Owns]->(a:Account)
-    } AS results;
-    
-    /*---------+
-     | results |
-     +---------+
-     | true    |
-     +---------*/
+```
+GRAPH FinGraph
+RETURN EXISTS {
+  MATCH (p:Person {Name: "Lee"})-[o:Owns]->(a:Account)
+} AS results;
 
-    GRAPH FinGraph
-    RETURN EXISTS {
-      (p:Person {Name: "Lee"})-[o:Owns]->(a:Account)
-    } AS results;
-    
-    /*---------+
-     | results |
-     +---------+
-     | true    |
-     +---------*/
+/*---------+
+ | results |
+ +---------+
+ | true    |
+ +---------*/
+```
+
+```
+GRAPH FinGraph
+RETURN EXISTS {
+  (p:Person {Name: "Lee"})-[o:Owns]->(a:Account)
+} AS results;
+
+/*---------+
+ | results |
+ +---------+
+ | true    |
+ +---------*/
+```
 
 ## `IN` subquery
 
-    value [ NOT ] IN { gql_query_expr }
+```
+value [ NOT ] IN { gql_query_expr }
+```
 
 #### Description
 
@@ -132,10 +150,10 @@ Checks if `value` is present in the subquery result. Returns `TRUE` if the resul
 
 #### Definitions
 
-  - `value` : The value look for in the subquery result.
-  - `IN` : `TRUE` if the value is in the subquery result, otherwise `FALSE` .
-  - `NOT IN` : `FALSE` if the value is in the subquery result, otherwise `TRUE` .
-  - `gql_query_expr` : A GQL query expression.
+- `value` : The value look for in the subquery result.
+- `IN` : `TRUE` if the value is in the subquery result, otherwise `FALSE` .
+- `NOT IN` : `FALSE` if the value is in the subquery result, otherwise `TRUE` .
+- `gql_query_expr` : A GQL query expression.
 
 #### Details
 
@@ -151,21 +169,25 @@ The subquery result must have a single column and that column type must be compa
 
 The following query checks if `'Dana'` is a name of a person who owns an account.
 
-    GRAPH FinGraph
-    RETURN 'Dana' IN {
-      MATCH (p:Person)-[o:Owns]->(a:Account)
-      RETURN p.name
-    } AS results;
-    
-    /*---------+
-     | results |
-     +---------+
-     | true    |
-     +---------*/
+```
+GRAPH FinGraph
+RETURN 'Dana' IN {
+  MATCH (p:Person)-[o:Owns]->(a:Account)
+  RETURN p.name
+} AS results;
+
+/*---------+
+ | results |
+ +---------+
+ | true    |
+ +---------*/
+```
 
 ## `VALUE` subquery
 
-    VALUE { gql_query_expr }
+```
+VALUE { gql_query_expr }
+```
 
 #### Description
 
@@ -173,7 +195,7 @@ A subquery expression that produces a scalar value.
 
 #### Definitions
 
-  - `gql_query_expr` : A GQL query expression.
+- `gql_query_expr` : A GQL query expression.
 
 #### Details
 
@@ -189,15 +211,17 @@ The same as the column type in the subquery result.
 
 The following query returns the name of any person whose `country` property is `"Australia"` :
 
-    GRAPH FinGraph
-    RETURN VALUE {
-      MATCH (p:Person {country: "Australia"})
-      RETURN p.name
-      LIMIT 1
-    } AS results;
-    
-    /*---------+
-     | results |
-     +---------+
-     | Alex    |
-     +---------*/
+```
+GRAPH FinGraph
+RETURN VALUE {
+  MATCH (p:Person {country: "Australia"})
+  RETURN p.name
+  LIMIT 1
+} AS results;
+
+/*---------+
+ | results |
+ +---------+
+ | Alex    |
+ +---------*/
+```

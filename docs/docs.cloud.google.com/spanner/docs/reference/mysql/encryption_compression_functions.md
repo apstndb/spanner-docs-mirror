@@ -11,12 +11,14 @@ Spanner supports the following MySQL encryption and compression functions. You n
 ## Function list
 
 | Name                                                                                                             | Summary                      |
-| ---------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+|------------------------------------------------------------------------------------------------------------------|------------------------------|
 | [`mysql.SHA2`](https://docs.cloud.google.com/spanner/docs/reference/mysql/encryption_compression_functions#sha2) | Calculates a SHA-2 checksum. |
 
 ## `mysql.SHA2`
 
-    mysql.SHA2(bytes_expression, hash_length)
+```
+mysql.SHA2(bytes_expression, hash_length)
+```
 
 **Description**
 
@@ -24,8 +26,8 @@ Calculates an SHA-2 checksum for the input `BYTES` .
 
 This function supports the following arguments:
 
-  - `bytes_expression` : The `BYTES` value for which to calculate the checksum.
-  - `hash_length` : The chosen bit length of the hash. Supported values are 256 and 512.
+- `bytes_expression` : The `BYTES` value for which to calculate the checksum.
+- `hash_length` : The chosen bit length of the hash. Supported values are 256 and 512.
 
 **Return data type**
 
@@ -43,12 +45,14 @@ This function only supports hash lengths of 256 and 512 bits. The output is alwa
 
 The following example calculates the SHA-256 checksum for a `BYTES` value:
 
-    SELECT mysql.SHA2(B'GoogleCloud', 256) as sha256_checksum;
-    
-    /*
-    +------------------------------------------------------------------+
-    | sha256_checksum                                                  |
-    +------------------------------------------------------------------+
-    | 2002A3F1F350598F5FAF799AD9C9936908230796712E24682016E5257A4D2000 |
-    +------------------------------------------------------------------+
-    */
+```
+SELECT mysql.SHA2(B'GoogleCloud', 256) as sha256_checksum;
+
+/*
++------------------------------------------------------------------+
+| sha256_checksum                                                  |
++------------------------------------------------------------------+
+| 2002A3F1F350598F5FAF799AD9C9936908230796712E24682016E5257A4D2000 |
++------------------------------------------------------------------+
+*/
+```

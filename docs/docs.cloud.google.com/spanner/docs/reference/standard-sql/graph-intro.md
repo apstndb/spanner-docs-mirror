@@ -28,17 +28,19 @@ Each statement generates intermediate results (the working table) and then passe
 
 #### Examples
 
-    GRAPH FinGraph
-    MATCH (p:Person)-[o:Owns]->(a:Account)
-    FILTER p.birthday < '1990-01-10'
-    RETURN p.name
-    
-    /*------+
-     | name |
-     +------+
-     | Dana |
-     | Lee  |
-     +------*/
+```
+GRAPH FinGraph
+MATCH (p:Person)-[o:Owns]->(a:Account)
+FILTER p.birthday < '1990-01-10'
+RETURN p.name
+
+/*------+
+ | name |
+ +------+
+ | Dana |
+ | Lee  |
+ +------*/
+```
 
 ## Combining linear query statements with set operators
 
@@ -48,23 +50,25 @@ You can use a set operator to combine multiple linear query statements into one.
 
 A set operator between two linear query statements with the same set of output column names and types but with different column orders is supported. For example:
 
-    GRAPH FinGraph
-    MATCH (p:Person)
-    RETURN p.name, 1 AS group_id
-    UNION ALL
-    MATCH (p:Person)
-    RETURN 2 AS group_id, p.name
-    
-    /*------+----------+
-     | name | group_id |
-     +------+----------+
-     | Alex |    1     |
-     | Dana |    1     |
-     | Lee  |    1     |
-     | Alex |    2     |
-     | Dana |    2     |
-     | Lee  |    2     |
-     +------+----------*/
+```
+GRAPH FinGraph
+MATCH (p:Person)
+RETURN p.name, 1 AS group_id
+UNION ALL
+MATCH (p:Person)
+RETURN 2 AS group_id, p.name
+
+/*------+----------+
+ | name | group_id |
+ +------+----------+
+ | Alex |    1     |
+ | Dana |    1     |
+ | Lee  |    1     |
+ | Alex |    2     |
+ | Dana |    2     |
+ | Lee  |    2     |
+ +------+----------*/
+```
 
 ## Chaining linear query statements with the `NEXT` statement
 
@@ -76,24 +80,26 @@ The final linear query statement must produce non-GQL data types, but linear que
 
 The following is an example of a graph query chaining multiple linear query statements using `NEXT` :
 
-    GRAPH FinGraph
-    
-    MATCH (a:Account {is_blocked: TRUE})
-    RETURN a
-    UNION ALL
-    MATCH (a:Account)<-[:Owns]-(p:Person {id: 2})
-    RETURN a
-    
-    NEXT
-    
-    MATCH (a:Account)-[t:Transfers]->(oa:Account)
-    WITH DISTINCT oa
-    RETURN oa.nick_name
-    
-    /*----------------+
-     | nick_name      |
-     +----------------+
-     | Vacation Fund  |
-     | Vacation Fund  |
-     | Rainy Day Fund |
-     +----------------*/
+```
+GRAPH FinGraph
+
+MATCH (a:Account {is_blocked: TRUE})
+RETURN a
+UNION ALL
+MATCH (a:Account)<-[:Owns]-(p:Person {id: 2})
+RETURN a
+
+NEXT
+
+MATCH (a:Account)-[t:Transfers]->(oa:Account)
+WITH DISTINCT oa
+RETURN oa.nick_name
+
+/*----------------+
+ | nick_name      |
+ +----------------+
+ | Vacation Fund  |
+ | Vacation Fund  |
+ | Rainy Day Fund |
+ +----------------*/
+```

@@ -12,9 +12,9 @@ This client acts as a local TCP proxy. It intercepts the raw Cassandra protocol 
 
 This document shows how to integrate the client with Spanner Omni using one of the following methods:
 
-  - **[In-process dependency](https://docs.cloud.google.com/spanner-omni/go-cassandra#in-process)** : Use this method for Go applications already using the `gocql` driver. This approach embeds the client within your application process for minimal code modifications.
+- **[In-process dependency](https://docs.cloud.google.com/spanner-omni/go-cassandra#in-process)** : Use this method for Go applications already using the `gocql` driver. This approach embeds the client within your application process for minimal code modifications.
 
-  - **[Sidecar proxy](https://docs.cloud.google.com/spanner-omni/go-cassandra#sidecar-proxy)** : Use this method for non-Go applications or when using external Cassandra tools, such as `cqlsh` . This approach runs the client as a standalone process.
+- **[Sidecar proxy](https://docs.cloud.google.com/spanner-omni/go-cassandra#sidecar-proxy)** : Use this method for non-Go applications or when using external Cassandra tools, such as `cqlsh` . This approach runs the client as a standalone process.
 
 For more information about how Apache Cassandra works with Spanner, see [Cassandra interface](https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview) .
 
@@ -22,9 +22,9 @@ For more information about how Apache Cassandra works with Spanner, see [Cassand
 
 This client is useful in the following scenarios:
 
-  - **Use Spanner with minimal refactoring.** You want to use Spanner as the backend for your Go application but prefer to keep using the familiar `gocql` API for data access.
+- **Use Spanner with minimal refactoring.** You want to use Spanner as the backend for your Go application but prefer to keep using the familiar `gocql` API for data access.
 
-  - **Use non-Go Cassandra tools.** You want to connect to Spanner using standard Cassandra tools like `cqlsh` or applications written in other languages that use Cassandra drivers.
+- **Use non-Go Cassandra tools.** You want to connect to Spanner using standard Cassandra tools like `cqlsh` or applications written in other languages that use Cassandra drivers.
 
 ## Use the client as an in-process dependency
 
@@ -32,79 +32,87 @@ Go applications connect to Spanner Omni by integrating the Spanner Cassandra Go 
 
 To use the client as an in-process dependency, do the following:
 
-  - Import the Spanner package in your Go application:
-    
-        import spanner "github.com/googleapis/go-spanner-cassandra/cassandra/gocql"
+- Import the Spanner package in your Go application:
 
-  - Modify your cluster creation code. Instead of using `gocql.NewCluster` , use `spanner.NewCluster` and provide the following Spanner Omni specific options:
-    
-    ### Plain text
-    
-    The following example shows how to establish a plain-text connection to Spanner Omni:
-    
-        func main() {
-          opts := &spanner.Options{
-              // Required: Specify the Spanner database URI
-              DatabaseUri: "DATABASE_ID",
-          }
-          // Optional: Configure Spanner Omni cluster settings as needed
-          opts.SpannerEndpoint = "ENDPOINT"
-          opts.InstanceType = spanner.Omni
-          opts.UsePlainText = true
-        
-          cluster := spanner.NewCluster(opts)
-          // ...
-        }
-    
-    ### TLS
-    
-    The following example shows how to establish a TLS connection to Spanner Omni:
-    
-        func main() {
-          opts := &spanner.Options{
-              // Required: Specify the Spanner database URI
-              DatabaseUri: "DATABASE_ID",
-          }
-          // Optional: Configure Spanner Omni cluster settings as needed
-          opts.SpannerEndpoint = "ENDPOINT"
-          opts.InstanceType = spanner.Omni
-          opts.CaCertificate = "PATH_TO_CA_CRT"
-        
-          cluster := spanner.NewCluster(opts)
-          // ...
-        }
-    
-    ### mTLS
-    
-    The following example shows how to establish an mTLS connection to Spanner Omni:
-    
-        func main() {
-          opts := &spanner.Options{
-              // Required: Specify the Spanner database URI
-              DatabaseUri: "DATABASE_ID",
-          }
-          // Optional: Configure Spanner Omni cluster settings as needed
-          opts.SpannerEndpoint = "ENDPOINT"
-          opts.InstanceType = spanner.Omni
-          opts.CaCertificate = "PATH_TO_CA_CRT"
-          opts.ClientCertificate = "PATH_TO_CLIENT_CERT"
-          opts.ClientKey = "PATH_TO_CLIENT_KEY"
-        
-          cluster := spanner.NewCluster(opts)
-          // ...
-        }
-    
-    Replace the following:
-    
-      - `  DATABASE_ID  ` : the ID of your Spanner Omni database, for example, `test-db` .
-    
-      - `  ENDPOINT  ` : the endpoint of your Spanner Omni instance, for example, `localhost:15000` .
-    
-      - `  PATH_TO_CA_CRT  ` : the path to your CA certificate file.
-    
-      - `  PATH_TO_CLIENT_CERT  ` : the path to your client certificate file.
-    
-      - `  PATH_TO_CLIENT_KEY  ` : the path to your client key file.
+  ```
+  import spanner "github.com/googleapis/go-spanner-cassandra/cassandra/gocql"
+  ```
+
+- Modify your cluster creation code. Instead of using `gocql.NewCluster` , use `spanner.NewCluster` and provide the following Spanner Omni specific options:
+
+  ### Plain text
+
+  The following example shows how to establish a plain-text connection to Spanner Omni:
+
+  ```
+  func main() {
+    opts := &spanner.Options{
+        // Required: Specify the Spanner database URI
+        DatabaseUri: "DATABASE_ID",
+    }
+    // Optional: Configure Spanner Omni cluster settings as needed
+    opts.SpannerEndpoint = "ENDPOINT"
+    opts.InstanceType = spanner.Omni
+    opts.UsePlainText = true
+
+    cluster := spanner.NewCluster(opts)
+    // ...
+  }
+  ```
+
+  ### TLS
+
+  The following example shows how to establish a TLS connection to Spanner Omni:
+
+  ```
+  func main() {
+    opts := &spanner.Options{
+        // Required: Specify the Spanner database URI
+        DatabaseUri: "DATABASE_ID",
+    }
+    // Optional: Configure Spanner Omni cluster settings as needed
+    opts.SpannerEndpoint = "ENDPOINT"
+    opts.InstanceType = spanner.Omni
+    opts.CaCertificate = "PATH_TO_CA_CRT"
+
+    cluster := spanner.NewCluster(opts)
+    // ...
+  }
+  ```
+
+  ### mTLS
+
+  The following example shows how to establish an mTLS connection to Spanner Omni:
+
+  ```
+  func main() {
+    opts := &spanner.Options{
+        // Required: Specify the Spanner database URI
+        DatabaseUri: "DATABASE_ID",
+    }
+    // Optional: Configure Spanner Omni cluster settings as needed
+    opts.SpannerEndpoint = "ENDPOINT"
+    opts.InstanceType = spanner.Omni
+    opts.CaCertificate = "PATH_TO_CA_CRT"
+    opts.ClientCertificate = "PATH_TO_CLIENT_CERT"
+    opts.ClientKey = "PATH_TO_CLIENT_KEY"
+
+    cluster := spanner.NewCluster(opts)
+    // ...
+  }
+  ```
+
+  Replace the following:
+
+  - `DATABASE_ID` : the ID of your Spanner Omni database, for example, `test-db` .
+
+  - `ENDPOINT` : the endpoint of your Spanner Omni instance, for example, `localhost:15000` .
+
+  - `PATH_TO_CA_CRT` : the path to your CA certificate file.
+
+  - `PATH_TO_CLIENT_CERT` : the path to your client certificate file.
+
+  - `PATH_TO_CLIENT_KEY` : the path to your client key file.
 
 ## Deploy the client as a sidecar proxy
 
@@ -114,66 +122,78 @@ This configuration is useful when you need to use external Cassandra tools or wh
 
 You can run the sidecar proxy in the following ways:
 
-  - [Run locally with the Go `run` command](https://docs.cloud.google.com/spanner-omni/go-cassandra#go-run-locally)
+- [Run locally with the Go `run` command](https://docs.cloud.google.com/spanner-omni/go-cassandra#go-run-locally)
 
-  - [Run with a prebuilt Docker image](https://docs.cloud.google.com/spanner-omni/go-cassandra#docker-run)
+- [Run with a prebuilt Docker image](https://docs.cloud.google.com/spanner-omni/go-cassandra#docker-run)
 
 ### Run locally with the Go `run` command
 
 Running the sidecar proxy as a local process from source code is useful for development and testing environments where you want to quickly iterate on your application and proxy configuration.
 
 1.  Clone the repository:
-    
+
     `git clone https://github.com/googleapis/go-spanner-cassandra.git`
 
 2.  Change to the repository directory:
-    
+
     `cd go-spanner-cassandra`
 
 3.  Run `cassandra_launcher.go` with the required `-db` flag and the following Spanner Omni specific flags:
-    
+
     ### Plain text
-    
+
     To run with plain-text communication, run the following command:
-    
-        go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -usePlainText
-    
+
+    ```
+    go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -usePlainText
+    ```
+
     ### TLS
-    
+
     To run with a TLS connection, run the following command:
-    
-        go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT
-    
+
+    ```
+    go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT
+    ```
+
     ### mTLS
-    
+
     To run with an mTLS connection, run the following command:
-    
-        go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT -clientCertificate PATH_TO_CLIENT_CERT -clientKey PATH_TO_CLIENT_KEY
+
+    ```
+    go run cassandra_launcher.go -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT -clientCertificate PATH_TO_CLIENT_CERT -clientKey PATH_TO_CLIENT_KEY
+    ```
 
 ### Run with a prebuilt Docker image
 
 We recommend running the sidecar proxy as a containerized application using a prebuilt Docker image for production environments because it provides a consistent and isolated runtime environment.
 
 1.  Pull the image from the official registry repository:
-    
+
     `docker pull gcr.io/cloud-spanner-adapter/cassandra-adapter`
 
 2.  Run the image with the required flags:
-    
+
     ### Plain text
-    
+
     To run with plain-text communication, run the following command:
-    
-        docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -usePlainText
-    
+
+    ```
+    docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -usePlainText
+    ```
+
     ### TLS
-    
+
     To run with a TLS connection, run the following command:
-    
-        docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT
-    
+
+    ```
+    docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT
+    ```
+
     ### mTLS
-    
+
     To run with an mTLS connection, run the following command:
-    
-        docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT -clientCertificate PATH_TO_CLIENT_CERT -clientKey PATH_TO_CLIENT_KEY
+
+    ```
+    docker run -d -p 9042:9042 gcr.io/cloud-spanner-adapter/cassandra-adapter -db DATABASE_ID -endpoint ENDPOINT -instanceType OMNI -caCertificate PATH_TO_CA_CRT -clientCertificate PATH_TO_CLIENT_CERT -clientKey PATH_TO_CLIENT_KEY
+    ```

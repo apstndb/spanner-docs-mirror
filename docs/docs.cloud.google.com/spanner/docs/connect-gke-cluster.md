@@ -27,20 +27,20 @@ Configure your applications to authenticate to Google Cloud by using Workload Id
 1.  Ensure that your GKE Pod uses a Kubernetes `ServiceAccount` object, as described in [Configure authorization and principals](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#configure-authz-principals) .
 
 2.  Create an IAM allow policy that grants the necessary Spanner IAM roles to the Kubernetes `ServiceAccount` object. The following example grants the Spanner Database User ( `roles/spanner.databaseUser` ) role:
-    
-    ``` 
+
+    ```
       gcloud projects add-iam-policy-binding PROJECT_ID \
           --member="principal://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/PROJECT_ID.svc.id.goog/subject/ns/NAMESPACE/sa/KSA_NAME \
           --role=roles/spanner.databaseUser \
           --condition=None
     ```
-    
+
     Replace the following:
-    
-      - `  PROJECT_ID  ` : The project ID of the GKE cluster.
-      - `  PROJECT_NUMBER  ` : The numerical Google Cloud project number.
-      - `  NAMESPACE  ` : The Kubernetes namespace that contains the ServiceAccount.
-      - `  KSA_NAME  ` : The name of the ServiceAccount.
+
+    - `PROJECT_ID` : The project ID of the GKE cluster.
+    - `PROJECT_NUMBER` : The numerical Google Cloud project number.
+    - `NAMESPACE` : The Kubernetes namespace that contains the ServiceAccount.
+    - `KSA_NAME` : The name of the ServiceAccount.
 
 ## Connect Spanner databases
 
@@ -48,8 +48,8 @@ After your application Pod is authenticated, you can use one of the [Spanner cli
 
 ## What's next
 
-  - Learn how to [deploy your application to the GKE cluster](https://docs.cloud.google.com/kubernetes-engine/docs/deploy-app-cluster) .
-  - Learn how to [deploy your application using GKE Autopilot and Spanner](https://docs.cloud.google.com/kubernetes-engine/docs/tutorials/gke-spanner-integration) .
-  - Learn more about how to [migrate existing workloads to Workload Identity Federation for GKE](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#migrate_applications_to) .
-  - Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
-  - Integrate Spanner with other ORMs including [Hibernate ORM](https://docs.cloud.google.com/spanner/docs/use-hibernate) , [gorm](https://docs.cloud.google.com/spanner/docs/use-gorm) , and [Django ORM](https://docs.cloud.google.com/spanner/docs/django-orm) .
+- Learn how to [deploy your application to the GKE cluster](https://docs.cloud.google.com/kubernetes-engine/docs/deploy-app-cluster) .
+- Learn how to [deploy your application using GKE Autopilot and Spanner](https://docs.cloud.google.com/kubernetes-engine/docs/tutorials/gke-spanner-integration) .
+- Learn more about how to [migrate existing workloads to Workload Identity Federation for GKE](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/workload-identity#migrate_applications_to) .
+- Learn more about [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
+- Integrate Spanner with other ORMs including [Hibernate ORM](https://docs.cloud.google.com/spanner/docs/use-hibernate) , [gorm](https://docs.cloud.google.com/spanner/docs/use-gorm) , and [Django ORM](https://docs.cloud.google.com/spanner/docs/django-orm) .

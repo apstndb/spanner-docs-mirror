@@ -20,31 +20,33 @@ This page explains how to add Spring Data Spanner to a Java application. For det
 
 If you use Maven, add the [Spring Cloud GCP Bill of Materials (BOM)](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#bill-of-materials) and Spring Data Spanner to your `pom.xml` file. These dependencies provide the Spring Data Spanner components to your Spring [`ApplicationContext`](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationContext.html) :
 
-    <dependencyManagement>
-      <dependencies>
-        <dependency>
-          <groupId>com.google.cloud</groupId>
-          <artifactId>spring-cloud-gcp-dependencies</artifactId>
-          <version>3.7.7</version>
-          <type>pom</type>
-          <scope>import</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-dependencies</artifactId>
-          <version>${spring.boot.version}</version>
-          <type>pom</type>
-          <scope>import</scope>
-        </dependency>
-      </dependencies>
-    </dependencyManagement>
-    
-    <dependencies>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>spring-cloud-gcp-starter-data-spanner</artifactId>
-      </dependency>
-    </dependencies>
+```
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>spring-cloud-gcp-dependencies</artifactId>
+      <version>3.7.7</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-dependencies</artifactId>
+      <version>${spring.boot.version}</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+
+<dependencies>
+  <dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>spring-cloud-gcp-starter-data-spanner</artifactId>
+  </dependency>
+</dependencies>
+```
 
 You must also [create a service account](https://docs.cloud.google.com/docs/authentication/getting-started) and use the service account key to authenticate with Google Cloud.
 
@@ -59,7 +61,7 @@ This section describes some of the most commonly used configuration settings for
 To specify the default instance and database, set the following configuration properties for your application:
 
 | Property                               | Description                                                                                          |
-| -------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+|----------------------------------------|------------------------------------------------------------------------------------------------------|
 | `spring.cloud.gcp.spanner.project-id`  | Optional. The Google Cloud project ID. Overrides the value of `spring.cloud.gcp.config.project-id` . |
 | `spring.cloud.gcp.spanner.instance-id` | The Spanner instance ID.                                                                             |
 | `spring.cloud.gcp.spanner.database`    | The database to connect to.                                                                          |
@@ -72,111 +74,82 @@ For each table in your database, declare an entity that represents a record in t
 
 You can use the following annotations to model simple relationships between entities and tables:
 
-Entity annotations
-
-`@Column(name = " columnName ")`
-
-Optional. Maps the property to a specific column in the Spanner table, overriding the naming strategy that automatically maps the names.
-
-When you omit this property, the default naming strategy for Spring Data Spanner maps Java `camelCase` property names to `PascalCase` column names. For example, the property `singerId` maps to the column name `SingerId` .
-
-`@Embedded`
-
-Indicates that the property is an embedded object that can hold components of a primary key. If the property is actually used in the primary key, you must also include the `@PrimaryKey` annotation.
-
-`@Interleaved`
-
-`@Interleaved(lazy = true )`
-
-Indicates that a property contains a list of rows that are [interleaved](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) with the current row.
-
-By default, Spring Data Spanner fetches the interleaved rows at instance creation. To fetch the rows lazily, when you access the property, use `@Interleaved(lazy = true)` .
-
-Example: If a `Singer` entity can have interleaved `Album` entries as children, add a `List<Album>` property to the `Singer` entity. Also, add an `@Interleaved` annotation to the property.
-
-`@NotMapped`
-
-Indicates that a property is not stored in the database and should be ignored.
-
-`@PrimaryKey`
-
-`@PrimaryKey(keyOrder = N )`
-
-Indicates that the property is a component of the primary key, and identifies the position of the property within the primary key, starting at 1. The default `keyOrder` is `1` .
-
-Example: `@PrimaryKey(keyOrder = 3)`
-
-`@Table(name = " TABLE_NAME ")`
-
-The table that the entity models. Each instance of the entity represents a record in the table. Replace `  TABLE_NAME  ` with the name of your table.
-
-Example: `@Table(name = "Singers")`
+| Entity annotations                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+|---------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `@Column(name = " `` columnName `` ")`            | Optional. Maps the property to a specific column in the Spanner table, overriding the naming strategy that automatically maps the names. When you omit this property, the default naming strategy for Spring Data Spanner maps Java `camelCase` property names to `PascalCase` column names. For example, the property `singerId` maps to the column name `SingerId` .                                                                                                                                                                                                 |
+| `@Embedded`                                       | Indicates that the property is an embedded object that can hold components of a primary key. If the property is actually used in the primary key, you must also include the `@PrimaryKey` annotation.                                                                                                                                                                                                                                                                                                                                                                  |
+| `@Interleaved` `@Interleaved(lazy = `` true `` )` | Indicates that a property contains a list of rows that are [interleaved](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#creating-interleaved-tables) with the current row. By default, Spring Data Spanner fetches the interleaved rows at instance creation. To fetch the rows lazily, when you access the property, use `@Interleaved(lazy = true)` . Example: If a `Singer` entity can have interleaved `Album` entries as children, add a `List<Album>` property to the `Singer` entity. Also, add an `@Interleaved` annotation to the property. |
+| `@NotMapped`                                      | Indicates that a property is not stored in the database and should be ignored.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `@PrimaryKey` `@PrimaryKey(keyOrder = `` N `` )`  | Indicates that the property is a component of the primary key, and identifies the position of the property within the primary key, starting at 1. The default `keyOrder` is `1` . Example: `@PrimaryKey(keyOrder = 3)`                                                                                                                                                                                                                                                                                                                                                 |
+| `@Table(name = " `` TABLE_NAME `` ")`             | The table that the entity models. Each instance of the entity represents a record in the table. Replace `TABLE_NAME` with the name of your table. Example: `@Table(name = "Singers")`                                                                                                                                                                                                                                                                                                                                                                                  |
 
 If you need to model more complex relationships, see the [Spring Data Spanner reference](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/spanner.html) for details about other annotations that the module supports.
 
 The following examples show one way to model the `Singers` and `Albums` tables for Spring Data Spanner:
 
-  - For `Singer` entities, the example includes an `albums` property, with an `@Interleaved` annotation. This property contains a list of albums that are interleaved with the `Singer` entity. Spring Data Spanner populates this property automatically.
-  - For `Album` entities, the example includes a `relatedAlbums` property that is not stored in Spanner.
+- For `Singer` entities, the example includes an `albums` property, with an `@Interleaved` annotation. This property contains a list of albums that are interleaved with the `Singer` entity. Spring Data Spanner populates this property automatically.
+- For `Album` entities, the example includes a `relatedAlbums` property that is not stored in Spanner.
 
-<!-- end list -->
+```
+import com.google.cloud.spring.data.spanner.core.mapping.Interleaved;
+import com.google.cloud.spring.data.spanner.core.mapping.PrimaryKey;
+import com.google.cloud.spring.data.spanner.core.mapping.Table;
+import java.util.Date;
+import java.util.List;
 
-    import com.google.cloud.spring.data.spanner.core.mapping.Interleaved;
-    import com.google.cloud.spring.data.spanner.core.mapping.PrimaryKey;
-    import com.google.cloud.spring.data.spanner.core.mapping.Table;
-    import java.util.Date;
-    import java.util.List;
-    
-    
-    /**
-     * An entity and table holding singers.
-     */
-    @Table(name = "Singers")
-    public class Singer {
-      @PrimaryKey
-      long singerId;
-    
-      String firstName;
-    
-      String lastName;
-    
-      Date birthDate;
-    
-      @Interleaved
-      List<Album> albums;
-    }
 
-    import com.google.cloud.spring.data.spanner.core.mapping.NotMapped;
-    import com.google.cloud.spring.data.spanner.core.mapping.PrimaryKey;
-    import com.google.cloud.spring.data.spanner.core.mapping.Table;
-    import java.util.List;
-    
-    /**
-     * An entity class representing an Album.
-     */
-    @Table(name = "Albums")
-    public class Album {
-    
-      @PrimaryKey
-      long singerId;
-    
-      @PrimaryKey(keyOrder = 2)
-      long albumId;
-    
-      String albumTitle;
-    
-      long marketingBudget;
-    
-      @NotMapped
-      List<Album> relatedAlbums;
-    
-      public Album(long singerId, long albumId, String albumTitle, long marketingBudget) {
-        this.singerId = singerId;
-        this.albumId = albumId;
-        this.albumTitle = albumTitle;
-        this.marketingBudget = marketingBudget;
-      }
-    }
+/**
+ * An entity and table holding singers.
+ */
+@Table(name = "Singers")
+public class Singer {
+  @PrimaryKey
+  long singerId;
+
+  String firstName;
+
+  String lastName;
+
+  Date birthDate;
+
+  @Interleaved
+  List<Album> albums;
+}
+```
+
+```
+import com.google.cloud.spring.data.spanner.core.mapping.NotMapped;
+import com.google.cloud.spring.data.spanner.core.mapping.PrimaryKey;
+import com.google.cloud.spring.data.spanner.core.mapping.Table;
+import java.util.List;
+
+/**
+ * An entity class representing an Album.
+ */
+@Table(name = "Albums")
+public class Album {
+
+  @PrimaryKey
+  long singerId;
+
+  @PrimaryKey(keyOrder = 2)
+  long albumId;
+
+  String albumTitle;
+
+  long marketingBudget;
+
+  @NotMapped
+  List<Album> relatedAlbums;
+
+  public Album(long singerId, long albumId, String albumTitle, long marketingBudget) {
+    this.singerId = singerId;
+    this.albumId = albumId;
+    this.albumTitle = albumTitle;
+    this.marketingBudget = marketingBudget;
+  }
+}
+```
 
 ## Query and modify data
 
@@ -192,38 +165,40 @@ Use the `@Autowired` annotation to acquire a `SpannerTemplate` bean automaticall
 
 The following example shows a class that acquires and uses the bean:
 
-    import com.google.cloud.spanner.KeySet;
-    import com.google.cloud.spanner.Statement;
-    import com.google.cloud.spring.data.spanner.core.SpannerQueryOptions;
-    import com.google.cloud.spring.data.spanner.core.SpannerTemplate;
-    import java.util.List;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Component;
-    
-    /**
-     * A quick start code for Spring Data Cloud Spanner. It demonstrates how to use SpannerTemplate to
-     * execute DML and SQL queries, save POJOs, and read entities.
-     */
-    @Component
-    public class SpannerTemplateSample {
-    
-      @Autowired
-      SpannerTemplate spannerTemplate;
-    
-      public void runTemplateExample(Singer singer) {
-        // Delete all of the rows in the Singer table.
-        this.spannerTemplate.delete(Singer.class, KeySet.all());
-    
-        // Insert a singer into the Singers table.
-        this.spannerTemplate.insert(singer);
-    
-        // Read all of the singers in the Singers table.
-        List<Singer> allSingers = this.spannerTemplate
-            .query(Singer.class, Statement.of("SELECT * FROM Singers"),
-                    new SpannerQueryOptions().setAllowPartialRead(true));
-      }
-    
-    }
+```
+import com.google.cloud.spanner.KeySet;
+import com.google.cloud.spanner.Statement;
+import com.google.cloud.spring.data.spanner.core.SpannerQueryOptions;
+import com.google.cloud.spring.data.spanner.core.SpannerTemplate;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+/**
+ * A quick start code for Spring Data Cloud Spanner. It demonstrates how to use SpannerTemplate to
+ * execute DML and SQL queries, save POJOs, and read entities.
+ */
+@Component
+public class SpannerTemplateSample {
+
+  @Autowired
+  SpannerTemplate spannerTemplate;
+
+  public void runTemplateExample(Singer singer) {
+    // Delete all of the rows in the Singer table.
+    this.spannerTemplate.delete(Singer.class, KeySet.all());
+
+    // Insert a singer into the Singers table.
+    this.spannerTemplate.insert(singer);
+
+    // Read all of the singers in the Singers table.
+    List<Singer> allSingers = this.spannerTemplate
+        .query(Singer.class, Statement.of("SELECT * FROM Singers"),
+                new SpannerQueryOptions().setAllowPartialRead(true));
+  }
+
+}
+```
 
 You can use the `SpannerTemplate` bean to execute [read-only transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#read-only-transaction) and [read-write transactions](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#readwrite-transaction) . In addition, you can use the [`@Transactional`](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/index.html#declarative-transactions-with-transactional-annotation) annotation to create declarative transactions.
 
@@ -233,57 +208,61 @@ If you use a `SpannerRepository` , you can use the `@Autowired` annotation to ac
 
 The following examples show the interface for a repository and a class that acquires and uses the bean:
 
-    import com.google.cloud.spanner.Key;
-    import com.google.cloud.spring.data.spanner.repository.SpannerRepository;
-    import com.google.cloud.spring.data.spanner.repository.query.Query;
-    import java.util.List;
-    import org.springframework.data.repository.query.Param;
-    
-    
-    /**
-     * An interface of various Query Methods. The behavior of the queries is defined only by
-     * their names, arguments, or annotated SQL strings. The implementation of these functions
-     * is generated by Spring Data Cloud Spanner.
-     */
-    public interface SingerRepository extends SpannerRepository<Singer, Key> {
-      List<Singer> findByLastName(String lastName);
-    
-      int countByFirstName(String firstName);
-    
-      int deleteByLastName(String lastName);
-    
-      List<Singer> findTop3DistinctByFirstNameAndSingerIdIgnoreCaseOrLastNameOrderByLastNameDesc(
-          String firstName, String lastName, long singerId);
-    
-      @Query("SELECT * FROM Singers WHERE firstName LIKE '%@fragment';")
-      List<Singer> getByQuery(@Param("fragment") String firstNameFragment);
-    }
+```
+import com.google.cloud.spanner.Key;
+import com.google.cloud.spring.data.spanner.repository.SpannerRepository;
+import com.google.cloud.spring.data.spanner.repository.query.Query;
+import java.util.List;
+import org.springframework.data.repository.query.Param;
 
-    import java.util.List;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Component;
-    
-    /**
-     * A quick start code for Spring Data Cloud Spanner.
-     * It demonstrates how to use a SpannerRepository to execute read-write queries
-     * generated from interface definitions.
-     *
-     */
-    @Component
-    public class SpannerRepositorySample {
-    
-      @Autowired
-      SingerRepository singerRepository;
-    
-      public void runRepositoryExample() {
-        List<Singer> lastNameSingers = this.singerRepository.findByLastName("a last name");
-    
-        int fistNameCount = this.singerRepository.countByFirstName("a first name");
-    
-        int deletedLastNameCount = this.singerRepository.deleteByLastName("a last name");
-      }
-    
-    }
+
+/**
+ * An interface of various Query Methods. The behavior of the queries is defined only by
+ * their names, arguments, or annotated SQL strings. The implementation of these functions
+ * is generated by Spring Data Cloud Spanner.
+ */
+public interface SingerRepository extends SpannerRepository<Singer, Key> {
+  List<Singer> findByLastName(String lastName);
+
+  int countByFirstName(String firstName);
+
+  int deleteByLastName(String lastName);
+
+  List<Singer> findTop3DistinctByFirstNameAndSingerIdIgnoreCaseOrLastNameOrderByLastNameDesc(
+      String firstName, String lastName, long singerId);
+
+  @Query("SELECT * FROM Singers WHERE firstName LIKE '%@fragment';")
+  List<Singer> getByQuery(@Param("fragment") String firstNameFragment);
+}
+```
+
+```
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+/**
+ * A quick start code for Spring Data Cloud Spanner.
+ * It demonstrates how to use a SpannerRepository to execute read-write queries
+ * generated from interface definitions.
+ *
+ */
+@Component
+public class SpannerRepositorySample {
+
+  @Autowired
+  SingerRepository singerRepository;
+
+  public void runRepositoryExample() {
+    List<Singer> lastNameSingers = this.singerRepository.findByLastName("a last name");
+
+    int fistNameCount = this.singerRepository.countByFirstName("a first name");
+
+    int deletedLastNameCount = this.singerRepository.deleteByLastName("a last name");
+  }
+
+}
+```
 
 ## Manage Spanner
 
@@ -293,54 +272,56 @@ Use the `@Autowired` annotation to acquire the bean automatically. You can then 
 
 The following example shows a class that acquires and uses the bean:
 
-    import com.google.cloud.spring.data.spanner.core.admin.SpannerDatabaseAdminTemplate;
-    import com.google.cloud.spring.data.spanner.core.admin.SpannerSchemaUtils;
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Component;
-    
-    /**
-     * This sample demonstrates how to generate schemas for interleaved tables from POJOs and how to
-     * execute DDL.
-     */
-    @Component
-    public class SpannerSchemaToolsSample {
-    
-      @Autowired
-      SpannerDatabaseAdminTemplate spannerDatabaseAdminTemplate;
-    
-      @Autowired
-      SpannerSchemaUtils spannerSchemaUtils;
-    
-      /**
-       * Creates the Singers table. Also creates the Albums table, because Albums is interleaved with
-       * Singers.
-       */
-      public void createTableIfNotExists() {
-        if (!this.spannerDatabaseAdminTemplate.tableExists("Singers")) {
-          this.spannerDatabaseAdminTemplate.executeDdlStrings(
-              this.spannerSchemaUtils
-                  .getCreateTableDdlStringsForInterleavedHierarchy(Singer.class),
-              true);
-        }
-      }
-    
-      /**
-       * Drops both the Singers and Albums tables using just a reference to the Singer entity type ,
-       * because they are interleaved.
-       */
-      public void dropTables() {
-        if (this.spannerDatabaseAdminTemplate.tableExists("Singers")) {
-          this.spannerDatabaseAdminTemplate.executeDdlStrings(
-              this.spannerSchemaUtils.getDropTableDdlStringsForInterleavedHierarchy(Singer.class),
-              false);
-        }
-      }
+```
+import com.google.cloud.spring.data.spanner.core.admin.SpannerDatabaseAdminTemplate;
+import com.google.cloud.spring.data.spanner.core.admin.SpannerSchemaUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+/**
+ * This sample demonstrates how to generate schemas for interleaved tables from POJOs and how to
+ * execute DDL.
+ */
+@Component
+public class SpannerSchemaToolsSample {
+
+  @Autowired
+  SpannerDatabaseAdminTemplate spannerDatabaseAdminTemplate;
+
+  @Autowired
+  SpannerSchemaUtils spannerSchemaUtils;
+
+  /**
+   * Creates the Singers table. Also creates the Albums table, because Albums is interleaved with
+   * Singers.
+   */
+  public void createTableIfNotExists() {
+    if (!this.spannerDatabaseAdminTemplate.tableExists("Singers")) {
+      this.spannerDatabaseAdminTemplate.executeDdlStrings(
+          this.spannerSchemaUtils
+              .getCreateTableDdlStringsForInterleavedHierarchy(Singer.class),
+          true);
     }
+  }
+
+  /**
+   * Drops both the Singers and Albums tables using just a reference to the Singer entity type ,
+   * because they are interleaved.
+   */
+  public void dropTables() {
+    if (this.spannerDatabaseAdminTemplate.tableExists("Singers")) {
+      this.spannerDatabaseAdminTemplate.executeDdlStrings(
+          this.spannerSchemaUtils.getDropTableDdlStringsForInterleavedHierarchy(Singer.class),
+          false);
+    }
+  }
+}
+```
 
 ## What's next
 
-  - Get started with [Spring Cloud GCP](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/#getting-started) .
-  - Learn more about [using Spring Data Spanner in your applications](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/spanner.html) .
-  - [File a GitHub issue](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/issues) to report a bug or ask a question about the module.
-  - Get more information about [Spring Framework support on Google Cloud](https://docs.cloud.google.com/java/docs/reference/spring) .
-  - Try a codelab to [deploy and run an application that uses Spring Cloud GCP](https://codelabs.developers.google.com/spring/) .
+- Get started with [Spring Cloud GCP](https://docs.spring.io/spring-cloud-gcp/docs/current/reference/html/#getting-started) .
+- Learn more about [using Spring Data Spanner in your applications](https://googlecloudplatform.github.io/spring-cloud-gcp/reference/html/spanner.html) .
+- [File a GitHub issue](https://github.com/GoogleCloudPlatform/spring-cloud-gcp/issues) to report a bug or ask a question about the module.
+- Get more information about [Spring Framework support on Google Cloud](https://docs.cloud.google.com/java/docs/reference/spring) .
+- Try a codelab to [deploy and run an application that uses Spring Cloud GCP](https://codelabs.developers.google.com/spring/) .

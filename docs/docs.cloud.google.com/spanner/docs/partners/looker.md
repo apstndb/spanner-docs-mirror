@@ -26,6 +26,6 @@ If you already have a Looker instance running, see the [instructions for connect
 
 There are many options related to administering Looker, customizing its data model, and exposing data to users. For more information, see the following resources:
 
-  - [Looker Documentation](https://docs.looker.com)
-  - [Looker Help Center](https://help.looker.com)
-  - [Looker Training](https://connect.looker.com/)
+- [Looker Documentation](https://docs.looker.com)
+- [Looker Help Center](https://help.looker.com)
+- [Looker Training](https://connect.looker.com/)

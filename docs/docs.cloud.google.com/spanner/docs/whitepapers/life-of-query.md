@@ -10,21 +10,25 @@ data_source: docs.cloud.google.com
 
 Spanner supports [SQL queries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) . Here's a sample query:
 
-    SELECT s.SingerId, s.FirstName, s.LastName, s.SingerInfo
-    FROM Singers AS s
-    WHERE s.FirstName = @firstName;
+```
+SELECT s.SingerId, s.FirstName, s.LastName, s.SingerInfo
+FROM Singers AS s
+WHERE s.FirstName = @firstName;
+```
 
 The construct `@firstName` is a reference to a query parameter. You can use a query parameter anywhere a literal value can be used. Using parameters in programmatic APIs is strongly recommended. Use of query parameters helps avoid [SQL injection](https://en.wikipedia.org/wiki/SQL_injection) attacks and the resulting queries are more likely to benefit from various server-side caches. For more information, see [Caching](https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query#caching) .
 
 Query parameters must be bound to a value when the query is executed. For example:
 
-    Statement statement =
-        Statement.newBuilder("SELECT s.SingerId...").bind("firstName").to("Jimi").build();
-    try (ResultSet resultSet = dbClient.singleUse().executeQuery(statement)) {
-     while (resultSet.next()) {
-     ...
-     }
-    }
+```
+Statement statement =
+    Statement.newBuilder("SELECT s.SingerId...").bind("firstName").to("Jimi").build();
+try (ResultSet resultSet = dbClient.singleUse().executeQuery(statement)) {
+ while (resultSet.next()) {
+ ...
+ }
+}
+```
 
 Once Spanner receives an API call, it analyzes the query and bound parameters to determine which Spanner server node should process the query. The server sends back a stream of result rows that are consumed by the calls to `ResultSet.next()` .
 
@@ -32,14 +36,14 @@ Once Spanner receives an API call, it analyzes the query and bound parameters to
 
 Query execution begins with the arrival of an "execute query" request at some Spanner server. The server performs the following steps:
 
-  - Validate the request
-  - Parse the query text
-  - Generate an initial query algebra
-  - Generate an optimized query algebra
-  - Generate an executable query plan
-  - Execute the plan (check permissions, read data, encode results, etc.)
+- Validate the request
+- Parse the query text
+- Generate an initial query algebra
+- Generate an optimized query algebra
+- Generate an executable query plan
+- Execute the plan (check permissions, read data, encode results, etc.)
 
-<https://docs.cloud.google.com/spanner/docs/images/query_execution.png>
+[![Query execution flowchart showing client, root server, and leaf servers](https://docs.cloud.google.com/spanner/docs/images/query_execution.png)](https://docs.cloud.google.com/spanner/docs/images/query_execution.png)
 
 ## Parsing
 
@@ -73,9 +77,9 @@ To handle these interruptions, Spanner includes opaque `resume_token` strings in
 
 Key points about `resume_token` :
 
-  - Not every `PartialResultSet` contains a `resume_token` .
-  - A `resume_token` is typically included only at the end of a complete row, marking a safe resumption point.
-  - `PartialResultSet` with a `chunked_value` (for large values split across messages) won't have a `resume_token` until the entire value and row are sent.
-  - To resume an interrupted stream, send a new request with the *last received* non-empty `resume_token` .
+- Not every `PartialResultSet` contains a `resume_token` .
+- A `resume_token` is typically included only at the end of a complete row, marking a safe resumption point.
+- `PartialResultSet` with a `chunked_value` (for large values split across messages) won't have a `resume_token` until the entire value and row are sent.
+- To resume an interrupted stream, send a new request with the *last received* non-empty `resume_token` .
 
 The Spanner client libraries automatically manage this buffering and recovery. They assemble complete rows from `PartialResultSet` messages and track the latest `resume_token` . If the connection drops, the library uses the last valid token to restart the stream, discarding any partial data received after that token. This process ensures you see a continuous, duplicate-free stream of complete rows, even if transient failures occur.

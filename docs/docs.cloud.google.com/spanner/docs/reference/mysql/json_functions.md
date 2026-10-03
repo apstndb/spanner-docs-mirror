@@ -11,13 +11,15 @@ Spanner supports the following JSON MySQL functions. You need to implement the M
 ## Function list
 
 | Name                                                                                                           | Summary                                   |
-| -------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+|----------------------------------------------------------------------------------------------------------------|-------------------------------------------|
 | [`mysql.JSON_QUOTE`](https://docs.cloud.google.com/spanner/docs/reference/mysql/json_functions#json_quote)     | Quotes a string as a JSON string literal. |
 | [`mysql.JSON_UNQUOTE`](https://docs.cloud.google.com/spanner/docs/reference/mysql/json_functions#json_unquote) | Unquotes a JSON string literal.           |
 
 ## `mysql.JSON_QUOTE`
 
-    mysql.JSON_QUOTE(string_expression)
+```
+mysql.JSON_QUOTE(string_expression)
+```
 
 **Description**
 
@@ -25,7 +27,7 @@ Quotes a string as a JSON string literal. This function escapes special characte
 
 This function supports the following argument:
 
-  - `string_expression` : The `STRING` value to quote.
+- `string_expression` : The `STRING` value to quote.
 
 **Return data type**
 
@@ -35,7 +37,7 @@ This function supports the following argument:
 
 The following example quotes an input string to make it a valid JSON string literal:
 
-``` 
+```
   SELECT mysql.JSON_QUOTE('test') as json_quoted;
 
 /*
@@ -49,7 +51,9 @@ The following example quotes an input string to make it a valid JSON string lite
 
 ## `mysql.JSON_UNQUOTE`
 
-    mysql.JSON_UNQUOTE(json_string_expression)
+```
+mysql.JSON_UNQUOTE(json_string_expression)
+```
 
 **Description**
 
@@ -57,7 +61,7 @@ Unquotes a JSON string literal, returning the original string value. This involv
 
 This function supports the following argument:
 
-  - `json_string_expression` : The `STRING` value to unquote. This string should be a valid JSON string literal, meaning it is typically enclosed in double quotes and has internal special characters escaped.
+- `json_string_expression` : The `STRING` value to unquote. This string should be a valid JSON string literal, meaning it is typically enclosed in double quotes and has internal special characters escaped.
 
 **Return data type**
 
@@ -71,12 +75,14 @@ If the input string is not a valid JSON string literal (for example, it is not e
 
 The following example unquotes a JSON string literal:
 
-    SELECT mysql.JSON_UNQUOTE('\"test\"') as json_unquoted;
-    
-    /*
-    +----------------------------------------------------------------------------+
-    | json_unquoted                                                              |
-    +----------------------------------------------------------------------------+
-    | test                                                                       |
-    +----------------------------------------------------------------------------+
-    */
+```
+SELECT mysql.JSON_UNQUOTE('\"test\"') as json_unquoted;
+
+/*
++----------------------------------------------------------------------------+
+| json_unquoted                                                              |
++----------------------------------------------------------------------------+
+| test                                                                       |
++----------------------------------------------------------------------------+
+*/
+```

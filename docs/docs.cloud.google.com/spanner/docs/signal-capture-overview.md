@@ -34,19 +34,19 @@ Traces represent the path of a request through your application. Traces let you 
 
 Spanner offers a set of built-in statistic tables that you can query to gain more information about the following:
 
-  - Queries
-  - Reads
-  - Transactions
-  - Locks
-  - Table sizes
-  - Table operations
+- Queries
+- Reads
+- Transactions
+- Locks
+- Table sizes
+- Table operations
 
 For more information about the available tables, see [Spanner built-in statistics tables overview](https://docs.cloud.google.com/spanner/docs/introspection) .
 
 ## What's next
 
-  - [Spanner metrics list](https://docs.cloud.google.com/spanner/docs/metrics)
-  - [Client-side metrics overview](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics)
-  - [Set up trace collection using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/set-up-tracing)
-  - [Spanner built-in statistics tables overview](https://docs.cloud.google.com/spanner/docs/introspection)
-  - [OpenTelemetry documentation](https://opentelemetry.io/docs/what-is-opentelemetry/)
+- [Spanner metrics list](https://docs.cloud.google.com/spanner/docs/metrics)
+- [Client-side metrics overview](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics)
+- [Set up trace collection using OpenTelemetry](https://docs.cloud.google.com/spanner/docs/set-up-tracing)
+- [Spanner built-in statistics tables overview](https://docs.cloud.google.com/spanner/docs/introspection)
+- [OpenTelemetry documentation](https://opentelemetry.io/docs/what-is-opentelemetry/)

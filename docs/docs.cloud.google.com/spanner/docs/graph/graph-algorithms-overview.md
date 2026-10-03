@@ -7,7 +7,7 @@ data_source: docs.cloud.google.com
 ---
 
 > **Preview — [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview)**
-> 
+>
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
@@ -26,13 +26,15 @@ Graph algorithms are invoked as built-in function calls in Spanner Graph queries
 
 The following example shows how to run a connected component analysis in a graph called `FinGraph` to identify clusters of `Accounts` connected by `Transfers` and persist output to a Cloud Storage as `my-bucket-name/my-output.csv` . For details, see [Run algorithms](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms) .
 
-    EXPORT DATA OPTIONS (
-      uri = "gs://my-bucket-name/my-output.csv",
-      format = "csv"
-    ) AS
-    GRAPH FinGraph
-    CALL WeaklyConnectedComponents(node_labels => ['Account'], edge_labels => ['Transfers']) YIELD node, cluster
-    RETURN node.id, cluster;
+```
+EXPORT DATA OPTIONS (
+  uri = "gs://my-bucket-name/my-output.csv",
+  format = "csv"
+) AS
+GRAPH FinGraph
+CALL WeaklyConnectedComponents(node_labels => ['Account'], edge_labels => ['Transfers']) YIELD node, cluster
+RETURN node.id, cluster;
+```
 
 ### Billing
 
@@ -49,7 +51,7 @@ To invoke graph algorithms, a principal must have the `spanner.databases.runGrap
 
 ## What's next
 
-  - [Spanner Graph run algorithms](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms)
-  - [Spanner Graph algorithms catalog](https://docs.cloud.google.com/spanner/docs/graph/algorithms) .
-  - [Spanner Graph algorithm schema requirements and feature compatibility](https://docs.cloud.google.com/spanner/docs/graph/algorithm-schema-requirements-and-feature-compatibility)
-  - [Spanner Graph algorithm best practices](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices)
+- [Spanner Graph run algorithms](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms)
+- [Spanner Graph algorithms catalog](https://docs.cloud.google.com/spanner/docs/graph/algorithms) .
+- [Spanner Graph algorithm schema requirements and feature compatibility](https://docs.cloud.google.com/spanner/docs/graph/algorithm-schema-requirements-and-feature-compatibility)
+- [Spanner Graph algorithm best practices](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices)

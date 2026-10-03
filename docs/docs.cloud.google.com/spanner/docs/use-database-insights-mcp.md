@@ -14,10 +14,11 @@ The Database Insights remote MCP server is enabled when you enable the Database 
 
 ## What's the difference between local and remote MCP servers?
 
-  - Local MCP servers  
-    Typically run on your local machine and use the standard input and output streams (stdio) for communication between services on the same device.
-  - Remote MCP servers  
-    Run on the service's infrastructure and offer an HTTP endpoint to AI applications for communication between the AI MCP client and the MCP server. For more information about MCP architecture, see [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) .
+Local MCP servers  
+Typically run on your local machine and use the standard input and output streams (stdio) for communication between services on the same device.
+
+Remote MCP servers  
+Run on the service's infrastructure and offer an HTTP endpoint to AI applications for communication between the AI MCP client and the MCP server. For more information about MCP architecture, see [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) .
 
 ## Stateless core
 
@@ -25,8 +26,8 @@ With [MCP version 2026-07-28](https://modelcontextprotocol.io/specification/2026
 
 To help route and process requests without parsing the request body, some MCP headers are required, including the following:
 
-  - Headers that are required by the MCP specification such as the [protocol version header](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#protocol-version-header) and [standard request headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#standard-request-headers) .
-  - [Custom headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#custom-headers-from-tool-parameters) that are defined by the MCP server. These headers are mirrored into HTTP headers from the tool's input schema using the `x-mcp-header` property. For example, an MCP server might define a custom header to specify the Google Cloud region or project ID.
+- Headers that are required by the MCP specification such as the [protocol version header](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#protocol-version-header) and [standard request headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#standard-request-headers) .
+- [Custom headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#custom-headers-from-tool-parameters) that are defined by the MCP server. These headers are mirrored into HTTP headers from the tool's input schema using the `x-mcp-header` property. For example, an MCP server might define a custom header to specify the Google Cloud region or project ID.
 
 For more information about MCP architecture, see the MCP version 2026-07-28 [specification](https://modelcontextprotocol.io/specification/2026-07-28) and [key changes](https://modelcontextprotocol.io/specification/2026-07-28/changelog) .
 
@@ -34,11 +35,11 @@ For more information about MCP architecture, see the MCP version 2026-07-28 [spe
 
 Google and Google Cloud remote MCP servers have the following features and benefits:
 
-  - Simplified, centralized discovery
-  - Managed global or regional HTTP endpoints
-  - Fine-grained authorization
-  - Optional prompt and response security with Model Armor protection
-  - Centralized audit logging
+- Simplified, centralized discovery
+- Managed global or regional HTTP endpoints
+- Fine-grained authorization
+- Optional prompt and response security with Model Armor protection
+- Centralized audit logging
 
 For information about other MCP servers and information about security and governance controls available for Google Cloud MCP servers, see [Google Cloud MCP servers overview](https://docs.cloud.google.com/mcp/overview) .
 
@@ -48,9 +49,9 @@ For information about other MCP servers and information about security and gover
 
 To get the permissions that you need to use the Database Insights MCP server, ask your administrator to grant you the following IAM roles on the project where you want to use the Database Insights MCP server:
 
-  - Make MCP tool calls: [MCP Tool User](https://docs.cloud.google.com/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `roles/mcp.toolUser` )
-  - View Cloud Monitoring data: [Monitoring Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.viewer) ( `roles/monitoring.viewer` )
-  - View Database Insights data: [Database Insights Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/databaseinsights#databaseinsights.viewer) ( `roles/databaseinsights.viewer` )
+- Make MCP tool calls: [MCP Tool User](https://docs.cloud.google.com/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `roles/mcp.toolUser` )
+- View Cloud Monitoring data: [Monitoring Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/monitoring#monitoring.viewer) ( `roles/monitoring.viewer` )
+- View Database Insights data: [Database Insights Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/databaseinsights#databaseinsights.viewer) ( `roles/databaseinsights.viewer` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
@@ -60,10 +61,10 @@ These predefined roles contain the permissions required to use the Database Insi
 
 The following permissions are required to use the Database Insights MCP server:
 
-  - Make MCP tool calls: `mcp.tools.call`
-  - Get query metrics: `queryMetrics.fetch`
-  - Get system metrics: `systemMetrics.fetch`
-  - View Monitoring metrics: `monitoring.timeseries.list`
+- Make MCP tool calls: `mcp.tools.call`
+- Get query metrics: `queryMetrics.fetch`
+- Get system metrics: `systemMetrics.fetch`
+- View Monitoring metrics: `monitoring.timeseries.list`
 
 You might also be able to get these permissions with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
@@ -80,7 +81,7 @@ We recommend that you create a separate identity for agents that are using MCP t
 Database Insights has the following MCP tool OAuth scopes:
 
 | Scope URI for gcloud CLI                         | Description                                                   |
-| ------------------------------------------------ | ------------------------------------------------------------- |
+|--------------------------------------------------|---------------------------------------------------------------|
 | `https://www.googleapis.com/auth/cloud-platform` | Queries and analyzes database performance and system metrics. |
 
 Additional scopes might be required on the resources accessed during a tool call.
@@ -91,11 +92,11 @@ AI applications and agents, such as Claude or Antigravity, can instantiate an MC
 
 In your AI application, look for a way to add or connect to a remote MCP server. For the Database Insights MCP server, enter the following information as required:
 
-  - **Server name** : Database Insights MCP server
-  - **Server URL** or **Endpoint** : `https://databaseinsights.googleapis.com/mcp`
-  - **Transport** : [Streamable HTTP](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http)
-  - **Authentication details** : depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information about authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
-  - **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Database Insights MCP server.
+- **Server name** : Database Insights MCP server
+- **Server URL** or **Endpoint** : `https://databaseinsights.googleapis.com/mcp`
+- **Transport** : [Streamable HTTP](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http)
+- **Authentication details** : depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information about authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
+- **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Database Insights MCP server.
 
 ### Redirect URIs
 
@@ -105,8 +106,8 @@ For application-specific guidance about setting up and connecting to MCP server,
 
 For more general guidance, see the following resources:
 
-  - [Connect to remote MCP servers](https://modelcontextprotocol.io/docs/develop/connect-remote-servers) .
-  - [Configure MCP in an AI application](https://docs.cloud.google.com/mcp/configure-mcp-ai-application) .
+- [Connect to remote MCP servers](https://modelcontextprotocol.io/docs/develop/connect-remote-servers) .
+- [Configure MCP in an AI application](https://docs.cloud.google.com/mcp/configure-mcp-ai-application) .
 
 ## Available tools
 
@@ -116,33 +117,35 @@ To view details of available MCP tools and their descriptions for the Database I
 
 Use the [MCP inspector](https://modelcontextprotocol.io/docs/tools/inspector) to list tools, or send a `tools/list` HTTP request directly to the Database Insights remote MCP server. The `tools/list` method doesn't require authentication.
 
-    curl -X POST https://databaseinsights.googleapis.com/TOOLSET_ENDPOINT \
-        -H 'Content-Type: application/json' \
-        -H 'Accept: application/json' \
-        -H 'MCP-Protocol-Version: MCP_PROTOCOL_VERSION' \
-        -H 'Mcp-Method: tools/list' \
-        -d '{
-          "jsonrpc": "2.0",
-          "id": 1,
-          "method": "tools/list",
-          "params": {
-            "_meta": {
-              "io.modelcontextprotocol/protocolVersion": "MCP_PROTOCOL_VERSION",
-              "io.modelcontextprotocol/clientCapabilities": {
-                "extensions": {
-                  "io.modelcontextprotocol/ui": {
-                    "mimeTypes": ["text/html;profile=mcp-app"]
-                  }
-                }
+```
+curl -X POST https://databaseinsights.googleapis.com/TOOLSET_ENDPOINT \
+    -H 'Content-Type: application/json' \
+    -H 'Accept: application/json' \
+    -H 'MCP-Protocol-Version: MCP_PROTOCOL_VERSION' \
+    -H 'Mcp-Method: tools/list' \
+    -d '{
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "tools/list",
+      "params": {
+        "_meta": {
+          "io.modelcontextprotocol/protocolVersion": "MCP_PROTOCOL_VERSION",
+          "io.modelcontextprotocol/clientCapabilities": {
+            "extensions": {
+              "io.modelcontextprotocol/ui": {
+                "mimeTypes": ["text/html;profile=mcp-app"]
               }
             }
           }
-        }'
+        }
+      }
+    }'
+```
 
 Replace the following:
 
-  - `TOOLSET_ENDPOINT` : the remainder of the MCP endpoint after the service name. For example, for Database Insights, this might be `mcp/toolset-name` .
-  - `MCP_PROTOCOL_VERSION` : the MCP protocol version. For example, `2026-07-28` .
+- ` ``TOOLSET_ENDPOINT`` ` : the remainder of the MCP endpoint after the service name. For example, for Database Insights, this might be `mcp/toolset-name` .
+- ` ``MCP_PROTOCOL_VERSION`` ` : the MCP protocol version. For example, `2026-07-28` .
 
 ## Sample use cases
 
@@ -154,15 +157,15 @@ You can monitor the resource utilization of your Spanner instances to ensure the
 
 **Sample prompt** :
 
-"What has been the average CPU utilization and available memory for my Spanner instance INSTANCE\_ID over the past 24 hours?"
+"What has been the average CPU utilization and available memory for my Spanner instance ` INSTANCE_ID ` over the past 24 hours?"
 
 **Workflow** : The workflow for a system health check includes the following steps:
 
-  - **Metric retrieval** : the agent uses the `get_system_metrics` tool to fetch `spanner.googleapis.com/instance/cpu/utilization` for the specified instance.
+- **Metric retrieval** : the agent uses the `get_system_metrics` tool to fetch `spanner.googleapis.com/instance/cpu/utilization` for the specified instance.
 
-  - **Summarization** : the agent aggregates the data over the 24-hour period.
+- **Summarization** : the agent aggregates the data over the 24-hour period.
 
-  - **Reporting** : the agent provides a summary of the CPU and memory trends, alerting you if utilization peaked near the limits.
+- **Reporting** : the agent provides a summary of the CPU and memory trends, alerting you if utilization peaked near the limits.
 
 ## Optional security and safety configurations
 
@@ -187,9 +190,9 @@ You must enable Model Armor APIs before you can use Model Armor.
 ### Console
 
 1.  Enable the Model Armor API, if it is not already enabled.
-    
+
     **Roles required to enable APIs**
-    
+
     To enable APIs, you need the `serviceusage.services.enable` permission. If you created the project, then you likely already have this permission through the Owner role ( `roles/owner` ). Otherwise, you can get this permission through the Service Usage Admin role ( `roles/serviceusage.serviceUsageAdmin` ). [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 2.  Select the project where you want to activate Model Armor.
@@ -199,14 +202,16 @@ You must enable Model Armor APIs before you can use Model Armor.
 Before you begin, follow these steps using the Google Cloud CLI with the Model Armor API:
 
 1.  In the Google Cloud console, activate Cloud Shell.
-    
+
     At the bottom of the Google Cloud console, a [Cloud Shell](https://docs.cloud.google.com/shell/docs/how-cloud-shell-works) session starts and displays a command-line prompt. Cloud Shell is a shell environment with the Google Cloud CLI already installed and with values already set for your current project. It can take a few seconds for the session to initialize.
 
 2.  Run the following command to set the API endpoint for the Model Armor service.
-    
-        gcloud config set api_endpoint_overrides/modelarmor "https://modelarmor.LOCATION.rep.googleapis.com/"
-    
-    Replace `  LOCATION  ` with the region where you want to use Model Armor.
+
+    ```
+    gcloud config set api_endpoint_overrides/modelarmor "https://modelarmor.LOCATION.rep.googleapis.com/"
+    ```
+
+    Replace `LOCATION` with the region where you want to use Model Armor.
 
 #### Configure protection for Google and Google Cloud remote MCP servers
 
@@ -220,32 +225,36 @@ Set up a Model Armor floor setting with MCP sanitization enabled. For more infor
 
 See the following example command:
 
-    gcloud model-armor floorsettings update \
-    --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
-    --enable-floor-setting-enforcement=TRUE \
-    --add-integrated-services=GOOGLE_MCP_SERVER \
-    --google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
-    --enable-google-mcp-server-cloud-logging \
-    --malicious-uri-filter-settings-enforcement=ENABLED \
-    --add-rai-settings-filters='[{"confidenceLevel": "MEDIUM_AND_ABOVE", "filterType": "DANGEROUS"}]'
+```
+gcloud model-armor floorsettings update \
+--full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
+--enable-floor-setting-enforcement=TRUE \
+--add-integrated-services=GOOGLE_MCP_SERVER \
+--google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
+--enable-google-mcp-server-cloud-logging \
+--malicious-uri-filter-settings-enforcement=ENABLED \
+--add-rai-settings-filters='[{"confidenceLevel": "MEDIUM_AND_ABOVE", "filterType": "DANGEROUS"}]'
+```
 
-Replace `  PROJECT_ID  ` with your Google Cloud project ID.
+Replace `PROJECT_ID` with your Google Cloud project ID.
 
 Note the following settings:
 
-  - `INSPECT_AND_BLOCK` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
-  - `ENABLED` : The setting that enables a filter or enforcement.
-  - `MEDIUM_AND_ABOVE` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Model Armor confidence levels](https://docs.cloud.google.com/model-armor/overview#ma-confidence-levels) .
+- ` ``INSPECT_AND_BLOCK`` ` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
+- ` ``ENABLED`` ` : The setting that enables a filter or enforcement.
+- ` ``MEDIUM_AND_ABOVE`` ` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Model Armor confidence levels](https://docs.cloud.google.com/model-armor/overview#ma-confidence-levels) .
 
 #### Disable scanning MCP traffic with Model Armor
 
 To stop Model Armor from automatically scanning traffic to and from Google MCP servers based on the project's floor settings, run the following command:
 
-    gcloud model-armor floorsettings update \
-      --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
-      --remove-integrated-services=GOOGLE_MCP_SERVER
+```
+gcloud model-armor floorsettings update \
+  --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
+  --remove-integrated-services=GOOGLE_MCP_SERVER
+```
 
-Replace `  PROJECT_ID  ` with the Google Cloud project ID. Model Armor doesn't automatically apply the rules defined in this project's floor settings to any Google MCP server traffic.
+Replace `PROJECT_ID` with the Google Cloud project ID. Model Armor doesn't automatically apply the rules defined in this project's floor settings to any Google MCP server traffic.
 
 Model Armor floor settings and general configuration can impact more than just MCP. Because Model Armor integrates with services like Vertex AI, any changes you make to floor settings can affect traffic scanning and safety behaviors across all integrated services, not just MCP.
 
@@ -255,14 +264,14 @@ Identity and Access Management (IAM) [deny policies](https://docs.cloud.google.c
 
 You can combine multiple criteria to build customized security and governance policies by allowing or denying access based on the following:
 
-  - The principal.
-  - Tool properties like the read-only attribute.
-  - The service name or tool name.
-  - The application's OAuth client ID.
+- The principal.
+- Tool properties like the read-only attribute.
+- The service name or tool name.
+- The application's OAuth client ID.
 
 For more information, see [Control MCP use with Identity and Access Management](https://docs.cloud.google.com/mcp/control-mcp-use-iam) .
 
 ## What's next
 
-  - Read the [Database Insights MCP reference documentation](https://docs.cloud.google.com/spanner/docs/reference/mcp/databaseinsights/mcp) .
-  - Learn more about [Google Cloud MCP servers](https://docs.cloud.google.com/mcp/overview) .
+- Read the [Database Insights MCP reference documentation](https://docs.cloud.google.com/spanner/docs/reference/mcp/databaseinsights/mcp) .
+- Learn more about [Google Cloud MCP servers](https://docs.cloud.google.com/mcp/overview) .

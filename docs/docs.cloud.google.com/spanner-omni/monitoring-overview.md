@@ -23,7 +23,7 @@ Telemetry signals help you understand how your database is performing.
 The following signals are available for Spanner Omni:
 
 | Signal type       | Description                                        |
-| ----------------- | -------------------------------------------------- |
+|-------------------|----------------------------------------------------|
 | Metrics           | Numeric data about database health or performance. |
 | Logs              | Generated records of system activity over time.    |
 | Traces            | Request paths through your application.            |
@@ -59,8 +59,8 @@ The system insights dashboard provides charts and metrics for latency, CPU utili
 
 ## What's next
 
-  - [Use Grafana dashboards to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/grafana-dashboards) .
+- [Use Grafana dashboards to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/grafana-dashboards) .
 
-  - [Use Prometheus alerts to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/prometheus-alerts) .
+- [Use Prometheus alerts to monitor Spanner Omni](https://docs.cloud.google.com/spanner-omni/prometheus-alerts) .
 
-  - [Learn about audit logging in Spanner Omni](https://docs.cloud.google.com/spanner-omni/audit-logs) .
+- [Learn about audit logging in Spanner Omni](https://docs.cloud.google.com/spanner-omni/audit-logs) .

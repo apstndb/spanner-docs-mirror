@@ -6,41 +6,20 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/MultiplexedSessionPrecommitToken#SCHEMA_REPRESENTATION)
+- [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/MultiplexedSessionPrecommitToken#SCHEMA_REPRESENTATION)
 
-When a read-write transaction is executed on a multiplexed session, this precommit token is sent back to the client as a part of the `  Transaction  ` message in the `sessions.beginTransaction` response and also as a part of the `  ResultSet  ` and `  PartialResultSet  ` responses.
+When a read-write transaction is executed on a multiplexed session, this precommit token is sent back to the client as a part of the [`Transaction`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/Transaction) message in the `sessions.beginTransaction` response and also as a part of the [`ResultSet`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSet) and [`PartialResultSet`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/PartialResultSet) responses.
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{
-  &quot;precommitToken&quot;: string,
-  &quot;seqNum&quot;: integer
-}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "precommitToken": string,
+  "seqNum": integer
+}
+```
 
-`precommitToken`
-
-`string ( bytes format)`
-
-Opaque precommit token.
-
-A base64-encoded string.
-
-`seqNum`
-
-`integer`
-
-An incrementing seq number is generated on every precommit token that is returned. Clients should remember the precommit token with the highest sequence number from the current transaction attempt.
+| Fields           |                                                                                                                                                                                                                 |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `precommitToken` | `string ( `[`bytes`](https://developers.google.com/discovery/v1/type-format)` format)` Opaque precommit token. A base64-encoded string.                                                                         |
+| `seqNum`         | `integer` An incrementing seq number is generated on every precommit token that is returned. Clients should remember the precommit token with the highest sequence number from the current transaction attempt. |

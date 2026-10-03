@@ -16,9 +16,9 @@ With Key Visualizer, you can diagnose common issues that cause hotspots. It gene
 
 ## What's next
 
-  - Learn how to [Access Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer/getting-started) .
-  - Find out how to [use Key Visualizer to explore a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps) .
-  - Understand the [patterns you might see in Key Visualizer heatmaps](https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns) .
-  - Read about the [metrics you can view in a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics) .
-  - Learn about other tools for [monitoring an instance](https://docs.cloud.google.com/spanner/docs/monitoring-cloud)
-  - [Watch a video](https://www.youtube.com/watch?v=3QHGhnHx5HQ) about using Key Visualizer to diagnose an issue in a similar product.
+- Learn how to [Access Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer/getting-started) .
+- Find out how to [use Key Visualizer to explore a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps) .
+- Understand the [patterns you might see in Key Visualizer heatmaps](https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns) .
+- Read about the [metrics you can view in a heatmap](https://docs.cloud.google.com/spanner/docs/key-visualizer/metrics) .
+- Learn about other tools for [monitoring an instance](https://docs.cloud.google.com/spanner/docs/monitoring-cloud)
+- [Watch a video](https://www.youtube.com/watch?v=3QHGhnHx5HQ) about using Key Visualizer to diagnose an issue in a similar product.

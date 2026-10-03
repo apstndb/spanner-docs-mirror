@@ -8,20 +8,20 @@ data_source: docs.cloud.google.com
 
 We recommend using the following tools to assist you in various stages of your Spanner migration, depending on your source database and other factors. Some tools only support certain source databases. For some steps of the migration process, no tool is available, so you must complete those steps manually.
 
-  - [Spanner migration tool (SMT)](https://github.com/GoogleCloudPlatform/spanner-migration-tool) is an open-source tool that performs assessments, schema conversion, and data migrations. For information on setting up the Spanner migration tool, see [Set up Spanner migration tool](https://docs.cloud.google.com/spanner/docs/set-up-spanner-migration-tool) .
+- [Spanner migration tool (SMT)](https://github.com/GoogleCloudPlatform/spanner-migration-tool) is an open-source tool that performs assessments, schema conversion, and data migrations. For information on setting up the Spanner migration tool, see [Set up Spanner migration tool](https://docs.cloud.google.com/spanner/docs/set-up-spanner-migration-tool) .
 
-  - [Datastream](https://docs.cloud.google.com/datastream/docs/overview) is a Google Cloud service that lets you read change data capture (CDC) events and bulk data from a source database and write to a specified destination.
+- [Datastream](https://docs.cloud.google.com/datastream/docs/overview) is a Google Cloud service that lets you read change data capture (CDC) events and bulk data from a source database and write to a specified destination.
 
-  - [Bulk data migration](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/sourcedb-to-spanner) is a Dataflow template that lets you migrate large MySQL data sets directly to Spanner.
+- [Bulk data migration](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/sourcedb-to-spanner) is a Dataflow template that lets you migrate large MySQL data sets directly to Spanner.
 
-  - [Live data migration](https://googlecloudplatform.github.io/spanner-migration-tool/minimal) uses Datastream and Dataflow to migrate:
-    
-      - Existing data in your source database.
-      - Stream of changes that are made to your source database during the migration.
+- [Live data migration](https://googlecloudplatform.github.io/spanner-migration-tool/minimal) uses Datastream and Dataflow to migrate:
 
-  - [Data Validation Tool (DVT)](https://github.com/GoogleCloudPlatform/professional-services-data-validator) is a standardized data validation method built by Google and supported by the open source community. You can integrate DVT into existing Google Cloud products.
+  - Existing data in your source database.
+  - Stream of changes that are made to your source database during the migration.
 
-  - [Database Migration Assessment (DMA)](https://googlecloudplatform.github.io/database-assessment/) offers a basic assessment to migrate MySQL and PostgreSQL to Spanner.
+- [Data Validation Tool (DVT)](https://github.com/GoogleCloudPlatform/professional-services-data-validator) is a standardized data validation method built by Google and supported by the open source community. You can integrate DVT into existing Google Cloud products.
+
+- [Database Migration Assessment (DMA)](https://googlecloudplatform.github.io/database-assessment/) offers a basic assessment to migrate MySQL and PostgreSQL to Spanner.
 
 ### Migration tools for MySQL source databases
 
@@ -47,12 +47,12 @@ The following table recommends migration tools based on the migration stage and 
 <tbody>
 <tr class="odd">
 <td>Assessment</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code dir="ltr" translate="no">mysqldump</code> .</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code dir="ltr" translate="no">mysqldump</code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code>mysqldump</code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code>mysqldump</code> .</td>
 </tr>
 <tr class="even">
 <td>Schema conversion</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code dir="ltr" translate="no">mysqldump</code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/mysql.html#using-spanner-migration-tool-with-mysqldump">SMT</a> with <code>mysqldump</code> .</td>
 <td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/ui/schema-conv">SMT</a> to configure and convert schema.</td>
 </tr>
 <tr class="odd">
@@ -104,12 +104,12 @@ The following table recommends migration tools based on the migration stage and 
 <tbody>
 <tr class="odd">
 <td>Assessment</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/postgres.html#using-spanner-migration-tool-with-pg_dump">SMT</a> with <code dir="ltr" translate="no">pg_dump</code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/postgres.html#using-spanner-migration-tool-with-pg_dump">SMT</a> with <code>pg_dump</code> .</td>
 <td>Use <a href="https://googlecloudplatform.github.io/database-assessment/">DMA</a> .</td>
 </tr>
 <tr class="even">
 <td>Schema conversion</td>
-<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/postgres.html#using-spanner-migration-tool-with-pg_dump">SMT</a> with <code dir="ltr" translate="no">pg_dump</code> .</td>
+<td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/poc/postgres.html#using-spanner-migration-tool-with-pg_dump">SMT</a> with <code>pg_dump</code> .</td>
 <td>Use <a href="https://googlecloudplatform.github.io/spanner-migration-tool/ui/schema-conv">SMT</a> to configure and convert schema.</td>
 </tr>
 <tr class="odd">
@@ -142,7 +142,7 @@ The following table recommends migration tools based on the migration stage and 
 ### Migration tools for a Cassandra-source databases
 
 > **Preview — Cassandra**
-> 
+>
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 Spanner offers a Cassandra-compatible interface that supports near-zero application code changes when migrating from Cassandra to Spanner. For more information about compatibility details, see the [Cassandra overview](https://docs.cloud.google.com/spanner/docs/non-relational/spanner-for-cassandra-users) .

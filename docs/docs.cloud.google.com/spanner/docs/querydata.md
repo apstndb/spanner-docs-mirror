@@ -7,7 +7,7 @@ data_source: docs.cloud.google.com
 ---
 
 > **Preview**
-> 
+>
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
 QueryData lets you interact with the data in your database using conversational language and build data agents. You provide database-specific information in the form of context sets to improve generator accuracy.
@@ -18,9 +18,9 @@ A context set is a collection of database-specific information that enables Quer
 
 To learn more, see :
 
-  - [Context sets overview](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/context-sets-overview)
-  - [Build context sets using the context engineering agent](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/build-context-sets)
-  - [Manage context sets in Spanner Studio](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/manage-data-agents)
+- [Context sets overview](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/context-sets-overview)
+- [Build context sets using the context engineering agent](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/build-context-sets)
+- [Manage context sets in Spanner Studio](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/manage-data-agents)
 
 ## QueryData
 
@@ -28,6 +28,6 @@ QueryData writes queries for your database using context sets, translating natur
 
 To learn more, see :
 
-  - [QueryData overview](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/data-agent-overview)
-  - [Test QueryData in Spanner Studio](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/inspect-data-agent)
-  - [Integrate QueryData with an application](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/integrate-applications-data-agent)
+- [QueryData overview](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/data-agent-overview)
+- [Test QueryData in Spanner Studio](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/inspect-data-agent)
+- [Integrate QueryData with an application](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/integrate-applications-data-agent)

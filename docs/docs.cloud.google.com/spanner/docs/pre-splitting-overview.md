@@ -16,8 +16,8 @@ By pre-splitting the database, Spanner can be ready for a predictable increased 
 
 Consider pre-splitting your database in the following scenarios:
 
-  - You're loading a large dataset into new tables and indexes in a Spanner database for the first time, such as a one-time bulk load.
-  - You're expecting a traffic load increase in an existing Spanner database in the near future. For example, you might need to support a large traffic event like a product launch or a sales campaign.
+- You're loading a large dataset into new tables and indexes in a Spanner database for the first time, such as a one-time bulk load.
+- You're expecting a traffic load increase in an existing Spanner database in the near future. For example, you might need to support a large traffic event like a product launch or a sales campaign.
 
 ## Determine split count
 
@@ -27,34 +27,36 @@ We recommend creating 10 split points per node. Because Spanner can split and ad
 
 Consider the following when determining split points for your database:
 
-  - If your traffic is evenly distributed across the key range, such as when using UUIDs or bit-reversed sequence keys, choose split points that divide the post traffic key space evenly.
+- If your traffic is evenly distributed across the key range, such as when using UUIDs or bit-reversed sequence keys, choose split points that divide the post traffic key space evenly.
 
-  - If your traffic is concentrated on a set of known key ranges, split and isolate those key ranges.
+- If your traffic is concentrated on a set of known key ranges, split and isolate those key ranges.
 
-  - If you're expecting traffic on your indexes, use split points on the corresponding index.
+- If you're expecting traffic on your indexes, use split points on the corresponding index.
 
-  - Interleaved tables are split if split points are added to the parent table. If you're expecting a higher traffic on the interleaved table, be sure to use split points in the corresponding interleaved table.
+- Interleaved tables are split if split points are added to the parent table. If you're expecting a higher traffic on the interleaved table, be sure to use split points in the corresponding interleaved table.
 
-  - You can allocate the split points to schema objects proportionally to their increased traffic.
+- You can allocate the split points to schema objects proportionally to their increased traffic.
 
 ### Sample workflow for determining split points
 
 Assume your database has the table structures defined by the following DDL:
 
-    CREATE TABLE UserInfo (
-     UserId INT64 NOT NULL,
-     Info BYTES(MAX),
-    ) PRIMARY KEY (UserId);
-    
-    
-    CREATE TABLE UserLocationInfo (
-     UserId INT64 NOT NULL,
-     LocationId STRING(MAX) NOT NULL,
-     ActivityData BYTES(MAX),
-    ) PRIMARY KEY (UserId, LocationId), INTERLEAVE IN PARENT UserInfo ON DELETE CASCADE;
-    
-    
-    CREATE INDEX UsersByLocation ON UserLocationInfo(LocationId);
+```
+CREATE TABLE UserInfo (
+ UserId INT64 NOT NULL,
+ Info BYTES(MAX),
+) PRIMARY KEY (UserId);
+
+
+CREATE TABLE UserLocationInfo (
+ UserId INT64 NOT NULL,
+ LocationId STRING(MAX) NOT NULL,
+ ActivityData BYTES(MAX),
+) PRIMARY KEY (UserId, LocationId), INTERLEAVE IN PARENT UserInfo ON DELETE CASCADE;
+
+
+CREATE INDEX UsersByLocation ON UserLocationInfo(LocationId);
+```
 
 `UserId` is a randomly generated hash in the `INT64` space, and you need to add a 100 split points to evenly distribute the anticipated increase in traffic on the `UserInfo` table and its interleaved tables. Because the split points are evenly distributed, you need to find the number of rows, or `offset` between each split point:
 
@@ -72,23 +74,23 @@ Consider that the `LocationId` follows the `$COUNTRY_$STATE_$CITY_$BLOCK_$NUMBER
 
 For a `UserId` , based on the prefix of the `LocationId` string you can determine splits to put the `UserLocationInfo` table for the `UserId` at 3 different countries in 3 different splits:
 
-  - Split point 1: (1000, "CN")
-  - Split point 2: (1000, "FR")
-  - Split point 3: (1000, "US")
+- Split point 1: (1000, "CN")
+- Split point 2: (1000, "FR")
+- Split point 3: (1000, "US")
 
 You can add new split points using just a prefix and don't need to match the specified format for a column or index. In this example, the split points don't match the specified format for `LocationId` , and only use the `$COUNTRY` as the prefix.
 
 If you want to split the `UsersByLocation` index, you can evenly spread the split points on the `LocationId` column, or isolate a few `LocationId` column values that are expected to receive increased traffic:
 
-  - Split point 1: "CN"
-  - Split point 2: "US"
-  - Split point 3: "US\_NYC"
+- Split point 1: "CN"
+- Split point 2: "US"
+- Split point 3: "US_NYC"
 
 You can further split the index by using the indexed table key parts for locations that receive even more increased traffic. For example, if you're expecting the `CN` location to receive increased traffic, you could introduce the following split points:
 
-  - Split point 1: "CN" and TableKey: (1000, "CN")
-  - Split point 2: "CN" and TableKey: (2000, "CN")
-  - Split point 3: "CN" and TableKey: (3000, "CN")
+- Split point 1: "CN" and TableKey: (1000, "CN")
+- Split point 2: "CN" and TableKey: (2000, "CN")
+- Split point 3: "CN" and TableKey: (3000, "CN")
 
 ## Split point expiration
 
@@ -104,11 +106,11 @@ You can also update the expiration time for a split point before it expires. For
 
 The following outcomes are likely after adding split points:
 
-  - **Latency changes** : Adding split points is a way of simulating increases in traffic on the database. When a database has more splits, there can be permanent increases in read and write latency due to more transaction participants and query splits. You can also expect an increase in compute and query usage per read or write request.
+- **Latency changes** : Adding split points is a way of simulating increases in traffic on the database. When a database has more splits, there can be permanent increases in read and write latency due to more transaction participants and query splits. You can also expect an increase in compute and query usage per read or write request.
 
-  - **Split point efficacy** : To determine whether the added split points are beneficial, monitor the [latency profile](https://docs.cloud.google.com/spanner/docs/monitoring-console#available_scorecards) for minimal changes, and [key visualiser](https://docs.cloud.google.com/spanner/docs/key-visualizer) for hotspots. If you notice hotspots, you can expire the split points immediately and create new ones. For more information about expiring split points, see [How to expire a split point](https://docs.cloud.google.com/spanner/docs/create-manage-split-points#expire-splits) . Consider introducing a smaller number of splits in the next iteration of adding splits and observe the latency profile.
+- **Split point efficacy** : To determine whether the added split points are beneficial, monitor the [latency profile](https://docs.cloud.google.com/spanner/docs/monitoring-console#available_scorecards) for minimal changes, and [key visualiser](https://docs.cloud.google.com/spanner/docs/key-visualizer) for hotspots. If you notice hotspots, you can expire the split points immediately and create new ones. For more information about expiring split points, see [How to expire a split point](https://docs.cloud.google.com/spanner/docs/create-manage-split-points#expire-splits) . Consider introducing a smaller number of splits in the next iteration of adding splits and observe the latency profile.
 
-  - **Split point behavior after the traffic increase** : The added split points should be removed after the traffic increase stabilizes. The split distribution might not converge to where it was before the load increase. The database might settle on a different latency profile due to the traffic change and the splitting that is required to support the traffic.
+- **Split point behavior after the traffic increase** : The added split points should be removed after the traffic increase stabilizes. The split distribution might not converge to where it was before the load increase. The database might settle on a different latency profile due to the traffic change and the splitting that is required to support the traffic.
 
 ## Example use case
 
@@ -130,26 +132,26 @@ Consider the following high-level pre-splitting strategy for this use case:
 
 Consider the following caveats when creating split points:
 
-  - **Table, index, and database deletion** : Before deleting a table, index, or database, you need to ensure all the corresponding added split points are expired. You can do this by setting the split expiration date to the current time. This is necessary for the instance level quota to be reclaimed. For more information about expiring split points, see [How to expire a split point](https://docs.cloud.google.com/spanner/docs/create-manage-split-points#expire-splits) .
+- **Table, index, and database deletion** : Before deleting a table, index, or database, you need to ensure all the corresponding added split points are expired. You can do this by setting the split expiration date to the current time. This is necessary for the instance level quota to be reclaimed. For more information about expiring split points, see [How to expire a split point](https://docs.cloud.google.com/spanner/docs/create-manage-split-points#expire-splits) .
 
-  - **Backing up and restoring databases** : Added splits aren't backed up. You need to create splits on a restored database.
+- **Backing up and restoring databases** : Added splits aren't backed up. You need to create splits on a restored database.
 
-  - **Asymmetric auto scaling** : If you're using [asymmetric auto scaling](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) , the node count used to determine the split point count is the minimum node count across all the regions.
+- **Asymmetric auto scaling** : If you're using [asymmetric auto scaling](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) , the node count used to determine the split point count is the minimum node count across all the regions.
 
-  - **Temporary increase in storage usage metrics** : Adding split points temporarily increases the [total database storage](https://docs.cloud.google.com/spanner/docs/storage-utilization#metrics) metric until Spanner completes compaction. For more information, see [Storage utilization](https://docs.cloud.google.com/spanner/docs/storage-utilization) . This only happens when existing key ranges are split further, and not when new key ranges are split.
+- **Temporary increase in storage usage metrics** : Adding split points temporarily increases the [total database storage](https://docs.cloud.google.com/spanner/docs/storage-utilization#metrics) metric until Spanner completes compaction. For more information, see [Storage utilization](https://docs.cloud.google.com/spanner/docs/storage-utilization) . This only happens when existing key ranges are split further, and not when new key ranges are split.
 
-  - You should create split points no earlier than seven days and no later than 12 hours before the expected traffic increase.
+- You should create split points no earlier than seven days and no later than 12 hours before the expected traffic increase.
 
 ## Pre-split limits
 
 Pre-splitting your database has the following limitations:
 
-  - You can't pre-split search indexes. You only need to pre-split the base table. For more information, see [Search index sharding](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#search_index_sharding) .
+- You can't pre-split search indexes. You only need to pre-split the base table. For more information, see [Search index sharding](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes#search_index_sharding) .
 
-  - You cannot pre-split vector indexes. For more information about vector indexes, see [Vector index](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#vector-index) .
+- You cannot pre-split vector indexes. For more information about vector indexes, see [Vector index](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors#vector-index) .
 
-  - To learn about the quotas for split points, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#split-point-limits) .
+- To learn about the quotas for split points, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#split-point-limits) .
 
 ## What's next?
 
-  - [Create and manage split points](https://docs.cloud.google.com/spanner/docs/create-manage-split-points)
+- [Create and manage split points](https://docs.cloud.google.com/spanner/docs/create-manage-split-points)

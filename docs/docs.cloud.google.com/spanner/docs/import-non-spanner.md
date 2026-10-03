@@ -24,29 +24,29 @@ You also need enough quota and the required IAM permissions.
 
 The quota requirements for import jobs are as follows:
 
-  - **Spanner** : You must have enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to support the amount of data that you are importing. No additional compute capacity is required to import a database, though you might need to add more compute capacity so that your job finishes in a reasonable amount of time. See [Optimize jobs](https://docs.cloud.google.com/spanner/docs/import-non-spanner#optimize-slow) for more details.
+- **Spanner** : You must have enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to support the amount of data that you are importing. No additional compute capacity is required to import a database, though you might need to add more compute capacity so that your job finishes in a reasonable amount of time. See [Optimize jobs](https://docs.cloud.google.com/spanner/docs/import-non-spanner#optimize-slow) for more details.
 
-  - **Cloud Storage** : To import, you must have a bucket containing your previously exported files. You don't need to set a size for your bucket.
+- **Cloud Storage** : To import, you must have a bucket containing your previously exported files. You don't need to set a size for your bucket.
 
-  - **Dataflow** : Import jobs are subject to the same CPU, disk usage, and IP address [Compute Engine quotas](https://docs.cloud.google.com/dataflow/quotas#compute-engine-quotas) as other Dataflow jobs.
+- **Dataflow** : Import jobs are subject to the same CPU, disk usage, and IP address [Compute Engine quotas](https://docs.cloud.google.com/dataflow/quotas#compute-engine-quotas) as other Dataflow jobs.
 
-  - **Compute Engine** : Before running your import job, you must [set up initial quotas](https://support.google.com/cloud/answer/6075746) for Compute Engine, which Dataflow uses. These quotas represent the *maximum* number of resources that you allow Dataflow to use for your job. Recommended starting values are:
-    
-      - **CPUs** : 200
-      - **In-use IP addresses** : 200
-      - **Standard persistent disk** : 50 TB
-    
-    Generally, you don't have to make any other adjustments. Dataflow provides autoscaling so that you only pay for the actual resources used during the import. If your job can make use of more resources, the Dataflow UI displays a warning icon. The job should finish even if there is a warning icon.
+- **Compute Engine** : Before running your import job, you must [set up initial quotas](https://support.google.com/cloud/answer/6075746) for Compute Engine, which Dataflow uses. These quotas represent the *maximum* number of resources that you allow Dataflow to use for your job. Recommended starting values are:
+
+  - **CPUs** : 200
+  - **In-use IP addresses** : 200
+  - **Standard persistent disk** : 50 TB
+
+  Generally, you don't have to make any other adjustments. Dataflow provides autoscaling so that you only pay for the actual resources used during the import. If your job can make use of more resources, the Dataflow UI displays a warning icon. The job should finish even if there is a warning icon.
 
 ### Required roles
 
 To get the permissions that you need to export a database, ask your administrator to grant you the following IAM roles on your Dataflow worker service account:
 
-  - [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
-  - [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `roles/dataflow.worker` )
-  - [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `roles/storage.admin` )
-  - [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
-  - [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
+- [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+- [Dataflow Worker](https://docs.cloud.google.com/iam/docs/roles-permissions/dataflow#dataflow.worker) ( `roles/dataflow.worker` )
+- [Storage Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/storage#storage.admin) ( `roles/storage.admin` )
+- [Spanner Database Reader](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseReader) ( `roles/spanner.databaseReader` )
+- [Database Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseAdmin) ( `roles/spanner.databaseAdmin` )
 
 > **Note:** The Spanner Database Admin role is only required for import jobs.
 
@@ -58,26 +58,26 @@ To export data from a non-Spanner database to Avro files, follow these steps:
 
 Keep the following things in mind when exporting your data:
 
-  - You can export using any of the Avro [primitive types](https://avro.apache.org/docs/current/spec.html#schema_primitive) as well as the [array](https://avro.apache.org/docs/current/spec.html#Arrays) complex type.
+- You can export using any of the Avro [primitive types](https://avro.apache.org/docs/current/spec.html#schema_primitive) as well as the [array](https://avro.apache.org/docs/current/spec.html#Arrays) complex type.
 
-  - Each column in your Avro files must use one of the following column types:
-    
-      - `ARRAY`
-      - `BOOL`
-      - `BYTES` <sup>\*</sup>
-      - `DOUBLE`
-      - `FLOAT`
-      - `INT`
-      - `LONG` <sup>†</sup>
-      - `STRING` <sup>‡</sup>
-    
-    <sup>\*</sup> A column of type `BYTES` is used to import a Spanner `NUMERIC` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
-    
-    <sup>†,‡</sup> You can import a `LONG` storing a timestamp or a `STRING` storing a timestamp as a Spanner `TIMESTAMP` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
+- Each column in your Avro files must use one of the following column types:
 
-  - You don't have to include or generate any metadata when you export the Avro files.
+  - `ARRAY`
+  - `BOOL`
+  - `BYTES` <sup>\*</sup>
+  - `DOUBLE`
+  - `FLOAT`
+  - `INT`
+  - `LONG` <sup>†</sup>
+  - `STRING` <sup>‡</sup>
 
-  - You don't have to follow any particular naming convention for your files.
+  <sup>\*</sup> A column of type `BYTES` is used to import a Spanner `NUMERIC` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
+
+  <sup>†,‡</sup> You can import a `LONG` storing a timestamp or a `STRING` storing a timestamp as a Spanner `TIMESTAMP` ; see the following [recommended mappings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#recommended-map) section for details.
+
+- You don't have to include or generate any metadata when you export the Avro files.
+
+- You don't have to follow any particular naming convention for your files.
 
 If you don't export your files directly to Cloud Storage, you must upload the Avro files to a Cloud Storage bucket. For detailed instructions, see [Upload objects](https://docs.cloud.google.com/storage/docs/uploading-objects) to your Cloud Storage.
 
@@ -99,107 +99,29 @@ You must create a schema that uses the appropriate column type for each column i
 
 ### GoogleSQL
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Avro column type</th>
-<th>Spanner column type</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">ARRAY</code></td>
-<td><code dir="ltr" translate="no">ARRAY</code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">BOOL</code></td>
-<td><code dir="ltr" translate="no">BOOL</code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">BYTES</code></td>
-<td><p><code dir="ltr" translate="no">BYTES</code></p>
-<p><code dir="ltr" translate="no">NUMERIC</code> (when the column type is <code dir="ltr" translate="no">BYTES</code> and <code dir="ltr" translate="no">logicalType=decimal</code> , <code dir="ltr" translate="no">precision=38</code> , and <code dir="ltr" translate="no">scale=9</code> . If these exact specifications are omitted, the field is treated as a Spanner <code dir="ltr" translate="no">BYTES</code> value. For more information, see the <a href="https://avro.apache.org/docs/current/spec.html#Decimal">Avro decimal logical type</a> documentation.)</p></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">DOUBLE</code></td>
-<td><code dir="ltr" translate="no">FLOAT64</code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">FLOAT</code></td>
-<td><code dir="ltr" translate="no">FLOAT64</code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">INT</code></td>
-<td><code dir="ltr" translate="no">INT64</code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">LONG</code></td>
-<td><p><code dir="ltr" translate="no">INT64</code></p>
-<p><code dir="ltr" translate="no">TIMESTAMP</code> when <code dir="ltr" translate="no">LONG</code> represents a timestamp of the number of microseconds since 1970-01-01 00:00:00 UTC</p></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td><p><code dir="ltr" translate="no">STRING</code></p>
-<p><code dir="ltr" translate="no">TIMESTAMP</code> when <code dir="ltr" translate="no">STRING</code> represents a timestamp in the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical-format_1">canonical format for SQL queries</a></p></td>
-</tr>
-</tbody>
-</table>
+| Avro column type | Spanner column type                                                                                                                                                                                                                                                                                                                           |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ARRAY`          | `ARRAY`                                                                                                                                                                                                                                                                                                                                       |
+| `BOOL`           | `BOOL`                                                                                                                                                                                                                                                                                                                                        |
+| `BYTES`          | `BYTES` `NUMERIC` (when the column type is `BYTES` and `logicalType=decimal` , `precision=38` , and `scale=9` . If these exact specifications are omitted, the field is treated as a Spanner `BYTES` value. For more information, see the [Avro decimal logical type](https://avro.apache.org/docs/current/spec.html#Decimal) documentation.) |
+| `DOUBLE`         | `FLOAT64`                                                                                                                                                                                                                                                                                                                                     |
+| `FLOAT`          | `FLOAT64`                                                                                                                                                                                                                                                                                                                                     |
+| `INT`            | `INT64`                                                                                                                                                                                                                                                                                                                                       |
+| `LONG`           | `INT64` `TIMESTAMP` when `LONG` represents a timestamp of the number of microseconds since 1970-01-01 00:00:00 UTC                                                                                                                                                                                                                            |
+| `STRING`         | `STRING` `TIMESTAMP` when `STRING` represents a timestamp in the [canonical format for SQL queries](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#canonical-format_1)                                                                                                                                          |
 
 ### PostgreSQL
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Avro column type</th>
-<th>Spanner column type</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code dir="ltr" translate="no">ARRAY</code></td>
-<td><code dir="ltr" translate="no">ARRAY</code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">BOOL</code></td>
-<td><code dir="ltr" translate="no">BOOLEAN</code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">BYTES</code></td>
-<td><p><code dir="ltr" translate="no">BYTEA</code></p>
-<p><code dir="ltr" translate="no">NUMERIC</code> (when the column type is <code dir="ltr" translate="no">BYTEA</code> and <code dir="ltr" translate="no">logicalType=decimal</code> , <code dir="ltr" translate="no">precision=147455</code> , and <code dir="ltr" translate="no">scale=16383</code> . If these exact specifications are omitted, the field is treated as a <code dir="ltr" translate="no">BYTEA</code> value. For more information, see the <a href="https://avro.apache.org/docs/current/spec.html#Decimal">Avro decimal logical type</a> documentation.)</p></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">DOUBLE</code></td>
-<td><code dir="ltr" translate="no">DOUBLE PRECISION</code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">FLOAT</code></td>
-<td><code dir="ltr" translate="no">DOUBLE PRECISION</code></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">INT</code></td>
-<td><code dir="ltr" translate="no">BIGINT</code></td>
-</tr>
-<tr class="odd">
-<td><code dir="ltr" translate="no">LONG</code></td>
-<td><p><code dir="ltr" translate="no">BIGINT</code></p>
-<p><code dir="ltr" translate="no">TIMESTAMP</code> when <code dir="ltr" translate="no">LONG</code> represents a timestamp of the number of microseconds since 1970-01-01 00:00:00 UTC</p></td>
-</tr>
-<tr class="even">
-<td><code dir="ltr" translate="no">STRING</code></td>
-<td><p><code dir="ltr" translate="no">CHARACTER VARYING</code></p>
-<p><code dir="ltr" translate="no">TIMESTAMP</code> when <code dir="ltr" translate="no">STRING</code> represents a timestamp in the canonical format for SQL queries, for example '2022-05-28T07:08:21.123456789Z' or '2021-12-19T16:39:57-08:00'.</p></td>
-</tr>
-</tbody>
-</table>
+| Avro column type | Spanner column type                                                                                                                                                                                                                                                                                                                           |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `ARRAY`          | `ARRAY`                                                                                                                                                                                                                                                                                                                                       |
+| `BOOL`           | `BOOLEAN`                                                                                                                                                                                                                                                                                                                                     |
+| `BYTES`          | `BYTEA` `NUMERIC` (when the column type is `BYTEA` and `logicalType=decimal` , `precision=147455` , and `scale=16383` . If these exact specifications are omitted, the field is treated as a `BYTEA` value. For more information, see the [Avro decimal logical type](https://avro.apache.org/docs/current/spec.html#Decimal) documentation.) |
+| `DOUBLE`         | `DOUBLE PRECISION`                                                                                                                                                                                                                                                                                                                            |
+| `FLOAT`          | `DOUBLE PRECISION`                                                                                                                                                                                                                                                                                                                            |
+| `INT`            | `BIGINT`                                                                                                                                                                                                                                                                                                                                      |
+| `LONG`           | `BIGINT` `TIMESTAMP` when `LONG` represents a timestamp of the number of microseconds since 1970-01-01 00:00:00 UTC                                                                                                                                                                                                                           |
+| `STRING`         | `CHARACTER VARYING` `TIMESTAMP` when `STRING` represents a timestamp in the canonical format for SQL queries, for example '2022-05-28T07:08:21.123456789Z' or '2021-12-19T16:39:57-08:00'.                                                                                                                                                    |
 
 > **Note:** If a column in your Avro data contains `NULL` values, you must ensure that you make the corresponding column in your Spanner table nullable.
 
@@ -209,24 +131,26 @@ You must also create a file named `spanner-export.json` in your Cloud Storage bu
 
 The contents of the file have the following format:
 
-    {
-      "tables": [
-       {
-        "name": "TABLE1",
-        "dataFiles": [
-          "RELATIVE/PATH/TO/TABLE1_FILE1",
-          "RELATIVE/PATH/TO/TABLE1_FILE2"
-        ]
-       },
-       {
-        "name": "TABLE2",
-        "dataFiles": ["RELATIVE/PATH/TO/TABLE2_FILE1"]
-       }
-      ],
-      "dialect":"DATABASE_DIALECT"
-    }
+```
+{
+  "tables": [
+   {
+    "name": "TABLE1",
+    "dataFiles": [
+      "RELATIVE/PATH/TO/TABLE1_FILE1",
+      "RELATIVE/PATH/TO/TABLE1_FILE2"
+    ]
+   },
+   {
+    "name": "TABLE2",
+    "dataFiles": ["RELATIVE/PATH/TO/TABLE2_FILE1"]
+   }
+  ],
+  "dialect":"DATABASE_DIALECT"
+}
+```
 
-Where DATABASE\_DIALECT = { `GOOGLE_STANDARD_SQL` | `POSTGRESQL` }
+Where ` DATABASE_DIALECT ` = { `GOOGLE_STANDARD_SQL` \| `POSTGRESQL` }
 
 If the dialect element is omitted, the dialect defaults to `GOOGLE_STANDARD_SQL` .
 
@@ -248,13 +172,13 @@ After the import job is finished, add any necessary [secondary indexes](https://
 
 You might want to choose a different region based on the location of your Cloud Storage bucket. To avoid [outbound data transfer charges](https://docs.cloud.google.com/storage/pricing#network-pricing) , choose a region that matches your Cloud Storage bucket's location.
 
-  - If your Cloud Storage bucket location is a [region](https://docs.cloud.google.com/storage/docs/bucket-locations#location-r) , you can take advantage of [free network usage](https://docs.cloud.google.com/storage/pricing#network-buckets) by choosing the same region for your import job, assuming that region is available.
+- If your Cloud Storage bucket location is a [region](https://docs.cloud.google.com/storage/docs/bucket-locations#location-r) , you can take advantage of [free network usage](https://docs.cloud.google.com/storage/pricing#network-buckets) by choosing the same region for your import job, assuming that region is available.
 
-  - If your Cloud Storage bucket location is a [dual-region](https://docs.cloud.google.com/storage/docs/bucket-locations#location-dr) , you can take advantage of [free network usage](https://docs.cloud.google.com/storage/pricing#network-buckets) by choosing one of the two regions that make up the dual-region for your import job, assuming one of the regions is available.
+- If your Cloud Storage bucket location is a [dual-region](https://docs.cloud.google.com/storage/docs/bucket-locations#location-dr) , you can take advantage of [free network usage](https://docs.cloud.google.com/storage/pricing#network-buckets) by choosing one of the two regions that make up the dual-region for your import job, assuming one of the regions is available.
 
-<!-- end list -->
+<!-- -->
 
-  - If a co-located region is not available for your import job, or if your Cloud Storage bucket location is a [multi-region](https://docs.cloud.google.com/storage/docs/bucket-locations#location-mr) , outbound data transfer charges apply. Refer to Cloud Storage [data transfer](https://docs.cloud.google.com/storage/pricing#network-pricing) pricing to choose a region that incurs the lowest data transfer charges.
+- If a co-located region is not available for your import job, or if your Cloud Storage bucket location is a [multi-region](https://docs.cloud.google.com/storage/docs/bucket-locations#location-mr) , outbound data transfer charges apply. Refer to Cloud Storage [data transfer](https://docs.cloud.google.com/storage/pricing#network-pricing) pricing to choose a region that incurs the lowest data transfer charges.
 
 ## View or troubleshoot jobs in the Dataflow UI
 
@@ -269,9 +193,9 @@ To see details for any import or export jobs that you ran within the last week, 
 2.  Click the **Import/Export** left pane menu item. The database **Import/Export** page displays a list of recent jobs.
 
 3.  In the database **Import/Export** page, click the job name in the **Dataflow job name** column:
-    
+
     ![In-progress job status message](https://docs.cloud.google.com/static/spanner/docs/images/import_export_job_list.png)
-    
+
     The Google Cloud console displays details of the Dataflow job.
 
 To view a job that you ran more than one week ago:
@@ -279,7 +203,7 @@ To view a job that you ran more than one week ago:
 1.  Go to the Dataflow jobs page in the Google Cloud console.
 
 2.  Find your job in the list, then click its name.
-    
+
     The Google Cloud console displays details of the Dataflow job.
 
 > **Note:** Jobs of the same type for the same database have the same name. You can tell jobs apart by the values in their **Start time** or **End time** columns.
@@ -295,7 +219,7 @@ If a job fails, look for errors in the logs. If there are errors, the error coun
 To view job errors:
 
 1.  Click the error count next to **Logs** .
-    
+
     The Google Cloud console displays the job's logs. You may need to scroll to see the errors.
 
 2.  Locate entries with the error icon ![Error icon](https://docs.cloud.google.com/static/spanner/docs/images/dataflow_log_error.png) .
@@ -308,11 +232,13 @@ For more information about troubleshooting Dataflow jobs, see [Troubleshoot your
 
 If you see the following errors in your job logs:
 
-    com.google.cloud.spanner.SpannerException: NOT_FOUND: Session not found
-    
-    --or--
-    
-    com.google.cloud.spanner.SpannerException: DEADLINE_EXCEEDED: Deadline expired before operation could complete.
+```
+com.google.cloud.spanner.SpannerException: NOT_FOUND: Session not found
+
+--or--
+
+com.google.cloud.spanner.SpannerException: DEADLINE_EXCEEDED: Deadline expired before operation could complete.
+```
 
 Check the *99% Write latency* in the **Monitoring** tab of your Spanner database in the Google Cloud console. If it is showing high (multiple second) values, then it indicates that the instance is overloaded, causing writes to timeout and fail.
 
@@ -328,7 +254,7 @@ If you are using the Dataflow console, the **Max workers** parameter is located 
 
 Run the [`gcloud dataflow jobs run`](https://docs.cloud.google.com/sdk/gcloud/reference/dataflow/jobs/run) command, and specify the `max-workers` argument. For example:
 
-``` 
+```
   gcloud dataflow jobs run my-import-job \
     --gcs-location='gs://dataflow-templates/latest/GCS_Avro_to_Cloud_Spanner' \
     --region=us-central1 \
@@ -341,10 +267,12 @@ Run the [`gcloud dataflow jobs run`](https://docs.cloud.google.com/sdk/gcloud/re
 
 The following error might occur when you export your Spanner databases:
 
-    Workflow failed. Causes: Error: Message: Invalid value for field
-    'resource.properties.networkInterfaces[0].subnetwork': ''. Network interface
-    must specify a subnet if the network resource is in custom subnet mode.
-    HTTP Code: 400
+```
+Workflow failed. Causes: Error: Message: Invalid value for field
+'resource.properties.networkInterfaces[0].subnetwork': ''. Network interface
+must specify a subnet if the network resource is in custom subnet mode.
+HTTP Code: 400
+```
 
 This error occurs because Spanner assumes that you intend to use an auto mode VPC network named `default` in the same project as the Dataflow job. If you don't have a default VPC network in the project, or if your VPC network is in a custom mode VPC network, then you must create a Dataflow job and [specify an alternate network or subnetwork](https://docs.cloud.google.com/dataflow/docs/guides/specifying-networks?) .
 
@@ -352,39 +280,39 @@ This error occurs because Spanner assumes that you intend to use an auto mode VP
 
 If you have followed the suggestions in [initial settings](https://docs.cloud.google.com/spanner/docs/import-non-spanner#quota) , you should generally not have to make any other adjustments. If your job is running slowly, there are a few other optimizations you can try:
 
-  - **Optimize the job and data location** : Run your Dataflow job [in the same region](https://docs.cloud.google.com/spanner/docs/import-non-spanner#choose-region) where your Spanner instance and Cloud Storage bucket are located.
+- **Optimize the job and data location** : Run your Dataflow job [in the same region](https://docs.cloud.google.com/spanner/docs/import-non-spanner#choose-region) where your Spanner instance and Cloud Storage bucket are located.
 
-  - **Ensure sufficient Dataflow resources** : If the [relevant Compute Engine quotas](https://docs.cloud.google.com/dataflow/quotas#compute-engine-quotas) limit your Dataflow job's resources, the job's [Dataflow page](https://docs.cloud.google.com/spanner/docs/import-non-spanner#dataflow-job-details) in the Google Cloud console displays a warning icon ![Warning icon](https://docs.cloud.google.com/static/spanner/docs/images/dataflow_ui_warning_icon.png) and log messages:
-    
-    ![Screenshot of quota limit warning](https://docs.cloud.google.com/static/spanner/docs/images/import_export_quota_limit_warning.png)
-    
-    In this situation, [increasing the quotas](https://support.google.com/cloud/answer/6075746) for CPUs, in-use IP addresses, and standard persistent disk might shorten the run time of the job, but you might incur more Compute Engine charges.
+- **Ensure sufficient Dataflow resources** : If the [relevant Compute Engine quotas](https://docs.cloud.google.com/dataflow/quotas#compute-engine-quotas) limit your Dataflow job's resources, the job's [Dataflow page](https://docs.cloud.google.com/spanner/docs/import-non-spanner#dataflow-job-details) in the Google Cloud console displays a warning icon ![Warning icon](https://docs.cloud.google.com/static/spanner/docs/images/dataflow_ui_warning_icon.png) and log messages:
 
-  - **Check the Spanner CPU utilization** : If you see that the CPU utilization for the instance is over 65%, you can increase the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) in that instance. The capacity adds more Spanner resources and the job should speed up, but you incur more Spanner charges.
+  ![Screenshot of quota limit warning](https://docs.cloud.google.com/static/spanner/docs/images/import_export_quota_limit_warning.png)
+
+  In this situation, [increasing the quotas](https://support.google.com/cloud/answer/6075746) for CPUs, in-use IP addresses, and standard persistent disk might shorten the run time of the job, but you might incur more Compute Engine charges.
+
+- **Check the Spanner CPU utilization** : If you see that the CPU utilization for the instance is over 65%, you can increase the [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) in that instance. The capacity adds more Spanner resources and the job should speed up, but you incur more Spanner charges.
 
 ## Factors affecting import job performance
 
 Several factors influence the time it takes to complete an import job.
 
-  - **Spanner database size** : Processing more data takes more time and resources.
+- **Spanner database size** : Processing more data takes more time and resources.
 
-  - **Spanner database schema** , including:
-    
-      - The number of tables
-      - The size of the rows
-      - The number of secondary indexes
-      - The number of foreign keys
-      - The number of change streams
+- **Spanner database schema** , including:
 
-<!-- end list -->
+  - The number of tables
+  - The size of the rows
+  - The number of secondary indexes
+  - The number of foreign keys
+  - The number of change streams
 
-  - **Data location** : Data is transferred between Spanner and Cloud Storage using Dataflow. Ideally all three components are located in the same region. If the components are not in the same region, moving the data across regions slows the job down.
+<!-- -->
 
-  - **Number of Dataflow workers** : Optimal Dataflow workers are necessary for good performance. By using autoscaling, Dataflow chooses the number of workers for the job depending on the amount of work that needs to be done. The number of workers will, however, be capped by the quotas for CPUs, in-use IP addresses, and standard persistent disk. The Dataflow UI displays a warning icon if it encounters quota caps. In this situation, progress is slower, but the job should still complete. Autoscaling can overload Spanner leading to errors when there is a large amount of data to import.
+- **Data location** : Data is transferred between Spanner and Cloud Storage using Dataflow. Ideally all three components are located in the same region. If the components are not in the same region, moving the data across regions slows the job down.
 
-  - **Existing load on Spanner** : An import job adds significant CPU load on a Spanner instance. If the instance already has a substantial existing load, then the job runs more slowly.
+- **Number of Dataflow workers** : Optimal Dataflow workers are necessary for good performance. By using autoscaling, Dataflow chooses the number of workers for the job depending on the amount of work that needs to be done. The number of workers will, however, be capped by the quotas for CPUs, in-use IP addresses, and standard persistent disk. The Dataflow UI displays a warning icon if it encounters quota caps. In this situation, progress is slower, but the job should still complete. Autoscaling can overload Spanner leading to errors when there is a large amount of data to import.
 
-  - **Amount of Spanner compute capacity** : If the CPU utilization for the instance is over 65%, then the job runs more slowly.
+- **Existing load on Spanner** : An import job adds significant CPU load on a Spanner instance. If the instance already has a substantial existing load, then the job runs more slowly.
+
+- **Amount of Spanner compute capacity** : If the CPU utilization for the instance is over 65%, then the job runs more slowly.
 
 ## Tune workers for good import performance
 

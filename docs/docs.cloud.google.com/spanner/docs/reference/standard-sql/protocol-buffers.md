@@ -24,8 +24,10 @@ You can construct a protocol buffer with the [`NEW`](https://docs.cloud.google.c
 
 You can use the [`CAST AS PROTO`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions#cast-as-proto) function to cast `PROTO` to or from `BYTES` , `STRING` , or `PROTO` .
 
-    SELECT CAST('first_name: "Alana", last_name: "Yah", customer_no: 1234'
-      AS example.CustomerInfo);
+```
+SELECT CAST('first_name: "Alana", last_name: "Yah", customer_no: 1234'
+  AS example.CustomerInfo);
+```
 
 Casting to or from `BYTES` produces or parses [proto2 wire format bytes](https://protobuf.dev/programming-guides/encoding) . If there is a failure during the serialization or deserialization process, Spanner throws an error. This can happen, for example, if no value is specified for a required field.
 
@@ -39,117 +41,141 @@ To create a protocol buffer, import the protocol messages from a protocol buffer
 
 First, create a protocol buffer bundle with the `examples.shipping.Order` message:
 
-    syntax = "proto2";
-    package examples.shipping;
-    
-    message Order {
-      optional string order_number = 1;
-      optional int64 date = 2;
-    
-      message Address {
-        optional string street = 1;
-        optional string city = 2;
-        optional string state = 3;
-        optional string country = 4;
-      }
-    
-      optional Address shipping_address = 3;
-    
-      message Item {
-        optional string product_name = 1;
-        optional int32 quantity = 2;
-      }
-    
-      repeated Item line_item = 4;
-    
-      
-    
-    }
-    
-    message OrderHistory {
-      optional string order_number = 1;
-      optional int64 date = 2;
-    }
+```
+syntax = "proto2";
+package examples.shipping;
+
+message Order {
+  optional string order_number = 1;
+  optional int64 date = 2;
+
+  message Address {
+    optional string street = 1;
+    optional string city = 2;
+    optional string state = 3;
+    optional string country = 4;
+  }
+
+  optional Address shipping_address = 3;
+
+  message Item {
+    optional string product_name = 1;
+    optional int32 quantity = 2;
+  }
+
+  repeated Item line_item = 4;
+
+  
+
+}
+
+message OrderHistory {
+  optional string order_number = 1;
+  optional int64 date = 2;
+}
+```
 
 Next, compile the protocol buffer. Use the [`protoc` compiler](https://github.com/protocolbuffers/protobuf#protobuf-compiler-installation) to generate the proto descriptor file along with the corresponding language-specific classes from your `.proto` file. To generate the `order_descriptors.pb` proto descriptor:
 
-    protoc --include_imports --descriptor_set_out=order_descriptors.pb order_protos.proto
+```
+protoc --include_imports --descriptor_set_out=order_descriptors.pb order_protos.proto
+```
 
 Use the `CREATE PROTO BUNDLE` DDL statement to load types available from proto files into your database schema.
 
 For example:
 
-    CREATE PROTO BUNDLE (
-      examples.shipping.Order,
-      examples.shipping.Order.Address,
-      examples.shipping.Order.Item
-    )
+```
+CREATE PROTO BUNDLE (
+  examples.shipping.Order,
+  examples.shipping.Order.Address,
+  examples.shipping.Order.Item
+)
+```
 
 Then, upload the proto descriptor using the `gcloud spanner databases ddl update` command:
 
-    gcloud spanner databases ddl update DATABASE_NAME --instance=INSTANCE_NAME
-      --ddl='CREATE PROTO BUNDLE (`examples.shipping.Order`, `examples.shipping.Order.Address`, `examples.shipping.Order.Item`);'
-      --proto-descriptors-file=order_descriptors.pb
+```
+gcloud spanner databases ddl update DATABASE_NAME --instance=INSTANCE_NAME
+  --ddl='CREATE PROTO BUNDLE (`examples.shipping.Order`, `examples.shipping.Order.Address`, `examples.shipping.Order.Item`);'
+  --proto-descriptors-file=order_descriptors.pb
+```
 
 If you include nested message types within a protocol message in your DML statement, the nested message types must be included in the `CREATE PROTO BUNDLE` DDL statement.
 
 Finally, create an `Orders` table with the `Order` message:
 
-    CREATE TABLE Orders (
-      Id INT64,
-      OrderInfo `examples.shipping.Order`,
-    ) PRIMARY KEY(Id);
+```
+CREATE TABLE Orders (
+  Id INT64,
+  OrderInfo `examples.shipping.Order`,
+) PRIMARY KEY(Id);
+```
 
 ### Add a message to a protocol buffer
 
 You can add messages to your protocol buffer with the [`ALTER PROTO BUNDLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-proto-bundle) statement. For example:
 
-    ALTER PROTO BUNDLE INSERT (
-      examples.shipping.OrderHistory
-    )
+```
+ALTER PROTO BUNDLE INSERT (
+  examples.shipping.OrderHistory
+)
+```
 
 Update the proto bundle with the added message using the `gcloud spanner databases ddl update` command:
 
-    gcloud spanner databases ddl update DATABASE_NAME --instance=INSTANCE_NAME
-      --ddl='ALTER PROTO BUNDLE INSERT (`examples.shipping.OrderHistory`);'
-      --proto-descriptors-file=order_descriptors.pb
+```
+gcloud spanner databases ddl update DATABASE_NAME --instance=INSTANCE_NAME
+  --ddl='ALTER PROTO BUNDLE INSERT (`examples.shipping.OrderHistory`);'
+  --proto-descriptors-file=order_descriptors.pb
+```
 
 ### Use a protocol buffer message in a column definition
 
 You can include a protocol buffer message when creating new tables by declaring a column's type as a protocol message. For example:
 
-    CREATE TABLE OrderHistory (
-      Id INT64,
-      OrderHistoryInfo examples.shipping.OrderHistory,
-    ) PRIMARY KEY(Id);
+```
+CREATE TABLE OrderHistory (
+  Id INT64,
+  OrderHistoryInfo examples.shipping.OrderHistory,
+) PRIMARY KEY(Id);
+```
 
 ### Update a message for a protocol buffer
 
 You can update and replace existing proto messages with the [`ALTER PROTO BUNDLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-proto-bundle) statement. For example:
 
-    ALTER PROTO BUNDLE UPDATE (
-      examples.shipping.Order,
-    )
+```
+ALTER PROTO BUNDLE UPDATE (
+  examples.shipping.Order,
+)
+```
 
 Update the proto bundle using the `gcloud spanner databases ddl update` command:
 
-    gcloud spanner databases ddl update DATABASE_NAME --instance=INSTANCE_NAME
-      --ddl='ALTER PROTO BUNDLE UPDATE(`examples.shipping.Order`);'
-      --proto-descriptors-file=order_descriptors.pb
+```
+gcloud spanner databases ddl update DATABASE_NAME --instance=INSTANCE_NAME
+  --ddl='ALTER PROTO BUNDLE UPDATE(`examples.shipping.Order`);'
+  --proto-descriptors-file=order_descriptors.pb
+```
 
 ### Delete a message from a protocol buffer
 
 If you're no longer using a message, you can delete it from the protocol buffer with the [`ALTER PROTO BUNDLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-proto-bundle) statement. For example:
 
-    ALTER PROTO BUNDLE DELETE (
-      examples.shipping.OrderHistory,
-    )
+```
+ALTER PROTO BUNDLE DELETE (
+  examples.shipping.OrderHistory,
+)
+```
 
 Update the proto bundle using the `gcloud spanner databases ddl update` command:
 
-    gcloud spanner databases ddl update DATABASE_NAME --instance=INSTANCE_NAME
-      --ddl='ALTER PROTO BUNDLE DELETE(`examples.shipping.OrderHistory`);'
-      --proto-descriptors-file=order_descriptors.pb
+```
+gcloud spanner databases ddl update DATABASE_NAME --instance=INSTANCE_NAME
+  --ddl='ALTER PROTO BUNDLE DELETE(`examples.shipping.OrderHistory`);'
+  --proto-descriptors-file=order_descriptors.pb
+```
 
 ## Query a protocol buffer
 
@@ -159,62 +185,68 @@ Use the dot operator to access the fields contained within a protocol buffer. Yo
 
 The following example queries for a table called `Customers` . This table contains a column `Orders` of type `PROTO` .
 
-    CREATE TABLE Customers (
-      Id INT64,
-      Orders examples.shipping.Order,
-    ) PRIMARY KEY(Id);
+```
+CREATE TABLE Customers (
+  Id INT64,
+  Orders examples.shipping.Order,
+) PRIMARY KEY(Id);
+```
 
 The proto stored in `Orders` contains fields such as the items ordered and the shipping address. The `.proto` file that defines this protocol buffer might look like this:
 
-    syntax = "proto2";
-    package examples.shipping;
-    
-    message Order {
-      optional string order_number = 1;
-      optional int64 date = 2;
-    
-      message Address {
-        optional string street = 1;
-        optional string city = 2;
-        optional string state = 3;
-        optional string country = 4;
-      }
-    
-      optional Address shipping_address = 3;
-    
-      message Item {
-        optional string product_name = 1;
-        optional int32 quantity = 2;
-      }
-    
-      repeated Item line_item = 4;
-    
-      
-    
-    }
+```
+syntax = "proto2";
+package examples.shipping;
+
+message Order {
+  optional string order_number = 1;
+  optional int64 date = 2;
+
+  message Address {
+    optional string street = 1;
+    optional string city = 2;
+    optional string state = 3;
+    optional string country = 4;
+  }
+
+  optional Address shipping_address = 3;
+
+  message Item {
+    optional string product_name = 1;
+    optional int32 quantity = 2;
+  }
+
+  repeated Item line_item = 4;
+
+  
+
+}
+```
 
 An instance of this message might be:
 
+```
+{
+  order_number: 1234567
+  date: 16242
+  shipping_address: {
+      street: "1234 Main St"
+      city: "AnyCity"
+      state: "AnyState"
+      country: "United States"
+  }
+  line_item: [
     {
-      order_number: 1234567
-      date: 16242
-      shipping_address: {
-          street: "1234 Main St"
-          city: "AnyCity"
-          state: "AnyState"
-          country: "United States"
-      }
-      line_item: [
-        {
-          product_name: "Foo"
-          quantity: 10
-        },
-        {
-          product_name: "Bar"
-          quantity: 5
-        }
-      ]
+      product_name: "Foo"
+      quantity: 10
+    },
+    {
+      product_name: "Bar"
+      quantity: 5
     }
+  ]
+}
+```
 
 ### Query top-level fields
 
@@ -222,17 +254,21 @@ You can write a query to return an entire protocol buffer message, or to return 
 
 Using our example protocol buffer message, the following query returns all protocol buffer values from the `Orders` column:
 
-    SELECT
-      c.Orders
-    FROM
-      Customers AS c;
+```
+SELECT
+  c.Orders
+FROM
+  Customers AS c;
+```
 
 This query returns the top-level field `order_number` from all protocol buffer messages in the `Orders` column using the [dot operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#field_access_operator) :
 
-    SELECT
-      c.Orders.order_number
-    FROM
-      Customers AS c;
+```
+SELECT
+  c.Orders.order_number
+FROM
+  Customers AS c;
+```
 
 ### Query nested paths
 
@@ -240,13 +276,15 @@ You can write a query to return a nested field of a protocol buffer message.
 
 In the previous example, the `Order` protocol buffer contains another protocol buffer message, `Address` , in the `shipping_address` field. You can create a query that returns all orders that have a shipping address in the United States:
 
-    SELECT
-      c.Orders.order_number,
-      c.Orders.shipping_address
-    FROM
-      Customers AS c
-    WHERE
-      c.Orders.shipping_address.country = "United States";
+```
+SELECT
+  c.Orders.order_number,
+  c.Orders.shipping_address
+FROM
+  Customers AS c
+WHERE
+  c.Orders.shipping_address.country = "United States";
+```
 
 ### Return repeated fields
 
@@ -254,10 +292,12 @@ A protocol buffer message can contain repeated fields. When referenced in a SQL 
 
 The following query returns a set of `ARRAY` s containing the line items, each holding all the line items for one order:
 
-    SELECT
-      c.Orders.line_item
-    FROM
-      Customers AS c;
+```
+SELECT
+  c.Orders.line_item
+FROM
+  Customers AS c;
+```
 
 For more information about arrays, see [Work with arrays](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays#working_with_arrays) .
 
@@ -267,18 +307,20 @@ For more information about default field values, see [Default values and `NULL` 
 
 You can return the number of values in a repeated fields in a protocol buffer using the `ARRAY_LENGTH` function.
 
-    SELECT
-      c.Orders.order_number,
-      ARRAY_LENGTH(c.Orders.line_item)
-    FROM
-      Customers AS c;
+```
+SELECT
+  c.Orders.order_number,
+  ARRAY_LENGTH(c.Orders.line_item)
+FROM
+  Customers AS c;
+```
 
 ## Type mapping
 
 The following table gives examples of the mapping between various protocol buffer field types and the resulting GoogleSQL types.
 
 | Protocol buffer field type | GoogleSQL type |
-| -------------------------- | -------------- |
+|----------------------------|----------------|
 | `bool`                     | `BOOL`         |
 | `bytes`                    | `BYTES`        |
 | `double`                   | `FLOAT64`      |
@@ -292,14 +334,14 @@ The following table gives examples of the mapping between various protocol buffe
 
 The following protocol buffer field types can appear in the protocol buffer definition and are written to the protocol buffer column data, but they can't be used in DML statements or queries with the field access operator. Otherwise, an unknown type error appears. They can only be accessed by reading the entire protocol buffer file:
 
-  - `float`
-  - `int32`
-  - `sint32`
-  - `sfixed32`
-  - `uint32`
-  - `fixed32`
-  - `uint64`
-  - `fixed64`
+- `float`
+- `int32`
+- `sint32`
+- `sfixed32`
+- `uint32`
+- `fixed32`
+- `uint64`
+- `fixed64`
 
 ### Default values and `NULL` s
 
@@ -311,32 +353,34 @@ This behavior is consistent with the standards for handling protocol buffers mes
 
 For example, consider the following protocol buffer:
 
-    message SimpleMessage {
-      optional SubMessage message_field_x = 1;
-      optional SubMessage message_field_y = 2;
-    }
-    
-    message SubMessage {
-      optional string field_a = 1;
-      optional string field_b = 2;
-      optional string field_c = 3;
-      repeated string field_d = 4;
-      repeated string field_e = 5;
-    }
+```
+message SimpleMessage {
+  optional SubMessage message_field_x = 1;
+  optional SubMessage message_field_y = 2;
+}
+
+message SubMessage {
+  optional string field_a = 1;
+  optional string field_b = 2;
+  optional string field_c = 3;
+  repeated string field_d = 4;
+  repeated string field_e = 5;
+}
+```
 
 Assume the following field values:
 
-  - `message_field_x` isn't set.
-  - `message_field_y.field_a` is set to `"a"` .
-  - `message_field_y.field_b` isn't set.
-  - `message_field_y.field_c` isn't set.
-  - `message_field_y.field_d` is set to `["d"]` .
-  - `message_field_y.field_e` isn't set.
+- `message_field_x` isn't set.
+- `message_field_y.field_a` is set to `"a"` .
+- `message_field_y.field_b` isn't set.
+- `message_field_y.field_c` isn't set.
+- `message_field_y.field_d` is set to `["d"]` .
+- `message_field_y.field_e` isn't set.
 
 For this example, the following table summarizes the values produced from various accessed fields:
 
 | Accessed field                                              | Value produced                                    | Reason                                                                                  |
-| ----------------------------------------------------------- | ------------------------------------------------- | --------------------------------------------------------------------------------------- |
+|-------------------------------------------------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------|
 | `message_field_x`                                           | `NULL`                                            | Message isn't set.                                                                      |
 | `message_field_x.field_a` through `message_field_x.field_e` | `NULL`                                            | Parent message isn't set.                                                               |
 | `message_field_y`                                           | `PROTO<SubMessage>{ field_a: "a" field_d: ["d"]}` | Parent message and child fields are set.                                                |
@@ -354,16 +398,20 @@ This field is useful for determining if a protocol buffer field has an explicit 
 
 Consider the following protocol buffer example, which has a field `country` . You can construct a query to determine if a `Customer` protocol buffer message has a value for the country field by using the virtual field `has_country` :
 
-    message ShippingAddress {
-      optional string name = 1;
-      optional string address = 2;
-      optional string country = 3;
-    }
+```
+message ShippingAddress {
+  optional string name = 1;
+  optional string address = 2;
+  optional string country = 3;
+}
+```
 
-    SELECT
-      c.Orders.shipping_address.has_country
-    FROM
-      Customer AS c;
+```
+SELECT
+  c.Orders.shipping_address.has_country
+FROM
+  Customer AS c;
+```
 
 If `has_country` is `TRUE` , that means the value for the `country` field has been explicitly set. If `has_country` is `FALSE` , that means the parent message `c.Orders.shipping_address` isn't `NULL` , but the `country` field hasn't been explicitly set. If `has_country` is `NULL` , that means the parent message `c.Orders.shipping_address` is `NULL` , and therefore `country` can't be considered either set or unset.
 
@@ -375,19 +423,21 @@ For more information about default field values, see [Default values and `NULL` 
 
 You can use an `EXISTS` subquery to scan inside a repeated field and check if any value exists with some desired property. For example, the following query returns the name of every customer who has placed an order for the product "Foo".
 
+```
+SELECT
+  C.Id
+FROM
+  Customers AS C
+WHERE
+  EXISTS(
     SELECT
-      C.Id
+      *
     FROM
-      Customers AS C
+      C.Orders.line_item AS item
     WHERE
-      EXISTS(
-        SELECT
-          *
-        FROM
-          C.Orders.line_item AS item
-        WHERE
-          item.product_name = 'Foo'
-      );
+      item.product_name = 'Foo'
+  );
+```
 
 ### Nullness and nested fields
 
@@ -395,41 +445,49 @@ A `PROTO` value may contain fields which are themselves `PROTO` s. When this hap
 
 Consider this example proto:
 
-    syntax = "proto2";
-    
-    package examples.package;
-    
-    message NestedMessage {
-      optional int64 value = 1;
-    }
-    
-    message OuterMessage {
-      optional NestedMessage nested = 1;
-    }
+```
+syntax = "proto2";
+
+package examples.package;
+
+message NestedMessage {
+  optional int64 value = 1;
+}
+
+message OuterMessage {
+  optional NestedMessage nested = 1;
+}
+```
 
 Running the following query returns a `5` for `value` because it is explicitly defined.
 
-    SELECT
-      proto_field.nested.value
-    FROM
-      (SELECT
-         CAST("nested { value: 5 }" AS examples.package.OuterMessage) AS proto_field);
+```
+SELECT
+  proto_field.nested.value
+FROM
+  (SELECT
+     CAST("nested { value: 5 }" AS examples.package.OuterMessage) AS proto_field);
+```
 
 If `value` isn't explicitly defined but `nested` is, you get a `0` because the annotation on the protocol buffer definition says to use default values.
 
-    SELECT
-      proto_field.nested.value
-    FROM
-      (SELECT
-         CAST("nested { }" AS examples.package.OuterMessage) AS proto_field);
+```
+SELECT
+  proto_field.nested.value
+FROM
+  (SELECT
+     CAST("nested { }" AS examples.package.OuterMessage) AS proto_field);
+```
 
 However, if `nested` isn't explicitly defined, you get a `NULL` even though the annotation says to use default values for the `value` field. This is because the containing message is `NULL` . This behavior applies to both repeated and non-repeated fields within a nested message.
 
-    SELECT
-      proto_field.nested.value
-    FROM
-      (SELECT
-         CAST("" AS examples.package.OuterMessage) AS proto_field);
+```
+SELECT
+  proto_field.nested.value
+FROM
+  (SELECT
+     CAST("" AS examples.package.OuterMessage) AS proto_field);
+```
 
 ## Protocol buffer fields as primary key
 
@@ -439,35 +497,41 @@ If you define a primary key on a protocol message field, you can't modify or rem
 
 The following is an example of a `Singers` table with a `SingerInfo` proto message column. You can define a primary key on the `id` field of the `PROTO` column by creating a stored generated column:
 
-    CREATE PROTO BUNDLE (example.music.SingerInfo, example.music.SingerInfo.Residence);
-    CREATE TABLE Singers (
-      SingerId INT64 NOT NULL AS (SingerInfo.id) STORED,
-      SingerInfo example.music.SingerInfo,
-      ...
-    ) PRIMARY KEY (SingerId);
+```
+CREATE PROTO BUNDLE (example.music.SingerInfo, example.music.SingerInfo.Residence);
+CREATE TABLE Singers (
+  SingerId INT64 NOT NULL AS (SingerInfo.id) STORED,
+  SingerInfo example.music.SingerInfo,
+  ...
+) PRIMARY KEY (SingerId);
+```
 
 It has the following definition of the `SingerInfo` proto type:
 
-    package example.music;
-    message SingerInfo {
-      optional int64     id          = 1;
-      optional string    name        = 2;
-      optional string    nationality = 3;
-      repeated Residence residence   = 4;
-    
-      message Residence {
-        required int64  start_year   = 1;
-        optional int64  end_year     = 2;
-        optional string city         = 3;
-        optional string country      = 4;
-      }
-    }
+```
+package example.music;
+message SingerInfo {
+  optional int64     id          = 1;
+  optional string    name        = 2;
+  optional string    nationality = 3;
+  repeated Residence residence   = 4;
+
+  message Residence {
+    required int64  start_year   = 1;
+    optional int64  end_year     = 2;
+    optional string city         = 3;
+    optional string country      = 4;
+  }
+}
+```
 
 The following SQL query reads data using the previous example:
 
-    SELECT s.SingerId, s.SingerInfo.name
-    FROM Singers AS s
-    WHERE s.SingerId = 34;
+```
+SELECT s.SingerId, s.SingerInfo.name
+FROM Singers AS s
+WHERE s.SingerId = 34;
+```
 
 ## Index protocol buffer fields
 

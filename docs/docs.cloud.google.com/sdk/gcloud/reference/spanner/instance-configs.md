@@ -12,7 +12,7 @@ gcloud spanner instance-configs - manage Cloud Spanner instance configs
 
 SYNOPSIS
 
-`gcloud spanner instance-configs` `  COMMAND  ` \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner instance-configs` [`COMMAND`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs#COMMAND) \[ [`GCLOUD_WIDE_FLAG`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs#GCLOUD-WIDE-FLAGS)` …` \]
 
 DESCRIPTION
 
@@ -20,29 +20,37 @@ Manage Cloud Spanner instance configs.
 
 GCLOUD WIDE FLAGS
 
-These flags are available to all commands: `  --help  ` .
+These flags are available to all commands: [`--help`](https://docs.cloud.google.com/sdk/gcloud/reference#--help) .
 
-Run ` $ gcloud help  ` for details.
+Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for details.
 
 COMMANDS
 
-`  COMMAND  ` is one of the following:
+`COMMAND` is one of the following:
 
-  - `  create  `  
-    Create a Cloud Spanner instance configuration.
-  - `  delete  `  
-    Delete a Cloud Spanner instance configuration.
-  - `  describe  `  
-    Describe a Cloud Spanner instance configuration.
-  - `  list  `  
-    List the available Cloud Spanner instance configurations.
-  - `  update  `  
-    Update a Cloud Spanner instance configuration.
+[`create`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs/create)  
+Create a Cloud Spanner instance configuration.
+
+[`delete`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs/delete)  
+Delete a Cloud Spanner instance configuration.
+
+[`describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs/describe)  
+Describe a Cloud Spanner instance configuration.
+
+[`list`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs/list)  
+List the available Cloud Spanner instance configurations.
+
+[`update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs/update)  
+Update a Cloud Spanner instance configuration.
 
 NOTES
 
 These variants are also available:
 
-    gcloud alpha spanner instance-configs
+```
+gcloud alpha spanner instance-configs
+```
 
-    gcloud beta spanner instance-configs
+```
+gcloud beta spanner instance-configs
+```

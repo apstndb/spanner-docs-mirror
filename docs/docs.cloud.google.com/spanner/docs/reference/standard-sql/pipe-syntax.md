@@ -14,97 +14,101 @@ For more background and details on pipe syntax design, see the research paper [S
 
 Pipe syntax has the following key characteristics:
 
-  - Each pipe operator in pipe syntax consists of the pipe symbol, `|>` , an operator name, and any arguments:  
-    `|> operator_name argument_list`
-  - Pipe operators can be added to the end of any valid query.
-  - Pipe syntax works anywhere standard syntax is supported: in queries, views, table-valued functions (TVFs), and other contexts.
-  - Pipe syntax can be mixed with standard syntax in the same query. For example, subqueries can use different syntax from the parent query.
-  - A pipe operator can see every alias that exists in the table preceding the pipe.
-  - A query can [start with a `FROM` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#from_queries) , and pipe operators can optionally be added after the `FROM` clause.
+- Each pipe operator in pipe syntax consists of the pipe symbol, `|>` , an operator name, and any arguments:  
+  `|> operator_name argument_list`
+- Pipe operators can be added to the end of any valid query.
+- Pipe syntax works anywhere standard syntax is supported: in queries, views, table-valued functions (TVFs), and other contexts.
+- Pipe syntax can be mixed with standard syntax in the same query. For example, subqueries can use different syntax from the parent query.
+- A pipe operator can see every alias that exists in the table preceding the pipe.
+- A query can [start with a `FROM` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#from_queries) , and pipe operators can optionally be added after the `FROM` clause.
 
 ### Query comparison
 
 Consider the following table called `Produce` :
 
-    CREATE TABLE Produce(
-      item STRING(MAX),
-      sales INT64,
-      category STRING(MAX),
-    ) PRIMARY KEY (item, sales);
-    
-    INSERT INTO Produce (item, sales, category) VALUES
-      ('apples', 2, 'fruit'),
-      ('carrots', 8, 'vegetable'),
-      ('apples', 7, 'fruit'),
-      ('bananas', 5, 'fruit');
-    
-    SELECT * FROM Produce;
-    
-    /*---------+-------+-----------+
-     | item    | sales | category  |
-     +---------+-------+-----------+
-     | apples  | 2     | fruit     |
-     | apples  | 7     | fruit     |
-     | bananas | 5     | fruit     |
-     | carrots | 8     | vegetable |
-     +---------+-------+-----------*/
-     ```
-    
-    Compare the following equivalent queries that compute the number and total
-    amount of sales for each item in the `Produce` table:
-    
-    **Standard syntax**
-    
-    ```googlesql
-    SELECT item, COUNT(*) AS num_items, SUM(sales) AS total_sales
-    FROM Produce
-    WHERE
-      item != 'bananas'
-      AND category IN ('fruit', 'nut')
-    GROUP BY item
-    ORDER BY item DESC;
-    
-    /*--------+-----------+-------------+
-     | item   | num_items | total_sales |
-     +--------+-----------+-------------+
-     | apples | 2         | 9           |
-     +--------+-----------+-------------*/
+````
+CREATE TABLE Produce(
+  item STRING(MAX),
+  sales INT64,
+  category STRING(MAX),
+) PRIMARY KEY (item, sales);
+
+INSERT INTO Produce (item, sales, category) VALUES
+  ('apples', 2, 'fruit'),
+  ('carrots', 8, 'vegetable'),
+  ('apples', 7, 'fruit'),
+  ('bananas', 5, 'fruit');
+
+SELECT * FROM Produce;
+
+/*---------+-------+-----------+
+ | item    | sales | category  |
+ +---------+-------+-----------+
+ | apples  | 2     | fruit     |
+ | apples  | 7     | fruit     |
+ | bananas | 5     | fruit     |
+ | carrots | 8     | vegetable |
+ +---------+-------+-----------*/
+ ```
+
+Compare the following equivalent queries that compute the number and total
+amount of sales for each item in the `Produce` table:
+
+**Standard syntax**
+
+```googlesql
+SELECT item, COUNT(*) AS num_items, SUM(sales) AS total_sales
+FROM Produce
+WHERE
+  item != 'bananas'
+  AND category IN ('fruit', 'nut')
+GROUP BY item
+ORDER BY item DESC;
+
+/*--------+-----------+-------------+
+ | item   | num_items | total_sales |
+ +--------+-----------+-------------+
+ | apples | 2         | 9           |
+ +--------+-----------+-------------*/
+````
 
 **Pipe syntax**
 
-    FROM Produce
-    |> WHERE
-        item != 'bananas'
-        AND category IN ('fruit', 'nut')
-    |> AGGREGATE COUNT(*) AS num_items, SUM(sales) AS total_sales
-       GROUP BY item
-    |> ORDER BY item DESC;
-    
-    /*--------+-----------+-------------+
-     | item   | num_items | total_sales |
-     +--------+-----------+-------------+
-     | apples | 2         | 9           |
-     +--------+-----------+-------------*/
+```
+FROM Produce
+|> WHERE
+    item != 'bananas'
+    AND category IN ('fruit', 'nut')
+|> AGGREGATE COUNT(*) AS num_items, SUM(sales) AS total_sales
+   GROUP BY item
+|> ORDER BY item DESC;
+
+/*--------+-----------+-------------+
+ | item   | num_items | total_sales |
+ +--------+-----------+-------------+
+ | apples | 2         | 9           |
+ +--------+-----------+-------------*/
+```
 
 ## Pipe operator semantics
 
 Pipe operators have the following semantic behavior:
 
-  - Each pipe operator performs a self-contained operation.
-  - A pipe operator consumes the input table passed to it through the pipe symbol, `|>` , and produces a new table as output.
-  - A pipe operator can reference only columns from its immediate input table. Columns from earlier in the same query aren't visible. Inside subqueries, correlated references to outer columns are still allowed.
+- Each pipe operator performs a self-contained operation.
+- A pipe operator consumes the input table passed to it through the pipe symbol, `|>` , and produces a new table as output.
+- A pipe operator can reference only columns from its immediate input table. Columns from earlier in the same query aren't visible. Inside subqueries, correlated references to outer columns are still allowed.
 
 ### Order preservation
 
 The following operators preserve row order if the input table is ordered:
 
-  - [`SELECT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#select_pipe_operator) (except when using `SELECT DISTINCT` or window functions)
-  - [`EXTEND`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#extend_pipe_operator) (except when using window functions)
-  - [`SET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#set_pipe_operator) (except when using window functions)
-  - [`DROP`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#drop_pipe_operator)
-  - [`RENAME`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#rename_pipe_operator)
-  - [`AS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#as_pipe_operator)
-  - [`LIMIT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#limit_pipe_operator)
+- [`SELECT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#select_pipe_operator) (except when using `SELECT DISTINCT` or window functions)
+- [`EXTEND`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#extend_pipe_operator) (except when using window functions)
+- [`SET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#set_pipe_operator) (except when using window functions)
+- [`DROP`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#drop_pipe_operator)
+- [`RENAME`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#rename_pipe_operator)
+- [`AS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#as_pipe_operator)
+- [`LIMIT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#limit_pipe_operator)
 
 When you use these operators after an [`ORDER BY` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#order_by_pipe_operator) , the result remains ordered. Additionally, if a [`LIMIT` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#limit_pipe_operator) follows an order-preserving operator, the query computes the top rows based on that order.
 
@@ -118,30 +122,34 @@ A query with only a `FROM` clause, like `FROM table_name` , is allowed in pipe s
 
 The following queries use the [`Produce` table](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#query_comparison) :
 
-    FROM Produce;
-    
-    /*---------+-------+-----------+
-     | item    | sales | category  |
-     +---------+-------+-----------+
-     | apples  | 2     | fruit     |
-     | apples  | 7     | fruit     |
-     | bananas | 5     | fruit     |
-     | carrots | 8     | vegetable |
-     +---------+-------+-----------*/
+```
+FROM Produce;
 
-    -- Join tables in the FROM clause and then apply pipe operators.
-    FROM
-      Produce AS p1
-      JOIN Produce AS p2
-        USING (item)
-    |> WHERE item = 'bananas'
-    |> SELECT p1.item, p2.sales;
-    
-    /*---------+-------+
-     | item    | sales |
-     +---------+-------+
-     | bananas | 5     |
-     +---------+-------*/
+/*---------+-------+-----------+
+ | item    | sales | category  |
+ +---------+-------+-----------+
+ | apples  | 2     | fruit     |
+ | apples  | 7     | fruit     |
+ | bananas | 5     | fruit     |
+ | carrots | 8     | vegetable |
+ +---------+-------+-----------*/
+```
+
+```
+-- Join tables in the FROM clause and then apply pipe operators.
+FROM
+  Produce AS p1
+  JOIN Produce AS p2
+    USING (item)
+|> WHERE item = 'bananas'
+|> SELECT p1.item, p2.sales;
+
+/*---------+-------+
+ | item    | sales |
+ +---------+-------+
+ | bananas | 5     |
+ +---------+-------*/
+```
 
 ## Pipe operators
 
@@ -150,7 +158,7 @@ GoogleSQL supports the following pipe operators. For operators that correspond o
 ### Pipe operator list
 
 | Name                                                                                                                     | Summary                                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|--------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [`SELECT`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#select_pipe_operator)           | Produces a new table with the listed columns.                                                                                                                |
 | [`EXTEND`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#extend_pipe_operator)           | Propagates the existing table and adds computed columns.                                                                                                     |
 | [`SET`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#set_pipe_operator)                 | Replaces the values of columns in the input table.                                                                                                           |
@@ -169,7 +177,9 @@ GoogleSQL supports the following pipe operators. For operators that correspond o
 
 ### `SELECT` pipe operator
 
-    |> SELECT expression [[AS] alias] [, ...]
+```
+|> SELECT expression [[AS] alias] [, ...]
+```
 
 **Description**
 
@@ -181,25 +191,29 @@ In pipe syntax, the `SELECT` clause doesn't perform aggregation. Use the [`AGGRE
 
 For cases where `SELECT` would be used in standard syntax to rearrange columns, pipe syntax supports other operators:
 
-  - The [`EXTEND` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#extend_pipe_operator) adds columns.
-  - The [`SET` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#set_pipe_operator) updates the value of an existing column.
-  - The [`DROP` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#drop_pipe_operator) removes columns.
-  - The [`RENAME` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#rename_pipe_operator) renames columns.
+- The [`EXTEND` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#extend_pipe_operator) adds columns.
+- The [`SET` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#set_pipe_operator) updates the value of an existing column.
+- The [`DROP` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#drop_pipe_operator) removes columns.
+- The [`RENAME` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#rename_pipe_operator) renames columns.
 
 **Examples**
 
-    FROM (SELECT 'apples' AS item, 2 AS sales)
-    |> SELECT item AS fruit_name;
-    
-    /*------------+
-     | fruit_name |
-     +------------+
-     | apples     |
-     +------------*/
+```
+FROM (SELECT 'apples' AS item, 2 AS sales)
+|> SELECT item AS fruit_name;
+
+/*------------+
+ | fruit_name |
+ +------------+
+ | apples     |
+ +------------*/
+```
 
 ### `EXTEND` pipe operator
 
-    |> EXTEND expression [[AS] alias] [, ...]
+```
+|> EXTEND expression [[AS] alias] [, ...]
+```
 
 **Description**
 
@@ -207,23 +221,27 @@ Propagates the existing table and adds computed columns, similar to [`SELECT *, 
 
 **Examples**
 
-    (
-      SELECT 'apples' AS item, 2 AS sales
-      UNION ALL
-      SELECT 'bananas' AS item, 8 AS sales
-    )
-    |> EXTEND item IN ('bananas', 'lemons') AS is_yellow;
-    
-    /*---------+-------+------------+
-     | item    | sales | is_yellow  |
-     +---------+-------+------------+
-     | apples  | 2     | FALSE      |
-     | bananas | 8     | TRUE       |
-     +---------+-------+------------*/
+```
+(
+  SELECT 'apples' AS item, 2 AS sales
+  UNION ALL
+  SELECT 'bananas' AS item, 8 AS sales
+)
+|> EXTEND item IN ('bananas', 'lemons') AS is_yellow;
+
+/*---------+-------+------------+
+ | item    | sales | is_yellow  |
+ +---------+-------+------------+
+ | apples  | 2     | FALSE      |
+ | bananas | 8     | TRUE       |
+ +---------+-------+------------*/
+```
 
 ### `SET` pipe operator
 
-    |> SET column = expression [, ...]
+```
+|> SET column = expression [, ...]
+```
 
 **Description**
 
@@ -233,33 +251,39 @@ After a `SET` operation, the referenced top-level columns (like `x` ) are update
 
 **Example**
 
-    (
-      SELECT 1 AS x, 11 AS y
-      UNION ALL
-      SELECT 2 AS x, 22 AS y
-    )
-    |> SET x = x * x, y = 3;
-    
-    /*---+---+
-     | x | y |
-     +---+---+
-     | 1 | 3 |
-     | 4 | 3 |
-     +---+---*/
+```
+(
+  SELECT 1 AS x, 11 AS y
+  UNION ALL
+  SELECT 2 AS x, 22 AS y
+)
+|> SET x = x * x, y = 3;
 
-    FROM (SELECT 2 AS x, 3 AS y) AS t
-    |> SET x = x * x, y = 8
-    |> SELECT t.x AS original_x, x, y;
-    
-    /*------------+---+---+
-     | original_x | x | y |
-     +------------+---+---+
-     | 2          | 4 | 8 |
-     +------------+---+---*/
+/*---+---+
+ | x | y |
+ +---+---+
+ | 1 | 3 |
+ | 4 | 3 |
+ +---+---*/
+```
+
+```
+FROM (SELECT 2 AS x, 3 AS y) AS t
+|> SET x = x * x, y = 8
+|> SELECT t.x AS original_x, x, y;
+
+/*------------+---+---+
+ | original_x | x | y |
+ +------------+---+---+
+ | 2          | 4 | 8 |
+ +------------+---+---*/
+```
 
 ### `DROP` pipe operator
 
-    |> DROP column [, ...]
+```
+|> DROP column [, ...]
+```
 
 **Description**
 
@@ -269,28 +293,34 @@ After a `DROP` operation, the referenced top-level columns (like `x` ) are remov
 
 **Example**
 
-    SELECT 'apples' AS item, 2 AS sales, 'fruit' AS category
-    |> DROP sales, category;
-    
-    /*--------+
-     | item   |
-     +--------+
-     | apples |
-     +--------*/
+```
+SELECT 'apples' AS item, 2 AS sales, 'fruit' AS category
+|> DROP sales, category;
 
-    FROM (SELECT 1 AS x, 2 AS y) AS t
-    |> DROP x
-    |> SELECT t.x AS original_x, y;
-    
-    /*------------+---+
-     | original_x | y |
-     +------------+---+
-     | 1          | 2 |
-     +------------+---*/
+/*--------+
+ | item   |
+ +--------+
+ | apples |
+ +--------*/
+```
+
+```
+FROM (SELECT 1 AS x, 2 AS y) AS t
+|> DROP x
+|> SELECT t.x AS original_x, y;
+
+/*------------+---+
+ | original_x | y |
+ +------------+---+
+ | 1          | 2 |
+ +------------+---*/
+```
 
 ### `RENAME` pipe operator
 
-    |> RENAME old_column_name [AS] new_column_name [, ...]
+```
+|> RENAME old_column_name [AS] new_column_name [, ...]
+```
 
 **Description**
 
@@ -300,20 +330,24 @@ After a `RENAME` operation, the referenced top-level columns (like `x` ) are ren
 
 **Example**
 
-    SELECT 1 AS x, 2 AS y, 3 AS z
-    |> AS t
-    |> RENAME y AS renamed_y
-    |> SELECT *, t.y AS t_y;
-    
-    /*---+-----------+---+-----+
-     | x | renamed_y | z | t_y |
-     +---+-----------+---+-----+
-     | 1 | 2         | 3 | 2   |
-     +---+-----------+---+-----*/
+```
+SELECT 1 AS x, 2 AS y, 3 AS z
+|> AS t
+|> RENAME y AS renamed_y
+|> SELECT *, t.y AS t_y;
+
+/*---+-----------+---+-----+
+ | x | renamed_y | z | t_y |
+ +---+-----------+---+-----+
+ | 1 | 2         | 3 | 2   |
+ +---+-----------+---+-----*/
+```
 
 ### `AS` pipe operator
 
-    |> AS alias
+```
+|> AS alias
+```
 
 **Description**
 
@@ -323,28 +357,32 @@ The `AS` operator can be useful after operators like [`SELECT`](https://docs.clo
 
 **Example**
 
-    (
-      SELECT "000123" AS id, "apples" AS item, 2 AS sales
-      UNION ALL
-      SELECT "000456" AS id, "bananas" AS item, 5 AS sales
-    ) AS sales_table
-    |> AGGREGATE SUM(sales) AS total_sales GROUP BY id, item
-    -- AGGREGATE creates an output table, so the sales_table alias is now out of
-    -- scope. Add a t1 alias so the join can refer to its id column.
-    |> AS t1
-    |> JOIN (SELECT 456 AS id, "yellow" AS color) AS t2
-       ON CAST(t1.id AS INT64) = t2.id
-    |> SELECT t2.id, total_sales, color;
-    
-    /*-----+-------------+--------+
-     | id  | total_sales | color  |
-     +-----+-------------+--------+
-     | 456 | 5           | yellow |
-     +-----+-------------+--------*/
+```
+(
+  SELECT "000123" AS id, "apples" AS item, 2 AS sales
+  UNION ALL
+  SELECT "000456" AS id, "bananas" AS item, 5 AS sales
+) AS sales_table
+|> AGGREGATE SUM(sales) AS total_sales GROUP BY id, item
+-- AGGREGATE creates an output table, so the sales_table alias is now out of
+-- scope. Add a t1 alias so the join can refer to its id column.
+|> AS t1
+|> JOIN (SELECT 456 AS id, "yellow" AS color) AS t2
+   ON CAST(t1.id AS INT64) = t2.id
+|> SELECT t2.id, total_sales, color;
+
+/*-----+-------------+--------+
+ | id  | total_sales | color  |
+ +-----+-------------+--------+
+ | 456 | 5           | yellow |
+ +-----+-------------+--------*/
+```
 
 ### `WHERE` pipe operator
 
-    |> WHERE boolean_expression
+```
+|> WHERE boolean_expression
+```
 
 **Description**
 
@@ -354,36 +392,44 @@ In pipe syntax, the `WHERE` operator also replaces the [`HAVING` clause](https:/
 
 **Example**
 
-    (
-      SELECT 'apples' AS item, 2 AS sales
-      UNION ALL
-      SELECT 'bananas' AS item, 5 AS sales
-      UNION ALL
-      SELECT 'carrots' AS item, 8 AS sales
-    )
-    |> WHERE sales >= 3;
-    
-    /*---------+-------+
-     | item    | sales |
-     +---------+-------+
-     | bananas | 5     |
-     | carrots | 8     |
-     +---------+-------*/
+```
+(
+  SELECT 'apples' AS item, 2 AS sales
+  UNION ALL
+  SELECT 'bananas' AS item, 5 AS sales
+  UNION ALL
+  SELECT 'carrots' AS item, 8 AS sales
+)
+|> WHERE sales >= 3;
+
+/*---------+-------+
+ | item    | sales |
+ +---------+-------+
+ | bananas | 5     |
+ | carrots | 8     |
+ +---------+-------*/
+```
 
 ### `AGGREGATE` pipe operator
 
-    -- Full-table aggregation
-    |> AGGREGATE aggregate_expression [[AS] alias] [, ...]
+```
+-- Full-table aggregation
+|> AGGREGATE aggregate_expression [[AS] alias] [, ...]
+```
 
-    -- Aggregation with grouping
-    |> AGGREGATE [aggregate_expression [[AS] alias] [, ...]]
-       GROUP BY groupable_items [[AS] alias] [, ...]
+```
+-- Aggregation with grouping
+|> AGGREGATE [aggregate_expression [[AS] alias] [, ...]]
+   GROUP BY groupable_items [[AS] alias] [, ...]
+```
 
-    -- Aggregation with grouping and shorthand ordering syntax
-    |> AGGREGATE [aggregate_expression [[AS] alias] [order_suffix] [, ...]]
-       GROUP [AND ORDER] BY groupable_item [[AS] alias] [order_suffix] [, ...]
-    
-    order_suffix: {ASC | DESC}
+```
+-- Aggregation with grouping and shorthand ordering syntax
+|> AGGREGATE [aggregate_expression [[AS] alias] [order_suffix] [, ...]]
+   GROUP [AND ORDER] BY groupable_item [[AS] alias] [order_suffix] [, ...]
+
+order_suffix: {ASC | DESC}
+```
 
 **Description**
 
@@ -405,63 +451,73 @@ Because output columns are fully specified by the `AGGREGATE` operator, the `SEL
 
 **Standard syntax**
 
-    -- Aggregation in standard syntax
-    SELECT SUM(col1) AS total, col2, col3, col4...
-    FROM table1
-    GROUP BY col2, col3, col4...
+```
+-- Aggregation in standard syntax
+SELECT SUM(col1) AS total, col2, col3, col4...
+FROM table1
+GROUP BY col2, col3, col4...
+```
 
 **Pipe syntax**
 
-    -- The same aggregation in pipe syntax
-    FROM table1
-    |> AGGREGATE SUM(col1) AS total
-       GROUP BY col2, col3, col4...
+```
+-- The same aggregation in pipe syntax
+FROM table1
+|> AGGREGATE SUM(col1) AS total
+   GROUP BY col2, col3, col4...
+```
 
 **Examples**
 
-    -- Full-table aggregation
-    (
-      SELECT 'apples' AS item, 2 AS sales
-      UNION ALL
-      SELECT 'bananas' AS item, 5 AS sales
-      UNION ALL
-      SELECT 'apples' AS item, 7 AS sales
-    )
-    |> AGGREGATE COUNT(*) AS num_items, SUM(sales) AS total_sales;
-    
-    /*-----------+-------------+
-     | num_items | total_sales |
-     +-----------+-------------+
-     | 3         | 14          |
-     +-----------+-------------*/
+```
+-- Full-table aggregation
+(
+  SELECT 'apples' AS item, 2 AS sales
+  UNION ALL
+  SELECT 'bananas' AS item, 5 AS sales
+  UNION ALL
+  SELECT 'apples' AS item, 7 AS sales
+)
+|> AGGREGATE COUNT(*) AS num_items, SUM(sales) AS total_sales;
 
-    -- Aggregation with grouping
-    (
-      SELECT 'apples' AS item, 2 AS sales
-      UNION ALL
-      SELECT 'bananas' AS item, 5 AS sales
-      UNION ALL
-      SELECT 'apples' AS item, 7 AS sales
-    )
-    |> AGGREGATE COUNT(*) AS num_items, SUM(sales) AS total_sales
-       GROUP BY item;
-    
-    /*---------+-----------+-------------+
-     | item    | num_items | total_sales |
-     +---------+-----------+-------------+
-     | apples  | 2         | 9           |
-     | bananas | 1         | 5           |
-     +---------+-----------+-------------*/
+/*-----------+-------------+
+ | num_items | total_sales |
+ +-----------+-------------+
+ | 3         | 14          |
+ +-----------+-------------*/
+```
+
+```
+-- Aggregation with grouping
+(
+  SELECT 'apples' AS item, 2 AS sales
+  UNION ALL
+  SELECT 'bananas' AS item, 5 AS sales
+  UNION ALL
+  SELECT 'apples' AS item, 7 AS sales
+)
+|> AGGREGATE COUNT(*) AS num_items, SUM(sales) AS total_sales
+   GROUP BY item;
+
+/*---------+-----------+-------------+
+ | item    | num_items | total_sales |
+ +---------+-----------+-------------+
+ | apples  | 2         | 9           |
+ | bananas | 1         | 5           |
+ +---------+-----------+-------------*/
+```
 
 #### Shorthand ordering syntax with `AGGREGATE`
 
 The `AGGREGATE` operator supports a shorthand ordering syntax, which is equivalent to applying the [`ORDER BY` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#order_by_pipe_operator) as part of the `AGGREGATE` operator without repeating the column list:
 
-    -- Aggregation with grouping and shorthand ordering syntax
-    |> AGGREGATE [aggregate_expression [[AS] alias] [order_suffix] [, ...]]
-       GROUP [AND ORDER] BY groupable_item [[AS] alias] [order_suffix] [, ...]
-    
-    order_suffix: {ASC | DESC}
+```
+-- Aggregation with grouping and shorthand ordering syntax
+|> AGGREGATE [aggregate_expression [[AS] alias] [order_suffix] [, ...]]
+   GROUP [AND ORDER] BY groupable_item [[AS] alias] [order_suffix] [, ...]
+
+order_suffix: {ASC | DESC}
+```
 
 The `GROUP AND ORDER BY` clause is equivalent to an `ORDER BY` clause on all `groupable_items` . By default, each `groupable_item` is sorted in ascending order with `NULL` values first. Other ordering suffixes like `DESC` can be used for other orders.
 
@@ -473,61 +529,73 @@ Adding these suffixes is equivalent to adding an `ORDER BY` clause that includes
 
 Consider the following table called `Produce` :
 
-    /*---------+-------+-----------+
-     | item    | sales | category  |
-     +---------+-------+-----------+
-     | apples  | 2     | fruit     |
-     | carrots | 8     | vegetable |
-     | apples  | 7     | fruit     |
-     | bananas | 5     | fruit     |
-     +---------+-------+-----------*/
+```
+/*---------+-------+-----------+
+ | item    | sales | category  |
+ +---------+-------+-----------+
+ | apples  | 2     | fruit     |
+ | carrots | 8     | vegetable |
+ | apples  | 7     | fruit     |
+ | bananas | 5     | fruit     |
+ +---------+-------+-----------*/
+```
 
 The following two equivalent examples show you how to order by all grouping columns using the `GROUP AND ORDER BY` clause or a separate `ORDER BY` clause:
 
-    -- Order by all grouping columns using GROUP AND ORDER BY.
-    FROM Produce
-    |> AGGREGATE SUM(sales) AS total_sales
-       GROUP AND ORDER BY category, item DESC;
-    
-    /*-----------+---------+-------------+
-     | category  | item    | total_sales |
-     +-----------+---------+-------------+
-     | fruit     | bananas | 5           |
-     | fruit     | apples  | 9           |
-     | vegetable | carrots | 8           |
-     +-----------+---------+-------------*/
+```
+-- Order by all grouping columns using GROUP AND ORDER BY.
+FROM Produce
+|> AGGREGATE SUM(sales) AS total_sales
+   GROUP AND ORDER BY category, item DESC;
 
-    --Order by columns using ORDER BY after performing aggregation.
-    FROM Produce
-    |> AGGREGATE SUM(sales) AS total_sales
-       GROUP BY category, item
-    |> ORDER BY category, item DESC;
+/*-----------+---------+-------------+
+ | category  | item    | total_sales |
+ +-----------+---------+-------------+
+ | fruit     | bananas | 5           |
+ | fruit     | apples  | 9           |
+ | vegetable | carrots | 8           |
+ +-----------+---------+-------------*/
+```
+
+```
+--Order by columns using ORDER BY after performing aggregation.
+FROM Produce
+|> AGGREGATE SUM(sales) AS total_sales
+   GROUP BY category, item
+|> ORDER BY category, item DESC;
+```
 
 You can add an ordering suffix to a column in the `AGGREGATE` list. Although the `AGGREGATE` list appears before the `GROUP BY` list in the query, ordering suffixes on columns in the `GROUP BY` list are applied first.
 
-    FROM Produce
-    |> AGGREGATE SUM(sales) AS total_sales ASC
-       GROUP BY item, category DESC;
-    
-    /*---------+-----------+-------------+
-     | item    | category  | total_sales |
-     +---------+-----------+-------------+
-     | carrots | vegetable | 8           |
-     | bananas | fruit     | 5           |
-     | apples  | fruit     | 9           |
-     +---------+-----------+-------------*/
+```
+FROM Produce
+|> AGGREGATE SUM(sales) AS total_sales ASC
+   GROUP BY item, category DESC;
+
+/*---------+-----------+-------------+
+ | item    | category  | total_sales |
+ +---------+-----------+-------------+
+ | carrots | vegetable | 8           |
+ | bananas | fruit     | 5           |
+ | apples  | fruit     | 9           |
+ +---------+-----------+-------------*/
+```
 
 The previous query is equivalent to the following:
 
-    -- Order by specified grouping and aggregate columns.
-    FROM Produce
-    |> AGGREGATE SUM(sales) AS total_sales
-       GROUP BY item, category
-    |> ORDER BY category DESC, total_sales;
+```
+-- Order by specified grouping and aggregate columns.
+FROM Produce
+|> AGGREGATE SUM(sales) AS total_sales
+   GROUP BY item, category
+|> ORDER BY category DESC, total_sales;
+```
 
 ### `JOIN` pipe operator
 
-    |> [join_type] JOIN from_item [[AS] alias] [{on_clause | using_clause}]
+```
+|> [join_type] JOIN from_item [[AS] alias] [{on_clause | using_clause}]
+```
 
 **Description**
 
@@ -537,29 +605,33 @@ An alias can be assigned to the input table on the right side of the join, but n
 
 **Example**
 
-    (
-      SELECT 'apples' AS item, 2 AS sales
-      UNION ALL
-      SELECT 'bananas' AS item, 5 AS sales
-    )
-    |> AS produce_sales
-    |> LEFT JOIN
-         (
-           SELECT "apples" AS item, 123 AS id
-         ) AS produce_data
-       ON produce_sales.item = produce_data.item
-    |> SELECT produce_sales.item, sales, id;
-    
-    /*---------+-------+------+
-     | item    | sales | id   |
-     +---------+-------+------+
-     | apples  | 2     | 123  |
-     | bananas | 5     | NULL |
-     +---------+-------+------*/
+```
+(
+  SELECT 'apples' AS item, 2 AS sales
+  UNION ALL
+  SELECT 'bananas' AS item, 5 AS sales
+)
+|> AS produce_sales
+|> LEFT JOIN
+     (
+       SELECT "apples" AS item, 123 AS id
+     ) AS produce_data
+   ON produce_sales.item = produce_data.item
+|> SELECT produce_sales.item, sales, id;
+
+/*---------+-------+------+
+ | item    | sales | id   |
+ +---------+-------+------+
+ | apples  | 2     | 123  |
+ | bananas | 5     | NULL |
+ +---------+-------+------*/
+```
 
 ### `ORDER BY` pipe operator
 
-    |> ORDER BY expression [sort_options] [, ...]
+```
+|> ORDER BY expression [sort_options] [, ...]
+```
 
 **Description**
 
@@ -569,26 +641,30 @@ In pipe syntax, the [`AGGREGATE` operator](https://docs.cloud.google.com/spanner
 
 **Example**
 
-    (
-      SELECT 1 AS x
-      UNION ALL
-      SELECT 3 AS x
-      UNION ALL
-      SELECT 2 AS x
-    )
-    |> ORDER BY x DESC;
-    
-    /*---+
-     | x |
-     +---+
-     | 3 |
-     | 2 |
-     | 1 |
-     +---*/
+```
+(
+  SELECT 1 AS x
+  UNION ALL
+  SELECT 3 AS x
+  UNION ALL
+  SELECT 2 AS x
+)
+|> ORDER BY x DESC;
+
+/*---+
+ | x |
+ +---+
+ | 3 |
+ | 2 |
+ | 1 |
+ +---*/
+```
 
 ### `LIMIT` pipe operator
 
-    |> LIMIT count [OFFSET skip_rows]
+```
+|> LIMIT count [OFFSET skip_rows]
+```
 
 **Description**
 
@@ -596,42 +672,48 @@ Limits the number of rows to return in a query, with an optional `OFFSET` clause
 
 **Examples**
 
-    (
-      SELECT 'apples' AS item, 2 AS sales
-      UNION ALL
-      SELECT 'bananas' AS item, 5 AS sales
-      UNION ALL
-      SELECT 'carrots' AS item, 8 AS sales
-    )
-    |> ORDER BY item
-    |> LIMIT 1;
-    
-    /*---------+-------+
-     | item    | sales |
-     +---------+-------+
-     | apples  | 2     |
-     +---------+-------*/
+```
+(
+  SELECT 'apples' AS item, 2 AS sales
+  UNION ALL
+  SELECT 'bananas' AS item, 5 AS sales
+  UNION ALL
+  SELECT 'carrots' AS item, 8 AS sales
+)
+|> ORDER BY item
+|> LIMIT 1;
 
-    (
-      SELECT 'apples' AS item, 2 AS sales
-      UNION ALL
-      SELECT 'bananas' AS item, 5 AS sales
-      UNION ALL
-      SELECT 'carrots' AS item, 8 AS sales
-    )
-    |> ORDER BY item
-    |> LIMIT 1 OFFSET 2;
-    
-    /*---------+-------+
-     | item    | sales |
-     +---------+-------+
-     | carrots | 8     |
-     +---------+-------*/
+/*---------+-------+
+ | item    | sales |
+ +---------+-------+
+ | apples  | 2     |
+ +---------+-------*/
+```
+
+```
+(
+  SELECT 'apples' AS item, 2 AS sales
+  UNION ALL
+  SELECT 'bananas' AS item, 5 AS sales
+  UNION ALL
+  SELECT 'carrots' AS item, 8 AS sales
+)
+|> ORDER BY item
+|> LIMIT 1 OFFSET 2;
+
+/*---------+-------+
+ | item    | sales |
+ +---------+-------+
+ | carrots | 8     |
+ +---------+-------*/
+```
 
 ### `UNION` pipe operator
 
-    query
-    |> UNION {ALL | DISTINCT} (query) [, (query), ...]
+```
+query
+|> UNION {ALL | DISTINCT} (query) [, (query), ...]
+```
 
 **Description**
 
@@ -641,63 +723,73 @@ The `UNION` pipe operator behaves the same as the [`UNION` set operator](https:/
 
 For example, compare the following equivalent queries:
 
-    -- Standard syntax
-    SELECT * FROM ...
-    UNION ALL
-    SELECT 1
-    UNION ALL
-    SELECT 2;
-    
-    -- Pipe syntax
-    SELECT * FROM ...
-    |> UNION ALL
-        (SELECT 1),
-        (SELECT 2);
+```
+-- Standard syntax
+SELECT * FROM ...
+UNION ALL
+SELECT 1
+UNION ALL
+SELECT 2;
+
+-- Pipe syntax
+SELECT * FROM ...
+|> UNION ALL
+    (SELECT 1),
+    (SELECT 2);
+```
 
 **Examples**
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3]) AS number
-    |> UNION ALL (SELECT 1);
-    
-    /*--------+
-     | number |
-     +--------+
-     | 1      |
-     | 2      |
-     | 3      |
-     | 1      |
-     +--------*/
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3]) AS number
+|> UNION ALL (SELECT 1);
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3]) AS number
-    |> UNION DISTINCT (SELECT 1);
-    
-    /*--------+
-     | number |
-     +--------+
-     | 1      |
-     | 2      |
-     | 3      |
-     +--------*/
+/*--------+
+ | number |
+ +--------+
+ | 1      |
+ | 2      |
+ | 3      |
+ | 1      |
+ +--------*/
+```
+
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3]) AS number
+|> UNION DISTINCT (SELECT 1);
+
+/*--------+
+ | number |
+ +--------+
+ | 1      |
+ | 2      |
+ | 3      |
+ +--------*/
+```
 
 The following example shows multiple input queries to the right of the pipe operator:
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3]) AS number
-    |> UNION DISTINCT
-        (SELECT 1),
-        (SELECT 2);
-    
-    /*--------+
-     | number |
-     +--------+
-     | 1      |
-     | 2      |
-     | 3      |
-     +--------*/
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3]) AS number
+|> UNION DISTINCT
+    (SELECT 1),
+    (SELECT 2);
+
+/*--------+
+ | number |
+ +--------+
+ | 1      |
+ | 2      |
+ | 3      |
+ +--------*/
+```
 
 ### `INTERSECT` pipe operator
 
-    query
-    |> INTERSECT {ALL | DISTINCT} (query) [, (query), ...]
+```
+query
+|> INTERSECT {ALL | DISTINCT} (query) [, (query), ...]
+```
 
 **Description**
 
@@ -707,61 +799,71 @@ The `INTERSECT` pipe operator behaves the same as the [`INTERSECT` set operator]
 
 For example, compare the following equivalent queries:
 
-    -- Standard syntax
-    SELECT * FROM ...
-    INTERSECT ALL
-    SELECT 1
-    INTERSECT ALL
-    SELECT 2;
-    
-    -- Pipe syntax
-    SELECT * FROM ...
-    |> INTERSECT ALL
-        (SELECT 1),
-        (SELECT 2);
+```
+-- Standard syntax
+SELECT * FROM ...
+INTERSECT ALL
+SELECT 1
+INTERSECT ALL
+SELECT 2;
+
+-- Pipe syntax
+SELECT * FROM ...
+|> INTERSECT ALL
+    (SELECT 1),
+    (SELECT 2);
+```
 
 **Examples**
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
-    |> INTERSECT ALL
-        (SELECT * FROM UNNEST(ARRAY<INT64>[2, 3, 3, 5]) AS number);
-    
-    /*--------+
-     | number |
-     +--------+
-     | 2      |
-     | 3      |
-     | 3      |
-     +--------*/
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
+|> INTERSECT ALL
+    (SELECT * FROM UNNEST(ARRAY<INT64>[2, 3, 3, 5]) AS number);
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
-    |> INTERSECT DISTINCT
-        (SELECT * FROM UNNEST(ARRAY<INT64>[2, 3, 3, 5]) AS number);
-    
-    /*--------+
-     | number |
-     +--------+
-     | 2      |
-     | 3      |
-     +--------*/
+/*--------+
+ | number |
+ +--------+
+ | 2      |
+ | 3      |
+ | 3      |
+ +--------*/
+```
+
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
+|> INTERSECT DISTINCT
+    (SELECT * FROM UNNEST(ARRAY<INT64>[2, 3, 3, 5]) AS number);
+
+/*--------+
+ | number |
+ +--------+
+ | 2      |
+ | 3      |
+ +--------*/
+```
 
 The following example shows multiple input queries to the right of the pipe operator:
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
-    |> INTERSECT DISTINCT
-        (SELECT * FROM UNNEST(ARRAY<INT64>[2, 3, 3, 5]) AS number),
-        (SELECT * FROM UNNEST(ARRAY<INT64>[3, 3, 4, 5]) AS number);
-    
-    /*--------+
-     | number |
-     +--------+
-     | 3      |
-     +--------*/
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
+|> INTERSECT DISTINCT
+    (SELECT * FROM UNNEST(ARRAY<INT64>[2, 3, 3, 5]) AS number),
+    (SELECT * FROM UNNEST(ARRAY<INT64>[3, 3, 4, 5]) AS number);
+
+/*--------+
+ | number |
+ +--------+
+ | 3      |
+ +--------*/
+```
 
 ### `EXCEPT` pipe operator
 
-    query
-    |> EXCEPT {ALL | DISTINCT} (query) [, (query), ...]
+```
+query
+|> EXCEPT {ALL | DISTINCT} (query) [, (query), ...]
+```
 
 **Description**
 
@@ -771,108 +873,122 @@ The `EXCEPT` pipe operator behaves the same as the [`EXCEPT` set operator](https
 
 For example, compare the following equivalent queries:
 
-    -- Standard syntax
-    SELECT * FROM ...
-    EXCEPT ALL
-    SELECT 1
-    EXCEPT ALL
-    SELECT 2;
-    
-    -- Pipe syntax
-    SELECT * FROM ...
-    |> EXCEPT ALL
-        (SELECT 1),
-        (SELECT 2);
+```
+-- Standard syntax
+SELECT * FROM ...
+EXCEPT ALL
+SELECT 1
+EXCEPT ALL
+SELECT 2;
+
+-- Pipe syntax
+SELECT * FROM ...
+|> EXCEPT ALL
+    (SELECT 1),
+    (SELECT 2);
+```
 
 Parentheses can be used to group set operations and control order of operations. In `EXCEPT` set operations, query results can vary depending on the operation grouping.
 
-    -- Default operation grouping
-    (
-      SELECT * FROM ...
-      EXCEPT ALL
-      SELECT 1
-    )
-    EXCEPT ALL
-    SELECT 2;
-    
-    -- Modified operation grouping
-    SELECT * FROM ...
-    EXCEPT ALL
-    (
-      SELECT 1
-      EXCEPT ALL
-      SELECT 2
-    );
-    
-    -- Same modified operation grouping in pipe syntax
-    SELECT * FROM ...
-    |> EXCEPT ALL
-    (
-      SELECT 1
-      |> EXCEPT ALL (SELECT 2)
-    );
+```
+-- Default operation grouping
+(
+  SELECT * FROM ...
+  EXCEPT ALL
+  SELECT 1
+)
+EXCEPT ALL
+SELECT 2;
+
+-- Modified operation grouping
+SELECT * FROM ...
+EXCEPT ALL
+(
+  SELECT 1
+  EXCEPT ALL
+  SELECT 2
+);
+
+-- Same modified operation grouping in pipe syntax
+SELECT * FROM ...
+|> EXCEPT ALL
+(
+  SELECT 1
+  |> EXCEPT ALL (SELECT 2)
+);
+```
 
 **Examples**
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
-    |> EXCEPT ALL
-        (SELECT * FROM UNNEST(ARRAY<INT64>[1, 2]) AS number)
-    |> ORDER BY number;
-    
-    /*--------+
-     | number |
-     +--------+
-     | 3      |
-     | 3      |
-     | 4      |
-     +--------*/
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
+|> EXCEPT ALL
+    (SELECT * FROM UNNEST(ARRAY<INT64>[1, 2]) AS number)
+|> ORDER BY number;
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
-    |> EXCEPT DISTINCT
-        (SELECT * FROM UNNEST(ARRAY<INT64>[1, 2]) AS number)
-    |> ORDER BY number;
-    
-    /*--------+
-     | number |
-     +--------+
-     | 3      |
-     | 4      |
-     +--------*/
+/*--------+
+ | number |
+ +--------+
+ | 3      |
+ | 3      |
+ | 4      |
+ +--------*/
+```
+
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
+|> EXCEPT DISTINCT
+    (SELECT * FROM UNNEST(ARRAY<INT64>[1, 2]) AS number)
+|> ORDER BY number;
+
+/*--------+
+ | number |
+ +--------+
+ | 3      |
+ | 4      |
+ +--------*/
+```
 
 The following example shows multiple input queries to the right of the pipe operator:
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
-    |> EXCEPT DISTINCT
-        (SELECT * FROM UNNEST(ARRAY<INT64>[1, 2]) AS number),
-        (SELECT * FROM UNNEST(ARRAY<INT64>[1, 4]) AS number);
-    
-    /*--------+
-     | number |
-     +--------+
-     | 3      |
-     +--------*/
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
+|> EXCEPT DISTINCT
+    (SELECT * FROM UNNEST(ARRAY<INT64>[1, 2]) AS number),
+    (SELECT * FROM UNNEST(ARRAY<INT64>[1, 4]) AS number);
+
+/*--------+
+ | number |
+ +--------+
+ | 3      |
+ +--------*/
+```
 
 The following example groups the set operations to modify the order of operations. The first input query is used against the result of the last two queries instead of the values of the last two queries individually.
 
-    SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
-    |> EXCEPT DISTINCT
-    (
-      SELECT * FROM UNNEST(ARRAY<INT64>[1, 2]) AS number
-      |> EXCEPT DISTINCT
-          (SELECT * FROM UNNEST(ARRAY<INT64>[1, 4]) AS number)
-    ) |> ORDER BY number;
-    
-    /*--------+
-     | number |
-     +--------+
-     | 1      |
-     | 3      |
-     | 4      |
-     +--------*/
+```
+SELECT * FROM UNNEST(ARRAY<INT64>[1, 2, 3, 3, 4]) AS number
+|> EXCEPT DISTINCT
+(
+  SELECT * FROM UNNEST(ARRAY<INT64>[1, 2]) AS number
+  |> EXCEPT DISTINCT
+      (SELECT * FROM UNNEST(ARRAY<INT64>[1, 4]) AS number)
+) |> ORDER BY number;
+
+/*--------+
+ | number |
+ +--------+
+ | 1      |
+ | 3      |
+ | 4      |
+ +--------*/
+```
 
 ### `TABLESAMPLE` pipe operator
 
-    |> TABLESAMPLE sample_method (sample_size {PERCENT | ROWS}) [, ...]
+```
+|> TABLESAMPLE sample_method (sample_size {PERCENT | ROWS}) [, ...]
+```
 
 **Description**
 
@@ -882,5 +998,7 @@ Selects a random sample of rows from the input table. The `TABLESAMPLE` pipe ope
 
 The following example samples approximately 1% of data from a table called `LargeTable` :
 
-    FROM LargeTable
-    |> TABLESAMPLE SYSTEM (1 PERCENT);
+```
+FROM LargeTable
+|> TABLESAMPLE SYSTEM (1 PERCENT);
+```

@@ -24,29 +24,33 @@ If you set the inactivity duration to "24h", you can drop a schema object only i
 
 For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) .
 
-    gcloud spanner databases ddl update DATABASE_NAME \
-    --instance=INSTANCE_ID \
-    --ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_inactivity_period="DURATION" )'
+```
+gcloud spanner databases ddl update DATABASE_NAME \
+--instance=INSTANCE_ID \
+--ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_inactivity_period="DURATION" )'
+```
 
 Replace the following:
 
-  - DATABASE\_NAME : the name of your database.
-  - INSTANCE\_ID : the identifier of your database instance.
-  - DURATION : between "0s" (inclusive) and "7d" (inclusive). Recommended: "24h".
+- ` DATABASE_NAME ` : the name of your database.
+- ` INSTANCE_ID ` : the identifier of your database instance.
+- ` DURATION ` : between "0s" (inclusive) and "7d" (inclusive). Recommended: "24h".
 
 ### PostgreSQL
 
 For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
 
-    gcloud spanner databases ddl update DATABASE_NAME \
-    --instance=INSTANCE_ID \
-    --ddl='ALTER DATABASE `DATABASE_NAME" SET spanner.schema_drop_protection_inactivity_period="DURATION" '
+```
+gcloud spanner databases ddl update DATABASE_NAME \
+--instance=INSTANCE_ID \
+--ddl='ALTER DATABASE `DATABASE_NAME" SET spanner.schema_drop_protection_inactivity_period="DURATION" '
+```
 
 Replace the following:
 
-  - DATABASE\_NAME : the name of your database.
-  - INSTANCE\_ID : the identifier of your database instance.
-  - DURATION : between "0s" (inclusive) and "7d" (inclusive). Recommended: "24h".
+- ` DATABASE_NAME ` : the name of your database.
+- ` INSTANCE_ID ` : the identifier of your database instance.
+- ` DURATION ` : between "0s" (inclusive) and "7d" (inclusive). Recommended: "24h".
 
 ## Disable schema object drop protection
 
@@ -56,27 +60,31 @@ To disable drop protection, set the inactivity duration to a zero duration value
 
 For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) .
 
-    gcloud spanner databases ddl update DATABASE_NAME \
-    --instance=INSTANCE_ID \
-    --ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_inactivity_period=null )'
+```
+gcloud spanner databases ddl update DATABASE_NAME \
+--instance=INSTANCE_ID \
+--ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_inactivity_period=null )'
+```
 
 Replace the following:
 
-  - DATABASE\_NAME : the name of your database.
-  - INSTANCE\_ID : the identifier of your database instance.
+- ` DATABASE_NAME ` : the name of your database.
+- ` INSTANCE_ID ` : the identifier of your database instance.
 
 ### PostgreSQL
 
 For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
 
-    gcloud spanner databases ddl update DATABASE_NAME \
-    --instance=INSTANCE_ID \
-    --ddl='ALTER DATABASE `DATABASE_NAME` SET spanner.schema_drop_protection_inactivity_period=null'
+```
+gcloud spanner databases ddl update DATABASE_NAME \
+--instance=INSTANCE_ID \
+--ddl='ALTER DATABASE `DATABASE_NAME` SET spanner.schema_drop_protection_inactivity_period=null'
+```
 
 Replace the following:
 
-  - DATABASE\_NAME : the name of your database.
-  - INSTANCE\_ID : the identifier of your database instance.
+- ` DATABASE_NAME ` : the name of your database.
+- ` INSTANCE_ID ` : the identifier of your database instance.
 
 ## Caveats
 
@@ -87,7 +95,7 @@ Schema object drop protection isn't activated in the following scenarios:
 2.  The object has low-frequency read accesses (fewer than 10 per hour).
 
 3.  You created the schema object within the inactivity duration. This means that if a schema object was created more recently than the duration specified in `schema_drop_protection_inactivity_period` , it is not protected from deletion. For example, if `schema_drop_protection_inactivity_period` is `7d` , any table created in the last 7 days can be dropped even if it has been recently accessed.
-    
+
     This behavior facilitates testing: if protection applied to recently created objects, you would be unable to create, test, and immediately drop a temporary table, instead being forced to wait 7 days for the inactivity period to elapse before cleanup was possible.
 
 The default read access threshold is 10 per hour, but you can override the default using the following database option:
@@ -96,17 +104,21 @@ The default read access threshold is 10 per hour, but you can override the defau
 
 For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) .
 
-    gcloud spanner databases ddl update DATABASE_NAME \
-    --instance=INSTANCE_ID \
-    --ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_usage_lowerbound=<threshold> )'
+```
+gcloud spanner databases ddl update DATABASE_NAME \
+--instance=INSTANCE_ID \
+--ddl='ALTER DATABASE `DATABASE_NAME` SET OPTIONS ( schema_drop_protection_usage_lowerbound=<threshold> )'
+```
 
 ### PostgreSQL
 
 For more information, see [ALTER DATABASE](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) .
 
-    gcloud spanner databases ddl update DATABASE_NAME \
-    --instance=INSTANCE_ID \
-    --ddl='ALTER DATABASE `DATABASE_NAME` SET spanner.schema_drop_protection_usage_lowerbound=<threshold> '
+```
+gcloud spanner databases ddl update DATABASE_NAME \
+--instance=INSTANCE_ID \
+--ddl='ALTER DATABASE `DATABASE_NAME` SET spanner.schema_drop_protection_usage_lowerbound=<threshold> '
+```
 
 Access statistics aren't collected for the following cases:
 
@@ -119,8 +131,8 @@ Access statistics aren't collected for the following cases:
 
 If a schema object fails to drop and you can't identify what's accessing it, see the following:
 
-  - [Table operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics)
-  - [Column operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics)
+- [Table operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics)
+- [Column operations statistics](https://docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics)
 
 ## What's next
 

@@ -16,8 +16,8 @@ Spanner supports SQL queries and transactions with the ability to scale out hori
 
 Rows in a Spanner table are organized lexicographically by `PRIMARY KEY` . Conceptually, keys are ordered by the concatenation of the columns in the order that they are declared in the `PRIMARY KEY` clause. This exhibits all the standard properties of locality:
 
-  - Scanning the table in lexicographic order is efficient.
-  - Sufficiently close rows will be stored in the same disk blocks, and will be read and cached together.
+- Scanning the table in lexicographic order is efficient.
+- Sufficiently close rows will be stored in the same disk blocks, and will be read and cached together.
 
 Spanner replicates your data across multiple [zones](https://docs.cloud.google.com/docs/geography-and-regions) for availability and scale. Each zone holds a complete replica of your data. When you provision a Spanner instance node, you specify its [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) . The compute capacity is the amount of compute resource allocated to your instance in each of these zones. While each replica is a complete set of your data, data within a replica is partitioned across the compute resources in that zone.
 
@@ -33,8 +33,8 @@ Choosing which tables should be roots is an important decision in designing your
 
 ### Recommendations:
 
-  - Use a common key prefix for related rows in the same table to improve locality.
-  - Interleave related data into another table whenever it makes sense.
+- Use a common key prefix for related rows in the same table to improve locality.
+- Interleave related data into another table whenever it makes sense.
 
 ## Tradeoffs of locality
 
@@ -46,8 +46,8 @@ Note that some level of two-phase commit and non-local data operations are unavo
 
 ### Recommendations:
 
-  - Organize your data into hierarchies such that data read or written together tends to be nearby.
-  - Consider storing large columns in non-interleaved tables if less frequently accessed.
+- Organize your data into hierarchies such that data read or written together tends to be nearby.
+- Consider storing large columns in non-interleaved tables if less frequently accessed.
 
 ## Index options
 
@@ -57,14 +57,14 @@ Spanner stores index data in the same way as tables, with one row per index entr
 
 Interleaved indexes, by contrast, store data in interleaved tables. They are suitable when you are searching within the domain of a single entity. Interleaved indexes force data and index entries to remain in the same row tree, making joins between them far more efficient. Examples of uses for an interleaved index:
 
-  - Accessing your photos by various sort orders like taken date, last modified date, title, album, etc.
-  - Finding all your posts that have a particular set of tags.
-  - Finding my previous shopping orders that contained a specific item.
+- Accessing your photos by various sort orders like taken date, last modified date, title, album, etc.
+- Finding all your posts that have a particular set of tags.
+- Finding my previous shopping orders that contained a specific item.
 
 ### Recommendations:
 
-  - Use non-interleaved indexes when you need to find rows from anywhere in your database.
-  - Prefer interleaved indexes whenever your searches are scoped to a single entity.
+- Use non-interleaved indexes when you need to find rows from anywhere in your database.
+- Prefer interleaved indexes whenever your searches are scoped to a single entity.
 
 ## STORING index clause
 
@@ -76,25 +76,25 @@ Another useful application of `STORING` is as part of a `NULL_FILTERED` index. T
 
 ### Recommendations:
 
-  - Make prudent use of `STORING` to tradeoff read time performance against storage size and write time performance.
-  - Use `NULL_FILTERED` to control storage costs of sparse indexes.
+- Make prudent use of `STORING` to tradeoff read time performance against storage size and write time performance.
+- Use `NULL_FILTERED` to control storage costs of sparse indexes.
 
 ## Anti-patterns
 
 ### Anti-pattern: timestamp ordering
 
-Many schema designers are inclined to define a root table that is timestamp ordered, and updated on every write. Unfortunately, this is one of the least scalable things that you can do. The reason is that this design results in a huge **hot spot** at the end of the table that can't easily be mitigated. As write rates increase, so do RPCs to a single split, as do lock contention events and other problems. Often these sorts of problems don't appear in small load tests, and instead appear after the application has been in production for some time. By then, it's too late\!
+Many schema designers are inclined to define a root table that is timestamp ordered, and updated on every write. Unfortunately, this is one of the least scalable things that you can do. The reason is that this design results in a huge **hot spot** at the end of the table that can't easily be mitigated. As write rates increase, so do RPCs to a single split, as do lock contention events and other problems. Often these sorts of problems don't appear in small load tests, and instead appear after the application has been in production for some time. By then, it's too late!
 
 If your application absolutely must include a log that is timestamp ordered, consider if you can make the log local by interleaving it in one of your other root tables. This has the benefit of distributing the hot spot over many roots. But you still need to be careful that each distinct root has sufficiently low write rate.
 
 If you need a global (cross root) timestamp ordered table, and you need to support higher write rates to that table than a single node is capable of, use application-level *sharding* . Sharding a table means partitioning it into some number N of roughly equal divisions called shards. This is typically done by prefixing the original primary key with an additional `ShardId` column holding integer values between `[0, N)` . The `ShardId` for a given write is typically selected either at random, or by hashing a part of the base key. Hashing is often preferred because it can be used to ensure all records of a given type go into the same shard, improving performance of retrieval. Either way, the goal is to ensure that, over time, writes are distributed across all shards equally. This approach sometimes means that reads need to scan all shards to reconstruct the original total ordering of writes.
 
-<https://docs.cloud.google.com/spanner/docs/images/shards_for_parallelism.png>
+[![Illustration of shards for parallelism and rows in time order per shard](https://docs.cloud.google.com/spanner/docs/images/shards_for_parallelism.png)](https://docs.cloud.google.com/spanner/docs/images/shards_for_parallelism.png)
 
 #### Recommendations:
 
-  - Avoid high write-rate timestamp ordered tables and indexes **at all cost** .
-  - Use some technique to spread hot spots, be it interleaving in another table or sharding.
+- Avoid high write-rate timestamp ordered tables and indexes **at all cost** .
+- Use some technique to spread hot spots, be it interleaving in another table or sharding.
 
 ### Anti-pattern: sequences
 
@@ -106,5 +106,5 @@ If you want to generate numerical unique primary keys, aim to get the high order
 
 #### Recommendations:
 
-  - Avoid using incrementing sequence values as primary keys. Instead, bit-reverse a sequence value, or use a carefully chosen UUID.
-  - Use real-world values for primary keys rather than surrogate keys.
+- Avoid using incrementing sequence values as primary keys. Instead, bit-reverse a sequence value, or use a carefully chosen UUID.
+- Use real-world values for primary keys rather than surrogate keys.

@@ -14,14 +14,14 @@ The topics in this document apply to Spanner Omni in the same way they apply to 
 
 Vector search lets you find semantically similar items by representing data as numerical vectors (embeddings). Spanner Omni supports two primary search methods:
 
-  - **K-nearest neighbors (KNN)** : Performs an exact search by calculating the distance between the query and every vector in the dataset. It provides the highest recall but can be computationally expensive for large datasets.
+- **K-nearest neighbors (KNN)** : Performs an exact search by calculating the distance between the query and every vector in the dataset. It provides the highest recall but can be computationally expensive for large datasets.
 
-  - **Approximate nearest neighbors (ANN)** : Uses a vector index to find matches fast across large datasets. It trades a small amount of accuracy (recall) for gains in speed and scalability.
+- **Approximate nearest neighbors (ANN)** : Uses a vector index to find matches fast across large datasets. It trades a small amount of accuracy (recall) for gains in speed and scalability.
 
 Vector search is especially powerful when combined with other features:
 
 | Combination                      | Benefit                                                                                                                        |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+|----------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | Vector search with SQL filtering | Efficiently combine vector search with filters (for example, "Find similar images where category = 'shoes' and price \< 100"). |
 | Vector search + full-text search | Combine semantic similarity with keyword precision using reciprocal rank fusion (RRF) for improved search relevance.           |
 | Vector + graph                   | Use vector search to find relevant entry points (nodes) in a property graph and then traverse complex relationships.           |
@@ -34,11 +34,11 @@ Spanner Omni supports K-nearest neighbors (KNN) search using built-in distance f
 
 The following distance functions are available:
 
-  - `COSINE_DISTANCE()` : Measures the cosine of the angle between two vectors
+- `COSINE_DISTANCE()` : Measures the cosine of the angle between two vectors
 
-  - `EUCLIDEAN_DISTANCE()` : Measures the shortest straight-line distance between two vectors
+- `EUCLIDEAN_DISTANCE()` : Measures the shortest straight-line distance between two vectors
 
-  - `DOT_PRODUCT()` : Calculates the cosine of the angle multiplied by the product of vector magnitudes (ideal for normalized data)
+- `DOT_PRODUCT()` : Calculates the cosine of the angle multiplied by the product of vector magnitudes (ideal for normalized data)
 
 For more information, see [Perform vector similarity search by finding the K-nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors) in the Spanner documentation.
 
@@ -47,7 +47,7 @@ For more information, see [Perform vector similarity search by finding the K-nea
 Selecting the appropriate distance function depends on your data and the model used to generate embeddings.
 
 | Function           | Description                                                                                  | Relationship to increasing similarity |
-| ------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------- |
+|--------------------|----------------------------------------------------------------------------------------------|---------------------------------------|
 | Dot product        | Calculates the cosine of angle multiplied by the product of corresponding vector magnitudes. | Increases                             |
 | Cosine distance    | Measures the cosine of the angle between two vectors (1 - cosine similarity).                | Decreases                             |
 | Euclidean distance | Measures the straight line distance between two vectors.                                     | Decreases                             |
@@ -66,11 +66,11 @@ Without dedicated compute workers, ANN search in Spanner Omni supports datasets 
 
 To perform an ANN search, use approximate distance functions such as `APPROX_COSINE_DISTANCE()` , `APPROX_EUCLIDEAN_DISTANCE()` , or `APPROX_DOT_PRODUCT()` . These functions require:
 
-  - An existing vector index on the embedding column.
+- An existing vector index on the embedding column.
 
-  - An `ORDER BY` clause using the approximate distance function.
+- An `ORDER BY` clause using the approximate distance function.
 
-  - A `LIMIT` clause to specify the number of results.
+- A `LIMIT` clause to specify the number of results.
 
 For more information, see [Find approximate nearest neighbors (ANN) and query vector embeddings](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) in the Spanner documentation.
 
@@ -80,9 +80,11 @@ When creating a vector index, specify the `vector_length` of your embedding colu
 
 The following is an example of how to create a vector index:
 
-    CREATE VECTOR INDEX INDEX_NAME
-      ON TABLE_NAME(EMBEDDING_COLUMN)
-      OPTIONS (distance_type = 'DISTANCE_TYPE', tree_depth = 2, num_leaves = 1000);
+```
+CREATE VECTOR INDEX INDEX_NAME
+  ON TABLE_NAME(EMBEDDING_COLUMN)
+  OPTIONS (distance_type = 'DISTANCE_TYPE', tree_depth = 2, num_leaves = 1000);
+```
 
 For more information, see [Create and manage vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) in the Spanner documentation.
 
@@ -96,19 +98,21 @@ For large datasets—such as tables with tens of millions of rows or more—you 
 
 As a general guideline, aim for at least 50 sampled rows per leaf. For example, for a 10-million-row dataset with 10,000 leaves, a 5% sampling rate ( `clustering_sampling_percentage = 5` ) samples 500,000 rows, or 50 rows per leaf, as the following example shows:
 
-    CREATE VECTOR INDEX VectorIndex
-      ON BaseTable(Embedding)
-      WHERE Embedding IS NOT NULL
-      OPTIONS (
-        tree_depth = 3,
-        num_leaves = 10000,
-        num_branches = 100,
-        leaf_scatter_factor = 32,
-        distance_type = 'COSINE',
-        min_branch_splits = 10,
-        min_leaf_splits = 10,
-        clustering_sampling_percentage = 5
-      );
+```
+CREATE VECTOR INDEX VectorIndex
+  ON BaseTable(Embedding)
+  WHERE Embedding IS NOT NULL
+  OPTIONS (
+    tree_depth = 3,
+    num_leaves = 10000,
+    num_branches = 100,
+    leaf_scatter_factor = 32,
+    distance_type = 'COSINE',
+    min_branch_splits = 10,
+    min_leaf_splits = 10,
+    clustering_sampling_percentage = 5
+  );
+```
 
 Compared to building an index on the full dataset without sampling, sampling increases query latency and CPU usage per query for the same target recall. Increasing the sampling percentage increases index creation time, but reduces query latency and CPU cost per query. Choose a sampling percentage that balances index creation time and query performance based on the compute resources that are available for index creation.
 
@@ -116,10 +120,10 @@ Compared to building an index on the full dataset without sampling, sampling inc
 
 To maintain high search performance and recall:
 
-  - **Tune index options** : Adjust `num_leaves` and `num_leaves_to_search` based on your data size and performance requirements.
+- **Tune index options** : Adjust `num_leaves` and `num_leaves_to_search` based on your data size and performance requirements.
 
-  - **Rebuild periodically** : Rebuild your index if the distribution of your vectors changes significantly over time.
+- **Rebuild periodically** : Rebuild your index if the distribution of your vectors changes significantly over time.
 
-  - **Use filtering effectively** : Store frequently filtered columns in the index to improve search efficiency.
+- **Use filtering effectively** : Store frequently filtered columns in the index to improve search efficiency.
 
 For more information, see [Vector indexing best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) in the Spanner documentation.

@@ -20,9 +20,9 @@ Spanner builds the columnar representation in the background (as part of compact
 
 Workloads that would benefit from using columnar engine include the following:
 
-  - Operational reporting extracts up-to-the-second business intelligence from the latest operational data.
-  - Served analytics power dashboards and custom drill-downs with interactive latency.
-  - Federated analytics seamlessly combine data from Spanner and other sources in BigQuery.
+- Operational reporting extracts up-to-the-second business intelligence from the latest operational data.
+- Served analytics power dashboards and custom drill-downs with interactive latency.
+- Federated analytics seamlessly combine data from Spanner and other sources in BigQuery.
 
 [Spanner instance backups](https://docs.cloud.google.com/spanner/docs/backup) don't include the columnar format.
 
@@ -54,8 +54,8 @@ High write rates from updates or random inserts can affect the columnar engine's
 
 There are two techniques that you can use to isolate analytical queries from transactions:
 
-  - Use [directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) to route reads to read-only replicas.
-  - Use [Data Boost for federated queries](https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries) .
+- Use [directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) to route reads to read-only replicas.
+- Use [Data Boost for federated queries](https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries) .
 
 ## Pricing
 
@@ -65,6 +65,6 @@ Spanner columnar engine isn't impacted by the [8 bytes per cell overhead](https:
 
 ## What's next
 
-  - Learn how to [enable columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine) .
-  - Learn how to [query columnar data](https://docs.cloud.google.com/spanner/docs/query-columnar-data) .
-  - Learn how to [monitor columnar engine](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine) .
+- Learn how to [enable columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine) .
+- Learn how to [query columnar data](https://docs.cloud.google.com/spanner/docs/query-columnar-data) .
+- Learn how to [monitor columnar engine](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine) .

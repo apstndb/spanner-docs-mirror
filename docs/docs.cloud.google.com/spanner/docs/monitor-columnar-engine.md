@@ -10,8 +10,8 @@ data_source: docs.cloud.google.com
 
 This page describes how to monitor Spanner's columnar engine. You can monitor using:
 
-  - [The query execution plan](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine#columnar-data-query-plan)
-  - [Storage usage](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine#monitor-storage-usage) graphs in [system insights](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine#monitor-storage-usage)
+- [The query execution plan](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine#columnar-data-query-plan)
+- [Storage usage](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine#monitor-storage-usage) graphs in [system insights](https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine#monitor-storage-usage)
 
 ## View columnar data in the query plan
 
@@ -20,9 +20,9 @@ This page describes how to monitor Spanner's columnar engine. You can monitor us
 2.  View its [query plan](https://docs.cloud.google.com/spanner/docs/query-execution-plans) .
 
 3.  In the **Query summary** section of the query execution, check for the **Columnar read share** information.
-    
+
     The following image shows the **Columnar read share** percentage:
-    
+
     ![The \*\*Query summary\*\* shows the columnar read share percentage.](https://docs.cloud.google.com/static/spanner/docs/images/columnar-read-share.svg "image_tooltip")
 
 This metric shows the percentage of bytes read from columnar storage out of total bytes read from both row-based and columnar storage. A high percentage is optimal, while a low percentage suggests that much of the data remains unconverted to columnar format.
@@ -38,9 +38,9 @@ To view columnar data storage metrics:
 3.  Click **System insights** .
 
 4.  In the **Storage usage** section, you can see two new metrics:
-    
+
     **columnar storage - hdd** and **columnar storage - ssd** . These metrics show the columnar representation usage of HDD and SSD. The total storage metrics include both PAX and columnar data. You can see these metrics on storage usage graphs on the **System insights** page. For example:
-    
+
     ![The amount of columnar storage ssd.](https://docs.cloud.google.com/static/spanner/docs/images/columnar-storage.svg)
 
 ## Query and table operations statistics
@@ -49,6 +49,6 @@ To view columnar data storage metrics:
 
 ## What's next
 
-  - Learn about [columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine) .
-  - Learn how to [enable columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine) .
-  - Learn how to [query columnar data](https://docs.cloud.google.com/spanner/docs/query-columnar-data) .
+- Learn about [columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine) .
+- Learn how to [enable columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine) .
+- Learn how to [query columnar data](https://docs.cloud.google.com/spanner/docs/query-columnar-data) .

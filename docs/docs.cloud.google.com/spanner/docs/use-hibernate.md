@@ -18,27 +18,31 @@ We recommend that new projects use this built-in dialect, as it does not require
 
 To use the built-in dialect, add the Maven dependencies for Hibernate ORM core and the Spanner JDBC driver to your project's `pom.xml` file. To find the latest versions of these dependencies, see the [Hibernate ORM releases](https://github.com/hibernate/hibernate-orm) and the [Spanner JDBC driver releases](https://github.com/googleapis/google-cloud-java/tree/main/java-spanner-jdbc) :
 
-    <dependencies>
-      <!-- Hibernate ORM Core -->
-      <dependency>
-        <groupId>org.hibernate.orm</groupId>
-        <artifactId>hibernate-core</artifactId>
-        <version>7.4.0.Final</version>
-      </dependency>
-    
-      <!-- Cloud Spanner JDBC Driver -->
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-spanner-jdbc</artifactId>
-        <version>2.40.0</version>
-      </dependency>
-    </dependencies>
+```
+<dependencies>
+  <!-- Hibernate ORM Core -->
+  <dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>7.4.0.Final</version>
+  </dependency>
+
+  <!-- Cloud Spanner JDBC Driver -->
+  <dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>google-cloud-spanner-jdbc</artifactId>
+    <version>2.40.0</version>
+  </dependency>
+</dependencies>
+```
 
 Configure your project's `hibernate.properties` file (typically located in the `src/main/resources` directory) to use the built-in Spanner Dialect:
 
-    hibernate.dialect=org.hibernate.dialect.SpannerDialect
-    hibernate.connection.driver_class=com.google.cloud.spanner.jdbc.JdbcDriver
-    hibernate.connection.url=jdbc:cloudspanner:/projects/YOUR-PROJECT/instances/YOUR-INSTANCE/databases/YOUR-DATABASE
+```
+hibernate.dialect=org.hibernate.dialect.SpannerDialect
+hibernate.connection.driver_class=com.google.cloud.spanner.jdbc.JdbcDriver
+hibernate.connection.url=jdbc:cloudspanner:/projects/YOUR-PROJECT/instances/YOUR-INSTANCE/databases/YOUR-DATABASE
+```
 
 To authenticate with Spanner, the JDBC driver requires credentials. Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to the path of your [service account JSON credentials file](https://docs.cloud.google.com/docs/authentication/getting-started) . Otherwise, the driver uses the default credentials set in the Google Cloud CLI `gcloud` application.
 
@@ -48,43 +52,47 @@ For projects using earlier versions of Hibernate (6.x or 7.x prior to 7.4), or i
 
 Advanced features supported by the Google-maintained dialect include:
 
-  - Interleaved table hierarchies ( `@Interleaved` )
-  - Query, index, and scan hints
-  - DDL schema batching
-  - Transaction tagging ( `@TransactionTag` )
-  - Pooled sequences ( `@PooledBitReversedSequenceGenerator` )
+- Interleaved table hierarchies ( `@Interleaved` )
+- Query, index, and scan hints
+- DDL schema batching
+- Transaction tagging ( `@TransactionTag` )
+- Pooled sequences ( `@PooledBitReversedSequenceGenerator` )
 
 To use the Google-maintained dialect, add the Maven dependencies to your project's `pom.xml` file:
 
-    <dependencies>
-      <!-- The Spanner JDBC driver dependency -->
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-spanner-jdbc</artifactId>
-      </dependency>
-    
-      <!-- Hibernate core dependency -->
-      <dependency>
-        <groupId>org.hibernate.orm</groupId>
-        <artifactId>hibernate-core</artifactId>
-        <version>6.4.4.Final</version>
-      </dependency>
-    </dependencies>
+```
+<dependencies>
+  <!-- The Spanner JDBC driver dependency -->
+  <dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>google-cloud-spanner-jdbc</artifactId>
+  </dependency>
+
+  <!-- Hibernate core dependency -->
+  <dependency>
+    <groupId>org.hibernate.orm</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>6.4.4.Final</version>
+  </dependency>
+</dependencies>
+```
 
 Configure your project's `hibernate.properties` file to use the Google-maintained Spanner Dialect and JDBC Driver:
 
-    hibernate.dialect=com.google.cloud.spanner.hibernate.SpannerDialect
-    hibernate.connection.driver_class=com.google.cloud.spanner.jdbc.JdbcDriver
-    hibernate.connection.url=jdbc:cloudspanner:/projects/YOUR-PROJECT/instances/YOUR-INSTANCE/databases/YOUR-DATABASE
+```
+hibernate.dialect=com.google.cloud.spanner.hibernate.SpannerDialect
+hibernate.connection.driver_class=com.google.cloud.spanner.jdbc.JdbcDriver
+hibernate.connection.url=jdbc:cloudspanner:/projects/YOUR-PROJECT/instances/YOUR-INSTANCE/databases/YOUR-DATABASE
+```
 
 For more information about the features and recommendations for Hibernate when using this dialect, consult the [reference documentation](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/blob/-/README.adoc) on GitHub.
 
 ## What's next
 
-  - Checkout [code examples](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/blob/-/google-cloud-spanner-hibernate-samples) using Hibernate with Spanner.
-  - Try the Spanner with Hibernate ORM [codelab](https://codelabs.developers.google.com/codelabs/cloud-spanner-hibernate) .
-  - Learn more about [Hibernate ORM](https://hibernate.org/orm/) .
-  - View the repository for [Spanner Dialect](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) on GitHub.
-  - [File a GitHub issue](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/issues) to report a bug or ask a question about Hibernate.
-  - Learn more about [Apache Maven](https://maven.apache.org/) .
-  - Learn more about [Integrate Spanner with Hibernate ORM (PostgreSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-hibernate-postgresql) .
+- Checkout [code examples](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/blob/-/google-cloud-spanner-hibernate-samples) using Hibernate with Spanner.
+- Try the Spanner with Hibernate ORM [codelab](https://codelabs.developers.google.com/codelabs/cloud-spanner-hibernate) .
+- Learn more about [Hibernate ORM](https://hibernate.org/orm/) .
+- View the repository for [Spanner Dialect](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate) on GitHub.
+- [File a GitHub issue](https://github.com/GoogleCloudPlatform/google-cloud-spanner-hibernate/issues) to report a bug or ask a question about Hibernate.
+- Learn more about [Apache Maven](https://maven.apache.org/) .
+- Learn more about [Integrate Spanner with Hibernate ORM (PostgreSQL dialect)](https://docs.cloud.google.com/spanner/docs/use-hibernate-postgresql) .

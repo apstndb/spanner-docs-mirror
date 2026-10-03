@@ -10,8 +10,8 @@ Spanner transactions offer two modes of concurrency control: *pessimistic* and *
 
 The default behavior depends on the [isolation level](https://docs.cloud.google.com/spanner/docs/isolation-levels) your transaction uses:
 
-  - [Serializable isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable) uses pessimistic concurrency control by default.
-  - [Repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) , uses optimistic concurrency control by default.
+- [Serializable isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable) uses pessimistic concurrency control by default.
+- [Repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) , uses optimistic concurrency control by default.
 
 ## Pessimistic concurrency control
 
@@ -23,10 +23,10 @@ This mode assumes that concurrent transactions might contend for the same data. 
 
 In pessimistic concurrency, transactions acquire locks on data during both the execution and commit phases of the transaction.
 
-  - **For reads:** When a transaction reads data, it acquires a [shared read ( `ReaderShared` ) lock](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes) during the execution phase. These locks are held until the transaction commits.
-  - **For DML and writes:**
-      - During execution, for data modified by DML or writes, the transaction might acquire read locks on row-existence.
-      - At commit time, the transaction attempts to acquire write or exclusive locks for the written data. Write locks block concurrent reads, but might not block concurrent writes, especially when they both use write locks. This means multiple transactions can proceed to commit, and write-write conflicts are resolved at commit time using the wound-wait algorithm. All locks are held until the transaction commits.
+- **For reads:** When a transaction reads data, it acquires a [shared read ( `ReaderShared` ) lock](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#explain-lock-modes) during the execution phase. These locks are held until the transaction commits.
+- **For DML and writes:**
+  - During execution, for data modified by DML or writes, the transaction might acquire read locks on row-existence.
+  - At commit time, the transaction attempts to acquire write or exclusive locks for the written data. Write locks block concurrent reads, but might not block concurrent writes, especially when they both use write locks. This means multiple transactions can proceed to commit, and write-write conflicts are resolved at commit time using the wound-wait algorithm. All locks are held until the transaction commits.
 
 ### Pessimistic concurrency in repeatable read isolation
 
@@ -44,8 +44,8 @@ With repeatable read isolation, transactions that acquire locks might still abor
 
 Pessimistic concurrency with serializable isolation presents the following risks:
 
-  - Long-running reads might block latency-sensitive writes.
-  - Transactions that involve user interaction before completion might cause locks to be held for a long time, potentially blocking other operations.
+- Long-running reads might block latency-sensitive writes.
+- Transactions that involve user interaction before completion might cause locks to be held for a long time, potentially blocking other operations.
 
 ### Use cases for pessimistic concurrency with serializable isolation
 
@@ -73,8 +73,8 @@ Reads and queries are lock-free. All reads and queries within an optimistic tran
 
 For an optimistic transaction with reads and writes, Spanner performs a validation step at commit time. The transaction commits successfully only if no conflicts are detected and the following conditions are met:
 
-  - No concurrently committed writes conflict with the data read by this transaction; that is, no writes were committed after the read timestamp but before this transaction commits its own writes.
-  - The schema wasn't modified since the read timestamp.
+- No concurrently committed writes conflict with the data read by this transaction; that is, no writes were committed after the read timestamp but before this transaction commits its own writes.
+- The schema wasn't modified since the read timestamp.
 
 The isolation level determines the set of reads that are validated. With serializable isolation, all reads are validated. With repeatable read isolation, reads with either a `FOR UPDATE` or `lock_scanned_ranges=exclusive` hint are validated at commit time.
 
@@ -84,15 +84,15 @@ Under high contention, optimistic transactions might repeatedly abort. In contra
 
 Optimistic concurrency offers the following benefits:
 
-  - Reads don't acquire locks: Optimistic transactions don't acquire locks for reads, so long-running reads don't block latency-sensitive writes.
-  - Reduced commit latency for read-only transactions: Because all reads within an optimistic transaction are based on the same snapshot timestamp, there's no need to verify consistency during execution or commit for these reads, which significantly reduces latency.
+- Reads don't acquire locks: Optimistic transactions don't acquire locks for reads, so long-running reads don't block latency-sensitive writes.
+- Reduced commit latency for read-only transactions: Because all reads within an optimistic transaction are based on the same snapshot timestamp, there's no need to verify consistency during execution or commit for these reads, which significantly reduces latency.
 
 ### Risks of optimistic concurrency
 
 Optimistic concurrency introduces risks, particularly under high read-write contention when used with serializable isolation. Understand these risks before you use optimistic concurrency control with serializable isolation for your workload.
 
-  - Under high read-write contention, optimistic transactions might experience a high rate of aborts, because concurrent writes might invalidate the reads of an optimistic transaction.
-  - With persistent high contention, a transaction might be repeatedly aborted and never commit from transaction starvation.
+- Under high read-write contention, optimistic transactions might experience a high rate of aborts, because concurrent writes might invalidate the reads of an optimistic transaction.
+- With persistent high contention, a transaction might be repeatedly aborted and never commit from transaction starvation.
 
 ### Use cases for optimistic concurrency
 
@@ -100,9 +100,9 @@ Optimistic concurrency is suitable for transactional workloads with low read-wri
 
 Consider optimistic concurrency for the following workloads:
 
-  - **Low-priority, latency-tolerant workloads with long-running transactions:** Use optimistic concurrency if long-running reads or queries might delay latency-sensitive writes. This avoids delays caused by read locks. For example, transactions in mobile clients with slow connections, or low-SLA transactions holding read locks for many rows or large ranges.
-  - **Read latency-sensitive transactional workloads with low read-write contention:** In a [multi-region configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) , use optimistic concurrency to serve reads regionally, reduce read latencies, and avoid production issues from spiky read traffic to a hot split. It also improves read availability during leader overload or unavailability.
-  - **Transactional workloads where most transactions are read-only:** Switching to optimistic concurrency reduces commit latency for common read-only transactions in these workloads. Ensure low read-write contention to avoid high abort rates for read-write transactions.
+- **Low-priority, latency-tolerant workloads with long-running transactions:** Use optimistic concurrency if long-running reads or queries might delay latency-sensitive writes. This avoids delays caused by read locks. For example, transactions in mobile clients with slow connections, or low-SLA transactions holding read locks for many rows or large ranges.
+- **Read latency-sensitive transactional workloads with low read-write contention:** In a [multi-region configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) , use optimistic concurrency to serve reads regionally, reduce read latencies, and avoid production issues from spiky read traffic to a hot split. It also improves read availability during leader overload or unavailability.
+- **Transactional workloads where most transactions are read-only:** Switching to optimistic concurrency reduces commit latency for common read-only transactions in these workloads. Ensure low read-write contention to avoid high abort rates for read-write transactions.
 
 Avoid using optimistic concurrency for latency-sensitive transactional workloads where read-write conflicts are frequent.
 
@@ -114,409 +114,425 @@ You can use the Spanner client libraries, REST, and RPC API to specify the concu
 
 ### Java
 
-    static void readLockModeSetting(DatabaseId db) {
-      // The read lock mode specified at the client-level will be applied to all
-      // RW transactions.
-      DefaultReadWriteTransactionOptions transactionOptions =
-          DefaultReadWriteTransactionOptions.newBuilder()
-              .setReadLockMode(ReadLockMode.OPTIMISTIC)
-              .build();
-      SpannerOptions options =
-          SpannerOptions.newBuilder()
-              .setDefaultTransactionOptions(transactionOptions)
-              .build();
-      Spanner spanner = options.getService();
-      DatabaseClient dbClient = spanner.getDatabaseClient(db);
-      dbClient
-          // The read lock mode specified at the transaction-level takes precedence
-          // over the read lock mode configured at the client-level.
-          .readWriteTransaction(Options.readLockMode(ReadLockMode.PESSIMISTIC))
-          .run(transaction -> {
-            // Read an AlbumTitle.
-            String selectSql =
-                "SELECT AlbumTitle from Albums WHERE SingerId = 1 and AlbumId = 1";
-            String title = null;
-            try (ResultSet resultSet = transaction.executeQuery(Statement.of(selectSql))) {
-              if (resultSet.next()) {
-                title = resultSet.getString("AlbumTitle");
-              }
-            }
-            System.out.printf("Current album title: %s\n", title);
-    
-            // Update the title.
-            String updateSql =
-                "UPDATE Albums "
-                    + "SET AlbumTitle = 'New Album Title' "
-                    + "WHERE SingerId = 1 and AlbumId = 1";
-            long rowCount = transaction.executeUpdate(Statement.of(updateSql));
-            System.out.printf("%d record updated.\n", rowCount);
-            return null;
-          });
-    }
+```java
+static void readLockModeSetting(DatabaseId db) {
+  // The read lock mode specified at the client-level will be applied to all
+  // RW transactions.
+  DefaultReadWriteTransactionOptions transactionOptions =
+      DefaultReadWriteTransactionOptions.newBuilder()
+          .setReadLockMode(ReadLockMode.OPTIMISTIC)
+          .build();
+  SpannerOptions options =
+      SpannerOptions.newBuilder()
+          .setDefaultTransactionOptions(transactionOptions)
+          .build();
+  Spanner spanner = options.getService();
+  DatabaseClient dbClient = spanner.getDatabaseClient(db);
+  dbClient
+      // The read lock mode specified at the transaction-level takes precedence
+      // over the read lock mode configured at the client-level.
+      .readWriteTransaction(Options.readLockMode(ReadLockMode.PESSIMISTIC))
+      .run(transaction -> {
+        // Read an AlbumTitle.
+        String selectSql =
+            "SELECT AlbumTitle from Albums WHERE SingerId = 1 and AlbumId = 1";
+        String title = null;
+        try (ResultSet resultSet = transaction.executeQuery(Statement.of(selectSql))) {
+          if (resultSet.next()) {
+            title = resultSet.getString("AlbumTitle");
+          }
+        }
+        System.out.printf("Current album title: %s\n", title);
+
+        // Update the title.
+        String updateSql =
+            "UPDATE Albums "
+                + "SET AlbumTitle = 'New Album Title' "
+                + "WHERE SingerId = 1 and AlbumId = 1";
+        long rowCount = transaction.executeUpdate(Statement.of(updateSql));
+        System.out.printf("%d record updated.\n", rowCount);
+        return null;
+      });
+}
+```
 
 ### Go
 
-    import (
-     "context"
-     "fmt"
-     "io"
-    
-     "cloud.google.com/go/spanner"
-     pb "cloud.google.com/go/spanner/apiv1/spannerpb"
-    )
-    
-    // writeWithTransactionUsingReadLockMode sets the ReadLockMode globally
-    // by using ClientConfig and shows how to override it for a specific
-    // transaction. ReadLockMode determines the locking strategy used during
-    // transaction execution.
-    func writeWithTransactionUsingReadLockMode(w io.Writer, db string) error {
-     ctx := context.Background()
-    
-     // Client-level configuration: Applies to all read-write transactions
-     // for this client. OPTIMISTIC mode avoids locks during reads and
-     // verifies changes during the commit phase.
-     cfg := spanner.ClientConfig{
-         TransactionOptions: spanner.TransactionOptions{
-             ReadLockMode: pb.TransactionOptions_ReadWrite_OPTIMISTIC,
-         },
-     }
-     client, err := spanner.NewClientWithConfig(ctx, db, cfg)
-     if err != nil {
-         return fmt.Errorf("failed to create client: %w", err)
-     }
-     defer client.Close()
-    
-     // Transaction-level options take precedence over client-level
-     // configuration. PESSIMISTIC mode is used here to override the
-     // client-level setting and ensure immediate locking during reads.
-     txnOpts := spanner.TransactionOptions{
-         ReadLockMode: pb.TransactionOptions_ReadWrite_PESSIMISTIC,
-     }
-    
-     _, err = client.ReadWriteTransactionWithOptions(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-         // In PESSIMISTIC mode with SERIALIZABLE isolation, the transaction
-         // acquires a shared lock during this read.
-         key := spanner.Key{1, 2}
-         row, err := txn.ReadRow(ctx, "Albums", key, []string{"AlbumTitle"})
-         if err != nil {
-             return fmt.Errorf("failed to read album: %w", err)
-         }
-         var title string
-         if err := row.Column(0, &title); err != nil {
-             return fmt.Errorf("failed to get album title: %w", err)
-         }
-         fmt.Fprintf(w, "Current album title: %s\n", title)
-    
-         // Update the album title
-         stmt := spanner.Statement{
-             SQL: `UPDATE Albums
-                 SET AlbumTitle = @AlbumTitle
-                 WHERE SingerId = @SingerId AND AlbumId = @AlbumId`,
-             Params: map[string]interface{}{
-                 "SingerId":   1,
-                 "AlbumId":    2,
-                 "AlbumTitle": "New Album Title",
-             },
-         }
-         count, err := txn.Update(ctx, stmt)
-         if err != nil {
-             return fmt.Errorf("failed to update album: %w", err)
-         }
-         fmt.Fprintf(w, "Updated %d record(s).\n", count)
-         return nil
-     }, txnOpts)
-    
-     if err != nil {
-         return fmt.Errorf("transaction failed: %w", err)
-     }
-     return nil
+```go
+import (
+    "context"
+    "fmt"
+    "io"
+
+    "cloud.google.com/go/spanner"
+    pb "cloud.google.com/go/spanner/apiv1/spannerpb"
+)
+
+// writeWithTransactionUsingReadLockMode sets the ReadLockMode globally
+// by using ClientConfig and shows how to override it for a specific
+// transaction. ReadLockMode determines the locking strategy used during
+// transaction execution.
+func writeWithTransactionUsingReadLockMode(w io.Writer, db string) error {
+    ctx := context.Background()
+
+    // Client-level configuration: Applies to all read-write transactions
+    // for this client. OPTIMISTIC mode avoids locks during reads and
+    // verifies changes during the commit phase.
+    cfg := spanner.ClientConfig{
+        TransactionOptions: spanner.TransactionOptions{
+            ReadLockMode: pb.TransactionOptions_ReadWrite_OPTIMISTIC,
+        },
     }
+    client, err := spanner.NewClientWithConfig(ctx, db, cfg)
+    if err != nil {
+        return fmt.Errorf("failed to create client: %w", err)
+    }
+    defer client.Close()
+
+    // Transaction-level options take precedence over client-level
+    // configuration. PESSIMISTIC mode is used here to override the
+    // client-level setting and ensure immediate locking during reads.
+    txnOpts := spanner.TransactionOptions{
+        ReadLockMode: pb.TransactionOptions_ReadWrite_PESSIMISTIC,
+    }
+
+    _, err = client.ReadWriteTransactionWithOptions(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
+        // In PESSIMISTIC mode with SERIALIZABLE isolation, the transaction
+        // acquires a shared lock during this read.
+        key := spanner.Key{1, 2}
+        row, err := txn.ReadRow(ctx, "Albums", key, []string{"AlbumTitle"})
+        if err != nil {
+            return fmt.Errorf("failed to read album: %w", err)
+        }
+        var title string
+        if err := row.Column(0, &title); err != nil {
+            return fmt.Errorf("failed to get album title: %w", err)
+        }
+        fmt.Fprintf(w, "Current album title: %s\n", title)
+
+        // Update the album title
+        stmt := spanner.Statement{
+            SQL: `UPDATE Albums
+                SET AlbumTitle = @AlbumTitle
+                WHERE SingerId = @SingerId AND AlbumId = @AlbumId`,
+            Params: map[string]interface{}{
+                "SingerId":   1,
+                "AlbumId":    2,
+                "AlbumTitle": "New Album Title",
+            },
+        }
+        count, err := txn.Update(ctx, stmt)
+        if err != nil {
+            return fmt.Errorf("failed to update album: %w", err)
+        }
+        fmt.Fprintf(w, "Updated %d record(s).\n", count)
+        return nil
+    }, txnOpts)
+
+    if err != nil {
+        return fmt.Errorf("transaction failed: %w", err)
+    }
+    return nil
+}
+```
 
 ### Node.js
 
-    // Imports the Google Cloud Spanner client library
-    const {Spanner, protos} = require('@google-cloud/spanner');
-    // The read lock mode specified at the client-level will be applied
-    // to all RW transactions.
-    const defaultTransactionOptions = {
-      readLockMode:
-        protos.google.spanner.v1.TransactionOptions.ReadWrite.ReadLockMode
-          .OPTIMISTIC,
-    };
-    
-    // Instantiates a client with defaultTransactionOptions
-    const spanner = new Spanner({
-      projectId: projectId,
-      defaultTransactionOptions,
-    });
-    
-    function runTransactionWithReadLockMode() {
-      // Gets a reference to a Cloud Spanner instance and database
-      const instance = spanner.instance(instanceId);
-      const database = instance.database(databaseId);
-      // The read lock mode specified at the request-level takes precedence over
-      // the read lock mode configured at the client-level.
-      const readLockModeOptionsForTransaction = {
-        readLockMode:
-          protos.google.spanner.v1.TransactionOptions.ReadWrite.ReadLockMode
-            .PESSIMISTIC,
-      };
-    
-      database.runTransaction(
-        readLockModeOptionsForTransaction,
-        async (err, transaction) => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-          try {
-            const query =
-              'SELECT AlbumTitle FROM Albums WHERE SingerId = 2 AND AlbumId = 1';
-            const results = await transaction.run(query);
-            // Gets first album's title
-            const rows = results[0].map(row => row.toJSON());
-            const albumTitle = rows[0].AlbumTitle;
-            console.log(`previous album title ${albumTitle}`);
-    
-            const update =
-              "UPDATE Albums SET AlbumTitle = 'New Album Title' WHERE SingerId = 2 AND AlbumId = 1";
-            const [rowCount] = await transaction.runUpdate(update);
-            console.log(
-              `Successfully updated ${rowCount} record in Albums table.`,
-            );
-            await transaction.commit();
-            console.log(
-              'Successfully executed read-write transaction with readLockMode option.',
-            );
-          } catch (err) {
-            console.error('ERROR:', err);
-            transaction.end();
-          } finally {
-            // Close the database when finished.
-            await database.close();
-          }
-        },
-      );
-    }
-    runTransactionWithReadLockMode();
+```javascript
+// Imports the Google Cloud Spanner client library
+const {Spanner, protos} = require('@google-cloud/spanner');
+// The read lock mode specified at the client-level will be applied
+// to all RW transactions.
+const defaultTransactionOptions = {
+  readLockMode:
+    protos.google.spanner.v1.TransactionOptions.ReadWrite.ReadLockMode
+      .OPTIMISTIC,
+};
+
+// Instantiates a client with defaultTransactionOptions
+const spanner = new Spanner({
+  projectId: projectId,
+  defaultTransactionOptions,
+});
+
+function runTransactionWithReadLockMode() {
+  // Gets a reference to a Cloud Spanner instance and database
+  const instance = spanner.instance(instanceId);
+  const database = instance.database(databaseId);
+  // The read lock mode specified at the request-level takes precedence over
+  // the read lock mode configured at the client-level.
+  const readLockModeOptionsForTransaction = {
+    readLockMode:
+      protos.google.spanner.v1.TransactionOptions.ReadWrite.ReadLockMode
+        .PESSIMISTIC,
+  };
+
+  database.runTransaction(
+    readLockModeOptionsForTransaction,
+    async (err, transaction) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      try {
+        const query =
+          'SELECT AlbumTitle FROM Albums WHERE SingerId = 2 AND AlbumId = 1';
+        const results = await transaction.run(query);
+        // Gets first album's title
+        const rows = results[0].map(row => row.toJSON());
+        const albumTitle = rows[0].AlbumTitle;
+        console.log(`previous album title ${albumTitle}`);
+
+        const update =
+          "UPDATE Albums SET AlbumTitle = 'New Album Title' WHERE SingerId = 2 AND AlbumId = 1";
+        const [rowCount] = await transaction.runUpdate(update);
+        console.log(
+          `Successfully updated ${rowCount} record in Albums table.`,
+        );
+        await transaction.commit();
+        console.log(
+          'Successfully executed read-write transaction with readLockMode option.',
+        );
+      } catch (err) {
+        console.error('ERROR:', err);
+        transaction.end();
+      } finally {
+        // Close the database when finished.
+        await database.close();
+      }
+    },
+  );
+}
+runTransactionWithReadLockMode();
+```
 
 ### Python
 
-    # instance_id = "your-spanner-instance"
-    # database_id = "your-spanner-db-id"
-    from google.cloud.spanner_v1 import TransactionOptions, DefaultTransactionOptions
-    
-    # The read lock mode specified at the client-level will be applied to all
-    # RW transactions.
-    read_lock_mode_options_for_client = TransactionOptions.ReadWrite.ReadLockMode.OPTIMISTIC
-    
-    # Create a client that uses Serializable isolation (default) with
-    # optimistic locking for read-write transactions.
-    spanner_client = spanner.Client(
-        default_transaction_options=DefaultTransactionOptions(
-            read_lock_mode=read_lock_mode_options_for_client
-        )
+```python
+# instance_id = "your-spanner-instance"
+# database_id = "your-spanner-db-id"
+from google.cloud.spanner_v1 import TransactionOptions, DefaultTransactionOptions
+
+# The read lock mode specified at the client-level will be applied to all
+# RW transactions.
+read_lock_mode_options_for_client = TransactionOptions.ReadWrite.ReadLockMode.OPTIMISTIC
+
+# Create a client that uses Serializable isolation (default) with
+# optimistic locking for read-write transactions.
+spanner_client = spanner.Client(
+    default_transaction_options=DefaultTransactionOptions(
+        read_lock_mode=read_lock_mode_options_for_client
     )
-    instance = spanner_client.instance(instance_id)
-    database = instance.database(database_id)
-    
-    # The read lock mode specified at the request level takes precedence over
-    # the read lock mode configured at the client level.
-    read_lock_mode_options_for_transaction = (
-        TransactionOptions.ReadWrite.ReadLockMode.PESSIMISTIC
+)
+instance = spanner_client.instance(instance_id)
+database = instance.database(database_id)
+
+# The read lock mode specified at the request level takes precedence over
+# the read lock mode configured at the client level.
+read_lock_mode_options_for_transaction = (
+    TransactionOptions.ReadWrite.ReadLockMode.PESSIMISTIC
+)
+
+def update_albums_with_read_lock_mode(transaction):
+    # Read an AlbumTitle.
+    results = transaction.execute_sql(
+        "SELECT AlbumTitle from Albums WHERE SingerId = 2 and AlbumId = 1"
     )
-    
-    def update_albums_with_read_lock_mode(transaction):
-        # Read an AlbumTitle.
-        results = transaction.execute_sql(
-            "SELECT AlbumTitle from Albums WHERE SingerId = 2 and AlbumId = 1"
-        )
-        for result in results:
-            print("Current Album Title: {}".format(*result))
-    
-        # Update the AlbumTitle.
-        row_ct = transaction.execute_update(
-            "UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 2 and AlbumId = 1"
-        )
-    
-        print("{} record(s) updated.".format(row_ct))
-    
-    database.run_in_transaction(
-        update_albums_with_read_lock_mode,
-        read_lock_mode=read_lock_mode_options_for_transaction
+    for result in results:
+        print("Current Album Title: {}".format(*result))
+
+    # Update the AlbumTitle.
+    row_ct = transaction.execute_update(
+        "UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 2 and AlbumId = 1"
     )
 
-### C\#
+    print("{} record(s) updated.".format(row_ct))
 
-    using Google.Cloud.Spanner.Data;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    
-    public class ReadLockModeAsyncSample
+database.run_in_transaction(
+    update_albums_with_read_lock_mode,
+    read_lock_mode=read_lock_mode_options_for_transaction
+)
+```
+
+### C#
+
+```
+using Google.Cloud.Spanner.Data;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+public class ReadLockModeAsyncSample
+{
+    public async Task ReadLockModeAsync(string projectId, string instanceId, string databaseId)
     {
-        public async Task ReadLockModeAsync(string projectId, string instanceId, string databaseId)
+        // Create client with ReadLockMode.Optimistic.
+        string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId};ReadLockMode=Optimistic";
+
+        using var connection = new SpannerConnection(connectionString);
+        await connection.OpenAsync();
+
+        // Create transaction options with ReadLockMode.Pessimistic.
+        var transactionOptions = SpannerTransactionCreationOptions.ReadWrite
+            .WithReadLockMode(ReadLockMode.Pessimistic);
+
+        using var transaction = await connection.BeginTransactionAsync(transactionOptions, null, CancellationToken.None);
+
+        var cmd = connection.CreateSelectCommand("SELECT AlbumTitle FROM Albums WHERE SingerId = 2 AND AlbumId = 1");
+        cmd.Transaction = transaction;
+        using (var reader = await cmd.ExecuteReaderAsync())
         {
-            // Create client with ReadLockMode.Optimistic.
-            string connectionString = $"Data Source=projects/{projectId}/instances/{instanceId}/databases/{databaseId};ReadLockMode=Optimistic";
-    
-            using var connection = new SpannerConnection(connectionString);
-            await connection.OpenAsync();
-    
-            // Create transaction options with ReadLockMode.Pessimistic.
-            var transactionOptions = SpannerTransactionCreationOptions.ReadWrite
-                .WithReadLockMode(ReadLockMode.Pessimistic);
-    
-            using var transaction = await connection.BeginTransactionAsync(transactionOptions, null, CancellationToken.None);
-    
-            var cmd = connection.CreateSelectCommand("SELECT AlbumTitle FROM Albums WHERE SingerId = 2 AND AlbumId = 1");
-            cmd.Transaction = transaction;
-            using (var reader = await cmd.ExecuteReaderAsync())
+            while (await reader.ReadAsync())
             {
-                while (await reader.ReadAsync())
-                {
-                    Console.WriteLine($"AlbumTitle: {reader.GetFieldValue<string>("AlbumTitle")}");
-                }
+                Console.WriteLine($"AlbumTitle: {reader.GetFieldValue<string>("AlbumTitle")}");
             }
-    
-            var updateCmd = connection.CreateDmlCommand("UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 2 AND AlbumId = 1");
-            updateCmd.Transaction = transaction;
-            var rowCount = await updateCmd.ExecuteNonQueryAsync();
-            Console.WriteLine($"{rowCount} records updated.");
-    
-            await transaction.CommitAsync();
         }
+
+        var updateCmd = connection.CreateDmlCommand("UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 2 AND AlbumId = 1");
+        updateCmd.Transaction = transaction;
+        var rowCount = await updateCmd.ExecuteNonQueryAsync();
+        Console.WriteLine($"{rowCount} records updated.");
+
+        await transaction.CommitAsync();
     }
+}
+```
 
 ### C++
 
-    void ReadLockModeSetting(std::string const& project_id,
-                             std::string const& instance_id,
-                             std::string const& database_id) {
-      namespace spanner = ::google::cloud::spanner;
-      using ::google::cloud::Options;
-      using ::google::cloud::StatusOr;
-    
-      auto db = spanner::Database(project_id, instance_id, database_id);
-    
-      // The read lock mode specified at the client-level will be applied
-      // to all RW transactions.
-      auto options = Options{}.set<spanner::TransactionReadLockModeOption>(
-          spanner::Transaction::ReadLockMode::kOptimistic);
-      auto client = spanner::Client(spanner::MakeConnection(db, options));
-    
-      auto commit = client.Commit(
-          [&client](
-              spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
-            // Read an AlbumTitle.
-            auto sql = spanner::SqlStatement(
-                "SELECT AlbumTitle from Albums WHERE SingerId = @SingerId and "
-                "AlbumId = @AlbumId",
-                {{"SingerId", spanner::Value(2)}, {"AlbumId", spanner::Value(1)}});
-            auto rows = client.ExecuteQuery(txn, std::move(sql));
-            for (auto const& row :
-                 spanner::StreamOf<std::tuple<std::string>>(rows)) {
-              if (!row) return row.status();
-              std::cout << "Current Album Title: " << std::get<0>(*row) << "\n";
-            }
-    
-            // Update the title.
-            auto update_sql = spanner::SqlStatement(
-                "UPDATE Albums "
-                "SET AlbumTitle = @AlbumTitle "
-                "WHERE SingerId = @SingerId and AlbumId = @AlbumId",
-                {{"AlbumTitle", spanner::Value("A New Title")},
-                 {"SingerId", spanner::Value(2)},
-                 {"AlbumId", spanner::Value(1)}});
-            auto result = client.ExecuteDml(txn, std::move(update_sql));
-            if (!result) return result.status();
-            std::cout << result->RowsModified() << " record(s) updated.\n";
-    
-            return spanner::Mutations{};
-          },
-          // The read lock mode specified at the transaction-level takes
-          // precedence over the read lock mode configured at the client-level.
-          // kPessimistic is used here to demonstrate overriding the client-level
-          // setting.
-          Options{}.set<spanner::TransactionReadLockModeOption>(
-              spanner::Transaction::ReadLockMode::kPessimistic));
-    
-      if (!commit) throw std::move(commit).status();
-      std::cout << "Update was successful [spanner_read_lock_mode]\n";
-    }
+```cpp
+void ReadLockModeSetting(std::string const& project_id,
+                         std::string const& instance_id,
+                         std::string const& database_id) {
+  namespace spanner = ::google::cloud::spanner;
+  using ::google::cloud::Options;
+  using ::google::cloud::StatusOr;
+
+  auto db = spanner::Database(project_id, instance_id, database_id);
+
+  // The read lock mode specified at the client-level will be applied
+  // to all RW transactions.
+  auto options = Options{}.set<spanner::TransactionReadLockModeOption>(
+      spanner::Transaction::ReadLockMode::kOptimistic);
+  auto client = spanner::Client(spanner::MakeConnection(db, options));
+
+  auto commit = client.Commit(
+      [&client](
+          spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
+        // Read an AlbumTitle.
+        auto sql = spanner::SqlStatement(
+            "SELECT AlbumTitle from Albums WHERE SingerId = @SingerId and "
+            "AlbumId = @AlbumId",
+            {{"SingerId", spanner::Value(2)}, {"AlbumId", spanner::Value(1)}});
+        auto rows = client.ExecuteQuery(txn, std::move(sql));
+        for (auto const& row :
+             spanner::StreamOf<std::tuple<std::string>>(rows)) {
+          if (!row) return row.status();
+          std::cout << "Current Album Title: " << std::get<0>(*row) << "\n";
+        }
+
+        // Update the title.
+        auto update_sql = spanner::SqlStatement(
+            "UPDATE Albums "
+            "SET AlbumTitle = @AlbumTitle "
+            "WHERE SingerId = @SingerId and AlbumId = @AlbumId",
+            {{"AlbumTitle", spanner::Value("A New Title")},
+             {"SingerId", spanner::Value(2)},
+             {"AlbumId", spanner::Value(1)}});
+        auto result = client.ExecuteDml(txn, std::move(update_sql));
+        if (!result) return result.status();
+        std::cout << result->RowsModified() << " record(s) updated.\n";
+
+        return spanner::Mutations{};
+      },
+      // The read lock mode specified at the transaction-level takes
+      // precedence over the read lock mode configured at the client-level.
+      // kPessimistic is used here to demonstrate overriding the client-level
+      // setting.
+      Options{}.set<spanner::TransactionReadLockModeOption>(
+          spanner::Transaction::ReadLockMode::kPessimistic));
+
+  if (!commit) throw std::move(commit).status();
+  std::cout << "Update was successful [spanner_read_lock_mode]\n";
+}
+```
 
 ### PHP
 
-    use Google\Cloud\Spanner\SpannerClient;
-    use Google\Cloud\Spanner\Transaction;
-    use Google\Cloud\Spanner\V1\TransactionOptions\ReadWrite\ReadLockMode;
-    
-    /**
-     * Shows how to run a Read Write transaction with read lock mode options.
-     *
-     * Example:
-     * ```
-     * read_lock_mode($instanceId, $databaseId);
-     * ```
-     *
-     * @param string $instanceId The Spanner instance ID.
-     * @param string $databaseId The Spanner database ID.
-     */
-    function read_lock_mode(string $instanceId, string $databaseId): void
-    {
-        // The read lock mode specified at the client-level will be applied to all
-        // RW transactions.
-        $spanner = new SpannerClient([
-            'readLockMode' => ReadLockMode::OPTIMISTIC
-        ]);
-        $instance = $spanner->instance($instanceId);
-        $database = $instance->database($databaseId);
-    
-        // The read lock mode specified at the request level takes precedence over
-        // the read lock mode configured at the client level.
-        $database->runTransaction(function (Transaction $t) {
-            // Read an AlbumTitle.
-            $results = $t->execute('SELECT AlbumTitle from Albums WHERE SingerId = 2 and AlbumId = 1');
-            foreach ($results as $row) {
-                printf('Current Album Title: %s' . PHP_EOL, $row['AlbumTitle']);
-            }
-    
-            // Update the AlbumTitle.
-            $rowCount = $t->executeUpdate('UPDATE Albums SET AlbumTitle = \'A New Title\' WHERE SingerId = 2 and AlbumId = 1');
-    
-            // Commit the transaction!
-            $t->commit();
-    
-            printf('%d record(s) updated.' . PHP_EOL, $rowCount);
-        }, [
-            'transactionOptions' => [
-                'readLockMode' => ReadLockMode::PESSIMISTIC
-            ]
-        ]);
-    }
+```php
+use Google\Cloud\Spanner\SpannerClient;
+use Google\Cloud\Spanner\Transaction;
+use Google\Cloud\Spanner\V1\TransactionOptions\ReadWrite\ReadLockMode;
+
+/**
+ * Shows how to run a Read Write transaction with read lock mode options.
+ *
+ * Example:
+ * ```
+ * read_lock_mode($instanceId, $databaseId);
+ * ```
+ *
+ * @param string $instanceId The Spanner instance ID.
+ * @param string $databaseId The Spanner database ID.
+ */
+function read_lock_mode(string $instanceId, string $databaseId): void
+{
+    // The read lock mode specified at the client-level will be applied to all
+    // RW transactions.
+    $spanner = new SpannerClient([
+        'readLockMode' => ReadLockMode::OPTIMISTIC
+    ]);
+    $instance = $spanner->instance($instanceId);
+    $database = $instance->database($databaseId);
+
+    // The read lock mode specified at the request level takes precedence over
+    // the read lock mode configured at the client level.
+    $database->runTransaction(function (Transaction $t) {
+        // Read an AlbumTitle.
+        $results = $t->execute('SELECT AlbumTitle from Albums WHERE SingerId = 2 and AlbumId = 1');
+        foreach ($results as $row) {
+            printf('Current Album Title: %s' . PHP_EOL, $row['AlbumTitle']);
+        }
+
+        // Update the AlbumTitle.
+        $rowCount = $t->executeUpdate('UPDATE Albums SET AlbumTitle = \'A New Title\' WHERE SingerId = 2 and AlbumId = 1');
+
+        // Commit the transaction!
+        $t->commit();
+
+        printf('%d record(s) updated.' . PHP_EOL, $rowCount);
+    }, [
+        'transactionOptions' => [
+            'readLockMode' => ReadLockMode::PESSIMISTIC
+        ]
+    ]);
+}
+```
 
 ### Ruby
 
-    require "google/cloud/spanner"
-    
-    def spanner_read_lock_mode project_id:, instance_id:, database_id:
-      # Instantiates a client with read_lock_mode: :OPTIMISTIC
-      spanner = Google::Cloud::Spanner.new project: project_id
-      client = spanner.client instance_id, database_id, read_lock_mode: :OPTIMISTIC
-    
-      # Overrides read_lock_mode to :PESSIMISTIC at transaction level
-      client.transaction read_lock_mode: :PESSIMISTIC do |tx|
-        results = tx.execute_query "SELECT AlbumTitle FROM Albums WHERE SingerId = 2 AND AlbumId = 1"
-    
-        results.rows.each do |row|
-          puts "AlbumTitle: #{row[:AlbumTitle]}"
-        end
-    
-        row_count = tx.execute_update "UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 2 AND AlbumId = 1"
-    
-        puts "#{row_count} records updated."
-      end
+```ruby
+require "google/cloud/spanner"
+
+def spanner_read_lock_mode project_id:, instance_id:, database_id:
+  # Instantiates a client with read_lock_mode: :OPTIMISTIC
+  spanner = Google::Cloud::Spanner.new project: project_id
+  client = spanner.client instance_id, database_id, read_lock_mode: :OPTIMISTIC
+
+  # Overrides read_lock_mode to :PESSIMISTIC at transaction level
+  client.transaction read_lock_mode: :PESSIMISTIC do |tx|
+    results = tx.execute_query "SELECT AlbumTitle FROM Albums WHERE SingerId = 2 AND AlbumId = 1"
+
+    results.rows.each do |row|
+      puts "AlbumTitle: #{row[:AlbumTitle]}"
     end
+
+    row_count = tx.execute_update "UPDATE Albums SET AlbumTitle = 'A New Title' WHERE SingerId = 2 AND AlbumId = 1"
+
+    puts "#{row_count} records updated."
+  end
+end
+```
 
 ### REST
 
@@ -532,5 +548,5 @@ You can use Spanner's drivers to set `read_lock_mode` as a connection parameter 
 
 ## What's next
 
-  - Learn more about [Spanner isolation levels](https://docs.cloud.google.com/spanner/docs/isolation-levels) .
-  - Learn how to [use repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation) .
+- Learn more about [Spanner isolation levels](https://docs.cloud.google.com/spanner/docs/isolation-levels) .
+- Learn how to [use repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation) .

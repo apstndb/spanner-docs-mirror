@@ -44,9 +44,9 @@ Spanner automatically generates a new statistics packages every three days. To c
 
 After significant changes to your database's data or schema, constructing a new statistics package can benefit query performance. As a best practice, construct a new statistics package if the following occurs:
 
-  - The database processes a large amount of inserts, updates, or deletes.
-  - You add a new index to the database.
-  - You add a new column to a table.
+- The database processes a large amount of inserts, updates, or deletes.
+- You add a new index to the database.
+- You add a new column to a table.
 
 Running an `ANALYZE` DDL statement [updates your schema](https://docs.cloud.google.com/spanner/docs/schema-updates) , initiates a [long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations#get_the_status_of_a_long-running_database_operation) , and cancels the creation of any automatically triggered statistics.
 
@@ -72,5 +72,5 @@ The total amount of storage required for these packages is usually less than 100
 
 ## What's next
 
-  - To learn more about the history of the query optimizer, see [Query optimizer version history](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) .
-  - To manage both the optimizer version and statistics package for your scenario, see [Manage the query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer) .
+- To learn more about the history of the query optimizer, see [Query optimizer version history](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) .
+- To manage both the optimizer version and statistics package for your scenario, see [Manage the query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer) .

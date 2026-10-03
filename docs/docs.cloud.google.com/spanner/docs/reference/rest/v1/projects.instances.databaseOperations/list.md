@@ -6,14 +6,14 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.HTTP_TEMPLATE)
-  - [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.PATH_PARAMETERS)
-  - [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.QUERY_PARAMETERS)
-  - [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.request_body)
-  - [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.response_body)
-      - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.ListDatabaseOperationsResponse.SCHEMA_REPRESENTATION)
-  - [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.aspect)
-  - [Try it\!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#try-it)
+- [HTTP request](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.HTTP_TEMPLATE)
+- [Path parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.PATH_PARAMETERS)
+- [Query parameters](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.QUERY_PARAMETERS)
+- [Request body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.request_body)
+- [Response body](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.response_body)
+  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.ListDatabaseOperationsResponse.SCHEMA_REPRESENTATION)
+- [Authorization scopes](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.aspect)
+- [Try it!](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#try-it)
 
 Lists database longrunning-operations. A database operation has a name of the form `projects/<project>/instances/<instance>/databases/<database>/operations/<operation>` . The long-running operation metadata field type `metadata.type_url` describes the type of the metadata. Operations returned include those that have completed/failed/canceled within the last 7 days, and pending operations.
 
@@ -28,64 +28,86 @@ The URLs use [gRPC Transcoding](https://google.aip.dev/127) syntax.
 
 ### Path parameters
 
-Parameters
-
-`parent`
-
-`string`
-
-Required. The instance of the database operations. Values are of the form `projects/<project>/instances/<instance>` .
-
-Authorization requires the following [IAM](https://cloud.google.com/iam/docs/) permission on the specified resource `parent` :
-
-  - `spanner.databaseOperations.list`
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameters</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>parent</code></td>
+<td><p><code>string</code></p>
+<p>Required. The instance of the database operations. Values are of the form <code>projects/&lt;project&gt;/instances/&lt;instance&gt;</code> .</p>
+<p>Authorization requires the following <a href="https://cloud.google.com/iam/docs/">IAM</a> permission on the specified resource <code>parent</code> :</p>
+<ul>
+<li><code>spanner.databaseOperations.list</code></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
 
 ### Query parameters
 
-Parameters
-
-`filter`
-
-`string`
-
-An expression that filters the list of returned operations.
-
-A filter expression consists of a field name, a comparison operator, and a value for filtering. The value must be a string, a number, or a boolean. The comparison operator must be one of: `<` , `>` , `<=` , `>=` , `!=` , `=` , or `:` . Colon `:` is the contains operator. Filter rules are not case sensitive.
-
-The following fields in the operation are eligible for filtering:
-
-  - `name` - The name of the long-running operation
-  - `done` - False if the operation is in progress, else true.
-  - `metadata.@type` - the type of metadata. For example, the type string for `  RestoreDatabaseMetadata  ` is `type.googleapis.com/google.spanner.admin.database.v1.RestoreDatabaseMetadata` .
-  - `metadata.<field_name>` - any field in metadata.value. `metadata.@type` must be specified first, if filtering on metadata fields.
-  - `error` - Error associated with the long-running operation.
-  - `response.@type` - the type of response.
-  - `response.<field_name>` - any field in response.value.
-
-You can combine multiple expressions by enclosing each expression in parentheses. By default, expressions are combined with AND logic. However, you can specify AND, OR, and NOT logic explicitly.
-
-Here are a few examples:
-
-  - `done:true` - The operation is complete.
-  - `(metadata.@type=type.googleapis.com/google.spanner.admin.database.v1.RestoreDatabaseMetadata) AND` \\ `(metadata.source_type:BACKUP) AND` \\ `(metadata.backup_info.backup:backup_howl) AND` \\ `(metadata.name:restored_howl) AND` \\ `(metadata.progress.start_time < \"2018-03-28T14:50:00Z\") AND` \\ `(error:*)` - Return operations where:
-      - The operation's metadata type is `  RestoreDatabaseMetadata  ` .
-      - The database is restored from a backup.
-      - The backup name contains "backup\_howl".
-      - The restored database's name contains "restored\_howl".
-      - The operation started before 2018-03-28T14:50:00Z.
-      - The operation resulted in an error.
-
-`pageSize`
-
-`integer`
-
-Number of operations to be returned in the response. If 0 or less, defaults to the server's maximum allowed page size.
-
-`pageToken`
-
-`string`
-
-If non-empty, `pageToken` should contain a `  nextPageToken  ` from a previous `  ListDatabaseOperationsResponse  ` to the same `parent` and with the same `filter` .
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameters</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>filter</code></td>
+<td><p><code>string</code></p>
+<p>An expression that filters the list of returned operations.</p>
+<p>A filter expression consists of a field name, a comparison operator, and a value for filtering. The value must be a string, a number, or a boolean. The comparison operator must be one of: <code>&lt;</code> , <code>&gt;</code> , <code>&lt;=</code> , <code>&gt;=</code> , <code>!=</code> , <code>=</code> , or <code>:</code> . Colon <code>:</code> is the contains operator. Filter rules are not case sensitive.</p>
+<p>The following fields in the operation are eligible for filtering:</p>
+<ul>
+<li><code>name</code> - The name of the long-running operation</li>
+<li><code>done</code> - False if the operation is in progress, else true.</li>
+<li><code>metadata.@type</code> - the type of metadata. For example, the type string for <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata"><code>RestoreDatabaseMetadata</code></a> is <code>type.googleapis.com/google.spanner.admin.database.v1.RestoreDatabaseMetadata</code> .</li>
+<li><code>metadata.&lt;field_name&gt;</code> - any field in metadata.value. <code>metadata.@type</code> must be specified first, if filtering on metadata fields.</li>
+<li><code>error</code> - Error associated with the long-running operation.</li>
+<li><code>response.@type</code> - the type of response.</li>
+<li><code>response.&lt;field_name&gt;</code> - any field in response.value.</li>
+</ul>
+<p>You can combine multiple expressions by enclosing each expression in parentheses. By default, expressions are combined with AND logic. However, you can specify AND, OR, and NOT logic explicitly.</p>
+<p>Here are a few examples:</p>
+<ul>
+<li><code>done:true</code> - The operation is complete.</li>
+<li><code>(metadata.@type=type.googleapis.com/google.spanner.admin.database.v1.RestoreDatabaseMetadata) AND</code> \ <code>(metadata.source_type:BACKUP) AND</code> \ <code>(metadata.backup_info.backup:backup_howl) AND</code> \ <code>(metadata.name:restored_howl) AND</code> \ <code>(metadata.progress.start_time &lt; \"2018-03-28T14:50:00Z\") AND</code> \ <code>(error:*)</code> - Return operations where:
+<ul>
+<li>The operation's metadata type is <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RestoreDatabaseMetadata"><code>RestoreDatabaseMetadata</code></a> .</li>
+<li>The database is restored from a backup.</li>
+<li>The backup name contains "backup_howl".</li>
+<li>The restored database's name contains "restored_howl".</li>
+<li>The operation started before 2018-03-28T14:50:00Z.</li>
+<li>The operation resulted in an error.</li>
+</ul></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><code>pageSize</code></td>
+<td><p><code>integer</code></p>
+<p>Number of operations to be returned in the response. If 0 or less, defaults to the server's maximum allowed page size.</p></td>
+</tr>
+<tr class="odd">
+<td><code>pageToken</code></td>
+<td><p><code>string</code></p>
+<p>If non-empty, <code>pageToken</code> should contain a <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.ListDatabaseOperationsResponse.FIELDS.next_page_token"><code>nextPageToken</code></a> from a previous <a href="https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#body.ListDatabaseOperationsResponse"><code>ListDatabaseOperationsResponse</code></a> to the same <code>parent</code> and with the same <code>filter</code> .</p></td>
+</tr>
+</tbody>
+</table>
 
 ### Request body
 
@@ -93,45 +115,33 @@ The request body must be empty.
 
 ### Response body
 
-The response for `  databaseOperations.list  ` .
+The response for [`databaseOperations.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations) .
 
 If successful, the response body contains data with the following structure:
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;operations&quot;: [{object (Operation)}],&quot;nextPageToken&quot;: string}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "operations": [
+    {
+      object (Operation)
+    }
+  ],
+  "nextPageToken": string
+}
+```
 
-`operations[]`
-
-` object ( Operation  ` )
-
-The list of matching database long-running operations. Each operation's name will be prefixed by the database's name. The operation's metadata field type `metadata.type_url` describes the type of the metadata.
-
-`nextPageToken`
-
-`string`
-
-`nextPageToken` can be sent in a subsequent `  databaseOperations.list  ` call to fetch more of the matching metadata.
+| Fields          |                                                                                                                                                                                                                                                                                                                                                            |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `operations[]`  | `object ( `[`Operation`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations#Operation)` )` The list of matching database long-running operations. Each operation's name will be prefixed by the database's name. The operation's metadata field type `metadata.type_url` describes the type of the metadata. |
+| `nextPageToken` | `string` `nextPageToken` can be sent in a subsequent [`databaseOperations.list`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations/list#google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations) call to fetch more of the matching metadata.                                               |
 
 ### Authorization scopes
 
 Requires one of the following OAuth scopes:
 
-  - `https://www.googleapis.com/auth/spanner.admin`
-  - `https://www.googleapis.com/auth/cloud-platform`
+- `https://www.googleapis.com/auth/spanner.admin`
+- `https://www.googleapis.com/auth/cloud-platform`
 
 For more information, see the [Authentication Overview](https://docs.cloud.google.com/docs/authentication#authorization-gcp) .

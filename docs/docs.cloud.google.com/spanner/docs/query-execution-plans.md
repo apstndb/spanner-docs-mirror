@@ -18,7 +18,9 @@ Conceptually, an execution plan is a tree of relational operators. Each operator
 
 As an example, this query:
 
-    SELECT s.SongName FROM Songs AS s;
+```
+SELECT s.SongName FROM Songs AS s;
+```
 
 results in a query execution plan that can be visualized as:
 
@@ -26,86 +28,90 @@ results in a query execution plan that can be visualized as:
 
 The queries and execution plans on this page are based on the following database schema:
 
-    CREATE TABLE Singers (
-      SingerId   INT64 NOT NULL,
-      FirstName  STRING(1024),
-      LastName   STRING(1024),
-      SingerInfo BYTES(MAX),
-      BirthDate  DATE
-    ) PRIMARY KEY(SingerId);
-    
-    CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
-    
-    CREATE TABLE Albums (
-      SingerId        INT64 NOT NULL,
-      AlbumId         INT64 NOT NULL,
-      AlbumTitle      STRING(MAX),
-      MarketingBudget INT64
-    ) PRIMARY KEY(SingerId, AlbumId),
-      INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
-    
-    CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
-    
-    CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget);
-    
-    CREATE TABLE Songs (
-      SingerId  INT64 NOT NULL,
-      AlbumId   INT64 NOT NULL,
-      TrackId   INT64 NOT NULL,
-      SongName  STRING(MAX),
-      Duration  INT64,
-      SongGenre STRING(25)
-    ) PRIMARY KEY(SingerId, AlbumId, TrackId),
-      INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
-    
-    CREATE INDEX SongsBySingerAlbumSongNameDesc ON Songs(SingerId, AlbumId, SongName DESC), INTERLEAVE IN Albums;
-    
-    CREATE INDEX SongsBySongName ON Songs(SongName);
-    
-    CREATE TABLE Concerts (
-      VenueId      INT64 NOT NULL,
-      SingerId     INT64 NOT NULL,
-      ConcertDate  DATE NOT NULL,
-      BeginTime    TIMESTAMP,
-      EndTime      TIMESTAMP,
-      TicketPrices ARRAY<INT64>
-    ) PRIMARY KEY(VenueId, SingerId, ConcertDate);
+```
+CREATE TABLE Singers (
+  SingerId   INT64 NOT NULL,
+  FirstName  STRING(1024),
+  LastName   STRING(1024),
+  SingerInfo BYTES(MAX),
+  BirthDate  DATE
+) PRIMARY KEY(SingerId);
+
+CREATE INDEX SingersByFirstLastName ON Singers(FirstName, LastName);
+
+CREATE TABLE Albums (
+  SingerId        INT64 NOT NULL,
+  AlbumId         INT64 NOT NULL,
+  AlbumTitle      STRING(MAX),
+  MarketingBudget INT64
+) PRIMARY KEY(SingerId, AlbumId),
+  INTERLEAVE IN PARENT Singers ON DELETE CASCADE;
+
+CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle);
+
+CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget);
+
+CREATE TABLE Songs (
+  SingerId  INT64 NOT NULL,
+  AlbumId   INT64 NOT NULL,
+  TrackId   INT64 NOT NULL,
+  SongName  STRING(MAX),
+  Duration  INT64,
+  SongGenre STRING(25)
+) PRIMARY KEY(SingerId, AlbumId, TrackId),
+  INTERLEAVE IN PARENT Albums ON DELETE CASCADE;
+
+CREATE INDEX SongsBySingerAlbumSongNameDesc ON Songs(SingerId, AlbumId, SongName DESC), INTERLEAVE IN Albums;
+
+CREATE INDEX SongsBySongName ON Songs(SongName);
+
+CREATE TABLE Concerts (
+  VenueId      INT64 NOT NULL,
+  SingerId     INT64 NOT NULL,
+  ConcertDate  DATE NOT NULL,
+  BeginTime    TIMESTAMP,
+  EndTime      TIMESTAMP,
+  TicketPrices ARRAY<INT64>
+) PRIMARY KEY(VenueId, SingerId, ConcertDate);
+```
 
 You can use the following Data Manipulation Language (DML) statements to add data to these tables:
 
-    INSERT INTO Singers (SingerId, FirstName, LastName, BirthDate)
-    VALUES (1, "Marc", "Richards", "1970-09-03"),
-           (2, "Catalina", "Smith", "1990-08-17"),
-           (3, "Alice", "Trentor", "1991-10-02"),
-           (4, "Lea", "Martin", "1991-11-09"),
-           (5, "David", "Lomond", "1977-01-29");
-    
-    INSERT INTO Albums (SingerId, AlbumId, AlbumTitle)
-    VALUES (1, 1, "Total Junk"),
-           (1, 2, "Go, Go, Go"),
-           (2, 1, "Green"),
-           (2, 2, "Forever Hold Your Peace"),
-           (2, 3, "Terrified"),
-           (3, 1, "Nothing To Do With Me"),
-           (4, 1, "Play");
-    
-    INSERT INTO Songs (SingerId, AlbumId, TrackId, SongName, Duration, SongGenre)
-    VALUES (2, 1, 1, "Let's Get Back Together", 182, "COUNTRY"),
-           (2, 1, 2, "Starting Again", 156, "ROCK"),
-           (2, 1, 3, "I Knew You Were Magic", 294, "BLUES"),
-           (2, 1, 4, "42", 185, "CLASSICAL"),
-           (2, 1, 5, "Blue", 238, "BLUES"),
-           (2, 1, 6, "Nothing Is The Same", 303, "BLUES"),
-           (2, 1, 7, "The Second Time", 255, "ROCK"),
-           (2, 3, 1, "Fight Story", 194, "ROCK"),
-           (3, 1, 1, "Not About The Guitar", 278, "BLUES");
+```
+INSERT INTO Singers (SingerId, FirstName, LastName, BirthDate)
+VALUES (1, "Marc", "Richards", "1970-09-03"),
+       (2, "Catalina", "Smith", "1990-08-17"),
+       (3, "Alice", "Trentor", "1991-10-02"),
+       (4, "Lea", "Martin", "1991-11-09"),
+       (5, "David", "Lomond", "1977-01-29");
+
+INSERT INTO Albums (SingerId, AlbumId, AlbumTitle)
+VALUES (1, 1, "Total Junk"),
+       (1, 2, "Go, Go, Go"),
+       (2, 1, "Green"),
+       (2, 2, "Forever Hold Your Peace"),
+       (2, 3, "Terrified"),
+       (3, 1, "Nothing To Do With Me"),
+       (4, 1, "Play");
+
+INSERT INTO Songs (SingerId, AlbumId, TrackId, SongName, Duration, SongGenre)
+VALUES (2, 1, 1, "Let's Get Back Together", 182, "COUNTRY"),
+       (2, 1, 2, "Starting Again", 156, "ROCK"),
+       (2, 1, 3, "I Knew You Were Magic", 294, "BLUES"),
+       (2, 1, 4, "42", 185, "CLASSICAL"),
+       (2, 1, 5, "Blue", 238, "BLUES"),
+       (2, 1, 6, "Nothing Is The Same", 303, "BLUES"),
+       (2, 1, 7, "The Second Time", 255, "ROCK"),
+       (2, 3, 1, "Fight Story", 194, "ROCK"),
+       (3, 1, 1, "Not About The Guitar", 278, "BLUES");
+```
 
 > **Note:** You can run queries and retrieve execution plans even if the tables have no data.
 
 Obtaining efficient execution plans is challenging because Spanner divides data into [*splits*](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) . Splits can move independently from each other and get assigned to different servers, which could be in different physical locations. To evaluate execution plans over the distributed data, Spanner uses execution based on:
 
-  - local execution of *subplans* in servers that contain the data
-  - orchestration and aggregation of multiple remote executions with aggressive distribution pruning
+- local execution of *subplans* in servers that contain the data
+- orchestration and aggregation of multiple remote executions with aggressive distribution pruning
 
 Spanner uses the primitive operator [`distributed union`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , along with its variants [`distributed cross apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-cross-apply) and [`distributed outer apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-outer-apply) , to enable this model.
 
@@ -114,7 +120,7 @@ Spanner uses the primitive operator [`distributed union`](https://docs.cloud.goo
 The Spanner Studio query plan visualizer displays summary metrics for query execution. Summary metrics represent the aggregate of metrics from all individual operators executed during the query. The following table describes the key performance metrics:
 
 | Metric             | Description                                                                                                                                                                                                    |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Total elapsed time | The total wall-clock time taken to execute the query.                                                                                                                                                          |
 | CPU time           | The total amount of CPU time spent across all servers involved in executing the query. Because some parts of query execution can proceed in parallel, the CPU time can be greater than the total elapsed time. |
 
@@ -128,9 +134,9 @@ The anatomy of a sampled query plan is the same as a regular query execution pla
 
 Some common use cases for sampled query plans include:
 
-  - Observe query plan changes due to [schema changes](https://docs.cloud.google.com/spanner/docs/schema-updates) (for example, adding or removing an index).
-  - Observe query plan changes due to an [optimizer version update](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) .
-  - Observe query plan changes due to [new optimizer statistics](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) , which are collected every three days automatically or performed manually using the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) command.
+- Observe query plan changes due to [schema changes](https://docs.cloud.google.com/spanner/docs/schema-updates) (for example, adding or removing an index).
+- Observe query plan changes due to an [optimizer version update](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) .
+- Observe query plan changes due to [new optimizer statistics](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) , which are collected every three days automatically or performed manually using the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) command.
 
 If the performance of a query shows significant difference over time or if you want to improve the performance of a query, see [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) to construct optimized query statements that help Spanner find efficient execution plans.
 
@@ -138,10 +144,10 @@ If the performance of a query shows significant difference over time or if you w
 
 A SQL query in Spanner is first compiled into an execution plan, then it is sent to an initial *root* server for execution. The root server is chosen so as to minimize the number of hops to reach the data being queried. The root server then:
 
-  - initiates remote execution of subplans (if necessary)
-  - waits for results from the remote executions
-  - handles any remaining local execution steps such as aggregating results
-  - returns results for the query
+- initiates remote execution of subplans (if necessary)
+- waits for results from the remote executions
+- handles any remaining local execution steps such as aggregating results
+- returns results for the query
 
 Remote servers that receive a subplan act as a "root" server for their subplan, following the same model as the topmost root server. The result is a tree of remote executions. Conceptually, query execution flows from top to bottom, and query results are returned from bottom to top.The following diagram shows this pattern:
 
@@ -155,19 +161,23 @@ An aggregate query implements `GROUP BY` queries.
 
 For example, using this query:
 
-    SELECT s.SingerId, COUNT(*) AS SongCount
-    FROM Songs AS s
-    WHERE s.SingerId < 100
-    GROUP BY s.SingerId;
+```
+SELECT s.SingerId, COUNT(*) AS SongCount
+FROM Songs AS s
+WHERE s.SingerId < 100
+GROUP BY s.SingerId;
+```
 
 These are the results:
 
-    +----------+-----------+
-    | SingerId | SongCount |
-    +----------+-----------+
-    |        3 |         1 |
-    |        2 |         8 |
-    +----------+-----------+
+```
++----------+-----------+
+| SingerId | SongCount |
++----------+-----------+
+|        3 |         1 |
+|        2 |         8 |
++----------+-----------+
+```
 
 Conceptually, this is the execution plan:
 
@@ -185,27 +195,31 @@ You can learn more about aggregates at [aggregate operator](https://docs.cloud.g
 
 For example, using this query:
 
-    SELECT al.AlbumTitle, so.SongName
-    FROM Albums AS al, Songs AS so
-    WHERE al.SingerId = so.SingerId AND al.AlbumId = so.AlbumId;
+```
+SELECT al.AlbumTitle, so.SongName
+FROM Albums AS al, Songs AS so
+WHERE al.SingerId = so.SingerId AND al.AlbumId = so.AlbumId;
+```
 
 (This query assumes that `Songs` is interleaved in `Albums` .)
 
 These are the results:
 
-    +-----------------------+--------------------------+
-    | AlbumTitle            | SongName                 |
-    +-----------------------+--------------------------+
-    | Nothing To Do With Me | Not About The Guitar     |
-    | Green                 | The Second Time          |
-    | Green                 | Starting Again           |
-    | Green                 | Nothing Is The Same      |
-    | Green                 | Let's Get Back Together  |
-    | Green                 | I Knew You Were Magic    |
-    | Green                 | Blue                     |
-    | Green                 | 42                       |
-    | Terrified             | Fight Story              |
-    +-----------------------+--------------------------+
+```
++-----------------------+--------------------------+
+| AlbumTitle            | SongName                 |
++-----------------------+--------------------------+
+| Nothing To Do With Me | Not About The Guitar     |
+| Green                 | The Second Time          |
+| Green                 | Starting Again           |
+| Green                 | Nothing Is The Same      |
+| Green                 | Let's Get Back Together  |
+| Green                 | I Knew You Were Magic    |
+| Green                 | Blue                     |
+| Green                 | 42                       |
+| Terrified             | Fight Story              |
++-----------------------+--------------------------+
+```
 
 This is the execution plan:
 
@@ -221,21 +235,27 @@ The example above used a join on two tables, one interleaved in the other. Execu
 
 Consider an index created with the following command:
 
-    CREATE INDEX SongsBySongName ON Songs(SongName)
+```
+CREATE INDEX SongsBySongName ON Songs(SongName)
+```
 
 Use this index in this query:
 
-    SELECT s.SongName, s.Duration
-    FROM Songs@{force_index=SongsBySongName} AS s
-    WHERE STARTS_WITH(s.SongName, "B");
+```
+SELECT s.SongName, s.Duration
+FROM Songs@{force_index=SongsBySongName} AS s
+WHERE STARTS_WITH(s.SongName, "B");
+```
 
 These are the results:
 
-    +----------+----------+
-    | SongName | Duration |
-    +----------+----------+
-    | Blue     |      238 |
-    +----------+----------+
+```
++----------+----------+
+| SongName | Duration |
++----------+----------+
+| Blue     |      238 |
++----------+----------+
+```
 
 This is the execution plan:
 
@@ -249,9 +269,11 @@ The results are aggregated into the final query answer. In turn, the input side 
 
 Consider a slightly different query that doesn't select the `s.Duration` column:
 
-    SELECT s.SongName
-    FROM Songs@{force_index=SongsBySongName} AS s
-    WHERE STARTS_WITH(s.SongName, "B");
+```
+SELECT s.SongName
+FROM Songs@{force_index=SongsBySongName} AS s
+WHERE STARTS_WITH(s.SongName, "B");
+```
 
 This query is able to fully leverage the index as shown in this execution plan:
 
@@ -261,8 +283,8 @@ The execution plan doesn't require a back join because all the columns requested
 
 ## What's next
 
-  - Learn about [Query execution operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators)
+- Learn about [Query execution operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators)
 
-  - Learn about the Spanner [query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview)
+- Learn about the Spanner [query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview)
 
-  - Learn how to [Manage the query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer)
+- Learn how to [Manage the query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer)

@@ -10,11 +10,11 @@ data_source: docs.cloud.google.com
 
 This document describes how to use reverse extract, transform, and load (ETL) pipelines to move and continuously synchronize graph data from BigQuery to Spanner Graph. It covers the following key aspects:
 
-  - [Common use cases for reverse ETL with graph data](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#reverse-etl-use-cases) .
-  - [The steps involved in a reverse ETL pipeline](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#reverse-etl-pipeline) .
-  - [Strategies for managing graph data changes](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#manage-graph) , including insertions, updates, and deletions.
-  - [Methods for orchestrating and maintaining reverse ETL pipelines](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#pipeline-orchestration) .
-  - [Best practices for optimizing your reverse ETL process](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#reverse-etl-best-practices) .
+- [Common use cases for reverse ETL with graph data](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#reverse-etl-use-cases) .
+- [The steps involved in a reverse ETL pipeline](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#reverse-etl-pipeline) .
+- [Strategies for managing graph data changes](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#manage-graph) , including insertions, updates, and deletions.
+- [Methods for orchestrating and maintaining reverse ETL pipelines](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#pipeline-orchestration) .
+- [Best practices for optimizing your reverse ETL process](https://docs.cloud.google.com/spanner/docs/graph/reverse-etl#reverse-etl-best-practices) .
 
 To use reverse ETL to export data from BigQuery to Spanner, see [Export data to Spanner](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) .
 
@@ -32,10 +32,10 @@ BigQuery performs complex data manipulation at scale as an analytical processing
 
 To get the permissions that you need to export BigQuery graph data to Spanner Graph, ask your administrator to grant you the following IAM roles on your project:
 
-  - Export data from a BigQuery table: [BigQuery Data Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/bigquery#bigquery.dataViewer) ( `roles/bigquery.dataViewer` )
-  - Run an export job: [BigQuery User](https://docs.cloud.google.com/iam/docs/roles-permissions/bigquery#bigquery.user) ( `roles/bigquery.user` )
-  - View parameters of the Spanner instance: [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
-  - Write data to a Spanner Graph table: [Cloud Spanner Database User](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `roles/spanner.databaseUser` )
+- Export data from a BigQuery table: [BigQuery Data Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/bigquery#bigquery.dataViewer) ( `roles/bigquery.dataViewer` )
+- Run an export job: [BigQuery User](https://docs.cloud.google.com/iam/docs/roles-permissions/bigquery#bigquery.user) ( `roles/bigquery.user` )
+- View parameters of the Spanner instance: [Cloud Spanner Viewer](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.viewer) ( `roles/spanner.viewer` )
+- Write data to a Spanner Graph table: [Cloud Spanner Database User](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.databaseUser) ( `roles/spanner.databaseUser` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
@@ -51,7 +51,7 @@ The following are example use cases. After you analyze and process data in BigQu
 
 **Data filtering and selection** - Use BigQuery to filter a large dataset for analytical purposes. For example, you might filter out data that is not required for real-time applications.
 
-**Feature preprocessing and engineering** - In BigQuery, use the [ML.TRANSFORM](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-transform) function to transform data, or the [ML.FEATURE\_CROSS](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-feature-cross) function to create [feature crosses](https://developers.google.com/machine-learning/crash-course/categorical-data/feature-crosses) of input features. Then, use reverse ETL to move the resulting data into Spanner Graph.
+**Feature preprocessing and engineering** - In BigQuery, use the [ML.TRANSFORM](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-transform) function to transform data, or the [ML.FEATURE_CROSS](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/bigqueryml-syntax-feature-cross) function to create [feature crosses](https://developers.google.com/machine-learning/crash-course/categorical-data/feature-crosses) of input features. Then, use reverse ETL to move the resulting data into Spanner Graph.
 
 ## Understand the reverse ETL pipeline
 
@@ -71,9 +71,9 @@ The following diagram shows the steps in a reverse ETL pipeline:
 
 You can use reverse ETL to do the following:
 
-  - Load a graph dataset from BigQuery to Spanner Graph.
+- Load a graph dataset from BigQuery to Spanner Graph.
 
-  - Synchronize Spanner Graph data with ongoing updates from a dataset in BigQuery.
+- Synchronize Spanner Graph data with ongoing updates from a dataset in BigQuery.
 
 You configure a reverse ETL pipeline with a SQL query to specify the source data and the transformation to apply. The pipeline loads all data that satisfies the `WHERE` clause of the `SELECT` statement into Spanner using an *upsert* operation. An upsert operation is equivalent to [`INSERT OR UPDATE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) statements. It inserts new rows and updates existing rows in tables that store graph data. The pipeline bases new and updated rows on a Spanner table primary key.
 
@@ -83,37 +83,39 @@ Spanner Graph schema design best practices recommend using interleaved tables an
 
 The following example graph input table schema uses an interleaved table and a foreign key constraint to model the relationship between a person and their accounts:
 
-    CREATE TABLE Person (
-      id    INT64 NOT NULL,
-      name  STRING(MAX)
-    ) PRIMARY KEY (id);
-    
-    CREATE TABLE Account (
-      id           INT64 NOT NULL,
-      create_time  TIMESTAMP,
-      is_blocked   BOOL,
-      type        STRING(MAX)
-    ) PRIMARY KEY (id);
-    
-    CREATE TABLE PersonOwnAccount (
-      id           INT64 NOT NULL,
-      account_id   INT64 NOT NULL,
-      create_time  TIMESTAMP,
-      CONSTRAINT FK_Account FOREIGN KEY (account_id) REFERENCES Account (id)
-    ) PRIMARY KEY (id, account_id),
-      INTERLEAVE IN PARENT Person ON DELETE CASCADE;
-    
-    CREATE PROPERTY GRAPH FinGraph
-      NODE TABLES (
-        Person,
-        Account
-      )
-      EDGE TABLES (
-        PersonOwnAccount
-          SOURCE KEY (id) REFERENCES Person
-          DESTINATION KEY (account_id) REFERENCES Account
-          LABEL Owns
-      );
+```
+CREATE TABLE Person (
+  id    INT64 NOT NULL,
+  name  STRING(MAX)
+) PRIMARY KEY (id);
+
+CREATE TABLE Account (
+  id           INT64 NOT NULL,
+  create_time  TIMESTAMP,
+  is_blocked   BOOL,
+  type        STRING(MAX)
+) PRIMARY KEY (id);
+
+CREATE TABLE PersonOwnAccount (
+  id           INT64 NOT NULL,
+  account_id   INT64 NOT NULL,
+  create_time  TIMESTAMP,
+  CONSTRAINT FK_Account FOREIGN KEY (account_id) REFERENCES Account (id)
+) PRIMARY KEY (id, account_id),
+  INTERLEAVE IN PARENT Person ON DELETE CASCADE;
+
+CREATE PROPERTY GRAPH FinGraph
+  NODE TABLES (
+    Person,
+    Account
+  )
+  EDGE TABLES (
+    PersonOwnAccount
+      SOURCE KEY (id) REFERENCES Person
+      DESTINATION KEY (account_id) REFERENCES Account
+      LABEL Owns
+  );
+```
 
 In this example schema, `PersonOwnAccount` is an interleaved table in `Person` . Load elements in the `Person` table before elements in the `PersonOwnAccount` table. Additionally, the foreign key constraint on `PersonOwnAccount` ensures a matching row exists in `Account` , the edge relationship target. Therefore, load the `Account` table before the `PersonOwnAccount` table. The following list summarizes this schema's load order dependencies:
 
@@ -126,63 +128,65 @@ Spanner enforces the referential integrity constraints in the example schema. If
 
 This example reverse ETL pipeline uses [`EXPORTDATA`](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/export-statements) statements in BigQuery to export data from the `Person` , `Account` , and `PersonOwnAccount` tables in a dataset to meet load order dependencies:
 
-    BEGIN
-    EXPORT DATA OPTIONS (
-        uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
-        format='CLOUD_SPANNER',
-        spanner_options="""{
-          "table": "Person",
-          "priority": "LOW",
-          "tag" : "graph_data_load_person"
-        }"""
-      ) AS
-      SELECT
-        id,
-        name
-      FROM
-        DATASET_NAME.Person;
-    
-    EXPORT DATA OPTIONS (
-      uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
-      format='CLOUD_SPANNER',
-      spanner_options="""{
-        "table": "Account",
-        "priority": "LOW",
-        "tag" : "graph_data_load_account"
-      }"""
-    ) AS
-    SELECT
-      id,
-      create_time,
-      is_blocked,
-      type
-    FROM
-      DATASET_NAME.Account;
-    
-    EXPORT DATA OPTIONS (
-      uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
-      format='CLOUD_SPANNER',
-      spanner_options="""{
-        "table": "PersonOwnAccount",
-        "priority": "LOW",
-        "tag" : "graph_data_load_person_own_account"
-      }"""
-    ) AS
-    SELECT
-      id,
-      account_id,
-      create_time
-    FROM
-      DATASET_NAME.PersonOwnAccount;
-    END;
+```
+BEGIN
+EXPORT DATA OPTIONS (
+    uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
+    format='CLOUD_SPANNER',
+    spanner_options="""{
+      "table": "Person",
+      "priority": "LOW",
+      "tag" : "graph_data_load_person"
+    }"""
+  ) AS
+  SELECT
+    id,
+    name
+  FROM
+    DATASET_NAME.Person;
+
+EXPORT DATA OPTIONS (
+  uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
+  format='CLOUD_SPANNER',
+  spanner_options="""{
+    "table": "Account",
+    "priority": "LOW",
+    "tag" : "graph_data_load_account"
+  }"""
+) AS
+SELECT
+  id,
+  create_time,
+  is_blocked,
+  type
+FROM
+  DATASET_NAME.Account;
+
+EXPORT DATA OPTIONS (
+  uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
+  format='CLOUD_SPANNER',
+  spanner_options="""{
+    "table": "PersonOwnAccount",
+    "priority": "LOW",
+    "tag" : "graph_data_load_person_own_account"
+  }"""
+) AS
+SELECT
+  id,
+  account_id,
+  create_time
+FROM
+  DATASET_NAME.PersonOwnAccount;
+END;
+```
 
 ### Synchronize data
 
 To synchronize BigQuery with Spanner Graph, use reverse ETL pipelines. You can configure a pipeline to do one of the following:
 
-  - Apply any insertions and updates from the BigQuery source to the Spanner Graph target table. You can add schema elements to the target tables to logically communicate deletes and remove target table rows on a schedule.
+- Apply any insertions and updates from the BigQuery source to the Spanner Graph target table. You can add schema elements to the target tables to logically communicate deletes and remove target table rows on a schedule.
 
-  - Use a time series function that applies insert and update operations and identifies delete operations.
+- Use a time series function that applies insert and update operations and identifies delete operations.
 
 ### Referential integrity constraints
 
@@ -196,61 +200,65 @@ The following examples show referential integrity constraint errors that you mig
 
 ##### Resolve foreign key constraint errors
 
-  - Error: "Foreign key constraint `FK_Account` is violated on table `PersonOwnAccount` . Can't find referenced values in `Account(id)` "
+- Error: "Foreign key constraint `FK_Account` is violated on table `PersonOwnAccount` . Can't find referenced values in `Account(id)` "
 
-  - Cause: A row insert into the `PersonOwnAccount` table failed because a matching row in the `Account` table, which the `FK_Account` foreign key requires, is missing.
+- Cause: A row insert into the `PersonOwnAccount` table failed because a matching row in the `Account` table, which the `FK_Account` foreign key requires, is missing.
 
 ##### Resolve parent row missing errors
 
-  - Error: "Parent row for row \[15,1\] in table `PersonOwnAccount` is missing"
+- Error: "Parent row for row \[15,1\] in table `PersonOwnAccount` is missing"
 
-  - Cause: A row insert into `PersonOwnAccount` ( `id: 15` and `account_id: 1` ) failed because a parent row in the `Person` table ( `id: 15` ) is missing.
+- Cause: A row insert into `PersonOwnAccount` ( `id: 15` and `account_id: 1` ) failed because a parent row in the `Person` table ( `id: 15` ) is missing.
 
 To reduce the risk of referential integrity errors, consider the following options. Each option has tradeoffs.
 
-  - Relax the constraints to allow Spanner Graph to load data.
-  - Add logic to your pipeline to omit rows that violate referential integrity constraints.
+- Relax the constraints to allow Spanner Graph to load data.
+- Add logic to your pipeline to omit rows that violate referential integrity constraints.
 
 ### Relax referential integrity
 
 One option to avoid referential integrity errors when loading data is to relax the constraints so that Spanner doesn't enforce referential integrity.
 
-  - You can create [interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#parent-child) with the `INTERLEAVE IN` clause to use the same physical row interleaving characteristics. If you use `INTERLEAVE IN` instead of `INTERLEAVE IN PARENT` , Spanner doesn't enforce referential integrity, though queries benefit from the co-location of related tables.
+- You can create [interleaved tables](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#parent-child) with the `INTERLEAVE IN` clause to use the same physical row interleaving characteristics. If you use `INTERLEAVE IN` instead of `INTERLEAVE IN PARENT` , Spanner doesn't enforce referential integrity, though queries benefit from the co-location of related tables.
 
-  - You can create [informational foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys) by using the `NOT ENFORCED` option. The `NOT ENFORCED` option provides query optimization benefits. Spanner doesn't, however, enforce referential integrity.
+- You can create [informational foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#informational-foreign-keys) by using the `NOT ENFORCED` option. The `NOT ENFORCED` option provides query optimization benefits. Spanner doesn't, however, enforce referential integrity.
 
 For example, to create the edge input table without referential integrity checks, you can use this DDL:
 
-    CREATE TABLE PersonOwnAccount (
-      id          INT64 NOT NULL,
-      account_id  INT64 NOT NULL,
-      create_time TIMESTAMP,
-      CONSTRAINT FK_Account FOREIGN KEY (account_id) REFERENCES Account (id) NOT ENFORCED
-    ) PRIMARY KEY (id, account_id),
-    INTERLEAVE IN Person;
+```
+CREATE TABLE PersonOwnAccount (
+  id          INT64 NOT NULL,
+  account_id  INT64 NOT NULL,
+  create_time TIMESTAMP,
+  CONSTRAINT FK_Account FOREIGN KEY (account_id) REFERENCES Account (id) NOT ENFORCED
+) PRIMARY KEY (id, account_id),
+INTERLEAVE IN Person;
+```
 
 ### Respect referential integrity in reverse ETL pipelines
 
 To ensure the pipeline loads only rows that satisfy the referential integrity checks, include only `PersonOwnAccount` rows that have matching rows in the `Person` and `Account` tables. Then, preserve the load order, so Spanner loads `Person` and `Account` rows before the `PersonOwnAccount` rows that refer to them.
 
-    EXPORT DATA OPTIONS (
-      uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
-      format='CLOUD_SPANNER',
-        spanner_options="""{
-          "table": "PersonOwnAccount",
-          "priority": "LOW",
-          "tag" : "graph_data_load_person_own_account"
-        }"""
-      ) AS
-      SELECT
-        poa.id,
-        poa.account_id,
-        poa.create_time
-      FROM `PROJECT_ID.DATASET_NAME.PersonOwnAccount` poa
-        JOIN `PROJECT_ID.DATASET_NAME.Person` p ON (poa.id = p.id)
-        JOIN `PROJECT_ID.DATASET_NAME.Account` a ON (poa.account_id = a.id)
-      WHERE poa.id = p.id
-        AND poa.account_id = a.id;
+```
+EXPORT DATA OPTIONS (
+  uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
+  format='CLOUD_SPANNER',
+    spanner_options="""{
+      "table": "PersonOwnAccount",
+      "priority": "LOW",
+      "tag" : "graph_data_load_person_own_account"
+    }"""
+  ) AS
+  SELECT
+    poa.id,
+    poa.account_id,
+    poa.create_time
+  FROM `PROJECT_ID.DATASET_NAME.PersonOwnAccount` poa
+    JOIN `PROJECT_ID.DATASET_NAME.Person` p ON (poa.id = p.id)
+    JOIN `PROJECT_ID.DATASET_NAME.Account` a ON (poa.account_id = a.id)
+  WHERE poa.id = p.id
+    AND poa.account_id = a.id;
+```
 
 > **Note:** If you add [unenforced primary keys and foreign key constraints](https://cloud.google.com/blog/products/data-analytics/join-optimizations-with-bigquery-primary-and-foreign-keys?e=48754805) to your BigQuery tables, this query doesn't apply the joins. BigQuery requires you to maintain the constraints.
 
@@ -266,16 +274,18 @@ To logically mark rows for deletion, use a deleted flag in BigQuery. Then create
 
 This example adds an `is_deleted` column to the `PersonOwnAccount` table in Spanner. It then adds an `expired_ts_generated` column that depends on the `is_deleted` value. The TTL policy schedules affected rows for deletion because the date in the generated column is earlier than the `DELETION POLICY` threshold.
 
-    ALTER TABLE PersonOwnAccount
-      ADD COLUMN is_deleted BOOL DEFAULT (FALSE);
-    
-    ALTER TABLE PersonOwnAccount ADD COLUMN
-      expired_ts_generated TIMESTAMP AS (IF(is_deleted,
-        TIMESTAMP("1970-01-01 00:00:00+00"),
-        TIMESTAMP("9999-01-01 00:00:00+00"))) STORED HIDDEN;
-    
-    ALTER TABLE PersonOwnAccount
-      ADD ROW DELETION POLICY (OLDER_THAN(expired_ts_generated, INTERVAL 0 DAY));
+```
+ALTER TABLE PersonOwnAccount
+  ADD COLUMN is_deleted BOOL DEFAULT (FALSE);
+
+ALTER TABLE PersonOwnAccount ADD COLUMN
+  expired_ts_generated TIMESTAMP AS (IF(is_deleted,
+    TIMESTAMP("1970-01-01 00:00:00+00"),
+    TIMESTAMP("9999-01-01 00:00:00+00"))) STORED HIDDEN;
+
+ALTER TABLE PersonOwnAccount
+  ADD ROW DELETION POLICY (OLDER_THAN(expired_ts_generated, INTERVAL 0 DAY));
+```
 
 #### Use BigQuery change history for INSERT, UPDATE and logical deletes
 
@@ -297,44 +307,50 @@ For example, you could add a column to a Spanner input table to store each row's
 
 The following example shows how to add a column to store the expiration dates of the table's rows.
 
-    ALTER TABLE PersonOwnAccount ADD COLUMN expired_ts TIMESTAMP;
-    
-    ALTER TABLE PersonOwnAccount
-      ADD ROW DELETION POLICY (OLDER_THAN(expired_ts, INTERVAL 1 DAY));
+```
+ALTER TABLE PersonOwnAccount ADD COLUMN expired_ts TIMESTAMP;
+
+ALTER TABLE PersonOwnAccount
+  ADD ROW DELETION POLICY (OLDER_THAN(expired_ts, INTERVAL 1 DAY));
+```
 
 To use the `CHANGES` function on a table in BigQuery, set the table's [`enable_change_history` option](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/data-definition-language#table_option_list) to `TRUE` :
 
-    ALTER TABLE `PROJECT_ID.DATASET_NAME.PersonOwnAccount`
-      SET OPTIONS (enable_change_history=TRUE);
+```
+ALTER TABLE `PROJECT_ID.DATASET_NAME.PersonOwnAccount`
+  SET OPTIONS (enable_change_history=TRUE);
+```
 
 The following example shows how you can use reverse ETL to update new or changed rows and set the expiration date for rows marked for deletion. A left join with the `PersonOwnAccount` table gives the query information about each row's current status.
 
-    EXPORT DATA OPTIONS (
-      uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
-        format='CLOUD_SPANNER',
-        spanner_options="""{
-          "table": "PersonOwnAccount",
-          "priority": "LOW",
-          "tag" : "graph_data_delete_via_reverse_etl"
-        }"""
-      ) AS
-    SELECT
-      DISTINCT
-       IF (changes._CHANGE_TYPE = 'DELETE', changes.id, poa.id) AS id,
-       IF (changes._CHANGE_TYPE = 'DELETE', changes.account_id, poa.account_id) AS account_id,
-       IF (changes._CHANGE_TYPE = 'DELETE', changes.create_time, poa.create_time) AS create_time,
-       IF (changes._CHANGE_TYPE = 'DELETE', changes._CHANGE_TIMESTAMP, NULL) AS expired_ts
-    FROM
-      CHANGES(TABLE `PROJECT_ID.DATASET_NAME.PersonOwnAccount`,
-        TIMESTAMP_TRUNC(TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY), DAY),
-        TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY)) changes
-    LEFT JOIN `PROJECT_ID.DATASET_NAME.PersonOwnAccount` poa
-      ON (poa.id = changes.id
-      AND poa.account_id = changes.account_id)
-    WHERE (changes._CHANGE_TYPE = 'DELETE'
-       AND poa.id IS NULL)
-       OR (changes._CHANGE_TYPE IN ( 'UPDATE', 'INSERT')
-       AND poa.id IS NOT NULL );
+```
+EXPORT DATA OPTIONS (
+  uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
+    format='CLOUD_SPANNER',
+    spanner_options="""{
+      "table": "PersonOwnAccount",
+      "priority": "LOW",
+      "tag" : "graph_data_delete_via_reverse_etl"
+    }"""
+  ) AS
+SELECT
+  DISTINCT
+   IF (changes._CHANGE_TYPE = 'DELETE', changes.id, poa.id) AS id,
+   IF (changes._CHANGE_TYPE = 'DELETE', changes.account_id, poa.account_id) AS account_id,
+   IF (changes._CHANGE_TYPE = 'DELETE', changes.create_time, poa.create_time) AS create_time,
+   IF (changes._CHANGE_TYPE = 'DELETE', changes._CHANGE_TIMESTAMP, NULL) AS expired_ts
+FROM
+  CHANGES(TABLE `PROJECT_ID.DATASET_NAME.PersonOwnAccount`,
+    TIMESTAMP_TRUNC(TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 DAY), DAY),
+    TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY)) changes
+LEFT JOIN `PROJECT_ID.DATASET_NAME.PersonOwnAccount` poa
+  ON (poa.id = changes.id
+  AND poa.account_id = changes.account_id)
+WHERE (changes._CHANGE_TYPE = 'DELETE'
+   AND poa.id IS NULL)
+   OR (changes._CHANGE_TYPE IN ( 'UPDATE', 'INSERT')
+   AND poa.id IS NOT NULL );
+```
 
 The example query uses a `LEFT JOIN` with the source table to preserve order. This join ensures that `DELETE` change records are ignored for rows deleted and then recreated within the query change history interval. The pipeline preserves the valid, new row.
 
@@ -372,11 +388,11 @@ A continuous query is a long-running query that monitors a source BigQuery table
 
 This approach offers the following advantages.
 
-  - **Near real-time data synchronization** : New rows in BigQuery are reflected in Spanner with minimal delay.
+- **Near real-time data synchronization** : New rows in BigQuery are reflected in Spanner with minimal delay.
 
-  - **Reduced batch processing overhead** : A continuous query eliminates the need for periodic batch jobs, which reduces computational overhead.
+- **Reduced batch processing overhead** : A continuous query eliminates the need for periodic batch jobs, which reduces computational overhead.
 
-  - **Event-driven updates** : Spanner data updates in response to actual changes in BigQuery.
+- **Event-driven updates** : Spanner data updates in response to actual changes in BigQuery.
 
 A continuous query pipeline requires a slot reservation assignment with the `job_type` of `CONTINUOUS` . Assign this at the [project or folder](https://docs.cloud.google.com/bigquery/docs/reservations-assignments) level or at the [organization](https://docs.cloud.google.com/bigquery/docs/reservations-assignments#assign-organization) level.
 
@@ -390,21 +406,21 @@ There are [several methods](https://docs.cloud.google.com/bigquery/docs/continuo
 
 2.  Use the *bq* CLI and provide the option `--continuous=true` .
 
-<!-- end list -->
-
-    EXPORT DATA OPTIONS ( uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
-      format="CLOUD_SPANNER",
-      spanner_options="""{
-          "table": "PersonOwnAccount",
-          "priority": "LOW",
-          "tag": "reverse-etl-continuous",
-          "change_timestamp_column": "create_time"
-       }"""
-    )
-    AS SELECT id, account_id, _CHANGE_TIMESTAMP as create_time
-      FROM
-    APPENDS(TABLE `PROJECT_ID.DATASET_NAME.PersonOwnAccount`,
-      CURRENT_TIMESTAMP() - INTERVAL 10 MINUTE )
+```
+EXPORT DATA OPTIONS ( uri="https://spanner.googleapis.com/projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID",
+  format="CLOUD_SPANNER",
+  spanner_options="""{
+      "table": "PersonOwnAccount",
+      "priority": "LOW",
+      "tag": "reverse-etl-continuous",
+      "change_timestamp_column": "create_time"
+   }"""
+)
+AS SELECT id, account_id, _CHANGE_TIMESTAMP as create_time
+  FROM
+APPENDS(TABLE `PROJECT_ID.DATASET_NAME.PersonOwnAccount`,
+  CURRENT_TIMESTAMP() - INTERVAL 10 MINUTE )
+```
 
 ### Loading order not guaranteed
 
@@ -418,35 +434,35 @@ Use BigQuery continuous query to build responsive and up-to-date reverse ETL pip
 
 ### Continuous queries considerations
 
-  - **Cost** : Continuous queries incur costs for ongoing query execution and data streaming.
+- **Cost** : Continuous queries incur costs for ongoing query execution and data streaming.
 
-  - **Error handling** : A continuous query pipeline is canceled if it encounters any database errors, such as a duplicate primary key or a referential integrity violation. If a pipeline fails, you must manually correct the data in the source BigQuery table before you restart the query.
+- **Error handling** : A continuous query pipeline is canceled if it encounters any database errors, such as a duplicate primary key or a referential integrity violation. If a pipeline fails, you must manually correct the data in the source BigQuery table before you restart the query.
 
-  - **Deletes and updates not handled** : The `APPENDS` function only captures inserts. It doesn't capture deletes or updates.
+- **Deletes and updates not handled** : The `APPENDS` function only captures inserts. It doesn't capture deletes or updates.
 
 ## Follow reverse ETL best practices
 
 For the best results, do the following.
 
-  - Choose a strategy to prevent referential integrity errors when you load edge data.
+- Choose a strategy to prevent referential integrity errors when you load edge data.
 
-  - Design your overall data pipeline to prevent dangling edges. Dangling edges can compromise Spanner Graph query efficiency and graph structure integrity. For more information, see [prevent dangling edges](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#prevent-dangling-edges) .
+- Design your overall data pipeline to prevent dangling edges. Dangling edges can compromise Spanner Graph query efficiency and graph structure integrity. For more information, see [prevent dangling edges](https://docs.cloud.google.com/spanner/docs/graph/best-practices-designing-schema#prevent-dangling-edges) .
 
-  - Follow Spanner [export optimization](https://docs.cloud.google.com/bigquery/docs/export-to-spanner#export_optimization) recommendations.
+- Follow Spanner [export optimization](https://docs.cloud.google.com/bigquery/docs/export-to-spanner#export_optimization) recommendations.
 
-  - If you're loading a large amount of data, consider dividing the pipeline into multiple smaller pipelines to avoid hitting the default six-hour BigQuery query execution time quota. For more information, see [BigQuery query job limits](https://docs.cloud.google.com/bigquery/quotas#query_jobs) .
+- If you're loading a large amount of data, consider dividing the pipeline into multiple smaller pipelines to avoid hitting the default six-hour BigQuery query execution time quota. For more information, see [BigQuery query job limits](https://docs.cloud.google.com/bigquery/quotas#query_jobs) .
 
-  - For large data loads, add indexes and [foreign key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) constraints after the initial bulk data load is complete. This practice improves data loading performance because foreign key constraints require extra reads for validation and indexes require additional writes. These operations increase the number of transaction participants, which can slow down the data loading process.
+- For large data loads, add indexes and [foreign key](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) constraints after the initial bulk data load is complete. This practice improves data loading performance because foreign key constraints require extra reads for validation and indexes require additional writes. These operations increase the number of transaction participants, which can slow down the data loading process.
 
-  - Enable autoscaling in Spanner to speed up data load times into an instance. For more information, see [Spanner autoscaling overview](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) , [Configure exports with `spanner_options` option](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) , and [`RequestOptions.priority`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority) .
+- Enable autoscaling in Spanner to speed up data load times into an instance. For more information, see [Spanner autoscaling overview](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) , [Configure exports with `spanner_options` option](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) , and [`RequestOptions.priority`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#Priority) .
 
-  - For large data loads, [create split points](https://docs.cloud.google.com/spanner/docs/create-manage-split-points) to pre-split your database. This prepares Spanner for increased throughput.
+- For large data loads, [create split points](https://docs.cloud.google.com/spanner/docs/create-manage-split-points) to pre-split your database. This prepares Spanner for increased throughput.
 
-  - Configure Spanner [request priority](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#priority) for the data load in the pipeline definition.
+- Configure Spanner [request priority](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/RequestOptions#priority) for the data load in the pipeline definition.
 
 ## What's next
 
-  - Review the [Spanner Graph overview](https://docs.cloud.google.com/spanner/docs/graph/overview) .
-  - Learn how to [migrate to Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/migrate) .
-  - Work with a [visualization of your graph](https://docs.cloud.google.com/spanner/docs/graph/overview) in Spanner.
-  - Learn how to [use reverse ETL to export data from BigQuery to Spanner](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) .
+- Review the [Spanner Graph overview](https://docs.cloud.google.com/spanner/docs/graph/overview) .
+- Learn how to [migrate to Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/migrate) .
+- Work with a [visualization of your graph](https://docs.cloud.google.com/spanner/docs/graph/overview) in Spanner.
+- Learn how to [use reverse ETL to export data from BigQuery to Spanner](https://docs.cloud.google.com/bigquery/docs/export-to-spanner) .

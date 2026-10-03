@@ -11,7 +11,7 @@ Spanner supports the following MySQL string functions. You need to implement the
 ## Function list
 
 | Name                                                                                                                   | Summary                                                                                                                                     |
-| ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+|------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
 | [`mysql.BIT_LENGTH`](https://docs.cloud.google.com/spanner/docs/reference/mysql/string_functions#bit_length)           | Returns the length of a string in bits.                                                                                                     |
 | [`mysql.CHAR`](https://docs.cloud.google.com/spanner/docs/reference/mysql/string_functions#char)                       | Interprets the input parameter as an integer and returns a byte string consisting of the character given by the code value of that integer. |
 | [`mysql.CONCAT_WS`](https://docs.cloud.google.com/spanner/docs/reference/mysql/string_functions#concat_ws)             | Concatenates two string with a specified separator string.                                                                                  |
@@ -32,7 +32,9 @@ Spanner supports the following MySQL string functions. You need to implement the
 
 ## `mysql.BIT_LENGTH`
 
-    mysql.BIT_LENGTH(string_expression)
+```
+mysql.BIT_LENGTH(string_expression)
+```
 
 **Description**
 
@@ -40,7 +42,7 @@ Returns the length of a given string in bits.
 
 This function supports the following argument:
 
-  - `string_expression` : The input `STRING` value.
+- `string_expression` : The input `STRING` value.
 
 **Return data type**
 
@@ -50,19 +52,23 @@ This function supports the following argument:
 
 The following example returns the bit length of the string 'google':
 
-    SELECT mysql.BIT_LENGTH('google') as bit_len;
-    
-    /*
-    +---------+
-    | bit_len |
-    +---------+
-    | 48      |
-    +---------+
-    */
+```
+SELECT mysql.BIT_LENGTH('google') as bit_len;
+
+/*
++---------+
+| bit_len |
++---------+
+| 48      |
++---------+
+*/
+```
 
 ## `mysql.CHAR`
 
-    mysql.CHAR(numeric_expression)
+```
+mysql.CHAR(numeric_expression)
+```
 
 **Description**
 
@@ -70,7 +76,7 @@ Interprets an integer argument as a code value and returns a `BYTES` string cons
 
 This function supports the following argument:
 
-  - `numeric_expression` : The `INT64` value to convert to a byte character.
+- `numeric_expression` : The `INT64` value to convert to a byte character.
 
 **Return data type**
 
@@ -88,19 +94,23 @@ This function only handles a single integer argument and does not support the `U
 
 The following example returns the byte string for the character code 65:
 
-    SELECT mysql.CHAR(65) AS char_from_code;
-    
-    /*
-    +----------------+
-    | char_from_code |
-    +----------------+
-    | A              |
-    +----------------+
-    */
+```
+SELECT mysql.CHAR(65) AS char_from_code;
+
+/*
++----------------+
+| char_from_code |
++----------------+
+| A              |
++----------------+
+*/
+```
 
 ## `mysql.CONCAT_WS`
 
-    mysql.CONCAT_WS(separator, value1, value2)
+```
+mysql.CONCAT_WS(separator, value1, value2)
+```
 
 **Description**
 
@@ -108,9 +118,9 @@ Concatenates two strings with a specified separator string.
 
 This function supports the following argument:
 
-  - `separator` : The `STRING` to use as a separator.
-  - `value1` : The first `STRING` .
-  - `value2` : The second `STRING` .
+- `separator` : The `STRING` to use as a separator.
+- `value1` : The first `STRING` .
+- `value2` : The second `STRING` .
 
 **Return data type**
 
@@ -128,19 +138,23 @@ This function only supports concatenating two strings with a separator. MySQL's 
 
 The following example concatenates two strings using a hyphen as a separator:
 
-    SELECT mysql.CONCAT_WS('-', 'google', 'cloud') as concatenated_string;
-    
-    /*
-    +---------------------+
-    | concatenated_string |
-    +---------------------+
-    | google-cloud        |
-    +---------------------+
-    */
+```
+SELECT mysql.CONCAT_WS('-', 'google', 'cloud') as concatenated_string;
+
+/*
++---------------------+
+| concatenated_string |
++---------------------+
+| google-cloud        |
++---------------------+
+*/
+```
 
 ## `mysql.HEX`
 
-    mysql.HEX(string_expression)
+```
+mysql.HEX(string_expression)
+```
 
 **Description**
 
@@ -148,7 +162,7 @@ Returns the hexadecimal representation of a string.
 
 This function supports the following arguments:
 
-  - `string_expression` : The input `STRING` .
+- `string_expression` : The input `STRING` .
 
 **Return data type**
 
@@ -166,19 +180,23 @@ This function only handles `STRING` input and does not support numeric input.
 
 The following example returns the hexadecimal representation of the string "SQL":
 
-    SELECT mysql.HEX('SQL') AS hex_string;
-    
-    /*
-    +------------+
-    | hex_string |
-    +------------+
-    | 53514C     |
-    +------------+
-    */
+```
+SELECT mysql.HEX('SQL') AS hex_string;
+
+/*
++------------+
+| hex_string |
++------------+
+| 53514C     |
++------------+
+*/
+```
 
 ## `mysql.INSERT`
 
-    mysql.INSERT(original_value, position, length, new_value)
+```
+mysql.INSERT(original_value, position, length, new_value)
+```
 
 **Description**
 
@@ -186,10 +204,10 @@ Inserts a substring into a string at a specified position, replacing a specified
 
 This function supports the following arguments:
 
-  - `original_value` : The original `STRING` .
-  - `position` : The starting position for insertion (1-based). If `pos` is outside the length of `str` , the original string is returned.
-  - `length` : The number of characters in the original string to replace.
-  - `new_value` : The `STRING` to insert.
+- `original_value` : The original `STRING` .
+- `position` : The starting position for insertion (1-based). If `pos` is outside the length of `str` , the original string is returned.
+- `length` : The number of characters in the original string to replace.
+- `new_value` : The `STRING` to insert.
 
 **Return data type**
 
@@ -203,19 +221,23 @@ This function supports the following arguments:
 
 The following example inserts "Google" into "Hello World" at position 7, replacing 0 characters:
 
-    SELECT mysql.`INSERT`('Hello World', 7, 0, 'Google ') as inserted_string;
-    
-    /*
-    +------------------------+
-    | inserted_string        |
-    +------------------------+
-    | Hello Google World     |
-    +------------------------+
-    */
+```
+SELECT mysql.`INSERT`('Hello World', 7, 0, 'Google ') as inserted_string;
+
+/*
++------------------------+
+| inserted_string        |
++------------------------+
+| Hello Google World     |
++------------------------+
+*/
+```
 
 ## `mysql.LOCATE`
 
-    mysql.LOCATE(substring, string)
+```
+mysql.LOCATE(substring, string)
+```
 
 **Description**
 
@@ -223,8 +245,8 @@ Returns the starting position (1-based) of the first occurrence of a substring w
 
 This function supports the following arguments:
 
-  - `substring` : The `STRING` to search for.
-  - `string` : The `STRING` to be searched.
+- `substring` : The `STRING` to search for.
+- `string` : The `STRING` to be searched.
 
 **Return data type**
 
@@ -242,19 +264,23 @@ This function does not support the three-argument version of MySQL's `LOCATE()` 
 
 The following example finds the position of "Cloud" in "Google Cloud":
 
-    SELECT mysql.LOCATE('Cloud', 'Google Cloud') as position_val;
-    
-    /*
-    +--------------+
-    | position_val |
-    +--------------+
-    | 8            |
-    +--------------+
-    */
+```
+SELECT mysql.LOCATE('Cloud', 'Google Cloud') as position_val;
+
+/*
++--------------+
+| position_val |
++--------------+
+| 8            |
++--------------+
+*/
+```
 
 ## `mysql.MID`
 
-    mysql.MID(value, position, length)
+```
+mysql.MID(value, position, length)
+```
 
 **Description**
 
@@ -262,7 +288,9 @@ Alias for [`SUBSTRING`](https://docs.cloud.google.com/spanner/docs/reference/sta
 
 ## `mysql.OCT`
 
-    mysql.OCT(numeric_expression)
+```
+mysql.OCT(numeric_expression)
+```
 
 **Description**
 
@@ -270,7 +298,7 @@ Returns a string containing the octal (base-8) representation of a number.
 
 This function supports the following argument:
 
-  - `numeric_expression` : The input `INT64` number.
+- `numeric_expression` : The input `INT64` number.
 
 **Return data type**
 
@@ -280,19 +308,23 @@ This function supports the following argument:
 
 The following example returns the octal representation of the number 10:
 
-    SELECT mysql.OCT(10) as octal_value;
-    
-    /*
-    +-------------+
-    | octal_value |
-    +-------------+
-    | 12          |
-    +-------------+
-    */
+```
+SELECT mysql.OCT(10) as octal_value;
+
+/*
++-------------+
+| octal_value |
++-------------+
+| 12          |
++-------------+
+*/
+```
 
 ## `mysql.ORD`
 
-    mysql.ORD(string_expression)
+```
+mysql.ORD(string_expression)
+```
 
 **Description**
 
@@ -300,7 +332,7 @@ Returns the numeric code of the leftmost character in a string. If the string is
 
 This function supports the following argument:
 
-  - `string_expression` : The input `STRING` .
+- `string_expression` : The input `STRING` .
 
 **Return data type**
 
@@ -310,19 +342,23 @@ This function supports the following argument:
 
 The following example returns the character code for 'G':
 
-    SELECT mysql.ORD('Google') as char_code;
-    
-    /*
-    +-----------+
-    | char_code |
-    +-----------+
-    | 71        |
-    +-----------+
-    */
+```
+SELECT mysql.ORD('Google') as char_code;
+
+/*
++-----------+
+| char_code |
++-----------+
+| 71        |
++-----------+
+*/
+```
 
 ## `mysql.POSITION`
 
-    mysql.POSITION(substring, string)
+```
+mysql.POSITION(substring, string)
+```
 
 **Description**
 
@@ -330,7 +366,9 @@ Alias for [`LOCATE`](https://docs.cloud.google.com/spanner/docs/reference/mysql/
 
 ## `mysql.QUOTE`
 
-    mysql.QUOTE(string_expression)
+```
+mysql.QUOTE(string_expression)
+```
 
 **Description**
 
@@ -338,7 +376,7 @@ Escapes a string for safe use as a string literal in a SQL statement by enclosin
 
 This function supports the following argument:
 
-  - `string_expression` : The `STRING` to quote. If the input is `NULL` , the result is `NULL` .
+- `string_expression` : The `STRING` to quote. If the input is `NULL` , the result is `NULL` .
 
 **Return data type**
 
@@ -352,19 +390,23 @@ This function encloses the string in double quotes ( `"` ), while MySQL typicall
 
 The following example quotes a string containing a single quote and backslash:
 
-    SELECT mysql.QUOTE("Don't \do it!") as quoted_string;
-    
-    /*
-    +------------------------+
-    | quoted_string          |
-    +------------------------+
-    | "Don't \\do it!"       |
-    +------------------------+
-    */
+```
+SELECT mysql.QUOTE("Don't \do it!") as quoted_string;
+
+/*
++------------------------+
+| quoted_string          |
++------------------------+
+| "Don't \\do it!"       |
++------------------------+
+*/
+```
 
 ## `mysql.REGEXP_LIKE`
 
-    mysql.REGEXP_LIKE(string_expression, regular_expression[, match_type])
+```
+mysql.REGEXP_LIKE(string_expression, regular_expression[, match_type])
+```
 
 **Description**
 
@@ -372,13 +414,13 @@ Checks if a string matches a regular expression pattern.
 
 This function supports the following arguments:
 
-  - `string_expression` : The input `STRING` .
-  - `regular_expression` : The regular expression `STRING` pattern.
-  - `match_type` (Optional): A `STRING` specifying the match behavior. Defaults to `'i'` (case-insensitive). Supported values:
-      - `'i'` : Case-insensitive matching.
-      - `'c'` : Case-sensitive matching.
-      - `'u'` or `'mu'` or `'um'` : Multi-line mode (lines split by `\n` ), case-insensitive.
-      - `'un'` or `'nu'` : The `.` character matches newlines, case-insensitive.
+- `string_expression` : The input `STRING` .
+- `regular_expression` : The regular expression `STRING` pattern.
+- `match_type` (Optional): A `STRING` specifying the match behavior. Defaults to `'i'` (case-insensitive). Supported values:
+  - `'i'` : Case-insensitive matching.
+  - `'c'` : Case-sensitive matching.
+  - `'u'` or `'mu'` or `'um'` : Multi-line mode (lines split by `\n` ), case-insensitive.
+  - `'un'` or `'nu'` : The `.` character matches newlines, case-insensitive.
 
 **Return data type**
 
@@ -386,26 +428,30 @@ This function supports the following arguments:
 
 **Limitations**
 
-  - The `match_type` 'm' (multiline supporting any Unicode line-separating character) is not supported.
-  - Except as listed for `'u'` and `'un'` (and their permutations), different match types cannot be combined by concatenating their characters.
+- The `match_type` 'm' (multiline supporting any Unicode line-separating character) is not supported.
+- Except as listed for `'u'` and `'un'` (and their permutations), different match types cannot be combined by concatenating their characters.
 
 **Example**
 
 The following example checks if the string "New day" starts with "new" case-insensitively:
 
-    SELECT mysql.REGEXP_LIKE('New day', '^new', 'i') as is_match;
-    
-    /*
-    +----------+
-    | is_match |
-    +----------+
-    | true     |
-    +----------+
-    */
+```
+SELECT mysql.REGEXP_LIKE('New day', '^new', 'i') as is_match;
+
+/*
++----------+
+| is_match |
++----------+
+| true     |
++----------+
+*/
+```
 
 ## `mysql.REGEXP_SUBSTR`
 
-    mysql.REGEXP_SUBSTR(string_expression, regular_expression)
+```
+mysql.REGEXP_SUBSTR(string_expression, regular_expression)
+```
 
 **Description**
 
@@ -413,8 +459,8 @@ Returns the substring that matches a regular expression pattern within an input 
 
 This function supports the following arguments:
 
-  - `string_expression` : The input `STRING` .
-  - `regular_expression` : The regular expression `STRING` pattern.
+- `string_expression` : The input `STRING` .
+- `regular_expression` : The regular expression `STRING` pattern.
 
 **Return data type**
 
@@ -432,19 +478,23 @@ This function does not support the optional `pos` (position), `occurrence` , and
 
 The following example extracts the first word starting with 'C' from a string:
 
-    SELECT mysql.REGEXP_SUBSTR('Google Cloud Platform', 'C\\w*') as substring_match;
-    
-    /*
-    +-----------------+
-    | substring_match |
-    +-----------------+
-    | Cloud           |
-    +-----------------+
-    */
+```
+SELECT mysql.REGEXP_SUBSTR('Google Cloud Platform', 'C\\w*') as substring_match;
+
+/*
++-----------------+
+| substring_match |
++-----------------+
+| Cloud           |
++-----------------+
+*/
+```
 
 ## `mysql.SPACE`
 
-    mysql.SPACE(numeric_expression)
+```
+mysql.SPACE(numeric_expression)
+```
 
 **Description**
 
@@ -452,7 +502,7 @@ Returns a string consisting of a specified number of space characters.
 
 This function supports the following argument:
 
-  - `numeric_expression` : The `INT64` number of spaces to return. If `numeric_expression` is less than 0, an empty string is returned.
+- `numeric_expression` : The `INT64` number of spaces to return. If `numeric_expression` is less than 0, an empty string is returned.
 
 **Return data type**
 
@@ -466,19 +516,23 @@ This function can produce a string of spaces up to approximately 1MB in size. Re
 
 The following example returns a string of 5 spaces:
 
-    SELECT CONCAT('Hello', mysql.SPACE(3), 'World') as three_spaces;
-    
-    /*
-    +---------------+
-    | three_spaces  |
-    +---------------+
-    | Hello   World |
-    +---------------+
-    */
+```
+SELECT CONCAT('Hello', mysql.SPACE(3), 'World') as three_spaces;
+
+/*
++---------------+
+| three_spaces  |
++---------------+
+| Hello   World |
++---------------+
+*/
+```
 
 ## `mysql.STRCMP`
 
-    mysql.STRCMP(string_expression1, string_expression2)
+```
+mysql.STRCMP(string_expression1, string_expression2)
+```
 
 **Description**
 
@@ -486,8 +540,8 @@ Compares two strings lexicographically. Returns 0 if the strings are identical, 
 
 This function supports the following arguments:
 
-  - `string_expression1` : The first `STRING` to compare.
-  - `string_expression2` : The second `STRING` to compare.
+- `string_expression1` : The first `STRING` to compare.
+- `string_expression2` : The second `STRING` to compare.
 
 **Return data type**
 
@@ -505,19 +559,23 @@ This function only supports `STRING` type inputs.
 
 The following example compares "apple" and "banana":
 
-    SELECT mysql.STRCMP('apple', 'banana') as comparison_result;
-    
-    /*
-    +-------------------+
-    | comparison_result |
-    +-------------------+
-    | -1                |
-    +-------------------+
-    */
+```
+SELECT mysql.STRCMP('apple', 'banana') as comparison_result;
+
+/*
++-------------------+
+| comparison_result |
++-------------------+
+| -1                |
++-------------------+
+*/
+```
 
 ## `mysql.SUBSTRING_INDEX`
 
-    mysql.SUBSTRING_INDEX(string_expression, delimiter, count)
+```
+mysql.SUBSTRING_INDEX(string_expression, delimiter, count)
+```
 
 **Description**
 
@@ -525,9 +583,9 @@ Returns a substring from a string before or after a specified number of occurren
 
 This function supports the following arguments:
 
-  - `string_expression` : The input `STRING` .
-  - `delimiter` : The delimiter `STRING` . If `delimiter` is an empty string, the function returns an empty string.
-  - `count` : An `INT64` specifying the number of occurrences of `delimiter` . If `count` is positive, everything to the left of the final delimiter (counting from the left) is returned. If `count` is negative, everything to the right of the final delimiter (counting from the right) is returned.
+- `string_expression` : The input `STRING` .
+- `delimiter` : The delimiter `STRING` . If `delimiter` is an empty string, the function returns an empty string.
+- `count` : An `INT64` specifying the number of occurrences of `delimiter` . If `count` is positive, everything to the left of the final delimiter (counting from the left) is returned. If `count` is negative, everything to the right of the final delimiter (counting from the right) is returned.
 
 **Return data type**
 
@@ -537,21 +595,25 @@ This function supports the following arguments:
 
 The following example extracts parts of a string using different counts:
 
-    SELECT
-      mysql.SUBSTRING_INDEX('[www.google.com](https://www.google.com)', '.', 2) as part1,
-      mysql.SUBSTRING_INDEX('[www.google.com](https://www.google.com)', '.', -2) as part2;
-    
-    /*
-    +--------------+-------------+
-    | part1        | part2       |
-    +--------------+-------------+
-    | www.google   | google.com  |
-    +--------------+-------------+
-    */
+```
+SELECT
+  mysql.SUBSTRING_INDEX('[www.google.com](https://www.google.com)', '.', 2) as part1,
+  mysql.SUBSTRING_INDEX('[www.google.com](https://www.google.com)', '.', -2) as part2;
+
+/*
++--------------+-------------+
+| part1        | part2       |
++--------------+-------------+
+| www.google   | google.com  |
++--------------+-------------+
+*/
+```
 
 ## `mysql.UNHEX`
 
-    mysql.UNHEX(string_expression)
+```
+mysql.UNHEX(string_expression)
+```
 
 **Description**
 
@@ -559,7 +621,7 @@ Converts a string containing a hexadecimal representation of characters back to 
 
 This function supports the following argument:
 
-  - `string_expression` : The input `STRING` representing a hexadecimal number.
+- `string_expression` : The input `STRING` representing a hexadecimal number.
 
 **Return data type**
 
@@ -573,12 +635,14 @@ If the input string contains any non-hexadecimal characters, the behavior might 
 
 The following example converts the hexadecimal string "53514C" back to characters:
 
-    SELECT mysql.UNHEX('53514C') as original_bytes;
-    
-    /*
-    +----------------+
-    | original_bytes |
-    +----------------+
-    | SQL            |
-    +----------------+
-    */
+```
+SELECT mysql.UNHEX('53514C') as original_bytes;
+
+/*
++----------------+
+| original_bytes |
++----------------+
+| SQL            |
++----------------+
+*/
+```

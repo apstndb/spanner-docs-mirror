@@ -6,54 +6,26 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-  - [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CreateInstancePartitionMetadata#SCHEMA_REPRESENTATION)
+- [JSON representation](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/CreateInstancePartitionMetadata#SCHEMA_REPRESENTATION)
 
-Metadata type for the operation returned by `  instancePartitions.create  ` .
+Metadata type for the operation returned by [`instancePartitions.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions/create#google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition) .
 
-<table>
-<colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>JSON representation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><pre dir="ltr" data-is-upgraded="" style="border: 0;margin: 0;" translate="no"><code>{&quot;instancePartition&quot;: {object (InstancePartition)},&quot;startTime&quot;: string,&quot;cancelTime&quot;: string,&quot;endTime&quot;: string}</code></pre></td>
-</tr>
-</tbody>
-</table>
+**JSON representation**
 
-Fields
+```
+{
+  "instancePartition": {
+    object (InstancePartition)
+  },
+  "startTime": string,
+  "cancelTime": string,
+  "endTime": string
+}
+```
 
-`instancePartition`
-
-` object ( InstancePartition  ` )
-
-The instance partition being created.
-
-`startTime`
-
-` string ( Timestamp  ` format)
-
-The time at which the `  instancePartitions.create  ` request was received.
-
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
-
-`cancelTime`
-
-` string ( Timestamp  ` format)
-
-The time at which this operation was cancelled. If set, this operation is in the process of undoing itself (which is guaranteed to succeed) and cannot be cancelled again.
-
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
-
-`endTime`
-
-` string ( Timestamp  ` format)
-
-The time at which this operation failed or was completed successfully.
-
-Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .
+| Fields              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `instancePartition` | `object ( `[`InstancePartition`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions#InstancePartition)` )` The instance partition being created.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `startTime`         | `string ( `[`Timestamp`](https://protobuf.dev/reference/protobuf/google.protobuf/#timestamp)` format)` The time at which the [`instancePartitions.create`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions/create#google.spanner.admin.instance.v1.InstanceAdmin.CreateInstancePartition) request was received. Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` . |
+| `cancelTime`        | `string ( `[`Timestamp`](https://protobuf.dev/reference/protobuf/google.protobuf/#timestamp)` format)` The time at which this operation was cancelled. If set, this operation is in the process of undoing itself (which is guaranteed to succeed) and cannot be cancelled again. Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .                                                                                  |
+| `endTime`           | `string ( `[`Timestamp`](https://protobuf.dev/reference/protobuf/google.protobuf/#timestamp)` format)` The time at which this operation failed or was completed successfully. Uses RFC 3339, where generated output will always be Z-normalized and use 0, 3, 6 or 9 fractional digits. Offsets other than "Z" are also accepted. Examples: `"2014-10-02T15:01:23Z"` , `"2014-10-02T15:01:23.045123456Z"` or `"2014-10-02T15:01:23+05:30"` .                                                                                                                                                                                      |

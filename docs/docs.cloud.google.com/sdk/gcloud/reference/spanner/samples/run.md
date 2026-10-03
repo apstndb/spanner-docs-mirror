@@ -12,7 +12,7 @@ gcloud spanner samples run - run the given Cloud Spanner sample app
 
 SYNOPSIS
 
-`gcloud spanner samples run` `  APPNAME  ` `  --instance-id  ` = `  INSTANCE_ID  ` \[ `  --no-cleanup  ` \] \[ `  --database-id  ` = `  DATABASE_ID  ` \] \[ `  --duration  ` = `  DURATION  ` ; default="1h"\] \[ `  --skip-init  ` \] \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner samples run` [`APPNAME`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run#APPNAME) [`--instance-id`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run#--instance-id) = `INSTANCE_ID` \[ [`--no-cleanup`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run#--cleanup) \] \[ [`--database-id`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run#--database-id) = `DATABASE_ID` \] \[ [`--duration`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run#--duration) = `DURATION` ; default="1h"\] \[ [`--skip-init`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run#--skip-init) \] \[ [`GCLOUD_WIDE_FLAG`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/samples/run#GCLOUD-WIDE-FLAGS)` …` \]
 
 DESCRIPTION
 
@@ -22,45 +22,56 @@ These sample apps are open source and available at <https://github.com/GoogleClo
 
 To see a list of available sample apps, run:
 
-    gcloud spanner samples list
+```
+gcloud spanner samples list
+```
 
 EXAMPLES
 
 To run the 'finance' sample app using instance 'my-instance', run:
 
-    gcloud spanner samples run finance --instance-id=my-instance
+```
+gcloud spanner samples run finance --instance-id=my-instance
+```
 
 POSITIONAL ARGUMENTS
 
-  - `  APPNAME  `  
-    The sample app name, e.g. "finance".
+`APPNAME`  
+The sample app name, e.g. "finance".
 
 REQUIRED FLAGS
 
-  - `--instance-id` = `  INSTANCE_ID  `  
-    The Cloud Spanner instance ID for the sample app.
+`--instance-id` = `INSTANCE_ID`  
+The Cloud Spanner instance ID for the sample app.
 
 OPTIONAL FLAGS
 
-  - `--cleanup`  
-    Delete the instance after running the sample app. Enabled by default, use `--no-cleanup` to disable.
-  - `--database-id` = `  DATABASE_ID  `  
-    ID of the new Cloud Spanner database to create for the sample app.
-  - `--duration` = `  DURATION  ` ; default="1h"  
-    Duration of time allowed to run the sample app before stopping the service.
-  - `--skip-init`  
-    Use an existing database instead of creating a new one.
+`--cleanup`  
+Delete the instance after running the sample app. Enabled by default, use `--no-cleanup` to disable.
+
+`--database-id` = `DATABASE_ID`  
+ID of the new Cloud Spanner database to create for the sample app.
+
+`--duration` = `DURATION` ; default="1h"  
+Duration of time allowed to run the sample app before stopping the service.
+
+`--skip-init`  
+Use an existing database instead of creating a new one.
 
 GCLOUD WIDE FLAGS
 
-These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+These flags are available to all commands: [`--access-token-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--access-token-file) , [`--account`](https://docs.cloud.google.com/sdk/gcloud/reference#--account) , [`--billing-project`](https://docs.cloud.google.com/sdk/gcloud/reference#--billing-project) , [`--configuration`](https://docs.cloud.google.com/sdk/gcloud/reference#--configuration) , [`--flags-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--flags-file) , [`--flatten`](https://docs.cloud.google.com/sdk/gcloud/reference#--flatten) , [`--format`](https://docs.cloud.google.com/sdk/gcloud/reference#--format) , [`--help`](https://docs.cloud.google.com/sdk/gcloud/reference#--help) , [`--impersonate-service-account`](https://docs.cloud.google.com/sdk/gcloud/reference#--impersonate-service-account) , [`--log-http`](https://docs.cloud.google.com/sdk/gcloud/reference#--log-http) , [`--project`](https://docs.cloud.google.com/sdk/gcloud/reference#--project) , [`--quiet`](https://docs.cloud.google.com/sdk/gcloud/reference#--quiet) , [`--trace-token`](https://docs.cloud.google.com/sdk/gcloud/reference#--trace-token) , [`--user-output-enabled`](https://docs.cloud.google.com/sdk/gcloud/reference#--user-output-enabled) , [`--verbosity`](https://docs.cloud.google.com/sdk/gcloud/reference#--verbosity) .
 
-Run ` $ gcloud help  ` for details.
+Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for details.
 
 NOTES
 
 These variants are also available:
 
-    gcloud alpha spanner samples run
+```
+gcloud alpha spanner samples run
+```
 
-    gcloud beta spanner samples run
+```
+gcloud beta spanner samples run
+```

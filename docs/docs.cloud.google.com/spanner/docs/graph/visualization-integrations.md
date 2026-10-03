@@ -34,7 +34,7 @@ Cambridge Intelligence's data visualization SDKs (KeyLines, ReGraph, MapWeave, a
 
 ## What's next
 
-  - Learn how to [set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
-  - Learn about [Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
-  - Learn how to [work with Spanner Graph visualizations](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations) .
-  - [Migrate to Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/migrate) .
+- Learn how to [set up and query Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/set-up) .
+- Learn about [Spanner Graph queries](https://docs.cloud.google.com/spanner/docs/graph/queries-overview) .
+- Learn how to [work with Spanner Graph visualizations](https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations) .
+- [Migrate to Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/migrate) .

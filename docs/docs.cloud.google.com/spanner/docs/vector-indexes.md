@@ -14,8 +14,8 @@ Spanner accelerates approximate nearest neighbor (ANN) vector searches by using 
 
 The vector index uses a tree-based structure to partition data and facilitate faster searches. Spanner offers both two-level and three-level tree configurations:
 
-  - Two-level tree configuration: Leaf nodes ( `num_leaves` ) contain groups of closely related vectors along with their corresponding centroid. The root level consists of the centroids from all leaf nodes.
-  - Three-level tree configuration: Similar in concept to a two-level tree, while introducing an additional branch layer ( `num_branches` ), from which leaf node centroids are further partitioned to form the root level ( `num_leaves` ).
+- Two-level tree configuration: Leaf nodes ( `num_leaves` ) contain groups of closely related vectors along with their corresponding centroid. The root level consists of the centroids from all leaf nodes.
+- Three-level tree configuration: Similar in concept to a two-level tree, while introducing an additional branch layer ( `num_branches` ), from which leaf node centroids are further partitioned to form the root level ( `num_leaves` ).
 
 Spanner picks an index for you. However, if you know that a specific index works best, then you can use the [`FORCE_INDEX` hint](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index-directive) to choose to use the most appropriate vector index for your use case.
 
@@ -23,17 +23,17 @@ For more information, see [`VECTOR INDEX` statements for GoogleSQL](https://docs
 
 ### Limitations
 
-  - You can't pre-split vector indexes. For more information, see [Pre-splitting overview](https://docs.cloud.google.com/spanner/docs/pre-splitting-overview#limitations) .
+- You can't pre-split vector indexes. For more information, see [Pre-splitting overview](https://docs.cloud.google.com/spanner/docs/pre-splitting-overview#limitations) .
 
 ### Create vector index
 
 To optimize the recall and performance of a vector index, we recommend that you:
 
-  - Create your vector index after most of the rows with embeddings are written to your database. You might also need to periodically rebuild the vector index after you insert new data. For more information, see [Rebuild the vector index](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices#rebuild) .
+- Create your vector index after most of the rows with embeddings are written to your database. You might also need to periodically rebuild the vector index after you insert new data. For more information, see [Rebuild the vector index](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices#rebuild) .
 
-  - For GoogleSQL, use the [`STORING`](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) clause and for PostgreSQL, use the [`INCLUDE`](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) clause to store a copy of a column in the vector index. If a column value is stored in the vector index, then Spanner performs filtering at the index's leaf level to improve query performance. We recommend that you store a column if it's used in a filtering condition.
+- For GoogleSQL, use the [`STORING`](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) clause and for PostgreSQL, use the [`INCLUDE`](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) clause to store a copy of a column in the vector index. If a column value is stored in the vector index, then Spanner performs filtering at the index's leaf level to improve query performance. We recommend that you store a column if it's used in a filtering condition.
 
-  - Use non-embedding key columns in the vector index. Key columns are similar to `STORING` or `INCLUDE` columns, but allow the query engine to perform filtering more efficiently during vector search. For more information, see [Create vector index](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_vector_index) (GoogleSQL) or [Index statements](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#index-statements) (PostgreSQL).
+- Use non-embedding key columns in the vector index. Key columns are similar to `STORING` or `INCLUDE` columns, but allow the query engine to perform filtering more efficiently during vector search. For more information, see [Create vector index](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_vector_index) (GoogleSQL) or [Index statements](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#index-statements) (PostgreSQL).
 
 When you create your table, the embedding column must be an array of the `FLOAT32` (GoogleSQL) or `float4[]` (PostgreSQL) data type (recommended), and have a vector length annotation ( `vector_length=>N` for GoogleSQL or `VECTOR LENGTH N` for PostgreSQL), indicating the dimension of the vectors.
 
@@ -43,65 +43,77 @@ The following DDL statement creates a `Documents` table with an embedding column
 
 ### GoogleSQL
 
-    CREATE TABLE Documents (
-      UserId INT64 NOT NULL,
-      DocId INT64 NOT NULL,
-      Author STRING (1024),
-      DocContents Bytes(MAX),
-      DocEmbedding ARRAY<FLOAT32>(vector_length=>128) NOT NULL,
-      NullableDocEmbedding ARRAY<FLOAT32>(vector_length=>128),
-      WordCount INT64
-    ) PRIMARY KEY (DocId);
+```
+CREATE TABLE Documents (
+  UserId INT64 NOT NULL,
+  DocId INT64 NOT NULL,
+  Author STRING (1024),
+  DocContents Bytes(MAX),
+  DocEmbedding ARRAY<FLOAT32>(vector_length=>128) NOT NULL,
+  NullableDocEmbedding ARRAY<FLOAT32>(vector_length=>128),
+  WordCount INT64
+) PRIMARY KEY (DocId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE documents (
-      user_id bigint not null,
-      doc_id bigint not null,
-      author varchar(1024),
-      doc_contents bytea,
-      doc_embedding float4[] VECTOR LENGTH 128 not null,
-      nullable_doc_embedding float4[] VECTOR LENGTH 128,
-      word_count bigint,
-      PRIMARY KEY (doc_id)
-    );
+```
+CREATE TABLE documents (
+  user_id bigint not null,
+  doc_id bigint not null,
+  author varchar(1024),
+  doc_contents bytea,
+  doc_embedding float4[] VECTOR LENGTH 128 not null,
+  nullable_doc_embedding float4[] VECTOR LENGTH 128,
+  word_count bigint,
+  PRIMARY KEY (doc_id)
+);
+```
 
 After you populate your `Documents` table, you can create a vector index on the `Documents` table with an embedding column `DocEmbedding` using the cosine distance:
 
 ### GoogleSQL
 
-    CREATE VECTOR INDEX DocEmbeddingIndex
-      ON Documents(DocEmbedding)
-      STORING (WordCount)
-      OPTIONS (distance_type = 'COSINE');
+```
+CREATE VECTOR INDEX DocEmbeddingIndex
+  ON Documents(DocEmbedding)
+  STORING (WordCount)
+  OPTIONS (distance_type = 'COSINE');
+```
 
 ### PostgreSQL
 
-    CREATE INDEX doc_embedding_index
-      ON documents
-      USING scann(doc_embedding)
-      INCLUDE (word_count)
-      WITH (distance_type = 'COSINE')
-      WHERE doc_embedding IS NOT NULL;
+```
+CREATE INDEX doc_embedding_index
+  ON documents
+  USING scann(doc_embedding)
+  INCLUDE (word_count)
+  WITH (distance_type = 'COSINE')
+  WHERE doc_embedding IS NOT NULL;
+```
 
 If your embedding column isn't marked as `NOT NULL` in the table definition, you must declare it with a `WHERE COLUMN_NAME IS NOT NULL` clause in the vector index definition, where `COLUMN_NAME` is the name of your embedding column. To create a vector index nullable embedding column `NullableDocEmbedding` using the cosine distance:
 
 ### GoogleSQL
 
-    CREATE VECTOR INDEX DocEmbeddingThreeLevelIndex
-      ON Documents(NullableDocEmbedding)
-      STORING (WordCount)
-      WHERE NullableDocEmbedding IS NOT NULL
-      OPTIONS (distance_type = 'COSINE');
+```
+CREATE VECTOR INDEX DocEmbeddingThreeLevelIndex
+  ON Documents(NullableDocEmbedding)
+  STORING (WordCount)
+  WHERE NullableDocEmbedding IS NOT NULL
+  OPTIONS (distance_type = 'COSINE');
+```
 
 ### PostgreSQL
 
-    CREATE INDEX doc_embedding_index
-      ON documents
-      USING scann(nullable_doc_embedding)
-      INCLUDE (word_count)
-      WITH (distance_type = 'COSINE')
-      WHERE nullable_doc_embedding IS NOT NULL;
+```
+CREATE INDEX doc_embedding_index
+  ON documents
+  USING scann(nullable_doc_embedding)
+  INCLUDE (word_count)
+  WITH (distance_type = 'COSINE')
+  WHERE nullable_doc_embedding IS NOT NULL;
+```
 
 Spanner now automatically chooses optimized index parameters ( `tree_depth` , `num_leaves` , and `num_branches` ) for your index based on the dataset size, and it is no longer required to explicitly configure these parameters. If you need to explicitly configure the index structure, you can specify these parameters in the `SET OPTIONS` clause (see the [Vector indexing best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) ).
 
@@ -113,67 +125,79 @@ In the following example, the table `Documents2` has a column called `Category` 
 
 ### GoogleSQL
 
-    CREATE TABLE Documents2 (
-      UserId INT64 NOT NULL,
-      DocId INT64 NOT NULL,
-      DocName STRING (1024),
-      Author STRING (1024),
-      DocContents Bytes(MAX),
-      Category STRING(MAX),
-      NullIfFiltered BOOL AS (IF(Category = 'Tech', TRUE, NULL)) HIDDEN,
-      DocEmbedding ARRAY<FLOAT32>(vector_length=>128)
-    ) PRIMARY KEY (DocId);
+```
+CREATE TABLE Documents2 (
+  UserId INT64 NOT NULL,
+  DocId INT64 NOT NULL,
+  DocName STRING (1024),
+  Author STRING (1024),
+  DocContents Bytes(MAX),
+  Category STRING(MAX),
+  NullIfFiltered BOOL AS (IF(Category = 'Tech', TRUE, NULL)) HIDDEN,
+  DocEmbedding ARRAY<FLOAT32>(vector_length=>128)
+) PRIMARY KEY (DocId);
+```
 
 ### PostgreSQL
 
-    CREATE TABLE documents2 (
-      user_id bigint not null,
-      doc_id bigint not null,
-      doc_name varchar(1024),
-      author varchar(1024),
-      doc_contents bytea,
-      category varchar,
-      null_if_filtered boolean GENERATED ALWAYS AS (CASE WHEN category = 'Tech' THEN true END) VIRTUAL HIDDEN,
-      doc_embedding float4[] VECTOR LENGTH 128,
-      PRIMARY KEY (doc_id)
-    );
+```
+CREATE TABLE documents2 (
+  user_id bigint not null,
+  doc_id bigint not null,
+  doc_name varchar(1024),
+  author varchar(1024),
+  doc_contents bytea,
+  category varchar,
+  null_if_filtered boolean GENERATED ALWAYS AS (CASE WHEN category = 'Tech' THEN true END) VIRTUAL HIDDEN,
+  doc_embedding float4[] VECTOR LENGTH 128,
+  PRIMARY KEY (doc_id)
+);
+```
 
 Then, we create a vector index with a filter. The `TechDocEmbeddingIndex` vector index only indexes documents in the "Tech" category.
 
 ### GoogleSQL
 
-    CREATE VECTOR INDEX TechDocEmbeddingIndex
-      ON Documents2(DocEmbedding)
-      STORING(NullIfFiltered)
-      WHERE DocEmbedding IS NOT NULL AND NullIfFiltered IS NOT NULL
-      OPTIONS (...);
+```
+CREATE VECTOR INDEX TechDocEmbeddingIndex
+  ON Documents2(DocEmbedding)
+  STORING(NullIfFiltered)
+  WHERE DocEmbedding IS NOT NULL AND NullIfFiltered IS NOT NULL
+  OPTIONS (...);
+```
 
 ### PostgreSQL
 
-    CREATE INDEX tech_doc_embedding_index
-      ON documents2
-      USING scann(doc_embedding)
-      INCLUDE (null_if_filtered)
-      WITH (distance_type = 'COSINE')
-      WHERE doc_embedding IS NOT NULL AND null_if_filtered IS NOT NULL;
+```
+CREATE INDEX tech_doc_embedding_index
+  ON documents2
+  USING scann(doc_embedding)
+  INCLUDE (null_if_filtered)
+  WITH (distance_type = 'COSINE')
+  WHERE doc_embedding IS NOT NULL AND null_if_filtered IS NOT NULL;
+```
 
 When Spanner runs the following query, which has filters that match the `TechDocEmbeddingIndex` , it automatically picks and is accelerated by `TechDocEmbeddingIndex` . The query only searches documents in the "Tech" category. You can also use the `FORCE_INDEX` hint ( `@{FORCE_INDEX=TechDocEmbeddingIndex}` for GoogleSQL or `/*@ FORCE_INDEX = tech_doc_embedding_index */` for PostgreSQL) to force Spanner to use the index explicitly.
 
 ### GoogleSQL
 
-    SELECT *
-    FROM Documents2
-    WHERE DocEmbedding IS NOT NULL AND NullIfFiltered IS NOT NULL
-    ORDER BY APPROX_(....)
-    LIMIT 10;
+```
+SELECT *
+FROM Documents2
+WHERE DocEmbedding IS NOT NULL AND NullIfFiltered IS NOT NULL
+ORDER BY APPROX_(....)
+LIMIT 10;
+```
 
 ### PostgreSQL
 
-    SELECT *
-    FROM documents2
-    WHERE doc_embedding IS NOT NULL AND null_if_filtered IS NOT NULL
-    ORDER BY spanner.approx_cosine_distance(doc_embedding, ARRAY[1.0::float4, 2.0::float4, 3.0::float4])
-    LIMIT 10;
+```
+SELECT *
+FROM documents2
+WHERE doc_embedding IS NOT NULL AND null_if_filtered IS NOT NULL
+ORDER BY spanner.approx_cosine_distance(doc_embedding, ARRAY[1.0::float4, 2.0::float4, 3.0::float4])
+LIMIT 10;
+```
 
 > **Note:** In this query, if you replace `NullIfFiltered IS NOT NULL` with `Category = 'Tech'` , then the query won't match the vector index `TechDocEmbeddingIndex` .
 
@@ -183,27 +207,31 @@ In the index creation statement, you must list these additional key columns afte
 
 ### GoogleSQL
 
-    CREATE VECTOR INDEX DocEmbeddingIndexWithKeys
-      ON Documents2(DocEmbedding, DocName, Author)
-      STORING(NullIfFiltered)
-      WHERE DocEmbedding IS NOT NULL AND NullIfFiltered IS NOT NULL
-      OPTIONS (...);
+```
+CREATE VECTOR INDEX DocEmbeddingIndexWithKeys
+  ON Documents2(DocEmbedding, DocName, Author)
+  STORING(NullIfFiltered)
+  WHERE DocEmbedding IS NOT NULL AND NullIfFiltered IS NOT NULL
+  OPTIONS (...);
+```
 
 ### PostgreSQL
 
-    CREATE INDEX doc_embedding_index_with_keys
-      ON documents2
-      USING scann(doc_embedding, doc_name, author)
-      INCLUDE (null_if_filtered)
-      WITH (distance_type = 'COSINE')
-      WHERE doc_embedding IS NOT NULL AND null_if_filtered IS NOT NULL;
+```
+CREATE INDEX doc_embedding_index_with_keys
+  ON documents2
+  USING scann(doc_embedding, doc_name, author)
+  INCLUDE (null_if_filtered)
+  WITH (distance_type = 'COSINE')
+  WHERE doc_embedding IS NOT NULL AND null_if_filtered IS NOT NULL;
+```
 
 ## What's next
 
-  - Learn more about Spanner [approximate nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
+- Learn more about Spanner [approximate nearest neighbors](https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors) .
 
-  - Learn more about the approximate distance functions in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#mathematical) .
+- Learn more about the approximate distance functions in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#mathematical) .
 
-  - Learn more about index statements for [GoogleSQL `VECTOR INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) and [PostgreSQL `INDEX`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#index-statements) .
+- Learn more about index statements for [GoogleSQL `VECTOR INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#vector_index_statements) and [PostgreSQL `INDEX`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#index-statements) .
 
-  - Learn more about [vector index best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) .
+- Learn more about [vector index best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) .

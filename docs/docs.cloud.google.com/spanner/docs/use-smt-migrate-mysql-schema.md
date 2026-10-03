@@ -30,22 +30,22 @@ You can select tables or indexes, view and manage their schema.
 
 Select a table you want to modify on the **Spanner draft** tab on the web UI. You can drop or restore tables on this tab. For each table you select, you can view the following list of tabs:
 
-  - Columns
-  - Primary key
-  - Foreign key
-  - Check constraints
-  - SQL
+- Columns
+- Primary key
+- Foreign key
+- Check constraints
+- SQL
 
 #### Column
 
 The **Column** tab provides information about the columns in the selected table. You can edit the columns in the following ways:
 
-  - Modify a column name
-  - Delete a column
-  - Change the column's data type
-  - Add auto-generated IDs
-  - Modify the default value
-  - Modify the null property
+- Modify a column name
+- Delete a column
+- Change the column's data type
+- Add auto-generated IDs
+- Modify the default value
+- Modify the null property
 
 Besides editing existing columns in the Spanner draft, you can also add new columns to the selected table.
 
@@ -53,28 +53,28 @@ Besides editing existing columns in the Spanner draft, you can also add new colu
 
 You can view and edit the table's primary key from the **Primary key** tab in the following ways:
 
-  - Add or remove a column from a primary key
-  - Change the order of columns in a primary key
+- Add or remove a column from a primary key
+- Change the order of columns in a primary key
 
 You can also use auto-generated columns for primary keys. You can choose one of the following to create auto-generated columns.
 
-  - **[UUID function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid)** : generate a UUID v4 as part of the table's primary key `default` expression.
-  - **[Bit-reverse function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions#bit_reverse)** : map existing integer keys as a bit-reversed sequence.
+- **[UUID function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#generate_uuid)** : generate a UUID v4 as part of the table's primary key `default` expression.
+- **[Bit-reverse function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions#bit_reverse)** : map existing integer keys as a bit-reversed sequence.
 
 #### Foreign key
 
 You can view and edit the table's foreign key from the **Foreign key** tab in the following ways:
 
-  - Change the foreign key constraint name
-  - Drop the foreign key if you want to use an interleaved table instead
-  - Convert an interleaved table back to a foreign key
+- Change the foreign key constraint name
+- Drop the foreign key if you want to use an interleaved table instead
+- Convert an interleaved table back to a foreign key
 
 #### Check constraints
 
 You can view and edit the table's check constraints using the **Check constraints** tab in the following ways:
 
-  - Change the check constraint name or condition
-  - Remove the check constraint
+- Change the check constraint name or condition
+- Remove the check constraint
 
 #### SQL
 
@@ -84,9 +84,9 @@ You can view the Spanner data definition language in the GoogleSQL dialect in th
 
 Select an index you want to modify on the **Spanner draft** tab on the web UI. You can edit the index in the following ways:
 
-  - Drop or restore the index
-  - Add a secondary index
-  - View the Spanner DDL in the **SQL** tab.
+- Drop or restore the index
+- Add a secondary index
+- View the Spanner DDL in the **SQL** tab.
 
 ## Prepare migration
 

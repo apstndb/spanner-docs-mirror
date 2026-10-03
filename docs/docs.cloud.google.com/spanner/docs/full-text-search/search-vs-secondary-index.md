@@ -13,7 +13,7 @@ This page describes the features for search and secondary indexes.
 When deciding between search indexes and secondary indexes, keep in mind that search indexes should be the default choice for full-text use cases and secondary indexes should be the default option for everything else. The following table describes when to use each type of index.
 
 | Feature               | Secondary index                                                                                                                          | Search index                                                                                                                                                                                           |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Sort order            | The index is sorted by all index key columns                                                                                             | Search index can only be sorted by at most two user-controlled INT64 columns                                                                                                                           |
 | Arrays                | You can't use arrays data type values as keys in secondary indexes.                                                                      | Search indexes support array indexing. All tokens of a document are colocated in the same split. As a result, transactions that change 1 row only write to one index split.                            |
 | JSON/JSONB            | You can't use JSON values as keys in secondary indexes.                                                                                  | Search indexes support indexing JSON values.                                                                                                                                                           |
@@ -24,10 +24,10 @@ When deciding between search indexes and secondary indexes, keep in mind that se
 
 Besides semantics, the syntax of the DDL statement to create a search index is different from the DDL syntax to create a secondary index:
 
-  - Indexed columns are defined separately from the sort order in the search index.
-  - The order of `TOKENLIST` columns in the `ON` clause of the `CREATE SEARCH INDEX` statement is immaterial.
+- Indexed columns are defined separately from the sort order in the search index.
+- The order of `TOKENLIST` columns in the `ON` clause of the `CREATE SEARCH INDEX` statement is immaterial.
 
 ## What's next
 
-  - Learn about [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
-  - Learn about [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
+- Learn about [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
+- Learn about [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .

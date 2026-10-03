@@ -16,7 +16,7 @@ When the isolation level is unspecified, or when you set the isolation level as 
 
 On the other hand, repeatable read isolation ensures that all read operations within a transaction see a consistent snapshot of the database as it existed at the start of the transaction. This approach is beneficial in high read-write concurrency scenarios where numerous transactions read data that other transactions might be modifying. For more information, see [repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) .
 
-External consistency greatly simplifies application development. For example, suppose that you have created a banking application on Spanner and one of your customers starts with $50 in their checking account and $50 in their savings account. Your application then begins a workflow in which it first commits a transaction T <sub>1</sub> to deposit $200 into the savings account, and then issues a second transaction T <sub>2</sub> to debit $150 from the checking account. Further, assume that at the end of the day, negative balances in one account are covered automatically from other accounts, and a customer incurs a penalty if the total balance across all their accounts is negative at any time during that day. External consistency guarantees that because T <sub>2</sub> starts to commit after T <sub>1</sub> finishes, then all readers of the database will observe that the deposit T <sub>1</sub> occurred before the debit T <sub>2</sub> . Put another way, external consistency guarantees that no one will ever see a state where T <sub>2</sub> occurs prior to T <sub>1</sub> ; in other words, the debit will never incur a penalty due to insufficient funds.
+External consistency greatly simplifies application development. For example, suppose that you have created a banking application on Spanner and one of your customers starts with \$50 in their checking account and \$50 in their savings account. Your application then begins a workflow in which it first commits a transaction T <sub>1</sub> to deposit \$200 into the savings account, and then issues a second transaction T <sub>2</sub> to debit \$150 from the checking account. Further, assume that at the end of the day, negative balances in one account are covered automatically from other accounts, and a customer incurs a penalty if the total balance across all their accounts is negative at any time during that day. External consistency guarantees that because T <sub>2</sub> starts to commit after T <sub>1</sub> finishes, then all readers of the database will observe that the deposit T <sub>1</sub> occurred before the debit T <sub>2</sub> . Put another way, external consistency guarantees that no one will ever see a state where T <sub>2</sub> occurs prior to T <sub>1</sub> ; in other words, the debit will never incur a penalty due to insufficient funds.
 
 A traditional database that uses single-version storage and strict two-phase locking provides external consistency. Unfortunately, in such a system, every time your application wants to read the most current data (which we call a "strong read"), the system acquires a read lock on the data, which blocks writes to the data being read.
 
@@ -64,8 +64,8 @@ Spanner provides [stale reads](https://docs.cloud.google.com/spanner/docs/timest
 
 ## What's next
 
-  - [Spanner transaction semantics](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_semantics)
-  - [Spanner, TrueTime, and the CAP Theorem](https://research.google/pubs/spanner-truetime-and-the-cap-theorem/)
+- [Spanner transaction semantics](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_semantics)
+- [Spanner, TrueTime, and the CAP Theorem](https://research.google/pubs/spanner-truetime-and-the-cap-theorem/)
 
 ## Notes
 

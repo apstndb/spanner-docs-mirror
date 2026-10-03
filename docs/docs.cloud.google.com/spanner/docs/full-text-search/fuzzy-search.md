@@ -14,8 +14,8 @@ In addition to performing exact token searches using the [`SEARCH`](https://docs
 
 Spanner supports the following types of fuzzy search:
 
-  - N-grams-based approximate search
-  - Phonetic search using [Soundex](https://en.wikipedia.org/wiki/Soundex)
+- N-grams-based approximate search
+- Phonetic search using [Soundex](https://en.wikipedia.org/wiki/Soundex)
 
 ## Use an n-grams-based approximate search
 
@@ -25,33 +25,37 @@ N-grams-based fuzzy search relies on the same substring tokenization that a [sub
 
 ### GoogleSQL
 
-    CREATE TABLE Albums (
-      AlbumId STRING(MAX) NOT NULL,
-      AlbumTitle STRING(MAX),
-      AlbumTitle_Tokens TOKENLIST AS (
-        TOKENIZE_SUBSTRING(AlbumTitle, ngram_size_min=>2, ngram_size_max=>3,
-                          relative_search_types=>["word_prefix", "word_suffix"])) HIDDEN
-    ) PRIMARY KEY(AlbumId);
-    
-    CREATE SEARCH INDEX AlbumsIndex
-    ON Albums(AlbumTitle_Tokens)
-    STORING (AlbumTitle);
+```
+CREATE TABLE Albums (
+  AlbumId STRING(MAX) NOT NULL,
+  AlbumTitle STRING(MAX),
+  AlbumTitle_Tokens TOKENLIST AS (
+    TOKENIZE_SUBSTRING(AlbumTitle, ngram_size_min=>2, ngram_size_max=>3,
+                      relative_search_types=>["word_prefix", "word_suffix"])) HIDDEN
+) PRIMARY KEY(AlbumId);
+
+CREATE SEARCH INDEX AlbumsIndex
+ON Albums(AlbumTitle_Tokens)
+STORING (AlbumTitle);
+```
 
 ### PostgreSQL
 
 This example uses [`spanner.tokenize_substring`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
 
-    CREATE TABLE albums (
-      albumid character varying NOT NULL,
-      albumtitle character varying,
-      albumtitle_tokens spanner.tokenlist GENERATED ALWAYS AS (
-        spanner.tokenize_substring(albumtitle, ngram_size_min=>2, ngram_size_max=>3,
-                          relative_search_types=>'{word_prefix, word_suffix}'::text[])) VIRTUAL HIDDEN,
-    PRIMARY KEY(albumid));
-    
-    CREATE SEARCH INDEX albumsindex
-    ON albums(albumtitle_tokens)
-    INCLUDE (albumtitle);
+```
+CREATE TABLE albums (
+  albumid character varying NOT NULL,
+  albumtitle character varying,
+  albumtitle_tokens spanner.tokenlist GENERATED ALWAYS AS (
+    spanner.tokenize_substring(albumtitle, ngram_size_min=>2, ngram_size_max=>3,
+                      relative_search_types=>'{word_prefix, word_suffix}'::text[])) VIRTUAL HIDDEN,
+PRIMARY KEY(albumid));
+
+CREATE SEARCH INDEX albumsindex
+ON albums(albumtitle_tokens)
+INCLUDE (albumtitle);
+```
 
 **Query**
 
@@ -59,21 +63,25 @@ The following query finds the albums with titles that are the closest to "Hatel 
 
 ### GoogleSQL
 
-    SELECT AlbumId
-    FROM Albums
-    WHERE SEARCH_NGRAMS(AlbumTitle_Tokens, "Hatel Kaliphorn")
-    ORDER BY SCORE_NGRAMS(AlbumTitle_Tokens, "Hatel Kaliphorn") DESC
-    LIMIT 10
+```
+SELECT AlbumId
+FROM Albums
+WHERE SEARCH_NGRAMS(AlbumTitle_Tokens, "Hatel Kaliphorn")
+ORDER BY SCORE_NGRAMS(AlbumTitle_Tokens, "Hatel Kaliphorn") DESC
+LIMIT 10
+```
 
 ### PostgreSQL
 
 This examples uses [`spanner.score_ngrams`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) and [`spanner.search_ngrams`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) .
 
-    SELECT albumid
-    FROM albums
-    WHERE spanner.search_ngrams(albumtitle_tokens, 'Hatel Kaliphorn')
-    ORDER BY spanner.score_ngrams(albumtitle_tokens, 'Hatel Kaliphorn') DESC
-    LIMIT 10
+```
+SELECT albumid
+FROM albums
+WHERE spanner.search_ngrams(albumtitle_tokens, 'Hatel Kaliphorn')
+ORDER BY spanner.score_ngrams(albumtitle_tokens, 'Hatel Kaliphorn') DESC
+LIMIT 10
+```
 
 ### Optimize performance and recall for an n-grams-based approximate search
 
@@ -82,14 +90,14 @@ The sample query in the previous section searches in two phases, using two diffe
 1.  [`SEARCH_NGRAMS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_ngrams) finds all candidate albums that have shared n-grams with the search query. For example, three-character n-grams for "California" include `[cal, ali, lif, ifo, for, orn, rni, nia]` and for "Kaliphorn" include `[kal, ali, lip, iph, pho, hor, orn]` . The shared n-grams in these data sets are `[ali, orn]` . By default, `SEARCH_NGRAMS` matches all documents with at least two shared n-grams, therefore "Kaliphorn" matches "California".
 2.  [`SCORE_NGRAMS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score_ngrams) ranks matches by similarity. The similarity of two strings is defined as a ratio of distinct shared n-grams to distinct non-shared n-grams:
 
-$$ \\frac{shared\\\_ngrams}{total\\\_ngrams\_{index} + total\\\_ngrams\_{query} - shared\\\_ngrams} $$
+\$\$ \frac{shared\\\_ngrams}{total\\\_ngrams\_{index} + total\\\_ngrams\_{query} - shared\\\_ngrams} \$\$
 
 Usually the search query is the same across both the `SEARCH_NGRAMS` and `SCORE_NGRAMS` functions. The recommended way to do this is to use the argument with [query parameters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#query_parameters) rather than with string literals, and specify the same query parameter in the `SEARCH_NGRAMS` and `SCORE_NGRAMS` functions.
 
 Spanner has three configuration arguments that can be used with `SEARCH_NGRAMS` :
 
-  - The minimum and maximum sizes for n-grams are specified with the [`TOKENIZE_SUBSTRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_substring) or [`TOKENIZE_NGRAMS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_ngrams) functions. We don't recommend one character n-grams because they could match a very large number of documents. On the other hand, long n-grams cause `SEARCH_NGRAMS` to miss short misspelled words.
-  - The minimum number of n-grams that `SEARCH_NGRAMS` must match (set with the `min_ngrams` and `min_ngrams_percent` arguments in `SEARCH_NGRAMS` ). Higher numbers typically make the query faster, but reduce recall.
+- The minimum and maximum sizes for n-grams are specified with the [`TOKENIZE_SUBSTRING`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_substring) or [`TOKENIZE_NGRAMS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_ngrams) functions. We don't recommend one character n-grams because they could match a very large number of documents. On the other hand, long n-grams cause `SEARCH_NGRAMS` to miss short misspelled words.
+- The minimum number of n-grams that `SEARCH_NGRAMS` must match (set with the `min_ngrams` and `min_ngrams_percent` arguments in `SEARCH_NGRAMS` ). Higher numbers typically make the query faster, but reduce recall.
 
 In order to achieve a good balance between performance and recall, you can configure these arguments to fit the specific query and workload.
 
@@ -97,38 +105,42 @@ We also recommend including an inner `LIMIT` to avoid creating very expensive qu
 
 ### GoogleSQL
 
-    SELECT AlbumId
-    FROM (
-      SELECT AlbumId,
-            SCORE_NGRAMS(AlbumTitle_Tokens, @p) AS score
-      FROM Albums
-      WHERE SEARCH_NGRAMS(AlbumTitle_Tokens, @p)
-      LIMIT 10000  # inner limit
-    )
-    ORDER BY score DESC
-    LIMIT 10  # outer limit
+```
+SELECT AlbumId
+FROM (
+  SELECT AlbumId,
+        SCORE_NGRAMS(AlbumTitle_Tokens, @p) AS score
+  FROM Albums
+  WHERE SEARCH_NGRAMS(AlbumTitle_Tokens, @p)
+  LIMIT 10000  # inner limit
+)
+ORDER BY score DESC
+LIMIT 10  # outer limit
+```
 
 ### PostgreSQL
 
 This examples uses [`spanner.score_ngrams`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) and [`spanner.search_ngrams`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#search_functions) . The query parameter `$1` is bound to 'Hatel Kaliphorn'.
 
-    SELECT albumid
-    FROM
-      (
-        SELECT albumid, spanner.score_ngrams(albumtitle_tokens, $1) AS score
-        FROM albums
-        WHERE spanner.search_ngrams(albumtitle_tokens, $1)
-        LIMIT 10000
-      ) AS inner_query
-    ORDER BY inner_query.score DESC
-    LIMIT 10
+```
+SELECT albumid
+FROM
+  (
+    SELECT albumid, spanner.score_ngrams(albumtitle_tokens, $1) AS score
+    FROM albums
+    WHERE spanner.search_ngrams(albumtitle_tokens, $1)
+    LIMIT 10000
+  ) AS inner_query
+ORDER BY inner_query.score DESC
+LIMIT 10
+```
 
 ### N-grams-based fuzzy search versus enhanced query mode
 
 Alongside n-grams-based fuzzy search, the [enhanced query mode](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#enhanced_query_mode) also handles some misspelled words. Thus, there is some overlap between the two features. The following table summarizes the differences:
 
 |                      |                                                                                                          |                                                                                                            |
-| -------------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+|----------------------|----------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 |                      | **n-grams-based fuzzy search**                                                                           | **Enhanced query mode**                                                                                    |
 | Cost                 | Requires a more expensive substring tokenization based on n-grams                                        | Requires a less expensive full-text tokenization                                                           |
 | Search query types   | Works well with short documents with a few words, such as with a person name, city name, or product name | Works equally well with any size documents and any size search queries                                     |
@@ -144,48 +156,56 @@ Phonetic search with `SOUNDEX` can be implemented with a generated column and a 
 
 ### GoogleSQL
 
-    CREATE TABLE Singers (
-      SingerId INT64,
-      AlbumTitle STRING(MAX),
-      AlbumTitle_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumTitle)) HIDDEN,
-      Name STRING(MAX),
-      NameSoundex STRING(MAX) AS (LOWER(SOUNDEX(Name))),
-      NameSoundex_Tokens TOKENLIST AS (TOKEN(NameSoundex)) HIDDEN
-    ) PRIMARY KEY(SingerId);
-    
-    CREATE SEARCH INDEX SingersPhoneticIndex ON Singers(AlbumTitle_Tokens, NameSoundex_Tokens);
+```
+CREATE TABLE Singers (
+  SingerId INT64,
+  AlbumTitle STRING(MAX),
+  AlbumTitle_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumTitle)) HIDDEN,
+  Name STRING(MAX),
+  NameSoundex STRING(MAX) AS (LOWER(SOUNDEX(Name))),
+  NameSoundex_Tokens TOKENLIST AS (TOKEN(NameSoundex)) HIDDEN
+) PRIMARY KEY(SingerId);
+
+CREATE SEARCH INDEX SingersPhoneticIndex ON Singers(AlbumTitle_Tokens, NameSoundex_Tokens);
+```
 
 ### PostgreSQL
 
 This example uses [`spanner.soundex`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#string_functions) .
 
-    CREATE TABLE singers (
-      singerid bigint,
-      albumtitle character varying,
-      albumtitle_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumtitle)) VIRTUAL HIDDEN,
-      name character varying,
-      namesoundex character varying GENERATED ALWAYS AS (lower(spanner.soundex(name))) VIRTUAL,
-      namesoundex_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.token(lower(spanner.soundex(name))) VIRTUAL HIDDEN,
-    PRIMARY KEY(singerid));
-    
-    CREATE SEARCH INDEX singersphoneticindex ON singers(albumtitle_tokens, namesoundex_tokens);
+```
+CREATE TABLE singers (
+  singerid bigint,
+  albumtitle character varying,
+  albumtitle_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumtitle)) VIRTUAL HIDDEN,
+  name character varying,
+  namesoundex character varying GENERATED ALWAYS AS (lower(spanner.soundex(name))) VIRTUAL,
+  namesoundex_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.token(lower(spanner.soundex(name))) VIRTUAL HIDDEN,
+PRIMARY KEY(singerid));
+
+CREATE SEARCH INDEX singersphoneticindex ON singers(albumtitle_tokens, namesoundex_tokens);
+```
 
 The following query matches "stefan" to "Steven" on `SOUNDEX` , along with `AlbumTitle` containing "cat":
 
 ### GoogleSQL
 
-    SELECT SingerId
-    FROM Singers
-    WHERE NameSoundex = LOWER(SOUNDEX("stefan")) AND SEARCH(AlbumTitle_Tokens, "cat")
+```
+SELECT SingerId
+FROM Singers
+WHERE NameSoundex = LOWER(SOUNDEX("stefan")) AND SEARCH(AlbumTitle_Tokens, "cat")
+```
 
 ### PostgreSQL
 
-    SELECT singerid
-    FROM singers
-    WHERE namesoundex = lower(spanner.soundex('stefan')) AND spanner.search(albumtitle_tokens, 'cat')
+```
+SELECT singerid
+FROM singers
+WHERE namesoundex = lower(spanner.soundex('stefan')) AND spanner.search(albumtitle_tokens, 'cat')
+```
 
 ## What's next
 
-  - Learn about [tokenization and Spanner tokenizers](https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization) .
-  - Learn about [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
-  - Learn about [full-text search queries](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview) .
+- Learn about [tokenization and Spanner tokenizers](https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization) .
+- Learn about [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
+- Learn about [full-text search queries](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview) .

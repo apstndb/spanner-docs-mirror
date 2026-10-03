@@ -19,7 +19,7 @@ This section lists the columns that are missing and other differences between th
 Spanner doesn't support every column in its implementation of PostgreSQL system catalog tables. The following columns aren't supported and therefore don't show up in the table.
 
 | Catalog table name | Missing column names                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------|
 | `pg_am`            | `amhandler`                                                                                                               |
 | `pg_attribute`     | `attacl` , `attmissingval`                                                                                                |
 | `pg_class`         | `relacl`                                                                                                                  |
@@ -42,15 +42,15 @@ In PostgreSQL, you can write to these tables directly to modify the database. In
 
 The Spanner implementation contains the following changes to PostgreSQL system catalog columns:
 
-  - `pg_node_tree` columns (most notably `pg_attrdef.adbin` and `pg_proc.prosqlbody` ) are text columns that contain the SQL expressions.
+- `pg_node_tree` columns (most notably `pg_attrdef.adbin` and `pg_proc.prosqlbody` ) are text columns that contain the SQL expressions.
 
-  - `oidvector` columns (most notably `pg_proc.proargtypes` ) are `oid[]` columns.
+- `oidvector` columns (most notably `pg_proc.proargtypes` ) are `oid[]` columns.
 
-  - `int2vector` columns are `int8[]` columns.
+- `int2vector` columns are `int8[]` columns.
 
-  - `pg_class.relnatts` column is `NULL` for sequences because you can't select them in Spanner.
+- `pg_class.relnatts` column is `NULL` for sequences because you can't select them in Spanner.
 
-  - `pg_collation` only contains default and C. General collation support isn't available.
+- `pg_collation` only contains default and C. General collation support isn't available.
 
 ## PostgreSQL system catalog tables list
 
@@ -63,7 +63,7 @@ The [`pg_am`](https://www.postgresql.org/docs/current/catalog-pg-am.html) table 
 The following table shows whether columns have content.
 
 | Column name | Type   | Has content |
-| ----------- | ------ | ----------- |
+|-------------|--------|-------------|
 | `oid`       | `oid`  | Y           |
 | `amname`    | `text` | Y           |
 | `amtype`    | `char` | Y           |
@@ -75,7 +75,7 @@ The [`pg_attrdef`](https://www.postgresql.org/docs/current/catalog-pg-attrdef.ht
 The following table shows whether columns have content.
 
 | Column name | Type   | Has content |
-| ----------- | ------ | ----------- |
+|-------------|--------|-------------|
 | `oid`       | `oid`  | Y           |
 | `adrelid`   | `oid`  | Y           |
 | `adnum`     | `int8` | Y           |
@@ -90,7 +90,7 @@ The [`pg_attribute`](https://www.postgresql.org/docs/current/catalog-pg-attribut
 The following table shows whether columns have content.
 
 | Column name      | Type     | Has content |
-| ---------------- | -------- | ----------- |
+|------------------|----------|-------------|
 | `attrelid`       | `oid`    | Y           |
 | `attname`        | `text`   | Y           |
 | `atttypid`       | `oid`    | Y           |
@@ -125,7 +125,7 @@ has content.
 The following table shows whether columns have content.
 
 | Column name           | Type     | Has content |
-| --------------------- | -------- | ----------- |
+|-----------------------|----------|-------------|
 | `oid`                 | `oid`    | Y           |
 | `relname`             | `text`   | Y           |
 | `relnamespace`        | `oid`    | Y           |
@@ -166,7 +166,7 @@ The [`pg_collation`](https://www.postgresql.org/docs/current/catalog-pg-collatio
 The following table shows whether columns have content.
 
 | Column name           | Type   | Has content |
-| --------------------- | ------ | ----------- |
+|-----------------------|--------|-------------|
 | `oid`                 | `oid`  | Y           |
 | `collname`            | `text` | Y           |
 | `collnamespace`       | `oid`  | Y           |
@@ -186,7 +186,7 @@ The [`pg_constraint`](https://www.postgresql.org/docs/current/catalog-pg-constra
 The following table shows whether columns have content.
 
 | Column name      | Type     | Has content |
-| ---------------- | -------- | ----------- |
+|------------------|----------|-------------|
 | `oid`            | `oid`    | Y           |
 | `conname`        | `text`   | Y           |
 | `connamespace`   | `oid`    | Y           |
@@ -221,7 +221,7 @@ The [`pg_description`](https://www.postgresql.org/docs/current/catalog-pg-descri
 The following table shows whether columns have content.
 
 | Column name   | Type    | Has content |
-| ------------- | ------- | ----------- |
+|---------------|---------|-------------|
 | `objoid`      | `oid`   | N           |
 | `classoid`    | `oid`   | N           |
 | `objsubid`    | `int64` | N           |
@@ -236,7 +236,7 @@ table has no content.
 The following table shows whether columns have content.
 
 | Column name     | Type     | Has content |
-| --------------- | -------- | ----------- |
+|-----------------|----------|-------------|
 | `oid`           | `oid`    | N           |
 | `enumtypid`     | `oid`    | N           |
 | `collnamespace` | `float8` | N           |
@@ -251,7 +251,7 @@ table has content.
 The following table shows whether columns have content.
 
 | Column name           | Type     | Has content |
-| --------------------- | -------- | ----------- |
+|-----------------------|----------|-------------|
 | `indexrelid`          | `oid`    | Y           |
 | `indrelid`            | `oid`    | Y           |
 | `indnatts`            | `int8`   | Y           |
@@ -281,7 +281,7 @@ The [`pg_namespace`](https://www.postgresql.org/docs/current/catalog-pg-namespac
 The following table shows whether columns have content.
 
 | Column name | Type   | Has content |
-| ----------- | ------ | ----------- |
+|-------------|--------|-------------|
 | `oid`       | `oid`  | Y           |
 | `nspname`   | `text` | Y           |
 | `nspowner`  | `oid`  | N           |
@@ -293,7 +293,7 @@ The [`pg_proc`](https://www.postgresql.org/docs/current/catalog-pg-proc.html) ta
 The following table shows whether columns have content.
 
 | Column name       | Type     | Has content |
-| ----------------- | -------- | ----------- |
+|-------------------|----------|-------------|
 | `oid`             | `oid`    | Y           |
 | `proname`         | `text`   | Y           |
 | `pronamespace`    | `oid`    | Y           |
@@ -329,7 +329,7 @@ The [`pg_sequence`](https://www.postgresql.org/docs/current/catalog-pg-sequence.
 The following table shows whether columns have content.
 
 | Column name    | Type   | Has content |
-| -------------- | ------ | ----------- |
+|----------------|--------|-------------|
 | `seqrelid`     | `oid`  | Y           |
 | `seqtypid`     | `oid`  | Y           |
 | `seqstart`     | `int8` | Y           |
@@ -346,7 +346,7 @@ The [`pg_type`](https://www.postgresql.org/docs/current/catalog-pg-type.html) ta
 The following table shows whether columns have content.
 
 | Column name      | Type   | Has content |
-| ---------------- | ------ | ----------- |
+|------------------|--------|-------------|
 | `oid`            | `oid`  | Y           |
 | `typname`        | `text` | Y           |
 | `typnamespace`   | `oid`  | Y           |
@@ -373,4 +373,4 @@ The following table shows whether columns have content.
 
 ## What's next
 
-  - [System views](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views)
+- [System views](https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views)

@@ -8,17 +8,17 @@ data_source: docs.cloud.google.com
 
 Spanner provides the `NUMERIC` type that can store decimal precision numbers exactly. The semantics of the `NUMERIC` type in Spanner varies between its two SQL dialects (GoogleSQL and PostgreSQL), especially around the limits on [scale and precision](https://docs.cloud.google.com/spanner/docs/storing-numeric-data#precision) :
 
-  - [`NUMERIC`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) in the PostgreSQL dialect is an [arbitrary decimal precision](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) numeric type (scale or precision can be any number within the supported range) and thus is an ideal choice for storing arbitrary precision numeric data.
+- [`NUMERIC`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) in the PostgreSQL dialect is an [arbitrary decimal precision](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) numeric type (scale or precision can be any number within the supported range) and thus is an ideal choice for storing arbitrary precision numeric data.
 
-  - [`NUMERIC`](https://docs.cloud.google.com/spanner/docs/working-with-numerics#numeric) in GoogleSQL is a [fixed precision](https://en.wikipedia.org/wiki/Fixed-point_arithmetic) numeric type (precision=38 and scale=9) and cannot be used to store arbitrary precision numeric data. When you need to store arbitrary precision numbers in GoogleSQL dialect databases, we recommend that you [store them as strings](https://docs.cloud.google.com/spanner/docs/storing-numeric-data#recommendation_store_arbitrary_precision_numbers_as_strings) .
+- [`NUMERIC`](https://docs.cloud.google.com/spanner/docs/working-with-numerics#numeric) in GoogleSQL is a [fixed precision](https://en.wikipedia.org/wiki/Fixed-point_arithmetic) numeric type (precision=38 and scale=9) and cannot be used to store arbitrary precision numeric data. When you need to store arbitrary precision numbers in GoogleSQL dialect databases, we recommend that you [store them as strings](https://docs.cloud.google.com/spanner/docs/storing-numeric-data#recommendation_store_arbitrary_precision_numbers_as_strings) .
 
 ## Precision of Spanner numeric types
 
 Precision is the number of digits in a number. Scale is the number of digits to the right of the decimal point in a number. For example, the number 123.456 has a precision of 6 and a scale of 3. Spanner has three numeric types:
 
-  - 64-bit signed integer type called `INT64` in the GoogleSQL dialect and `INT8` in the PostgreSQL dialect.
-  - IEEE 64-bit (double) binary precision floating-point type called `FLOAT64` in the GoogleSQL dialect and `FLOAT8` in the PostgreSQL dialect.
-  - Decimal precision `NUMERIC` type.
+- 64-bit signed integer type called `INT64` in the GoogleSQL dialect and `INT8` in the PostgreSQL dialect.
+- IEEE 64-bit (double) binary precision floating-point type called `FLOAT64` in the GoogleSQL dialect and `FLOAT8` in the PostgreSQL dialect.
+- Decimal precision `NUMERIC` type.
 
 Let's look at each in terms of precision and scale.
 
@@ -44,7 +44,7 @@ When you need to store an arbitrary precision number in a Spanner database, and 
 
 With this approach, your application must perform a lossless conversion between the application-internal representation of the number and the `STRING` / `VARCHAR` column value for database reads and writes.
 
-Most arbitrary precision libraries have built-in methods to perform this lossless conversion. In Java, for example, you can use the [`BigDecimal.toPlainString()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html#toPlainString\(\)) method and the [`BigDecimal(String)`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html#%3Cinit%3E\(java.lang.String\)) constructor.
+Most arbitrary precision libraries have built-in methods to perform this lossless conversion. In Java, for example, you can use the [`BigDecimal.toPlainString()`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html#toPlainString()) method and the [`BigDecimal(String)`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html#%3Cinit%3E(java.lang.String)) constructor.
 
 Storing the number as a string has the advantage that the value is stored with exact precision (up to the `STRING` / `VARCHAR` column length limit), and the value remains human-readable.
 
@@ -60,23 +60,31 @@ You can use SQL queries to perform *approximate* aggregate calculations by casti
 
 ### GoogleSQL
 
-    SELECT SUM(CAST(value AS FLOAT64)) FROM my_table
+```
+SELECT SUM(CAST(value AS FLOAT64)) FROM my_table
+```
 
 ### PostgreSQL
 
-    SELECT SUM(value::FLOAT8) FROM my_table
+```
+SELECT SUM(value::FLOAT8) FROM my_table
+```
 
 Similarly, you can sort by numeric value or limit values by range with casting:
 
 ### GoogleSQL
 
-    SELECT value FROM my_table ORDER BY CAST(value AS FLOAT64);
-    SELECT value FROM my_table WHERE CAST(value AS FLOAT64) > 100.0;
+```
+SELECT value FROM my_table ORDER BY CAST(value AS FLOAT64);
+SELECT value FROM my_table WHERE CAST(value AS FLOAT64) > 100.0;
+```
 
 ### PostgreSQL
 
-    SELECT value FROM my_table ORDER BY value::FLOAT8;
-    SELECT value FROM my_table WHERE value::FLOAT8 > 100.0;
+```
+SELECT value FROM my_table ORDER BY value::FLOAT8;
+SELECT value FROM my_table WHERE value::FLOAT8 > 100.0;
+```
 
 These calculations are approximate to the limits of the `FLOAT64` / `FLOAT8` data type.
 
@@ -100,8 +108,8 @@ This approach stores values that are human-readable (assuming you know the scali
 
 You can also store arbitrary precision numbers in Spanner using two elements:
 
-  - The unscaled integer value stored in a byte array.
-  - An integer that specifies the scaling factor.
+- The unscaled integer value stored in a byte array.
+- An integer that specifies the scaling factor.
 
 First your application converts the arbitrary precision decimal into an unscaled integer value. For example, the application converts `12.54321` to `1254321` . The scale for this example is `5` .
 
@@ -111,14 +119,18 @@ The database then stores the byte array ( `BYTES` / `BYTEA` ) and integer scale 
 
 In Java, you can use [`BigDecimal`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigDecimal.html) and [`BigInteger`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/math/BigInteger.html) to perform these calculations:
 
-    byte[] storedUnscaledBytes = bigDecimal.unscaledValue().toByteArray();
-    int storedScale = bigDecimal.scale();
+```
+byte[] storedUnscaledBytes = bigDecimal.unscaledValue().toByteArray();
+int storedScale = bigDecimal.scale();
+```
 
 You can read back to a Java `BigDecimal` using the following code:
 
-    BigDecimal bigDecimal = new BigDecimal(
-        new BigInteger(storedUnscaledBytes),
-        storedScale);
+```
+BigDecimal bigDecimal = new BigDecimal(
+    new BigInteger(storedUnscaledBytes),
+    storedScale);
+```
 
 This approach stores values with arbitrary precision and a portable representation, but the values are not human-readable in the database, and all calculations must be performed by the application.
 
@@ -132,6 +144,6 @@ This approach has portability issues. If you try to read the values with a progr
 
 ## What's next
 
-  - Read about other [data types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_types) available for Spanner.
-  - Learn how to correctly set up a Spanner [schema design and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
-  - Learn about [optimizing your schema design for Spanner](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .
+- Read about other [data types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_types) available for Spanner.
+- Learn how to correctly set up a Spanner [schema design and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
+- Learn about [optimizing your schema design for Spanner](https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design) .

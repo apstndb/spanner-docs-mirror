@@ -24,15 +24,15 @@ The client-side metrics support all Spanner methods in the [`google.spanner.v1.S
 
 All client-side metrics have the following dimensions:
 
-  - `project ID` : the Google Cloud project ID.
-  - `instance ID` : the Spanner instance ID.
-  - `database ID` : the Spanner database ID.
-  - `location` : the Google Cloud region where the client-side metrics are published. If your application is deployed outside Google Cloud, then the metrics are published to the `global` region.
-  - `method` : the RPC method name—for example, `spanner.commit` .
-  - `status` : the RPC status—for example, `OK` or `INTERNAL` .
-  - `client_name` : the library name and version—for example, `spanner-java/6.70.1` .
-  - `directpath_enabled` : whether the client library is configured to directly access Spanner without going through the frontend.
-  - `directpath_used` : whether the current request was sent directly to Spanner without going through the frontend. A `false` value while `directpath_enabled` is `true` indicates the request fell back to the standard path going through the GFE.
+- `project ID` : the Google Cloud project ID.
+- `instance ID` : the Spanner instance ID.
+- `database ID` : the Spanner database ID.
+- `location` : the Google Cloud region where the client-side metrics are published. If your application is deployed outside Google Cloud, then the metrics are published to the `global` region.
+- `method` : the RPC method name—for example, `spanner.commit` .
+- `status` : the RPC status—for example, `OK` or `INTERNAL` .
+- `client_name` : the library name and version—for example, `spanner-java/6.70.1` .
+- `directpath_enabled` : whether the client library is configured to directly access Spanner without going through the frontend.
+- `directpath_used` : whether the current request was sent directly to Spanner without going through the frontend. A `false` value while `directpath_enabled` is `true` indicates the request fell back to the standard path going through the GFE.
 
 ## AFE connectivity error count
 
@@ -40,8 +40,8 @@ The AFE connectivity error count metric records the number of RPC requests that 
 
 The AFE connectivity error count metric has the following attributes:
 
-  - `Metric name` : `spanner.googleapis.com/client/afe_connectivity_error_count`
-  - `Metric value type` : `INT64`
+- `Metric name` : `spanner.googleapis.com/client/afe_connectivity_error_count`
+- `Metric value type` : `INT64`
 
 ## AFE latencies
 
@@ -49,8 +49,8 @@ The AFE latencies metric measures the time in between the Spanner AFE receiving 
 
 The AFE latencies metric has the following attributes:
 
-  - `Metric name` : `spanner.googleapis.com/client/afe_latencies`
-  - `Metric value type` : `DISTRIBUTION`
+- `Metric name` : `spanner.googleapis.com/client/afe_latencies`
+- `Metric value type` : `DISTRIBUTION`
 
 ## Attempt count
 
@@ -58,8 +58,8 @@ The attempt count metric records the number of attempts performed. The `attempt_
 
 The Attempt count metric has the following attributes:
 
-  - `Metric name` : `spanner.googleapis.com/client/attempt_count`
-  - `Metric value type` : `INT64`
+- `Metric name` : `spanner.googleapis.com/client/attempt_count`
+- `Metric value type` : `INT64`
 
 ## Attempt latencies
 
@@ -67,8 +67,8 @@ The attempt latencies metric measures the duration it takes for a single RPC req
 
 The Attempt latencies metric has the following attributes:
 
-  - `Metric name` : `spanner.googleapis.com/client/attempt_latencies`
-  - `Metric value type` : `DISTRIBUTION`
+- `Metric name` : `spanner.googleapis.com/client/attempt_latencies`
+- `Metric value type` : `DISTRIBUTION`
 
 ## GFE connectivity error count
 
@@ -76,8 +76,8 @@ The GFE connectivity error count metric records the number of RPC requests that 
 
 The GFE connectivity error count metric has the following attributes:
 
-  - `Metric name` : `spanner.googleapis.com/client/gfe_connectivity_error_count`
-  - `Metric value type` : `INT64`
+- `Metric name` : `spanner.googleapis.com/client/gfe_connectivity_error_count`
+- `Metric value type` : `INT64`
 
 ## GFE latencies
 
@@ -85,8 +85,8 @@ The GFE latencies metric measures the time in between the GFE receiving the RPC 
 
 The GFE latencies metric has the following attributes:
 
-  - `Metric name` : `spanner.googleapis.com/client/gfe_latencies`
-  - `Metric value type` : `DISTRIBUTION`
+- `Metric name` : `spanner.googleapis.com/client/gfe_latencies`
+- `Metric value type` : `DISTRIBUTION`
 
 ## Operation count
 
@@ -94,8 +94,8 @@ The operation count metric records the number of operations performed every 60 s
 
 The Operation count metric has the following attributes:
 
-  - `Metric name` : `spanner.googleapis.com/client/operation_count`
-  - `Metric value type` : `INT64`
+- `Metric name` : `spanner.googleapis.com/client/operation_count`
+- `Metric value type` : `INT64`
 
 ## Operation latencies
 
@@ -103,10 +103,10 @@ The operation latencies metric measures an operation's round trip from the clien
 
 The Operation latencies metric has the following attributes:
 
-  - `Metric name` : `spanner.googleapis.com/client/operation_latencies`
-  - `Metric value type` : `DISTRIBUTION`
+- `Metric name` : `spanner.googleapis.com/client/operation_latencies`
+- `Metric value type` : `DISTRIBUTION`
 
 ## What's next
 
-  - [Client metrics overview](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics)
-  - [Signal capture overview](https://docs.cloud.google.com/spanner/docs/signal-capture-overview)
+- [Client metrics overview](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics)
+- [Signal capture overview](https://docs.cloud.google.com/spanner/docs/signal-capture-overview)

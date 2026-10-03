@@ -12,13 +12,13 @@ data_source: docs.cloud.google.com
 
 This tutorial walks you through the following steps using the Spanner client library for C++:
 
-  - Create a Spanner instance and database.
-  - Write, read, and execute SQL queries on data in the database.
-  - Update the database schema.
-  - Update data using a read-write transaction.
-  - Add a secondary index to the database.
-  - Use the index to read and execute SQL queries on data.
-  - Retrieve data using a read-only transaction.
+- Create a Spanner instance and database.
+- Write, read, and execute SQL queries on data in the database.
+- Update the database schema.
+- Update data using a read-write transaction.
+- Add a secondary index to the database.
+- Use the index to read and execute SQL queries on data.
+- Retrieve data using a read-only transaction.
 
 ## Costs
 
@@ -35,26 +35,36 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 ## Prepare your local C++ environment
 
 1.  Clone the sample app repository to your local machine:
-    
-        git clone https://github.com/googleapis/google-cloud-cpp $HOME/google-cloud-cpp
+
+    ```
+    git clone https://github.com/googleapis/google-cloud-cpp $HOME/google-cloud-cpp
+    ```
 
 2.  Install Bazel for Linux using [these instructions](https://docs.bazel.build/versions/master/install.html) .
 
 3.  Change to the directory that contains the Spanner sample code:
-    
-        cd $HOME/google-cloud-cpp
+
+    ```
+    cd $HOME/google-cloud-cpp
+    ```
 
 4.  Build the samples with this command:
-    
-        bazel build //google/cloud/spanner/samples:samples
+
+    ```
+    bazel build //google/cloud/spanner/samples:samples
+    ```
 
 5.  Set up authentication and authorization for the `google-cloud-cpp` project.
-    
-        gcloud auth application-default login
 
-6.  Create an environment variable called `PROJECT_ID` . Replace \[MY\_PROJECT\_ID\] with your Google Cloud project ID. You can find this ID in your project's [Welcome](https://console.cloud.google.com/welcome) page.
-    
-        export PROJECT_ID=[MY_PROJECT_ID]
+    ```
+    gcloud auth application-default login
+    ```
+
+6.  Create an environment variable called `PROJECT_ID` . Replace ` [MY_PROJECT_ID] ` with your Google Cloud project ID. You can find this ID in your project's [Welcome](https://console.cloud.google.com/welcome) page.
+
+    ```
+    export PROJECT_ID=[MY_PROJECT_ID]
+    ```
 
 ## Create an instance
 
@@ -62,9 +72,9 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manage-instances#create-instance) to learn how to create a Spanner instance using any of the following methods. You can name your instance `test-instance` to use it with other topics in this document that reference an instance named `test-instance` .
 
-  - The Google Cloud CLI
-  - The Google Cloud console
-  - A client library (C++, C\#, Go, Java, Node.js, PHP, Python, or Ruby)
+- The Google Cloud CLI
+- The Google Cloud console
+- A client library (C++, C#, Go, Java, Node.js, PHP, Python, or Ruby)
 
 ## Look through sample files
 
@@ -76,22 +86,28 @@ Take a look through the `google/cloud/spanner/samples/samples.cc` file, which sh
 
 ### GoogleSQL
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-          create-database PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+      create-database PROJECT_ID test-instance example-db
+```
 
 ### PostgreSQL
 
-    bazel run //google/cloud/spanner/samples:postgresql_samples -- \
-          create-database PROJECT_ID test-instance example-db
-    
-    bazel run //google/cloud/spanner/samples:postgresql_samples -- \
-          interleaved-table PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:postgresql_samples -- \
+      create-database PROJECT_ID test-instance example-db
+
+bazel run //google/cloud/spanner/samples:postgresql_samples -- \
+      interleaved-table PROJECT_ID test-instance example-db
+```
 
 > **Note:** Some Bazel syntax, such as `--` , looks similar to bash syntax but is not. For more information, see the Bazel [Commands and Options](https://docs.bazel.build/versions/master/user-manual.html) page.
 
 You should see:
 
-    Created database [projects/${PROJECT_ID}/instances/test-instance/databases/example-db]
+```
+Created database [projects/${PROJECT_ID}/instances/test-instance/databases/example-db]
+```
 
 The following code creates a database and two tables in the database.
 
@@ -99,36 +115,38 @@ The following code creates a database and two tables in the database.
 
 ### GoogleSQL
 
-    void CreateDatabase(google::cloud::spanner_admin::DatabaseAdminClient client,
-                        std::string const& project_id,
-                        std::string const& instance_id,
-                        std::string const& database_id) {
-      google::cloud::spanner::Database database(project_id, instance_id,
-                                                database_id);
-      google::spanner::admin::database::v1::CreateDatabaseRequest request;
-      request.set_parent(database.instance().FullName());
-      request.set_create_statement("CREATE DATABASE `" + database.database_id() +
-                                   "`");
-      request.add_extra_statements(R"""(
-          CREATE TABLE Singers (
-              SingerId   INT64 NOT NULL,
-              FirstName  STRING(1024),
-              LastName   STRING(1024),
-              SingerInfo BYTES(MAX),
-              FullName   STRING(2049)
-                  AS (ARRAY_TO_STRING([FirstName, LastName], " ")) STORED
-          ) PRIMARY KEY (SingerId))""");
-      request.add_extra_statements(R"""(
-          CREATE TABLE Albums (
-              SingerId     INT64 NOT NULL,
-              AlbumId      INT64 NOT NULL,
-              AlbumTitle   STRING(MAX)
-          ) PRIMARY KEY (SingerId, AlbumId),
-              INTERLEAVE IN PARENT Singers ON DELETE CASCADE)""");
-      auto db = client.CreateDatabase(request).get();
-      if (!db) throw std::move(db).status();
-      std::cout << "Database " << db->name() << " created.\n";
-    }
+```c++
+void CreateDatabase(google::cloud::spanner_admin::DatabaseAdminClient client,
+                    std::string const& project_id,
+                    std::string const& instance_id,
+                    std::string const& database_id) {
+  google::cloud::spanner::Database database(project_id, instance_id,
+                                            database_id);
+  google::spanner::admin::database::v1::CreateDatabaseRequest request;
+  request.set_parent(database.instance().FullName());
+  request.set_create_statement("CREATE DATABASE `" + database.database_id() +
+                               "`");
+  request.add_extra_statements(R"""(
+      CREATE TABLE Singers (
+          SingerId   INT64 NOT NULL,
+          FirstName  STRING(1024),
+          LastName   STRING(1024),
+          SingerInfo BYTES(MAX),
+          FullName   STRING(2049)
+              AS (ARRAY_TO_STRING([FirstName, LastName], " ")) STORED
+      ) PRIMARY KEY (SingerId))""");
+  request.add_extra_statements(R"""(
+      CREATE TABLE Albums (
+          SingerId     INT64 NOT NULL,
+          AlbumId      INT64 NOT NULL,
+          AlbumTitle   STRING(MAX)
+      ) PRIMARY KEY (SingerId, AlbumId),
+          INTERLEAVE IN PARENT Singers ON DELETE CASCADE)""");
+  auto db = client.CreateDatabase(request).get();
+  if (!db) throw std::move(db).status();
+  std::cout << "Database " << db->name() << " created.\n";
+}
+```
 
 ### PostgreSQL
 
@@ -136,53 +154,57 @@ In the PostgreSQL dialect, the database needs to be created before submitting a 
 
 The following example creates a database:
 
-    void CreateDatabase(google::cloud::spanner_admin::DatabaseAdminClient client,
-                        google::cloud::spanner::Database const& database) {
-      google::spanner::admin::database::v1::CreateDatabaseRequest request;
-      request.set_parent(database.instance().FullName());
-      request.set_create_statement("CREATE DATABASE \"" + database.database_id() +
-                                   "\"");
-      request.set_database_dialect(
-          google::spanner::admin::database::v1::DatabaseDialect::POSTGRESQL);
-      auto db = client.CreateDatabase(request).get();
-      if (!db) throw std::move(db).status();
-      std::cout << "Database " << db->name() << " created.\n";
-    }
+```c++
+void CreateDatabase(google::cloud::spanner_admin::DatabaseAdminClient client,
+                    google::cloud::spanner::Database const& database) {
+  google::spanner::admin::database::v1::CreateDatabaseRequest request;
+  request.set_parent(database.instance().FullName());
+  request.set_create_statement("CREATE DATABASE \"" + database.database_id() +
+                               "\"");
+  request.set_database_dialect(
+      google::spanner::admin::database::v1::DatabaseDialect::POSTGRESQL);
+  auto db = client.CreateDatabase(request).get();
+  if (!db) throw std::move(db).status();
+  std::cout << "Database " << db->name() << " created.\n";
+}
+```
 
 The following example creates the two tables in the database:
 
-    void InterleavedTable(google::cloud::spanner_admin::DatabaseAdminClient client,
-                          google::cloud::spanner::Database const& database) {
-      // The Spanner PostgreSQL dialect extends the PostgreSQL dialect with
-      // certain Spanner specific features, such as interleaved tables. See
-      // https://cloud.google.com/spanner/docs/postgresql/data-definition-language#create_table
-      // for the full CREATE TABLE syntax.
-      std::vector<std::string> statements = {
-          R"""(
-            CREATE TABLE Singers (
-                SingerId        BIGINT NOT NULL,
-                FirstName       CHARACTER VARYING(1024) NOT NULL,
-                LastName        CHARACTER VARYING(1024) NOT NULL,
-                PRIMARY KEY(SingerId)
-            )
-          )""",
-          R"""(
-            CREATE TABLE Albums (
-                SingerId        BIGINT NOT NULL,
-                AlbumId         BIGINT NOT NULL,
-                AlbumTitle      CHARACTER VARYING NOT NULL,
-                MarketingBudget BIGINT,
-                PRIMARY KEY(SingerId, AlbumId)
-            ) INTERLEAVE IN PARENT Singers ON DELETE CASCADE
-          )""",
-      };
-      auto metadata =
-          client.UpdateDatabaseDdl(database.FullName(), statements).get();
-      google::cloud::spanner_testing::LogUpdateDatabaseDdl(  //! TODO(#4758)
-          client, database, metadata.status());              //! TODO(#4758)
-      if (!metadata) throw std::move(metadata).status();
-      std::cout << "Tables created.\nNew DDL:\n" << metadata->DebugString();
-    }
+```c++
+void InterleavedTable(google::cloud::spanner_admin::DatabaseAdminClient client,
+                      google::cloud::spanner::Database const& database) {
+  // The Spanner PostgreSQL dialect extends the PostgreSQL dialect with
+  // certain Spanner specific features, such as interleaved tables. See
+  // https://cloud.google.com/spanner/docs/postgresql/data-definition-language#create_table
+  // for the full CREATE TABLE syntax.
+  std::vector<std::string> statements = {
+      R"""(
+        CREATE TABLE Singers (
+            SingerId        BIGINT NOT NULL,
+            FirstName       CHARACTER VARYING(1024) NOT NULL,
+            LastName        CHARACTER VARYING(1024) NOT NULL,
+            PRIMARY KEY(SingerId)
+        )
+      )""",
+      R"""(
+        CREATE TABLE Albums (
+            SingerId        BIGINT NOT NULL,
+            AlbumId         BIGINT NOT NULL,
+            AlbumTitle      CHARACTER VARYING NOT NULL,
+            MarketingBudget BIGINT,
+            PRIMARY KEY(SingerId, AlbumId)
+        ) INTERLEAVE IN PARENT Singers ON DELETE CASCADE
+      )""",
+  };
+  auto metadata =
+      client.UpdateDatabaseDdl(database.FullName(), statements).get();
+  google::cloud::spanner_testing::LogUpdateDatabaseDdl(  //! TODO(#4758)
+      client, database, metadata.status());              //! TODO(#4758)
+  if (!metadata) throw std::move(metadata).status();
+  std::cout << "Tables created.\nNew DDL:\n" << metadata->DebugString();
+}
+```
 
 The next step is to write data to your database.
 
@@ -190,15 +212,15 @@ The next step is to write data to your database.
 
 Before you can do reads or writes, you must create a `Client` :
 
-    auto database = spanner::Database(project_id, instance_id, database_id);
-    auto connection = spanner::MakeConnection(database);
-    auto client = spanner::Client(connection);
+```c++
+auto database = spanner::Database(project_id, instance_id, database_id);
+auto connection = spanner::MakeConnection(database);
+auto client = spanner::Client(connection);
+```
 
 A `Client` lets you read, write, query, and execute transactions on a Spanner database. Typically you create a `Client` when your application starts up, then you re-use that `Client` to read, write, and execute transactions. Each client uses resources in Spanner. The destructor of `Client` automatically cleans up the `Client` resources, including network connections.
 
 Read more about `Client` in the [Google Cloud Spanner C++ Reference](https://docs.cloud.google.com/cpp/docs/reference/spanner/latest) .
-
-<span id="write_data"></span>
 
 ## Write data with DML
 
@@ -206,39 +228,43 @@ You can insert data using Data Manipulation Language (DML) in a read-write trans
 
 You use the `Client::ExecuteDml()` function to execute a DML statement.
 
-    void DmlGettingStartedInsert(google::cloud::spanner::Client client) {
-      using ::google::cloud::StatusOr;
-      namespace spanner = ::google::cloud::spanner;
-    
-      auto commit_result = client.Commit(
-          [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
-            auto insert = client.ExecuteDml(
-                std::move(txn),
-                spanner::SqlStatement(
-                    "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES"
-                    " (12, 'Melissa', 'Garcia'),"
-                    " (13, 'Russell', 'Morales'),"
-                    " (14, 'Jacqueline', 'Long'),"
-                    " (15, 'Dylan', 'Shaw')"));
-            if (!insert) return std::move(insert).status();
-            return spanner::Mutations{};
-          });
-      if (!commit_result) throw std::move(commit_result).status();
-      std::cout << "Insert was successful [spanner_dml_getting_started_insert]\n";
-    }
+```c++
+void DmlGettingStartedInsert(google::cloud::spanner::Client client) {
+  using ::google::cloud::StatusOr;
+  namespace spanner = ::google::cloud::spanner;
+
+  auto commit_result = client.Commit(
+      [&client](spanner::Transaction txn) -> StatusOr<spanner::Mutations> {
+        auto insert = client.ExecuteDml(
+            std::move(txn),
+            spanner::SqlStatement(
+                "INSERT INTO Singers (SingerId, FirstName, LastName) VALUES"
+                " (12, 'Melissa', 'Garcia'),"
+                " (13, 'Russell', 'Morales'),"
+                " (14, 'Jacqueline', 'Long'),"
+                " (15, 'Dylan', 'Shaw')"));
+        if (!insert) return std::move(insert).status();
+        return spanner::Mutations{};
+      });
+  if (!commit_result) throw std::move(commit_result).status();
+  std::cout << "Insert was successful [spanner_dml_getting_started_insert]\n";
+}
+```
 
 Run the sample using the `getting-started-insert` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        getting-started-insert PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    getting-started-insert PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Insert was successful [spanner_dml_getting_started_insert]
+```
+Insert was successful [spanner_dml_getting_started_insert]
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
-
-<span id="write_data_with_mutations"></span>
 
 ## Write data with mutations
 
@@ -248,40 +274,46 @@ You write data using a `Client` object. The `Client::Commit()` function creates 
 
 This code shows how to write the data using mutations:
 
-    void InsertData(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-      auto insert_singers = spanner::InsertMutationBuilder(
-                                "Singers", {"SingerId", "FirstName", "LastName"})
-                                .EmplaceRow(1, "Marc", "Richards")
-                                .EmplaceRow(2, "Catalina", "Smith")
-                                .EmplaceRow(3, "Alice", "Trentor")
-                                .EmplaceRow(4, "Lea", "Martin")
-                                .EmplaceRow(5, "David", "Lomond")
-                                .Build();
-    
-      auto insert_albums = spanner::InsertMutationBuilder(
-                               "Albums", {"SingerId", "AlbumId", "AlbumTitle"})
-                               .EmplaceRow(1, 1, "Total Junk")
-                               .EmplaceRow(1, 2, "Go, Go, Go")
-                               .EmplaceRow(2, 1, "Green")
-                               .EmplaceRow(2, 2, "Forever Hold Your Peace")
-                               .EmplaceRow(2, 3, "Terrified")
-                               .Build();
-    
-      auto commit_result =
-          client.Commit(spanner::Mutations{insert_singers, insert_albums});
-      if (!commit_result) throw std::move(commit_result).status();
-      std::cout << "Insert was successful [spanner_insert_data]\n";
-    }
+```c++
+void InsertData(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+  auto insert_singers = spanner::InsertMutationBuilder(
+                            "Singers", {"SingerId", "FirstName", "LastName"})
+                            .EmplaceRow(1, "Marc", "Richards")
+                            .EmplaceRow(2, "Catalina", "Smith")
+                            .EmplaceRow(3, "Alice", "Trentor")
+                            .EmplaceRow(4, "Lea", "Martin")
+                            .EmplaceRow(5, "David", "Lomond")
+                            .Build();
+
+  auto insert_albums = spanner::InsertMutationBuilder(
+                           "Albums", {"SingerId", "AlbumId", "AlbumTitle"})
+                           .EmplaceRow(1, 1, "Total Junk")
+                           .EmplaceRow(1, 2, "Go, Go, Go")
+                           .EmplaceRow(2, 1, "Green")
+                           .EmplaceRow(2, 2, "Forever Hold Your Peace")
+                           .EmplaceRow(2, 3, "Terrified")
+                           .Build();
+
+  auto commit_result =
+      client.Commit(spanner::Mutations{insert_singers, insert_albums});
+  if (!commit_result) throw std::move(commit_result).status();
+  std::cout << "Insert was successful [spanner_insert_data]\n";
+}
+```
 
 Run the sample using the `insert-data` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        insert-data PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    insert-data PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Insert was successful [spanner_insert_data]
+```
+Insert was successful [spanner_insert_data]
+```
 
 > **Note:** There are limits to commit size. See [CRUD limit](https://docs.cloud.google.com/spanner/quotas#limits-for) for more information.
 
@@ -295,24 +327,30 @@ Execute the following SQL statement to read the values of all columns from the `
 
 ### GoogleSQL
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='SELECT SingerId, AlbumId, AlbumTitle FROM Albums'
+```
 
 ### GoogleSQL Pipe syntax
 
-    gcloud spanner databases execute-sql example-db --instance=test-instance \
-        --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
+gcloud spanner databases execute-sql example-db --instance=test-instance \
+    --sql='FROM Albums |> SELECT SingerId, AlbumId, AlbumTitle'
+```
 
 > **Note:** For the GoogleSQL reference, see [Standard SQL syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax) or [Pipe syntax in GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax) ; for PostgreSQL reference, see [PostgreSQL lexical structure and syntax](https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical) .
 
 The result shows:
 
-    SingerId AlbumId AlbumTitle
-    1        1       Total Junk
-    1        2       Go, Go, Go
-    2        1       Green
-    2        2       Forever Hold Your Peace
-    2        3       Terrified
+```
+SingerId AlbumId AlbumTitle
+1        1       Total Junk
+1        2       Go, Go, Go
+2        1       Green
+2        2       Forever Hold Your Peace
+2        3       Terrified
+```
 
 ### Use the Spanner client library for C++
 
@@ -320,37 +358,43 @@ In addition to executing a SQL statement on the command line, you can issue the 
 
 You use the `Client::ExecuteQuery()` function to run the SQL query. Here's how to issue the query and access the data:
 
-    void QueryData(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-    
-      spanner::SqlStatement select("SELECT SingerId, LastName FROM Singers");
-      using RowType = std::tuple<std::int64_t, std::string>;
-      auto rows = client.ExecuteQuery(std::move(select));
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row) << "\t";
-        std::cout << "LastName: " << std::get<1>(*row) << "\n";
-      }
-    
-      std::cout << "Query completed for [spanner_query_data]\n";
-    }
+```c++
+void QueryData(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+
+  spanner::SqlStatement select("SELECT SingerId, LastName FROM Singers");
+  using RowType = std::tuple<std::int64_t, std::string>;
+  auto rows = client.ExecuteQuery(std::move(select));
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "SingerId: " << std::get<0>(*row) << "\t";
+    std::cout << "LastName: " << std::get<1>(*row) << "\n";
+  }
+
+  std::cout << "Query completed for [spanner_query_data]\n";
+}
+```
 
 Run the sample using the `query_data` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        query-data PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    query-data PROJECT_ID test-instance example-db
+```
 
 You should see the following result:
 
-    SingerId: 1     LastName: Richards
-    SingerId: 2     LastName: Smith
-    SingerId: 3     LastName: Trentor
-    SingerId: 4     LastName: Martin
-    SingerId: 5     LastName: Lomond
-    SingerId: 12    LastName: Garcia
-    SingerId: 13    LastName: Morales
-    SingerId: 14    LastName: Long
-    SingerId: 15    LastName: Shaw
+```
+SingerId: 1     LastName: Richards
+SingerId: 2     LastName: Smith
+SingerId: 3     LastName: Trentor
+SingerId: 4     LastName: Martin
+SingerId: 5     LastName: Lomond
+SingerId: 12    LastName: Garcia
+SingerId: 13    LastName: Morales
+SingerId: 14    LastName: Long
+SingerId: 15    LastName: Shaw
+```
 
 ### Query using a SQL parameter
 
@@ -360,52 +404,60 @@ Here is an example of using a parameter in the `WHERE` clause to query records c
 
 ### GoogleSQL
 
-    void QueryWithParameter(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-    
-      spanner::SqlStatement select(
-          "SELECT SingerId, FirstName, LastName FROM Singers"
-          " WHERE LastName = @last_name",
-          {{"last_name", spanner::Value("Garcia")}});
-      using RowType = std::tuple<std::int64_t, std::string, std::string>;
-      auto rows = client.ExecuteQuery(std::move(select));
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row) << "\t";
-        std::cout << "FirstName: " << std::get<1>(*row) << "\t";
-        std::cout << "LastName: " << std::get<2>(*row) << "\n";
-      }
-    
-      std::cout << "Query completed for [spanner_query_with_parameter]\n";
-    }
+```c++
+void QueryWithParameter(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+
+  spanner::SqlStatement select(
+      "SELECT SingerId, FirstName, LastName FROM Singers"
+      " WHERE LastName = @last_name",
+      {{"last_name", spanner::Value("Garcia")}});
+  using RowType = std::tuple<std::int64_t, std::string, std::string>;
+  auto rows = client.ExecuteQuery(std::move(select));
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "SingerId: " << std::get<0>(*row) << "\t";
+    std::cout << "FirstName: " << std::get<1>(*row) << "\t";
+    std::cout << "LastName: " << std::get<2>(*row) << "\n";
+  }
+
+  std::cout << "Query completed for [spanner_query_with_parameter]\n";
+}
+```
 
 ### PostgreSQL
 
-    void QueryWithParameter(google::cloud::spanner::Client client) {
-      std::cout << "Listing all singers with a last name that starts with 'S'\n";
-      auto sql = google::cloud::spanner::SqlStatement(
-          "SELECT SingerId, FirstName, LastName FROM Singers"
-          "  WHERE LastName LIKE $1",
-          {{"p1", google::cloud::spanner::Value("S%")}});
-      using RowType = std::tuple<std::int64_t, std::string, std::string>;
-      auto rows = client.ExecuteQuery(std::move(sql));
-      for (auto& row : google::cloud::spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row) << "\t";
-        std::cout << "FirstName: " << std::get<1>(*row) << "\t";
-        std::cout << "LastName: " << std::get<2>(*row) << "\n";
-      }
-      std::cout << "Query completed.\n";
-    }
+```c++
+void QueryWithParameter(google::cloud::spanner::Client client) {
+  std::cout << "Listing all singers with a last name that starts with 'S'\n";
+  auto sql = google::cloud::spanner::SqlStatement(
+      "SELECT SingerId, FirstName, LastName FROM Singers"
+      "  WHERE LastName LIKE $1",
+      {{"p1", google::cloud::spanner::Value("S%")}});
+  using RowType = std::tuple<std::int64_t, std::string, std::string>;
+  auto rows = client.ExecuteQuery(std::move(sql));
+  for (auto& row : google::cloud::spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "SingerId: " << std::get<0>(*row) << "\t";
+    std::cout << "FirstName: " << std::get<1>(*row) << "\t";
+    std::cout << "LastName: " << std::get<2>(*row) << "\n";
+  }
+  std::cout << "Query completed.\n";
+}
+```
 
 Run the sample using the query-with-parameter command.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        query-with-parameter PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    query-with-parameter PROJECT_ID test-instance example-db
+```
 
 You should see the following result:
 
-    SingerId: 12    FirstName: Melissa      LastName: Garcia
+```
+SingerId: 12    FirstName: Melissa      LastName: Garcia
+```
 
 ## Read data using the read API
 
@@ -415,34 +467,40 @@ You use the `Client::Read()` function to read rows from the database. Use a `Key
 
 Here's how to read the data:
 
-    void ReadData(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-    
-      auto rows = client.Read("Albums", google::cloud::spanner::KeySet::All(),
-                              {"SingerId", "AlbumId", "AlbumTitle"});
-      using RowType = std::tuple<std::int64_t, std::int64_t, std::string>;
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row) << "\t";
-        std::cout << "AlbumId: " << std::get<1>(*row) << "\t";
-        std::cout << "AlbumTitle: " << std::get<2>(*row) << "\n";
-      }
-    
-      std::cout << "Read completed for [spanner_read_data]\n";
-    }
+```c++
+void ReadData(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+
+  auto rows = client.Read("Albums", google::cloud::spanner::KeySet::All(),
+                          {"SingerId", "AlbumId", "AlbumTitle"});
+  using RowType = std::tuple<std::int64_t, std::int64_t, std::string>;
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "SingerId: " << std::get<0>(*row) << "\t";
+    std::cout << "AlbumId: " << std::get<1>(*row) << "\t";
+    std::cout << "AlbumTitle: " << std::get<2>(*row) << "\n";
+  }
+
+  std::cout << "Read completed for [spanner_read_data]\n";
+}
+```
 
 Run the sample using the `read-data` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        read-data PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    read-data PROJECT_ID test-instance example-db
+```
 
 You should see output similar to:
 
-    SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
-    SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
-    SingerId: 2, AlbumId: 1, AlbumTitle: Green
-    SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
-    SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
+SingerId: 1, AlbumId: 1, AlbumTitle: Total Junk
+SingerId: 1, AlbumId: 2, AlbumTitle: Go, Go, Go
+SingerId: 2, AlbumId: 1, AlbumTitle: Green
+SingerId: 2, AlbumId: 2, AlbumTitle: Forever Hold Your Peace
+SingerId: 2, AlbumId: 3, AlbumTitle: Terrified
+```
 
 ## Update the database schema
 
@@ -458,17 +516,23 @@ Use the following [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/ref
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget INT64'
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='ALTER TABLE Albums ADD COLUMN MarketingBudget BIGINT'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Use the Spanner client library for C++
 
@@ -476,108 +540,126 @@ Use the `DatabaseAdminClient::UpdateDatabase()` function to modify the schema.
 
 ### GoogleSQL
 
-    void AddColumn(google::cloud::spanner_admin::DatabaseAdminClient client,
-                   std::string const& project_id, std::string const& instance_id,
-                   std::string const& database_id) {
-      google::cloud::spanner::Database database(project_id, instance_id,
-                                                database_id);
-      auto metadata =
-          client
-              .UpdateDatabaseDdl(
-                  database.FullName(),
-                  {"ALTER TABLE Albums ADD COLUMN MarketingBudget INT64"})
-              .get();
-      if (!metadata) throw std::move(metadata).status();
-      std::cout << "Added MarketingBudget column\n";
-    }
+```c++
+void AddColumn(google::cloud::spanner_admin::DatabaseAdminClient client,
+               std::string const& project_id, std::string const& instance_id,
+               std::string const& database_id) {
+  google::cloud::spanner::Database database(project_id, instance_id,
+                                            database_id);
+  auto metadata =
+      client
+          .UpdateDatabaseDdl(
+              database.FullName(),
+              {"ALTER TABLE Albums ADD COLUMN MarketingBudget INT64"})
+          .get();
+  if (!metadata) throw std::move(metadata).status();
+  std::cout << "Added MarketingBudget column\n";
+}
+```
 
 ### PostgreSQL
 
-    void AddColumn(google::cloud::spanner_admin::DatabaseAdminClient client,
-                   google::cloud::spanner::Database const& database) {
-      std::vector<std::string> statements = {
-          R"""(
-            ALTER TABLE Albums
-                ADD COLUMN MarketingBudget BIGINT
-          )""",
-      };
-      auto metadata =
-          client.UpdateDatabaseDdl(database.FullName(), statements).get();
-      google::cloud::spanner_testing::LogUpdateDatabaseDdl(  //! TODO(#4758)
-          client, database, metadata.status());              //! TODO(#4758)
-      if (!metadata) throw std::move(metadata).status();
-      std::cout << "Column added.\nNew DDL:\n" << metadata->DebugString();
-    }
+```c++
+void AddColumn(google::cloud::spanner_admin::DatabaseAdminClient client,
+               google::cloud::spanner::Database const& database) {
+  std::vector<std::string> statements = {
+      R"""(
+        ALTER TABLE Albums
+            ADD COLUMN MarketingBudget BIGINT
+      )""",
+  };
+  auto metadata =
+      client.UpdateDatabaseDdl(database.FullName(), statements).get();
+  google::cloud::spanner_testing::LogUpdateDatabaseDdl(  //! TODO(#4758)
+      client, database, metadata.status());              //! TODO(#4758)
+  if (!metadata) throw std::move(metadata).status();
+  std::cout << "Column added.\nNew DDL:\n" << metadata->DebugString();
+}
+```
 
 Run the sample using the `add-column` command.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        add-column PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    add-column PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Added MarketingBudget column
+```
+Added MarketingBudget column
+```
 
 ### Write data to the new column
 
 The following code writes data to the new column. It sets `MarketingBudget` to `100000` for the row keyed by `Albums(1, 1)` and to `500000` for the row keyed by `Albums(2, 2)` .
 
-    void UpdateData(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-      auto commit_result = client.Commit(spanner::Mutations{
-          spanner::UpdateMutationBuilder("Albums",
-                                         {"SingerId", "AlbumId", "MarketingBudget"})
-              .EmplaceRow(1, 1, 100000)
-              .EmplaceRow(2, 2, 500000)
-              .Build()});
-      if (!commit_result) throw std::move(commit_result).status();
-      std::cout << "Update was successful [spanner_update_data]\n";
-    }
+```c++
+void UpdateData(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+  auto commit_result = client.Commit(spanner::Mutations{
+      spanner::UpdateMutationBuilder("Albums",
+                                     {"SingerId", "AlbumId", "MarketingBudget"})
+          .EmplaceRow(1, 1, 100000)
+          .EmplaceRow(2, 2, 500000)
+          .Build()});
+  if (!commit_result) throw std::move(commit_result).status();
+  std::cout << "Update was successful [spanner_update_data]\n";
+}
+```
 
 Run the sample using the `update-data` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        update-data PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    update-data PROJECT_ID test-instance example-db
+```
 
 You can also execute a SQL query or a read call to fetch the values that you just wrote.
 
 Here's the code to execute the query:
 
-    void QueryNewColumn(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-    
-      spanner::SqlStatement select(
-          "SELECT SingerId, AlbumId, MarketingBudget FROM Albums");
-      using RowType =
-          std::tuple<std::int64_t, std::int64_t, std::optional<std::int64_t>>;
-    
-      auto rows = client.ExecuteQuery(std::move(select));
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row) << "\t";
-        std::cout << "AlbumId: " << std::get<1>(*row) << "\t";
-        auto marketing_budget = std::get<2>(*row);
-        if (marketing_budget) {
-          std::cout << "MarketingBudget: " << *marketing_budget << "\n";
-        } else {
-          std::cout << "MarketingBudget: NULL\n";
-        }
-      }
-      std::cout << "Read completed for [spanner_read_data_with_new_column]\n";
+```c++
+void QueryNewColumn(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+
+  spanner::SqlStatement select(
+      "SELECT SingerId, AlbumId, MarketingBudget FROM Albums");
+  using RowType =
+      std::tuple<std::int64_t, std::int64_t, std::optional<std::int64_t>>;
+
+  auto rows = client.ExecuteQuery(std::move(select));
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "SingerId: " << std::get<0>(*row) << "\t";
+    std::cout << "AlbumId: " << std::get<1>(*row) << "\t";
+    auto marketing_budget = std::get<2>(*row);
+    if (marketing_budget) {
+      std::cout << "MarketingBudget: " << *marketing_budget << "\n";
+    } else {
+      std::cout << "MarketingBudget: NULL\n";
     }
+  }
+  std::cout << "Read completed for [spanner_read_data_with_new_column]\n";
+}
+```
 
 To execute this query, run the sample using the `query-new-column` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        query-new-column PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    query-new-column PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    SingerId: 1 AlbumId: 1  MarketingBudget: 100000
-    SingerId: 1 AlbumId: 2  MarketingBudget: NULL
-    SingerId: 2 AlbumId: 1  MarketingBudget: NULL
-    SingerId: 2 AlbumId: 2  MarketingBudget: 500000
-    SingerId: 2 AlbumId: 3  MarketingBudget: NULL
+```
+SingerId: 1 AlbumId: 1  MarketingBudget: 100000
+SingerId: 1 AlbumId: 2  MarketingBudget: NULL
+SingerId: 2 AlbumId: 1  MarketingBudget: NULL
+SingerId: 2 AlbumId: 2  MarketingBudget: 500000
+SingerId: 2 AlbumId: 3  MarketingBudget: NULL
+```
 
 ## Update data
 
@@ -587,120 +669,128 @@ You use the `Client::ExecuteDml()` function to execute a DML statement.
 
 ### GoogleSQL
 
-    void DmlGettingStartedUpdate(google::cloud::spanner::Client client) {
-      using ::google::cloud::StatusOr;
-      namespace spanner = ::google::cloud::spanner;
-    
-      // A helper to read the budget for the given album and singer.
-      auto get_budget = [&](spanner::Transaction txn, std::int64_t album_id,
-                            std::int64_t singer_id) -> StatusOr<std::int64_t> {
-        auto key = spanner::KeySet().AddKey(spanner::MakeKey(album_id, singer_id));
-        auto rows = client.Read(std::move(txn), "Albums", key, {"MarketingBudget"});
-        using RowType = std::tuple<std::optional<std::int64_t>>;
-        auto row = spanner::GetSingularRow(spanner::StreamOf<RowType>(rows));
-        if (!row) return std::move(row).status();
-        auto const budget = std::get<0>(*row);
-        return budget ? *budget : 0;
-      };
-    
-      // A helper to update the budget for the given album and singer.
-      auto update_budget = [&](spanner::Transaction txn, std::int64_t album_id,
-                               std::int64_t singer_id, std::int64_t budget) {
-        auto sql = spanner::SqlStatement(
-            "UPDATE Albums SET MarketingBudget = @AlbumBudget"
-            "  WHERE SingerId = @SingerId AND AlbumId = @AlbumId",
-            {{"AlbumBudget", spanner::Value(budget)},
-             {"AlbumId", spanner::Value(album_id)},
-             {"SingerId", spanner::Value(singer_id)}});
-        return client.ExecuteDml(std::move(txn), std::move(sql));
-      };
-    
-      auto const transfer_amount = 20000;
-      auto commit_result = client.Commit(
-          [&](spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
-            auto budget1 = get_budget(txn, 1, 1);
-            if (!budget1) return std::move(budget1).status();
-            if (*budget1 < transfer_amount) {
-              return google::cloud::Status(
-                  google::cloud::StatusCode::kUnknown,
-                  "cannot transfer " + std::to_string(transfer_amount) +
-                      " from budget of " + std::to_string(*budget1));
-            }
-            auto budget2 = get_budget(txn, 2, 2);
-            if (!budget2) return std::move(budget2).status();
-            auto update = update_budget(txn, 1, 1, *budget1 - transfer_amount);
-            if (!update) return std::move(update).status();
-            update = update_budget(txn, 2, 2, *budget2 + transfer_amount);
-            if (!update) return std::move(update).status();
-            return spanner::Mutations{};
-          });
-      if (!commit_result) throw std::move(commit_result).status();
-      std::cout << "Update was successful [spanner_dml_getting_started_update]\n";
-    }
+```c++
+void DmlGettingStartedUpdate(google::cloud::spanner::Client client) {
+  using ::google::cloud::StatusOr;
+  namespace spanner = ::google::cloud::spanner;
+
+  // A helper to read the budget for the given album and singer.
+  auto get_budget = [&](spanner::Transaction txn, std::int64_t album_id,
+                        std::int64_t singer_id) -> StatusOr<std::int64_t> {
+    auto key = spanner::KeySet().AddKey(spanner::MakeKey(album_id, singer_id));
+    auto rows = client.Read(std::move(txn), "Albums", key, {"MarketingBudget"});
+    using RowType = std::tuple<std::optional<std::int64_t>>;
+    auto row = spanner::GetSingularRow(spanner::StreamOf<RowType>(rows));
+    if (!row) return std::move(row).status();
+    auto const budget = std::get<0>(*row);
+    return budget ? *budget : 0;
+  };
+
+  // A helper to update the budget for the given album and singer.
+  auto update_budget = [&](spanner::Transaction txn, std::int64_t album_id,
+                           std::int64_t singer_id, std::int64_t budget) {
+    auto sql = spanner::SqlStatement(
+        "UPDATE Albums SET MarketingBudget = @AlbumBudget"
+        "  WHERE SingerId = @SingerId AND AlbumId = @AlbumId",
+        {{"AlbumBudget", spanner::Value(budget)},
+         {"AlbumId", spanner::Value(album_id)},
+         {"SingerId", spanner::Value(singer_id)}});
+    return client.ExecuteDml(std::move(txn), std::move(sql));
+  };
+
+  auto const transfer_amount = 20000;
+  auto commit_result = client.Commit(
+      [&](spanner::Transaction const& txn) -> StatusOr<spanner::Mutations> {
+        auto budget1 = get_budget(txn, 1, 1);
+        if (!budget1) return std::move(budget1).status();
+        if (*budget1 < transfer_amount) {
+          return google::cloud::Status(
+              google::cloud::StatusCode::kUnknown,
+              "cannot transfer " + std::to_string(transfer_amount) +
+                  " from budget of " + std::to_string(*budget1));
+        }
+        auto budget2 = get_budget(txn, 2, 2);
+        if (!budget2) return std::move(budget2).status();
+        auto update = update_budget(txn, 1, 1, *budget1 - transfer_amount);
+        if (!update) return std::move(update).status();
+        update = update_budget(txn, 2, 2, *budget2 + transfer_amount);
+        if (!update) return std::move(update).status();
+        return spanner::Mutations{};
+      });
+  if (!commit_result) throw std::move(commit_result).status();
+  std::cout << "Update was successful [spanner_dml_getting_started_update]\n";
+}
+```
 
 ### PostgreSQL
 
-    void DmlGettingStartedUpdate(google::cloud::spanner::Client client) {
-      // A helper to read the budget for the given album and singer.
-      auto get_budget =
-          [&](google::cloud::spanner::Transaction txn, std::int64_t album_id,
-              std::int64_t singer_id) -> google::cloud::StatusOr<std::int64_t> {
-        auto key = google::cloud::spanner::KeySet().AddKey(
-            google::cloud::spanner::MakeKey(album_id, singer_id));
-        auto rows = client.Read(std::move(txn), "Albums", key, {"MarketingBudget"});
-        using RowType = std::tuple<std::optional<std::int64_t>>;
-        auto row = google::cloud::spanner::GetSingularRow(
-            google::cloud::spanner::StreamOf<RowType>(rows));
-        if (!row) return std::move(row).status();
-        auto const budget = std::get<0>(*row);
-        return budget ? *budget : 0;
-      };
-    
-      // A helper to update the budget for the given album and singer.
-      auto update_budget = [&](google::cloud::spanner::Transaction txn,
-                               std::int64_t singer_id, std::int64_t album_id,
-                               std::int64_t budget) {
-        auto sql = google::cloud::spanner::SqlStatement(
-            "UPDATE Albums SET MarketingBudget = $1"
-            "  WHERE SingerId = $2 AND AlbumId = $3",
-            {{"p1", google::cloud::spanner::Value(budget)},
-             {"p2", google::cloud::spanner::Value(singer_id)},
-             {"p3", google::cloud::spanner::Value(album_id)}});
-        return client.ExecuteDml(std::move(txn), std::move(sql));
-      };
-    
-      auto const transfer_amount = 20000;
-      auto commit = client.Commit(
-          [&](google::cloud::spanner::Transaction const& txn)
-              -> google::cloud::StatusOr<google::cloud::spanner::Mutations> {
-            auto budget1 = get_budget(txn, 1, 1);
-            if (!budget1) return std::move(budget1).status();
-            if (*budget1 < transfer_amount) {
-              return google::cloud::Status(
-                  google::cloud::StatusCode::kUnknown,
-                  "cannot transfer " + std::to_string(transfer_amount) +
-                      " from budget of " + std::to_string(*budget1));
-            }
-            auto budget2 = get_budget(txn, 2, 2);
-            if (!budget2) return std::move(budget2).status();
-            auto update = update_budget(txn, 1, 1, *budget1 - transfer_amount);
-            if (!update) return std::move(update).status();
-            update = update_budget(txn, 2, 2, *budget2 + transfer_amount);
-            if (!update) return std::move(update).status();
-            return google::cloud::spanner::Mutations{};
-          });
-      if (!commit) throw std::move(commit).status();
-      std::cout << "Update was successful.\n";
-    }
+```c++
+void DmlGettingStartedUpdate(google::cloud::spanner::Client client) {
+  // A helper to read the budget for the given album and singer.
+  auto get_budget =
+      [&](google::cloud::spanner::Transaction txn, std::int64_t album_id,
+          std::int64_t singer_id) -> google::cloud::StatusOr<std::int64_t> {
+    auto key = google::cloud::spanner::KeySet().AddKey(
+        google::cloud::spanner::MakeKey(album_id, singer_id));
+    auto rows = client.Read(std::move(txn), "Albums", key, {"MarketingBudget"});
+    using RowType = std::tuple<std::optional<std::int64_t>>;
+    auto row = google::cloud::spanner::GetSingularRow(
+        google::cloud::spanner::StreamOf<RowType>(rows));
+    if (!row) return std::move(row).status();
+    auto const budget = std::get<0>(*row);
+    return budget ? *budget : 0;
+  };
+
+  // A helper to update the budget for the given album and singer.
+  auto update_budget = [&](google::cloud::spanner::Transaction txn,
+                           std::int64_t singer_id, std::int64_t album_id,
+                           std::int64_t budget) {
+    auto sql = google::cloud::spanner::SqlStatement(
+        "UPDATE Albums SET MarketingBudget = $1"
+        "  WHERE SingerId = $2 AND AlbumId = $3",
+        {{"p1", google::cloud::spanner::Value(budget)},
+         {"p2", google::cloud::spanner::Value(singer_id)},
+         {"p3", google::cloud::spanner::Value(album_id)}});
+    return client.ExecuteDml(std::move(txn), std::move(sql));
+  };
+
+  auto const transfer_amount = 20000;
+  auto commit = client.Commit(
+      [&](google::cloud::spanner::Transaction const& txn)
+          -> google::cloud::StatusOr<google::cloud::spanner::Mutations> {
+        auto budget1 = get_budget(txn, 1, 1);
+        if (!budget1) return std::move(budget1).status();
+        if (*budget1 < transfer_amount) {
+          return google::cloud::Status(
+              google::cloud::StatusCode::kUnknown,
+              "cannot transfer " + std::to_string(transfer_amount) +
+                  " from budget of " + std::to_string(*budget1));
+        }
+        auto budget2 = get_budget(txn, 2, 2);
+        if (!budget2) return std::move(budget2).status();
+        auto update = update_budget(txn, 1, 1, *budget1 - transfer_amount);
+        if (!update) return std::move(update).status();
+        update = update_budget(txn, 2, 2, *budget2 + transfer_amount);
+        if (!update) return std::move(update).status();
+        return google::cloud::spanner::Mutations{};
+      });
+  if (!commit) throw std::move(commit).status();
+  std::cout << "Update was successful.\n";
+}
+```
 
 Run the sample using the `getting-started-update` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        getting-started-update PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    getting-started-update PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    Update was successful [spanner_dml_getting_started_update]
+```
+Update was successful [spanner_dml_getting_started_update]
+```
 
 > **Note:** You can also [update data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api#updating_rows_in_a_table) .
 
@@ -720,47 +810,57 @@ You can add an index on the command line using the gcloud CLI or programmaticall
 
 Use the following [`CREATE INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_index) command to add an index to the database:
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)'
+```
 
 You should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for C++
 
 You use the `DatabaseAdminClient::UpdateDatabase()` function to add an index:
 
-    void AddIndex(google::cloud::spanner_admin::DatabaseAdminClient client,
-                  std::string const& project_id, std::string const& instance_id,
-                  std::string const& database_id) {
-      google::cloud::spanner::Database database(project_id, instance_id,
-                                                database_id);
-      auto metadata =
-          client
-              .UpdateDatabaseDdl(
-                  database.FullName(),
-                  {"CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"})
-              .get();
-      if (!metadata) throw std::move(metadata).status();
-      std::cout << "`AlbumsByAlbumTitle` Index successfully added, new DDL:\n"
-                << metadata->DebugString();
-    }
+```c++
+void AddIndex(google::cloud::spanner_admin::DatabaseAdminClient client,
+              std::string const& project_id, std::string const& instance_id,
+              std::string const& database_id) {
+  google::cloud::spanner::Database database(project_id, instance_id,
+                                            database_id);
+  auto metadata =
+      client
+          .UpdateDatabaseDdl(
+              database.FullName(),
+              {"CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"})
+          .get();
+  if (!metadata) throw std::move(metadata).status();
+  std::cout << "`AlbumsByAlbumTitle` Index successfully added, new DDL:\n"
+            << metadata->DebugString();
+}
+```
 
 Run the sample using the `add-index` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        add-index PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    add-index PROJECT_ID test-instance example-db
+```
 
 Adding an index can take a few minutes. After the index is added, you should see output similar to this:
 
-    `AlbumsByAlbumTitle` Index successfully added, new DDL:
-    database: "projects/PROJECT_ID/instances/test-instance/databases/example-db"
-    statements: "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"
-    commit_timestamps {
-      seconds: 1581011550
-      nanos: 531102000
-    }
+```
+`AlbumsByAlbumTitle` Index successfully added, new DDL:
+database: "projects/PROJECT_ID/instances/test-instance/databases/example-db"
+statements: "CREATE INDEX AlbumsByAlbumTitle ON Albums(AlbumTitle)"
+commit_timestamps {
+  seconds: 1581011550
+  nanos: 531102000
+}
+```
 
 ### Read using the index
 
@@ -770,35 +870,41 @@ To use the index in the read interface, use the `Client::Read()` function, which
 
 The following code fetches all `AlbumId` , and `AlbumTitle` columns from the `AlbumsByAlbumTitle` index.
 
-    void ReadDataWithIndex(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-    
-      auto rows =
-          client.Read("Albums", google::cloud::spanner::KeySet::All(),
-                      {"AlbumId", "AlbumTitle"},
-                      google::cloud::Options{}.set<spanner::ReadIndexNameOption>(
-                          "AlbumsByAlbumTitle"));
-      using RowType = std::tuple<std::int64_t, std::string>;
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "AlbumId: " << std::get<0>(*row) << "\t";
-        std::cout << "AlbumTitle: " << std::get<1>(*row) << "\n";
-      }
-      std::cout << "Read completed for [spanner_read_data_with_index]\n";
-    }
+```c++
+void ReadDataWithIndex(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+
+  auto rows =
+      client.Read("Albums", google::cloud::spanner::KeySet::All(),
+                  {"AlbumId", "AlbumTitle"},
+                  google::cloud::Options{}.set<spanner::ReadIndexNameOption>(
+                      "AlbumsByAlbumTitle"));
+  using RowType = std::tuple<std::int64_t, std::string>;
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "AlbumId: " << std::get<0>(*row) << "\t";
+    std::cout << "AlbumTitle: " << std::get<1>(*row) << "\n";
+  }
+  std::cout << "Read completed for [spanner_read_data_with_index]\n";
+}
+```
 
 Run the sample using the `read-data-with-index` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        read-data-with-index PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    read-data-with-index PROJECT_ID test-instance example-db
+```
 
 You should see:
 
-    AlbumId: 2  AlbumTitle: Forever Hold Your Peace
-    AlbumId: 2  AlbumTitle: Go, Go, Go
-    AlbumId: 1  AlbumTitle: Green
-    AlbumId: 3  AlbumTitle: Terrified
-    AlbumId: 1  AlbumTitle: Total Junk
+```
+AlbumId: 2  AlbumTitle: Forever Hold Your Peace
+AlbumId: 2  AlbumTitle: Go, Go, Go
+AlbumId: 1  AlbumTitle: Green
+AlbumId: 3  AlbumTitle: Terrified
+AlbumId: 1  AlbumTitle: Total Junk
+```
 
 ### Add an index for index-only reads
 
@@ -810,93 +916,111 @@ Create an alternate definition of `AlbumsByAlbumTitle` that stores a copy of `Ma
 
 ### GoogleSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)
+```
 
 ### PostgreSQL
 
-    gcloud spanner databases ddl update example-db --instance=test-instance \
-        --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
+gcloud spanner databases ddl update example-db --instance=test-instance \
+    --ddl='CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) INCLUDE (MarketingBudget)
+```
 
 Adding an index can take a few minutes. After the index is added, you should see:
 
-    Schema updating...done.
+```
+Schema updating...done.
+```
 
 #### Using the Spanner client library for C++
 
 You use the `DatabaseAdminClient::UpdateDatabase()` function to add an index with a `STORING` clause for :
 
-    void AddStoringIndex(google::cloud::spanner_admin::DatabaseAdminClient client,
-                         std::string const& project_id,
-                         std::string const& instance_id,
-                         std::string const& database_id) {
-      google::cloud::spanner::Database database(project_id, instance_id,
-                                                database_id);
-      auto metadata = client
-                          .UpdateDatabaseDdl(database.FullName(), {R"""(
-                            CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)
-                                STORING (MarketingBudget))"""})
-                          .get();
-      if (!metadata) throw std::move(metadata).status();
-      std::cout << "`AlbumsByAlbumTitle2` Index successfully added, new DDL:\n"
-                << metadata->DebugString();
-    }
+```c++
+void AddStoringIndex(google::cloud::spanner_admin::DatabaseAdminClient client,
+                     std::string const& project_id,
+                     std::string const& instance_id,
+                     std::string const& database_id) {
+  google::cloud::spanner::Database database(project_id, instance_id,
+                                            database_id);
+  auto metadata = client
+                      .UpdateDatabaseDdl(database.FullName(), {R"""(
+                        CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle)
+                            STORING (MarketingBudget))"""})
+                      .get();
+  if (!metadata) throw std::move(metadata).status();
+  std::cout << "`AlbumsByAlbumTitle2` Index successfully added, new DDL:\n"
+            << metadata->DebugString();
+}
+```
 
 Run the sample using the `add-storing-index` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        add-storing-index PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    add-storing-index PROJECT_ID test-instance example-db
+```
 
 You should see output similar to this:
 
-    `AlbumsByAlbumTitle2` Index successfully added, new DDL:
-    database: "projects/PROJECT_ID/instances/test-instance/databases/example-db"
-    statements: "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)"
-    commit_timestamps {
-      seconds: 1581012328
-      nanos: 416682000
-    }
+```
+`AlbumsByAlbumTitle2` Index successfully added, new DDL:
+database: "projects/PROJECT_ID/instances/test-instance/databases/example-db"
+statements: "CREATE INDEX AlbumsByAlbumTitle2 ON Albums(AlbumTitle) STORING (MarketingBudget)"
+commit_timestamps {
+  seconds: 1581012328
+  nanos: 416682000
+}
+```
 
 Now you can execute a read that fetches all `AlbumId` , `AlbumTitle` , and `MarketingBudget` columns from the `AlbumsByAlbumTitle2` index:
 
 Read data using the storing index you created by executing a query that explicitly specifies the index:
 
-    void ReadDataWithStoringIndex(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-    
-      auto rows =
-          client.Read("Albums", google::cloud::spanner::KeySet::All(),
-                      {"AlbumId", "AlbumTitle", "MarketingBudget"},
-                      google::cloud::Options{}.set<spanner::ReadIndexNameOption>(
-                          "AlbumsByAlbumTitle2"));
-      using RowType =
-          std::tuple<std::int64_t, std::string, std::optional<std::int64_t>>;
-      for (auto& row : spanner::StreamOf<RowType>(rows)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "AlbumId: " << std::get<0>(*row) << "\t";
-        std::cout << "AlbumTitle: " << std::get<1>(*row) << "\t";
-        auto marketing_budget = std::get<2>(*row);
-        if (marketing_budget) {
-          std::cout << "MarketingBudget: " << *marketing_budget << "\n";
-        } else {
-          std::cout << "MarketingBudget: NULL\n";
-        }
-      }
-      std::cout << "Read completed for [spanner_read_data_with_storing_index]\n";
+```c++
+void ReadDataWithStoringIndex(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+
+  auto rows =
+      client.Read("Albums", google::cloud::spanner::KeySet::All(),
+                  {"AlbumId", "AlbumTitle", "MarketingBudget"},
+                  google::cloud::Options{}.set<spanner::ReadIndexNameOption>(
+                      "AlbumsByAlbumTitle2"));
+  using RowType =
+      std::tuple<std::int64_t, std::string, std::optional<std::int64_t>>;
+  for (auto& row : spanner::StreamOf<RowType>(rows)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "AlbumId: " << std::get<0>(*row) << "\t";
+    std::cout << "AlbumTitle: " << std::get<1>(*row) << "\t";
+    auto marketing_budget = std::get<2>(*row);
+    if (marketing_budget) {
+      std::cout << "MarketingBudget: " << *marketing_budget << "\n";
+    } else {
+      std::cout << "MarketingBudget: NULL\n";
     }
+  }
+  std::cout << "Read completed for [spanner_read_data_with_storing_index]\n";
+}
+```
 
 Run the sample using the `read-data-with-storing-index` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        read-data-with-storing-index PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    read-data-with-storing-index PROJECT_ID test-instance example-db
+```
 
 You should see output similar to:
 
-    AlbumId: 2  AlbumTitle: Forever Hold Your Peace MarketingBudget: 520000
-    AlbumId: 2  AlbumTitle: Go, Go, Go  MarketingBudget: NULL
-    AlbumId: 1  AlbumTitle: Green   MarketingBudget: NULL
-    AlbumId: 3  AlbumTitle: Terrified   MarketingBudget: NULL
-    AlbumId: 1  AlbumTitle: Total Junk  MarketingBudget: 80000
+```
+AlbumId: 2  AlbumTitle: Forever Hold Your Peace MarketingBudget: 520000
+AlbumId: 2  AlbumTitle: Go, Go, Go  MarketingBudget: NULL
+AlbumId: 1  AlbumTitle: Green   MarketingBudget: NULL
+AlbumId: 3  AlbumTitle: Terrified   MarketingBudget: NULL
+AlbumId: 1  AlbumTitle: Total Junk  MarketingBudget: 80000
+```
 
 ## Retrieve data using read-only transactions
 
@@ -904,54 +1028,60 @@ Suppose you want to execute more than one read at the same timestamp. [Read-only
 
 The following shows how to run a query and perform a read in the same read-only transaction:
 
-    void ReadOnlyTransaction(google::cloud::spanner::Client client) {
-      namespace spanner = ::google::cloud::spanner;
-      auto read_only = spanner::MakeReadOnlyTransaction();
-    
-      spanner::SqlStatement select(
-          "SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
-      using RowType = std::tuple<std::int64_t, std::int64_t, std::string>;
-    
-      // Read#1.
-      auto rows1 = client.ExecuteQuery(read_only, select);
-      std::cout << "Read 1 results\n";
-      for (auto& row : spanner::StreamOf<RowType>(rows1)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row)
-                  << " AlbumId: " << std::get<1>(*row)
-                  << " AlbumTitle: " << std::get<2>(*row) << "\n";
-      }
-      // Read#2. Even if changes occur in-between the reads the transaction ensures
-      // that Read #1 and Read #2 return the same data.
-      auto rows2 = client.ExecuteQuery(read_only, select);
-      std::cout << "Read 2 results\n";
-      for (auto& row : spanner::StreamOf<RowType>(rows2)) {
-        if (!row) throw std::move(row).status();
-        std::cout << "SingerId: " << std::get<0>(*row)
-                  << " AlbumId: " << std::get<1>(*row)
-                  << " AlbumTitle: " << std::get<2>(*row) << "\n";
-      }
-    }
+```c++
+void ReadOnlyTransaction(google::cloud::spanner::Client client) {
+  namespace spanner = ::google::cloud::spanner;
+  auto read_only = spanner::MakeReadOnlyTransaction();
+
+  spanner::SqlStatement select(
+      "SELECT SingerId, AlbumId, AlbumTitle FROM Albums");
+  using RowType = std::tuple<std::int64_t, std::int64_t, std::string>;
+
+  // Read#1.
+  auto rows1 = client.ExecuteQuery(read_only, select);
+  std::cout << "Read 1 results\n";
+  for (auto& row : spanner::StreamOf<RowType>(rows1)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "SingerId: " << std::get<0>(*row)
+              << " AlbumId: " << std::get<1>(*row)
+              << " AlbumTitle: " << std::get<2>(*row) << "\n";
+  }
+  // Read#2. Even if changes occur in-between the reads the transaction ensures
+  // that Read #1 and Read #2 return the same data.
+  auto rows2 = client.ExecuteQuery(read_only, select);
+  std::cout << "Read 2 results\n";
+  for (auto& row : spanner::StreamOf<RowType>(rows2)) {
+    if (!row) throw std::move(row).status();
+    std::cout << "SingerId: " << std::get<0>(*row)
+              << " AlbumId: " << std::get<1>(*row)
+              << " AlbumTitle: " << std::get<2>(*row) << "\n";
+  }
+}
+```
 
 Run the sample using the `read-only-transaction` argument.
 
-    bazel run //google/cloud/spanner/samples:samples -- \
-        read-only-transaction PROJECT_ID test-instance example-db
+```
+bazel run //google/cloud/spanner/samples:samples -- \
+    read-only-transaction PROJECT_ID test-instance example-db
+```
 
 You should see output similar to:
 
-    Read 1 results
-    SingerId: 2 AlbumId: 2 AlbumTitle: Forever Hold Your Peace
-    SingerId: 1 AlbumId: 2 AlbumTitle: Go, Go, Go
-    SingerId: 2 AlbumId: 1 AlbumTitle: Green
-    SingerId: 2 AlbumId: 3 AlbumTitle: Terrified
-    SingerId: 1 AlbumId: 1 AlbumTitle: Total Junk
-    Read 2 results
-    SingerId: 2 AlbumId: 2 AlbumTitle: Forever Hold Your Peace
-    SingerId: 1 AlbumId: 2 AlbumTitle: Go, Go, Go
-    SingerId: 2 AlbumId: 1 AlbumTitle: Green
-    SingerId: 2 AlbumId: 3 AlbumTitle: Terrified
-    SingerId: 1 AlbumId: 1 AlbumTitle: Total Junk
+```
+Read 1 results
+SingerId: 2 AlbumId: 2 AlbumTitle: Forever Hold Your Peace
+SingerId: 1 AlbumId: 2 AlbumTitle: Go, Go, Go
+SingerId: 2 AlbumId: 1 AlbumTitle: Green
+SingerId: 2 AlbumId: 3 AlbumTitle: Terrified
+SingerId: 1 AlbumId: 1 AlbumTitle: Total Junk
+Read 2 results
+SingerId: 2 AlbumId: 2 AlbumTitle: Forever Hold Your Peace
+SingerId: 1 AlbumId: 2 AlbumTitle: Go, Go, Go
+SingerId: 2 AlbumId: 1 AlbumTitle: Green
+SingerId: 2 AlbumId: 3 AlbumTitle: Terrified
+SingerId: 1 AlbumId: 1 AlbumTitle: Total Junk
+```
 
 ## Cleanup
 
@@ -963,7 +1093,9 @@ If you delete an instance, all databases within it are automatically deleted. Th
 
 #### On the command line
 
-    gcloud spanner databases delete example-db --instance=test-instance
+```
+gcloud spanner databases delete example-db --instance=test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -983,7 +1115,9 @@ Deleting an instance automatically drops all databases created in that instance.
 
 #### On the command line
 
-    gcloud spanner instances delete test-instance
+```
+gcloud spanner instances delete test-instance
+```
 
 #### Using the Google Cloud console
 
@@ -997,8 +1131,8 @@ Deleting an instance automatically drops all databases created in that instance.
 
 ## What's next
 
-  - Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
+- Learn how to [access Spanner with a virtual machine instance](https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance) .
 
-  - Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
+- Learn about authorization and authentication credentials in [Authenticate to Cloud services using client libraries](https://docs.cloud.google.com/docs/authentication/getting-started) .
 
-  - Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
+- Learn more about Spanner [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .

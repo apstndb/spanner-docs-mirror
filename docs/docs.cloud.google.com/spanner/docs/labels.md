@@ -16,20 +16,20 @@ Labels help you organize these resources and view your costs at the granularity 
 
 Some common use cases for labels include:
 
-  - **Team or cost center labels:** Distinguish resources owned by different teams (for example, `team:research` and `team:analytics` ) for cost accounting or budgeting.
-  - **Environment labels:** Specify development, testing, or production environments (for example, `env:dev` , `env:test` , and `env:prod` ).
-  - **Component labels:** Categorize resources by application component or workload type (for example, `component:frontend` and `component:backend` ).
-  - **Granular instance-level tracking:** Label Spanner instances with their own ID or a specific identifier (for example, `instance_id:my-instance-1` ) to directly break down costs per instance in billing reports or BigQuery queries.
+- **Team or cost center labels:** Distinguish resources owned by different teams (for example, `team:research` and `team:analytics` ) for cost accounting or budgeting.
+- **Environment labels:** Specify development, testing, or production environments (for example, `env:dev` , `env:test` , and `env:prod` ).
+- **Component labels:** Categorize resources by application component or workload type (for example, `component:frontend` and `component:backend` ).
+- **Granular instance-level tracking:** Label Spanner instances with their own ID or a specific identifier (for example, `instance_id:my-instance-1` ) to directly break down costs per instance in billing reports or BigQuery queries.
 
 ## Requirements and constraints
 
 Labels applied to Spanner instances must meet the following requirements:
 
-  - Each instance can have up to 64 labels.
-  - Keys and values must be 63 characters or less.
-  - Keys and values can contain only lowercase letters, numeric characters, underscores ( `_` ), and dashes ( `-` ).
-  - Keys must start with a lowercase letter or international character. Keys cannot be empty.
-  - The key portion of a label must be unique within a single instance.
+- Each instance can have up to 64 labels.
+- Keys and values must be 63 characters or less.
+- Keys and values can contain only lowercase letters, numeric characters, underscores ( `_` ), and dashes ( `-` ).
+- Keys must start with a lowercase letter or international character. Keys cannot be empty.
+- The key portion of a label must be unique within a single instance.
 
 ## Add and manage labels on Spanner instances
 
@@ -39,8 +39,8 @@ You can add labels when creating a Spanner instance, or update the labels on an 
 
 To view and manage labels on Spanner instances, you need the following IAM permissions:
 
-  - `spanner.instances.get`
-  - `spanner.instances.update`
+- `spanner.instances.get`
+- `spanner.instances.update`
 
 These permissions are included in the `roles/spanner.admin` role.
 
@@ -60,25 +60,33 @@ These permissions are included in the `roles/spanner.admin` role.
 
 To create a Spanner instance with labels, run the `gcloud spanner instances create` command with the `--labels` flag:
 
-    gcloud spanner instances create INSTANCE_ID \
-        --config=INSTANCE_CONFIG \
-        --description=INSTANCE_NAME \
-        --nodes=NODE_COUNT \
-        --labels=KEY=VALUE,KEY=VALUE
+```
+gcloud spanner instances create INSTANCE_ID \
+    --config=INSTANCE_CONFIG \
+    --description=INSTANCE_NAME \
+    --nodes=NODE_COUNT \
+    --labels=KEY=VALUE,KEY=VALUE
+```
 
 To add or update labels on an existing instance, run the `gcloud spanner instances update` command with the `--update-labels` flag:
 
-    gcloud spanner instances update INSTANCE_ID \
-        --update-labels=KEY=VALUE,KEY=VALUE
+```
+gcloud spanner instances update INSTANCE_ID \
+    --update-labels=KEY=VALUE,KEY=VALUE
+```
 
 To remove specific labels from an existing instance, use the `--remove-labels` flag:
 
-    gcloud spanner instances update INSTANCE_ID \
-        --remove-labels=KEY1,KEY2
+```
+gcloud spanner instances update INSTANCE_ID \
+    --remove-labels=KEY1,KEY2
+```
 
 To clear all labels from an existing instance, use the `--clear-labels` flag:
 
-    gcloud spanner instances update INSTANCE_ID --clear-labels
+```
+gcloud spanner instances update INSTANCE_ID --clear-labels
+```
 
 ## Analyze Spanner costs by labels in Cloud Billing
 

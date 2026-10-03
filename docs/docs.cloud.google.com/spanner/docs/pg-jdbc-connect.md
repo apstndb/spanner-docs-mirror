@@ -16,21 +16,23 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
 
 1.  Add PGAdapter and the PostgreSQL JDBC driver as dependencies to your application.  
       
-    
-        <dependency>
-          <groupId>org.postgresql</groupId>
-          <artifactId>postgresql</artifactId>
-          <version>0.55.3</version>
-        </dependency>
-        <dependency>
-          <groupId>com.google.cloud</groupId>
-          <artifactId>google-cloud-spanner-pgadapter</artifactId>
-          <version>0.55.3</version>
-        </dependency>
+
+    ```
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>0.55.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-spanner-pgadapter</artifactId>
+      <version>0.55.3</version>
+    </dependency>
+    ```
 
 2.  Start PGAdapter in-process with your application.
-    
-    ``` 
+
+    ```
     OptionsMetadata.Builder builder =
       OptionsMetadata.newBuilder()
         .setProject("PROJECT_NAME")
@@ -39,18 +41,17 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
     ProxyServer server = new ProxyServer(builder.build());
     server.startServer();
     server.awaitRunning();
-          
     ```
-    
+
     Replace the following:
-    
-      - PORT : the port number where PGAdapter is running. Set to `5432` in most cases or `0` to use a dynamically assigned port.
+
+    - ` PORT ` : the port number where PGAdapter is running. Set to `5432` in most cases or `0` to use a dynamically assigned port.
 
 3.  Make sure the PostgreSQL JDBC driver driver is loaded.
-    
-    ``` 
+
+    ```
     Class.forName("org.postgresql.Driver");
-    
+
     try (Connection connection =
         DriverManager.getConnection("jdbc:postgresql://APPLICATION_HOST:PORT/DATABASE_NAME")) {
       try (ResultSet resultSet =
@@ -61,13 +62,12 @@ If you use the PostgreSQL JDBC driver, you must use PGAdapter to translate betwe
           }
         }
       }
-        
     ```
-    
+
     Replace the following:
-    
-      - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `localhost` .
-    
+
+    - ` APPLICATION_HOST ` : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `localhost` .
+
     The PGAdapter GitHub repository contains a [sample application.](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/jdbc)
 
 ### Unix domain sockets
@@ -76,7 +76,7 @@ This section explains how to use Unix domain sockets to connect PostgreSQL JDBC 
 
 To use Unix domain sockets, PGAdapter must be running on the same host as the client application.
 
-``` 
+```
 // Make sure the PG JDBC driver is loaded.
 Class.forName("org.postgresql.Driver");
 
@@ -89,13 +89,15 @@ try (Connection connection = DriverManager.getConnection("jdbc:postgresql://APPL
       }
     }
   }
-  
 ```
 
 Replace the following:
 
-  - APPLICATION\_HOST : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `localhost` .
-  - PORT : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `5432` .
+- ` APPLICATION_HOST ` : the hostname or IP address of the machine where PGAdapter is running. If running locally, use `localhost` .
+
+command-line argument. For example, `/tmp` .
+
+- ` PORT ` : the port number where PGAdapter is running. Change this in the connection string if PGAdapter is running on a custom port. Otherwise, use the default port, `5432` .
 
 ### Spanner JDBC driver
 
@@ -103,38 +105,40 @@ This section explains how to use the Spanner JDBC driver to connect to a Postgre
 
 1.  Add the Spanner JDBC driver as a dependency to your application.  
       
-    
-        <dependencyManagement>
-          <dependencies>
-            <dependency>
-              <groupId>com.google.cloud</groupId>
-              <artifactId>libraries-bom</artifactId>
-              <version>26.76.0</version>
-              <type>pom</type>
-              <scope>import</scope>
-            </dependency>
-          </dependencies>
-        </dependencyManagement>
-        
-        <dependencies>
-          <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>google-cloud-spanner-jdbc</artifactId>
-            <exclusions>
-              <exclusion>
-                <groupId>com.google.api.grpc</groupId>
-                <artifactId>proto-google-cloud-spanner-executor-v1</artifactId>
-              </exclusion>
-            </exclusions>
-          </dependency>
+
+    ```
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>com.google.cloud</groupId>
+          <artifactId>libraries-bom</artifactId>
+          <version>26.76.0</version>
+          <type>pom</type>
+          <scope>import</scope>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-spanner-jdbc</artifactId>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.api.grpc</groupId>
+            <artifactId>proto-google-cloud-spanner-executor-v1</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+    ```
 
 2.  Use a Spanner JDBC connection URL to connect to the PostgreSQL-dialect database.  
       
-    
-    ``` 
-        // Make sure the PostgreSQL JDBC driver is loaded.
+
+    ```
+    // Make sure the PostgreSQL JDBC driver is loaded.
         Class.forName("org.postgresql.Driver");
-    
+
         try (Connection connection = DriverManager.getConnection(
             "jdbc:cloudspanner:/projects/PROJECT_NAME/instances/INSTANCE_NAME/databases/DATABASE_NAME")) {
           try (ResultSet resultSet =
@@ -145,13 +149,12 @@ This section explains how to use the Spanner JDBC driver to connect to a Postgre
             }
           }
         }
-        
     ```
-    
+
     The driver automatically detects the SQL dialect of the specified database. A dialect parameter in the connection URL is not required.
 
 ## What's next
 
-  - Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
-  - For more information about PostgreSQL JDBC driver connection options, see [PGAdapter - JDBC Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/jdbc.md) in the PGAdapter GitHub repository.
-  - See an [overview of drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview) supported for Spanner.
+- Learn more about [PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter) .
+- For more information about PostgreSQL JDBC driver connection options, see [PGAdapter - JDBC Connection Options](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/docs/jdbc.md) in the PGAdapter GitHub repository.
+- See an [overview of drivers and ORMs](https://docs.cloud.google.com/spanner/docs/drivers-overview) supported for Spanner.

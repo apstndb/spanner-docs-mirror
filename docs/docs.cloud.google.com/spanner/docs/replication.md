@@ -16,34 +16,34 @@ Even though the underlying distributed file system that Spanner is built on alre
 
 Spanner creates replicas of each database [split](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) . A *split* holds a range of contiguous rows, where the rows are ordered by primary key. All of the data in a split is physically stored together in the replica, and Spanner serves each replica out of an independent failure zone. For more information, see the [Schemas overview](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
 
-A set of splits is stored and replicated using [Paxos](https://en.wikipedia.org/wiki/Paxos_\(computer_science\)) . Within each Paxos replica set, one replica is elected to act as the *leader* . Leader replicas handle writes, while read-write or read-only replicas can serve a read request without communicating with the leader. If a strong read is requested, the leader typically is consulted to ensure that the read-only replica has received all recent mutations. To monitor the rate of change and amount of data that is replicated from your leader replica to the cross region replicas in your instance configuration, see [Monitor data replication](https://docs.cloud.google.com/spanner/docs/replication#monitor-replication) .
+A set of splits is stored and replicated using [Paxos](https://en.wikipedia.org/wiki/Paxos_(computer_science)) . Within each Paxos replica set, one replica is elected to act as the *leader* . Leader replicas handle writes, while read-write or read-only replicas can serve a read request without communicating with the leader. If a strong read is requested, the leader typically is consulted to ensure that the read-only replica has received all recent mutations. To monitor the rate of change and amount of data that is replicated from your leader replica to the cross region replicas in your instance configuration, see [Monitor data replication](https://docs.cloud.google.com/spanner/docs/replication#monitor-replication) .
 
 ## Benefits of Spanner replication
 
 The benefits of Spanner replication include:
 
-  - **Data availability** : Having more copies of your data makes the data more available to clients that want to read it. Also, Spanner can still serve writes even if some of the replicas are unavailable, because only a majority of voting replicas are required in order to commit a write.
+- **Data availability** : Having more copies of your data makes the data more available to clients that want to read it. Also, Spanner can still serve writes even if some of the replicas are unavailable, because only a majority of voting replicas are required in order to commit a write.
 
-  - **Geographic locality** : Having the ability to place data across different regions and continents with Spanner means data can be geographically closer, and hence faster to access, to the users and services that need it.
+- **Geographic locality** : Having the ability to place data across different regions and continents with Spanner means data can be geographically closer, and hence faster to access, to the users and services that need it.
 
-  - **Single database experience** : Spanner can deliver a single database experience because of its synchronous replication and global strong consistency.
+- **Single database experience** : Spanner can deliver a single database experience because of its synchronous replication and global strong consistency.
 
-  - **Easier application development** : Because Spanner is ACID-compliant and offers global strong consistency, developers working with Spanner don't have to add extra logic in their applications to deal with eventual consistency, making application development and subsequent maintenance faster and easier.
+- **Easier application development** : Because Spanner is ACID-compliant and offers global strong consistency, developers working with Spanner don't have to add extra logic in their applications to deal with eventual consistency, making application development and subsequent maintenance faster and easier.
 
 ## Replica types
 
 Spanner has three types of replicas: *read-write replicas* , *read-only replicas* , and *witness replicas* . The regions and replication topologies that form [base instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) are fixed:
 
-  - [Base single-region (regional) instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) only use read-write replicas.
-  - [Base dual-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual-region) use read-write and witness replicas.
-  - [Base multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) use a combination of all three replica types.
+- [Base single-region (regional) instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) only use read-write replicas.
+- [Base dual-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual-region) use read-write and witness replicas.
+- [Base multi-region instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) use a combination of all three replica types.
 
 You can create custom instance configurations and add additional [read-only replicas](https://docs.cloud.google.com/spanner/docs/replication#read-only) for regional and multi-region instance configurations.
 
 The following table summarizes the types of Spanner replicas and their properties:
 
 | Replica type   | Can vote | Can become leader | Can serve reads | Can configure replica manually |
-| -------------- | -------- | ----------------- | --------------- | ------------------------------ |
+|----------------|----------|-------------------|-----------------|--------------------------------|
 | **Read-write** | yes      | yes               | yes             | no                             |
 | **Read-only**  | no       | no                | yes             | yes <sup>\*</sup>              |
 | **Witness**    | yes      | no                | no              | no                             |
@@ -54,32 +54,32 @@ The following table summarizes the types of Spanner replicas and their propertie
 
 Read-write replicas support both reads and writes. These replicas:
 
-  - Maintain a full copy of your data.
-  - Serve reads.
-  - Can vote whether to commit a write.
-  - Participate in leadership election.
-  - Are eligible to become a leader.
-  - Are the only replica type used in regional instances.
+- Maintain a full copy of your data.
+- Serve reads.
+- Can vote whether to commit a write.
+- Participate in leadership election.
+- Are eligible to become a leader.
+- Are the only replica type used in regional instances.
 
 ### Read-only replicas
 
 Read-only replicas only support reads, but not writes. These replicas don't vote for leaders or for committing writes, so they allow you to scale your read capacity without increasing the quorum size needed for writes. Read-only replicas:
 
-  - Maintain a full copy of your data, which is replicated from the leader read-write replica.
+- Maintain a full copy of your data, which is replicated from the leader read-write replica.
 
-  - Don't participate in voting to commit writes. Hence, the location of the read-only replicas never contributes to write latency.
+- Don't participate in voting to commit writes. Hence, the location of the read-only replicas never contributes to write latency.
 
-  - Aren't eligible to become a leader.
+- Aren't eligible to become a leader.
 
-  - Serve reads.
+- Serve reads.
 
-  - Can scale asymmetrically. For more information, see [Asymmetric read-only autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
+- Can scale asymmetrically. For more information, see [Asymmetric read-only autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
 
-  - If it is the nearest replica to your application, the read-only replica can usually serve stale reads without needing a round trip to the leader region, assuming staleness is at least 15 seconds. You can also use directed reads to route read-only transactions and single reads to a specific replica type or a region in a multi-region instance configuration. For more information, see [Directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) .
-    
-    Strong reads might require a round trip to the leader replica. The round trip is just for negotiating the timestamp, not shipping the actual data from the leader. The timestamp negotiation is a CPU efficient operation at the leader, and typically the data is already en-route. This communication is handled automatically by the system.
-    
-    For more information about stale and strong reads, see the [In reads section](https://docs.cloud.google.com/spanner/docs/replication#role-in-reads) .
+- If it is the nearest replica to your application, the read-only replica can usually serve stale reads without needing a round trip to the leader region, assuming staleness is at least 15 seconds. You can also use directed reads to route read-only transactions and single reads to a specific replica type or a region in a multi-region instance configuration. For more information, see [Directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) .
+
+  Strong reads might require a round trip to the leader replica. The round trip is just for negotiating the timestamp, not shipping the actual data from the leader. The timestamp negotiation is a CPU efficient operation at the leader, and typically the data is already en-route. This communication is handled automatically by the system.
+
+  For more information about stale and strong reads, see the [In reads section](https://docs.cloud.google.com/spanner/docs/replication#role-in-reads) .
 
 #### Optional read-only replicas
 
@@ -99,11 +99,11 @@ For instructions on how to add optional read-only replicas, see [Create a custom
 
 Witness replicas don't support reads but do participate in voting to commit writes. These replicas make it easier to achieve quorums for writes without the storage and compute resources that are required by read-write replicas to store a full copy of data and serve reads. Witness replicas:
 
-  - Are used in dual-region and multi-region instances.
-  - Don't maintain a full copy of data.
-  - Don't serve reads.
-  - Vote whether to commit writes.
-  - Participate in leader election but aren't eligible to become a leader replica.
+- Are used in dual-region and multi-region instances.
+- Don't maintain a full copy of data.
+- Don't serve reads.
+- Vote whether to commit writes.
+- Participate in leader election but aren't eligible to become a leader replica.
 
 ## The role of replicas in writes and reads
 
@@ -121,22 +121,22 @@ The leader replica logs the incoming write, and forwards it, in parallel, to the
 
 Client read requests might be executed at or require communicating with the leader replica, depending on the concurrency mode of the read request.
 
-  - Reads that are part of a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) are served from the leader replica, because the leader replica maintains the locks required to enforce serializability.
+- Reads that are part of a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) are served from the leader replica, because the leader replica maintains the locks required to enforce serializability.
 
-  - Single read methods (a read outside the context of a transaction) and reads in [read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) might require communicating with the leader, depending on the concurrency mode of the read. For more information about concurrency modes, see [Read types](https://docs.cloud.google.com/spanner/docs/reads#read_types) .
-    
-      - Strong read requests can go to any read-write or read-only replica. If the request goes to a non-leader replica, that replica must communicate with the leader in order to execute the read.
-    
-      - Stale read requests go to the closest available read-only or read-write replica that's caught up to the timestamp of the request. This can be the leader replica if the leader is the closest replica to the client that issued the read request.
+- Single read methods (a read outside the context of a transaction) and reads in [read-only transactions](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) might require communicating with the leader, depending on the concurrency mode of the read. For more information about concurrency modes, see [Read types](https://docs.cloud.google.com/spanner/docs/reads#read_types) .
+
+  - Strong read requests can go to any read-write or read-only replica. If the request goes to a non-leader replica, that replica must communicate with the leader in order to execute the read.
+
+  - Stale read requests go to the closest available read-only or read-write replica that's caught up to the timestamp of the request. This can be the leader replica if the leader is the closest replica to the client that issued the read request.
 
 > ### Aside: Why read-only and witness replicas?
-> 
+>
 > [Base multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) use a combination of read-write, read-only, and witness replicas, whereas [base dual-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual-region) use read-write and witness replicas, and [base regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-regional) use only read-write replicas. The reasons for this difference have to do with the varying roles of replicas in writes and reads. For writes, Spanner needs a majority of voting replicas to agree on a commit in order to commit a mutation. In other words, every write to a Spanner database requires communication between voting replicas. To minimize the latency of this communication, it is desirable to use the fewest number of voting replicas, and to place these replicas as close together as possible. That's why base regional configurations contain exactly three read-write replicas, each of which is in its own availability zone, contains a full copy of your data, and is able to vote. If one replica fails, the other two can still form a write quorum, and because replicas in this configuration are in the same geographic region, network latencies are minimal.
-> 
+>
 > Base dual-region and multi-region configurations contain more replicas by design, and these replicas are in different data centers (so that clients can read their data quickly from more locations). What characteristics should these additional replicas have? They could all be read-write replicas, but that would be undesirable because adding more read-write replicas to a configuration increases the size of the write quorum (which means potentially higher network latencies due to more replicas communicating with each other, especially if the replicas are in geographically distributed locations) and also increases the amount of storage needed (because read-write replicas contain a full copy of data). Instead of using more read-write replicas, base dual-region configuration contain an additional witness replica, and base multi-region configurations contain read-only replicas and witness replicas, which have fewer responsibilities than read-write replicas.
-> 
->   - Read-only replicas don't vote for leaders or for committing writes, so they allow you to scale your read capacity without increasing the quorum size needed for writes.
->   - Witness replicas vote for leaders and for committing writes, but don't store a full copy of the data, can't become the leader, and can't serve reads. They make it easier to achieve quorums for writes without the storage and compute resources that are required by read-write replicas to store a full copy of data and serve reads.
+>
+> - Read-only replicas don't vote for leaders or for committing writes, so they allow you to scale your read capacity without increasing the quorum size needed for writes.
+> - Witness replicas vote for leaders and for committing writes, but don't store a full copy of the data, can't become the leader, and can't serve reads. They make it easier to achieve quorums for writes without the storage and compute resources that are required by read-write replicas to store a full copy of data and serve reads.
 
 ## Monitor data replication
 
@@ -153,23 +153,23 @@ To view this metric in the Google Cloud console, follow these steps:
 3.  In the **Metric** field, click the **Select a metric** drop-down.
 
 4.  In the **Filter by resource or metric name** field, select **Cloud Spanner Instance \> Instance \> Cross region replicated bytes** , and then click **Apply** .
-    
+
     This metric is available only under **Active metrics** if there is cross region replication activity in your instance. Otherwise, it appears under **Inactive metrics** . By default, the UI filters and shows only Active metrics. Clear the **Active** checkmark to view both active and inactive metrics.
-    
+
     The chart shows the rate of change (in bytes per second) of replicated data across all Spanner instances within the specified time range.
 
 5.  Optional: To show the amount of data (in bytes) that's replicated instead of the rate of change:
-    
+
     1.  In the **Aggregation** field, click the **Sum** drop-down, and select **Configure aligner** .
-    
+
     2.  In the **Alignment function** field, click the **Rate** drop-down, and select **Delta** .
-    
+
     3.  Select **Table** or **Both** as the table type instead of Chart.
-        
+
         The table shows the amount of data (in bytes) that was replicated within the specified time range.
 
 6.  Optional: To view usage for a particular instance or attribute:
-    
+
     1.  Use the **Filter** field to add filters, such as an instance ID, database ID, source region, destination region, or a tag.
     2.  Click **Add filter** to add multiple filters.
 
@@ -177,7 +177,7 @@ To see a full list of Google Cloud metrics, see [Google Cloud metrics](https://d
 
 ## What's next
 
-  - Learn more about [instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
-  - Learn how to [create and manage instances](https://docs.cloud.google.com/spanner/docs/create-manage-instances) .
-  - Learn how to [create and manage instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
-  - Learn more about [Google Cloud geography and regions](https://docs.cloud.google.com/docs/geography-and-regions) .
+- Learn more about [instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
+- Learn how to [create and manage instances](https://docs.cloud.google.com/spanner/docs/create-manage-instances) .
+- Learn how to [create and manage instance configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations) .
+- Learn more about [Google Cloud geography and regions](https://docs.cloud.google.com/docs/geography-and-regions) .

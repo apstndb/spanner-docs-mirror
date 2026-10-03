@@ -18,55 +18,63 @@ For example, suppose there are 1,000,000 `SingerIds` in a database and the follo
 
 ### GoogleSQL
 
-    CREATE TABLE Albums (
-      AlbumId STRING(MAX) NOT NULL,
-      SingerId STRING(MAX) NOT NULL,
-      ReleaseTimestamp INT64 NOT NULL,
-      AlbumTitle STRING(MAX),
-      AlbumTitle_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumTitle)) HIDDEN,
-      SingerId_Tokens TOKENLIST AS (TOKEN(SingerId)) HIDDEN
-    ) PRIMARY KEY(SingerId, AlbumId);
-    
-    CREATE SEARCH INDEX AlbumsUnpartitionedIndex
-    ON Albums(AlbumTitle_Tokens, SingerId_Tokens);
-    
-    CREATE SEARCH INDEX AlbumsIndexBySingerId
-    ON Albums(AlbumTitle_Tokens)
-    PARTITION BY SingerId;
+```
+CREATE TABLE Albums (
+  AlbumId STRING(MAX) NOT NULL,
+  SingerId STRING(MAX) NOT NULL,
+  ReleaseTimestamp INT64 NOT NULL,
+  AlbumTitle STRING(MAX),
+  AlbumTitle_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumTitle)) HIDDEN,
+  SingerId_Tokens TOKENLIST AS (TOKEN(SingerId)) HIDDEN
+) PRIMARY KEY(SingerId, AlbumId);
+
+CREATE SEARCH INDEX AlbumsUnpartitionedIndex
+ON Albums(AlbumTitle_Tokens, SingerId_Tokens);
+
+CREATE SEARCH INDEX AlbumsIndexBySingerId
+ON Albums(AlbumTitle_Tokens)
+PARTITION BY SingerId;
+```
 
 ### PostgreSQL
 
-    CREATE TABLE albums (
-      albumid character varying NOT NULL,
-      singerid character varying NOT NULL,
-      releasetimestamp bigint NOT NULL,
-      albumtitle character varying,
-      albumtitle_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumtitle)) VIRTUAL HIDDEN,
-      singerid_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.token(singerid)) VIRTUAL HIDDEN,
-    PRIMARY KEY(singerid, albumid));
-    
-    CREATE SEARCH INDEX albumsunpartitionedindex
-    ON albums(albumtitle_tokens, singerid_tokens);
-    
-    CREATE SEARCH INDEX albumsindexbysingerid
-    ON albums(albumtitle_tokens)
-    PARTITION BY singerid;
+```
+CREATE TABLE albums (
+  albumid character varying NOT NULL,
+  singerid character varying NOT NULL,
+  releasetimestamp bigint NOT NULL,
+  albumtitle character varying,
+  albumtitle_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.tokenize_fulltext(albumtitle)) VIRTUAL HIDDEN,
+  singerid_tokens spanner.tokenlist GENERATED ALWAYS AS (spanner.token(singerid)) VIRTUAL HIDDEN,
+PRIMARY KEY(singerid, albumid));
+
+CREATE SEARCH INDEX albumsunpartitionedindex
+ON albums(albumtitle_tokens, singerid_tokens);
+
+CREATE SEARCH INDEX albumsindexbysingerid
+ON albums(albumtitle_tokens)
+PARTITION BY singerid;
+```
 
 The following query selects the `AlbumsIndexBySingerId` index because it only searches data for a single singer. This type of query typically uses fewer resources.
 
 ### GoogleSQL
 
-    SELECT AlbumId
-    FROM Albums
-    WHERE SingerId = "singer1"
-    AND SEARCH(AlbumTitle_Tokens, 'happy')
+```
+SELECT AlbumId
+FROM Albums
+WHERE SingerId = "singer1"
+AND SEARCH(AlbumTitle_Tokens, 'happy')
+```
 
 ### PostgreSQL
 
-    SELECT albumid
-    FROM albums
-    WHERE singerid = 'singer1'
-    AND spanner.search(albumtitle_tokens, 'happy')
+```
+SELECT albumid
+FROM albums
+WHERE singerid = 'singer1'
+AND spanner.search(albumtitle_tokens, 'happy')
+```
 
 It's also possible to [force](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#index_selection) a query to use `AlbumsUnpartitionedIndex` to return the same results. However, it uses more resources, because the query needs to access all index splits and filter through all albums for all singers to find the token "happy", rather than just the splits corresponding to singer `singer1` .
 
@@ -74,15 +82,19 @@ However, there are times when the application needs to search through all of the
 
 ### GoogleSQL
 
-    SELECT AlbumId
-    FROM Albums
-    WHERE SEARCH(AlbumTitle_Tokens, 'piano concerto 1')
+```
+SELECT AlbumId
+FROM Albums
+WHERE SEARCH(AlbumTitle_Tokens, 'piano concerto 1')
+```
 
 ### PostgreSQL
 
-    SELECT albumid
-    FROM albums
-    WHERE spanner.search(albumtitle_tokens, 'piano concerto 1')
+```
+SELECT albumid
+FROM albums
+WHERE spanner.search(albumtitle_tokens, 'piano concerto 1')
+```
 
 The general recommendation is to use the finest granularity of partitioning that's practical and appropriate for the query. For example, if the application queries an email mailbox where each query is restricted to a specific mailbox, partition the search index on the mailbox ID. However, if the query needs to search through all mailboxes, an unpartitioned index is a better fit.
 
@@ -90,6 +102,6 @@ Certain applications might require multiple partitioning strategies to accommoda
 
 ## What's next
 
-  - Learn about [tokenization and Spanner tokenizers](https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization) .
-  - Learn about [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
-  - Learn about [numeric indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes) .
+- Learn about [tokenization and Spanner tokenizers](https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization) .
+- Learn about [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
+- Learn about [numeric indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes) .

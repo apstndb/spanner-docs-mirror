@@ -14,14 +14,16 @@ A stored system procedure contains SQL code that you can reuse. Spanner provides
 
 To execute a stored system procedure, you use the [`CALL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language#call) statement:
 
-    CALL procedure_name(parameters);
+```
+CALL procedure_name(parameters);
+```
 
-Replace procedure\_name with the name of the stored system procedure.
+Replace ` procedure_name ` with the name of the stored system procedure.
 
 Spanner supports the following stored system procedures:
 
-  - [Query cancellation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures#query-cancellation)
-  - [Major compaction](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures#major-compaction)
+- [Query cancellation](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures#query-cancellation)
+- [Major compaction](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures#major-compaction)
 
 ### Query cancellation
 
@@ -29,22 +31,24 @@ This section describes the query cancellation stored system procedure.
 
 #### Syntax
 
-Cancels a query with the specified ***query\_id*** .
+Cancels a query with the specified ***query_id*** .
 
-    CALL cancel_query(query_id)
+```
+CALL cancel_query(query_id)
+```
 
 #### Description
 
 This stored system procedure has the following parameters:
 
 | Parameter  | Type     | Description                                             |
-| ---------- | -------- | ------------------------------------------------------- |
+|------------|----------|---------------------------------------------------------|
 | `query_id` | `STRING` | Specifies the ID for the query that you want to cancel. |
 
 Query cancellations might fail in the following circumstances:
 
-  - When Spanner servers are busy due to heavy query loads.
-  - When the query is in the [process of restarting](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries#limitations) due to an error.
+- When Spanner servers are busy due to heavy query loads.
+- When the query is in the [process of restarting](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries#limitations) due to an error.
 
 In both cases, you can run the query cancellation stored system procedure again.
 
@@ -54,7 +58,9 @@ This section describes the major compaction stored system procedure.
 
 #### Syntax
 
-    CALL compact_all()
+```
+CALL compact_all()
+```
 
 #### Description
 

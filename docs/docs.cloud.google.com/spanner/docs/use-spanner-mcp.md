@@ -12,10 +12,11 @@ This document shows you how to use the Spanner remote Model Context Protocol (MC
 
 ## What's the difference between local and remote MCP servers?
 
-  - Local MCP servers  
-    Typically run on your local machine and use the standard input and output streams (stdio) for communication between services on the same device.
-  - Remote MCP servers  
-    Run on the service's infrastructure and offer an HTTP endpoint to AI applications for communication between the AI MCP client and the MCP server. For more information about MCP architecture, see [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) .
+Local MCP servers  
+Typically run on your local machine and use the standard input and output streams (stdio) for communication between services on the same device.
+
+Remote MCP servers  
+Run on the service's infrastructure and offer an HTTP endpoint to AI applications for communication between the AI MCP client and the MCP server. For more information about MCP architecture, see [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture) .
 
 ## Stateless core
 
@@ -23,8 +24,8 @@ With [MCP version 2026-07-28](https://modelcontextprotocol.io/specification/2026
 
 To help route and process requests without parsing the request body, some MCP headers are required, including the following:
 
-  - Headers that are required by the MCP specification such as the [protocol version header](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#protocol-version-header) and [standard request headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#standard-request-headers) .
-  - [Custom headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#custom-headers-from-tool-parameters) that are defined by the MCP server. These headers are mirrored into HTTP headers from the tool's input schema using the `x-mcp-header` property. For example, an MCP server might define a custom header to specify the Google Cloud region or project ID.
+- Headers that are required by the MCP specification such as the [protocol version header](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#protocol-version-header) and [standard request headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#standard-request-headers) .
+- [Custom headers](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http#custom-headers-from-tool-parameters) that are defined by the MCP server. These headers are mirrored into HTTP headers from the tool's input schema using the `x-mcp-header` property. For example, an MCP server might define a custom header to specify the Google Cloud region or project ID.
 
 For more information about MCP architecture, see the MCP version 2026-07-28 [specification](https://modelcontextprotocol.io/specification/2026-07-28) and [key changes](https://modelcontextprotocol.io/specification/2026-07-28/changelog) .
 
@@ -34,31 +35,31 @@ For information on the Spanner local MCP server, see [MCP Toolbox for Databases]
 
 Google and Google Cloud remote MCP servers have the following features and benefits:
 
-  - Simplified, centralized discovery
-  - Managed global or regional HTTP endpoints
-  - Fine-grained authorization
-  - Optional prompt and response security with Model Armor protection
-  - Centralized audit logging
+- Simplified, centralized discovery
+- Managed global or regional HTTP endpoints
+- Fine-grained authorization
+- Optional prompt and response security with Model Armor protection
+- Centralized audit logging
 
 For information about other MCP servers and information about security and governance controls available for Google Cloud MCP servers, see [Google Cloud MCP servers overview](https://docs.cloud.google.com/mcp/overview) .
 
 ## Before you begin
 
 1.  Enable the Spanner API, if it is not already enabled.
-    
+
     **Roles required to enable APIs**
-    
+
     To enable APIs, you need the `serviceusage.services.enable` permission. If you created the project, then you likely already have this permission through the Owner role ( `roles/owner` ). Otherwise, you can get this permission through the Service Usage Admin role ( `roles/serviceusage.serviceUsageAdmin` ). [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
-    
+
     For new projects, the Spanner API is automatically enabled.
 
 ### Required roles
 
 To get the permissions that you need to use the Spanner MCP server, ask your administrator to grant you the following IAM roles on the project where you want to use the Spanner MCP server:
 
-  - Make MCP tool calls: [MCP Tool User](https://docs.cloud.google.com/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `roles/mcp.toolUser` )
-  - Create an OAuth client ID: [OAuth Config Editor](https://docs.cloud.google.com/iam/docs/roles-permissions/oauthconfig#oauthconfig.editor) ( `roles/oauthconfig.editor` )
-  - Use Spanner MCP tools: [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `roles/spanner.admin` )
+- Make MCP tool calls: [MCP Tool User](https://docs.cloud.google.com/iam/docs/roles-permissions/mcp#mcp.toolUser) ( `roles/mcp.toolUser` )
+- Create an OAuth client ID: [OAuth Config Editor](https://docs.cloud.google.com/iam/docs/roles-permissions/oauthconfig#oauthconfig.editor) ( `roles/oauthconfig.editor` )
+- Use Spanner MCP tools: [Cloud Spanner Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/spanner#spanner.admin) ( `roles/spanner.admin` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
@@ -68,17 +69,17 @@ These predefined roles contain the permissions required to use the Spanner MCP s
 
 The following permissions are required to use the Spanner MCP server:
 
-  - Make MCP tool calls: `mcp.tools.call`
-  - Use Spanner MCP tools:
-      - `spanner.instances.create`
-      - `spanner.instances.get`
-      - `spanner.databases.create`
-      - `spanner.databases.update`
-      - `spanner.sessions.create`
-      - `spanner.instanceOperations.get`
-      - `spanner.databases.getDdl`
-      - `spanner.databases.select`
-      - `spanner.databases.write`
+- Make MCP tool calls: `mcp.tools.call`
+- Use Spanner MCP tools:
+  - `spanner.instances.create`
+  - `spanner.instances.get`
+  - `spanner.databases.create`
+  - `spanner.databases.update`
+  - `spanner.sessions.create`
+  - `spanner.instanceOperations.get`
+  - `spanner.databases.getDdl`
+  - `spanner.databases.select`
+  - `spanner.databases.write`
 
 You might also be able to get these permissions with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
@@ -97,7 +98,7 @@ OAuth 2.0 uses scopes and credentials to determine if an authenticated principal
 Spanner has the following MCP tool OAuth scopes:
 
 | Scope URI for gcloud CLI                        | Description                                                       |
-| ----------------------------------------------- | ----------------------------------------------------------------- |
+|-------------------------------------------------|-------------------------------------------------------------------|
 | `https://www.googleapis.com/auth/spanner.admin` | Allows access to administer your Spanner instances and databases. |
 | `https://www.googleapis.com/auth/spanner.data`  | Allows access to view and manage data in a Spanner database.      |
 
@@ -113,12 +114,12 @@ Use the following instructions to configure MCP clients to connect to your remot
 
 To add a Spanner remote MCP server to your Gemini CLI, configure it as an extension.
 
-1.  Create an extension file in the following location: `~/.gemini/extensions/ EXT_NAME /gemini-extension.json` where `~/` is your home directory and EXT\_NAME is the name you want to give the extension.
+1.  Create an extension file in the following location: `~/.gemini/extensions/ `` EXT_NAME `` /gemini-extension.json` where `~/` is your home directory and ` EXT_NAME ` is the name you want to give the extension.
 
 2.  Add the following content to your extension file:
-    
-    ``` 
-            {
+
+    ```
+    {
               "name": "EXT_NAME",
               "version": "1.0.0",
               "mcpServers": {
@@ -135,23 +136,21 @@ To add a Spanner remote MCP server to your Gemini CLI, configure it as an extens
                 }
               }
             }
-            
     ```
 
 3.  Save the extensions file.
 
 4.  Start Gemini CLI:
-    
-    ``` 
-            gemini
-            
+
+    ```
+    gemini
     ```
 
 5.  Run `/mcp` in the CLI to view your configured MCP server and its tools.
-    
+
     The response is similar to the following:
-    
-    ``` 
+
+    ```
             Configured MCP servers:
             🟢 Spanner MCP Server (from spanner )
               - get_database_ddl
@@ -178,7 +177,7 @@ To add a Spanner remote MCP server to Claude.ai, configure a custom connector wi
 #### Create an Oauth 2.0 client ID and secret
 
 1.  In the Google Cloud console, go to **Google Auth Platform \> Clients \> Create client** .
-    
+
     You are prompted to create a project if you don't have one selected.
 
 2.  In the **Application type** list, select **Web application** .
@@ -192,34 +191,34 @@ To add a Spanner remote MCP server to Claude.ai, configure a custom connector wi
 6.  In the **OAuth 2.0 client IDs** list, select the client name.
 
 7.  In the **Client secrets** section, copy the **Client secret** and save it in a secure place. You can only copy it once. If you lose it, delete the secret and create a new one.
-    
+
     > **Caution:** Treat client secrets like passwords and store them in a secure place.
 
 #### Create a custom connector in Claude.ai
 
 1.  In Claude.ai, navigate to the Connectors settings for your plan:
-    
-      - For the Enterprise or Team plan, navigate to **Admin settings \> Connectors** .
-      - For the Pro or Max plan, navigate to **Settings \> Connectors** .
+
+    - For the Enterprise or Team plan, navigate to **Admin settings \> Connectors** .
+    - For the Pro or Max plan, navigate to **Settings \> Connectors** .
 
 2.  Click **Add custom connector** .
 
 3.  In the **Add custom connector** dialog, enter the following:
-    
-      - **Server name** : a human readable name for the server.
-      - **Remote MCP server URL** : `https://spanner.googleapis.com/mcp`
+
+    - **Server name** : a human readable name for the server.
+    - **Remote MCP server URL** : `https://spanner.googleapis.com/mcp`
 
 4.  Expand the **Advanced settings** menu and then enter the following:
-    
-      - **OAuth client ID** : the OAuth 2.0 client ID you created.
-      - **OAuth client secret** (Pro and Max plans only): the secret for your OAuth 2.0 client. To retrieve the secret, go to **Google Auth Platform \> Clients** and then select the OAuth client ID you created. In the **Client secrets** section, click to copy the **Client secret** .
+
+    - **OAuth client ID** : the OAuth 2.0 client ID you created.
+    - **OAuth client secret** (Pro and Max plans only): the secret for your OAuth 2.0 client. To retrieve the secret, go to **Google Auth Platform \> Clients** and then select the OAuth client ID you created. In the **Client secrets** section, click to copy the **Client secret** .
 
 5.  Click **Add** .
-    
+
     The custom connector is created.
 
 6.  Open the **Tools** menu and enable the connector.
-    
+
     Claude.ai can use the MCP server.
 
 ### ChatGPT
@@ -231,7 +230,7 @@ To add a Spanner remote MCP server to ChatGPT, create a Google OAuth 2.0 client 
 #### Create an Oauth 2.0 client ID and secret
 
 1.  In the Google Cloud console, go to **Google Auth Platform \> Clients \> Create client** .
-    
+
     You are prompted to create a project if you don't have one selected.
 
 2.  In the **Application type** list, select **Web application** .
@@ -247,7 +246,7 @@ To add a Spanner remote MCP server to ChatGPT, create a Google OAuth 2.0 client 
 7.  In the **OAuth 2.0 client IDs** list, select the client name.
 
 8.  In the **Client secrets** section, copy the **Client secret** and save it in a secure place. You can only copy it once. If you lose it, delete the secret and create a new one.
-    
+
     > **Caution:** Treat client secrets like passwords and store them in a secure place.
 
 #### Add the MCP server as an app in ChatGPT
@@ -259,14 +258,14 @@ To add a Spanner remote MCP server to ChatGPT, create a Google OAuth 2.0 client 
     3.  In the **Advanced settings** , click the **Developer mode** toggle to the on position.
 3.  In **Settings** \> **Apps** , click the **Create app** button.
 4.  In the **New app** dialog, enter the following information:
-      - **Name** : the name of the MCP server.
-      - **Description** : an optional description of the MCP server.
-      - **MCP server URL** : `https://spanner.googleapis.com/mcp`
-      - **Authentication** :
-          - In the **Authentication** menu, select **OAuth** .
-          - In the **OAuth client ID** field, enter your Google OAuth client ID.
-          - In the **OAuth secret** field, enter your Google OAuth client secret.
-      - Confirm that you understand the risk associated with MCP server use, and then click **Create** .
+    - **Name** : the name of the MCP server.
+    - **Description** : an optional description of the MCP server.
+    - **MCP server URL** : `https://spanner.googleapis.com/mcp`
+    - **Authentication** :
+      - In the **Authentication** menu, select **OAuth** .
+      - In the **OAuth client ID** field, enter your Google OAuth client ID.
+      - In the **OAuth secret** field, enter your Google OAuth client secret.
+    - Confirm that you understand the risk associated with MCP server use, and then click **Create** .
 
 The MCP server is displayed in the **Apps** menu, and is ready for use through chat prompts.
 
@@ -276,11 +275,11 @@ If specific instructions for your MCP client aren't included in [Configure an MC
 
 For the Spanner remote MCP server, enter the following information:
 
-  - **Server name** : Spanner MCP server
-  - **Server URL** or **Endpoint** : `https://spanner.googleapis.com/mcp`
-  - **Transport** : [Streamable HTTP](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http)
-  - **Authentication details** : depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information about authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
-  - **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Spanner MCP server.
+- **Server name** : Spanner MCP server
+- **Server URL** or **Endpoint** : `https://spanner.googleapis.com/mcp`
+- **Transport** : [Streamable HTTP](https://modelcontextprotocol.io/specification/latest/basic/transports/streamable-http)
+- **Authentication details** : depending on how you want to authenticate, you can enter your Google Cloud credentials, your OAuth Client ID and secret, or an agent identity and credentials. For more information about authentication, see [Authenticate to MCP servers](https://docs.cloud.google.com/mcp/authenticate-mcp) .
+- **OAuth scope** : the [OAuth 2.0 scope](https://developers.google.com/identity/protocols/oauth2/scopes) that you want to use when connecting to the Spanner MCP server.
 
 ### Redirect URIs
 
@@ -290,8 +289,8 @@ For application-specific guidance about setting up and connecting to MCP server,
 
 For more general guidance, see the following resources:
 
-  - [Connect to remote MCP servers](https://modelcontextprotocol.io/docs/develop/connect-remote-servers) .
-  - [Configure MCP in an AI application](https://docs.cloud.google.com/mcp/configure-mcp-ai-application) .
+- [Connect to remote MCP servers](https://modelcontextprotocol.io/docs/develop/connect-remote-servers) .
+- [Configure MCP in an AI application](https://docs.cloud.google.com/mcp/configure-mcp-ai-application) .
 
 ## Available tools
 
@@ -301,33 +300,35 @@ To view details of available MCP tools and their descriptions for the Spanner MC
 
 Use the [MCP inspector](https://modelcontextprotocol.io/docs/tools/inspector) to list tools, or send a `tools/list` HTTP request directly to the Spanner remote MCP server. The `tools/list` method doesn't require authentication.
 
-    curl -X POST https://spanner.googleapis.com/TOOLSET_ENDPOINT \
-        -H 'Content-Type: application/json' \
-        -H 'Accept: application/json' \
-        -H 'MCP-Protocol-Version: MCP_PROTOCOL_VERSION' \
-        -H 'Mcp-Method: tools/list' \
-        -d '{
-          "jsonrpc": "2.0",
-          "id": 1,
-          "method": "tools/list",
-          "params": {
-            "_meta": {
-              "io.modelcontextprotocol/protocolVersion": "MCP_PROTOCOL_VERSION",
-              "io.modelcontextprotocol/clientCapabilities": {
-                "extensions": {
-                  "io.modelcontextprotocol/ui": {
-                    "mimeTypes": ["text/html;profile=mcp-app"]
-                  }
-                }
+```
+curl -X POST https://spanner.googleapis.com/TOOLSET_ENDPOINT \
+    -H 'Content-Type: application/json' \
+    -H 'Accept: application/json' \
+    -H 'MCP-Protocol-Version: MCP_PROTOCOL_VERSION' \
+    -H 'Mcp-Method: tools/list' \
+    -d '{
+      "jsonrpc": "2.0",
+      "id": 1,
+      "method": "tools/list",
+      "params": {
+        "_meta": {
+          "io.modelcontextprotocol/protocolVersion": "MCP_PROTOCOL_VERSION",
+          "io.modelcontextprotocol/clientCapabilities": {
+            "extensions": {
+              "io.modelcontextprotocol/ui": {
+                "mimeTypes": ["text/html;profile=mcp-app"]
               }
             }
           }
-        }'
+        }
+      }
+    }'
+```
 
 Replace the following:
 
-  - `TOOLSET_ENDPOINT` : the remainder of the MCP endpoint after the service name. For example, for Spanner, this might be `mcp/toolset-name` .
-  - `MCP_PROTOCOL_VERSION` : the MCP protocol version. For example, `2026-07-28` .
+- ` ``TOOLSET_ENDPOINT`` ` : the remainder of the MCP endpoint after the service name. For example, for Spanner, this might be `mcp/toolset-name` .
+- ` ``MCP_PROTOCOL_VERSION`` ` : the MCP protocol version. For example, `2026-07-28` .
 
 ## Observability
 
@@ -338,7 +339,7 @@ The Spanner MCP server supports Spanner introspection and observability tools.
 The queries executed or transactions committed using the Spanner MCP server are autotagged with specific request tags. You can use these tags to debug queries and transactions. For more information, see [Troubleshoot with request tags and transaction tags](https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags) .
 
 | Tool name              | Request tag                |
-| ---------------------- | -------------------------- |
+|------------------------|----------------------------|
 | `execute_sql`          | `mcp_execute_sql`          |
 | `execute_sql_readonly` | `mcp_execute_sql_readonly` |
 | `commit`               | `mcp_commit`               |
@@ -351,21 +352,21 @@ The following are sample use cases for the Spanner MCP server.
 
 An application developer can use the Spanner MCP server to provision resources, create databases, and populate sample data.
 
-**Sample prompt** : "Create a regional Spanner instance in the PROJECT\_ID project in the `us-central1` regional instance configuration. Create a database for tracking inventory and populate 5 sample products."
+**Sample prompt** : "Create a regional Spanner instance in the ` PROJECT_ID ` project in the `us-central1` regional instance configuration. Create a database for tracking inventory and populate 5 sample products."
 
-Replace `PROJECT_ID` with your Google Cloud project ID.
+Replace ` ``PROJECT_ID`` ` with your Google Cloud project ID.
 
 **Workflow** :
 
 The workflow for developing an application might look like the following:
 
-  - The agent calls the `create_instance` tool to provision a new Spanner instance using the specified instance configuration. The agent might invoke the `get_operation` tool to verify if the instance is ready to be used.
+- The agent calls the `create_instance` tool to provision a new Spanner instance using the specified instance configuration. The agent might invoke the `get_operation` tool to verify if the instance is ready to be used.
 
-  - The agent calls the `create_database` tool for creating a new database with the required schema. The agent might call the `get_operation` tool to check the status of the database creation operation.
+- The agent calls the `create_database` tool for creating a new database with the required schema. The agent might call the `get_operation` tool to check the status of the database creation operation.
 
-  - The agent can use a combination of `create_session` , `execute_sql` , and the `commit` tools to insert sample data.
+- The agent can use a combination of `create_session` , `execute_sql` , and the `commit` tools to insert sample data.
 
-  - Optionally, the agent can call the `execute_sql` tool to query and validate the sample data creation.
+- Optionally, the agent can call the `execute_sql` tool to query and validate the sample data creation.
 
 ### Operational insights and database configuration management
 
@@ -373,9 +374,9 @@ Spanner administrators can use the Spanner MCP server to gather information abou
 
 **Sample prompts** :
 
-  - "List all Spanner instances in the current project."
-  - "List all databases in the current Spanner instance."
-  - "Show the schema for the current Spanner database."
+- "List all Spanner instances in the current project."
+- "List all databases in the current Spanner instance."
+- "Show the schema for the current Spanner database."
 
 ## Optional security and safety configurations
 
@@ -400,9 +401,9 @@ You must enable Model Armor APIs before you can use Model Armor.
 ### Console
 
 1.  Enable the Model Armor API, if it is not already enabled.
-    
+
     **Roles required to enable APIs**
-    
+
     To enable APIs, you need the `serviceusage.services.enable` permission. If you created the project, then you likely already have this permission through the Owner role ( `roles/owner` ). Otherwise, you can get this permission through the Service Usage Admin role ( `roles/serviceusage.serviceUsageAdmin` ). [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
 
 2.  Select the project where you want to activate Model Armor.
@@ -412,14 +413,16 @@ You must enable Model Armor APIs before you can use Model Armor.
 Before you begin, follow these steps using the Google Cloud CLI with the Model Armor API:
 
 1.  In the Google Cloud console, activate Cloud Shell.
-    
+
     At the bottom of the Google Cloud console, a [Cloud Shell](https://docs.cloud.google.com/shell/docs/how-cloud-shell-works) session starts and displays a command-line prompt. Cloud Shell is a shell environment with the Google Cloud CLI already installed and with values already set for your current project. It can take a few seconds for the session to initialize.
 
 2.  Run the following command to set the API endpoint for the Model Armor service.
-    
-        gcloud config set api_endpoint_overrides/modelarmor "https://modelarmor.LOCATION.rep.googleapis.com/"
-    
-    Replace `  LOCATION  ` with the region where you want to use Model Armor.
+
+    ```
+    gcloud config set api_endpoint_overrides/modelarmor "https://modelarmor.LOCATION.rep.googleapis.com/"
+    ```
+
+    Replace `LOCATION` with the region where you want to use Model Armor.
 
 #### Configure protection for Google and Google Cloud remote MCP servers
 
@@ -433,32 +436,36 @@ Set up a Model Armor floor setting with MCP sanitization enabled. For more infor
 
 See the following example command:
 
-    gcloud model-armor floorsettings update \
-    --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
-    --enable-floor-setting-enforcement=TRUE \
-    --add-integrated-services=GOOGLE_MCP_SERVER \
-    --google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
-    --enable-google-mcp-server-cloud-logging \
-    --malicious-uri-filter-settings-enforcement=ENABLED \
-    --add-rai-settings-filters='[{"confidenceLevel": "MEDIUM_AND_ABOVE", "filterType": "DANGEROUS"}]'
+```
+gcloud model-armor floorsettings update \
+--full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
+--enable-floor-setting-enforcement=TRUE \
+--add-integrated-services=GOOGLE_MCP_SERVER \
+--google-mcp-server-enforcement-type=INSPECT_AND_BLOCK \
+--enable-google-mcp-server-cloud-logging \
+--malicious-uri-filter-settings-enforcement=ENABLED \
+--add-rai-settings-filters='[{"confidenceLevel": "MEDIUM_AND_ABOVE", "filterType": "DANGEROUS"}]'
+```
 
-Replace `  PROJECT_ID  ` with your Google Cloud project ID.
+Replace `PROJECT_ID` with your Google Cloud project ID.
 
 Note the following settings:
 
-  - `INSPECT_AND_BLOCK` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
-  - `ENABLED` : The setting that enables a filter or enforcement.
-  - `MEDIUM_AND_ABOVE` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Model Armor confidence levels](https://docs.cloud.google.com/model-armor/overview#ma-confidence-levels) .
+- ` ``INSPECT_AND_BLOCK`` ` : The enforcement type that inspects content for the Google MCP server and blocks prompts and responses that match the filters.
+- ` ``ENABLED`` ` : The setting that enables a filter or enforcement.
+- ` ``MEDIUM_AND_ABOVE`` ` : The confidence level for the Responsible AI - Dangerous filter settings. You can modify this setting, though lower values might result in more false positives. For more information, see [Model Armor confidence levels](https://docs.cloud.google.com/model-armor/overview#ma-confidence-levels) .
 
 #### Disable scanning MCP traffic with Model Armor
 
 To stop Model Armor from automatically scanning traffic to and from Google MCP servers based on the project's floor settings, run the following command:
 
-    gcloud model-armor floorsettings update \
-      --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
-      --remove-integrated-services=GOOGLE_MCP_SERVER
+```
+gcloud model-armor floorsettings update \
+  --full-uri='projects/PROJECT_ID/locations/global/floorSetting' \
+  --remove-integrated-services=GOOGLE_MCP_SERVER
+```
 
-Replace `  PROJECT_ID  ` with the Google Cloud project ID. Model Armor doesn't automatically apply the rules defined in this project's floor settings to any Google MCP server traffic.
+Replace `PROJECT_ID` with the Google Cloud project ID. Model Armor doesn't automatically apply the rules defined in this project's floor settings to any Google MCP server traffic.
 
 Model Armor floor settings and general configuration can impact more than just MCP. Because Model Armor integrates with services like Vertex AI, any changes you make to floor settings can affect traffic scanning and safety behaviors across all integrated services, not just MCP.
 
@@ -468,14 +475,14 @@ Identity and Access Management (IAM) [deny policies](https://docs.cloud.google.c
 
 You can combine multiple criteria to build customized security and governance policies by allowing or denying access based on the following:
 
-  - The principal.
-  - Tool properties like the read-only attribute.
-  - The service name or tool name.
-  - The application's OAuth client ID.
+- The principal.
+- Tool properties like the read-only attribute.
+- The service name or tool name.
+- The application's OAuth client ID.
 
 For more information, see [Control MCP use with Identity and Access Management](https://docs.cloud.google.com/mcp/control-mcp-use-iam) .
 
 ## What's next
 
-  - Read the [Spanner MCP reference documentation](https://docs.cloud.google.com/spanner/docs/reference/mcp) .
-  - Learn more about [Google Cloud MCP servers](https://docs.cloud.google.com/mcp/overview) .
+- Read the [Spanner MCP reference documentation](https://docs.cloud.google.com/spanner/docs/reference/mcp) .
+- Learn more about [Google Cloud MCP servers](https://docs.cloud.google.com/mcp/overview) .

@@ -12,23 +12,27 @@ gcloud spanner rows update - update a row in a Cloud Spanner database
 
 SYNOPSIS
 
-`gcloud spanner rows update` `  --data  ` = \[ `  COLUMN_NAME  ` = `  VALUE  ` , …\] `  --table  ` = `  TABLE  ` ( `  --database  ` = `  DATABASE  ` : `  --instance  ` = `  INSTANCE  ` ) \[ `  GCLOUD_WIDE_FLAG …  ` \]
+`gcloud spanner rows update` [`--data`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/update#--data) = \[ `COLUMN_NAME` = `VALUE` , …\] [`--table`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/update#--table) = `TABLE` ( [`--database`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/update#--database) = `DATABASE` : [`--instance`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/update#--instance) = `INSTANCE` ) \[ [`GCLOUD_WIDE_FLAG`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/rows/update#GCLOUD-WIDE-FLAGS)` …` \]
 
 EXAMPLES
 
 To update a row with SingerId=1,SingName=abc in table Singers under my-database and my-instance, run:
 
-    gcloud spanner rows update --table=Singers --database=my-database --instance=my-instance --data=SingerId=1,SingerName=abc
+```
+gcloud spanner rows update --table=Singers --database=my-database --instance=my-instance --data=SingerId=1,SingerName=abc
+```
 
-    gcloud spanner rows update --table=Singers --database=my-database --instance=my-instance --flags-file=path/to/file.yaml
+```
+gcloud spanner rows update --table=Singers --database=my-database --instance=my-instance --flags-file=path/to/file.yaml
+```
 
 REQUIRED FLAGS
 
-`--data` =\[ `  COLUMN_NAME  ` = `  VALUE  ` ,…\]
+`--data` =\[ `COLUMN_NAME` = `VALUE` ,…\]
 
-The column names and values for the row being updated. For complicated input values, such as arrays, use the `--flags-file` flag. See $ [gcloud topic flags-file](https://docs.cloud.google.com/sdk/gcloud/reference/topic/flags-file) for more information.
+The column names and values for the row being updated. For complicated input values, such as arrays, use the `--flags-file` flag. See \$ [gcloud topic flags-file](https://docs.cloud.google.com/sdk/gcloud/reference/topic/flags-file) for more information.
 
-`--table` = `  TABLE  `
+`--table` = `TABLE`
 
 The Cloud Spanner table name.
 
@@ -36,40 +40,44 @@ Database resource - The Cloud Spanner database in which to update a row. The arg
 
 To set the `project` attribute:
 
-  - provide the argument `--database` on the command line with a fully specified name;
-  - provide the argument `--project` on the command line;
-  - set the property `core/project` .
+- provide the argument `--database` on the command line with a fully specified name;
+- provide the argument `--project` on the command line;
+- set the property `core/project` .
 
 This must be specified.
 
-  - `--database` = `  DATABASE  `  
-    ID of the database or fully qualified identifier for the database.
-    
-    To set the `database` attribute:
-    
-      - provide the argument `--database` on the command line.
-    
-    This flag argument must be specified if any of the other arguments in this group are specified.
+`--database` = `DATABASE`  
+ID of the database or fully qualified identifier for the database.
 
-  - `--instance` = `  INSTANCE  `  
-    The Cloud Spanner instance for the database.
-    
-    To set the `instance` attribute:
-    
-      - provide the argument `--database` on the command line with a fully specified name;
-      - provide the argument `--instance` on the command line;
-      - set the property `spanner/instance` .
+To set the `database` attribute:
+
+- provide the argument `--database` on the command line.
+
+This flag argument must be specified if any of the other arguments in this group are specified.
+
+`--instance` = `INSTANCE`  
+The Cloud Spanner instance for the database.
+
+To set the `instance` attribute:
+
+- provide the argument `--database` on the command line with a fully specified name;
+- provide the argument `--instance` on the command line;
+- set the property `spanner/instance` .
 
 GCLOUD WIDE FLAGS
 
-These flags are available to all commands: `  --access-token-file  ` , `  --account  ` , `  --billing-project  ` , `  --configuration  ` , `  --flags-file  ` , `  --flatten  ` , `  --format  ` , `  --help  ` , `  --impersonate-service-account  ` , `  --log-http  ` , `  --project  ` , `  --quiet  ` , `  --trace-token  ` , `  --user-output-enabled  ` , `  --verbosity  ` .
+These flags are available to all commands: [`--access-token-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--access-token-file) , [`--account`](https://docs.cloud.google.com/sdk/gcloud/reference#--account) , [`--billing-project`](https://docs.cloud.google.com/sdk/gcloud/reference#--billing-project) , [`--configuration`](https://docs.cloud.google.com/sdk/gcloud/reference#--configuration) , [`--flags-file`](https://docs.cloud.google.com/sdk/gcloud/reference#--flags-file) , [`--flatten`](https://docs.cloud.google.com/sdk/gcloud/reference#--flatten) , [`--format`](https://docs.cloud.google.com/sdk/gcloud/reference#--format) , [`--help`](https://docs.cloud.google.com/sdk/gcloud/reference#--help) , [`--impersonate-service-account`](https://docs.cloud.google.com/sdk/gcloud/reference#--impersonate-service-account) , [`--log-http`](https://docs.cloud.google.com/sdk/gcloud/reference#--log-http) , [`--project`](https://docs.cloud.google.com/sdk/gcloud/reference#--project) , [`--quiet`](https://docs.cloud.google.com/sdk/gcloud/reference#--quiet) , [`--trace-token`](https://docs.cloud.google.com/sdk/gcloud/reference#--trace-token) , [`--user-output-enabled`](https://docs.cloud.google.com/sdk/gcloud/reference#--user-output-enabled) , [`--verbosity`](https://docs.cloud.google.com/sdk/gcloud/reference#--verbosity) .
 
-Run ` $ gcloud help  ` for details.
+Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for details.
 
 NOTES
 
 These variants are also available:
 
-    gcloud alpha spanner rows update
+```
+gcloud alpha spanner rows update
+```
 
-    gcloud beta spanner rows update
+```
+gcloud beta spanner rows update
+```

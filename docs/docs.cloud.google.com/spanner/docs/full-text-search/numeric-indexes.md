@@ -22,8 +22,8 @@ For PostgreSQL, use the [`spanner.tokenize_number`](https://docs.cloud.google.co
 
 Spanner supports indexing numbers for *equality* and *inequality* . Equality searches match a number. Range and inequality searches match a number within a specific range. You set this value in the [`TOKENIZE_NUMBER`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_number) `comparison_type` parameter:
 
-  - **Equality** : `comparison_type=>"equality"`
-  - **Inequality and equality** : `comparison_type=>"all"`
+- **Equality** : `comparison_type=>"equality"`
+- **Inequality and equality** : `comparison_type=>"all"`
 
 In both cases, the original number (either integer or floating point) undergoes a process of tokenization, which is conceptually similar to full-text tokenization. It produces a set of tokens that the query can then use to locate documents matching the number condition.
 
@@ -39,7 +39,7 @@ In addition to scalar values, [`TOKENIZE_NUMBER`](https://docs.cloud.google.com/
 
 When `TOKENIZE_NUMBER` is used with the `ARRAY` column, you must specify `comparison_type=>"equality"` . Range queries aren't supported with an array of numbers.
 
-``` 
+```
   CREATE TABLE Albums (
     AlbumId STRING(MAX) NOT NULL,
     Ratings ARRAY<INT64>,
@@ -52,7 +52,7 @@ When `TOKENIZE_NUMBER` is used with the `ARRAY` column, you must specify `compar
 
 The following query finds all albums that have a rating of 1 or 2:
 
-``` 
+```
   SELECT AlbumId
   FROM Albums
   WHERE ARRAY_INCLUDES_ANY(Ratings, [1, 2])
@@ -60,12 +60,14 @@ The following query finds all albums that have a rating of 1 or 2:
 
 The following query finds all albums that were rated as 1 and as 5:
 
-    SELECT AlbumId
-    FROM Albums
-    WHERE ARRAY_INCLUDES_ALL(Ratings, [1, 5])
+```
+SELECT AlbumId
+FROM Albums
+WHERE ARRAY_INCLUDES_ALL(Ratings, [1, 5])
+```
 
 ## What's next
 
-  - Learn about [tokenization and Spanner tokenizers](https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization) .
-  - Learn about [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
-  - Learn about [index partitioning](https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index) .
+- Learn about [tokenization and Spanner tokenizers](https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization) .
+- Learn about [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) .
+- Learn about [index partitioning](https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index) .

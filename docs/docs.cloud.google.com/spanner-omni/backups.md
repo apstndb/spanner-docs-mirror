@@ -22,11 +22,11 @@ For example, suppose you create a backup schedule with a frequency of `0 7 * * *
 
 Spanner Omni backups provide data consistency, resilient external replication, and automated expiration.
 
-  - **Data consistency** : backups of a Spanner Omni database are transactionally and externally consistent at the `versionTime` of the backup.
+- **Data consistency** : backups of a Spanner Omni database are transactionally and externally consistent at the `versionTime` of the backup.
 
-  - **Replication** : backup files are stored in an external storage system, outside of the Spanner Omni deployment.
+- **Replication** : backup files are stored in an external storage system, outside of the Spanner Omni deployment.
 
-  - **Automatic expiration** : all backups have a user-specified expiration date that determines when it's deleted. Spanner Omni deletes expired backups asynchronously, so there might be a lag between when a backup expires and when it's actually deleted.
+- **Automatic expiration** : all backups have a user-specified expiration date that determines when it's deleted. Spanner Omni deletes expired backups asynchronously, so there might be a lag between when a backup expires and when it's actually deleted.
 
 ## External storage
 
@@ -40,50 +40,64 @@ Manage external storage by creating, deleting, and listing storage locations for
 
 To create Amazon S3 external storage, run the following command:
 
-    spanner external-storages create EXTERNAL_STORAGE_ID \
-      --s3-bucket-name=BUCKET_NAME \
-      --s3-region=AWS_REGION \
-      --s3-assume-role-arn=ASSUME_ROLE_ARN
+```
+spanner external-storages create EXTERNAL_STORAGE_ID \
+  --s3-bucket-name=BUCKET_NAME \
+  --s3-region=AWS_REGION \
+  --s3-assume-role-arn=ASSUME_ROLE_ARN
+```
 
 #### Create Cloud Storage external storage
 
 To create Cloud Storage external storage, run the following command:
 
-    spanner external-storages create EXTERNAL_STORAGE_ID \
-       --gcs-bucket-name=BUCKET_NAME
+```
+spanner external-storages create EXTERNAL_STORAGE_ID \
+   --gcs-bucket-name=BUCKET_NAME
+```
 
 #### Create Amazon S3-compatible external storage
 
 To create Amazon S3-compatible external storage, run the following command:
 
-    spanner external-storages create EXTERNAL_STORAGE_ID \
-        --s3-compatible-bucket-name=BUCKET_NAME \
-        --s3-compatible-endpoint=ENDPOINT \
-        --s3-compatible-credential-file-path=FILE
+```
+spanner external-storages create EXTERNAL_STORAGE_ID \
+    --s3-compatible-bucket-name=BUCKET_NAME \
+    --s3-compatible-endpoint=ENDPOINT \
+    --s3-compatible-credential-file-path=FILE
+```
 
 #### Delete external storage
 
 To delete external storage, first ensure no existing or ongoing backups are present. Then, run the following command:
 
-    spanner external-storages delete EXTERNAL_STORAGE_ID
+```
+spanner external-storages delete EXTERNAL_STORAGE_ID
+```
 
 #### Describe external storage
 
 To get information about external storage, run the following command:
 
-    spanner external-storages describe EXTERNAL_STORAGE_ID
+```
+spanner external-storages describe EXTERNAL_STORAGE_ID
+```
 
 #### List external storage
 
 To get a list of external storage, run the following command:
 
-    spanner external-storages list
+```
+spanner external-storages list
+```
 
 #### Backup descriptor
 
 A backup descriptor represents the metadata and backup file paths of completed backups stored in an external storage.
 
-    spanner external-storages backup-descriptors list EXTERNAL_STORAGE_ID
+```
+spanner external-storages backup-descriptors list EXTERNAL_STORAGE_ID
+```
 
 ## Backup information
 
@@ -91,19 +105,19 @@ When you create a backup, the backup metadata is stored in Spanner Omni and the 
 
 A backup contains the following information from the database at the `versionTime` of the backup:
 
-  - A full backup contains all of the data.
+- A full backup contains all of the data.
 
-  - Schema information, including table names, fields, data types, secondary indexes, change streams, and the relationships between these entities.
+- Schema information, including table names, fields, data types, secondary indexes, change streams, and the relationships between these entities.
 
-  - All database options that are set with the `ALTER DATABASE SET OPTIONS` command.
+- All database options that are set with the `ALTER DATABASE SET OPTIONS` command.
 
 A Spanner Omni backup doesn't include the following information:
 
-  - Any modifications to the data or schema after the `versionTime` .
+- Any modifications to the data or schema after the `versionTime` .
 
-  - Identity and Access Management (IAM) policies.
+- Identity and Access Management (IAM) policies.
 
-  - Change stream data records. Although the change streams schema is stored, the change stream data should be streamed and consumed at about the same time as the changes it describes.
+- Change stream data records. Although the change streams schema is stored, the change stream data should be streamed and consumed at about the same time as the changes it describes.
 
 To help ensure external consistency of the backup, Spanner Omni pins the contents of the database at `versionTime` . This prevents the garbage collection system from removing the relevant data values for the duration of the backup operation.
 
@@ -112,7 +126,7 @@ To help ensure external consistency of the backup, Spanner Omni pins the content
 To create backups, you need the following permissions. Ask your administrator to grant you the following IAM roles on a deployment:
 
 | Action                                   | IAM Role                     |
-| ---------------------------------------- | ---------------------------- |
+|------------------------------------------|------------------------------|
 | Create, view, update, and delete backups | `roles/spanner.backupAdmin`  |
 | Create and view backups                  | `roles/spanner.backupWriter` |
 
@@ -120,55 +134,71 @@ To create backups, you need the following permissions. Ask your administrator to
 
 Create an on-demand backup.
 
-    spanner backups create BACKUP_NAME \
-    --database=DATABASE_ID \
-    --retention-period=RETENTION_PERIOD \
-    --async
+```
+spanner backups create BACKUP_NAME \
+--database=DATABASE_ID \
+--retention-period=RETENTION_PERIOD \
+--async
+```
 
 #### Delete backup
 
 Delete the backup metadata and files.
 
-    spanner backups delete BACKUP_NAME
+```
+spanner backups delete BACKUP_NAME
+```
 
 #### Describe backup
 
 Retrieve information about a backup.
 
-    spanner backups describe BACKUP_NAME
+```
+spanner backups describe BACKUP_NAME
+```
 
 #### List backups
 
 List existing Spanner Omni backups in the deployment.
 
-    spanner backups list
+```
+spanner backups list
+```
 
 #### Update backup expiration
 
 Update a backup's expiration date.
 
-    spanner backups update-metadata BACKUP_NAME \
-    --expiration-date=EXPIRATION_DATE
+```
+spanner backups update-metadata BACKUP_NAME \
+--expiration-date=EXPIRATION_DATE
+```
 
 #### Import backup
 
 If you accidentally delete a deployment, you can import backups from it if you did not delete the backup files from external storage.
 
 1.  Create external storage in the new deployment that uses the same Amazon S3 or Cloud Storage bucket from the original deployment.
-    
-        spanner external-storages create EXTERNAL_STORAGE_ID \
-          --gcs-bucket-name=BUCKET_NAME
+
+    ```
+    spanner external-storages create EXTERNAL_STORAGE_ID \
+      --gcs-bucket-name=BUCKET_NAME
+    ```
 
 2.  List the backup descriptors in the external storage.
-    
-        spanner external-storages backup-descriptors list EXTERNAL_STORAGE_ID
+
+    ```
+    spanner external-storages backup-descriptors list EXTERNAL_STORAGE_ID
+    ```
 
 3.  Select the backup descriptor and import it into the new deployment.
-    
-        spanner backups import BACKUP_NAME \
-         --external-storage EXTERNAL_STORAGE_ID \
-         --backup-descriptor BACKUP_DESCRIPTOR \
-         --retention-period 24h
+
+    ```
+    spanner backups import BACKUP_NAME \
+     --external-storage EXTERNAL_STORAGE_ID \
+     --backup-descriptor BACKUP_DESCRIPTOR \
+     --retention-period 24h
+    ```
 
 ## Backup schedules
 
@@ -182,59 +212,73 @@ A full backup schedule creates backups every 12 hours or more. Backups start wit
 
 To create and manage backup schedules, you need the following permissions. Ask your administrator to grant you the following IAM roles on the deployment:
 
-  - Create, view, update, and delete backup schedules: `roles/spanner.backupAdmin`
+- Create, view, update, and delete backup schedules: `roles/spanner.backupAdmin`
 
-  - Create and view backup schedules: `roles/spanner.backupWriter`
+- Create and view backup schedules: `roles/spanner.backupWriter`
 
 #### Create backup schedule
 
 Create a new backup schedule for the Spanner Omni database.
 
-    spanner backup-schedules create SCHEDULE_ID \
-      --database=DATABASE_ID \
-      --retention-duration=RETENTION_DURATION \
-      --cron="CRONTAB_EXPRESSION"
+```
+spanner backup-schedules create SCHEDULE_ID \
+  --database=DATABASE_ID \
+  --retention-duration=RETENTION_DURATION \
+  --cron="CRONTAB_EXPRESSION"
+```
 
 #### Get a backup schedule
 
 Get information about a specific backup schedule.
 
-    spanner backup-schedules describe SCHEDULE_ID --database=DATABASE_ID
+```
+spanner backup-schedules describe SCHEDULE_ID --database=DATABASE_ID
+```
 
 #### List backup schedules
 
 List all backup schedules for a given database.
 
-    spanner backup-schedules list --database=DATABASE_ID
+```
+spanner backup-schedules list --database=DATABASE_ID
+```
 
 #### Update a backup schedule
 
 Update the properties of an existing backup schedule.
 
-    spanner backup-schedules update SCHEDULE_ID \
-      --database=DATABASE_ID \
-      --retention-duration=RETENTION_DURATION \
-      --cron="CRONTAB_EXPRESSION"
+```
+spanner backup-schedules update SCHEDULE_ID \
+  --database=DATABASE_ID \
+  --retention-duration=RETENTION_DURATION \
+  --cron="CRONTAB_EXPRESSION"
+```
 
 #### Delete a backup schedule
 
 Delete a backup schedule from the database.
 
-    spanner backup-schedules delete SCHEDULE_ID --database=DATABASE_ID
+```
+spanner backup-schedules delete SCHEDULE_ID --database=DATABASE_ID
+```
 
 #### Set IAM access control policy
 
 Set the IAM access control policy for a backup schedule.
 
-    spanner backup-schedules set-iam-policy SCHEDULE_ID \
-      --database=DATABASE_ID \
-      policy.json
+```
+spanner backup-schedules set-iam-policy SCHEDULE_ID \
+  --database=DATABASE_ID \
+  policy.json
+```
 
 #### Get IAM access control policy
 
 Get the IAM access control policy for a backup schedule.
 
-    spanner backup-schedules get-iam-policy SCHEDULE_ID --database=DATABASE_ID
+```
+spanner backup-schedules get-iam-policy SCHEDULE_ID --database=DATABASE_ID
+```
 
 ## Comparing backup storage to database storage
 
