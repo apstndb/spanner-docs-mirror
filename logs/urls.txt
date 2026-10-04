@@ -411,7 +411,7 @@ https://docs.cloud.google.com/spanner/docs/optimize-schema-performance	2026-09-2
 https://docs.cloud.google.com/spanner/docs/org-policy-violations	2026-10-01T01:23:24Z
 https://docs.cloud.google.com/spanner/docs/partners/looker	2026-10-01T01:24:07Z
 https://docs.cloud.google.com/spanner/docs/performance	2026-10-01T01:23:24Z
-https://docs.cloud.google.com/spanner/docs/pg-jdbc-connect	2026-10-01T01:23:24Z
+https://docs.cloud.google.com/spanner/docs/pg-jdbc-connect	2026-10-03T04:12:28Z
 https://docs.cloud.google.com/spanner/docs/pg-node-postgres-connect	2026-10-01T01:23:24Z
 https://docs.cloud.google.com/spanner/docs/pg-pgx-connect	2026-10-01T01:23:24Z
 https://docs.cloud.google.com/spanner/docs/pg-psycopg2-connect	2026-10-01T01:23:24Z
