@@ -42,7 +42,7 @@ The `SingerId` column is the only primary key column for the `Singers` table. To
 ```
   SELECT SingerId
   FROM Singers
-  WHERE FirstName = "Marc" AND LastName = "Richards"
+  WHERE FirstName = "Marc" AND LastName = &quot;Richards"
 
   -- Recommended: Including a seekable filter in the where clause
 
@@ -177,7 +177,7 @@ func updateDmlWithLastStatement(w io.Writer, db string) error {
     defer client.Close()
 
     _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-        // other statements for the transaction if any.
+        // other statements for the transaction if any.</span>
 
         updateStmt := spanner.Statement{
             SQL: `UPDATE Singers SET LastName = 'Doe' WHERE SingerId = 54213`,
@@ -220,7 +220,7 @@ func pgUpdateDmlWithLastStatement(w io.Writer, db string) error {
     defer client.Close()
 
     _, err = client.ReadWriteTransaction(ctx, func(ctx context.Context, txn *spanner.ReadWriteTransaction) error {
-        // other statements for the transaction if any.
+        // other statements for the transaction if any.</span>
 
         updateStmt := spanner.Statement{
             SQL: `UPDATE Singers SET LastName = 'Doe' WHERE SingerId = 54214`,

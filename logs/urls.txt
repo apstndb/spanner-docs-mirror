@@ -228,7 +228,7 @@ https://docs.cloud.google.com/spanner/docs/dc-integration	2026-10-01T01:23:49Z
 https://docs.cloud.google.com/spanner/docs/deadline-exceeded	2026-10-01T01:23:49Z
 https://docs.cloud.google.com/spanner/docs/directed-reads	2026-10-01T01:23:49Z
 https://docs.cloud.google.com/spanner/docs/django-orm	2026-10-01T01:23:49Z
-https://docs.cloud.google.com/spanner/docs/dml-best-practices	2026-10-01T01:23:49Z
+https://docs.cloud.google.com/spanner/docs/dml-best-practices	2026-10-05T01:53:19Z
 https://docs.cloud.google.com/spanner/docs/dml-partitioned	2026-10-01T01:23:49Z
 https://docs.cloud.google.com/spanner/docs/dml-tasks	2026-10-01T01:23:49Z
 https://docs.cloud.google.com/spanner/docs/dml-versus-mutations	2026-10-01T01:23:49Z
@@ -743,7 +743,7 @@ https://docs.cloud.google.com/spanner/docs/samples	2026-10-01T01:23:43Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-add-column	2026-10-01T01:24:38Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-add-numeric-column	2026-10-01T01:24:27Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-add-timestamp-column	2026-10-01T01:24:32Z
-https://docs.cloud.google.com/spanner/docs/samples/spanner-batch-client	2026-10-03T04:12:46Z
+https://docs.cloud.google.com/spanner/docs/samples/spanner-batch-client	2026-10-05T01:53:28Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-cancel-backup-create	2026-10-01T01:24:32Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-array-of-struct-with-data	2026-10-01T01:24:32Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-create-backup	2026-10-01T01:24:38Z
@@ -769,9 +769,9 @@ https://docs.cloud.google.com/spanner/docs/samples/spanner-delete-data	2026-10-0
 https://docs.cloud.google.com/spanner/docs/samples/spanner-delete-graph-data	2026-10-01T01:23:44Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-delete-graph-data-with-dml	2026-10-01T01:23:44Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-batch-update	2026-10-01T01:23:44Z
-https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-getting-started-insert	2026-10-01T01:23:44Z
-https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-partitioned-delete	2026-10-01T01:23:44Z
-https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-partitioned-update	2026-10-01T01:23:44Z
+https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-getting-started-insert	2026-10-05T01:53:25Z
+https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-partitioned-delete	2026-10-05T01:53:25Z
+https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-partitioned-update	2026-10-05T01:53:25Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-standard-delete	2026-10-01T01:23:44Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-standard-insert	2026-10-01T01:23:44Z
 https://docs.cloud.google.com/spanner/docs/samples/spanner-dml-standard-update	2026-10-01T01:23:44Z
