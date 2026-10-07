@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/psql-commands
 uri: https://docs.cloud.google.com/spanner/docs/psql-commands
 title: psql command-line tool
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use psql commands and meta-commands to connect to and interact with Spanner PostgreSQL-dialect databases through the PGAdapter.
 data_source: docs.cloud.google.com
 ---
 

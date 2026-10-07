@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/statement-timeout
 uri: https://docs.cloud.google.com/spanner/docs/statement-timeout
 title: Configure statement timeout
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Set statement timeouts in Spanner to automatically cancel queries or DML statements that run longer than a specified duration.
 data_source: docs.cloud.google.com
 ---
 

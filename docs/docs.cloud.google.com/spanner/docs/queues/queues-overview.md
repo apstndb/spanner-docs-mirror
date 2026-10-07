@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/queues/queues-overview
 uri: https://docs.cloud.google.com/spanner/docs/queues/queues-overview
 title: Spanner queues overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Describes Spanner queues, an integrated transactional messaging feature to help you manage asynchronous work and build event-driven applications.
 data_source: docs.cloud.google.com
 ---
 

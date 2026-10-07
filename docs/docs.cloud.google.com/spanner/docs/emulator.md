@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/emulator
 uri: https://docs.cloud.google.com/spanner/docs/emulator
 title: Emulate Spanner locally
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Develop and test applications locally using the Spanner emulator. Run it via the Google Cloud CLI or Docker.
 data_source: docs.cloud.google.com
 ---
 

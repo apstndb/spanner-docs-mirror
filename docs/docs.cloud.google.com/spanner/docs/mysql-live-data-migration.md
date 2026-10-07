@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/mysql-live-data-migration
 uri: https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration
 title: Live data migration from MySQL
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Perform a live migration from MySQL to Spanner with minimal downtime using Datastream and Dataflow.
 data_source: docs.cloud.google.com
 ---
 

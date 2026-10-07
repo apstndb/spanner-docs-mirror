@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pg-psycopg2-connect
 uri: https://docs.cloud.google.com/spanner/docs/pg-psycopg2-connect
 title: Connect psycopg2 to a PostgreSQL-dialect database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect the psycopg2 Python driver to a PostgreSQL-dialect database in Spanner using PGAdapter for seamless integration.
 data_source: docs.cloud.google.com
 ---
 

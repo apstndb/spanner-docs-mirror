@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/vector-search-best-practices
 uri: https://docs.cloud.google.com/spanner/docs/vector-search-best-practices
 title: Vector search best practices
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: '"Understand'
 data_source: docs.cloud.google.com
 ---
 

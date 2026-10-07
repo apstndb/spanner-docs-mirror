@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/active-partitioned-dmls
 uri: https://docs.cloud.google.com/spanner/docs/introspection/active-partitioned-dmls
 title: Active partitioned DMLs statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Monitor active partitioned DML statements running on your Spanner database to track progress and identify issues.
 data_source: docs.cloud.google.com
 ---
 

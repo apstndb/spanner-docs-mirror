@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/latency-points
 uri: https://docs.cloud.google.com/spanner/docs/latency-points
 title: Latency points in a Spanner request
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the latency points in a Spanner request, including end-to-end, GFE, API request, and query latencies.
 data_source: docs.cloud.google.com
 ---
 

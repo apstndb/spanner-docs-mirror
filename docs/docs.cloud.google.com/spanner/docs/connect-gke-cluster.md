@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/connect-gke-cluster
 uri: https://docs.cloud.google.com/spanner/docs/connect-gke-cluster
 title: Connect Spanner with a GKE cluster
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect applications running on Google Kubernetes Engine to Spanner with Workload Identity Federation for GKE.
 data_source: docs.cloud.google.com
 ---
 

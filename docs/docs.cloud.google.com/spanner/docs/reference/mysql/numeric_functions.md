@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/mysql/numeric_functions
 uri: https://docs.cloud.google.com/spanner/docs/reference/mysql/numeric_functions
 title: Numeric functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about MySQL numeric functions in Spanner, including DEGREES, LOG2, PI, RADIANS, and TRUNCATE.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-ado-net
 uri: https://docs.cloud.google.com/spanner/docs/use-ado-net
 title: Use the Spanner ADO.NET driver
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the Spanner ADO.NET driver to connect your .NET applications to Spanner databases with a generic ADO.NET interface.
 data_source: docs.cloud.google.com
 ---
 

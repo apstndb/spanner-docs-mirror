@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-oss-r2dbc
 uri: https://docs.cloud.google.com/spanner/docs/use-oss-r2dbc
 title: Use the open-source R2DBC driver
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the open-source R2DBC driver for Spanner to build reactive Java applications that interact with your database asynchronously.
 data_source: docs.cloud.google.com
 ---
 

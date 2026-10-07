@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/ml-tutorial
 uri: https://docs.cloud.google.com/spanner/docs/ml-tutorial
 title: Generate ML predictions using SQL
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Generate ML predictions from your Spanner database using SQL by calling the ML.PREDICT or spanner.ML_PRE-DICT_ROW functions.
 data_source: docs.cloud.google.com
 ---
 

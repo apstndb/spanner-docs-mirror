@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-operators-leaf
 uri: https://docs.cloud.google.com/spanner/docs/query-operators-leaf
 title: Leaf operators
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the leaf operators used in Spanner query plans.
 data_source: docs.cloud.google.com
 ---
 

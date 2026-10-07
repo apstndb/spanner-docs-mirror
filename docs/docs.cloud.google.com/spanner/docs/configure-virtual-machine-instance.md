@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance
 uri: https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance
 title: Using Spanner in a virtual machine instance
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Configure a Compute Engine virtual machine instance to connect to Spanner for application development and testing.
 data_source: docs.cloud.google.com
 ---
 

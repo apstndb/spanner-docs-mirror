@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview
 uri: https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview
 title: Spanner Graph algorithms overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: 'Discover Spanner Graph algorithms: scalable, high-performance, fully managed solutions with seamless GQL integration for graph analytics.'
 data_source: docs.cloud.google.com
 ---
 

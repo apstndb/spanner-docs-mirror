@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/primary-keys-overview
 uri: https://docs.cloud.google.com/spanner/docs/primary-keys-overview
 title: Primary key migration overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand best practices for choosing primary keys in Spanner to ensure efficient data distribution and avoid hotspots.
 data_source: docs.cloud.google.com
 ---
 

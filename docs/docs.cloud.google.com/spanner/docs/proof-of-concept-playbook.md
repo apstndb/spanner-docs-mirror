@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/proof-of-concept-playbook
 uri: https://docs.cloud.google.com/spanner/docs/proof-of-concept-playbook
 title: Spanner proof of concept playbook
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Follow a playbook to effectively plan and execute a Proof of Concept (POC) for evaluating Spanner for your workload.
 data_source: docs.cloud.google.com
 ---
 

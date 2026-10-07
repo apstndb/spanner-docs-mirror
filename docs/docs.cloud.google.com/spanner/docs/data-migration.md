@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/data-migration
 uri: https://docs.cloud.google.com/spanner/docs/data-migration
 title: Migrate your data
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Migrate data to Spanner from sources like MySQL, PostgreSQL, Oracle, or other Spanner databases.
 data_source: docs.cloud.google.com
 ---
 

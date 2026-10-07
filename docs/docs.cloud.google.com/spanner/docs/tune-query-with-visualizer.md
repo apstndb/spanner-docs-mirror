@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/tune-query-with-visualizer
 uri: https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer
 title: Tune a query using the query plan visualizer
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Optimize Spanner query performance using the query plan visualizer in the {{dynamic_data.site_values.cloud_name_short}} console.
 data_source: docs.cloud.google.com
 ---
 

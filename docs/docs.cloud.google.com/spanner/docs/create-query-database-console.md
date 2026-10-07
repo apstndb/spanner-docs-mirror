@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/create-query-database-console
 uri: https://docs.cloud.google.com/spanner/docs/create-query-database-console
 title: Create and query a database in the Google Cloud console
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: This quickstart shows you how to use the {{dynamic_data.site_values.cloud_name_short}} console to create a database in Spanner, insert data, and run a SQL query.
 data_source: docs.cloud.google.com
 ---
 

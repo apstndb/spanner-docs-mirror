@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/ttl/working-with-ttl
 uri: https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl
 title: Manage data retention with TTL
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Implement and manage Time to Live (TTL) policies in Spanner to automatically delete rows from tables based on a timestamp.
 data_source: docs.cloud.google.com
 ---
 

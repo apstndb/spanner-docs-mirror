@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/identify-latency-point
 uri: https://docs.cloud.google.com/spanner/docs/identify-latency-point
 title: Identify where latency occurs
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Identify the latency source in your Spanner requests by analyzing client-side and server-side metrics.
 data_source: docs.cloud.google.com
 ---
 

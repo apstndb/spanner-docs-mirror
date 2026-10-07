@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions
 uri: https://docs.cloud.google.com/spanner/docs/reference/mysql/timestamp_functions
 title: Timestamp functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: 'Understand Spanner''s MySQL timestamp functions: DATEDIFF, LOCALTIME, LOCALTIMESTAMP, NOW, and UTC_TIMESTAMP.'
 data_source: docs.cloud.google.com
 ---
 

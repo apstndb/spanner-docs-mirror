@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/dml-versus-mutations
 uri: https://docs.cloud.google.com/spanner/docs/dml-versus-mutations
 title: Compare DML and Mutations
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Compare DML and mutations in Spanner for modifying data and understand differences in their features and behavior.
 data_source: docs.cloud.google.com
 ---
 

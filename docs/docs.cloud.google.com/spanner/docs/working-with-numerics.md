@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/working-with-numerics
 uri: https://docs.cloud.google.com/spanner/docs/working-with-numerics
 title: Work with NUMERIC data
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Work with NUMERIC data types in Spanner for exact precision calculations, and understand best practices for storage and operations.
 data_source: docs.cloud.google.com
 ---
 

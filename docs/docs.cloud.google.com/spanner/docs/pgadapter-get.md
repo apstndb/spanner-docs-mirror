@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pgadapter-get
 uri: https://docs.cloud.google.com/spanner/docs/pgadapter-get
 title: Get PGAdapter
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Download and install PGAdapter to connect PostgreSQL clients and tools to your Spanner databases.
 data_source: docs.cloud.google.com
 ---
 

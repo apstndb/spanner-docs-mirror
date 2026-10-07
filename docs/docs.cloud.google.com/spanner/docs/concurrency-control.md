@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/concurrency-control
 uri: https://docs.cloud.google.com/spanner/docs/concurrency-control
 title: Concurrency control
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about Spanner's optimistic or pessimistic concurrency control for transactions. Optimize transaction isolation, lock acquisition, and commit behavior.
 data_source: docs.cloud.google.com
 ---
 

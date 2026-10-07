@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/import-export-csv
 uri: https://docs.cloud.google.com/spanner/docs/import-export-csv
 title: Import and export data in CSV format
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Import and export data between Spanner and CSV files using Dataflow templates or client libraries.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/secure-agent-interactions-mcp
 uri: https://docs.cloud.google.com/spanner/docs/secure-agent-interactions-mcp
 title: Best practices for securing agent interactions with Model Context Protocol
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn best practices for securing agent interactions with Model Context Protocol.
 data_source: docs.cloud.google.com
 ---
 

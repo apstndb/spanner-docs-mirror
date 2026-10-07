@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/dc-integration
 uri: https://docs.cloud.google.com/spanner/docs/dc-integration
 title: Manage resources using Data Catalog
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Integrate Spanner with Data Catalog to discover and manage your Spanner metadata.
 data_source: docs.cloud.google.com
 ---
 

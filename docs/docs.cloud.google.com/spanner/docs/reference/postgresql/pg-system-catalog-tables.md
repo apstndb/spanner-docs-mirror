@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables
 title: PostgreSQL system catalog tables
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Explore the PostgreSQL system catalog tables available in Spanner, which store schema data and internal bookkeeping information.
 data_source: docs.cloud.google.com
 ---
 

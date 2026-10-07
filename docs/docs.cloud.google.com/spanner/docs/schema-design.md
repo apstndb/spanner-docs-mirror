@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/schema-design
 uri: https://docs.cloud.google.com/spanner/docs/schema-design
 title: Schema design best practices
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Best practices for designing your Spanner schema to optimize performance, scalability, and data consistency.
 data_source: docs.cloud.google.com
 ---
 

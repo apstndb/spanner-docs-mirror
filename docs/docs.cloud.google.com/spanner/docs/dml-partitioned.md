@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/dml-partitioned
 uri: https://docs.cloud.google.com/spanner/docs/dml-partitioned
 title: Partitioned Data Manipulation Language
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Run bulk updates and deletes on Spanner with partitioned DML for large-scale, database-wide operations.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner
 uri: https://docs.cloud.google.com/spanner/docs/non-relational/migrate-from-cassandra-to-spanner
 title: Migrate from Cassandra to Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Migrate your data from Apache Cassandra to Spanner using the Spanner Cassandra Adapter and migration tools.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/bulk-loading
 uri: https://docs.cloud.google.com/spanner/docs/bulk-loading
 title: Bulk loading best practices
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Best practices for bulk loading large amounts of data into Spanner, including partitioning, commit sizing, and index management.
 data_source: docs.cloud.google.com
 ---
 

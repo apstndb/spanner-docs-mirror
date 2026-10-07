@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-operators-array-subqueries
 uri: https://docs.cloud.google.com/spanner/docs/query-operators-array-subqueries
 title: Array subqueries
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about array subqueries used in Spanner query plans.
 data_source: docs.cloud.google.com
 ---
 

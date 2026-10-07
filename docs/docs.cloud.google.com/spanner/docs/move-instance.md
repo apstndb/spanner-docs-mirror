@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/move-instance
 uri: https://docs.cloud.google.com/spanner/docs/move-instance
 title: Move an instance
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Move your Spanner instance to a different instance configuration (e.g., from regional to multi-region) with minimal downtime.
 data_source: docs.cloud.google.com
 ---
 

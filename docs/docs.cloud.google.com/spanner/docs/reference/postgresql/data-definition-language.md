@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language
 title: PostgreSQL data definition language
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn the DDL syntax for PostgreSQL in Spanner, including CREATE, ALTER, and DROP statements for database objects.
 data_source: docs.cloud.google.com
 ---
 

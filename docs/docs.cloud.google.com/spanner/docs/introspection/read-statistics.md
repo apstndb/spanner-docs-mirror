@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/read-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/read-statistics
 title: Read statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Analyze read statistics in Spanner to understand read patterns, performance, and potential optimization opportunities.
 data_source: docs.cloud.google.com
 ---
 

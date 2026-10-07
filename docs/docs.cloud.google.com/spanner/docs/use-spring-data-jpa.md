@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-spring-data-jpa
 uri: https://docs.cloud.google.com/spanner/docs/use-spring-data-jpa
 title: Integrate Spanner with Spring Data JPA (GoogleSQL dialect)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use Spring Data JPA with Spanner to build Java applications, using its ORM capabilities.
 data_source: docs.cloud.google.com
 ---
 

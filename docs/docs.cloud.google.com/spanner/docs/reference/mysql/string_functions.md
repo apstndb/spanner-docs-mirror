@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/mysql/string_functions
 uri: https://docs.cloud.google.com/spanner/docs/reference/mysql/string_functions
 title: String functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about MySQL string functions in Spanner, including BIT_LENGTH, CHAR, CONCAT_WS, HEX, and REGEXP_LIKE.
 data_source: docs.cloud.google.com
 ---
 

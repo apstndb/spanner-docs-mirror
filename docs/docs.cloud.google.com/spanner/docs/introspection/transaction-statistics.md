@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/transaction-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics
 title: Transaction statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Analyze transaction statistics in Spanner to understand transaction performance, latency, and lock contention.
 data_source: docs.cloud.google.com
 ---
 

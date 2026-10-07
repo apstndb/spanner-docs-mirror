@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/install-mysql-functions
 uri: https://docs.cloud.google.com/spanner/docs/install-mysql-functions
 title: Install MySQL user-defined functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Install a predefined library of MySQL UDFs in your Spanner database to extend its capabilities.
 data_source: docs.cloud.google.com
 ---
 

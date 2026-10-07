@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/shared-responsibility-model
 uri: https://docs.cloud.google.com/spanner/docs/shared-responsibility-model
 title: Spanner shared responsibility model
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the Spanner Shared Responsibility Model, outlining the division of security, compliance, and operational duties between {{dynamic_data.site_values.cloud_name}} and the customer.
 data_source: docs.cloud.google.com
 ---
 

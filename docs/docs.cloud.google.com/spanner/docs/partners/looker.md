@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/partners/looker
 uri: https://docs.cloud.google.com/spanner/docs/partners/looker
 title: Using Looker with Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect Spanner to Looker to build dashboards, perform data analysis, and gain insights from your Spanner data.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/ml-emulator
 uri: https://docs.cloud.google.com/spanner/docs/ml-emulator
 title: Generate ML predictions using the Spanner emulator
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the Spanner emulator to test and develop machine learning applications with the ML.PREDICT function locally.
 data_source: docs.cloud.google.com
 ---
 

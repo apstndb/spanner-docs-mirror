@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/create-manage-locality-groups
 uri: https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups
 title: Create and manage locality groups
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage locality groups in Spanner to control the physical storage layout of your data for performance optimization.
 data_source: docs.cloud.google.com
 ---
 

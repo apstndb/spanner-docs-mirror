@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/migration-tools
 uri: https://docs.cloud.google.com/spanner/docs/migration-tools
 title: Migration tools
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Discover tools for migrating to Spanner, including the Spanner migration tool, Datastream, and Dataflow.
 data_source: docs.cloud.google.com
 ---
 

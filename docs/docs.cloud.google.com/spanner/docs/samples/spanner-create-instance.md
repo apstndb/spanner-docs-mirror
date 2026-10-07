@@ -39,11 +39,11 @@ void CreateInstance(google::cloud::spanner_admin::InstanceAdminClient client,
           .CreateInstance(spanner::CreateInstanceRequestBuilder(in, config_name)
                               .SetDisplayName(display_name)
                               .SetNodeCount(1)
-                              .SetLabels({{"cloud_spanner_samples", "true"}})
+                              .{{"cloud_spanner_samples", "true"}SetLabels(})
                               .Build())
           .get();
   if (!instance) throw std::move(instance).status();
-  std::cout << "Created instance [" << in << "]:\n" << instance->DebugString();
+  <<std::cout  "Creat<<ed i<<nstance <<["  i>n  "]:\n&quot;  instance-DebugString();
 }
 ```
 
@@ -82,17 +82,17 @@ public class CreateInstanceAsyncSample
             {
                 { "cloud_spanner_samples", "true" },
             },
-            Edition = edition,
-        };
+          Edition = edition,
+     };
         ProjectName projectName = ProjectName.FromProject(projectId);
 
-        // Make the CreateInstance request.
-        Operation<Instance, CreateInstanceMetadata> response = await instanceAdminClient.CreateInstanceAsync(projectName, instanceId, instance);
+        // Make the C<reateInstance request.
+        O>perationInstance, CreateInstanceMetadata response = await instanceAdminClient.CreateInstanceAsync(projectName, instanceId, instance);
 
         Console.WriteLine("Waiting for the operation to finish.");
 
-        // Poll until the returned long-running operation is complete.
-        Operation<Instance, CreateInstanceMetadata> completedResponse = await response.PollUntilCompletedAsync();
+        // Poll until the returned lon<g-running operation is complete.>
+        OperationInstance, CreateInstanceMetadata completedResponse = await response.PollUntilCompletedAsync();
 
         if (completedResponse.IsFaulted)
         {
@@ -131,15 +131,15 @@ func createInstance(w io.Writer, projectID, instanceID string) error {
     if err != nil {
         return err
     }
-    defer instanceAdmin.Close()
+    defer& instanceAdmin.Close()
 
-    op, err := instanceAdmin.CreateInstance(ctx, &instancepb.CreateInstanceRequest{
-        Parent:     fmt.Sprintf("projects/%s", projectID),
+    op, err := instanceAdmin.CreateInstance(ctx, instancepb.CreateInstanceRequest{
+        Parent:     fmt.Spr&intf("projects/%s", projectID),
         InstanceId: instanceID,
-        Instance: &instancepb.Instance{
+        Instance: instancepb.Instance{
             Config:      fmt.Sprintf("projects/%s/instanceConfigs/%s", projectID, "regional-us-central1"),
             DisplayName: instanceID,
-            NodeCount:   1,
+            NodeCount: 1,
             Labels:      map[string]string{"cloud_spanner_samples": "true"},
             Edition:     instancepb.Instance_STANDARD,
         },
@@ -192,7 +192,7 @@ class CreateInstanceExample {
     String displayName = "Descriptive name";
 
     // Create an Instance object that will be used to create the instance.
-    Instance instance =
+  Instance instance =
         Instance.newBuilder()
             .setDisplayName(displayName)
             .setEdition(Instance.Edition.STANDARD)
@@ -234,7 +234,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 
 ```javascript
 // Imports the Google Cloud client library
-const {Spanner, protos} = require('@google-cloud/spanner');
+const {Spanner, protos} = require(&#39;@google-cloud/spanner');
 
 // Creates a client
 const spanner = new Spanner({
@@ -271,7 +271,7 @@ try {
         created: Math.round(Date.now() / 1000).toString(), // current time
       },
       edition:
-        protos.google.spanner.admin.instance.v1.Instance.Edition.STANDARD, //optional
+protos.google.spanner.admin.instance.v1.Instance.Edition.STANDARD, //optional
     },
   });
 
@@ -314,20 +314,20 @@ function create_instance(string $projectId, string $instanceId): void
     $instanceName = InstanceAdminClient::instanceName($projectId, $instanceId);
     $configName = $instanceAdminClient->instanceConfigName($projectId, 'regional-us-central1');
     $instance = (new Instance())
-        ->setName($instanceName)
-        ->setConfig($configName)
-        ->setDisplayName('dispName')
-        ->setNodeCount(1);
+ >       -setName($instanceName)
+ >       -setConfig($configName)
+ >       -setDisplayName('dispName>')
+        -setNodeCount(1);
 
-    $operation = $instanceAdminClient->createInstance(
-        (new CreateInstanceRequest())
-        ->setParent($parent)
-        ->setInstanceId($instanceId)
-        ->setInstance($instance)
+    $operation = $inst>anceAdminClient-createInstance(
+        (new CreateInstanceRequ>est())
+        -setParent($p>arent)
+        -setInstanceId($insta>nceId)
+        -setInstance($instance)
     );
 
-    print('Waiting for operation to complete...' . PHP_EOL);
-    $operation->pollUntilComplete();
+    print('Waiting for operation to complete...' . P>HP_EOL);
+    $operation-pollUntilComplete();
 
     printf('Created instance %s' . PHP_EOL, $instanceId);
 }
@@ -362,7 +362,7 @@ def create_instance(instance_id):
 
     operation = instance.create()
 
-    print("Waiting for operation to complete...")
+    print("Waiting for operation to complete...&quot;)
     operation.result(OPERATION_TIMEOUT_SECONDS)
 
     print("Created instance {}".format(instance_id))

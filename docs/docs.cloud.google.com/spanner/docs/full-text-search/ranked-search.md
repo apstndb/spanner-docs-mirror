@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/ranked-search
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search
 title: Rank search results
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Perform ranked full-text searches in Spanner to retrieve the most relevant results based on scoring functions.
 data_source: docs.cloud.google.com
 ---
 

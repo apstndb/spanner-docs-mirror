@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner
 uri: https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner
 title: Migrate from DynamoDB to Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Migrate your Amazon DynamoDB database to Spanner, including schema mapping, data migration, and application changes.
 data_source: docs.cloud.google.com
 ---
 

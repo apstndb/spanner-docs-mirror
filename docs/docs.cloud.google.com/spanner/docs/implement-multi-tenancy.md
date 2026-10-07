@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/implement-multi-tenancy
 uri: https://docs.cloud.google.com/spanner/docs/implement-multi-tenancy
 title: Implement multi-tenancy in Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Implement multi-tenancy in Spanner by exploring various data management patterns, including instance, database, table, and row-level isolation.
 data_source: docs.cloud.google.com
 ---
 

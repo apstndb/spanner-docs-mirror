@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/table-name-synonym
 uri: https://docs.cloud.google.com/spanner/docs/table-name-synonym
 title: Manage table names
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use table name synonyms in Spanner to provide alternative names for tables, simplifying queries or migrations.
 data_source: docs.cloud.google.com
 ---
 

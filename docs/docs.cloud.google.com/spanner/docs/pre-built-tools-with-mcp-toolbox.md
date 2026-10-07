@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pre-built-tools-with-mcp-toolbox
 uri: https://docs.cloud.google.com/spanner/docs/pre-built-tools-with-mcp-toolbox
 title: Use Spanner with MCP Toolbox for Databases, Gemini CLI, and other agents
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Utilize pre-built tools within the MCP toolbox to streamline your Spanner experience, including migration and management utilities.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/tokenization
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization
 title: Tokenization
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand tokenization in Spanner full-text search, including how text is broken down into tokens for indexing and querying.
 data_source: docs.cloud.google.com
 ---
 

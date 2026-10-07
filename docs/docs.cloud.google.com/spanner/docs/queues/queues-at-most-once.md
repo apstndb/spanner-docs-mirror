@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/queues/queues-at-most-once
 uri: https://docs.cloud.google.com/spanner/docs/queues/queues-at-most-once
 title: Exactly-once processing and at-most-once acknowledgment
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Implement design patterns to achieve exactly-once processing and handle at-most-once acknowledgment in Spanner queues.
 data_source: docs.cloud.google.com
 ---
 

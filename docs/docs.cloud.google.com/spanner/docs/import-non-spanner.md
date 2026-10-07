@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/import-non-spanner
 uri: https://docs.cloud.google.com/spanner/docs/import-non-spanner
 title: Import data from non-Spanner databases
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Import data into Spanner from databases other than Spanner using tools like Dataflow and Datastream.
 data_source: docs.cloud.google.com
 ---
 

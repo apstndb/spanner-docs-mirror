@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/transaction-timeout
 uri: https://docs.cloud.google.com/spanner/docs/transaction-timeout
 title: Configure transaction timeout
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Configure transaction timeouts in Spanner to prevent transactions from holding locks for too long, improving concurrency.
 data_source: docs.cloud.google.com
 ---
 

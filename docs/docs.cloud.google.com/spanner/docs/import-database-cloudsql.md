@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/import-database-cloudsql
 uri: https://docs.cloud.google.com/spanner/docs/import-database-cloudsql
 title: Import from Cloud SQL to Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Import data into Spanner from Cloud SQL using Dataflow for bulk data loading.
 data_source: docs.cloud.google.com
 ---
 

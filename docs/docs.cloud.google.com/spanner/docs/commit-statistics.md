@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/commit-statistics
 uri: https://docs.cloud.google.com/spanner/docs/commit-statistics
 title: Retrieve commit statistics for a transaction
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Retrieve commit statistics for your Spanner transactions to optimize performance and monitor for system limits.
 data_source: docs.cloud.google.com
 ---
 

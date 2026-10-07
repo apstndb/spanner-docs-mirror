@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/concepts/function-volatility
 uri: https://docs.cloud.google.com/spanner/docs/concepts/function-volatility
 title: Function volatility
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand function volatility categories (IMMUTABLE, STABLE, VOLATILE) in Spanner and how they affect query optimization and feature usage.
 data_source: docs.cloud.google.com
 ---
 

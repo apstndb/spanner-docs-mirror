@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/query-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/query-statistics
 title: Query statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Analyze query statistics in Spanner to identify frequently executed or high-latency queries for optimization.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-golang-database-sql
 uri: https://docs.cloud.google.com/spanner/docs/use-golang-database-sql
 title: Use the Spanner database/sql driver
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the Spanner database/sql driver to connect your Go applications to Spanner databases with a generic SQL interface.
 data_source: docs.cloud.google.com
 ---
 

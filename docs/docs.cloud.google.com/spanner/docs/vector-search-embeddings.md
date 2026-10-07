@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/vector-search-embeddings
 uri: https://docs.cloud.google.com/spanner/docs/vector-search-embeddings
 title: Export embeddings from Spanner to Agent Platform Vector Search
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Export embeddings from Spanner to Agent Platform to perform vector similarity searches on your data.
 data_source: docs.cloud.google.com
 ---
 

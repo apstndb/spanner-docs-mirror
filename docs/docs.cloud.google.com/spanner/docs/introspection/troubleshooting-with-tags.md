@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags
 uri: https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags
 title: Troubleshoot with request tags and transaction tags
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use transaction and query tags in Spanner to group and filter statistics for easier troubleshooting and analysis.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/transactions
 uri: https://docs.cloud.google.com/spanner/docs/transactions
 title: Transactions overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use transactions in Spanner for data consistency, including read-write, read-only, and partitioned DML transactions.
 data_source: docs.cloud.google.com
 ---
 

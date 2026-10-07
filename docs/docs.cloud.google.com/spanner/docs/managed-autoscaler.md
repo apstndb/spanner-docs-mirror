@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/managed-autoscaler
 uri: https://docs.cloud.google.com/spanner/docs/managed-autoscaler
 title: Managed autoscaler
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Automatically scale your Spanner instances with the managed autoscaler to optimize for cost and performance based on CPU or storage.
 data_source: docs.cloud.google.com
 ---
 

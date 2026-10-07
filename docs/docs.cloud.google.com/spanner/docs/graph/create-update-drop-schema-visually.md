@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema-visually
 uri: https://docs.cloud.google.com/spanner/docs/graph/create-update-drop-schema-visually
 title: Create and manage a Spanner Graph schema visually
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn how to visually design and build optimized graph schemas for Spanner Graph.
 data_source: docs.cloud.google.com
 ---
 

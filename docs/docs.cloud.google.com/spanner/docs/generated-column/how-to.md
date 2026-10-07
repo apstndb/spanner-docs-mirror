@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/generated-column/how-to
 uri: https://docs.cloud.google.com/spanner/docs/generated-column/how-to
 title: Create and manage generated columns
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create and manage generated columns in Spanner to simplify queries, improve performance, and enforce data integrity.
 data_source: docs.cloud.google.com
 ---
 

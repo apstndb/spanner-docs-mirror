@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/functions
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions
 title: Supported PostgreSQL functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Explore the supported PostgreSQL functions in Spanner, including mathematical, array, string, and date and time functions.
 data_source: docs.cloud.google.com
 ---
 

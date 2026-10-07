@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pgadapter-session-mgmt-commands
 uri: https://docs.cloud.google.com/spanner/docs/pgadapter-session-mgmt-commands
 title: PGAdapter session management commands
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage your Spanner connection state, execute transactions, and run statement batches using PGAdapter session management commands.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/set-up-tracing
 uri: https://docs.cloud.google.com/spanner/docs/set-up-tracing
 title: Set up trace collection using OpenTelemetry
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Set up client-side and end-to-end tracing for your Spanner applications using OpenTelemetry to capture and visualize observability metrics.
 data_source: docs.cloud.google.com
 ---
 

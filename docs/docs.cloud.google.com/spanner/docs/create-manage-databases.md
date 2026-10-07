@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/create-manage-databases
 uri: https://docs.cloud.google.com/spanner/docs/create-manage-databases
 title: Create and manage databases
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage Spanner databases using the {{dynamic_data.site_values.cloud_name_short}} console, Google Cloud CLI, client libraries, or REST APIs.
 data_source: docs.cloud.google.com
 ---
 

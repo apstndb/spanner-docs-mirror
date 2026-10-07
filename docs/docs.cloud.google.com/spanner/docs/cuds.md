@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/cuds
 uri: https://docs.cloud.google.com/spanner/docs/cuds
 title: Committed use discounts
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Reduce your Spanner costs by purchasing CUDs for predictable workloads.
 data_source: docs.cloud.google.com
 ---
 

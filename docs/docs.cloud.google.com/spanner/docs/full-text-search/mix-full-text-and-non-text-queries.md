@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/mix-full-text-and-non-text-queries
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/mix-full-text-and-non-text-queries
 title: Mix full-text and non-text queries
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Combine full-text search predicates with regular SQL filters in Spanner to build complex and efficient queries.
 data_source: docs.cloud.google.com
 ---
 

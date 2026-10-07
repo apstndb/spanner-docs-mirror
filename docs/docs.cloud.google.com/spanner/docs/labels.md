@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/labels
 uri: https://docs.cloud.google.com/spanner/docs/labels
 title: Organize instances and view costs using labels
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use {{dynamic_data.site_values.cloud_name}} labels to organize Spanner instances and see granular cost breakdown in billing reports.
 data_source: docs.cloud.google.com
 ---
 

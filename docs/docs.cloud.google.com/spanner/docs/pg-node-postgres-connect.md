@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pg-node-postgres-connect
 uri: https://docs.cloud.google.com/spanner/docs/pg-node-postgres-connect
 title: Connect node-postgres to a PostgreSQL-dialect database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect the node-postgres Node.js driver to a PostgreSQL-dialect database in Spanner using PGAdapter for seamless integration.
 data_source: docs.cloud.google.com
 ---
 

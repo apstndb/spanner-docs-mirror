@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pgadapter-emulator
 uri: https://docs.cloud.google.com/spanner/docs/pgadapter-emulator
 title: Connect PGAdapter to the emulator
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use PGAdapter with the Spanner emulator for local development and testing of applications using the PostgreSQL interface for Spanner.
 data_source: docs.cloud.google.com
 ---
 

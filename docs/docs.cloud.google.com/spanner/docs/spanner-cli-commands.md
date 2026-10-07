@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/spanner-cli-commands
 uri: https://docs.cloud.google.com/spanner/docs/spanner-cli-commands
 title: Spanner CLI commands
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: List and describe all Spanner CLI commands
 data_source: docs.cloud.google.com
 ---
 

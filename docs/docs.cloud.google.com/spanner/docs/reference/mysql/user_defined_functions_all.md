@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/mysql/user_defined_functions_all
 uri: https://docs.cloud.google.com/spanner/docs/reference/mysql/user_defined_functions_all
 title: MySQL functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Explore the comprehensive list of MySQL user-defined functions available in Spanner for GoogleSQL, including string, date, time, and utility functions.
 data_source: docs.cloud.google.com
 ---
 

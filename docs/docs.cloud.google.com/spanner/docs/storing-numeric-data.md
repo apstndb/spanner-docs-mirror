@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/storing-numeric-data
 uri: https://docs.cloud.google.com/spanner/docs/storing-numeric-data
 title: Store arbitrary precision numeric data
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Store types of numeric data in Spanner, including integers, floating-point numbers, and the NUMERIC type.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pg-pgx-connect
 uri: https://docs.cloud.google.com/spanner/docs/pg-pgx-connect
 title: Connect pgx to a PostgreSQL-dialect database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect to Spanner PostgreSQL-dialect databases from Go applications using the pgx driver and PGAdapter.
 data_source: docs.cloud.google.com
 ---
 

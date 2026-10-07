@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/substring-search
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search
 title: Perform a substring search
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Implement substring search in Spanner using full-text search features or other SQL techniques for flexible pattern matching.
 data_source: docs.cloud.google.com
 ---
 

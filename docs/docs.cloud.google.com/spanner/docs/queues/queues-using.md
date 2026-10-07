@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/queues/queues-using
 uri: https://docs.cloud.google.com/spanner/docs/queues/queues-using
 title: Use Spanner queues
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create and manage Spanner queues, send and receive messages, extend message leases, and acknowledge messages.
 data_source: docs.cloud.google.com
 ---
 

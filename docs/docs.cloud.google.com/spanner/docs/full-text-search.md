@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search
 title: Full-text search overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Implement full-text search in Spanner to perform token-based queries on text data, with features like ranking and tokenization.
 data_source: docs.cloud.google.com
 ---
 

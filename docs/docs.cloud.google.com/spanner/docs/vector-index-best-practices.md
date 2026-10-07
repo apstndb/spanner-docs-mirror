@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/vector-index-best-practices
 uri: https://docs.cloud.google.com/spanner/docs/vector-index-best-practices
 title: Vector indexing best practices
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Best practices for querying vector indexes in in Spanner to optimize vector similarity search performance.
 data_source: docs.cloud.google.com
 ---
 

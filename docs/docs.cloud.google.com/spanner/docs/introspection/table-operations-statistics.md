@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics
 title: Table operations statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Analyze table-level operation statistics in Spanner to understand usage patterns and identify hot tables.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/working-with-json
 uri: https://docs.cloud.google.com/spanner/docs/working-with-json
 title: Work with JSON data
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Work with the JSON data type in Spanner, including creating tables, modifying data, and using indexes for efficient querying.
 data_source: docs.cloud.google.com
 ---
 

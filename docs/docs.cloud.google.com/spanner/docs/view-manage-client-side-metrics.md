@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics
 uri: https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics
 title: View and manage client-side metrics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage client-side metrics for your Spanner applications to gain insights into performance and behavior.
 data_source: docs.cloud.google.com
 ---
 

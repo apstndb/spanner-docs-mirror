@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/leader-aware-routing
 uri: https://docs.cloud.google.com/spanner/docs/leader-aware-routing
 title: Leader-aware routing
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use leader-aware routing in Spanner to direct write requests and strong read requests to the leader replica, reducing latency.
 data_source: docs.cloud.google.com
 ---
 

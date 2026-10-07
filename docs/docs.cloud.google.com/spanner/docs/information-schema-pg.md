@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/information-schema-pg
 uri: https://docs.cloud.google.com/spanner/docs/information-schema-pg
 title: Information schema for PostgreSQL-dialect databases
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Query the information_schema and spanner_sys schemas in Spanner PostgreSQL-dialect databases to retrieve database metadata.
 data_source: docs.cloud.google.com
 ---
 

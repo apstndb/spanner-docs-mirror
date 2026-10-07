@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke
 uri: https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-gke
 title: Deploy the Autoscaler tool to GKE
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Deploy the Autoscaler tool for Spanner to GKE to self-manage infrastructure and configuration for autoscaling your instances.
 data_source: docs.cloud.google.com
 ---
 

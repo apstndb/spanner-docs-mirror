@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/migrating-mysql-to-spanner
 uri: https://docs.cloud.google.com/spanner/docs/migrating-mysql-to-spanner
 title: Migrate from MySQL to Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Migrate your MySQL database to Spanner, including schema and data migration, using tools like HarbourBridge and Dataflow.
 data_source: docs.cloud.google.com
 ---
 

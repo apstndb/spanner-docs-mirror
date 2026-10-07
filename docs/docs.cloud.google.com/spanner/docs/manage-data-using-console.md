@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/manage-data-using-console
 uri: https://docs.cloud.google.com/spanner/docs/manage-data-using-console
 title: Manage your data using the Google Cloud console
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Insert, edit, and delete data in your Spanner tables using the data manipulation tools within the {{dynamic_data.site_values.cloud_name_short}} console.
 data_source: docs.cloud.google.com
 ---
 

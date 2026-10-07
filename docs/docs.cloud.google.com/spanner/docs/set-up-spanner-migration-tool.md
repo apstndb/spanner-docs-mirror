@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/set-up-spanner-migration-tool
 uri: https://docs.cloud.google.com/spanner/docs/set-up-spanner-migration-tool
 title: Set up Spanner migration tool
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Set up and configure the Spanner Migration Tool to migrate from other databases to Spanner.
 data_source: docs.cloud.google.com
 ---
 

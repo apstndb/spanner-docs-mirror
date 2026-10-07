@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/schema-migration
 uri: https://docs.cloud.google.com/spanner/docs/schema-migration
 title: Migrate your schema
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Migrate your database schema to Spanner from other databases like MySQL, PostgreSQL, or Oracle, considering data types and features.
 data_source: docs.cloud.google.com
 ---
 

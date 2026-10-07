@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-optimizer/version-statistics
 uri: https://docs.cloud.google.com/spanner/docs/query-optimizer/version-statistics
 title: List query optimizer versions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: View statistics about query optimizer version usage in your Spanner database to track adoption and performance.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/fgac-queues
 uri: https://docs.cloud.google.com/spanner/docs/fgac-queues
 title: Fine-grained access control for queues
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Control access to Spanner queues using FGAC, granting privileges on queues and table-valued functions.
 data_source: docs.cloud.google.com
 ---
 

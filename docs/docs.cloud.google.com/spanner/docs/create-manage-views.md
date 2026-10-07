@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/create-manage-views
 uri: https://docs.cloud.google.com/spanner/docs/create-manage-views
 title: Create and manage views
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage logical views in Spanner to simplify complex queries, encapsulate logic, and enhance data security.
 data_source: docs.cloud.google.com
 ---
 

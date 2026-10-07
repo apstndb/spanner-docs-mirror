@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-oss-jdbc
 uri: https://docs.cloud.google.com/spanner/docs/use-oss-jdbc
 title: Connect JDBC to a GoogleSQL-dialect database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect Java applications to Spanner PostgreSQL-dialect databases using the open-source PostgreSQL JDBC driver in conjunction with PGAdapter.
 data_source: docs.cloud.google.com
 ---
 

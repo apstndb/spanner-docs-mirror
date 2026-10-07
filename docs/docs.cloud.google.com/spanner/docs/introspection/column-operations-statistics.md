@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics
 title: Column operations statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Analyze column-level operation statistics in Spanner to understand data access patterns and optimize schema.
 data_source: docs.cloud.google.com
 ---
 

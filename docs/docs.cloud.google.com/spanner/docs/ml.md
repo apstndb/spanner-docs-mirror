@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/ml
 uri: https://docs.cloud.google.com/spanner/docs/ml
 title: Spanner Agent Platform integration overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use Spanner ML to run predictions directly from SQL queries, integrating with Gemini Enterprise Agent Platform.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/optimize-schema-performance
 uri: https://docs.cloud.google.com/spanner/docs/optimize-schema-performance
 title: Test and tune your schema and application performance
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Optimize Spanner schema design for performance by following best practices for primary keys, indexing, interleaving, and data types.
 data_source: docs.cloud.google.com
 ---
 

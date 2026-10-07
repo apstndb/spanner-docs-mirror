@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry
 uri: https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry
 title: Capture custom client-side metrics using OpenTelemetry
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Capture and export custom Spanner client-side metrics using OpenTelemetry to monitor application performance and behavior.
 data_source: docs.cloud.google.com
 ---
 

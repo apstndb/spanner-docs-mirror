@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors
 uri: https://docs.cloud.google.com/spanner/docs/find-approximate-nearest-neighbors
 title: Find approximate nearest neighbors (ANN) and query vector embeddings
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Perform ANN searches on vector embeddings in Spanner using vector indexes for fast similarity search.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter
 uri: https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter
 title: Connect to Spanner using the Cassandra Adapter
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect to Spanner from applications using the Cassandra Query Language (CQL) with the Spanner Cassandra Adapter.
 data_source: docs.cloud.google.com
 ---
 

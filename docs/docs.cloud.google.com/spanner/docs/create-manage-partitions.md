@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/create-manage-partitions
 uri: https://docs.cloud.google.com/spanner/docs/create-manage-partitions
 title: Create and manage instance partitions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage Spanner instance partitions to store data and process queries in specific regions.
 data_source: docs.cloud.google.com
 ---
 

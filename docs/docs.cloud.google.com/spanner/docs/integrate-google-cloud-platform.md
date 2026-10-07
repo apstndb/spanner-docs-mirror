@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/integrate-google-cloud-platform
 uri: https://docs.cloud.google.com/spanner/docs/integrate-google-cloud-platform
 title: Connect to Spanner from other Google Cloud services
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Integrate Spanner with other {{dynamic_data.site_values.cloud_name}} services like Dataflow, BigQuery, Pub/Sub, and Agent Platform.
 data_source: docs.cloud.google.com
 ---
 

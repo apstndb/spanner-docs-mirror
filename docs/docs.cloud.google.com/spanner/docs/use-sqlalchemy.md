@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-sqlalchemy
 uri: https://docs.cloud.google.com/spanner/docs/use-sqlalchemy
 title: Integrate Spanner with SQLAlchemy ORM (GoogleSQL dialect)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use SQLAlchemy, a Python SQL toolkit and ORM, to interact with Spanner GoogleSQL dialect databases.
 data_source: docs.cloud.google.com
 ---
 

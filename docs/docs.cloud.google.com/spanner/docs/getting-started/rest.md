@@ -25,6 +25,17 @@ This tutorial uses Spanner, which is a billable component of the Google Cloud. F
 
 ## Before you begin
 
+1.  In the Google Cloud console, on the project selector page, select or create a Google Cloud project.
+
+    **Roles required to select or create a project**
+
+    - **Select a project** : Selecting a project doesn't require a specific IAM role—you can select any project that you've been granted a role on.
+    - **Create a project** : To create a project, you need the Project Creator role ( `roles/resourcemanager.projectCreator` ), which contains the `resourcemanager.projects.create` permission. [Learn how to grant roles](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
+
+    > **Note** : If you don't plan to keep the resources that you create in this procedure, create a project instead of selecting an existing project. After you finish these steps, you can delete the project, removing all resources associated with the project.
+
+2.  [Verify that billing is enabled for your Google Cloud project](https://docs.cloud.google.com/billing/docs/how-to/verify-billing-enabled#confirm_billing_is_enabled_on_a_project) .
+
 ## Ways to make REST calls
 
 You can make Spanner REST calls using:

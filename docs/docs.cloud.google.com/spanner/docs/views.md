@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/views
 uri: https://docs.cloud.google.com/spanner/docs/views
 title: Views overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about invoker's rights and definer's rights views, their benefits, use cases, and limitations.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-operators-scalar-subqueries
 uri: https://docs.cloud.google.com/spanner/docs/query-operators-scalar-subqueries
 title: Scalar subqueries
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about scalar subqueries used in Spanner query plans.
 data_source: docs.cloud.google.com
 ---
 

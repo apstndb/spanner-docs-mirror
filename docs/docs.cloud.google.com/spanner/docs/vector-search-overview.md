@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/vector-search-overview
 uri: https://docs.cloud.google.com/spanner/docs/vector-search-overview
 title: Spanner vector search overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Spanner vector search is a high-performance, built-in capability that enables semantic search and similarity matching on high-dimensional vector data.
 data_source: docs.cloud.google.com
 ---
 

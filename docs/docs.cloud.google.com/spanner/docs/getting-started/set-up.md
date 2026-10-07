@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/getting-started/set-up
 uri: https://docs.cloud.google.com/spanner/docs/getting-started/set-up
 title: Set up your environment
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Set up your {{dynamic_data.site_values.cloud_name}} project and environment to start using Spanner, including enabling APIs and configuring authentication.
 data_source: docs.cloud.google.com
 ---
 

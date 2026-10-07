@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/drivers-overview
 uri: https://docs.cloud.google.com/spanner/docs/drivers-overview
 title: Overview of drivers
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Overview of drivers and client libraries available for connecting to Spanner from different programming languages.
 data_source: docs.cloud.google.com
 ---
 

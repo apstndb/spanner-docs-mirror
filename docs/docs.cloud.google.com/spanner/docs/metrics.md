@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/metrics
 uri: https://docs.cloud.google.com/spanner/docs/metrics
 title: Metrics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Explore the Spanner metrics available in Cloud Monitoring to monitor and debug your database performance.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/import-export-overview
 uri: https://docs.cloud.google.com/spanner/docs/import-export-overview
 title: Spanner import and export overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Overview of importing and exporting data in Spanner, including use cases, comparisons to backup and restore, and file format options.
 data_source: docs.cloud.google.com
 ---
 

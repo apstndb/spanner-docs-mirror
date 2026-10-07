@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/django-orm
 uri: https://docs.cloud.google.com/spanner/docs/django-orm
 title: Django ORM with Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the Django ORM with Spanner to build Python applications.
 data_source: docs.cloud.google.com
 ---
 

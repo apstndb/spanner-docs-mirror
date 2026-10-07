@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/arrays
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays
 title: Work with arrays in PostgreSQL-dialect databases
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn how to declare, input, access, modify, and search for values in arrays within Spanner's PostgreSQL interface for Spanner.
 data_source: docs.cloud.google.com
 ---
 

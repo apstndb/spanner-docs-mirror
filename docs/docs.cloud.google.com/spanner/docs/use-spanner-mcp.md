@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-spanner-mcp
 uri: https://docs.cloud.google.com/spanner/docs/use-spanner-mcp
 title: Use the Spanner remote MCP server
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn how to use the Spanner remote MCP server to provision resources, create databases, and populate sample data.
 data_source: docs.cloud.google.com
 ---
 

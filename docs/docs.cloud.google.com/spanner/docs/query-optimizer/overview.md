@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-optimizer/overview
 uri: https://docs.cloud.google.com/spanner/docs/query-optimizer/overview
 title: Query optimizer overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand how the Spanner query optimizer works, including its role in generating efficient query execution plans.
 data_source: docs.cloud.google.com
 ---
 

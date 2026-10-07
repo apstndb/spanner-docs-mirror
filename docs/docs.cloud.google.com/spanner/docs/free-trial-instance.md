@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/free-trial-instance
 uri: https://docs.cloud.google.com/spanner/docs/free-trial-instance
 title: Spanner free trial instances overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create a Spanner free trial instance to explore features and develop applications without cost.
 data_source: docs.cloud.google.com
 ---
 

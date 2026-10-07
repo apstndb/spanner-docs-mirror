@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/lexical
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical
 title: PostgreSQL lexical structure and syntax
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand the lexical structure and syntax of PostgreSQL in Spanner, including identifiers, literals, and comments.
 data_source: docs.cloud.google.com
 ---
 

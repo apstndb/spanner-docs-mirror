@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/mysql/encryption_compression_functions
 uri: https://docs.cloud.google.com/spanner/docs/reference/mysql/encryption_compression_functions
 title: Encryption and compression MySQL functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand Spanner's SHA2 MySQL function. Calculate SHA-2 checksums for BYTES values with specified hash lengths.
 data_source: docs.cloud.google.com
 ---
 

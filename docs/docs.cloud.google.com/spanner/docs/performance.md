@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/performance
 uri: https://docs.cloud.google.com/spanner/docs/performance
 title: Performance overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Optimize Spanner performance, covering schema design, query optimization, indexing, and monitoring best practices.
 data_source: docs.cloud.google.com
 ---
 

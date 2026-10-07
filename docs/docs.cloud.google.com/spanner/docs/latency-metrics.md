@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/latency-metrics
 uri: https://docs.cloud.google.com/spanner/docs/latency-metrics
 title: Use metrics to diagnose latency
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Monitor and analyze Spanner latency metrics for reads, writes, and transactions to identify and troubleshoot performance issues.
 data_source: docs.cloud.google.com
 ---
 

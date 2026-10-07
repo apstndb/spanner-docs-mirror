@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/capture-custom-metrics-opencensus
 uri: https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opencensus
 title: Capture custom client-side metrics using OpenCensus
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Capture and export custom Spanner client-side metrics using OpenCensus to monitor application performance and behavior.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/ml-tutorial-generative-ai
 uri: https://docs.cloud.google.com/spanner/docs/ml-tutorial-generative-ai
 title: Use Generative AI to get personalized recommendations in an ecommerce application
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Build generative AI applications with Spanner and Gemini Enterprise Agent Platform to perform tasks like text generation, summarization, and translation.
 data_source: docs.cloud.google.com
 ---
 

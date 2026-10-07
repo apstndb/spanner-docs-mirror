@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/find-hotspots-in-database
 uri: https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database
 title: Find hotspots in your database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the Hotspot insights dashboard to find and manage database hotspots, reduce latency and high CPU usage, and improve overall database performance.
 data_source: docs.cloud.google.com
 ---
 

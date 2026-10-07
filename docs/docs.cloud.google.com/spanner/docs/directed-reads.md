@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/directed-reads
 uri: https://docs.cloud.google.com/spanner/docs/directed-reads
 title: Directed reads
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use directed reads in Spanner to improve read latency by specifying which replicas should serve the read request.
 data_source: docs.cloud.google.com
 ---
 

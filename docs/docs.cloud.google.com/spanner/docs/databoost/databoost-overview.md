@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/databoost/databoost-overview
 uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview
 title: Data Boost overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Get an overview of Spanner Spanner Data Boost, enabling fast, serverless offline access to your Spanner data.
 data_source: docs.cloud.google.com
 ---
 

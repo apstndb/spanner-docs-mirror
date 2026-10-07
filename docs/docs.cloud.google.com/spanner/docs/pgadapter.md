@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pgadapter
 uri: https://docs.cloud.google.com/spanner/docs/pgadapter
 title: PGAdapter overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use PGAdapter as a sidecar proxy to connect PostgreSQL drivers and ORMs to Spanner with minimal latency.
 data_source: docs.cloud.google.com
 ---
 

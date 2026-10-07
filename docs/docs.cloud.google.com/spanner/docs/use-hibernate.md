@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-hibernate
 uri: https://docs.cloud.google.com/spanner/docs/use-hibernate
 title: Integrate Spanner with Hibernate ORM (GoogleSQL dialect)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use Hibernate ORM with the Spanner GoogleSQL dialect to build Java applications that interact with your database.
 data_source: docs.cloud.google.com
 ---
 

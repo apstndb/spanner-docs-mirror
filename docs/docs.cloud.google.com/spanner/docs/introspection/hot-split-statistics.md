@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics
 title: Split statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Identify hot splits in your Spanner database using introspection tools to address potential performance bottlenecks.
 data_source: docs.cloud.google.com
 ---
 

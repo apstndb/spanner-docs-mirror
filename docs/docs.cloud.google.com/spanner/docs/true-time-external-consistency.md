@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/true-time-external-consistency
 uri: https://docs.cloud.google.com/spanner/docs/true-time-external-consistency
 title: 'Spanner: TrueTime and external consistency'
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand Spanner's TrueTime and external consistency, ensuring globally consistent reads and writes across the distributed database.
 data_source: docs.cloud.google.com
 ---
 

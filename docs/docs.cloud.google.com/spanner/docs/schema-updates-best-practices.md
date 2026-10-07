@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/schema-updates-best-practices
 uri: https://docs.cloud.google.com/spanner/docs/schema-updates-best-practices
 title: Schema update best practices
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about best practices for performing schema updates in Spanner, including managing update frequency, batching DDL statements, handling large updates, and considerations for bulk loading.
 data_source: docs.cloud.google.com
 ---
 

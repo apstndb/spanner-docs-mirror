@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions
 uri: https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions
 title: Client-side metrics descriptions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Detailed descriptions of the client-side metrics available for Spanner applications
 data_source: docs.cloud.google.com
 ---
 

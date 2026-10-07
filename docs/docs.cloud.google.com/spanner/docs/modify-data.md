@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/modify-data
 uri: https://docs.cloud.google.com/spanner/docs/modify-data
 title: Insert and modify data using the Google Cloud console
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Modify data in Spanner using DML, mutations, the {{dynamic_data.site_values.cloud_name_short}} console, or the Google Cloud CLI for inserts, updates, and deletes.
 data_source: docs.cloud.google.com
 ---
 

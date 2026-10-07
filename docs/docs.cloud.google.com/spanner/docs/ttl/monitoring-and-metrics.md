@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/ttl/monitoring-and-metrics
 uri: https://docs.cloud.google.com/spanner/docs/ttl/monitoring-and-metrics
 title: TTL metrics and monitoring
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Monitor Spanner Time to Live (TTL) activity and performance using metrics in Cloud Monitoring and system tables.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/vector-indexes
 uri: https://docs.cloud.google.com/spanner/docs/vector-indexes
 title: Create and manage vector indexes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use vector indexes in Spanner to accelerate ANN searches on vector embeddings.
 data_source: docs.cloud.google.com
 ---
 

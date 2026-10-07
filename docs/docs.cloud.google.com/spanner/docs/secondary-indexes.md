@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/secondary-indexes
 uri: https://docs.cloud.google.com/spanner/docs/secondary-indexes
 title: Secondary indexes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use secondary indexes in Spanner to improve query performance and efficiency.
 data_source: docs.cloud.google.com
 ---
 

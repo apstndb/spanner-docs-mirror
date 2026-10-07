@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/backup/restore-backup-overview
 uri: https://docs.cloud.google.com/spanner/docs/backup/restore-backup-overview
 title: Restore overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Overview of restoring a Spanner database from a backup, including permissions, restore process, and viewing restored databases.
 data_source: docs.cloud.google.com
 ---
 

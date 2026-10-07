@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/mysql/json_functions
 uri: https://docs.cloud.google.com/spanner/docs/reference/mysql/json_functions
 title: JSON MySQL functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the JSON MySQL functions in Spanner, including JSON_QUOTE and JSON_UNQUOTE, for working with JSON data.
 data_source: docs.cloud.google.com
 ---
 

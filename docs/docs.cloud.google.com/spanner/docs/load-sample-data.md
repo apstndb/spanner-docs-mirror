@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/load-sample-data
 uri: https://docs.cloud.google.com/spanner/docs/load-sample-data
 title: Load sample data
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Load sample datasets into your Spanner database to explore features and test application integrations.
 data_source: docs.cloud.google.com
 ---
 

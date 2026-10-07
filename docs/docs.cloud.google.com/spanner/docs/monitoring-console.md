@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/monitoring-console
 uri: https://docs.cloud.google.com/spanner/docs/monitoring-console
 title: Monitor instances with system insights
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Monitor Spanner instances and databases using the system insights dashboard to view charts and metrics for latency, CPU utilization, and storage.
 data_source: docs.cloud.google.com
 ---
 

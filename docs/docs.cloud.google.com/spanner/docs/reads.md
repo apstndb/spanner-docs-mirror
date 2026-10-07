@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reads
 uri: https://docs.cloud.google.com/spanner/docs/reads
 title: Reads outside of transactions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Read data from Spanner using strong reads, stale reads, or exact timestamp reads to balance performance and data freshness.
 data_source: docs.cloud.google.com
 ---
 

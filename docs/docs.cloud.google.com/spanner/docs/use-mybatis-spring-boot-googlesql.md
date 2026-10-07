@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-googlesql
 uri: https://docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-googlesql
 title: Integrate Spanner with MyBatis and Spring Boot (GoogleSQL)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Integrate Spanner GoogleSQL dialect databases with your Spring Boot application using MyBatis.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes
 title: Numeric search indexes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create search indexes on numeric data in Spanner to perform efficient range queries and other numeric comparisons.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/spanner-ai-overview
 uri: https://docs.cloud.google.com/spanner/docs/spanner-ai-overview
 title: Spanner AI overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Build generative AI applications with Spanner. Use vector search, GraphRAG, and LangChain for advanced AI integration.
 data_source: docs.cloud.google.com
 ---
 

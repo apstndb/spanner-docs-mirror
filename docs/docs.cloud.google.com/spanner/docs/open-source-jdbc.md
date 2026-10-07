@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/open-source-jdbc
 uri: https://docs.cloud.google.com/spanner/docs/open-source-jdbc
 title: Spanner JDBC driver
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect to Spanner using the open source PostgreSQL JDBC driver with PGAdapter for PostgreSQL interface for Spanner databases.
 data_source: docs.cloud.google.com
 ---
 

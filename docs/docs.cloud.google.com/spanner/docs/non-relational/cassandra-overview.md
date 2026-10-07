@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview
 uri: https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview
 title: Cassandra interface
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Overview of using the Spanner Cassandra Adapter to interact with Spanner using Cassandra APIs and data models.
 data_source: docs.cloud.google.com
 ---
 

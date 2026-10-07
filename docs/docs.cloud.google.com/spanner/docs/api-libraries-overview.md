@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/api-libraries-overview
 uri: https://docs.cloud.google.com/spanner/docs/api-libraries-overview
 title: Overview of APIs, client libraries, and ORM drivers
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Choose from Spanner client libraries, ORM drivers, RPC, or REST APIs. Compare interfaces and review feature support before you start.
 data_source: docs.cloud.google.com
 ---
 

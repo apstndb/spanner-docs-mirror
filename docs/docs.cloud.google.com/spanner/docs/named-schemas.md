@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/named-schemas
 uri: https://docs.cloud.google.com/spanner/docs/named-schemas
 title: Create and manage named schemas
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use named schemas in Spanner to organize database objects like tables and views, providing better structure and isolation.
 data_source: docs.cloud.google.com
 ---
 

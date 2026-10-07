@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/code-example-syntax
 uri: https://docs.cloud.google.com/spanner/docs/code-example-syntax
 title: SQL syntax quick reference
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use this document as a quick reference for SQL syntax in Spanner code examples.
 data_source: docs.cloud.google.com
 ---
 

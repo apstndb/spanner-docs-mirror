@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/migrating-primary-keys
 uri: https://docs.cloud.google.com/spanner/docs/migrating-primary-keys
 title: Migrate primary keys
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand strategies for migrating primary keys when moving your database to Spanner.
 data_source: docs.cloud.google.com
 ---
 

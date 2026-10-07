@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/adding-spring
 uri: https://docs.cloud.google.com/spanner/docs/adding-spring
 title: Integrate Spanner with Spring Data
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Add Spring Framework support to your Java application to interact with Spanner, using features like Spring Data.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/troubleshoot-vector-search
 uri: https://docs.cloud.google.com/spanner/docs/troubleshoot-vector-search
 title: Troubleshoot Spanner vector search
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Troubleshoot issues in Spanner vector search.
 data_source: docs.cloud.google.com
 ---
 

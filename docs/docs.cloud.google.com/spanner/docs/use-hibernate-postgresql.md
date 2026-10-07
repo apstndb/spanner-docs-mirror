@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-hibernate-postgresql
 uri: https://docs.cloud.google.com/spanner/docs/use-hibernate-postgresql
 title: Integrate Spanner with Hibernate ORM (PostgreSQL dialect)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use Hibernate ORM with the Spanner PostgreSQL interface for Spanner by using the Spanner JDBC driver.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/create-manage-split-points
 uri: https://docs.cloud.google.com/spanner/docs/create-manage-split-points
 title: Create and manage split points
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage split points in your Spanner database to pre-split your data and prepare for increased traffic.
 data_source: docs.cloud.google.com
 ---
 

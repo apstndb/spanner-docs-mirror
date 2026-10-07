@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/instances
 uri: https://docs.cloud.google.com/spanner/docs/instances
 title: Instances overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand Spanner instances and how to configure them for your needs.
 data_source: docs.cloud.google.com
 ---
 

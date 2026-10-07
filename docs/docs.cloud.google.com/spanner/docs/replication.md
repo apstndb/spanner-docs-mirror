@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/replication
 uri: https://docs.cloud.google.com/spanner/docs/replication
 title: Replication
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand how Spanner replicates data across multiple zones and regions to provide high availability, durability, and global consistency.
 data_source: docs.cloud.google.com
 ---
 

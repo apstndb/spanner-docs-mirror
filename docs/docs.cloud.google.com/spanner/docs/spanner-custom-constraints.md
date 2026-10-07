@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/spanner-custom-constraints
 uri: https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints
 title: Add a custom organization policy
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Enforce data integrity in Spanner by creating and managing custom CHECK constraints using boolean expressions on column values.
 data_source: docs.cloud.google.com
 ---
 

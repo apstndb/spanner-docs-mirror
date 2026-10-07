@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/postgresql-interface
 uri: https://docs.cloud.google.com/spanner/docs/postgresql-interface
 title: PostgreSQL interface
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the Spanner PostgreSQL interface for Spanner to interact with your database using standard PostgreSQL tools and drivers.
 data_source: docs.cloud.google.com
 ---
 

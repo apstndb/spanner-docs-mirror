@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/fgac-system-roles
 uri: https://docs.cloud.google.com/spanner/docs/fgac-system-roles
 title: Fine-grained access control system roles
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the predefined system roles in Spanner's fine-grained access control, including public, spanner_info_reader, and spanner_sys_reader.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/autoscaling-overview
 uri: https://docs.cloud.google.com/spanner/docs/autoscaling-overview
 title: Autoscaling overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Automatically scale Spanner compute capacity in response to workload changes.
 data_source: docs.cloud.google.com
 ---
 

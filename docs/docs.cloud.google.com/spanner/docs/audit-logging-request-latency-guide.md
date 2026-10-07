@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/audit-logging-request-latency-guide
 uri: https://docs.cloud.google.com/spanner/docs/audit-logging-request-latency-guide
 title: Calculate Spanner streaming and partition request latency
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Analyze Spanner operation latency with audit logs to troubleshoot performance delays.
 data_source: docs.cloud.google.com
 ---
 

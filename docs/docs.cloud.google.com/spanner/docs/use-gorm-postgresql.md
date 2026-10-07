@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-gorm-postgresql
 uri: https://docs.cloud.google.com/spanner/docs/use-gorm-postgresql
 title: Integrate Spanner with GORM (PostgreSQL dialect)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the GORM with the Spanner PostgreSQL dialect to interact with your database in Go applications.
 data_source: docs.cloud.google.com
 ---
 

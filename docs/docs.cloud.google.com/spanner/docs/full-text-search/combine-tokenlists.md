@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/combine-tokenlists
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/combine-tokenlists
 title: Combine TOKENLISTs
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Combine multiple TOKENLISTs in Spanner full-text search to query across different tokenized columns or expressions.
 data_source: docs.cloud.google.com
 ---
 

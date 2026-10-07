@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/mysql-configure-fallback
 uri: https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback
 title: Configure fallback for MySQL
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Set up cutover and fallback for MySQL using reverse replication. Replicate data from Spanner to your source MySQL database with Dataflow for minimum disruption.
 data_source: docs.cloud.google.com
 ---
 

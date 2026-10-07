@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection
 uri: https://docs.cloud.google.com/spanner/docs/introspection
 title: Spanner built-in statistics tables overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use introspection tools and system tables in Spanner to monitor and diagnose database performance and health.
 data_source: docs.cloud.google.com
 ---
 

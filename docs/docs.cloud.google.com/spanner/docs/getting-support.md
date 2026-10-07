@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/getting-support
 uri: https://docs.cloud.google.com/spanner/docs/getting-support
 title: Get support
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Get support for Spanner, including Google support packages, discussion forums, and filing bug reports.
 data_source: docs.cloud.google.com
 ---
 

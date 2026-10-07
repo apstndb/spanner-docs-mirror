@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/dml-tasks
 uri: https://docs.cloud.google.com/spanner/docs/dml-tasks
 title: Insert, update, and delete data using data manipulation language (DML)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage data in Spanner using DML statements with client libraries, the {{dynamic_data.site_values.cloud_name_short}} console, and Google Cloud CLI.
 data_source: docs.cloud.google.com
 ---
 

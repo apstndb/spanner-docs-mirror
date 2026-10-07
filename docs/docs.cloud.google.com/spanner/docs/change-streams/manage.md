@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/change-streams/manage
 uri: https://docs.cloud.google.com/spanner/docs/change-streams/manage
 title: Create and manage change streams
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: 'Manage Spanner change streams: create, alter, delete, and monitor change streams to track data modifications in your database.'
 data_source: docs.cloud.google.com
 ---
 

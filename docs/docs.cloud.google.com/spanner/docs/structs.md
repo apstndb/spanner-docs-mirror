@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/structs
 uri: https://docs.cloud.google.com/spanner/docs/structs
 title: Working with STRUCT objects
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Work with the STRUCT data type in Spanner to group related data of different types within a single column for complex data models.
 data_source: docs.cloud.google.com
 ---
 

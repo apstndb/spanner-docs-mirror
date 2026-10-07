@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/information-schema
 uri: https://docs.cloud.google.com/spanner/docs/information-schema
 title: Information schema for GoogleSQL-dialect databases
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Query the INFORMATION_SCHEMA in Spanner using SQL to retrieve database schema metadata, including tables, columns, and constraints.
 data_source: docs.cloud.google.com
 ---
 

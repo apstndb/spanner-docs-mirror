@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/modifying-leader-region
 uri: https://docs.cloud.google.com/spanner/docs/modifying-leader-region
 title: Modify the leader region of a database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Modify the leader region for your Spanner multi-region instance configuration to optimize write latency and control data locality.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/instance-configurations
 uri: https://docs.cloud.google.com/spanner/docs/instance-configurations
 title: Regional, dual-region, and multi-region configurations
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Choose the appropriate Spanner instance configuration (regional, multi-region, dual-region) to meet your application's latency and availability needs.
 data_source: docs.cloud.google.com
 ---
 

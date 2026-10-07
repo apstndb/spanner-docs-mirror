@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/monitor-active-queries
 uri: https://docs.cloud.google.com/spanner/docs/monitor-active-queries
 title: Monitor active queries
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Troubleshoot active queries in your Spanner instance to identify and terminate long-running queries that may impact performance.
 data_source: docs.cloud.google.com
 ---
 

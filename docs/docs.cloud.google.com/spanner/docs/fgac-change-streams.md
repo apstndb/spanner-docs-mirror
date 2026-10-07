@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/fgac-change-streams
 uri: https://docs.cloud.google.com/spanner/docs/fgac-change-streams
 title: Fine-grained access control for change streams
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Control access to Spanner change streams using FGAC and grant EXECUTE privilege on table-valued functions.
 data_source: docs.cloud.google.com
 ---
 

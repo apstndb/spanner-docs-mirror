@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax
 title: Query syntax in PostgreSQL
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn the query syntax for PostgreSQL in Spanner, including SELECT, CALL, and various clauses and operators.
 data_source: docs.cloud.google.com
 ---
 

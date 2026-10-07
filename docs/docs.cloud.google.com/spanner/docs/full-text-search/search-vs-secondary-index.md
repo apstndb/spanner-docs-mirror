@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/search-vs-secondary-index
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/search-vs-secondary-index
 title: Search versus secondary indexes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Compare full-text search indexes and traditional secondary indexes in Spanner for different text querying use cases.
 data_source: docs.cloud.google.com
 ---
 

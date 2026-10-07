@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/migration-overview
 uri: https://docs.cloud.google.com/spanner/docs/migration-overview
 title: Migration overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Overview of migrating your databases to Spanner, covering planning, execution, and different migration strategies.
 data_source: docs.cloud.google.com
 ---
 

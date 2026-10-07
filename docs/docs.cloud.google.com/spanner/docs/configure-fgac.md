@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/configure-fgac
 uri: https://docs.cloud.google.com/spanner/docs/configure-fgac
 title: Configure fine-grained access control
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Configure FGAC in Spanner by granting privileges on individual tables and columns.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/commit-timestamp-postgresql
 uri: https://docs.cloud.google.com/spanner/docs/commit-timestamp-postgresql
 title: Commit timestamps in PostgreSQL-dialect databases
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use commit timestamps in Spanner with PostgreSQL-dialect databases to track data changes and build features like changelogs.
 data_source: docs.cloud.google.com
 ---
 

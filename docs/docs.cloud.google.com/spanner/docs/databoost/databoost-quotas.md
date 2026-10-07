@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/databoost/databoost-quotas
 uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas
 title: Monitor and manage Data Boost quota usage
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand the quotas and limits associated with using Spanner Spanner Data Boost for your data processing workloads.
 data_source: docs.cloud.google.com
 ---
 

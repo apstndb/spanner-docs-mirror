@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-columnar-data
 uri: https://docs.cloud.google.com/spanner/docs/query-columnar-data
 title: Query columnar data
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Accelerate analytical queries in Spanner by querying data stored in the in-memory columnar engine for faster scan performance.
 data_source: docs.cloud.google.com
 ---
 

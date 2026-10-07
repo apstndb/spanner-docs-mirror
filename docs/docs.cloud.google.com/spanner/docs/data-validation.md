@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/data-validation
 uri: https://docs.cloud.google.com/spanner/docs/data-validation
 title: Validate your data migration
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Validate data after migrating to Spanner by comparing source and destination tables using the open-source data validation tool (DVT).
 data_source: docs.cloud.google.com
 ---
 

@@ -25,7 +25,7 @@ FARM_FINGERPRINT(value)
 
 **Description**
 
-Computes the fingerprint of the `STRING` or `BYTES` input using the `Fingerprint64` function from the [open-source FarmHash library](https://github.com/google/farmhash) . The output of this function for a particular input will never change.
+Computes the fingerprint of the `STRING` or `BYTES` input using the `Fingerprint64` function from the [open-source FarmHash library](https://github.com/google/farmhash) . The output is a signed INT64 value, uniformly distributed in the `[-2^63, 2^63 - 1]` range. To ensure reproducibility, this function always returns the same output for a given input.
 
 **Return type**
 

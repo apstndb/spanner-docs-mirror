@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/vector-search-tutorial
 uri: https://docs.cloud.google.com/spanner/docs/vector-search-tutorial
 title: Get started using Spanner for generative AI applications
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Perform vector similarity searches in Spanner to find K-nearest neighbors using functions like COSINE_DISTANCE and EUCLIDEAN_DISTANCE.
 data_source: docs.cloud.google.com
 ---
 

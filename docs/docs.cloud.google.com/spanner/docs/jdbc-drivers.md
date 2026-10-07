@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/jdbc-drivers
 uri: https://docs.cloud.google.com/spanner/docs/jdbc-drivers
 title: JDBC drivers
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect to Spanner from Java applications using the Google-provided JDBC driver or the open-source PostgreSQL JDBC driver with PGAdapter.
 data_source: docs.cloud.google.com
 ---
 

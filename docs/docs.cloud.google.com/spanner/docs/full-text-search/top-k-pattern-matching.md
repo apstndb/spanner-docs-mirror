@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/top-k-pattern-matching
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/top-k-pattern-matching
 title: Perform efficient top-k retrieval
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Perform efficient top-K pattern matching queries using Spanner full-text search for ranked and relevant results.
 data_source: docs.cloud.google.com
 ---
 

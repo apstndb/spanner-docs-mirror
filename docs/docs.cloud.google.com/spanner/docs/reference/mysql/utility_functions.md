@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions
 uri: https://docs.cloud.google.com/spanner/docs/reference/mysql/utility_functions
 title: Utility functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand MySQL utility functions for UUID and IP address manipulation, including conversion, validation, and generation.
 data_source: docs.cloud.google.com
 ---
 

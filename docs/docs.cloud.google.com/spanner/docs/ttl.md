@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/ttl
 uri: https://docs.cloud.google.com/spanner/docs/ttl
 title: Time to live (TTL) overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Delete old data in Spanner using Time to Live (TTL) policies on tables, based on a timestamp column and an interval.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/lock-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics
 title: Lock statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Analyze lock statistics in Spanner to understand lock contention and its impact on transaction performance.
 data_source: docs.cloud.google.com
 ---
 

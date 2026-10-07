@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/grant-permissions
 uri: https://docs.cloud.google.com/spanner/docs/grant-permissions
 title: Apply IAM roles
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Grant IAM permissions to users and service accounts to control access to your Spanner instances and databases.
 data_source: docs.cloud.google.com
 ---
 

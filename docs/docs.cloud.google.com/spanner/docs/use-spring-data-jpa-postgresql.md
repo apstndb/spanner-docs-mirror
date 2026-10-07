@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-spring-data-jpa-postgresql
 uri: https://docs.cloud.google.com/spanner/docs/use-spring-data-jpa-postgresql
 title: Integrate Spanner with Spring Data JPA (PostgreSQL dialect)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Integrate Spanner PostgreSQL-dialect databases with Spring Data JPA using PGAdapter and the standard PostgreSQL Hibernate dialect.
 data_source: docs.cloud.google.com
 ---
 

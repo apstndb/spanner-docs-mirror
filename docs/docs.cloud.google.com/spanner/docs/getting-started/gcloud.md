@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/getting-started/gcloud
 uri: https://docs.cloud.google.com/spanner/docs/getting-started/gcloud
 title: Create and query a database using the Google Cloud CLI
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: 'Get started with Spanner using the Google Cloud CLI: create instances, databases, and run queries from the command line.'
 data_source: docs.cloud.google.com
 ---
 

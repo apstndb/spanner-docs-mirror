@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/psql-connect
 uri: https://docs.cloud.google.com/spanner/docs/psql-connect
 title: Connect psql to a PostgreSQL-dialect database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect to Spanner PostgreSQL-dialect databases using the `psql` command-line tool through the PGAdapter.
 data_source: docs.cloud.google.com
 ---
 

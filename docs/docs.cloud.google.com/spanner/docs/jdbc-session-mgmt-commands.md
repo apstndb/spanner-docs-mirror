@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands
 uri: https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands
 title: JDBC session management commands (GoogleSQL)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage sessions in Spanner GoogleSQL databases using JDBC session management commands with the Google JDBC driver.
 data_source: docs.cloud.google.com
 ---
 

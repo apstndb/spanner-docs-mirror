@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai
 uri: https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai
 title: Monitor and troubleshoot with AI assistance
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use Gemini assistance in the {{dynamic_data.site_values.cloud_name_short}} console to optimize and troubleshoot your Spanner resources by analyzing system insights.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/tracing-overview
 uri: https://docs.cloud.google.com/spanner/docs/tracing-overview
 title: Trace collection overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Monitor and debug Spanner requests with OpenTelemetry client-side and end-to-end tracing to identify latency sources and improve performance.
 data_source: docs.cloud.google.com
 ---
 

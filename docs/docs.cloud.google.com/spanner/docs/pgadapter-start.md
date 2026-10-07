@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pgadapter-start
 uri: https://docs.cloud.google.com/spanner/docs/pgadapter-start
 title: Start PGAdapter
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Start PGAdapter to connect PostgreSQL clients, drivers, and ORMs to your Spanner PostgreSQL interface for Spanner databases.
 data_source: docs.cloud.google.com
 ---
 

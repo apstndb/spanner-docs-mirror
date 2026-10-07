@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results
 title: Paginate search results
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Paginate through full-text search results in Spanner efficiently using limit and offset or cursor-based pagination.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/key-visualizer/patterns
 uri: https://docs.cloud.google.com/spanner/docs/key-visualizer/patterns
 title: Heatmap patterns
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Identify common access patterns and anti-patterns in Spanner Key Visualizer heatmaps to diagnose and resolve performance issues.
 data_source: docs.cloud.google.com
 ---
 

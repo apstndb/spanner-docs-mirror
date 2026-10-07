@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/saved-queries
 uri: https://docs.cloud.google.com/spanner/docs/saved-queries
 title: Saved queries overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage queries in the Spanner Studio to streamline your workflow and collaborate with your team.
 data_source: docs.cloud.google.com
 ---
 

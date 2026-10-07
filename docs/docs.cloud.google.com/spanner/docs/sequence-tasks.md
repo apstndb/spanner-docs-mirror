@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/sequence-tasks
 uri: https://docs.cloud.google.com/spanner/docs/sequence-tasks
 title: Create and manage sequences
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage sequences in Spanner to generate unique, sequential or bit-reversed values for primary keys or other columns.
 data_source: docs.cloud.google.com
 ---
 

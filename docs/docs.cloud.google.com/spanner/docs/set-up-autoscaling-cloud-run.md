@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run
 uri: https://docs.cloud.google.com/spanner/docs/set-up-autoscaling-cloud-run
 title: Deploy the Autoscaler tool to Cloud Run functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Deploy the Spanner Autoscaler tool to Cloud Run to automatically manage instance compute capacity.
 data_source: docs.cloud.google.com
 ---
 

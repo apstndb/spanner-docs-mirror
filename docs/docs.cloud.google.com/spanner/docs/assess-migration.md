@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/assess-migration
 uri: https://docs.cloud.google.com/spanner/docs/assess-migration
 title: Assess your migration
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Assess your existing databases and workloads to plan a successful migration to Spanner, considering schema, data, and application changes.
 data_source: docs.cloud.google.com
 ---
 

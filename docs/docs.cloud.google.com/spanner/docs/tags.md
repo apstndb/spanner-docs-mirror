@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/tags
 uri: https://docs.cloud.google.com/spanner/docs/tags
 title: Control access and organize instances with tags
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use {{dynamic_data.site_values.cloud_name}} tags to organize Spanner instances and conditionally control access using IAM policies based on tag bindings.
 data_source: docs.cloud.google.com
 ---
 

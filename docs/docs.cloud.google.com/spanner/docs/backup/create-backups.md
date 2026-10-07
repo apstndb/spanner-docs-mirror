@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/backup/create-backups
 uri: https://docs.cloud.google.com/spanner/docs/backup/create-backups
 title: Create backups
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create Spanner backups using the {{dynamic_data.site_values.cloud_name_short}} console, Google Cloud CLI, client libraries, or REST APIs to protect your data.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/editions-overview
 uri: https://docs.cloud.google.com/spanner/docs/editions-overview
 title: Spanner editions overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Explore Spanner editions (Standard, Enterprise, Enterprise Plus) to choose the right features, performance, and cost for your workloads.
 data_source: docs.cloud.google.com
 ---
 

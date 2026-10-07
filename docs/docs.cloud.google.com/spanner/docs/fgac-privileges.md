@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/fgac-privileges
 uri: https://docs.cloud.google.com/spanner/docs/fgac-privileges
 title: Fine-grained access control privileges
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand the privileges used in Spanner FGAC, such as SELECT, INSERT, UPDATE, DELETE, and EXECUTE.
 data_source: docs.cloud.google.com
 ---
 

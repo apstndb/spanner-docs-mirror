@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-gorm
 uri: https://docs.cloud.google.com/spanner/docs/use-gorm
 title: Integrate Spanner with GORM (GoogleSQL dialect)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use GORM to interact with your Spanner GoogleSQL dialect databases in Go applications.
 data_source: docs.cloud.google.com
 ---
 

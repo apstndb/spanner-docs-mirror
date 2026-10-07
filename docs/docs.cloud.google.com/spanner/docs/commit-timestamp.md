@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/commit-timestamp
 uri: https://docs.cloud.google.com/spanner/docs/commit-timestamp
 title: Commit timestamps in GoogleSQL-dialect databases
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use commit timestamps in Spanner to track when data was written, with features like optimistic concurrency control and audit logs.
 data_source: docs.cloud.google.com
 ---
 

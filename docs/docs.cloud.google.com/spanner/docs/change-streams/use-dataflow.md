@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/change-streams/use-dataflow
 uri: https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow
 title: Build change streams connections using Dataflow
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Process Spanner change stream records using Dataflow templates to build real-time applications and data pipelines.
 data_source: docs.cloud.google.com
 ---
 

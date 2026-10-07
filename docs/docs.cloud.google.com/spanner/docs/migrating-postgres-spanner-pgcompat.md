@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/migrating-postgres-spanner-pgcompat
 uri: https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner-pgcompat
 title: Migrate from PostgreSQL to Spanner (PostgreSQL dialect)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Migrate your PostgreSQL database to a Spanner PostgreSQL dialect database, including schema mapping, query translation, and data migration.
 data_source: docs.cloud.google.com
 ---
 

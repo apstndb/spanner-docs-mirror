@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-entity-framework
 uri: https://docs.cloud.google.com/spanner/docs/use-entity-framework
 title: Using Entity Framework Core with Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect .NET applications to Spanner using the Entity Framework Core provider for Spanner.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-active-record
 uri: https://docs.cloud.google.com/spanner/docs/use-active-record
 title: Using Active Record with Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the Spanner support for Active Record to connect your Ruby on Rails applications to Spanner for high availability and scalability.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/check-constraint/how-to
 uri: https://docs.cloud.google.com/spanner/docs/check-constraint/how-to
 title: Create and manage check constraints
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create and manage check constraints in Spanner to enforce data integrity by ensuring column values satisfy specific boolean expressions.
 data_source: docs.cloud.google.com
 ---
 

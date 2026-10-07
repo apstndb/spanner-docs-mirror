@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/foreign-keys/overview
 uri: https://docs.cloud.google.com/spanner/docs/foreign-keys/overview
 title: Foreign keys
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand how foreign keys enforce referential integrity between tables in your Spanner database, ensuring data consistency.
 data_source: docs.cloud.google.com
 ---
 

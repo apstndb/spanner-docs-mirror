@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/dialect-differences
 uri: https://docs.cloud.google.com/spanner/docs/reference/dialect-differences
 title: Dialect parity between GoogleSQL and PostgreSQL
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand the dialect differences between GoogleSQL and PostgreSQL in Spanner and get recommendations for migrating features.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-execution-operators
 uri: https://docs.cloud.google.com/spanner/docs/query-execution-operators
 title: Query execution operators
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the query execution operators used in Spanner query plans to understand how queries are processed.
 data_source: docs.cloud.google.com
 ---
 

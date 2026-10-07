@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/json-indexes
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/json-indexes
 title: JSON search indexes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create full-text search indexes on JSON data in Spanner to efficiently query text within JSON documents.
 data_source: docs.cloud.google.com
 ---
 

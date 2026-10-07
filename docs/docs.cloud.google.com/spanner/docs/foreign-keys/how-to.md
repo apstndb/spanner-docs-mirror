@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/foreign-keys/how-to
 uri: https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to
 title: Create and manage foreign key relationships
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create and manage foreign key constraints in Spanner to define relationships between tables and maintain referential integrity.
 data_source: docs.cloud.google.com
 ---
 

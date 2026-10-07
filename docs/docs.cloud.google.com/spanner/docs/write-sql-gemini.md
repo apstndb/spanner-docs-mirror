@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/write-sql-gemini
 uri: https://docs.cloud.google.com/spanner/docs/write-sql-gemini
 title: Write SQL with Gemini assistance
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use Gemini in Spanner Studio to help you write, understand, and optimize GoogleSQL or PostgreSQL queries.
 data_source: docs.cloud.google.com
 ---
 

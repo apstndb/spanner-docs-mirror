@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/index-advisor
 uri: https://docs.cloud.google.com/spanner/docs/index-advisor
 title: Use the Spanner index advisor
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Optimize query performance in Spanner by using the index advisor to create beneficial secondary indexes based on query patterns.
 data_source: docs.cloud.google.com
 ---
 

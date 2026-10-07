@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/key-visualizer/getting-started
 uri: https://docs.cloud.google.com/spanner/docs/key-visualizer/getting-started
 title: Access Key Visualizer
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Get started with Spanner Key Visualizer to analyze key access patterns and identify hotspots in your database for performance tuning.
 data_source: docs.cloud.google.com
 ---
 

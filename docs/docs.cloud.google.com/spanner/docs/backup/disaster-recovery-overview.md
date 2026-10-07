@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/backup/disaster-recovery-overview
 uri: https://docs.cloud.google.com/spanner/docs/backup/disaster-recovery-overview
 title: Disaster recovery overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand disaster recovery concepts in Spanner, including RPO and RTO, backup and restore, PITR, and cross-region replication.
 data_source: docs.cloud.google.com
 ---
 

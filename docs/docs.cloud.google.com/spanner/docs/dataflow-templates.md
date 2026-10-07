@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/dataflow-templates
 uri: https://docs.cloud.google.com/spanner/docs/dataflow-templates
 title: Dataflow templates
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use Dataflow templates to simplify data pipeline tasks with Spanner, such as import, export, and change streams.
 data_source: docs.cloud.google.com
 ---
 

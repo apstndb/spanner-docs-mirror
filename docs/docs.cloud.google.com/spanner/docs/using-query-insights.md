@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/using-query-insights
 uri: https://docs.cloud.google.com/spanner/docs/using-query-insights
 title: Analyze query performance
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use query insights in Spanner to detect, diagnose, and prevent query performance problems.
 data_source: docs.cloud.google.com
 ---
 

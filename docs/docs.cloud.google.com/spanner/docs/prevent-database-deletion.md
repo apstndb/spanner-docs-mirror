@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/prevent-database-deletion
 uri: https://docs.cloud.google.com/spanner/docs/prevent-database-deletion
 title: Prevent accidental database deletion
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Prevent accidental deletion of your Spanner databases by configuring deletion protection.
 data_source: docs.cloud.google.com
 ---
 

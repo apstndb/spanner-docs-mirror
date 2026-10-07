@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/cmek
 uri: https://docs.cloud.google.com/spanner/docs/cmek
 title: Customer-managed encryption keys (CMEK) overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Protect your Spanner data at rest using CMEK to control and manage your encryption keys.
 data_source: docs.cloud.google.com
 ---
 

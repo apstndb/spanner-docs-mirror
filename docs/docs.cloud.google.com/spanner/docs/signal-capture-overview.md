@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/signal-capture-overview
 uri: https://docs.cloud.google.com/spanner/docs/signal-capture-overview
 title: Signal capture overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Capture signals from your Spanner database to gain insights into performance, usage, and potential issues.
 data_source: docs.cloud.google.com
 ---
 

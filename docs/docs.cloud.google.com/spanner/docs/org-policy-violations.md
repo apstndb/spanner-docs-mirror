@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/org-policy-violations
 uri: https://docs.cloud.google.com/spanner/docs/org-policy-violations
 title: Troubleshoot organization policy violations
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Troubleshoot CMEK and data residency organization policy violations in Spanner.
 data_source: docs.cloud.google.com
 ---
 

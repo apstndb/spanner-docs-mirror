@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions
 uri: https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions
 title: Troubleshoot performance regressions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Troubleshoot performance regressions in your Spanner database by analyzing metrics, query plans, and lock statistics.
 data_source: docs.cloud.google.com
 ---
 

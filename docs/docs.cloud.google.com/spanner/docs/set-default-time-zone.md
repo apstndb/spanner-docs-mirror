@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/set-default-time-zone
 uri: https://docs.cloud.google.com/spanner/docs/set-default-time-zone
 title: Set the default time zone of a database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Set the default time zone for your Spanner database to change how time-related functions and data types are handled.
 data_source: docs.cloud.google.com
 ---
 

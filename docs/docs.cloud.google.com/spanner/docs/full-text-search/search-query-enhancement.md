@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement
 title: Search query expansion
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Improve search retrieval by using query enhancement in Spanner full-text search
 data_source: docs.cloud.google.com
 ---
 

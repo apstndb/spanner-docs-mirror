@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/schema-and-data-model
 uri: https://docs.cloud.google.com/spanner/docs/schema-and-data-model
 title: Schemas overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the Spanner schema and data model, including tables, columns, data types, keys, and indexes.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-operators-binary
 uri: https://docs.cloud.google.com/spanner/docs/query-operators-binary
 title: Binary operators
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the binary operators used in Spanner query plans.
 data_source: docs.cloud.google.com
 ---
 

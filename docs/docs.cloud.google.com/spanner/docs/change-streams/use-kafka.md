@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/change-streams/use-kafka
 uri: https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka
 title: Build change streams connections to Kafka
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Integrate Spanner change streams with Apache Kafka using a Debezium connector to stream data changes to Kafka topics.
 data_source: docs.cloud.google.com
 ---
 

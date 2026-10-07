@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration
 title: Accelerate pattern-matching expressions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Accelerate string pattern matching in Spanner by using search indexes to optimize search performance.
 data_source: docs.cloud.google.com
 ---
 

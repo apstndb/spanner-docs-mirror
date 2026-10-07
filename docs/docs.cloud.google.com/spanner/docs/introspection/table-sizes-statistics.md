@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics
 title: Table sizes statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Monitor table and index sizes in Spanner using introspection tools to track storage growth and plan capacity.
 data_source: docs.cloud.google.com
 ---
 

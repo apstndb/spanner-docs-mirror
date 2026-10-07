@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/cutover-fallback-mechanisms
 uri: https://docs.cloud.google.com/spanner/docs/cutover-fallback-mechanisms
 title: Configure cutover and fallback mechanisms
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use cutover and fallback mechanisms when migrating your database to Spanner to minimize downtime and risk.
 data_source: docs.cloud.google.com
 ---
 

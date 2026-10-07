@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/create-manage-configurations
 uri: https://docs.cloud.google.com/spanner/docs/create-manage-configurations
 title: Create and manage instance configurations
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage custom instance configurations in Spanner to define specific geographic data placement.
 data_source: docs.cloud.google.com
 ---
 

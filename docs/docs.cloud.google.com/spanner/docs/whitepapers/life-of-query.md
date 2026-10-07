@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/whitepapers/life-of-query
 uri: https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query
 title: Life of a Spanner Query
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Whitepaper explaining the life of a query in Spanner, from parsing and optimization to distributed execution.
 data_source: docs.cloud.google.com
 ---
 

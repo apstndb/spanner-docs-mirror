@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes
 uri: https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes
 title: Life of Spanner Reads & Writes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Whitepaper detailing the life of reads and writes in Spanner, explaining the underlying mechanisms and consistency models.
 data_source: docs.cloud.google.com
 ---
 

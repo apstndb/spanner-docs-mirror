@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization
 uri: https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization
 title: Investigate high CPU utilization
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Investigate high CPU utilization in your Spanner instance using introspection tools and metrics to find the root cause.
 data_source: docs.cloud.google.com
 ---
 

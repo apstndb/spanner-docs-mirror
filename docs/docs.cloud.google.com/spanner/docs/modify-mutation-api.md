@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/modify-mutation-api
 uri: https://docs.cloud.google.com/spanner/docs/modify-mutation-api
 title: Insert, update, and delete data using mutations
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Modify data in Spanner using the Mutation API for atomic batch operations on one or more rows across tables.
 data_source: docs.cloud.google.com
 ---
 

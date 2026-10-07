@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings
 uri: https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings
 title: Get Agent Platform text embeddings
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Generate and store vector embeddings in Spanner using Gemini Enterprise Agent Platform models, and perform similarity searches.
 data_source: docs.cloud.google.com
 ---
 

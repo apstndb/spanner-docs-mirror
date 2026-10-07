@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/backup/restore-backups
 uri: https://docs.cloud.google.com/spanner/docs/backup/restore-backups
 title: Restore from a backup
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Restore a Spanner database from a backup using the {{dynamic_data.site_values.cloud_name_short}} console, Google Cloud CLI, client libraries, or REST APIs to any Spanner instance in the same project.
 data_source: docs.cloud.google.com
 ---
 

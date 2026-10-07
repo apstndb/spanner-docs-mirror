@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/timestamp-bounds
 uri: https://docs.cloud.google.com/spanner/docs/timestamp-bounds
 title: Timestamp bounds
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use timestamp bounds in Spanner to perform stale reads, improving read latency by allowing the server to read from a nearby replica.
 data_source: docs.cloud.google.com
 ---
 

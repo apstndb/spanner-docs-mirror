@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/region-types
 uri: https://docs.cloud.google.com/spanner/docs/region-types
 title: Region types
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand the different region types available for Spanner instances, including single-region, multi-region, and dual-region.
 data_source: docs.cloud.google.com
 ---
 

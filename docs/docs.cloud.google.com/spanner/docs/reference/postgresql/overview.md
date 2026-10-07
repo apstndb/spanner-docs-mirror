@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/overview
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview
 title: The PostgreSQL language in Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Get an overview of PostgreSQL language support in Spanner, including supported features, syntax, and limitations.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/application-migration
 uri: https://docs.cloud.google.com/spanner/docs/application-migration
 title: Migrate your application code
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Migrate your applications to use Spanner, including code changes for client libraries, SQL dialects, and transaction management.
 data_source: docs.cloud.google.com
 ---
 

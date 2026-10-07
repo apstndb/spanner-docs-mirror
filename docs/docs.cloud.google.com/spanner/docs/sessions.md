@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/sessions
 uri: https://docs.cloud.google.com/spanner/docs/sessions
 title: Sessions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage sessions in Spanner, which represent communication channels between your application and the database service.
 data_source: docs.cloud.google.com
 ---
 

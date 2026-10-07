@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres
 uri: https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres
 title: Choosing the Right Dialect for Your Spanner Database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Choose between the GoogleSQL and PostgreSQL dialects when creating a Spanner database based on your needs.
 data_source: docs.cloud.google.com
 ---
 

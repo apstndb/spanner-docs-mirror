@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions
 uri: https://docs.cloud.google.com/spanner/docs/reference/mysql/date_time_functions
 title: Date and time MySQL functions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Explore the MySQL date and time functions in Spanner to manipulate and format date and time values in your queries.
 data_source: docs.cloud.google.com
 ---
 

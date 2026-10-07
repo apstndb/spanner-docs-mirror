@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/media
 uri: https://docs.cloud.google.com/spanner/docs/media
 title: 'Media: articles, videos, and podcasts'
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Find videos, podcasts, and other media resources related to Spanner features, best practices, and use cases.
 data_source: docs.cloud.google.com
 ---
 

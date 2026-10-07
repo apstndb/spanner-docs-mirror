@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/sql-best-practices
 uri: https://docs.cloud.google.com/spanner/docs/sql-best-practices
 title: SQL best practices
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Follow SQL best practices for Spanner to write efficient and performant queries, including tips on joins, indexes, and query structure.
 data_source: docs.cloud.google.com
 ---
 

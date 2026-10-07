@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights
 uri: https://docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights
 title: Identify transactions that might cause high latencies
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use lock and transaction insights in Spanner to identify and analyze lock contention and transaction performance issues.
 data_source: docs.cloud.google.com
 ---
 

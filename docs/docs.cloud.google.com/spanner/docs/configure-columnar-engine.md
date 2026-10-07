@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/configure-columnar-engine
 uri: https://docs.cloud.google.com/spanner/docs/configure-columnar-engine
 title: Configure Spanner columnar engine
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Configure the columnar engine in Spanner to optimize analytical query performance by adding columns to the in-memory store.
 data_source: docs.cloud.google.com
 ---
 

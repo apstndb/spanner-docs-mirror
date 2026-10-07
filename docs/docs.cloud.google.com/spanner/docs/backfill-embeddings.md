@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/backfill-embeddings
 uri: https://docs.cloud.google.com/spanner/docs/backfill-embeddings
 title: Generate vector embeddings for textual data in bulk using partitioned DML
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Generate and add vector embeddings to existing data in Spanner instances to power similarity searches.
 data_source: docs.cloud.google.com
 ---
 

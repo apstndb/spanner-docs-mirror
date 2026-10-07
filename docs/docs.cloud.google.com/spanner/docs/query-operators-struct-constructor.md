@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-operators-struct-constructor
 uri: https://docs.cloud.google.com/spanner/docs/query-operators-struct-constructor
 title: Struct constructor
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about struct constructors used in Spanner query plans.
 data_source: docs.cloud.google.com
 ---
 

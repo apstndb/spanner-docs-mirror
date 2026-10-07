@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/fuzzy-search
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/fuzzy-search
 title: Find approximate matches with fuzzy search
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Perform fuzzy search in Spanner full-text search to find strings that match a pattern approximately, allowing for misspellings.
 data_source: docs.cloud.google.com
 ---
 

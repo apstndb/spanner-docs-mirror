@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/throughput-optimized-writes
 uri: https://docs.cloud.google.com/spanner/docs/throughput-optimized-writes
 title: Throughput optimized writes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Optimize write throughput in Spanner by using techniques like mutations pools, batching, and efficient primary key design.
 data_source: docs.cloud.google.com
 ---
 

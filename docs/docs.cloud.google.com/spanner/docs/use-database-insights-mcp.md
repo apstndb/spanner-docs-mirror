@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-database-insights-mcp
 uri: https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp
 title: Monitor Spanner using the Database Insights MCP server
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn how to monitor Spanner using the Database Insights remote MCP server.
 data_source: docs.cloud.google.com
 ---
 

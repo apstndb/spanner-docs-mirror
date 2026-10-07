@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/primary-key-default-value
 uri: https://docs.cloud.google.com/spanner/docs/primary-key-default-value
 title: Primary key default values management
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use DEFAULT expressions to automatically generate primary key values in Spanner, including UUIDs or sequence values.
 data_source: docs.cloud.google.com
 ---
 

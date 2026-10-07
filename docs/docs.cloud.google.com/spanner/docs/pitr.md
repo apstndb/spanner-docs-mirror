@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pitr
 uri: https://docs.cloud.google.com/spanner/docs/pitr
 title: Point-in-time recovery (PITR) overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Recover your Spanner data to a specific point in time using PITR for data protection and disaster recovery.
 data_source: docs.cloud.google.com
 ---
 

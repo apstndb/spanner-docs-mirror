@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/monitor-columnar-engine
 uri: https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine
 title: Monitor columnar engine performance
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Monitor performance and memory usage of the Spanner columnar engine using system tables and metrics in Cloud Monitoring.
 data_source: docs.cloud.google.com
 ---
 

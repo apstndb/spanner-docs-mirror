@@ -60,21 +60,17 @@ You can set up credentials for a local development environment in the following 
 
 Set up [Application Default Credentials (ADC)](https://docs.cloud.google.com/docs/authentication/application-default-credentials) in your local environment:
 
-1.  [Install](https://docs.cloud.google.com/sdk/docs/install) the Google Cloud CLI. After installation, [initialize](https://docs.cloud.google.com/sdk/docs/initializing) the Google Cloud CLI by running the following command:
+1.  [Install](https://docs.cloud.google.com/sdk/docs/install) the Google Cloud CLI, and then [sign in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) . After signing in, [initialize](https://docs.cloud.google.com/sdk/docs/initializing) the Google Cloud CLI by running the following command:
 
     ```
     gcloud init
     ```
 
-    If you're using an external identity provider (IdP), you must first [sign in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) .
-
-2.  If you're using a local shell, then create local authentication credentials for your user account:
+2.  Create local authentication credentials for your user account:
 
     ```
     gcloud auth application-default login
     ```
-
-    You don't need to do this if you're using Cloud Shell.
 
     > **Note:** If the gcloud CLI prints a warning that your account doesn't have the `serviceusage.services.use` permission, then some gcloud CLI commands and client libraries might not work. Ask an administrator to grant you the Service Usage Consumer IAM role ( `roles/serviceusage.serviceUsageConsumer` ), then run the following command:
     >
@@ -153,13 +149,11 @@ For most services, you must attach the service account when you create the resou
 
 Use the gcloud CLI to create a service account and attach it to your resource:
 
-1.  [Install](https://docs.cloud.google.com/sdk/docs/install) the Google Cloud CLI. After installation, [initialize](https://docs.cloud.google.com/sdk/docs/initializing) the Google Cloud CLI by running the following command:
+1.  [Install](https://docs.cloud.google.com/sdk/docs/install) the Google Cloud CLI, and then [sign in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) . After signing in, [initialize](https://docs.cloud.google.com/sdk/docs/initializing) the Google Cloud CLI by running the following command:
 
     ```
     gcloud init
     ```
-
-    If you're using an external identity provider (IdP), you must first [sign in to the gcloud CLI with your federated identity](https://docs.cloud.google.com/iam/docs/workforce-log-in-gcloud) .
 
 2.  Set up authentication:
 
@@ -176,7 +170,7 @@ Use the gcloud CLI to create a service account and attach it to your resource:
     3.  To provide access to your project and your resources, grant a role to the service account:
 
         ```
-        gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com" --role=ROLE
+        gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:SERVICE_ACCOUNT_NAME@PROJECT_ID." --role=ROLE
         ```
 
         Replace the following:
@@ -192,14 +186,15 @@ Use the gcloud CLI to create a service account and attach it to your resource:
     5.  Grant the required role to the principal that will attach the service account to other resources.
 
         ```
-        gcloud iam service-accounts add-iam-policy-binding SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com --member="user:USER_EMAIL" --role=roles/iam.serviceAccountUser
+        gcloud iam service-accounts add-iam-policy-binding SERVICE_ACCOUNT_NAME@PROJECT_ID. --member="principal://iam.googleapis.com/locations/global/workforcePools/POOL_ID/subject/SUBJECT_ID" --role=roles/iam.serviceAccountUser
         ```
 
         Replace the following:
 
-        - `SERVICE_ACCOUNT_NAME` : the name of the service account
-        - `PROJECT_ID` : the project ID where you created the service account
-        - `USER_EMAIL` : the email address for a Google Account
+        - `SERVICE_ACCOUNT_NAME` : the name of the service account.
+        - `PROJECT_ID` : the project ID where you created the service account.
+        - `POOL_ID` : a workforce identity pool ID.
+        - `SUBJECT_ID` : a subject ID; typically the identifier for a user in a workforce identity pool. For details, see [Represent workforce pool users in IAM policies](https://docs.cloud.google.com/iam/docs/workforce-identity-federation#representing-workforce-users) .
 
 3.  Create the resource that will run your code, and attach the service account to that resource. For example, if you use Compute Engine:
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/fgac-models
 uri: https://docs.cloud.google.com/spanner/docs/fgac-models
 title: Fine-grained access control for models
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Control access to Spanner models using FGAC and the EXECUTE privilege for machine learning functions.
 data_source: docs.cloud.google.com
 ---
 

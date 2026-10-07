@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/hybrid-full-text-vector-search
 uri: https://docs.cloud.google.com/spanner/docs/hybrid-full-text-vector-search
 title: Hybrid full-text and vector search patterns
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Master Spanner hybrid search patterns. Integrate full-text and vector search using Fusion, Filtered, and ML reranking for optimal relevance.
 data_source: docs.cloud.google.com
 ---
 

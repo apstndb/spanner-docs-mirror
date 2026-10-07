@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat
 uri: https://docs.cloud.google.com/spanner/docs/jdbc-session-mgmt-commands-pgcompat
 title: JDBC session management commands (PostgreSQL)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage sessions in Spanner PostgreSQL-dialect databases using JDBC session management commands when connecting via the open-source JDBC driver.
 data_source: docs.cloud.google.com
 ---
 

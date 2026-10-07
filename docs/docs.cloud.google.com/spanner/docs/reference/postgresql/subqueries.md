@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries
 title: Subqueries in PostgreSQL
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about subqueries in PostgreSQL for Spanner, including expression, table, and correlated subqueries, with examples.
 data_source: docs.cloud.google.com
 ---
 

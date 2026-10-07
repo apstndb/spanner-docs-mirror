@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/query-overview
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview
 title: Query overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Overview of full-text search query capabilities in Spanner, including token-based search, ranking, and operators.
 data_source: docs.cloud.google.com
 ---
 

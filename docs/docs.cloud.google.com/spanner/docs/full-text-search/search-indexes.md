@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/search-indexes
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes
 title: Search indexes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create and manage search indexes in Spanner to enable efficient full-text search capabilities on your text data.
 data_source: docs.cloud.google.com
 ---
 

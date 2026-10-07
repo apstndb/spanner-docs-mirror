@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/backup/manage-backups
 uri: https://docs.cloud.google.com/spanner/docs/backup/manage-backups
 title: Manage backups
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: 'Manage your Spanner backups: update metadata, copy, delete, and monitor backup operations using the {{dynamic_data.site_values.cloud_name_short}} console or Google Cloud CLI.'
 data_source: docs.cloud.google.com
 ---
 

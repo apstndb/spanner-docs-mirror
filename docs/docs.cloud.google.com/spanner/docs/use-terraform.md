@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-terraform
 uri: https://docs.cloud.google.com/spanner/docs/use-terraform
 title: Use Terraform with Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage your Spanner instances, databases, and IAM policies using Terraform.
 data_source: docs.cloud.google.com
 ---
 

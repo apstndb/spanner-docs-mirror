@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations
 uri: https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations
 title: Manage and observe long-running operations
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage and observe long-running operations (LROs) in Spanner, such as backup creation and schema updates.
 data_source: docs.cloud.google.com
 ---
 

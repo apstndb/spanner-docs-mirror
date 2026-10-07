@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/geo-partitioning
 uri: https://docs.cloud.google.com/spanner/docs/geo-partitioning
 title: Geo-partitioning overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Implement geo-partitioning in Spanner to control data placement and improve performance for globally distributed applications.
 data_source: docs.cloud.google.com
 ---
 

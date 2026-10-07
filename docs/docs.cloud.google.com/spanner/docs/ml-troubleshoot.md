@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/ml-troubleshoot
 uri: https://docs.cloud.google.com/spanner/docs/ml-troubleshoot
 title: Troubleshoot Spanner Agent Platform integration
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Troubleshoot common issues encountered when using Spanner ML for running machine learning predictions from SQL.
 data_source: docs.cloud.google.com
 ---
 

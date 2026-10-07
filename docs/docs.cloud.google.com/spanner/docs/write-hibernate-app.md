@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/write-hibernate-app
 uri: https://docs.cloud.google.com/spanner/docs/write-hibernate-app
 title: Write a Hibernate app that connects to Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Develop a Java application using Hibernate ORM to interact with a Spanner GoogleSQL dialect database.
 data_source: docs.cloud.google.com
 ---
 

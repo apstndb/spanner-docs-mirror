@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/export
 uri: https://docs.cloud.google.com/spanner/docs/export
 title: Export databases from Spanner to Avro
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Export your Spanner databases to Avro files in Cloud Storage using Dataflow for bulk data operations.
 data_source: docs.cloud.google.com
 ---
 

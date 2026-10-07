@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-sqlalchemy-pg
 uri: https://docs.cloud.google.com/spanner/docs/use-sqlalchemy-pg
 title: Integrate Spanner with SQLAlchemy 2 ORM (PostgreSQL dialect)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use SQLAlchemy with the PGAdapter to connect your Python applications to Spanner PostgreSQL interface for Spanner databases.
 data_source: docs.cloud.google.com
 ---
 

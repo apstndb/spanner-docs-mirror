@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/databases
 uri: https://docs.cloud.google.com/spanner/docs/databases
 title: Databases overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand databases within a Spanner instance, including how to create, manage, and interact with them.
 data_source: docs.cloud.google.com
 ---
 

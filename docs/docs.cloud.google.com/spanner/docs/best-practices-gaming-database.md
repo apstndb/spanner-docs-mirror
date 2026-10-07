@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/best-practices-gaming-database
 uri: https://docs.cloud.google.com/spanner/docs/best-practices-gaming-database
 title: Best practices for using Spanner as a gaming database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Design and implement a scalable gaming database on Spanner using best practices for schema design, indexing, and data access patterns.
 data_source: docs.cloud.google.com
 ---
 

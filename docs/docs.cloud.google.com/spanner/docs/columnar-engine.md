@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/columnar-engine
 uri: https://docs.cloud.google.com/spanner/docs/columnar-engine
 title: Spanner columnar engine overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Improve analytical query performance in Spanner by using the columnar engine.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/index-geo-partitioning
 uri: https://docs.cloud.google.com/spanner/docs/index-geo-partitioning
 title: Indexes and geo-partitioning
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand best practices for choosing indexes when using Spanner geo-partitioning.
 data_source: docs.cloud.google.com
 ---
 

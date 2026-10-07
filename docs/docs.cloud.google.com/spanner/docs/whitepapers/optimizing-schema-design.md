@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design
 uri: https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design
 title: Optimizing Schema Design for Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Whitepaper on optimizing Spanner schema design for performance, scalability, and efficiency based on access patterns.
 data_source: docs.cloud.google.com
 ---
 

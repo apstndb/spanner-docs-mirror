@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/graph/queries-overview
 uri: https://docs.cloud.google.com/spanner/docs/graph/queries-overview
 title: Spanner Graph queries overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Run Spanner Graph queries. Learn how to apply graph pattern matching, quantified paths, subqueries, and the GRAPH_TABLE operator for property graphs.
 data_source: docs.cloud.google.com
 ---
 

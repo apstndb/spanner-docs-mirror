@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps
 uri: https://docs.cloud.google.com/spanner/docs/key-visualizer/exploring-heatmaps
 title: Explore heatmaps
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Explore Key Visualizer heatmaps in Spanner to understand read/write patterns, latency, and CPU usage across key ranges over time.
 data_source: docs.cloud.google.com
 ---
 

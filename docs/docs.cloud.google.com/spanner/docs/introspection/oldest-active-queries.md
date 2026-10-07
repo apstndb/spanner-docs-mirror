@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries
 uri: https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries
 title: Oldest active queries statistics
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Identify and analyze the oldest active queries running on your Spanner database to troubleshoot performance issues.
 data_source: docs.cloud.google.com
 ---
 

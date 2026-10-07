@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/backup/create-manage-backup-schedules
 uri: https://docs.cloud.google.com/spanner/docs/backup/create-manage-backup-schedules
 title: Create and manage backup schedules
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Create and manage Spanner backup schedules to automate database backups, define retention periods, and ensure data protection.
 data_source: docs.cloud.google.com
 ---
 

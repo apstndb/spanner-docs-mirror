@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/deadline-exceeded
 uri: https://docs.cloud.google.com/spanner/docs/deadline-exceeded
 title: Troubleshoot Spanner deadline exceeded errors
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Troubleshoot errors in Spanner by analyzing query performance, transaction locks, and network latency.
 data_source: docs.cloud.google.com
 ---
 

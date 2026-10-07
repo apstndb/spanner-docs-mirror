@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg
 title: Stored procedures for PostgreSQL
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn how to use stored system procedures in Spanner for PostgreSQL, including the cancel_query procedure for terminating queries.
 data_source: docs.cloud.google.com
 ---
 

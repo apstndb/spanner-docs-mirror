@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-optimizer/versions
 uri: https://docs.cloud.google.com/spanner/docs/query-optimizer/versions
 title: Spanner query optimizer versions
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the different versions of the Spanner query optimizer and understand the improvements and changes introduced in each version.
 data_source: docs.cloud.google.com
 ---
 

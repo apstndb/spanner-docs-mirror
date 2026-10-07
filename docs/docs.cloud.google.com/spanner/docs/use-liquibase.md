@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-liquibase
 uri: https://docs.cloud.google.com/spanner/docs/use-liquibase
 title: Integrate Spanner with Liquibase
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage and version your Spanner database schema changes using Liquibase, an open-source database-independent library.
 data_source: docs.cloud.google.com
 ---
 

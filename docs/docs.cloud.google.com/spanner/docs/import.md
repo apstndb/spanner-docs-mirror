@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/import
 uri: https://docs.cloud.google.com/spanner/docs/import
 title: Import Spanner Avro files
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Import data into Spanner from Avro files in Cloud Storage using Dataflow for bulk data loading.
 data_source: docs.cloud.google.com
 ---
 

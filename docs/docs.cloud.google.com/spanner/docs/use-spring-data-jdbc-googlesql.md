@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-googlesql
 uri: https://docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-googlesql
 title: Integrate Spanner with Spring Data JDBC (GoogleSQL)
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Integrate Spanner GoogleSQL dialect databases with your Spring Boot application using Spring Data JDBC.
 data_source: docs.cloud.google.com
 ---
 

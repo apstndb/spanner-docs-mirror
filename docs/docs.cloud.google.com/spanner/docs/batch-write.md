@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/batch-write
 uri: https://docs.cloud.google.com/spanner/docs/batch-write
 title: Modify data using batch write
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Modify bulk data in Spanner with batch DML, mutations, or Dataflow connectors.
 data_source: docs.cloud.google.com
 ---
 

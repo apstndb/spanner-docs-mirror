@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/queues/queues-examples
 uri: https://docs.cloud.google.com/spanner/docs/queues/queues-examples
 title: Spanner queues scenarios and examples
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use common patterns and code examples for Spanner queues, including deferred execution, scheduling, and handling long-running work.
 data_source: docs.cloud.google.com
 ---
 

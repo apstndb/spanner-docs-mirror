@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/audit-logging
 uri: https://docs.cloud.google.com/spanner/docs/audit-logging
 title: Spanner audit logging
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use Cloud Audit Logs with Spanner to track administrative changes and data access events for security and compliance.
 data_source: docs.cloud.google.com
 ---
 

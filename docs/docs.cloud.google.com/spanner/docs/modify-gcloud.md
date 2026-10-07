@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/modify-gcloud
 uri: https://docs.cloud.google.com/spanner/docs/modify-gcloud
 title: Inserting, updating, and deleting data using the Google Cloud CLI
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Insert, update, and delete data in Spanner using the Google Cloud CLI command-line tool with DML statements and the rows command group.
 data_source: docs.cloud.google.com
 ---
 

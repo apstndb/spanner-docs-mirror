@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/create-manage-saved-queries
 uri: https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries
 title: Create and manage saved queries
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage saved queries in Spanner to streamline your workflow and improve collaboration.
 data_source: docs.cloud.google.com
 ---
 

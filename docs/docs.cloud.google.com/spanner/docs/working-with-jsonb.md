@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/working-with-jsonb
 uri: https://docs.cloud.google.com/spanner/docs/working-with-jsonb
 title: Work with JSONB data
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn how to work with the JSONB data type in Spanner for PostgreSQL, including creating tables, modifying data, and using indexes.
 data_source: docs.cloud.google.com
 ---
 

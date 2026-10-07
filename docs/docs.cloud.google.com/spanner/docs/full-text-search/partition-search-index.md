@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index
 title: Partition search indexes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Partition your full-text search index in Spanner to improve search performance and scalability for large datasets.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/choose-vector-distance-function
 uri: https://docs.cloud.google.com/spanner/docs/choose-vector-distance-function
 title: Choose among vector distance functions to measure vector embeddings similarity
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Choose relevant vector distance function (Cosine, Euclidean, Dot Product) in Spanner for your vector similarity search use case.
 data_source: docs.cloud.google.com
 ---
 

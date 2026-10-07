@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/dataflow-connector
 uri: https://docs.cloud.google.com/spanner/docs/dataflow-connector
 title: Import, export, and modify data using Dataflow
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use the Dataflow connector for Spanner to import, export, and modify data using Dataflow pipelines.
 data_source: docs.cloud.google.com
 ---
 

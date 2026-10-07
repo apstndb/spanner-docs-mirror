@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/pre-splitting-overview
 uri: https://docs.cloud.google.com/spanner/docs/pre-splitting-overview
 title: Pre-splitting overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand how pre-splitting your Spanner database can help prevent performance bottlenecks during bulk data loads or traffic increases.
 data_source: docs.cloud.google.com
 ---
 

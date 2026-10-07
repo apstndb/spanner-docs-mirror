@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/migrate-mysql-schema
 uri: https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema
 title: Migrate a schema from MySQL
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Migrate your MySQL schema to Spanner by mapping data types, translating queries, and refactoring your application.
 data_source: docs.cloud.google.com
 ---
 

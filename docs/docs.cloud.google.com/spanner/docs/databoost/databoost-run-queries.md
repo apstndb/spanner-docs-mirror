@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries
 uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries
 title: Run federated queries with Data Boost
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Run high-performance, serverless queries on Spanner using Spanner Data Boost from BigQuery or Dataflow.
 data_source: docs.cloud.google.com
 ---
 

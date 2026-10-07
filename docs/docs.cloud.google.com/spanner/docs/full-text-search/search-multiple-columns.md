@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns
 uri: https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns
 title: Search multiple columns in search indexes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Search across multiple text columns in Spanner using full-text search by combining tokenlists or indexing them together.
 data_source: docs.cloud.google.com
 ---
 

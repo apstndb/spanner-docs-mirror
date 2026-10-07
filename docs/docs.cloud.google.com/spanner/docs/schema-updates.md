@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/schema-updates
 uri: https://docs.cloud.google.com/spanner/docs/schema-updates
 title: Make schema updates
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Perform schema updates on your Spanner database with minimal downtime, including adding, modifying, or dropping tables and columns.
 data_source: docs.cloud.google.com
 ---
 

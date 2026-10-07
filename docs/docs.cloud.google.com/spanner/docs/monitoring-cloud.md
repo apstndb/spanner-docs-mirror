@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/monitoring-cloud
 uri: https://docs.cloud.google.com/spanner/docs/monitoring-cloud
 title: Monitor instances with Cloud Monitoring
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Monitor your Spanner instances and databases using Cloud Monitoring to track performance, usage, and availability.
 data_source: docs.cloud.google.com
 ---
 

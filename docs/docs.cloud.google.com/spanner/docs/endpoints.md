@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/endpoints
 uri: https://docs.cloud.google.com/spanner/docs/endpoints
 title: Global and regional service endpoints
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Connect to Spanner using global or regional service endpoints to optimize latency and data locality for your applications.
 data_source: docs.cloud.google.com
 ---
 

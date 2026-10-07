@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-intellij
 uri: https://docs.cloud.google.com/spanner/docs/use-intellij
 title: Integrate Spanner with IntelliJ
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Work with Spanner databases directly within the IntelliJ IDEA using the Google Cloud code plugin.
 data_source: docs.cloud.google.com
 ---
 

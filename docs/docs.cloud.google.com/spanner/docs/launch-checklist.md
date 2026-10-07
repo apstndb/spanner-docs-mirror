@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/launch-checklist
 uri: https://docs.cloud.google.com/spanner/docs/launch-checklist
 title: Launch checklist for Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Review a checklist of best practices and considerations before launching your application on Spanner in production.
 data_source: docs.cloud.google.com
 ---
 

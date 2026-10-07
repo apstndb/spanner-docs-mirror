@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema
 uri: https://docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema
 title: Use Spanner migration tool for MySQL schema migration
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use SMT to migrate your MySQL schema to Spanner, including data type mapping and index conversion.
 data_source: docs.cloud.google.com
 ---
 

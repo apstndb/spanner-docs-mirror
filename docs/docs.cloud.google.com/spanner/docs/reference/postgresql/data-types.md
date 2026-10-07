@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/data-types
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types
 title: PostgreSQL data types
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn about the supported PostgreSQL data types in Spanner, including arrays, booleans, numerics, and timestamps, along with their limitations.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/langchain
 uri: https://docs.cloud.google.com/spanner/docs/langchain
 title: Build LLM-powered applications using LangChain
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Integrate Spanner with LangChain to build applications powered by large language models, using your Spanner data as context.
 data_source: docs.cloud.google.com
 ---
 

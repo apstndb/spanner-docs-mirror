@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/tiered-storage
 uri: https://docs.cloud.google.com/spanner/docs/tiered-storage
 title: Tiered storage overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use Spanner tiered storage to manage data on SSD and HDD, optimizing for performance and cost based on data access frequency.
 data_source: docs.cloud.google.com
 ---
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/operators
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/operators
 title: Supported PostgreSQL operators
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand the lexical structure, syntax, and semantics of PostgreSQL operators in Spanner.
 data_source: docs.cloud.google.com
 ---
 

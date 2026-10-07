@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/error-codes
 uri: https://docs.cloud.google.com/spanner/docs/error-codes
 title: Spanner error codes
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Information on Spanner error codes and potential troubleshooting steps for resolving issues.
 data_source: docs.cloud.google.com
 ---
 

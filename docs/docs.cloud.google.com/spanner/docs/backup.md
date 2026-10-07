@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/backup
 uri: https://docs.cloud.google.com/spanner/docs/backup
 title: Backups overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Protect your Spanner data with backup and restore or point-in-time recovery (PITR) for protection against operator error and application corruption.
 data_source: docs.cloud.google.com
 ---
 

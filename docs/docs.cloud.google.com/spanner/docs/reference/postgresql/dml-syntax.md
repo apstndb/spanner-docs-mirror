@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax
 title: PostgreSQL data manipulation language
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Learn the syntax for PostgreSQL DML statements in Spanner, including INSERT, DELETE, and UPDATE.
 data_source: docs.cloud.google.com
 ---
 

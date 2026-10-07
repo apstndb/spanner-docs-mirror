@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/non-relational/overview
 uri: https://docs.cloud.google.com/spanner/docs/non-relational/overview
 title: Spanner for non-relational workloads
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Explore options for using Spanner as a non-relational database, leveraging its scalability and consistency for NoSQL workloads.
 data_source: docs.cloud.google.com
 ---
 

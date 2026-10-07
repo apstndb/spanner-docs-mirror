@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/change-dual-region-quorum
 uri: https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum
 title: Change dual-region quorum
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Change the quorum region in a Spanner dual-region instance configuration to a new serving region.
 data_source: docs.cloud.google.com
 ---
 

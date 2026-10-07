@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/iam
 uri: https://docs.cloud.google.com/spanner/docs/iam
 title: IAM overview
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Control access to your Spanner resources using IAM, granting granular permissions to users and service accounts.
 data_source: docs.cloud.google.com
 ---
 

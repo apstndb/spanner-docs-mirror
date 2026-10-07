@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/write-spring-boot-app
 uri: https://docs.cloud.google.com/spanner/docs/write-spring-boot-app
 title: Write a Hibernate app that connects to Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Develop a Spring Boot application that uses Spring Data JPA to interact with a Spanner database for storing and retrieving data.
 data_source: docs.cloud.google.com
 ---
 

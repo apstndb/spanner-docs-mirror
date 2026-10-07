@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/create-manage-data-placements
 uri: https://docs.cloud.google.com/spanner/docs/create-manage-data-placements
 title: Create and manage data placements
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage data placements in Spanner to control the geographic location of your data.
 data_source: docs.cloud.google.com
 ---
 

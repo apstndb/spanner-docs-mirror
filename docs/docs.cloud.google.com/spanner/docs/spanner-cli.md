@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/spanner-cli
 uri: https://docs.cloud.google.com/spanner/docs/spanner-cli
 title: Spanner CLI quickstart
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Interact with your Spanner databases using the gcloud spanner CLI tool.
 data_source: docs.cloud.google.com
 ---
 

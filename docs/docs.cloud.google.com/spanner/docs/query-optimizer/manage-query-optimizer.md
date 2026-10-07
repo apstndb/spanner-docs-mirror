@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer
 uri: https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer
 title: Manage the query optimizer
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage the Spanner query optimizer version and statistics packages to ensure optimal query performance and plan stability.
 data_source: docs.cloud.google.com
 ---
 

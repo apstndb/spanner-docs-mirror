@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface
 uri: https://docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface
 title: Known issues in the PostgreSQL interface for Spanner
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Review the known issues and behavioral differences between the PostgreSQL interface for Spanner in Spanner and standard PostgreSQL.
 data_source: docs.cloud.google.com
 ---
 

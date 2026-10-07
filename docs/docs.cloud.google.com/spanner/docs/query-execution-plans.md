@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/query-execution-plans
 uri: https://docs.cloud.google.com/spanner/docs/query-execution-plans
 title: Query execution plans
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Understand and analyze query execution plans in Spanner to optimize query performance and troubleshoot issues.
 data_source: docs.cloud.google.com
 ---
 

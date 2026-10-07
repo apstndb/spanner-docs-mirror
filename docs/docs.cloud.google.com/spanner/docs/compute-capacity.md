@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/compute-capacity
 uri: https://docs.cloud.google.com/spanner/docs/compute-capacity
 title: Compute capacity, nodes and processing units
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manage compute capacity for your Spanner instances to balance performance and cost.
 data_source: docs.cloud.google.com
 ---
 

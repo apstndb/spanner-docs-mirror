@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors
 uri: https://docs.cloud.google.com/spanner/docs/find-k-nearest-neighbors
 title: Perform vector similarity search in Spanner by finding the K-nearest neighbors
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Perform vector similarity search in Spanner by finding K-nearest neighbors using cosine distance, Euclidean distance, and dot product functions.
 data_source: docs.cloud.google.com
 ---
 
