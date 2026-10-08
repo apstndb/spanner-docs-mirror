@@ -916,6 +916,7 @@ Service agent roles should only be granted to [service agents](https://docs.clou
 <p><code>compute.subnetworks.create</code></p>
 <p><code>compute.subnetworks.use</code></p>
 <p><code>compute. subnetworks. useExternalIp</code></p>
+<p><code>discoveryengine. rankingConfigs. rank</code></p>
 <p><code>logging.logEntries.create</code></p>
 <p><code>run.jobs.run</code></p>
 <p><code>run.routes.invoke</code></p>

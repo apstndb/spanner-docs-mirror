@@ -333,7 +333,7 @@ https://docs.cloud.google.com/spanner/docs/index-geo-partitioning	2026-10-07T09:
 https://docs.cloud.google.com/spanner/docs/information-schema	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/information-schema-pg	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/install-mysql-functions	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-10-07T09:39:33Z
+https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-10-07T22:16:19Z
 https://docs.cloud.google.com/spanner/docs/instances	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/integrate-google-cloud-platform	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/introspection	2026-10-07T09:40:19Z

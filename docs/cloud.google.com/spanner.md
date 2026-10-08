@@ -409,7 +409,7 @@ What you'll get:
 
 *check_small*Available pre-built solutions
 
-This service was built with [Gemini Enterprise Agent Platform](https://cloud.google.com/products/gemini-enterprise-agent-platform). You must be 18 or older to use it. Do not enter sensitive, confidential, or personal info.
+This service was built with [Gemini](https://cloud.google.com/products/gemini-enterprise-agent-platform). You must be 18 or older to use it. Do not enter sensitive, confidential, or personal info.
 
 Pricing
 
