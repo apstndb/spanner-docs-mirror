@@ -251,6 +251,101 @@ SELECT '-0x123' as hex_value, CAST('-0x123' as INT64) as hex_to_int;
  +-----------+------------*/
 ```
 
+### CAST AS JSON
+
+```
+CAST(expression AS JSON)
+```
+
+**Description**
+
+GoogleSQL supports [casting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions#cast) to `JSON` . The `expression` parameter can represent an expression for these data types:
+
+- `INT64`
+- `FLOAT32`
+- `FLOAT64`
+- `NUMERIC`
+- `BOOL`
+- `STRING`
+- `BYTES`
+- `DATE`
+- `TIMESTAMP`
+- `INTERVAL`
+- `ARRAY`
+- `STRUCT`
+- `PROTO`
+- `ENUM`
+- `UUID`
+- `JSON`
+- `GRAPH_ELEMENT`
+- `GRAPH_PATH`
+
+**Conversion rules**
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>From</th>
+<th>To</th>
+<th>Rule(s) when casting <code>x</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Any supported type</td>
+<td><code>JSON</code></td>
+<td>Casting to <code>JSON</code> generally follows the same rules as the <a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#to_json"><code>TO_JSON</code></a> function, with the following differences:
+<ul>
+<li>Casting a SQL <code>NULL</code> to <code>JSON</code> returns a SQL <code>NULL</code> , not a JSON <code>null</code> . This distinction doesn't extend to SQL <code>NULL</code> values nested with a <code>STRUCT</code> or an <code>ARRAY</code> , which still convert to JSON <code>null</code> .</li>
+<li>Casting <code>+/-inf</code> or <code>NaN</code> floating point values to <code>JSON</code> returns an error.</li>
+<li><code>CAST</code> doesn't support the <code>stringify_wide_numbers</code> optional parameter and always behaves as if <code>stringify_wide_numbers</code> is disabled.</li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+
+**Examples**
+
+The following example casts various SQL types to `JSON` , representing the different JSON types (number, string, boolean, array, and object):
+
+```
+SELECT
+  CAST(1 AS JSON) AS json_number,
+  CAST('foo' AS JSON) AS json_string,
+  CAST(TRUE AS JSON) AS json_boolean,
+  CAST([1, 2, 3] AS JSON) AS json_array,
+  CAST(STRUCT('foo' AS a, TRUE AS b) AS JSON) AS json_object;
+
+/*-------------+-------------+--------------+------------+----------------------+
+ | json_number | json_string | json_boolean | json_array | json_object          |
+ +-------------+-------------+--------------+------------+----------------------+
+ | 1           | "foo"       | true         | [1,2,3]    | {"a":"foo","b":true} |
+ +-------------+-------------+--------------+------------+----------------------*/
+```
+
+The following example demonstrates how `NULL` values are handled:
+
+- Casting a SQL `NULL` to `JSON` returns a SQL `NULL` instead of a JSON `null` .
+- Casting a struct with a `NULL` field or an array with a `NULL` element to `JSON` converts the `NULL` to a JSON `null` .
+
+```
+SELECT
+  CAST(NULL AS JSON) AS json_null,
+  CAST(STRUCT(1 AS a, NULL AS b) AS JSON) AS json_object_with_null,
+  CAST([1, NULL, 3] AS JSON) AS json_array_with_null;
+
+/*-----------+-----------------------+----------------------+
+ | json_null | json_object_with_null | json_array_with_null |
+ +-----------+-----------------------+----------------------+
+ | NULL      | {"a":1,"b":null}      | [1,null,3]           |
+ +-----------+-----------------------+----------------------*/
+```
+
 ### CAST AS INTERVAL
 
 ```

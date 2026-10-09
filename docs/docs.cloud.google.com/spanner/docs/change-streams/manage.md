@@ -477,7 +477,7 @@ For more information on how these filters work, see [Time to live based deletes 
 To add the TTL-based deletes filter to an existing change stream, run the following to set the filter to `true` :
 
 ```
-ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
+ALTER CHANGE STREAM CHANGE_STREAM_NAME
 SET OPTIONS (exclude_ttl_deletes = true)
 ```
 
@@ -488,7 +488,7 @@ Replace the following:
 In the following example, the `exclude_ttl_deletes` filter is added to an existing change stream called `NewFilterChangeStream` that excludes all TTL-based deletes:
 
 ```
-ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
+ALTER CHANGE STREAM NewFilterChangeStream
 SET OPTIONS (exclude_ttl_deletes = true)
 ```
 
@@ -499,7 +499,7 @@ This excludes all future TTL-based deletes from the change stream.
 To add the TTL-based deletes filter to an existing change stream, run the following to set the filter to `true` :
 
 ```
-ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
+ALTER CHANGE STREAM CHANGE_STREAM_NAME
 SET (exclude_ttl_deletes = true)
 ```
 
@@ -510,7 +510,7 @@ Replace the following:
 In the following example, the `exclude_ttl_deletes` filter is added to an existing change stream called `NewFilterChangeStream` that excludes all TTL-based deletes:
 
 ```
-ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
+ALTER CHANGE STREAM NewFilterChangeStream
 SET (exclude_ttl_deletes = true)
 ```
 
@@ -523,7 +523,7 @@ This excludes all future TTL-based deletes from the change stream.
 To remove the TTL-based deletes filter to an existing change stream, run the following to set the filter to `false` :
 
 ```
-ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
+ALTER CHANGE STREAM CHANGE_STREAM_NAME
 SET OPTIONS (exclude_ttl_deletes = false)
 ```
 
@@ -534,7 +534,7 @@ Replace the following:
 In the following example, the `exclude_ttl_deletes` filter is removed from an existing change stream called `NewFilterChangeStream` :
 
 ```
-ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
+ALTER CHANGE STREAM NewFilterChangeStream
 SET OPTIONS (exclude_ttl_deletes = false)
 ```
 
@@ -547,7 +547,7 @@ You can also set the filter to `null` to remove the TTL-based deletes filter.
 To remove the TTL-based deletes filter to an existing change stream, run the following to set the filter to `false` :
 
 ```
-ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
+ALTER CHANGE STREAM CHANGE_STREAM_NAME
 SET (exclude_ttl_deletes = false)
 ```
 
@@ -558,7 +558,7 @@ Replace the following:
 In the following example, the `exclude_ttl_deletes` filter is removed from an existing change stream called `NewFilterChangeStream` :
 
 ```
-ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
+ALTER CHANGE STREAM NewFilterChangeStream
 SET (exclude_ttl_deletes = false)
 ```
 
@@ -675,7 +675,7 @@ For more information about how this option works, see [Transaction-level records
 To enable transaction-level records exclusion for an existing change stream, run the following:
 
 ```
-ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
+ALTER CHANGE STREAM CHANGE_STREAM_NAME
 SET OPTIONS (allow_txn_exclusion = true)
 ```
 
@@ -686,7 +686,7 @@ Replace the following:
 In the following example, the `allow_txn_exclusion` option is enabled on an existing change stream, `NewAllowedChangeStream` :
 
 ```
-ALTER CHANGE STREAM NewAllowedChangeStream FOR ALL
+ALTER CHANGE STREAM NewAllowedChangeStream
 SET OPTIONS (allow_txn_exclusion = true)
 ```
 
@@ -697,7 +697,7 @@ This allows the change stream to exclude records from specified write transactio
 To enable transaction-level records exclusion for an existing change stream, run the following:
 
 ```
-ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
+ALTER CHANGE STREAM CHANGE_STREAM_NAME
 SET (allow_txn_exclusion = true)
 ```
 
@@ -708,7 +708,7 @@ Replace the following:
 In the following example, the `allow_txn_exclusion` option is enabled on an existing change stream, `NewAllowedChangeStream` :
 
 ```
-ALTER CHANGE STREAM NewAllowedChangeStream FOR ALL
+ALTER CHANGE STREAM NewAllowedChangeStream
 SET (allow_txn_exclusion = true)
 ```
 
@@ -721,7 +721,7 @@ This allows the change stream to exclude records from specified write transactio
 To disable the transaction-level records exclusion on an existing change stream, run the following:
 
 ```
-ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
+ALTER CHANGE STREAM CHANGE_STREAM_NAME
 SET OPTIONS (allow_txn_exclusion = false)
 ```
 
@@ -732,7 +732,7 @@ Replace the following:
 In the following example, the `allow_txn_exclusion` option is disabled on an existing change stream called `NewAllowedChangeStream` :
 
 ```
-ALTER CHANGE STREAM NewFilterChangeStream FOR ALL
+ALTER CHANGE STREAM NewAllowedChangeStream
 SET OPTIONS (allow_txn_exclusion = false)
 ```
 
@@ -743,7 +743,7 @@ The change stream watches all write transactions.
 To disable the transaction-level records exclusion on an existing change stream, run the following:
 
 ```
-ALTER CHANGE STREAM CHANGE_STREAM_NAME FOR ALL
+ALTER CHANGE STREAM CHANGE_STREAM_NAME
 SET (allow_txn_exclusion = false)
 ```
 
@@ -754,7 +754,7 @@ Replace the following:
 In the following example, the `allow_txn_exclusion` option is disabled on an existing change stream called `NewAllowedChangeStream` :
 
 ```
-ALTER CHANGE STREAM NewAllowedChangeStream FOR ALL
+ALTER CHANGE STREAM NewAllowedChangeStream
 SET (allow_txn_exclusion = false)
 ```
 

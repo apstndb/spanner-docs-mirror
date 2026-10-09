@@ -1325,9 +1325,14 @@ result.rows.each do |row|
 end
 ```
 
+## Comparison and sorting
+
+You can compare `JSON` values for equality and ordering. You can also use `JSON` values in `GROUP BY` and `ORDER BY` clauses.
+
+For detailed rules and semantics, see [JSON comparison and sorting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#comparison_and_sorting) .
+
 ## Restrictions
 
-- You can't use JSON columns in an `ORDER BY` clause.
 - You can't use JSON type columns as primary keys or as keys in secondary indexes. For more information, see [Index JSON data](https://docs.cloud.google.com/spanner/docs/working-with-json#index) .
 
 ## What's next

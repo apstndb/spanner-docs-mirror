@@ -76,7 +76,6 @@ Expressions of orderable data types can be used in an `ORDER BY` clause. Applies
 - `ARRAY`
 - `PROTO`
 - `STRUCT`
-- `JSON`
 - `GRAPH_ELEMENT`
 - `GRAPH_PATH`
 
@@ -103,7 +102,6 @@ Floating point values are sorted in this order, from least to greatest:
 Can generally appear in an expression following `GROUP BY` and `DISTINCT` . All data types are supported except for:
 
 - `PROTO`
-- `JSON`
 - `ARRAY`
 - `STRUCT`
 - `GRAPH_PATH`
@@ -125,7 +123,6 @@ Special floating point values are grouped in the following way, including both g
 Values of the same comparable data type can be compared to each other. All data types are supported except for:
 
 - `PROTO`
-- `JSON`
 
 Notes:
 
@@ -519,6 +516,63 @@ Expect these canonicalization behaviors when creating a value of JSON type:
 - The format of the original string representation of a JSON number may not be preserved.
 
 To learn more about the literal representation of a JSON type, see [JSON literals](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical#json_literals) .
+
+### Comparison and sorting
+
+You can compare JSON types for equality and ordering. You can also use JSON types in a `GROUP BY` and `ORDER BY` clause.
+
+When comparing JSON values of different types, the following relations apply: `NULL` (JSON null) \< `STRING` \< `NUMBER` \< `BOOLEAN` \< `ARRAY` \< `OBJECT` .
+
+When comparing JSON values of the same type, the following rules apply:
+
+- **Objects:** Compared pairwise with lexicographical key string order. Key-value pairs are extracted from both objects, sorted internally by key, and then compared pairwise in key order. The comparison proceeds first by the key and then by its value. The first pair that differs determines the order. If one object's sorted pairs form a prefix of the other's, the object with more pairs is considered greater.
+- **Arrays:** Compared element by element from the beginning. The first pair of elements that differ determines the order. If one array's elements form a prefix of the other's, the longer array is considered greater.
+- **Booleans:** `true` is considered greater than `false` .
+- **Numbers:** Compared using standard mathematical numeric comparison.
+- **Strings:** Compared using standard lexicographical string comparison.
+- **Nulls:** All JSON null values are considered equal to each other and less than any other non-null JSON value.
+
+You can also compare `JSON` values with non- `JSON` values. When you do this, GoogleSQL implicitly coerces the non- `JSON` value to `JSON` (as if using `CAST` to `JSON` ) before performing the comparison.
+
+#### Implicit coercion for equality comparison
+
+GoogleSQL supports implicit coercion to `JSON` for the following equality operators:
+
+- `=` (equal)
+- `!=` (not equal)
+- `IN` (list-based)
+
+For the `IN` operator, GoogleSQL only supports the list-based syntax: `json_expression IN (expression1, expression2, ..., expressionN)` . The first operand must be a `JSON` expression. GoogleSQL coerces the subsequent expressions to `JSON` if they are supported types.
+
+Supported non-JSON types for equality coercion include:
+
+- Scalars: [Boolean type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#boolean_type) , [Numeric types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_types) , `DATE` ,
+
+  `TIMESTAMP` , `UUID` , `STRING` , `ENUM` , and `BYTES` .
+
+- Non-scalars: `ARRAY` (if their element types are supported).
+
+#### Implicit coercion for ordering
+
+GoogleSQL supports implicit coercion to `JSON` for the following ordering operators:
+
+- `<` (less than)
+- `<=` (less than or equal to)
+- `>` (greater than)
+- `>=` (greater than or equal to)
+- `BETWEEN`
+
+For the `BETWEEN` operator, the first operand must be a `JSON` expression, for example, `json_col BETWEEN 1 AND 10` .
+
+Supported non-JSON types for ordering coercion include:
+
+- Scalars: [Boolean type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#boolean_type) , [Numeric types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#numeric_types) , `DATE` ,
+
+  `TIMESTAMP` , `UUID` , and `STRING` .
+
+- Non-scalars: `ARRAY` (if its element type is supported).
+
+`BYTES` , `RANGE` , and `ENUM` types aren't supported for ordering coercion because they don't preserve order when cast to JSON.
 
 ## Numeric types
 

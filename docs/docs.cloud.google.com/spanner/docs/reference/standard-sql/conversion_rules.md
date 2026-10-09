@@ -18,21 +18,26 @@ There are also conversions that have their own function names, such as `PARSE_DA
 
 The following table summarizes all possible cast and coercion possibilities for GoogleSQL data types. The *Coerce to* column applies to all expressions of a given data type, (for example, a column).
 
-| From type   | Cast to                                                                                         | Coerce to                            |
-|-------------|-------------------------------------------------------------------------------------------------|--------------------------------------|
-| `INT64`     | `BOOL` `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING` `ENUM`                                    | `NUMERIC` `FLOAT64`                  |
-| `NUMERIC`   | `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING`                                                  | `FLOAT64`                            |
-| `FLOAT32`   | `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING`                                                  | `FLOAT64`                            |
-| `FLOAT64`   | `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING`                                                  |                                      |
-| `BOOL`      | `BOOL` `INT64` `STRING`                                                                         |                                      |
-| `STRING`    | `BOOL` `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING` `BYTES` `DATE` `TIMESTAMP` `ENUM` `PROTO` |                                      |
-| `BYTES`     | `STRING` `BYTES` `PROTO`                                                                        |                                      |
-| `DATE`      | `STRING` `DATE` `TIMESTAMP`                                                                     |                                      |
-| `TIMESTAMP` | `STRING` `DATE` `TIMESTAMP`                                                                     |                                      |
-| `ARRAY`     | `ARRAY`                                                                                         |                                      |
-| `ENUM`      | `ENUM` (with the same `ENUM` name) `INT64` `STRING`                                             | `ENUM` (with the same `ENUM` name)   |
-| `STRUCT`    | `STRUCT`                                                                                        |                                      |
-| `PROTO`     | `PROTO` (with the same `PROTO` name) `STRING` `BYTES`                                           | `PROTO` (with the same `PROTO` name) |
+| From type       | Cast to                                                                                                | Coerce to                            |
+|-----------------|--------------------------------------------------------------------------------------------------------|--------------------------------------|
+| `INT64`         | `BOOL` `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING` `ENUM` `JSON`                                    | `NUMERIC` `FLOAT64`                  |
+| `NUMERIC`       | `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING` `JSON`                                                  | `FLOAT64`                            |
+| `FLOAT32`       | `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING` `JSON`                                                  | `FLOAT64`                            |
+| `FLOAT64`       | `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING` `JSON`                                                  |                                      |
+| `BOOL`          | `BOOL` `INT64` `STRING` `JSON`                                                                         |                                      |
+| `STRING`        | `BOOL` `INT64` `NUMERIC` `FLOAT32` `FLOAT64` `STRING` `BYTES` `DATE` `TIMESTAMP` `ENUM` `PROTO` `JSON` |                                      |
+| `BYTES`         | `STRING` `BYTES` `PROTO` `JSON`                                                                        |                                      |
+| `DATE`          | `STRING` `DATE` `TIMESTAMP` `JSON`                                                                     |                                      |
+| `TIMESTAMP`     | `STRING` `DATE` `TIMESTAMP` `JSON`                                                                     |                                      |
+| `INTERVAL`      | `JSON`                                                                                                 |                                      |
+| `ARRAY`         | `ARRAY` `JSON`                                                                                         |                                      |
+| `ENUM`          | `ENUM` (with the same `ENUM` name) `INT64` `STRING` `JSON`                                             | `ENUM` (with the same `ENUM` name)   |
+| `UUID`          | `JSON`                                                                                                 |                                      |
+| `JSON`          | `JSON`                                                                                                 |                                      |
+| `STRUCT`        | `STRUCT` `JSON`                                                                                        |                                      |
+| `PROTO`         | `PROTO` (with the same `PROTO` name) `STRING` `BYTES` `JSON`                                           | `PROTO` (with the same `PROTO` name) |
+| `GRAPH_ELEMENT` | `JSON`                                                                                                 |                                      |
+| `GRAPH_PATH`    | `JSON`                                                                                                 |                                      |
 
 ### Casting
 
@@ -41,6 +46,10 @@ Most data types can be cast from one type to another with the `CAST` function. W
 ### Coercion
 
 GoogleSQL coerces the result type of an argument expression to another type if needed to match function signatures. For example, if function `func()` is defined to take a single argument of type `FLOAT64` and an expression is used as an argument that has a result type of `INT64` , then the result of the expression will be coerced to `FLOAT64` type before `func()` is computed.
+
+#### JSON comparison coercion
+
+GoogleSQL supports implicit coercion from non- `JSON` types to `JSON` when comparing a `JSON` value with a non- `JSON` value. For more information about this behavior and the supported types, see the [Implicit coercion](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type_implicit_coercion) section in the `JSON` type documentation.
 
 ### Supertypes
 

@@ -930,7 +930,12 @@ The following rules apply when comparing these data types:
 
 - `STRING` : Strings are compared codepoint-by-codepoint, which means that canonically equivalent strings are only guaranteed to compare as equal if they have been normalized first.
 
-- `JSON` : You can't compare JSON, but you can compare the values inside of JSON if you convert the values to SQL values first. For more information, see [`JSON` functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions) .
+- `JSON` : You can compare `JSON` values in the following cases:
+
+  - Both operands are `JSON` .
+  - One operand is `JSON` and the other is a non- `JSON` type that can be implicitly coerced to `JSON` for equality and ordering comparisons.
+
+  For more information, see [`JSON` type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#json_type) .
 
 - `NULL` : Any operation with a `NULL` input returns `NULL` .
 

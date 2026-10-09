@@ -6,7 +6,14 @@ description: A managed, mission-critical, globally consistent and scalable relat
 data_source: docs.cloud.google.com
 ---
 
-GoogleSQL for Spanner supports conditional expressions. Conditional expressions impose constraints on the evaluation order of their inputs. In essence, they are evaluated left to right, with short-circuiting, and only evaluate the output value that was chosen. In contrast, all inputs to regular functions are evaluated before calling the function. Short-circuiting in conditional expressions can be exploited for error handling or performance tuning.
+GoogleSQL for Spanner supports conditional expressions.
+
+### Evaluation order and short-circuiting
+
+In contrast to regular functions, where all inputs are evaluated before calling the function, conditional expressions impose constraints on the evaluation semantics of their inputs:
+
+- Conditional expressions behave as if input expressions are evaluated from left to right and only up to the chosen output expression. Evaluation errors in unchosen expressions are ignored. If an expression that must be evaluated to determine the result produces an evaluation error, the query fails with that error. You can use short-circuiting semantics for error handling, such as avoiding division-by-zero errors. For more information, see [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) .
+- If the final result and error-handling behavior match short-circuiting semantics, input expressions might be evaluated in parallel or before the conditional expression is evaluated. These input expressions include scalar expressions and scalar subqueries in unchosen branches. Because all input expressions might still execute, don't rely solely on conditional expressions for performance tuning. To conditionally execute subqueries, use procedural control flow statements (such as `IF ... THEN` statements in procedural SQL) rather than conditional expressions. For more information, see [lazy physical execution](https://en.wikipedia.org/wiki/Lazy_evaluation) .
 
 ### Expression list
 
@@ -31,7 +38,7 @@ CASE expr
 
 **Description**
 
-Compares `expr` to `expr_to_match` of each successive `WHEN` clause and returns the first result where this comparison evaluates to `TRUE` . The remaining `WHEN` clauses and `else_result` aren't evaluated.
+Compares `expr` to `expr_to_match` of each successive `WHEN` clause and returns the first result where this comparison evaluates to `TRUE` . The expression behaves as if the remaining `WHEN` clauses and `else_result` aren't evaluated. For more information, see [Evaluation order and short-circuiting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#short_circuiting) .
 
 If the `expr = expr_to_match` comparison evaluates to `FALSE` or `NULL` for all `WHEN` clauses, returns the evaluation of `else_result` if present; if `else_result` isn't present, then returns `NULL` .
 
@@ -85,7 +92,7 @@ CASE
 
 **Description**
 
-Evaluates the condition of each successive `WHEN` clause and returns the first result where the condition evaluates to `TRUE` ; any remaining `WHEN` clauses and `else_result` aren't evaluated.
+Evaluates the condition of each successive `WHEN` clause and returns the first result where the condition evaluates to `TRUE` . The expression behaves as if any remaining `WHEN` clauses and `else_result` aren't evaluated. For more information, see [Evaluation order and short-circuiting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#short_circuiting) .
 
 If all conditions evaluate to `FALSE` or `NULL` , returns evaluation of `else_result` if present; if `else_result` isn't present, then returns `NULL` .
 
@@ -133,7 +140,11 @@ COALESCE(expr[, ...])
 
 **Description**
 
-Returns the value of the first non- `NULL` expression, if any, otherwise `NULL` . The remaining expressions aren't evaluated. An input expression can be any type. There may be multiple input expression types. All input expressions must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
+Returns the value of the first non- `NULL` expression, if any, otherwise `NULL` .
+
+The expression behaves as if the remaining expressions aren't evaluated: evaluation errors in an expression are ignored if any preceding expression evaluates to a non- `NULL` value, even though all input expressions might still be evaluated. If no preceding expression evaluates to a non- `NULL` value and an expression produces an evaluation error, the query fails with that error. For more information, see [Evaluation order and short-circuiting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#short_circuiting) .
+
+An input expression can be any type. There can be multiple input expression types. All input expressions must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
 
 **Return Data Type**
 
@@ -161,6 +172,28 @@ SELECT COALESCE(NULL, 'B', 'C') as result
  +--------*/
 ```
 
+```
+-- The first expression is non-NULL, so it's used. The division-by-zero error
+-- from the second expression isn't produced.
+SELECT COALESCE(10, 1 / 0) as result
+
+/*--------+
+ | result |
+ +--------+
+ | 10     |
+ +--------*/
+```
+
+In the following example, `COALESCE` includes scalar subqueries as fallback arguments. Because conditional expressions don't guarantee lazy execution, all three subqueries might be evaluated even if the first subquery returns a non- `NULL` value:
+
+```
+SELECT COALESCE(
+  (SELECT event_date FROM recent_events LIMIT 1),
+  (SELECT MAX(event_date) FROM weekly_events),
+  (SELECT MAX(event_date) FROM all_events)
+)
+```
+
 ### `IF`
 
 ```
@@ -169,7 +202,7 @@ IF(expr, true_result, else_result)
 
 **Description**
 
-If `expr` evaluates to `TRUE` , returns `true_result` , else returns the evaluation for `else_result` . `else_result` isn't evaluated if `expr` evaluates to `TRUE` . `true_result` isn't evaluated if `expr` evaluates to `FALSE` or `NULL` .
+If `expr` evaluates to `TRUE` , returns `true_result` , else returns the evaluation for `else_result` . The expression behaves as if `else_result` isn't evaluated when `expr` evaluates to `TRUE` , and as if `true_result` isn't evaluated when `expr` evaluates to `FALSE` or `NULL` . For more information, see [Evaluation order and short-circuiting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#short_circuiting) .
 
 `expr` must be a boolean expression. `true_result` and `else_result` must be coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
 
@@ -213,7 +246,9 @@ IFNULL(expr, null_result)
 
 **Description**
 
-If `expr` evaluates to `NULL` , returns `null_result` . Otherwise, returns `expr` . If `expr` doesn't evaluate to `NULL` , `null_result` isn't evaluated.
+If `expr` evaluates to `NULL` , returns `null_result` . Otherwise, returns `expr` .
+
+If `expr` is non- `NULL` , the expression behaves as if `null_result` isn't evaluated: evaluation errors in `null_result` are ignored, even though both input expressions might still be evaluated. If `expr` evaluates to `NULL` and `null_result` produces an evaluation error, the query fails with that error. For more information, see [Evaluation order and short-circuiting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#short_circuiting) .
 
 `expr` and `null_result` can be any type and must be implicitly coercible to a common [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) . Synonym for `COALESCE(expr, null_result)` .
 
@@ -235,6 +270,18 @@ SELECT IFNULL(NULL, 0) as result
 
 ```
 SELECT IFNULL(10, 0) as result
+
+/*--------+
+ | result |
+ +--------+
+ | 10     |
+ +--------*/
+```
+
+```
+-- The first expression is non-NULL, so it's used. The division-by-zero error
+-- from the second expression isn't produced.
+SELECT IFNULL(10, 1 / 0) as result
 
 /*--------+
  | result |

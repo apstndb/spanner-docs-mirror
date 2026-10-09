@@ -15,7 +15,7 @@ The following list summarizes the expectations on the graph passed as input to t
 > - [Undirected graph](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#undirected_graph)
 > - [Edge weights](https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/glossary#edge_weights) : Must be non-negative.
 
-The algorithm also admits as input a list of seed labels (that is, integer labels for some of the nodes in the graph), which the algorithm uses to initialize the labels of the nodes at the very beginning of the algorithm (before the execution of the first iteration). Note that the algorithm may update the labels of such nodes throughout its execution, so at the end they need not be equal to the provided seed labels. Nodes without a seed label receive an initial label that the algorithm chooses, which is different from the initial labels of all other nodes.
+The algorithm also admits as input a list of seed labels (that is, non-negative integer labels for some of the nodes in the graph), which the algorithm uses to initialize the labels of the nodes at the very beginning of the algorithm (before the execution of the first iteration). Note that the algorithm may update the labels of such nodes throughout its execution, so at the end they need not be equal to the provided seed labels. Nodes without a seed label receive an initial label that the algorithm chooses, which is different from the initial labels of all other nodes.
 
 The output of the algorithm is a non-overlapping clustering. The algorithm assigns each node to a single cluster corresponding to its final label.
 
