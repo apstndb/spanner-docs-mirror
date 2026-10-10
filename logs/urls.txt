@@ -157,7 +157,7 @@ https://docs.cloud.google.com/spanner/docs/application-migration	2026-10-07T09:4
 https://docs.cloud.google.com/spanner/docs/assess-migration	2026-10-07T09:40:22Z
 https://docs.cloud.google.com/spanner/docs/audit-logging	2026-10-07T09:40:22Z
 https://docs.cloud.google.com/spanner/docs/audit-logging-request-latency-guide	2026-10-07T09:40:22Z
-https://docs.cloud.google.com/spanner/docs/authentication	2026-10-07T09:40:22Z
+https://docs.cloud.google.com/spanner/docs/authentication	2026-10-09T22:04:15Z
 https://docs.cloud.google.com/spanner/docs/autoscaler-tool-overview	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/autoscaling-overview	2026-10-07T09:40:22Z
 https://docs.cloud.google.com/spanner/docs/backfill-embeddings	2026-10-07T09:40:22Z
@@ -177,8 +177,8 @@ https://docs.cloud.google.com/spanner/docs/capture-custom-metrics-opentelemetry	
 https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum	2026-10-07T09:40:22Z
 https://docs.cloud.google.com/spanner/docs/change-streams	2026-10-07T09:40:19Z
 https://docs.cloud.google.com/spanner/docs/change-streams/details	2026-10-08T22:05:03Z
-https://docs.cloud.google.com/spanner/docs/change-streams/manage	2026-10-08T21:58:36Z
-https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow	2026-10-07T09:41:07Z
+https://docs.cloud.google.com/spanner/docs/change-streams/manage	2026-10-09T21:21:36Z
+https://docs.cloud.google.com/spanner/docs/change-streams/use-dataflow	2026-10-09T21:25:17Z
 https://docs.cloud.google.com/spanner/docs/change-streams/use-kafka	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/check-constraint/how-to	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/choose-googlesql-or-postgres	2026-10-07T09:40:22Z
@@ -682,7 +682,7 @@ https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.da
 https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1	2026-02-24T05:58:50Z
 https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1	2026-03-06T22:34:24Z
 https://docs.cloud.google.com/spanner/docs/reference/rpc/google.type	2025-10-17T23:52:19Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls	2026-10-01T01:24:09Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls	2026-10-09T20:07:39Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays	2026-10-01T01:24:09Z
@@ -697,7 +697,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types	202
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/debugging_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax	2026-10-01T01:23:56Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/format-elements	2026-10-01T01:23:56Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/format-elements	2026-10-09T22:30:01Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-all	2026-10-06T21:47:46Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-conditional-expressions	2026-09-26T09:41:18Z

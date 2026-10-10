@@ -195,6 +195,31 @@ SELECT AVG(inches HAVING MIN year) AS average FROM Precipitation;
  +---------*/
 ```
 
+## Handle `NULL` values before aggregation
+
+Most aggregate functions, such as `AVG` , `SUM` , `MIN` , `MAX` , and `COUNT(expression)` , ignore `NULL` values by default. In contrast, `COUNT(*)` counts all input rows, including rows with `NULL` values.
+
+For example, the following query aggregates a set of values that includes `NULL` :
+
+```
+SELECT
+  COUNT(*) AS row_count,
+  COUNT(x) AS non_null_rows,
+  AVG(x) AS avg_x
+FROM UNNEST([1, 2, 3, 4, 5, NULL]) AS x;
+
+/*------------+---------------+-------+
+ | row_count | non_null_rows | avg_x |
+ +------------+---------------+-------+
+ | 6          | 5             | 3     |
+ +------------+---------------+-------*/
+```
+
+You can also exclude or replace `NULL` values in one of the following ways:
+
+- Use the `IGNORE NULLS` clause for aggregate functions that include `NULL` values by default, such as `ARRAY_AGG(x IGNORE NULLS)` .
+- Use [`COALESCE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions#coalesce) to replace `NULL` values with a default value before aggregating, such as `AVG(COALESCE(x, 0))` .
+
 ## Aggregate function examples
 
 A simple aggregate function call for `COUNT` , `MIN` , and `MAX` looks like this:

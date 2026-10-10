@@ -223,7 +223,7 @@ pipeline
     .withInclusiveStartAt(Timestamp.now()))
   .apply(ParDo.of(new BreakRecordByModFn()))
   .apply(ParDo.of(new KeyByIdFn()))
-  .apply(ParDo.of(new BufferKeyUntilOutputTimestamp()))
+  .apply(ParDo.of(new BufferKeyUntilOutputTimestamp(2)))
   // Subsequent processing goes here
 ```
 
@@ -311,7 +311,7 @@ Timers and buffers are per-key. This function buffers each data change record un
 
 This code utilizes a looping timer to determine when to flush the buffer:
 
-1.  When it sees a data change record for a key for the first time, it sets the timer to fire at the data change record's commit timestamp + `incrementIntervalSeconds` (a user-configurable option).
+1.  When it sees a data change record for a key for the first time, it sets the timer to fire at the data change record's commit timestamp + `incrementIntervalInSeconds` (a user-configurable option).
 2.  When the timer fires, it adds all data change records in the buffer with timestamp less than the timer's expiration time to `recordsToOutput` . If the buffer has data change records whose timestamp is greater than or equal to the timer's expiration time, it adds those data change records back into the buffer instead of outputting them. It then sets the next timer to the current timer's expiration time plus `incrementIntervalInSeconds` .
 3.  If `recordsToOutput` is not empty, the function orders the data change records in `recordsToOutput` by commit timestamp and transaction ID and then outputs them.
 
@@ -321,7 +321,7 @@ private static class BufferKeyUntilOutputTimestamp extends
   private static final Logger LOG =
       LoggerFactory.getLogger(BufferKeyUntilOutputTimestamp.class);
 
-  private final long incrementIntervalInSeconds = 2;
+  private final long incrementIntervalInSeconds;
 
   private BufferKeyUntilOutputTimestamp(long incrementIntervalInSeconds) {
     this.incrementIntervalInSeconds = incrementIntervalInSeconds;
@@ -702,13 +702,13 @@ public class ToFullRowJsonFn extends DoFn<DataChangeRecord, String> {
 }
 ```
 
-This code creates a Spanner database client to perform the full row fetch, and configures the session pool to have just a few sessions, performing reads in one instance of the `ToFullReowJsonFn` sequentially. Dataflow makes sure to spawn many instances of this function, each with its own client pool.
+This code creates a Spanner database client to perform the full row fetch, and configures the session pool to have just a few sessions, performing reads in one instance of the `ToFullRowJsonFn` sequentially. Dataflow makes sure to spawn many instances of this function, each with its own client pool.
 
 > **Note:** We recommended adding a re-shuffle stage after a stage which reads the change stream. This re-distributes data into multiple worker threads, and increases parallelism.
 
 ### Sample: Spanner to Pub/Sub
 
-In this scenario, the caller streams records to Pub/Sub as fast as possible, without any grouping or aggregation. This is a good fit for triggering downstream processing, as as streaming all new rows inserted into a Spanner table to [Pub/Sub](https://docs.cloud.google.com/pubsub/docs) for further processing.
+In this scenario, the caller streams records to Pub/Sub as fast as possible, without any grouping or aggregation. This is a good fit for triggering downstream processing, such as streaming all new rows inserted into a Spanner table to [Pub/Sub](https://docs.cloud.google.com/pubsub/docs) for further processing.
 
 ```
 pipeline

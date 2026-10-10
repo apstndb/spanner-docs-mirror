@@ -148,7 +148,7 @@ WITH ( retention_period = '7d' );
 
 ### Specify a different value capture type
 
-To specify a [change stream value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) other than `OLD_AND_NEW_VALUES` , set the `value_capture_type` to either `NEW_VALUES` or `NEW_ROW` , as shown in the following examples:
+To specify a [change stream value capture type](https://docs.cloud.google.com/spanner/docs/change-streams#value-capture-type) other than `OLD_AND_NEW_VALUES` , set the `value_capture_type` to `NEW_VALUES` , `NEW_ROW` , or `NEW_ROW_AND_OLD_VALUES` , as shown in the following examples:
 
 ### GoogleSQL
 
@@ -164,6 +164,12 @@ FOR ALL
 OPTIONS ( value_capture_type = 'NEW_VALUES' );
 ```
 
+```
+CREATE CHANGE STREAM NewRowAndOldValuesChangeStream
+FOR ALL
+OPTIONS ( value_capture_type = 'NEW_ROW_AND_OLD_VALUES' );
+```
+
 ### PostgreSQL
 
 ```
@@ -176,6 +182,12 @@ WITH ( value_capture_type = 'NEW_ROW' );
 CREATE CHANGE STREAM NewValuesChangeStream
 FOR ALL
 WITH ( value_capture_type = 'NEW_VALUES' );
+```
+
+```
+CREATE CHANGE STREAM NewRowAndOldValuesChangeStream
+FOR ALL
+WITH ( value_capture_type = 'NEW_ROW_AND_OLD_VALUES' );
 ```
 
 ### Filter TTL-based deletes
