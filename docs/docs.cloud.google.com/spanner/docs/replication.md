@@ -75,6 +75,8 @@ Read-only replicas only support reads, but not writes. These replicas don't vote
 
 - Can scale asymmetrically. For more information, see [Asymmetric read-only autoscaling](https://docs.cloud.google.com/spanner/docs/managed-autoscaler#asymmetric-read-only-autoscaling) .
 
+- Don't function as a standalone disaster recovery (DR) solution. Instance availability is determined by the quorum of voting replicas. If the Spanner instance goes offline, the read-only replicas also go offline shortly afterward and can't serve reads, including stale reads.
+
 - If it is the nearest replica to your application, the read-only replica can usually serve stale reads without needing a round trip to the leader region, assuming staleness is at least 15 seconds. You can also use directed reads to route read-only transactions and single reads to a specific replica type or a region in a multi-region instance configuration. For more information, see [Directed reads](https://docs.cloud.google.com/spanner/docs/directed-reads) .
 
   Strong reads might require a round trip to the leader replica. The round trip is just for negotiating the timestamp, not shipping the actual data from the leader. The timestamp negotiation is a CPU efficient operation at the leader, and typically the data is already en-route. This communication is handled automatically by the system.
