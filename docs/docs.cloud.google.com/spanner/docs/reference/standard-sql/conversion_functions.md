@@ -288,14 +288,13 @@ GoogleSQL supports [casting](https://docs.cloud.google.com/spanner/docs/referenc
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>From</th>
 <th>To</th>
 <th>Rule(s) when casting <code>x</code></th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td>Any supported type</td>
 <td><code>JSON</code></td>
@@ -563,14 +562,13 @@ GoogleSQL supports [casting](https://docs.cloud.google.com/spanner/docs/referenc
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>From</th>
 <th>To</th>
 <th>Rule(s) when casting <code>x</code></th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>STRUCT</code></td>
 <td><code>STRUCT</code></td>

@@ -105,14 +105,13 @@ For each locality group, this table lists the name and options that are set on t
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>LOCALITY_GROUP_NAME</code></td>
 <td><code>STRING</code></td>
@@ -148,14 +147,13 @@ This row-filtered table lists the tables and views in the database. Principals w
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>TABLE_CATALOG</code></td>
 <td><code>STRING</code></td>
@@ -227,14 +225,13 @@ This row-filtered table lists the columns in a table. Principals with database-l
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>TABLE_CATALOG</code></td>
 <td><code>STRING</code></td>
@@ -390,14 +387,13 @@ This table contains one row for each constraint defined for the tables in the da
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>CONSTRAINT_CATALOG</code></td>
 <td><code>STRING</code></td>
@@ -481,14 +477,13 @@ This table contains one row about each `FOREIGN KEY` constraint.
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>CONSTRAINT_CATALOG</code></td>
 <td><code>STRING</code></td>
@@ -558,14 +553,13 @@ The `information_schema.CHECK_CONSTRAINTS` table contains one row about each `CH
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>CONSTRAINT_CATALOG</code></td>
 <td><code>STRING</code></td>
@@ -657,14 +651,13 @@ This row-filtered table lists the indexes in the database. Principals with datab
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>TABLE_CATALOG</code></td>
 <td><code>STRING</code></td>

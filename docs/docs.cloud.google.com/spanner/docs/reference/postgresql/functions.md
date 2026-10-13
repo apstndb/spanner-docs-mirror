@@ -212,14 +212,13 @@ For more information, see the [PostgreSQL `JSONB` documentation](https://www.pos
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Function</th>
 <th>Examples and notes</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>jsonb_array_elements(JSONB)</code></td>
 <td><p><code>jsonb_array_elements('[1, "abc", {"k": "v"}]'::jsonb)</code></p>

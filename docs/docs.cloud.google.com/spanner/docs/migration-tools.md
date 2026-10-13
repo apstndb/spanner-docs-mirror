@@ -154,13 +154,12 @@ The following table recommends migration tools based on the migration stage:
 <col style="width: 50%" />
 <col style="width: 50%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Migration stage</th>
 <th>Recommended tool or process</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td>Assessment</td>
 <td>Not applicable</td>

@@ -152,14 +152,13 @@ The `check_constraints` view contains one row for each check constraint defined 
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>constraint_catalog</code></td>
 <td><code>character varying</code></td>
@@ -245,14 +244,13 @@ This row-filtered view provides information about all table columns and view col
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>table_catalog</code></td>
 <td><code>character varying</code></td>
@@ -591,14 +589,13 @@ This view lists the indexes in a schema.
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>table_catalog</code></td>
 <td><code>character varying</code></td>
@@ -898,14 +895,13 @@ For each placement, this table lists the options that are set on the placement i
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>placement_name</code></td>
 <td><code>character varying</code></td>
@@ -943,14 +939,13 @@ For each locality group, this table lists the name and options that are set on t
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>locality_group_name</code></td>
 <td><code>character varying</code></td>
@@ -983,14 +978,13 @@ This view contains one row about each `FOREIGN KEY` constraint. You can see only
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>constraint_catalog</code></td>
 <td><code>character varying</code></td>
@@ -1697,14 +1691,13 @@ This view contains all constraints belonging to tables that the current user has
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>constraint_catalog</code></td>
 <td><code>character varying</code></td>
@@ -1793,14 +1786,13 @@ This row-filtered view lists all the tables and view that are in the current dat
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>table_catalog</code></td>
 <td><code>character varying</code></td>

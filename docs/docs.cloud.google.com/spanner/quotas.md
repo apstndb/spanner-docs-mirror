@@ -93,13 +93,12 @@ A [Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-
 <col style="width: 50%" />
 <col style="width: 50%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Value</th>
 <th>Limit</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td>Databases per instance</td>
 <td><ul>

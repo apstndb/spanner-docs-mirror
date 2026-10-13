@@ -68,14 +68,13 @@ These tables have the following properties:
 <col style="width: 33%" />
 <col style="width: 33%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>Column name</th>
 <th>Type</th>
 <th>Description</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><code>INTERVAL_END</code></td>
 <td><code>TIMESTAMP</code></td>

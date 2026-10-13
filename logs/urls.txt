@@ -211,7 +211,6 @@ https://docs.cloud.google.com/spanner/docs/create-manage-views	2026-10-07T09:39:
 https://docs.cloud.google.com/spanner/docs/create-query-database-console	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/cuds	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry	2026-10-07T09:39:47Z
-https://docs.cloud.google.com/spanner/docs/cutover-fallback-mechanisms	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/data-migration	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/data-residency	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/data-validation	2026-10-07T09:39:47Z
@@ -330,8 +329,8 @@ https://docs.cloud.google.com/spanner/docs/import-export-overview	2026-10-07T09:
 https://docs.cloud.google.com/spanner/docs/import-non-spanner	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/index-advisor	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/index-geo-partitioning	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/information-schema	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/information-schema-pg	2026-10-07T09:39:33Z
+https://docs.cloud.google.com/spanner/docs/information-schema	2026-10-10T21:27:06Z
+https://docs.cloud.google.com/spanner/docs/information-schema-pg	2026-10-10T21:27:06Z
 https://docs.cloud.google.com/spanner/docs/install-mysql-functions	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-10-10T21:27:06Z
 https://docs.cloud.google.com/spanner/docs/instances	2026-10-07T09:39:33Z
@@ -341,7 +340,7 @@ https://docs.cloud.google.com/spanner/docs/introspection/active-partitioned-dmls
 https://docs.cloud.google.com/spanner/docs/introspection/column-operations-statistics	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization	2026-10-07T09:39:54Z
-https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics	2026-10-07T09:39:54Z
+https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics	2026-10-10T21:26:50Z
 https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/query-statistics	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/read-statistics	2026-10-07T09:39:54Z
@@ -382,7 +381,7 @@ https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner	2026-10-07
 https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner-pgcompat	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/migrating-primary-keys	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/migration-overview	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/migration-tools	2026-10-07T09:39:39Z
+https://docs.cloud.google.com/spanner/docs/migration-tools	2026-10-10T21:27:09Z
 https://docs.cloud.google.com/spanner/docs/ml	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/ml-emulator	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/ml-troubleshoot	2026-10-07T09:39:39Z
@@ -453,7 +452,7 @@ https://docs.cloud.google.com/spanner/docs/queues/queues-overview	2026-10-07T09:
 https://docs.cloud.google.com/spanner/docs/queues/queues-using	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/read-lease	2026-10-01T01:24:59Z
 https://docs.cloud.google.com/spanner/docs/reads	2026-10-07T09:40:03Z
-https://docs.cloud.google.com/spanner/docs/reference/dialect-differences	2026-10-07T09:40:30Z
+https://docs.cloud.google.com/spanner/docs/reference/dialect-differences	2026-10-10T21:29:04Z
 https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/clustering/clique-aggregator	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/clustering/connected-components	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/clustering/correlation-clustering	2026-10-01T01:24:09Z
@@ -500,7 +499,7 @@ https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays	2026-10-0
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax	2026-10-07T09:40:30Z
-https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions	2026-10-07T09:40:30Z
+https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions	2026-10-10T21:29:04Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/operators	2026-10-07T09:40:30Z
@@ -690,7 +689,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions	
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/collation-concepts	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-functions	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions	2026-10-08T18:27:29Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions	2026-10-08T19:54:18Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions	2026-10-10T21:29:04Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules	2026-10-08T19:54:18Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types	2026-10-08T19:54:18Z
@@ -927,4 +926,4 @@ https://docs.cloud.google.com/spanner/docs/write-hibernate-app	2026-10-07T09:41:
 https://docs.cloud.google.com/spanner/docs/write-spring-boot-app	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/write-sql-gemini	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/operational-guidelines	2026-10-01T01:24:09Z
-https://docs.cloud.google.com/spanner/quotas	2026-10-02T18:41:28Z
+https://docs.cloud.google.com/spanner/quotas	2026-10-10T21:28:22Z

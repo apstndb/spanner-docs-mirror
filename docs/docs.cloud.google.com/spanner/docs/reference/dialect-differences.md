@@ -15,13 +15,12 @@ This page describes the dialect differences between GoogleSQL and PostgreSQL and
 <col style="width: 50%" />
 <col style="width: 50%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>GoogleSQL feature</th>
 <th>PostgreSQL dialect recommendation</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax">Pipe syntax</a></td>
 <td>No recommendation available, Pipe syntax is GoogleSQL-only.</td>
@@ -146,13 +145,12 @@ FROM singers;</code></pre></td>
 <col style="width: 50%" />
 <col style="width: 50%" />
 </colgroup>
-<thead>
+<tbody>
 <tr class="header">
 <th>GoogleSQL function</th>
 <th>PostgreSQL dialect recommendation</th>
 </tr>
-</thead>
-<tbody>
+
 <tr class="odd">
 <td><a href="https://docs.cloud.google.com/spanner/docs/reference/standard-sql/mathematical_functions#acosh"><code>ACOSH</code></a></td>
 <td>Use the formula of the function explicitly, as shown in the following example:<br />
