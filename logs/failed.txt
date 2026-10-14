@@ -1,3 +1,1 @@
-200 https://docs.cloud.google.com/spanner/docs/cutover-fallback
-200 https://docs.cloud.google.com/spanner/docs/mysql-fallback
-200 https://docs.cloud.google.com/spanner/docs/mysql-perform-cutover
+

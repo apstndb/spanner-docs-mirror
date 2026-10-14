@@ -16,15 +16,15 @@ QueryData lets you interact with the data in your database using conversational 
 
 A context set is a collection of database-specific information that enables QueryData to generate queries with high accuracy.
 
-To learn more, see :
+To learn more, see:
 
 - [Context sets overview](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/context-sets-overview)
-- [Build context sets using the context engineering agent](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/build-context-sets)
+- [Build context sets using the context engineering agent](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/build-context-gemini-cli)
 - [Manage context sets in Spanner Studio](https://docs.cloud.google.com/gemini/data-agents/querydata/spanner/manage-data-agents)
 
 ## QueryData
 
-QueryData writes queries for your database using context sets, translating natural language questions into accurate queries.
+QueryData writes queries for your database using context sets, translating natural language questions into accurate SQL queries.
 
 To learn more, see :
 

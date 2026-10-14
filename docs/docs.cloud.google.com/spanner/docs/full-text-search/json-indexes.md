@@ -18,15 +18,23 @@ You can use the `TOKENIZE_JSON` function to create a JSON index in GoogleSQL, or
 
 ## JSON and JSONB queries
 
-You can use a search index to accelerate queries that include *JSON containment* and *key existence* conditions. JSON containment determines if one JSON document is contained within another. Key existence determines if a key exists in the database schema.
+You can use a search index to accelerate queries that include *equality comparisons* , *JSON containment* , and *key existence* conditions:
+
+- **Equality comparisons** determine whether a JSON document or a subpath within a JSON document equals a target value.
+- **JSON containment** determines if one JSON document is contained within another.
+- **Key existence** determines if a key or path exists in a JSON document.
+
+You can express these conditions in each dialect as follows:
 
 - In GoogleSQL:
 
+  - Construct equality predicates using the `=` , `!=` , `<>` , `IN` , and `NOT IN` operators on an indexed `JSON` column or a subpath extracted with the [field access](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#field_access_operator) and [subscript](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/operators#json_subscript_operator) operators. For example, `doc = JSON '{"a": 1}'` , `doc.sub.path[0].key = "value"` , or `doc.status IN ("active", "pending")` . Other [comparison operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#comparison_and_sorting) such as `<` , `<=` , `>` , and `>=` aren't accelerated by JSON search indexes.
   - Express JSON containment in your schema by using the [`JSON_CONTAINS`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#json_contains) function.
   - Construct key existence conditions using the field access, array subscript operators, and `IS NOT NULL` . The field access and array subscript operators describe a JSON document path. `IS NOT NULL` checks for the existence of this path (for example, `doc.sub.path[@index].key IS NOT NULL` ).
 
 - In PostgreSQL:
 
+  - Construct equality predicates using the `=` , `!=` , `<>` , `IN` , and `NOT IN` operators on an indexed `JSONB` column or a subpath extracted with the [`->`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) operator. For example, `doc = '{"a": 1}'::jsonb` , `doc->'sub'->0->'key' = '"value"'::jsonb` , or `doc->'status' IN ('"active"'::jsonb, '"pending"'::jsonb)` . Other comparison operators such as `<` , `<=` , `>` , and `>=` , as well as text extraction predicates that use `->>` , aren't accelerated by JSONB search indexes.
   - Express JSONB containment using the `@>` and `<@` operators. For more information, see [JSONB operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) .
   - Construct key existence conditions using the `?` , `?|` , and `?&` operators. For more information, see [JSONB operators](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#jsonb_operators) .
 

@@ -1,7 +1,7 @@
 ---
 name: documents/docs.cloud.google.com/spanner/docs/mysql-live-data-migration
 uri: https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration
-title: Live data migration from MySQL
+title: Migrate your MySQL data
 description: Perform a live migration from MySQL to Spanner with minimal downtime using Datastream and Dataflow.
 data_source: docs.cloud.google.com
 ---
@@ -19,13 +19,13 @@ The live data migration consists of the following two phases:
 - **Backfill migration** :
 
   - During backfill migration, Dataflow reads existing data from your source MySQL database and migrates the data to the target Spanner database. You need to use a bulk migration Dataflow template to move the data from your source MySQL instance to Spanner.
-  - When the backfill migration fails to write a row to Spanner, it writes that row to a dead-letter queue directory in a Cloud Storage bucket. You can have the backfill migration retry the writing these rows to Spanner.
+  - When the backfill migration fails to write a row to Spanner, it writes that row to a dead-letter queue (DLQ) directory in a Cloud Storage bucket. You can have the backfill migration retry writing these rows to Spanner.
 
 - **Change data capture (CDC) migration** :
 
   - This phase runs concurrently with the backfill migration, capturing changes occurring in the source MySQL instance in real time. These changes are then applied to Spanner after the backfill migration is complete.
   - You need to use Datastream to capture changes occurring in your source MySQL instance in real time and write them to a Cloud Storage bucket.
-  - After the backfill migration is complete, you need to use Dataflow to move the CDC from the Cloud Storage bucket to Spanner. If Dataflow fails to write a row to Spanner for any reason, it writes that row to a dead-letter queue directory in a different Cloud Storage bucket. The CDC migration automatically retries writing the rows from the dead-letter queue directory to Spanner.
+  - After the backfill migration is complete, you need to use Dataflow to move the CDC from the Cloud Storage bucket to Spanner. If Dataflow fails to write a row to Spanner for any reason, it writes that row to a DLQ directory in a different Cloud Storage bucket. The CDC migration automatically retries writing the rows from the DLQ directory to Spanner.
 
 ## Plan for the live data migration
 
@@ -45,7 +45,9 @@ To perform a live data migration, follow these steps:
 
 1.  [Set up CDC migration](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration#setup-cdc-migration) .
 2.  [Perform the backfill migration](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration#perform-backfill-migration) .
-3.  [Finish the CDC migration after the backfill migration is finished](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration#finish-cdc-migration) .
+3.  [Perform the CDC migration after the backfill migration is finished](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration#perform-cdc-migration) .
+4.  [Monitor and resolve CDC errors](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration#resolve-cdc-dlq-errors) .
+5.  [Finish the CDC migration](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration#finish-cdc-migration) .
 
 Performing the live data migration requires deploying and managing a significant number of resources. Spanner provides two sample Terraform templates for each phase of the live data migration.
 
@@ -149,60 +151,54 @@ Spanner offers a Terraform template setting up the CDC and later, completing the
 You can prepare the [Terraform template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/datastream-to-spanner/terraform/samples/mysql-end-to-end) to include Dataflow variable configurations, but disable the creation of Dataflow jobs:
 
 ```
-    common_params = {
-      project = "PROJECT_ID"
-      region  = "GCP_REGION"
-    }
-    datastream_params = {
-      mysql_host = "MYSQL_HOST_IP_ADDRESS"
-      mysql_username = "MYSQL_USERNAME"
-      mysql_password = "MYSQL_PASSWORD"
-      mysql_port     = 3306
-      mysql_database = {
-        database = "DATABASE_NAME"
-      }
-      private_connectivity = {
-        vpc_name = "VPC_NAME"
-        range = "RESERVED_RANGE"
-      }
-    }
-    dataflow_params = {
-      skip_dataflow = false
-      enable_backfill = false
-      template_params = {
-        spanner_database_id = "SPANNER_DATABASE_ID"
-        spanner_instance_id = "SPANNER_INSTANCE_ID"
-      }
-      runner_params = {
-        max_workers = 10
-        num_workers = 4
-        on_delete   = "cancel"
-        network     = "VPC_NETWORK"
-        subnetwork  = "SUBNETWORK_NAME"
-      }
-    }
-  
+common_params = {
+  project = "PROJECT_ID"
+  region  = "GCP_REGION"
+}
+datastream_params = {
+  mysql_host = "MYSQL_HOST_IP_ADDRESS"
+  mysql_username = "MYSQL_USERNAME"
+  mysql_password = "MYSQL_PASSWORD"
+  mysql_port     = 3306
+  mysql_database = {
+    database = "DATABASE_NAME"
+  }
+  private_connectivity = {
+    vpc_name = "VPC_NAME"
+    range = "RESERVED_RANGE"
+  }
+}
+dataflow_params = {
+  skip_dataflow = false
+  enable_backfill = false
+  template_params = {
+    spanner_database_id = "SPANNER_DATABASE_ID"
+    spanner_instance_id = "SPANNER_INSTANCE_ID"
+  }
+  runner_params = {
+    max_workers = 10
+    num_workers = 4
+    on_delete   = "cancel"
+    network     = "VPC_NETWORK"
+    subnetwork  = "SUBNETWORK_NAME"
+  }
+}
 ```
 
-The Terraform variables are described in the following list:
+Replace the following:
 
-- `project` : the Google Cloud project ID.
-- `region` : the Google Cloud region.
-- `mysql_host` : your source MySQL instance IP address.
-- `mysql_username` : your source mySQL instance username.
-- `mysql_password` : your source mySQL instance password.
-- `mysql_port` : the source MySQL instance port number.
-- `database` : your source MySQL database name in the instance.
-- `vpc_name` : the name of an existing VPC that's used by Datastream.
-- `range` : The IP range on the VPC that you've reserved for Datastream to use.
-- `skip_dataflow` : set this value to `true` to disable Dataflow from creating Dataflow jobs.
-- `enable_backfill` : set this value to `false` to disable the Terraform template from creating Dataflow jobs.
-- `spanner_database_id` : the target Spanner database ID.
-- `spanner_instance_id` : the target Spanner instance ID.
-- `max_workers` : determines the maximum number of workers Dataflow creates.
-- `min_workers` : determines the maximum number of workers Dataflow creates.
-- `network` : the name of an existing VPC that is going to be used by Dataflow.
-- `subnetwork` : the name of the designated subnetwork in the VPC that Dataflow can create workers.
+- `PROJECT_ID` : the Google Cloud project ID.
+- `GCP_REGION` : the Google Cloud region where you want to run the Dataflow job.
+- `MYSQL_HOST_IP_ADDRESS` : your source MySQL instance IP address.
+- `MYSQL_USERNAME` : your source MySQL instance username.
+- `MYSQL_PASSWORD` : your source MySQL instance password.
+- `DATABASE_NAME` : your source MySQL database name in the instance.
+- `VPC_NAME` : the name of an existing VPC used by Datastream.
+- `RESERVED_RANGE` : the IP address range on the VPC that you reserved for Datastream.
+- `SPANNER_DATABASE_ID` : the target Spanner database ID.
+- `SPANNER_INSTANCE_ID` : the target Spanner instance ID.
+- `VPC_NETWORK` : the name of an existing VPC used by Dataflow.
+- `SUBNETWORK_NAME` : the name of the designated subnetwork in the VPC where Dataflow creates workers.
 
 ### Run the CDC Terraform template
 
@@ -259,33 +255,32 @@ Spanner offers a Terraform template to perform the backfill migration. The Terra
 ### Preparing the backfill migration Terraform configuration
 
 ```
-    job_name = "JOB_NAME"
-    project = "PROJECT_ID"
-    region = "GCP_REGION"
-    working_directory_bucket = "WORKING_DIRECTORY_BUCKET"
-    working_directory_prefix = "WORKING_DIRECTORY_PREFIX"
-    source_config_url = "SOURCE_CONFIG_URL"
-    username = "USERNAME"
-    password = "PASSWORD"
-    instance_id = "SPANNER_INSTANCE_ID"
-    database_id  = "SPANNER_DATABASE_ID"
-    spanner_project_id = "SPANNER_PROJECT_ID"
-  
+job_name = "JOB_NAME"
+project = "PROJECT_ID"
+region = "GCP_REGION"
+working_directory_bucket = "WORKING_DIRECTORY_BUCKET"
+working_directory_prefix = "WORKING_DIRECTORY_PREFIX"
+source_config_url = "SOURCE_CONFIG_URL"
+username = "USERNAME"
+password = "PASSWORD"
+instance_id = "SPANNER_INSTANCE_ID"
+database_id  = "SPANNER_DATABASE_ID"
+spanner_project_id = "SPANNER_PROJECT_ID"
 ```
 
-The Terraform variables are described in the following list:
+Replace the following:
 
-- `job_name` : the Dataflow job name.
-- `project` : the Google Cloud project ID where the Dataflow job needs to run.
-- `region` : the Google Cloud region.
-- `working_directory_bucket` : the Cloud Storage bucket for uploading the session file and creating the output directory.
-- `working_directory_prefix` : the Cloud Storage bucket prefix for The Dataflow working directory.
-- `source_config_url` : your source MySQL instance IP address.
-- `username` : your source mySQL instance username.
-- `password` : your source mySQL instance password.
-- `instance_id` : the target Spanner instance ID.
-- `database_id` : the target Spanner database ID.
-- `spanner_project_id` : the project ID where your Spanner instance is. This project ID can be different than the project you're running Dataflow on.
+- `JOB_NAME` : the name of the Dataflow job.
+- `PROJECT_ID` : the Google Cloud project ID where the Dataflow job runs.
+- `GCP_REGION` : the Google Cloud region where you want to run the Dataflow job.
+- `WORKING_DIRECTORY_BUCKET` : the Cloud Storage bucket for uploading the session file and creating the output directory.
+- `WORKING_DIRECTORY_PREFIX` : the Cloud Storage bucket prefix for the Dataflow working directory.
+- `SOURCE_CONFIG_URL` : your source MySQL instance IP address.
+- `USERNAME` : your source MySQL instance username.
+- `PASSWORD` : your source MySQL instance password.
+- `SPANNER_INSTANCE_ID` : the target Spanner instance ID.
+- `SPANNER_DATABASE_ID` : the target Spanner database ID.
+- `SPANNER_PROJECT_ID` : the project ID where your Spanner instance resides. This project ID can be different from the project where you run Dataflow.
 
 ### Run the backfill migration Terraform template
 
@@ -330,35 +325,35 @@ To retry writing these rows from the dead-letter queue directory to Spanner befo
 
 ```
 gcloud dataflow flex-template run JOB_NAME \
---region=GCP_REGION \
---template-file-gcs-location=gs://dataflow-templates/latest/flex/Cloud_Datastream_to_Spanner \
---additional-experiments=use_runner_v2 \
---parameters inputFilePattern=inputFilePattern,streamName="ignore", \
---datastreamSourceType=SOURCE_TYPE\
-instanceId=INSTANCE_ID,databaseId=DATABASE_ID,sessionFilePath=SESSION_FILE_PATH, \
-deadLetterQueueDirectory=DLQ_DIRECTORY,runMode="retryDLQ"
+    --project=PROJECT_ID \
+    --region=GCP_REGION \
+    --template-file-gcs-location=gs://dataflow-templates/latest/flex/Cloud_Datastream_to_Spanner \
+    --additional-experiments=use_runner_v2 \
+    --parameters inputFilePattern=INPUT_FILE_PATTERN,\
+      streamName="ignore",\
+      datastreamSourceType=SOURCE_TYPE,\
+      instanceId=INSTANCE_ID,databaseId=DATABASE_ID,sessionFilePath=SESSION_FILE_PATH,\
+      deadLetterQueueDirectory=DLQ_DIRECTORY,\
+      runMode="retryDLQ"
 ```
 
-The gcloud CLI command variables are described in the following list:
+Replace the following:
 
-- `job_name` : the Dataflow job name.
-- `region` : the Google Cloud region.
-- `inputFilePattern` : the Cloud Storage bucket location of the input file pattern.
-- `datastreamSourceType` : the source type, for example, MySQL.
-- `instanceId` : the target Spanner instance ID.
-- `databaseId` : the target Spanner database ID.
-- `sessionFilePath` : the Cloud Storage bucket path to the session file.
-- `deadLetterQueueDirectory` : the Cloud Storage bucket path to the DLQ directory.
+- `JOB_NAME` : the name of the Dataflow job.
+- `PROJECT_ID` : the Google Cloud project ID where the Dataflow job runs.
+- `GCP_REGION` : the Google Cloud region where you want to run the Dataflow job.
+- `INPUT_FILE_PATTERN` : the Cloud Storage bucket location of the input file pattern.
+- `SOURCE_TYPE` : the source database type (for example, `mysql` ).
+- `INSTANCE_ID` : the target Spanner instance ID.
+- `DATABASE_ID` : the target Spanner database ID.
+- `SESSION_FILE_PATH` : the Cloud Storage path to the session file generated by the Spanner migration tool.
+- `DLQ_DIRECTORY` : the Cloud Storage path to the dead-letter queue root directory containing the error files to retry (for example, `gs://MIGRATION_BUCKET/ENV/SERVICE/cdc/DB_SCHEMA/` ).
 
-## Finish the CDC migration
+## Perform the CDC migration
 
 After the backfill migration is complete, you can use Dataflow to migrate the CDC to Spanner. The Dataflow job takes the change events from the Cloud Storage bucket and writes them to Spanner.
 
-After almost all the data from the Cloud Storage bucket is written to Spanner, stop writes on the source MySQL instance to allow the remaining changes to be written to Spanner.
-
-This causes a short downtime while Spanner catches up to the source MySQL instance. After all the changes are written to Spanner, your application can start using Spanner as their database.
-
-To finish the CDC migration, change the value of the `skip_dataflow` Terraform parameter to `false` and rerun the live migration [Terraform template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/datastream-to-spanner/terraform/samples/mysql-end-to-end) .
+To perform the CDC migration, change the value of the `skip_dataflow` Terraform parameter to `false` and rerun the live migration [Terraform template](https://github.com/GoogleCloudPlatform/DataflowTemplates/tree/main/v2/datastream-to-spanner/terraform/samples/mysql-end-to-end) .
 
 Run the Terraform configuration using the following command:
 
@@ -367,6 +362,74 @@ Run the Terraform configuration using the following command:
     
 ```
 
+## Monitor and resolve CDC errors
+
+During live change data capture (CDC) replication from MySQL to Spanner, if your streaming Dataflow job can't write a change event to Spanner, it classifies the failure into one of two error categories and writes the record to a DLQ directory in the `deadLetterQueueDirectory` Cloud Storage bucket:
+
+- **Retryable errors** : Temporary failures, which include but are not limited to the following:
+
+  - Spanner deadline exceeded errors
+  - Foreign key and interleaved table constraint violations. This can occur when a child row arrives before its parent row due to network errors or parallel processing.
+
+  Dataflow writes these events to a `retry/` DLQ directory and retries them within the same pipeline until they succeed or exceed the maximum retry limit.
+
+- **Severe errors** : Permanent failures that can't be resolved by automated retries, which include but are not limited to the following:
+
+  - Data type conversion errors
+  - Unique index violations
+  - Exceptions inside custom transformation JARs
+
+  Dataflow writes these events to a `severe/` DLQ directory and increments the `Total permanent errors` custom user counter.
+
+Because severe errors cannot be resolved by automated retries, Dataflow removes those failed events from the active replication stream and saves them in the `severe/` directory. If left unhandled, your destination Spanner database will be missing those records. Regularly monitor the `Total permanent errors` counter and the `severe/` directory during live migration so you can resolve and replay failed change events before initiating application cutover.
+
+Note that the Dataflow custom counter `Total permanent errors` is a cumulative metric that records the total number of severe errors encountered since the streaming job started. When you replay and resolve failed records using a DLQ retry job, this counter on your original streaming pipeline does not decrement. Therefore, your Cloud Storage severe DLQ directory ( `gs://.../severe/` ) is the authoritative source of truth for whether unhandled errors exist.
+
+### Replay failed records
+
+When failed records appear in your severe DLQ directory, inspect the JSON error files in Cloud Storage, identify the root cause, and resolve the underlying issue in Spanner (such as manually inserting missing parent records or updating schema override mappings).
+
+To replay corrected DLQ records into Spanner, launch a new Dataflow job using one of the following DLQ retry run modes:
+
+- **`retryDLQ` mode** : Run this mode as a batch job alongside your active streaming pipeline to process error files in the `severe/` directory without halting live CDC replication.
+- **`retryAllDLQ` mode** : If your regular streaming pipeline is stopped, use this mode to process both the `retry/` and `severe/` directories. Don't run `retryAllDLQ` concurrently with an active pipeline, as it will cause file contention and processing conflicts.
+
+To launch a DLQ retry job using the gcloud CLI CLI, run the following command:
+
+```
+gcloud dataflow flex-template run RETRY_JOB_NAME \
+    --project=PROJECT_ID \
+    --region=GCP_REGION \
+    --template-file-gcs-location=gs://dataflow-templates/latest/flex/Cloud_Datastream_to_Spanner \
+    --additional-experiments=use_runner_v2 \
+    --parameters streamName="ignore",\
+datastreamSourceType=SOURCE_TYPE,\
+instanceId=INSTANCE_ID,databaseId=DATABASE_ID,sessionFilePath=SESSION_FILE_PATH,\
+deadLetterQueueDirectory=DLQ_DIRECTORY,\
+runMode="retryDLQ"
+```
+
+Replace the following:
+
+- `RETRY_JOB_NAME` : the name of the Dataflow DLQ retry job.
+- `PROJECT_ID` : the Google Cloud project ID where the Dataflow job runs.
+- `GCP_REGION` : the Google Cloud region where you want to run the Dataflow job.
+- `SOURCE_TYPE` : the source database type (for example, `mysql` ).
+- `INSTANCE_ID` : the target Spanner instance ID.
+- `DATABASE_ID` : the target Spanner database ID.
+- `SESSION_FILE_PATH` : the Cloud Storage path to the session file generated by the Spanner migration tool.
+- `DLQ_DIRECTORY` : the Cloud Storage path to the dead-letter queue root directory containing the error files to retry (for example, `gs://MIGRATION_BUCKET/ENV/SERVICE/cdc/DB_SCHEMA/` ).
+
+## Finish the CDC migration
+
+After almost all the data from the Cloud Storage bucket is written to Spanner, stop writes on the source MySQL instance to allow the remaining changes to be written to Spanner.
+
+This causes a short downtime while Spanner catches up to the source MySQL instance. After all changes are written to Spanner, your application can start using Spanner as its database.
+
+For detailed step-by-step instructions to pause application writes, drain in-flight data, and perform application cutover, see [Perform cutover from MySQL](https://docs.cloud.google.com/spanner/docs/mysql-perform-cutover) .
+
 ## What's next
 
-- [Migration overview](https://docs.cloud.google.com/spanner/docs/migration-overview)
+- [Configure fallback to MySQL](https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback)
+- [Perform cutover from MySQL](https://docs.cloud.google.com/spanner/docs/mysql-perform-cutover)
+- [Perform fallback to MySQL](https://docs.cloud.google.com/spanner/docs/mysql-fallback)

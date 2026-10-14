@@ -211,7 +211,8 @@ https://docs.cloud.google.com/spanner/docs/create-manage-views	2026-10-07T09:39:
 https://docs.cloud.google.com/spanner/docs/create-query-database-console	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/cuds	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry	2026-10-07T09:39:47Z
-https://docs.cloud.google.com/spanner/docs/data-migration	2026-10-07T09:39:47Z
+https://docs.cloud.google.com/spanner/docs/cutover-fallback	2026-10-12T21:46:24Z
+https://docs.cloud.google.com/spanner/docs/data-migration	2026-10-12T21:46:24Z
 https://docs.cloud.google.com/spanner/docs/data-residency	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/data-validation	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/databases	2026-10-07T09:39:47Z
@@ -256,7 +257,7 @@ https://docs.cloud.google.com/spanner/docs/full-text-search	2026-10-07T09:40:19Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/combine-tokenlists	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/facets	2026-10-01T01:31:42Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/fuzzy-search	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/full-text-search/json-indexes	2026-10-07T09:41:07Z
+https://docs.cloud.google.com/spanner/docs/full-text-search/json-indexes	2026-10-13T01:17:55Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/mix-full-text-and-non-text-queries	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results	2026-10-07T09:41:07Z
@@ -269,7 +270,7 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-colu
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-vs-secondary-index	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization	2026-10-07T09:41:07Z
+https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization	2026-10-13T01:17:55Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/top-k-pattern-matching	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/generated-column/how-to	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/geo-partitioning	2026-10-07T09:39:33Z
@@ -375,12 +376,12 @@ https://docs.cloud.google.com/spanner/docs/metrics	2026-10-08T18:39:55Z
 https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/migrate-spanner-pg-to-pg-database	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/migrating-mysql-to-spanner	2026-10-07T09:39:33Z
+https://docs.cloud.google.com/spanner/docs/migrating-mysql-to-spanner	2026-10-12T21:46:24Z
 https://docs.cloud.google.com/spanner/docs/migrating-oracle-to-cloud-spanner	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/migrating-postgres-spanner-pgcompat	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/migrating-primary-keys	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/migration-overview	2026-10-07T09:39:33Z
+https://docs.cloud.google.com/spanner/docs/migration-overview	2026-10-12T21:46:24Z
 https://docs.cloud.google.com/spanner/docs/migration-tools	2026-10-10T21:27:09Z
 https://docs.cloud.google.com/spanner/docs/ml	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/ml-emulator	2026-10-07T09:39:39Z
@@ -398,8 +399,10 @@ https://docs.cloud.google.com/spanner/docs/monitor-troubleshoot-with-ai	2026-10-
 https://docs.cloud.google.com/spanner/docs/monitoring-cloud	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/monitoring-console	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/move-instance	2026-10-07T09:39:39Z
-https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-10-07T09:39:39Z
-https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-10-07T09:39:39Z
+https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-10-12T21:46:24Z
+https://docs.cloud.google.com/spanner/docs/mysql-fallback	2026-10-12T21:46:24Z
+https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-10-12T21:46:24Z
+https://docs.cloud.google.com/spanner/docs/mysql-perform-cutover	2026-10-12T21:46:24Z
 https://docs.cloud.google.com/spanner/docs/named-schemas	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/non-relational/connect-cassandra-adapter	2026-10-07T09:39:54Z
@@ -445,7 +448,7 @@ https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimize
 https://docs.cloud.google.com/spanner/docs/query-optimizer/overview	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/query-optimizer/version-statistics	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/query-optimizer/versions	2026-10-07T09:39:54Z
-https://docs.cloud.google.com/spanner/docs/querydata	2026-10-01T01:24:59Z
+https://docs.cloud.google.com/spanner/docs/querydata	2026-10-12T21:03:27Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-at-most-once	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-examples	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-overview	2026-10-07T09:40:30Z
@@ -725,7 +728,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-lan
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-10-01T01:23:56Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-10-01T01:23:56Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-10-13T01:17:55Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/security_functions	2026-10-06T21:47:46Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions	2026-10-01T01:23:56Z
@@ -919,8 +922,8 @@ https://docs.cloud.google.com/spanner/docs/whitepapers	2026-10-01T01:32:44Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query	2026-10-07T09:42:01Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes	2026-10-07T09:42:01Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/optimizing-schema-design	2026-10-07T09:42:01Z
-https://docs.cloud.google.com/spanner/docs/working-with-json	2026-10-08T22:40:03Z
-https://docs.cloud.google.com/spanner/docs/working-with-jsonb	2026-10-07T09:43:42Z
+https://docs.cloud.google.com/spanner/docs/working-with-json	2026-10-13T01:17:55Z
+https://docs.cloud.google.com/spanner/docs/working-with-jsonb	2026-10-13T01:17:55Z
 https://docs.cloud.google.com/spanner/docs/working-with-numerics	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/write-hibernate-app	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/write-spring-boot-app	2026-10-07T09:41:07Z

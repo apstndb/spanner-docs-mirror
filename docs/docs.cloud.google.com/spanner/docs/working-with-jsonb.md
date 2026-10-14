@@ -973,6 +973,11 @@ ON Venues (VenueDetails_Tokens);
 SELECT VenueName
 FROM Venues
 WHERE VenueDetails @> '{"labels": ["large"], "open": {"Friday": true}}'::jsonb;
+
+SELECT VenueName
+FROM Venues
+WHERE VenueDetails->'open'->'Friday' = 'true'::jsonb
+  AND VenueDetails->'type' IN ('"stadium"'::jsonb, '"arena"'::jsonb);
 ```
 
 For more information, see [JSON search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/json-indexes) .

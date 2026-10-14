@@ -160,7 +160,7 @@ Spanner supports the following tokenizer functions:
 
   Produce the following tokens, respectively: `"==42"` and `"==42"` , `"[1,75]"` , `"[36, 45]"` , `"[36,55]"` , `"[36, 75]"` .
 
-- **JSON and JSONB tokenizers** ( [`TOKENIZE_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_json) and [`TOKENIZE_JSONB`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#indexing) are used to generate a set of tokens that accelerate JSON containment and key existence predicates, such as `doc[@key] IS NOT NULL` (GoogleSQL) or `doc ? 'key'` (PostgreSQL).
+- **JSON and JSONB tokenizers** ( [`TOKENIZE_JSON`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#tokenize_json) and [`TOKENIZE_JSONB`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions-and-operators#indexing) ) are used to generate a set of tokens that accelerate JSON equality, containment, and key existence predicates, such as `doc.key = "value"` or `doc[@key] IS NOT NULL` (GoogleSQL), and `doc->'key' = '"value"'::jsonb` or `doc ? 'key'` (PostgreSQL).
 
 Tokenization functions are usually used in a [generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) expression. These columns are defined as `HIDDEN` so that they aren't included in `SELECT *` query results.
 

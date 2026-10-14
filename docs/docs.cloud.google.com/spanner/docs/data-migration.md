@@ -46,6 +46,6 @@ When generating a dump file from the source database, keep the following in mind
 - Before you perform the dump, apply a read lock on the source database to prevent the data from changing during the generation of the dump file.
 - Alternatively, generate the dump file using a read replica from the source database with replication disabled.
 
-## Source specific guides
+## Source-specific guides
 
-- MySQL: [MySQL live data migration](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration) .
+- MySQL: [Migrate your MySQL data](https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration) .

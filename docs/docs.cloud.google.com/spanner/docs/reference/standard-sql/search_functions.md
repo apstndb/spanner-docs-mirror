@@ -1143,9 +1143,20 @@ INSERT INTO Albums (SingerId, AlbumId, Metadata)
          (1, 3, JSON '{"RegionalReleases": [{"Region": "Japan", "ReleaseDate": "2025-01-05"}]}');
 ```
 
-The following queries perform containment and existence checks on the `Metadata` column. The query optimizer might choose to accelerate these conditions using `AlbumsIndex` and `MetadataTokens` .
+The following queries perform equality comparisons, containment checks, and existence checks on the `Metadata` column. The query optimizer might choose to accelerate these conditions using `AlbumsIndex` and `MetadataTokens` .
 
 ```
+-- Query for albums with a multi-disc count of 2.
+SELECT a.AlbumId
+FROM Albums a
+WHERE a.Metadata.MultiDiscCount = 2;
+
+/*---------+
+ | AlbumId |
+ +---------+
+ | 2       |
+ +---------*/
+
 -- Query for albums available on vinyl.
 SELECT a.AlbumId
 FROM Albums a

@@ -917,6 +917,11 @@ ON Venue (VenueDetails_Tokens);
 SELECT VenueName
 FROM Venues
 WHERE JSON_CONTAINS(VenueDetails, JSON '{"labels": ["large"], "open": {"Friday": true}}');
+
+SELECT VenueName
+FROM Venues
+WHERE VenueDetails.open.Friday = true
+  AND VenueDetails.type IN ("stadium", "arena");
 ```
 
 For more information, see [JSON search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/json-indexes) .
@@ -1327,7 +1332,7 @@ end
 
 ## Comparison and sorting
 
-You can compare `JSON` values for equality and ordering. You can also use `JSON` values in `GROUP BY` and `ORDER BY` clauses.
+You can compare `JSON` values for equality and ordering. You can also use `JSON` values in `GROUP BY` and `ORDER BY` clauses. To accelerate equality comparisons on `JSON` columns or their subpaths in read-only transactions, you can [use a search index](https://docs.cloud.google.com/spanner/docs/working-with-json#use-search-indexes) .
 
 For detailed rules and semantics, see [JSON comparison and sorting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#comparison_and_sorting) .
 

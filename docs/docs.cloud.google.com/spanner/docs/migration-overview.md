@@ -12,11 +12,11 @@ A typical Spanner migration involves the following stages:
 
 1.  [Assess your migration](https://docs.cloud.google.com/spanner/docs/assess-migration) .
 2.  [Migrate your schema](https://docs.cloud.google.com/spanner/docs/schema-migration) .
-3.  [Modify your application code](https://docs.cloud.google.com/spanner/docs/application-migration) .
+3.  [Migrate your application code](https://docs.cloud.google.com/spanner/docs/application-migration) .
 4.  [Optimize your schema and application performance](https://docs.cloud.google.com/spanner/docs/optimize-schema-performance) .
 5.  [Migrate your data](https://docs.cloud.google.com/spanner/docs/data-migration) .
-6.  [Validate the migration](https://docs.cloud.google.com/spanner/docs/data-validation) .
-7.  [Configure cutover and fallback mechanisms](https://docs.cloud.google.com/spanner/docs/cutover-fallback-mechanisms) .
+6.  [Validate your data migration](https://docs.cloud.google.com/spanner/docs/data-validation) .
+7.  [Configure fallback and cutover](https://docs.cloud.google.com/spanner/docs/cutover-fallback) .
 
 Depending on the stage of the migration you're in, you might need to consult your organization's network administrator, database administrator, or application developers to complete that migration steps outlined.
 
