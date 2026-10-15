@@ -319,7 +319,7 @@ https://docs.cloud.google.com/spanner/docs/graph/visualization-integrations	2026
 https://docs.cloud.google.com/spanner/docs/graph/work-with-paths	2026-10-01T01:24:07Z
 https://docs.cloud.google.com/spanner/docs/graph/work-with-visualizations	2026-10-01T01:24:07Z
 https://docs.cloud.google.com/spanner/docs/hybrid-full-text-vector-search	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/iam	2026-10-07T09:39:33Z
+https://docs.cloud.google.com/spanner/docs/iam	2026-10-14T18:55:08Z
 https://docs.cloud.google.com/spanner/docs/identify-latency-point	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/implement-multi-tenancy	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/import	2026-10-07T09:39:33Z
@@ -333,7 +333,7 @@ https://docs.cloud.google.com/spanner/docs/index-geo-partitioning	2026-10-07T09:
 https://docs.cloud.google.com/spanner/docs/information-schema	2026-10-10T21:27:06Z
 https://docs.cloud.google.com/spanner/docs/information-schema-pg	2026-10-10T21:27:06Z
 https://docs.cloud.google.com/spanner/docs/install-mysql-functions	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-10-10T21:27:06Z
+https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-10-14T19:26:29Z
 https://docs.cloud.google.com/spanner/docs/instances	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/integrate-google-cloud-platform	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/introspection	2026-10-07T09:40:19Z
@@ -363,14 +363,14 @@ https://docs.cloud.google.com/spanner/docs/labs	2026-10-01T01:22:58Z
 https://docs.cloud.google.com/spanner/docs/langchain	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/latency-metrics	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/latency-points	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/launch-checklist	2026-10-07T09:39:33Z
+https://docs.cloud.google.com/spanner/docs/launch-checklist	2026-10-14T19:25:09Z
 https://docs.cloud.google.com/spanner/docs/leader-aware-routing	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/llama-index	2026-10-01T01:22:58Z
 https://docs.cloud.google.com/spanner/docs/load-sample-data	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/manage-data-using-console	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/managed-autoscaler	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/manual-data-compaction	2026-10-01T01:22:58Z
+https://docs.cloud.google.com/spanner/docs/manual-data-compaction	2026-10-14T19:24:59Z
 https://docs.cloud.google.com/spanner/docs/media	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/metrics	2026-10-08T18:39:55Z
 https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema	2026-10-07T09:39:33Z
@@ -386,7 +386,6 @@ https://docs.cloud.google.com/spanner/docs/migration-tools	2026-10-10T21:27:09Z
 https://docs.cloud.google.com/spanner/docs/ml	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/ml-emulator	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/ml-troubleshoot	2026-10-07T09:39:39Z
-https://docs.cloud.google.com/spanner/docs/ml-tutorial	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/ml-tutorial-generative-ai	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/modify-data	2026-10-07T09:39:39Z

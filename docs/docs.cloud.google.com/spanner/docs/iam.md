@@ -524,13 +524,35 @@ The following table lists the access control with IAM predefined roles, includin
 <td><p><code>monitoring.timeSeries.list</code></p>
 <p><code>resourcemanager.projects.get</code></p>
 <p><code>resourcemanager.projects.list</code></p>
+<p><code>spanner.backupOperations.get</code></p>
+<p><code>spanner.backupOperations.list</code></p>
+<p><code>spanner.backupSchedules.get</code></p>
+<p><code>spanner. backupSchedules. getIamPolicy</code></p>
+<p><code>spanner.backupSchedules.list</code></p>
+<p><code>spanner.backups.get</code></p>
+<p><code>spanner.backups.getIamPolicy</code></p>
+<p><code>spanner.backups.list</code></p>
+<p><code>spanner.databaseOperations.get</code></p>
+<p><code>spanner. databaseOperations. list</code></p>
+<p><code>spanner.databaseRoles.list</code></p>
+<p><code>spanner. databases. beginReadOnlyTransaction</code></p>
 <p><code>spanner.databases.get</code></p>
+<p><code>spanner.databases.getDdl</code></p>
+<p><code>spanner.databases.getIamPolicy</code></p>
 <p><code>spanner.databases.list</code></p>
+<p><code>spanner.databases.useDataBoost</code></p>
+<p><code>spanner. instanceConfigOperations. get</code></p>
+<p><code>spanner. instanceConfigOperations. list</code></p>
 <p><code>spanner.instanceConfigs.get</code></p>
 <p><code>spanner.instanceConfigs.list</code></p>
+<p><code>spanner.instanceOperations.get</code></p>
+<p><code>spanner. instanceOperations. list</code></p>
+<p><code>spanner. instancePartitionOperations. get</code></p>
+<p><code>spanner. instancePartitionOperations. list</code></p>
 <p><code>spanner.instancePartitions.get</code></p>
 <p><code>spanner. instancePartitions. list</code></p>
 <p><code>spanner.instances.get</code></p>
+<p><code>spanner.instances.getIamPolicy</code></p>
 <p><code>spanner.instances.list</code></p>
 <p><code>spanner. instances. listEffectiveTags</code></p>
 <p><code>spanner. instances. listTagBindings</code></p></td>

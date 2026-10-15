@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/manual-data-compaction
 uri: https://docs.cloud.google.com/spanner/docs/manual-data-compaction
 title: Manually trigger major compaction in a Spanner database
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Manually trigger a major compaction in a Spanner database to immediately enable storage-related features.
 data_source: docs.cloud.google.com
 ---
 
@@ -10,7 +10,7 @@ data_source: docs.cloud.google.com
 
 This document explains how to manually trigger a major compaction in a Spanner database.
 
-Several storage-related features in Spanner, such as tier storage or columnar engine, rely on a database-wide major compaction before they are fully enabled. By default, major compactions occur automatically across all tables over seven day periods. This means you might wait up to seven days for a new feature to be fully available. To make new features available immediately, you can manually trigger a major compaction.
+Several storage-related features in Spanner, such as tiered storage or columnar engine, rely on a database-wide major compaction before they are fully enabled. By default, major compactions occur automatically across all tables over seven day periods. This means you might wait up to seven days for a new feature to be fully available. To make new features available immediately, you can manually trigger a major compaction.
 
 The compaction process is a [long-running operation (LRO)](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#check_the_progress_of_a_long-running_database_operation) .
 

@@ -250,7 +250,7 @@ Spanner offers the following base multi-region instance configurations. To reque
 
 - *A* : This instance configuration is restricted with an allow-list. To get access, reach out to your Technical Account Manager.
 
-The resource location for a multi-region instance configuration determines the disaster recovery zone guarantee for the configuration. It defines where data is stored at-rest.
+The resource location for a multi-region instance configuration determines the disaster recovery zone guarantee for the configuration. While the resource location dictates the full boundary of the data across all lifecycle states, the data only persists at rest in the selected replica locations.
 
 ### Benefits
 
