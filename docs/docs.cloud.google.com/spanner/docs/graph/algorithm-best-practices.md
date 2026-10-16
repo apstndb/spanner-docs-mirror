@@ -1,8 +1,8 @@
 ---
 name: documents/docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices
 uri: https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices
-title: Best practices for running algorithms on Spanner Graph
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+title: Best practices for Spanner Graph algorithms
+description: 'Discover Spanner Graph algorithm best practices: schema, output, large workloads, compute reuse, and element types.'
 data_source: docs.cloud.google.com
 ---
 
@@ -17,6 +17,7 @@ This document describes best practices for running algorithms on Spanner Graph. 
 - [Graph schema best practices for algorithms](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices#graph-schema-algorithms-bp)
 - [Handle algorithm output](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices#handle-output)
 - [Specifying `machine_category` for large workloads](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices#specify-machine-category)
+- [Mitigating regional capacity constraints with `fallback_compute_region`](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices#fallback-compute-region)
 - [Reusing compute for fast iteration](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices#reuse-compute)
 - [Differentiating element types in output](https://docs.cloud.google.com/spanner/docs/graph/algorithm-best-practices#diff-element-types)
 
@@ -36,7 +37,7 @@ When the algorithm's output signature contains graph elements, Spanner Graph let
 
 Spanner Graph supports persisting algorithm query result to Cloud Storage or back to the same Spanner Graph instance where you initiate the query.
 
-**Persisting back to Spanner** makes the algorithm output accessible to all Spanner operations natively. For example, you can run `WeaklyConnectedComponent` , persist `cluster_id` back to the graph. Subsequently, run `PageRank` for an input graph with specific `cluster_id` . Spanner features like [Change Stream](https://docs.cloud.google.com/spanner/docs/change-streams) propagate new algorithm outputs to downstream systems. If you want to use algorithm output in Spanner, we recommend persisting to Spanner. While Spanner Graph uses efficient ways to batch and persist algorithm output to Spanner, all writes must go through the same [leader](https://docs.cloud.google.com/spanner/docs/replication#overview) replica. If you already have critical workloads taking up leader capacity, you might want to stagger algorithm runs to avoid competing with critical workloads.
+**Persisting back to Spanner** makes the algorithm output accessible to all Spanner operations natively. For example, you can run `WeaklyConnectedComponents` , persist `cluster_id` back to the graph. Subsequently, run `PageRank` for an input graph with specific `cluster_id` . Spanner features like [Change Stream](https://docs.cloud.google.com/spanner/docs/change-streams) propagate new algorithm outputs to downstream systems. If you want to use algorithm output in Spanner, we recommend persisting to Spanner. While Spanner Graph uses efficient ways to batch and persist algorithm output to Spanner, all writes must go through the same [leader](https://docs.cloud.google.com/spanner/docs/replication#overview) replica. If you already have critical workloads taking up leader capacity, you might want to stagger algorithm runs to avoid competing with critical workloads.
 
 Consider **persisting to Cloud Storage** if you don't plan to use algorithm output in Spanner or want to evaluate the algorithm output before ingesting it to your primary data source. See supported file [formats](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#persisting-to-gcs) .
 
@@ -213,9 +214,13 @@ RETURN s.id AS src, d.id AS dst, e.int_val AS path_len, e.float_val AS cost
 
 For most workloads, the `default` machine_category is appropriate. If your input graph has \> 1 billion nodes and \> 10 billion edges, we recommend that you explicitly choose `large` for [`machine_category`](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) .
 
+## Mitigate regional capacity constraints with `fallback_compute_region`
+
+If your Spanner instance's home region experiences temporary compute capacity constraints, then specify a [`fallback_compute_region`](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) within the same jurisdiction as your instance's home region. This lets Spanner Graph automatically fall back to provisioning compute in the fallback region when capacity is unavailable in the home region.
+
 ## Reuse compute for fast iteration
 
-If you are experimenting with different algorithms or different input parameters on small datasets for fast iteration, we recommend that you use [`max_idle_time`](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) . A larger `max_idle_time` Spanner Graph lets you reuse compute resources it already provisioned for more algorithm workloads. This reduces the overhead of cold starting compute on demand and mitigates the risk of being unable to provision compute due to temporary lack of capacity. Note that algorithm compute is billable when it is idle.
+If you are experimenting with different algorithms or different input parameters on small datasets for fast iteration, we recommend that you use [`max_idle_time`](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) . A larger `max_idle_time` lets Spanner Graph reuse compute resources it already provisioned for more algorithm workloads. This reduces the overhead of cold starting compute on demand and mitigates the risk of being unable to provision compute due to temporary lack of capacity. Note that algorithm compute is billable when it is idle.
 
 ## Differentiate element types in output
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/graph/algorithms
 uri: https://docs.cloud.google.com/spanner/docs/graph/algorithms
 title: Spanner Graph algorithms catalog
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Discover Spanner Graph algorithms.
 data_source: docs.cloud.google.com
 ---
 
@@ -38,9 +38,9 @@ All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/r
 | Name             | Type                 | Required | Default | Description                                                                                                                                                               |
 |------------------|----------------------|----------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | source_nodes     | Array of graph nodes | No       | (none)  | If present, source for personalized PageRank.                                                                                                                             |
-| damping_factor   | double               | No       | 0.85    | The probability that, at any given iteration, the algorithm chooses to traverse one of the outgoing edges of the current node. Must be in the range of \[0, 1).           |
-| max_iterations   | int                  | No       | 10      | The maximum number of iterations of the algorithm. Must be positive. A higher number of iterations tends to produce more precise results at the cost of a longer runtime. |
-| approx_precision | double               | No       | 1e-2    | Approximation precision threshold for the algorithm. Must be non-negative. Smaller values tends to produce more precise results at the cost of longer runtime.            |
+| damping_factor   | FLOAT64              | No       | 0.85    | The probability that, at any given iteration, the algorithm chooses to traverse one of the outgoing edges of the current node. Must be in the range of \[0, 1).           |
+| max_iterations   | INT64                | No       | 10      | The maximum number of iterations of the algorithm. Must be positive. A higher number of iterations tends to produce more precise results at the cost of a longer runtime. |
+| approx_precision | FLOAT64              | No       | 1e-2    | Approximation precision threshold for the algorithm. Must be non-negative. Smaller values tends to produce more precise results at the cost of longer runtime.            |
 
 #### Output
 
@@ -75,7 +75,7 @@ RETURN node.id, score;
 
 #### Function signature
 
-`BetweennessCentrality(input_parameters) YIELD node, centrality`
+`BetweennessCentrality(input_parameters) YIELD node, score`
 
 #### Input parameters
 
@@ -89,10 +89,10 @@ All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/r
 
 Function yields:
 
-| Name       | Type                                                                                                                          | Description                       |
-|------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-| node       | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.              |
-| centrality | FLOAT64                                                                                                                       | The centrality score of the node. |
+| Name  | Type                                                                                                                          | Description                       |
+|-------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| node  | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.              |
+| score | FLOAT64                                                                                                                       | The centrality score of the node. |
 
 #### Example
 
@@ -104,8 +104,8 @@ EXPORT DATA OPTIONS (
 GRAPH FinGraph
 CALL BetweennessCentrality(
     node_labels => ['Account'], edge_labels => ['Transfers'], num_source_nodes => 5
-  ) YIELD node, centrality
-RETURN node.id, centrality;
+  ) YIELD node, score
+RETURN node.id, score;
 ```
 
 ### ClosenessCentrality
@@ -114,27 +114,27 @@ RETURN node.id, centrality;
 
 #### Function signature
 
-`ClosenessCentrality(input_parameters) YIELD node, centrality`
+`ClosenessCentrality(input_parameters) YIELD node, score`
 
 #### Input parameters
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name                | Type    | Required | Default | Description                                                                                                                                                                                                                                                                   |
-|---------------------|---------|----------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| mode                | STRING  | No       | EXACT   | The algorithm mode. Supported values are `EXACT` and `HYBRID` .                                                                                                                                                                                                               |
-| use_wasserman_faust | BOOL    | No       | FALSE   | If \`false\`, compute standard closeness centralities. If \`true\`, compute Wasserman-Faust closeness centralities.                                                                                                                                                           |
-| epsilon             | FLOAT64 | No       | 0.1     | Used only for the \`HYBRID\` algorithm. Must be in the range (0.0, 1.0). Smaller values generally means higher precision. Larger values generally allows the algorithm to execute faster.                                                                                     |
-| sample_size         | INT64   | No       | 0       | Used only for the \`HYBRID\` algorithm. The number of pivot nodes to use for approximately computing the centrality values. Must be non-negative. If not set or zero, a default value of min(100 \* ln( `N` ), `N` ) is used, where `N` is the node count of the input graph. |
+| Name                | Type    | Required | Default | Description                                                                                                                                                                                                                                                                 |
+|---------------------|---------|----------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| mode                | STRING  | No       | EXACT   | The algorithm mode. Supported values are `EXACT` and `HYBRID` .                                                                                                                                                                                                             |
+| use_wasserman_faust | BOOL    | No       | FALSE   | If `false` , compute standard closeness centralities. If `true` , compute Wasserman-Faust closeness centralities.                                                                                                                                                           |
+| epsilon             | FLOAT64 | No       | 0.1     | Used only for the `HYBRID` algorithm. Must be in the range (0.0, 1.0). Smaller values generally means higher precision. Larger values generally allows the algorithm to execute faster.                                                                                     |
+| sample_size         | INT64   | No       | 0       | Used only for the `HYBRID` algorithm. The number of pivot nodes to use for approximately computing the centrality values. Must be non-negative. If not set or zero, a default value of min(100 \* ln( `N` ), `N` ) is used, where `N` is the node count of the input graph. |
 
 #### Output
 
 Function yields:
 
-| Name       | Type                                                                                                                          | Description                                 |
-|------------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
-| node       | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                        |
-| centrality | FLOAT64                                                                                                                       | The closeness centrality score of the node. |
+| Name  | Type                                                                                                                          | Description                                 |
+|-------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| node  | [GRAPH_ELEMENT](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types#graph_element_type) (node) | A node in the graph.                        |
+| score | FLOAT64                                                                                                                       | The closeness centrality score of the node. |
 
 #### Example
 
@@ -147,8 +147,8 @@ GRAPH FinGraph
 CALL ClosenessCentrality(
     node_labels => ['Account'], edge_labels => ['Transfers'],
     mode => 'EXACT'
-  ) YIELD node, centrality
-RETURN node.id, centrality;
+  ) YIELD node, score
+RETURN node.id, score;
 ```
 
 ## Clustering
@@ -202,11 +202,11 @@ RETURN node.id, cluster;
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name                 | Type   | Required | Default | Description                                                                                                                                                                                                                                                                                                                                                |
-|----------------------|--------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| resolution           | double | No       | 1.0     | Controls the granularity of the clustering. Must be finite and non-negative. Smaller resolution values tend to lead to larger clusters. Typical values are in the range \[0.5, 5\]. When the resolution is zero, the algorithm (with a sufficient number of iterations) finds the connected components of the graph (ignoring edges whose weight is zero). |
-| max_iterations       | int    | No       | 10      | Maximum number of outer iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                                             |
-| max_inner_iterations | int    | No       | 10      | Maximum number of inner iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                                             |
+| Name                 | Type    | Required | Default | Description                                                                                                                                                                                                                                                                                                                                                |
+|----------------------|---------|----------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| resolution           | FLOAT64 | No       | 1.0     | Controls the granularity of the clustering. Must be finite and non-negative. Smaller resolution values tend to lead to larger clusters. Typical values are in the range \[0.5, 5\]. When the resolution is zero, the algorithm (with a sufficient number of iterations) finds the connected components of the graph (ignoring edges whose weight is zero). |
+| max_iterations       | INT64   | No       | 10      | Maximum number of outer iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                                             |
+| max_inner_iterations | INT64   | No       | 10      | Maximum number of inner iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                                             |
 
 #### Output
 
@@ -244,11 +244,11 @@ RETURN node.id, cluster;
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name                 | Type   | Required | Default | Description                                                                                                                                                                                                                                                                                                                           |
-|----------------------|--------|----------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| resolution           | double | Yes      | (none)  | Controls the granularity of the clustering. Must be explicitly defined by client. Must be finite and non-negative. Smaller values tend to lead to larger clusters. When the resolution is zero and all edge weights are positive, the algorithm (with a sufficient number of iterations) finds the connected components of the graph. |
-| max_iterations       | int    | No       | 10      | Maximum number of outer iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                        |
-| max_inner_iterations | int    | No       | 10      | Maximum number of inner iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                        |
+| Name                 | Type    | Required | Default | Description                                                                                                                                                                                                                                                                                                                           |
+|----------------------|---------|----------|---------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| resolution           | FLOAT64 | Yes      | (none)  | Controls the granularity of the clustering. Must be explicitly defined by client. Must be finite and non-negative. Smaller values tend to lead to larger clusters. When the resolution is zero and all edge weights are positive, the algorithm (with a sufficient number of iterations) finds the connected components of the graph. |
+| max_iterations       | INT64   | No       | 10      | Maximum number of outer iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                        |
+| max_inner_iterations | INT64   | No       | 10      | Maximum number of inner iterations of the algorithm. Must be positive. Larger values tend to lead to higher-quality clusterings at the cost of longer runtime.                                                                                                                                                                        |
 
 #### Output
 
@@ -288,8 +288,8 @@ All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/r
 
 | Name                | Type   | Required | Default | Description                                                                                                     |
 |---------------------|--------|----------|---------|-----------------------------------------------------------------------------------------------------------------|
-| seed_label_property | string | No       | (none)  | The node property name for the seed label.                                                                      |
-| max_iterations      | int    | No       | 10      | The maximum number of iterations of label propagation that the algorithm performs. Must be finite and positive. |
+| seed_label_property | STRING | No       | (none)  | The node property name for the seed label.                                                                      |
+| max_iterations      | INT64  | No       | 10      | The maximum number of iterations of label propagation that the algorithm performs. Must be finite and positive. |
 
 #### Output
 
@@ -329,9 +329,9 @@ RETURN node.id, cluster;
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name        | Type   | Required | Default | Description                                                              |
-|-------------|--------|----------|---------|--------------------------------------------------------------------------|
-| min_density | double | No       | 0.9     | The minimum density of the clusters to be returned. Must be in \[0, 1\]. |
+| Name        | Type    | Required | Default | Description                                                              |
+|-------------|---------|----------|---------|--------------------------------------------------------------------------|
+| min_density | FLOAT64 | No       | 0.9     | The minimum density of the clusters to be returned. Must be in \[0, 1\]. |
 
 #### Output
 
@@ -380,10 +380,10 @@ These four algorithms share the same arguments and output structure.
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name         | Type           | Required | Default | Description |
-|--------------|----------------|----------|---------|-------------|
-| source_nodes | Array of nodes | Yes      | N/A     |             |
-| target_nodes | Array of nodes | Yes      | N/A     |             |
+| Name         | Type                 | Required | Default | Description                                           |
+|--------------|----------------------|----------|---------|-------------------------------------------------------|
+| source_nodes | Array of graph nodes | Yes      | N/A     | The source nodes for pairwise similarity calculation. |
+| target_nodes | Array of graph nodes | Yes      | N/A     | The target nodes for pairwise similarity calculation. |
 
 #### Output
 
@@ -433,10 +433,10 @@ Path finding algorithms compute optimal routes between nodes. This is useful for
 
 All [common input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) and:
 
-| Name         | Type           | Required | Default | Description |
-|--------------|----------------|----------|---------|-------------|
-| source_nodes | Array of nodes | Yes      | N/A     |             |
-| target_nodes | Array of nodes | Yes      | N/A     |             |
+| Name         | Type                 | Required | Default | Description                                     |
+|--------------|----------------------|----------|---------|-------------------------------------------------|
+| source_nodes | Array of graph nodes | Yes      | N/A     | The source nodes for shortest path calculation. |
+| target_nodes | Array of graph nodes | Yes      | N/A     | The target nodes for shortest path calculation. |
 
 #### Output
 

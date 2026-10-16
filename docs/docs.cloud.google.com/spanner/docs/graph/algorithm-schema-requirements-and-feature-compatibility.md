@@ -1,8 +1,8 @@
 ---
 name: documents/docs.cloud.google.com/spanner/docs/graph/algorithm-schema-requirements-and-feature-compatibility
 uri: https://docs.cloud.google.com/spanner/docs/graph/algorithm-schema-requirements-and-feature-compatibility
-title: Spanner Graph algorithm schema requirements and feature compatibility
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+title: Algorithm schema requirements and feature compatibility
+description: Understand Spanner Graph algorithm schema requirements and feature compatibility, including MATCH and RETURN clause constraints.
 data_source: docs.cloud.google.com
 ---
 

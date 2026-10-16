@@ -14,6 +14,14 @@ Spanner Omni uses an asynchronous, phased rollout state machine to help ensure s
 - [Verify binary compatibility](https://docs.cloud.google.com/spanner-omni/upgrade-deployment#update-container-image) during a rolling restart.
 - [Roll back to the earlier version](https://docs.cloud.google.com/spanner-omni/upgrade-deployment#rollback-upgrade) if you detect errors before finalization.
 
+## Supported upgrade paths
+
+- You can update an LTS version to only the next LTS version. You can't skip a version when updating to a newer LTS version.
+
+- You can skip a version when you upgrade from one short-term support (STS) version to another STS version if there isn't an LTS release between their release dates.
+
+For more information, see [Version support policy](https://docs.cloud.google.com/spanner-omni/support#version-support-policy) .
+
 ## Upgrade workflow
 
 The Spanner Omni upgrade process consists of multiple sequential phases:
@@ -34,6 +42,7 @@ Before you upgrade your Spanner Omni deployment, ensure you meet the following p
 - You identified your target release:
   - For VM deployments: download the target release package `spanner-omni-server- `` TARGET_VERSION `` .tar.gz` .
   - For Helm and Kubernetes deployments: identify the target container image in Artifact Registry, such as `us-docker.pkg.dev/spanner-omni/images/spanner-omni: `` TARGET_VERSION` .
+- Administrators of Spanner Omni deployments should schedule maintenance windows for upgrades. Your organization should avoid deployments during upgrade maintenance windows.
 
 ## Step 1: Prepare the schema upgrade
 

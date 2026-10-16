@@ -38,6 +38,8 @@ info
 
 - [Release notes](https://docs.cloud.google.com/spanner-omni/release-notes)
 
+- [Support](https://docs.cloud.google.com/spanner-omni/support)
+
 - [Pricing](https://cloud.google.com/products/spanner/omni?e=48754805#pricing)
 
 - [Frequently asked questions](https://docs.cloud.google.com/spanner-omni/faq)

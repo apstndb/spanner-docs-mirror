@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/graph/run-algorithms
 uri: https://docs.cloud.google.com/spanner/docs/graph/run-algorithms
 title: Run Spanner Graph algorithms
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Run Spanner Graph algorithms. Structure queries, define inputs, persist results, and monitor execution status.
 data_source: docs.cloud.google.com
 ---
 
@@ -12,8 +12,6 @@ data_source: docs.cloud.google.com
 
 > **Note:** This feature is available with the Spanner Enterprise edition and Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-> **NOTE:** If you are running graph algorithms on a Spanner instance in `us-east1` region, you must specify one of these as `zone` in your algorithm [input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) : `us-east1-b` , `us-east1-c` or `us-east1-d` . For all other regions, specifying a zone is not required.
-
 This document explains how to run algorithms on Spanner Graph.
 
 ## Spanner Graph algorithm query structure
@@ -21,39 +19,39 @@ This document explains how to run algorithms on Spanner Graph.
 A Spanner Graph algorithm query has the following structure:
 
 ```
-EXPORT DATA OPTIONS (<export_option_list>) AS
+EXPORT DATA OPTIONS (export_option_list) AS
 GRAPH graph_name
-<match_clause>
-<call_statement> algorithm_name(<common_input>, <algorithm_specific_input>)
-  YIELD <algorithm_specific_output>
-RETURN <results>
+match_clause
+call_statement algorithm_name(common_input, algorithm_specific_input)
+  YIELD algorithm_specific_output
+RETURN results
 ```
 
-- `<export_option_list>` : Options that define how to persist algorithm query results. See [Cloud Storage Options](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#persisting-to-gcs) and [Spanner Options](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#persisting-to-spanner) .
+- `export_option_list` : Options that define how to persist algorithm query results. See [Cloud Storage Options](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#persisting-to-gcs) and [Spanner Options](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#persisting-to-spanner) .
 
 - `graph_name` : The name of the graph.
 
-- `<match_clause>` : Optional [MATCH](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match) statements to define algorithm input elements.
+- `match_clause` : Optional [MATCH](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_match) statements to define algorithm input elements.
 
-- `<call_statement>` : Use `CALL` when you omit `<match_clause>` and want to operate on the whole graph. Use `CALL PER()` when `<match_clause>` is present and you want to operate on the [working table](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro#working_table) . For more information, see [GQL CALL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_call) .
+- `call_statement` : Use the `CALL` statement when you omit the `match_clause` variable and want to operate on the whole graph. Use the `CALL PER()` statement when the `match_clause` variable is present and you want to operate on the [working table](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro#working_table) . For more information, see [GQL CALL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_call) .
 
 - `algorithm_name` : The name of the algorithm to run. For available algorithms, see [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/algorithms) .
 
-- `<common_input>` : Named input parameters common to all algorithm queries. For more information, see [common algorithm input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) .
+- `common_input` : Named input parameters common to all algorithm queries. For more information, see [common algorithm input parameters](https://docs.cloud.google.com/spanner/docs/graph/run-algorithms#common-algorithm-input-parameters) .
 
-- `<algorithm_specific_input>` : Named input parameters for the algorithm. For more information, see input parameters defined in [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/algorithms) .
+- `algorithm_specific_input` : Named input parameters for the algorithm. For more information, see input parameters defined in [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/algorithms) .
 
-- `<algorithm_specific_output>` : The output of the algorithm call. For more information, see the outputs defined in [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/algorithms) and `YIELD` in [CALL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_call) statement.
+- `algorithm_specific_output` : The output of the algorithm call. For more information, see the outputs defined in [Spanner Graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/algorithms) and the `YIELD` clause in the [CALL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_call) statement.
 
-- `<results>` : Defines what to return in query results.
+- `results` : Defines what to return in query results.
 
 The query is composed of an `EXPORT DATA` statement, which defines how to persist results, and a [GRAPH CLAUSE](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#graph_query) that produces the algorithm query result.
 
-In its simplest form, the graph clause identifies the graph, `CALL` s an algorithm that yields predefined output, and then specifies what to `RETURN` from the algorithm's output.
+In its simplest form, the graph clause identifies the graph, uses a `CALL` statement to invoke an algorithm that yields predefined output, and then uses a `RETURN` statement to specify what to return from the algorithm's output.
 
-Optionally, the graph clause can use supported [MATCH](https://docs.cloud.google.com/spanner/docs/graph/algorithm-schema-requirements-and-feature-compatibility#supported-match-clause) statements to select elements of interest. In this case, use a `PER ()` clause to group all rows returned by `MATCH` as input to the algorithm. The algorithm operates on a logical subgraph composed of the unique set of nodes and edges selected.
+Optionally, the graph clause can use supported [MATCH](https://docs.cloud.google.com/spanner/docs/graph/algorithm-schema-requirements-and-feature-compatibility#supported-match-clause) statements to select elements of interest. In this case, use a `PER ()` clause to group all rows returned by the `MATCH` statement as input to the algorithm. The algorithm operates on a logical subgraph composed of the unique set of nodes and edges selected.
 
-The query doesn't return any data. Results are persisted according to export_option_list.
+The query doesn't return any data. The `export_option_list` variable determines how results are persisted.
 
 For more information about Spanner Graph algorithm queries, see the following sections in this document:
 
@@ -65,14 +63,14 @@ For more information about Spanner Graph algorithm queries, see the following se
 
 Specify these named input parameters in the following format: `NAME => VALUE, ...` .
 
-| Name                   | Value Type | Required | Default Value | Description                                                                                                                                                                                                                                                                      |
-|------------------------|------------|----------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `node_labels`          | `ARRAY`    | No       | (none)        | Only supported when `CALL` is used. A list of node labels to include in the algorithm input. If specified, only nodes with at least one matching label are included.                                                                                                             |
-| `edge_labels`          | `ARRAY`    | No       | (none)        | Only supported when `CALL` is used. A list of edge labels to include in the algorithm input. If specified, only edges with at least one matching label are included.                                                                                                             |
-| `edge_weight_property` | `STRING`   | No       | (none)        | The name of the edge property that contains the weights. If undefined, the system assigns a default weight of 1 to all edges. The property value type must be numeric.                                                                                                           |
-| `machine_category`     | `STRING`   | No       | default       | The machine category to use for the algorithm execution. Supported values are: `default` , `large`                                                                                                                                                                               |
-| `zone`                 | `STRING`   | No       | (none)        | The zone where the algorithm execution takes place. Must be one of the zones in the region the query is received in.                                                                                                                                                             |
-| `max_idle_time`        | `STRING`   | No       | 30m           | Specifies how long the compute instance should remain active for reuse after the algorithm completes. Format is a sequence of decimal numbers, each with a unit suffix, such as `4m` , `1.5h` or `1h45m` . Valid time units are `ns` , `us` (or `µs` ), `ms` , `s` , `m` , `h` . |
+| Name                      | Value Type | Required | Default Value | Description                                                                                                                                                                                                                                                                      |
+|---------------------------|------------|----------|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `node_labels`             | `ARRAY`    | No       | (none)        | Only supported when `CALL` is used. A list of node labels to include in the algorithm input. If specified, only nodes with at least one matching label are included.                                                                                                             |
+| `edge_labels`             | `ARRAY`    | No       | (none)        | Only supported when `CALL` is used. A list of edge labels to include in the algorithm input. If specified, only edges with at least one matching label are included.                                                                                                             |
+| `edge_weight_property`    | `STRING`   | No       | (none)        | The name of the edge property that contains the weights. If undefined, the system assigns a default weight of 1 to all edges. The property value type must be numeric.                                                                                                           |
+| `machine_category`        | `STRING`   | No       | default       | The machine category to use for the algorithm execution. Supported values are: `default` , `large`                                                                                                                                                                               |
+| `fallback_compute_region` | `STRING`   | No       | (none)        | The fallback region where the algorithm execution takes place if the home region faces capacity constraints. Must be in the same jurisdiction as the Spanner instance's home region (for example, `us-central1` if the home region is `us-east1` ).                              |
+| `max_idle_time`           | `STRING`   | No       | 30m           | Specifies how long the compute instance should remain active for reuse after the algorithm completes. Format is a sequence of decimal numbers, each with a unit suffix, such as `4m` , `1.5h` or `1h45m` . Valid time units are `ns` , `us` (or `µs` ), `ms` , `s` , `m` , `h` . |
 
 ## Handle algorithm output
 
@@ -293,7 +291,7 @@ CREATE OR REPLACE PROPERTY GRAPH FinGraph
 
 ### Run algorithm on full graph with label filter and persist results to Cloud Storage
 
-This example runs `PageRank` to rank `Account` s based on the `Transactions` they participate in and persists results to a Cloud Storage in CSV format as " `my-bucket-name/my-output.csv` "
+This example runs the `PageRank` statement to rank the accounts based on the transfers they participate in. The query results are persisted to a Cloud Storage bucket in the CSV format as `my-bucket-name/my-output.csv` .
 
 ```
 EXPORT DATA OPTIONS (
@@ -351,15 +349,15 @@ When a graph algorithm query completes successfully, it returns zero rows and `S
 
 ### `GRAPH_OPERATION_EXECUTION_STATUS` schema
 
-| Column name             | Type        | Description                                                                                                                        |
-|-------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------|
-| `QUERY_ID`              | `STRING`    | The ID for the graph algorithm query.                                                                                              |
-| `QUERY_TEXT`            | `STRING`    | The query statement text.                                                                                                          |
-| `START_TIMESTAMP`       | `TIMESTAMP` | The time at which the query started execution.                                                                                     |
-| `LAST_UPDATE_TIMESTAMP` | `TIMESTAMP` | The time at which the status was last updated.                                                                                     |
-| `PROGRESS`              | `FLOAT`     | Estimated percentage of completion. The value is between `0` and `1` , where `0` means started and `1` means completed.            |
-| `STATUS`                | `STRING`    | Current state of execution. Possible values are `PENDING` , `IN_PROGRESS` , `OK` , `CANCELLED` , `DEADLINE_EXCEEDED` , `UNKNOWN` . |
-| `ERROR_MESSAGE`         | `STRING`    | Error message if the query execution failed.                                                                                       |
+| Column name             | Type        | Description                                                                                                                                                                                                                                                   |
+|-------------------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `QUERY_ID`              | `STRING`    | The ID for the graph algorithm query.                                                                                                                                                                                                                         |
+| `QUERY_TEXT`            | `STRING`    | The query statement text.                                                                                                                                                                                                                                     |
+| `START_TIMESTAMP`       | `TIMESTAMP` | The time at which the query started execution.                                                                                                                                                                                                                |
+| `LAST_UPDATE_TIMESTAMP` | `TIMESTAMP` | The time at which the status was last updated.                                                                                                                                                                                                                |
+| `PROGRESS`              | `FLOAT64`   | Estimated percentage of completion. The value is between `0` and `1` , where `0` means started and `1` means completed.                                                                                                                                       |
+| `STATUS`                | `STRING`    | Current state of execution. Possible values include `PENDING` , `IN_PROGRESS` , `OK` , or an error status code such as `CANCELLED` , `DEADLINE_EXCEEDED` , `INVALID_ARGUMENT` , `FAILED_PRECONDITION` , `RESOURCE_EXHAUSTED` , `UNAVAILABLE` , or `UNKNOWN` . |
+| `ERROR_MESSAGE`         | `STRING`    | Error message if the query execution failed.                                                                                                                                                                                                                  |
 
 The following sample query lists graph queries that have not yet completed successfully:
 

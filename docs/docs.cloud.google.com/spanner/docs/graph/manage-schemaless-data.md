@@ -167,23 +167,97 @@ RETURN person.name;
 The query returns results similar to the following:
 
 ```
-JSON"Tom"
+"Tom"
 ```
 
-#### Convert property data types
+#### Filter, compare, and sort by dynamic properties
 
-Spanner treats properties as values of the JSON data type. In some cases, such as for comparisons with SQL types, you must first convert properties to a SQL type.
+You can use dynamic properties directly in Spanner Graph [property filters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#property_filters) and in `WHERE` , `GROUP BY` , `ORDER BY` , and `RETURN DISTINCT` clauses. This is because Spanner treats dynamic properties as values of the `JSON` data type, which supports [JSON comparison and sorting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#comparison_and_sorting) .
 
-In the following example, the query performs the following data type conversions:
-
-- Converts the `is_blocked` property to a boolean type to evaluate the expression.
-- Converts the `order_number_str` property to a string type and compares it with the literal value `"302290001255747"` .
-- Uses [LAX_INT64](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) function to safely convert `order_number_str` to an integer as the return type.
+For example, the following query filters on the boolean property `is_blocked` and the string property `order_number_str` in the `WHERE` clause:
 
 ```
 GRAPH FinGraph
 MATCH (a:Account)-[t:Transfers]->()
-WHERE BOOL(a.is_blocked) AND STRING(t.order_number_str) = "302290001255747"
+WHERE a.is_blocked = false AND t.order_number_str = "302290001255747"
+RETURN a.id AS account_id;
+```
+
+This returns results similar to the following:
+
+```
++------------+
+| account_id |
++------------+
+| 7          |
++------------+
+```
+
+You can express the same equality conditions using element pattern [property filters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#property_filters) :
+
+```
+GRAPH FinGraph
+MATCH (a:Account {is_blocked: false})-[t:Transfers {order_number_str: "302290001255747"}]->()
+RETURN a.id AS account_id;
+```
+
+You can also use dynamic properties directly in `GROUP BY` , `ORDER BY` , and `RETURN DISTINCT` clauses:
+
+- **`GROUP BY` example** :
+
+  ```
+  GRAPH FinGraph
+  MATCH (person:Person {country: "South Korea"})
+  RETURN person.city AS person_city, COUNT(*) AS cnt
+  LIMIT 10;
+  ```
+
+- **`ORDER BY` example** :
+
+  ```
+  GRAPH FinGraph
+  MATCH (a:Account)-[t:Transfers]->(b:Account)
+  RETURN a.id AS from_account, b.id AS to_account, t.amount
+  ORDER BY t.amount DESC
+  LIMIT 1;
+  ```
+
+- **`RETURN DISTINCT` example** :
+
+  ```
+  GRAPH FinGraph
+  MATCH -[t:Transfers]->
+  RETURN DISTINCT t.order_number_str AS order_number_str;
+  ```
+
+When filtering, comparing, or sorting dynamic properties, the following rules apply:
+
+- The compared value must match both the JSON type and value of the property. For example, because `order_number_str` is stored as a JSON `string` , comparing it with an integer literal finds no match:
+
+  ```
+  GRAPH FinGraph
+  MATCH (a:Account {is_blocked: false})-[t:Transfers {order_number_str: 302290001255747}]->()
+  RETURN t.order_number_str;
+  ```
+
+- Evaluating a `JSON` boolean property directly as a standalone `WHERE` condition, such as `WHERE a.is_blocked` , returns an error. Instead, compare the property with a boolean literal, such as `WHERE a.is_blocked = true` , or explicitly convert it with `WHERE BOOL(a.is_blocked)` .
+
+- For detailed rules and restrictions on comparing, grouping, and sorting `JSON` values, see [JSON comparison and sorting](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#comparison_and_sorting) and [JSON comparison coercion](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#json_comparison_coercion) .
+
+#### Convert dynamic property data types
+
+Convert dynamic properties to SQL data types in the following scenarios:
+
+- Converting a property value to a different data type for comparison or output, such as converting the JSON string `"302290001255747"` to an `INT64` integer, or returning a SQL data type instead of `JSON` .
+- Using a property value in a SQL function, operator, or expression that doesn't support `JSON` operands, such as arithmetic operators ( `+` , `-` ), string functions ( `LOWER` , `LIKE` ), aggregate functions ( `SUM` , `AVG` ), or `IN UNNEST` .
+- Defining a generated column on a property for a [secondary index](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#property-indexes) or [unique index](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#enforce-property-uniqueness) , because `JSON` expressions can't be indexed directly.
+
+In the following example, `order_number_str` is stored as a JSON `string` , and the query uses the [`LAX_INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) function to convert it to an `INT64` integer for comparison and return:
+
+```
+GRAPH FinGraph
+MATCH (a:Account)-[t:Transfers]->()
+WHERE a.is_blocked = true AND LAX_INT64(t.order_number_str) = 302290001255747
 RETURN LAX_INT64(t.order_number_str) AS order_number_as_int64;
 ```
 
@@ -195,50 +269,6 @@ This returns results similar to the following:
 +-----------------------+
 | 302290001255747       |
 +-----------------------+
-```
-
-In clauses such as `GROUP BY` and `ORDER BY` , you must also convert the JSON data type. The following example converts the `city` property to a string type, which allows you to use it for grouping.
-
-```
-GRAPH FinGraph
-MATCH (person:Person {country: "South Korea"})
-RETURN STRING(person.city) as person_city, COUNT(*) as cnt
-LIMIT 10
-```
-
-Tips for converting JSON data types to SQL data types:
-
-- Strict converters, such as [`INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#int64_for_json) , perform rigorous type and value checks. Use strict converters when the JSON data type is known and enforced, for example, by using schema constraints to [enforce the property data type](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#enforce-property-data-type) .
-- Flexible converters, such as [`LAX_INT64`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#lax_int64) , convert the value safely when possible, and return `NULL` when conversion isn't feasible. Use flexible converters when a rigorous check isn't required or types are difficult to enforce.
-
-For more information about data conversion, see [troubleshooting tips](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#common-issues) .
-
-#### Filter by property values
-
-In [property filters](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns#property_filters) , Spanner treats the filter parameters as values of `JSON` data type. For example, in the following query, Spanner treats `is_blocked` as a JSON `boolean` and `order_number_str` as a JSON `string` .
-
-```
-GRAPH FinGraph
-MATCH (a:Account {is_blocked: false})-[t:Transfers {order_number_str:"302290001255747"}]->()
-RETURN a.id AS account_id;
-```
-
-This returns results similar to the following:
-
-```
-+-----------------------+
-| account_id            |
-+-----------------------+
-| 7                     |
-+-----------------------+
-```
-
-The filter parameter must match the property type and value. For example, when the `order_number_str` filter parameter is an integer, Spanner finds no match because the property is a JSON `string` .
-
-```
-GRAPH FinGraph
-MATCH (a:Account {is_blocked: false})-[t:Transfers {order_number_str: 302290001255747}]->()
-RETURN t.order_number_str;
 ```
 
 #### Access nested JSON properties
@@ -287,7 +317,7 @@ The following example shows how to access nested properties with the JSON field 
 ```
 GRAPH FinGraph
 MATCH (person:Person {id: 1})
-RETURN STRING(person.location.city);
+RETURN person.location.city;
 ```
 
 This returns results similar to the following:
@@ -809,253 +839,8 @@ This query returns the following:
 }
 ```
 
-### Common issues when property values aren't properly converted
-
-To fix the following issues, always use property value conversions when using a property inside a query expression.
-
-#### Property values comparison without conversion
-
-**Issue**
-
-```
-No matching signature for operator = for argument types: JSON, STRING
-```
-
-**Possible cause**
-
-The query doesn't properly convert property values. For example, the `name` property is not converted to `STRING` type in comparison:
-
-```
-GRAPH FinGraph
-MATCH (p:Person)
-WHERE p.name = "Alex"
-RETURN p.id;
-```
-
-**Recommended solution**
-
-To fix this issue, use a value conversion before comparison.
-
-```
-GRAPH FinGraph
-MATCH (p:Person)
-WHERE STRING(p.name) = "Alex"
-RETURN p.id;
-```
-
-This returns results similar to the following:
-
-```
-+------+
-| id   |
-+------+
-| 1    |
-+------+
-```
-
-Alternatively, use a [property filter](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data#filter-property-values) to simplify equality comparisons where value conversion occurs automatically. Notice that the value's type ("Alex") must exactly match the property's `STRING` type in `JSON` .
-
-```
-GRAPH FinGraph
-MATCH (p:Person {name: 'Alex'})
-RETURN p.id;
-```
-
-This returns results similar to the following:
-
-```
-+------+
-| id   |
-+------+
-| 1    |
-+------+
-```
-
-#### `RETURN DISTINCT` property value use without conversion
-
-**Issue**
-
-```
-Column order_number_str of type JSON cannot be used in `RETURN DISTINCT
-```
-
-**Possible cause**
-
-In the following example, `order_number_str` hasn't been converted before it's used in the `RETURN DISTINCT` statement:
-
-```
-GRAPH FinGraph
-MATCH -[t:Transfers]->
-RETURN DISTINCT t.order_number_str AS order_number_str;
-```
-
-**Recommended solution**
-
-To fix this issue, use a value conversion before `RETURN DISTINCT` .
-
-```
-GRAPH FinGraph
-MATCH -[t:Transfers]->
-RETURN DISTINCT STRING(t.order_number_str) AS order_number_str;
-```
-
-This returns results similar to the following:
-
-```
-+-----------------+
-| order_number_str|
-+-----------------+
-| 302290001255747 |
-| 103650009791820 |
-| 304330008004315 |
-| 304120005529714 |
-+-----------------+
-```
-
-#### Property used as a grouping key without conversion
-
-**Issue**
-
-```
-Grouping by expressions of type JSON is not allowed.
-```
-
-**Possible cause**
-
-In the following example, `t.order_number_str` isn't converted before it's used to group JSON objects:
-
-```
-GRAPH FinGraph
-MATCH (a:Account)-[t:Transfers]->(b:Account)
-RETURN t.order_number_str, COUNT(*) AS total_transfers;
-```
-
-**Recommended solution**
-
-To fix this issue, use a value conversion before using the property as a grouping key.
-
-```
-GRAPH FinGraph
-MATCH (a:Account)-[t:Transfers]->(b:Account)
-RETURN STRING(t.order_number_str) AS order_number_str, COUNT(*) AS total_transfers;
-```
-
-This returns results similar to the following:
-
-```
-+-----------------+------------------+
-| order_number_str | total_transfers |
-+-----------------+------------------+
-| 302290001255747 |                1 |
-| 103650009791820 |                1 |
-| 304330008004315 |                1 |
-| 304120005529714 |                2 |
-+-----------------+------------------+
-```
-
-#### Property used as an ordering key without conversion
-
-**Issue**
-
-```
-ORDER BY does not support expressions of type JSON
-```
-
-**Possible cause**
-
-In the following example, `t.amount` isn't converted before it's used for ordering results:
-
-```
-GRAPH FinGraph
-MATCH (a:Account)-[t:Transfers]->(b:Account)
-RETURN a.Id AS from_account, b.Id AS to_account, t.amount
-ORDER BY t.amount DESC
-LIMIT 1;
-```
-
-**Recommended solution**
-
-To fix this issue, do a conversion on `t.amount` in the `ORDER BY` clause.
-
-```
-GRAPH FinGraph
-MATCH (a:Account)-[t:Transfers]->(b:Account)
-RETURN a.Id AS from_account, b.Id AS to_account, t.amount
-ORDER BY DOUBLE(t.amount) DESC
-LIMIT 1;
-```
-
-This returns results similar to the following:
-
-```
-+--------------+------------+--------+
-| from_account | to_account | amount |
-+--------------+------------+--------+
-|           20 |          7 | 500    |
-+--------------+------------+--------+
-```
-
-#### Type mismatch during conversion
-
-**Issue**
-
-```
-The provided JSON input is not an integer
-```
-
-**Possible cause**
-
-In the following example, the `order_number_str` property is stored as a JSON `STRING` data type. If you try to perform a conversion to `INT64` , it returns an error.
-
-```
-GRAPH FinGraph
-MATCH -[e:Transfers]->
-WHERE INT64(e.order_number_str) = 302290001255747
-RETURN e.amount;
-```
-
-**Recommended solution**
-
-To fix this issue, use the exact value converter that matches the value type.
-
-```
-GRAPH FinGraph
-MATCH -[e:Transfers]->
-WHERE STRING(e.order_number_str) = "302290001255747"
-RETURN e.amount;
-```
-
-This returns results similar to the following:
-
-```
-+-----------+
-| amount    |
-+-----------+
-| JSON"200" |
-+-----------+
-```
-
-Alternatively, use a flexible converter when the value is convertible to the target type, as shown in the following example:
-
-```
-GRAPH FinGraph
-MATCH -[e:Transfers]->
-WHERE LAX_INT64(e.order_number_str) = 302290001255747
-RETURN e.amount;
-```
-
-This returns results similar to the following:
-
-```
-+-----------+
-| amount    |
-+-----------+
-| JSON"200" |
-+-----------+
-```
-
 ## What's next
 
-- To learn more about JSON, see [Modify JSON data](https://docs.cloud.google.com/spanner/docs/working-with-json#modify) and [JSON functions list](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#categories) .
+- To learn more about JSON, see [Modify JSON data](https://docs.cloud.google.com/spanner/docs/working-with-json#modify) , [Compare and sort JSON data](https://docs.cloud.google.com/spanner/docs/working-with-json#comparison-and-sorting) , and [JSON functions list](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions#categories) .
 - [Compare Spanner Graph and openCypher](https://docs.cloud.google.com/spanner/docs/graph/opencypher-reference) .
 - [Migrate to Spanner Graph](https://docs.cloud.google.com/spanner/docs/graph/migrate) .
