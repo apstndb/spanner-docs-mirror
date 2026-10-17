@@ -71,7 +71,6 @@ The following limitations apply during the [Preview](https://cloud.google.com/pr
 - Your default instance partition must be a multi-region configuration.
 - Your additional instance partition must be a multi-region configuration.
 - You can't create an instance partition using a [dual-region configuration](https://docs.cloud.google.com/spanner/docs/geo-partitioning#limitations) .
-- You can't create single instance partitions.
 - For each instance partition, the compute capacity must be at least one node (1000 processing units).
 - For a given instance, you can't create more than one instance partition that uses the same base instance configuration. For example, within `test-instance` , you can't create two partitions, `partition-1` and `partition-2` that both use `us-central1` as the instance partition configuration.
 - For every node in your instance partition, you can place a maximum of 100 million placement rows. You can view the number of placement rows that have been placed in each of your instance partitions on the Instance partitions page of the Google Cloud console.
@@ -88,7 +87,6 @@ The following limitations apply during the [Preview](https://cloud.google.com/pr
 - You can't use [named schemas](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#named-schemas) .
 - You can't create instance partitions in [free trial instances](https://docs.cloud.google.com/spanner/docs/free-trial-instance) or granular-sized instances smaller than one node (1000 processing units).
 - You can't alter a placement. Instead, you can [create a new placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#create-placement) , use [partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) to update the placement of your data to a new placement, and then [drop the original placement](https://docs.cloud.google.com/spanner/docs/create-manage-data-placements#drop-placement) .
-- Your default instance partition must be a multi-region configuration.
 
 ## Access control with IAM
 

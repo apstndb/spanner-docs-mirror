@@ -274,7 +274,7 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search	202
 https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization	2026-10-13T01:17:55Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/top-k-pattern-matching	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/generated-column/how-to	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/geo-partitioning	2026-10-07T09:39:33Z
+https://docs.cloud.google.com/spanner/docs/geo-partitioning	2026-10-16T20:18:04Z
 https://docs.cloud.google.com/spanner/docs/getting-started/ado_net	2026-10-01T01:25:14Z
 https://docs.cloud.google.com/spanner/docs/getting-started/cpp	2026-10-01T01:25:14Z
 https://docs.cloud.google.com/spanner/docs/getting-started/csharp	2026-10-01T01:25:14Z
