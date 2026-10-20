@@ -709,7 +709,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-gql-func
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-intro	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-operators	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-patterns	2026-10-01T01:23:56Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements	2026-10-01T01:23:56Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements	2026-10-19T19:31:07Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-schema-statements	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-queries	2026-10-01T01:23:56Z

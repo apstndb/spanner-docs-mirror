@@ -1715,13 +1715,22 @@ linear_query_statement
 ][...]
 
 set_operator:
-  { 
+  { [ column_propagation_mode ]
+    
     UNION ALL
     | UNION DISTINCT
     | INTERSECT ALL
     | INTERSECT DISTINCT
     | EXCEPT ALL
     | EXCEPT DISTINCT
+  }
+
+column_propagation_mode:
+  {
+    FULL [ OUTER ]
+    | OUTER
+    | LEFT [ OUTER ]
+    | INNER
   }
 ```
 
@@ -1733,13 +1742,21 @@ Combines a sequence of linear query statements with a set operation. Only one ty
 
 - `linear_query_statement` : A [linear query statement](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-query-statements#gql_syntax) to include in the set operation.
 
+- `column_propagation_mode` : Specifies how to combine columns from multiple linear query statements when their output column lists don't exactly match. If the mode is unspecified, the default behavior requires all inputs to have the same set of column names.
+
+  The following column propagation modes are supported:
+
+  - `FULL OUTER` , `FULL` , or `OUTER` : Preserves all columns from both linear query statements. Adds `NULL` values for any missing columns in either statement. Columns from the first statement are returned first, followed by unique columns from the second statement.
+  - `LEFT OUTER` or `LEFT` : Preserves all columns from the first linear query statement. Adds `NULL` values for any missing columns from the second statement.
+  - `INNER` : Preserves columns that are present in both linear query statements.
+
 #### Details
 
 Each linear query statement in the same set operation shares the same working table.
 
 Most of the rules for GQL set operators are the same as those for SQL [set operators](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#set_operators) , but there are some differences:
 
-- A GQL set operator doesn't support hints, or the `CORRESPONDING` keyword. Since each set operation input (a linear query statement) only produces columns with names, the default behavior of GQL set operations requires all inputs to have the same set of column names and all paired columns to share the same [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
+- A GQL set operator doesn't support hints, or the `CORRESPONDING` keyword. However, you can use a `column_propagation_mode` . Since each set operation input (a linear query statement) only produces columns with names, the default behavior of GQL set operations requires all inputs to have the same set of column names and all paired columns to share the same [supertype](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules#supertypes) .
 - GQL doesn't allow chaining different kinds of set operations in the same set operation.
 - GQL doesn't allow using parentheses to separate different set operations.
 - The results produced by the linear query statements are combined in a left associative order.
@@ -1794,6 +1811,17 @@ RETURN 3 AS group_id, p.name
  | Dana |    3     |
  | Lee  |    3     |
  +------+----------*/
+```
+
+A set operation with a column propagation mode combines outputs with different column names. For example:
+
+```
+GRAPH FinGraph
+MATCH (a:Person)
+RETURN a.name, a.age
+FULL OUTER UNION ALL
+MATCH (a:Person)-[b]->(c)
+RETURN a.name, b.relationship
 ```
 
 ```
