@@ -129,9 +129,33 @@ spanner certificates create-client $USERNAME \
     --generate-pkcs8-key
 ```
 
-## Step 4: Start the servers
+## Step 4: Generate the wrapper keyset
 
-After you generate the certificates and copy them to all servers in your deployment, start each server. Create a base directory on each server to store data, metadata, and logs. If a server needs to restart, specify the same directory for continuity.
+Spanner Omni uses a Key Encryption Key (KEK) wrapper keyset to encrypt internal keys, such as token encryption and signing keys. Spanner Omni servers read this keyset from `BASE_DIR `` /kms/wrapper_key` .
+
+To generate a new wrapper keyset file using `spanner keys create-keyset` , run the following command:
+
+```
+spanner keys create-keyset --output-file=kms/wrapper_key
+```
+
+By default, `spanner keys create-keyset` generates an `AES256_GCM` key. To generate a different type of key, use the `--key-template` flag with one of the following key type values: `AES256_GCM` , `AES128_GCM` , `AES256_GCM_RAW` , `CHACHA20_POLY1305` , or `XCHACHA20_POLY1305` .
+
+#### Distribute the wrapper keyset to all servers
+
+Copy the `kms` directory into the base directory on all servers in the deployment before starting them:
+
+```
+scp -r kms REMOTE_HOST:BASE_DIR/kms
+```
+
+## Step 5: Start the servers
+
+To start the servers in your deployment, follow these steps:
+
+1.  Confirm that you generated the certificates and wrapper keyset and copied them to all servers in your deployment.
+2.  Create a base directory on each server to store data, metadata, and logs. If a server needs to restart, specify the same base directory for continuity.
+3.  Start each server using the instructions for your deployment type in the following sections.
 
 ### Single server deployment
 
@@ -163,9 +187,9 @@ To start a single-server deployment with encryption, create a password file for 
         --initial-admin-password-file=admin_password.txt &
     ```
 
-    On initial startup, `spanner start-single-server` sets the supported authentication methods and password protocol, and creates the initial admin `user with the` roles/spanner.admin\` role using the specified password file.
+    On initial startup, `spanner start-single-server` sets the supported authentication methods and password protocol, and creates the initial `admin` user with the `roles/spanner.admin` role using the specified password file.
 
-For information about interacting with your deployment, see [Step 7: Interact with the deployment](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#interact-deployment) .
+For information about interacting with your deployment, see [Step 8: Interact with the deployment](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#interact-deployment) .
 
 ### Scale-out deployment
 
@@ -193,7 +217,7 @@ nohup spanner start \
 
 With the servers now running on each machine, you are ready to create the deployment.
 
-## Step 5: Create a deployment with TLS encryption
+## Step 6: Create a deployment with TLS encryption
 
 To create the deployment, follow these steps:
 
@@ -243,7 +267,7 @@ To create the deployment, follow these steps:
 
 The console for each machine shows messages indicating that the deployment now includes TLS encryption. All servers communicate with each other over an encrypted channel.
 
-## Step 6: (Optional) Configure a load balancer
+## Step 7: (Optional) Configure a load balancer
 
 To manage and distribute client traffic across the servers in your deployment, set up a load balancer. Ensure that the load balancer configuration for the health check uses HTTPS instead of HTTP. Use the following configuration details:
 
@@ -255,7 +279,7 @@ To manage and distribute client traffic across the servers in your deployment, s
 | Health check URL   | `https:// `` IP_ADDRESS `` :15012/healthz`                                                                      |
 | Balancing strategy | roundrobin (distributes requests sequentially across servers)                                                   |
 
-## Step 7: Interact with the deployment
+## Step 8: Interact with the deployment
 
 You can interact with your Spanner Omni deployment from any VM using the [Spanner Omni CLI](https://docs.cloud.google.com/spanner-omni/cli-quickstart) .
 
@@ -372,18 +396,24 @@ To sign in and interact with your deployment, follow these steps:
 
     </div>
 
-## Step 8: (Optional) Scale the deployment
+## Step 9: (Optional) Scale the deployment
 
-You can add non-root servers to a zone to scale the capacity of the zone. To do this, generate the server certificate for the non-root servers as [Step 2: Generate the certificates](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#generate-certificates) explains, and start the server with the following command:
+You can add non-root servers to a zone to scale its capacity. To add a non-root server, follow these steps:
 
-```
-spanner start \
-    --server-address=NON_ROOT_MACHINE \
-    --join-servers=ROOT_SERVER1,ROOT_SERVER2,ROOT_SERVER3 \
-    --zone=us-central1-a \
-    --base-dir=./spandir \
-    --certificate-directory=${HOME}/.spanner/certs
-```
+1.  Generate a server certificate for the non-root server and copy the certificates to it. For more information, see [Step 2: Generate the certificates](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#generate-certificates) .
+
+2.  Copy the wrapper keyset to the non-root server. For more information, see [Step 4: Generate the wrapper keyset](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#generate-wrapper-keyset) .
+
+3.  Start the non-root server:
+
+    ```
+    spanner start \
+        --server-address=NON_ROOT_MACHINE \
+        --join-servers=ROOT_SERVER1,ROOT_SERVER2,ROOT_SERVER3 \
+        --zone=us-central1-a \
+        --base-dir=./spandir \
+        --certificate-directory=${HOME}/.spanner/certs
+    ```
 
 ## Next steps
 

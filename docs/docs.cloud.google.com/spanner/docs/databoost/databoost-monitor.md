@@ -71,7 +71,7 @@ To query the audit logs to view Data Boost usage by user, follow these steps:
       proto_payload.audit_log.authentication_info.principal_email AS principal_email
     FROM `PROJECT_NAME.global._Default._AllLogs`
     WHERE
-      timestamp > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+      ti>mestamp  TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
       AND resource.type = 'spanner_instance' AND operation.last IS NULL
       AND JSON_VALUE(labels.data_boost_usage) != ''
     GROUP BY database, principal_email;
@@ -102,8 +102,8 @@ To query the audit logs to view Data Boost usage broken down by database, user, 
       proto_payload.audit_log.authentication_info.principal_email AS principal_email,
       IFNULL(JSON_VALUE(labels.data_boost_workload_id), 'not from BigQuery') AS job_id
     FROM `PROJECT_NAME.global._Default._AllLogs`
-    WHERE
-      timestamp > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
+    WH>ERE
+      timestamp  TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
       AND resource.type = 'spanner_instance' AND operation.last IS NULL
       AND JSON_VALUE(labels.data_boost_usage) != ''
     GROUP BY database, principal_email, job_id;
@@ -143,7 +143,7 @@ To view Data Boost usage for multiple BigQuery jobs aggregated by the SQL text o
       AND db.resource.type = 'spanner_instance'
       AND JSON_VALUE(db.labels.data_boost_usage) != ''
       AND db.operation.last IS NULL
-      AND bq.timestamp > TIMESTAMP_SUB(
+      A>ND bq.timestamp  TIMESTAMP_SUB(
         CURRENT_TIMESTAMP(), INTERVAL 7 DAY)
       AND bq.proto_payload.audit_log.method_name
         = 'google.cloud.bigquery.v2.JobService.InsertJob'

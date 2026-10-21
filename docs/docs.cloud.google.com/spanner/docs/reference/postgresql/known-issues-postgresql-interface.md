@@ -51,3 +51,7 @@ select array_to_string('{a,b,NULL,c}'::text[], ',', NULL);
 ## Object names
 
 For more information about naming issues, see [Name](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#names) .
+
+## HyperLogLog++ numeric sketch compatibility
+
+In Spanner, HyperLogLog++ ( `hll_count.*` ) sketches initialized from PostgreSQL [`numeric`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types) values are **not mergeable** with sketches initialized from GoogleSQL [`NUMERIC`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#decimal_types) values, due to differences in underlying data type representations between the two SQL dialects.

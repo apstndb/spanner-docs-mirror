@@ -12,6 +12,14 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## October 20, 2026
+
+Feature
+
+Spanner supports approximate aggregate functions for both GoogleSQL and PostgreSQL dialects. These functions produce statistical estimates of distinct counts, allowing you to compute results faster and save resources on large datasets compared to exact aggregation.
+
+For more information, see approximate aggregate functions ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/approximate_aggregate_functions) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions#approximate-aggregate) ), [HyperLogLog++ functions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hll_functions) , and [Sketches](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sketches) .
+
 ## September 18, 2026
 
 Feature

@@ -109,9 +109,21 @@ USERNAME=admin
 ./google/spanner/bin/spanner certificates create-client $USERNAME --output-directory clientcerts --ca-certificate-directory certs --generate-pkcs8-key
 ```
 
-## Step 2: Push the certificates and admin password to the Kubernetes cluster
+### 4. Generate the wrapper keyset
 
-Run the following commands to create the namespace and push the certificates and admin password to your Kubernetes cluster:
+Spanner Omni uses a Key Encryption Key (KEK) wrapper keyset mounted at `/spanner/kms/wrapper_key` in each server pod to encrypt internal keys, such as token encryption and signing keys.
+
+To generate a new wrapper keyset file using `spanner keys create-keyset` , run the following command:
+
+```
+./google/spanner/bin/spanner keys create-keyset --output-file=kms/wrapper_key
+```
+
+By default, `spanner keys create-keyset` generates an `AES256_GCM` key. To generate a different type of key, use the `--key-template` flag with one of the following key type values: `AES256_GCM` , `AES128_GCM` , `AES256_GCM_RAW` , `CHACHA20_POLY1305` , or `XCHACHA20_POLY1305` .
+
+## Step 2: Push the certificates, wrapper keyset, and administrator password to the Kubernetes cluster
+
+Run the following commands to create the namespace and push the certificates, wrapper keyset, and administrator password to your Kubernetes cluster:
 
 1.  Create the namespace:
 
@@ -132,7 +144,15 @@ Run the following commands to create the namespace and push the certificates and
       -n NAMESPACE
     ```
 
-3.  Create a password file containing the password for the default `admin` user, with restricted permissions (readable only by its owner, permissions 600):
+3.  Push the wrapper keyset to a secret ( `wrapper-key` ), which is mounted at `/spanner/kms` in each server pod:
+
+    ```
+    kubectl create secret generic wrapper-key \
+      --from-file=wrapper_key="kms/wrapper_key" \
+      -n NAMESPACE
+    ```
+
+4.  Create a password file containing the password for the default `admin` user, with restricted permissions (readable only by its owner, permissions 600):
 
     ```
     printf '%s' 'PASSWORD' > admin_password.txt
@@ -147,7 +167,7 @@ Run the following commands to create the namespace and push the certificates and
     - At least one number.
     - At least one special character.
 
-4.  Create a secret for the administrator password:
+5.  Create a secret for the administrator password:
 
     ```
     kubectl create secret generic spanner-admin-password \

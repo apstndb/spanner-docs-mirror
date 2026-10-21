@@ -95,8 +95,8 @@ https://docs.cloud.google.com/spanner-omni/client-library-overview	2026-10-01T16
 https://docs.cloud.google.com/spanner-omni/create-helm-configuration	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/create-split-points	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/debezium	2026-10-01T16:55:26Z
-https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes	2026-10-01T16:55:26Z
-https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms	2026-10-01T16:55:26Z
+https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes	2026-10-20T22:20:26Z
+https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms	2026-10-20T22:20:26Z
 https://docs.cloud.google.com/spanner-omni/deploy-multi-cluster-on-kubernetes	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/deploy-on-kubernetes	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/deploy-on-vms	2026-10-01T16:55:26Z
@@ -219,7 +219,7 @@ https://docs.cloud.google.com/spanner/docs/data-validation	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/databases	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/databoost/databoost-applications	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/databoost/databoost-export	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/databoost/databoost-monitor	2026-10-07T09:41:07Z
+https://docs.cloud.google.com/spanner/docs/databoost/databoost-monitor	2026-10-21T00:17:12Z
 https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries	2026-10-07T09:41:07Z
@@ -274,7 +274,7 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search	202
 https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization	2026-10-13T01:17:55Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/top-k-pattern-matching	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/generated-column/how-to	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/geo-partitioning	2026-10-16T20:18:04Z
+https://docs.cloud.google.com/spanner/docs/geo-partitioning	2026-10-20T13:45:52Z
 https://docs.cloud.google.com/spanner/docs/getting-started/ado_net	2026-10-01T01:25:14Z
 https://docs.cloud.google.com/spanner/docs/getting-started/cpp	2026-10-01T01:25:14Z
 https://docs.cloud.google.com/spanner/docs/getting-started/csharp	2026-10-01T01:25:14Z
@@ -503,8 +503,8 @@ https://docs.cloud.google.com/spanner/docs/reference/postgresql/arrays	2026-10-0
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-types	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax	2026-10-07T09:40:30Z
-https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions	2026-10-10T21:29:04Z
-https://docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface	2026-10-07T09:40:30Z
+https://docs.cloud.google.com/spanner/docs/reference/postgresql/functions	2026-10-20T16:05:28Z
+https://docs.cloud.google.com/spanner/docs/reference/postgresql/known-issues-postgresql-interface	2026-10-20T16:05:28Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/lexical	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/operators	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview	2026-10-07T09:40:30Z
@@ -686,7 +686,8 @@ https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.in
 https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1	2026-03-06T22:34:24Z
 https://docs.cloud.google.com/spanner/docs/reference/rpc/google.type	2025-10-17T23:52:19Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate-function-calls	2026-10-09T20:07:39Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions	2026-10-01T01:24:09Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/aggregate_functions	2026-10-20T16:01:44Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/approximate_aggregate_functions	2026-10-20T16:01:44Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/arrays	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/bit_functions	2026-10-01T01:24:09Z
@@ -701,7 +702,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/debugging_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/format-elements	2026-10-09T22:30:01Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-all	2026-10-15T14:49:58Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-all	2026-10-20T16:01:44Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/functions-reference	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-conditional-expressions	2026-09-26T09:41:18Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-data-types	2026-10-01T01:23:56Z
@@ -715,6 +716,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-func
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-sql-queries	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/graph-subqueries	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hash_functions	2026-10-15T14:49:58Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/hll_functions	2026-10-20T16:01:44Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/interval_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/json_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/lexical	2026-10-01T01:23:56Z
@@ -729,9 +731,10 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-lan
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-10-01T01:23:56Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-10-13T01:17:55Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-10-21T00:09:18Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/security_functions	2026-10-06T21:47:46Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions	2026-10-01T01:23:56Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sketches	2026-10-20T16:01:44Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/statistical_aggregate_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/stored-procedures	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/string_functions	2026-10-01T01:23:56Z
@@ -739,7 +742,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries	202
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/region-types	2026-10-10T21:27:56Z
-https://docs.cloud.google.com/spanner/docs/release-notes	2026-10-01T01:23:43Z
+https://docs.cloud.google.com/spanner/docs/release-notes	2026-10-20T23:24:45Z
 https://docs.cloud.google.com/spanner/docs/replication	2026-10-10T21:27:56Z
 https://docs.cloud.google.com/spanner/docs/resources	2026-10-01T01:24:59Z
 https://docs.cloud.google.com/spanner/docs/rest-endpoints	2026-10-07T09:40:03Z
