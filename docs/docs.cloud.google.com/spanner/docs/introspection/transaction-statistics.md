@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/transaction-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics
 title: Transaction statistics
-description: Analyze transaction statistics in Spanner to understand transaction performance, latency, and lock contention.
+description: Analyze transaction statistics in the `SPANNER_SYS` schema to investigate performance issues, transaction latency, and lock contention.
 data_source: docs.cloud.google.com
 ---
 
@@ -219,12 +219,50 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
 <p>This column helps visualize the load on tables and provides insights into the rate at which a transaction writes to tables.</p></td>
 </tr>
+<tr class="odd">
+<td><code>COMMIT_LATENCY_DISTRIBUTION</code></td>
+<td><code>ARRAY&lt;STRUCT&gt;</code></td>
+<td><p>A histogram of the number of seconds taken to perform the commit operation.</p>
+<blockquote>
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>COMMIT_LATENCY_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
+<p>The array has the following structure:<br />
+<code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code></p>
+<p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
+<p>To calculate commit latency percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="even">
+<td><code>COMMIT_LATENCY_DISTRIBUTION_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#commit-latency-distribution-1"><code>COMMIT_LATENCY_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#commit-latency-distribution-1"><code>COMMIT_LATENCY_DISTRIBUTION</code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>To calculate commit latency percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="odd">
+<td><code>PARTICIPANTS_DISTRIBUTION</code></td>
+<td><code>ARRAY&lt;STRUCT&gt;</code></td>
+<td><p>A histogram of the number of participants in each commit attempt.</p>
+<blockquote>
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>PARTICIPANTS_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
+<p>The array has the following structure:<br />
+<code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code></p>
+<p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
+<p>To calculate participant percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="even">
+<td><code>PARTICIPANTS_DISTRIBUTION_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#participants-distribution-1"><code>PARTICIPANTS_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#participants-distribution-1"><code>PARTICIPANTS_DISTRIBUTION</code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>To calculate participant percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function.</p></td>
+</tr>
 </tbody>
 </table>
 
 ### Example queries
 
-This section includes several example SQL statements that retrieve transaction statistics. You can run these SQL statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , the [gcloud spanner](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#execute_sql_statements) , or the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console#run_a_query) .
+This section includes several example SQL statements that retrieve transaction statistics. You can run these SQL statements by using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , the [gcloud spanner](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#execute_sql_statements) , or the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console#run_a_query) .
 
 #### List the basic statistics for each transaction in a given time period
 
@@ -477,12 +515,50 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
 <p>This column helps visualize the load on tables and provides insights into the rate at which a transaction writes to tables.</p></td>
 </tr>
+<tr class="odd">
+<td><code>COMMIT_LATENCY_DISTRIBUTION</code></td>
+<td><code>ARRAY&lt;STRUCT&gt;</code></td>
+<td><p>A histogram of the number of seconds taken to perform the commit operation.</p>
+<blockquote>
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>COMMIT_LATENCY_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
+<p>The array has the following structure:<br />
+<code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code></p>
+<p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
+<p>To calculate commit latency percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="even">
+<td><code>COMMIT_LATENCY_DISTRIBUTION_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#commit-latency-distribution-2"><code>COMMIT_LATENCY_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#commit-latency-distribution-2"><code>COMMIT_LATENCY_DISTRIBUTION</code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>To calculate commit latency percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="odd">
+<td><code>PARTICIPANTS_DISTRIBUTION</code></td>
+<td><code>ARRAY&lt;STRUCT&gt;</code></td>
+<td><p>A histogram of the number of participants in each commit attempt.</p>
+<blockquote>
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>PARTICIPANTS_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
+<p>The array has the following structure:<br />
+<code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code></p>
+<p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
+<p>To calculate participant percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="even">
+<td><code>PARTICIPANTS_DISTRIBUTION_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#participants-distribution-2"><code>PARTICIPANTS_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#participants-distribution-2"><code>PARTICIPANTS_DISTRIBUTION</code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>To calculate participant percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function.</p></td>
+</tr>
 </tbody>
 </table>
 
 ### Example queries
 
-This section includes several example SQL statements that retrieve transaction statistics. You can run these SQL statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , the [gcloud spanner](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#execute_sql_statements) , or the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console#run_a_query) .
+This section includes several example SQL statements that retrieve transaction statistics. You can run these SQL statements by using the [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) , the [gcloud spanner](https://docs.cloud.google.com/spanner/docs/gcloud-spanner#execute_sql_statements) , or the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console#run_a_query) .
 
 #### Find the total number of commit attempts for all transactions
 
@@ -604,7 +680,7 @@ The following table describes some examples of how `COMMIT_ATTEMPT_COUNT` , `COM
 | Transaction aborted due to transient network issue and successfully committed after one retry.                                                                                                                                     | 2                    | 1                  | 1                  |
 | 5 transactions with the same FPRINT are executed within a 10-minute interval. 3 of the transactions successfully committed on first attempt, while 2 transactions were aborted and then committed successfully on the first retry. | 7                    | 2                  | 2                  |
 
-The data in the transactions-stats tables are aggregated data for a time interval. For a particular interval, it is possible that a transaction abort and retry happens around the boundaries and fall into different buckets. As a result, in a particular time interval aborts and retries may not be equal.
+The data in the transaction-stats tables are aggregated data for a time interval. For a particular interval, it is possible that a transaction abort and retry happens around the boundaries and fall into different buckets. As a result, in a particular time interval aborts and retries may not be equal.
 
 These stats are designed for troubleshooting and introspection and are not guaranteed to be 100% accurate. Statistics are aggregated in memory before being stored in Spanner tables. During an upgrade or other maintenance activities, Spanner servers can restart, affecting the accuracy of the numbers.
 

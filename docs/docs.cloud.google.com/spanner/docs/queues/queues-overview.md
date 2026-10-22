@@ -100,7 +100,6 @@ Spanner queues have the following limitations:
 - **Manual splitting:** the `AddSplits` API is not supported for queues. Workload distribution relies entirely on load-based splitting. Interleaving the queue in a table is recommended so that users can add split points to the table.
 - **Geo-partitioning compliance:** geo-partitioned queues are not data residency compliant after executing a `DROP PARTITION` operation.
 - **Queue count limits:** instances are limited to 100 queues for instances with 1 or more nodes. The limit scales down proportionally for granular instances (for example, instances with 200 processing units are limited to 20 queues).
-- **Dropping and recreating a queue:** dropping and recreating a queue of the same name isn't fully supported. The `RECEIVE` TVF for the queue may take time to "reset" before messages can be received at the same name again.
 - **PostgreSQL column naming:** Spanner exposes both the `deliver_time` and `DeliverTime` columns for the delivery time of a message. We recommend using the `deliver_time` column to align with standard PostgreSQL naming conventions, and because the `DeliverTime` column will be hidden from the information schema in a future release.
 - **Named schema:** queues cannot be created in named schemas.
 

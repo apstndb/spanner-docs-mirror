@@ -274,7 +274,7 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/substring-search	202
 https://docs.cloud.google.com/spanner/docs/full-text-search/tokenization	2026-10-13T01:17:55Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/top-k-pattern-matching	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/generated-column/how-to	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/geo-partitioning	2026-10-20T13:45:52Z
+https://docs.cloud.google.com/spanner/docs/geo-partitioning	2026-10-22T03:58:03Z
 https://docs.cloud.google.com/spanner/docs/getting-started/ado_net	2026-10-01T01:25:14Z
 https://docs.cloud.google.com/spanner/docs/getting-started/cpp	2026-10-01T01:25:14Z
 https://docs.cloud.google.com/spanner/docs/getting-started/csharp	2026-10-01T01:25:14Z
@@ -348,7 +348,7 @@ https://docs.cloud.google.com/spanner/docs/introspection/query-statistics	2026-1
 https://docs.cloud.google.com/spanner/docs/introspection/read-statistics	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics	2026-10-07T09:39:54Z
-https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics	2026-10-07T09:39:54Z
+https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics	2026-10-21T18:11:27Z
 https://docs.cloud.google.com/spanner/docs/introspection/troubleshooting-with-tags	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/vector-index-statistics	2026-10-01T01:24:07Z
 https://docs.cloud.google.com/spanner/docs/isolation-levels	2026-10-01T01:22:58Z
@@ -452,7 +452,7 @@ https://docs.cloud.google.com/spanner/docs/query-optimizer/versions	2026-10-07T0
 https://docs.cloud.google.com/spanner/docs/querydata	2026-10-12T21:03:27Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-at-most-once	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-examples	2026-10-07T09:40:30Z
-https://docs.cloud.google.com/spanner/docs/queues/queues-overview	2026-10-07T09:40:30Z
+https://docs.cloud.google.com/spanner/docs/queues/queues-overview	2026-10-21T23:12:09Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-using	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/read-lease	2026-10-01T01:24:59Z
 https://docs.cloud.google.com/spanner/docs/reads	2026-10-07T09:40:03Z
@@ -905,7 +905,7 @@ https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation	2026-10
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read	2026-10-01T01:32:44Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable	2026-10-01T01:32:44Z
 https://docs.cloud.google.com/spanner/docs/use-smt-migrate-mysql-schema	2026-10-07T09:43:42Z
-https://docs.cloud.google.com/spanner/docs/use-spanner-mcp	2026-10-07T09:43:42Z
+https://docs.cloud.google.com/spanner/docs/use-spanner-mcp	2026-10-21T18:06:40Z
 https://docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-googlesql	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-spring-data-jdbc-postgresql	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-spring-data-jpa	2026-10-07T09:43:42Z

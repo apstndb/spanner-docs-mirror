@@ -62,7 +62,7 @@ Consider the following before creating your instance partitions, placements, and
 
   - For better latency, we recommend that you select a multi-region default instance partition location that has read-write and read-only regions that cover all jurisdictions required by your application. Then, create additional instance partitions (which can be regional) with leader regions that match the regions in the multi-region default instance partition.
 
-- **Number of instance partitions** : Too many instance partitions can lead to overhead, while too few might not offer enough benefits. You can create a maximum of ten instance partitions per instance.
+- **Number of instance partitions** : Too many instance partitions can lead to overhead, while too few might not offer enough benefits. You can create a maximum of 20 instance partitions per instance. For more information about geo-partitioning limits, see [Geo-partitioning limits](https://docs.cloud.google.com/spanner/quotas#geo-partitioning_limits) .
 
 ## Limitations
 
