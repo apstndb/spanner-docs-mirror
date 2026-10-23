@@ -101,11 +101,11 @@ SELECT DEBUG_TOKENLIST(TOKENIZE_NUMBER([1, 10], min=> 1, max=>10)) AS Result;
 SCORE(
   tokens,
   search_query
-  [, dialect => { "rquery" | "words" | "words_phrase>" } ]
-  [, language_tag >= value ]
-  [, enhance_query = { TRUE> | FALSE } ]
-  [, dict>ionary = value]
-  [, options = value ]
+  [, dialect => { "rquery" | "words" | "words_phrase" } ]
+  [, language_tag => value ]
+  [, enhance_query => { TRUE | FALSE } ]
+  [, dictionary => value]
+  [, options => value ]
 )
 ```
 
@@ -217,7 +217,7 @@ SELECT
   SCORE(
     a.DescriptionTokens,
     'classical album',
-    >options=JSON '{"bigram_weight": 3.0}'
+    options=>JSON '{"bigram_weight": 3.0}'
   ) AS Score
 FROM Albums a
 WHERE SEARCH(a.DescriptionTokens, 'classical album');
@@ -348,10 +348,10 @@ LIMIT 1
 SEARCH(
   tokens,
   search_query
-  [, dialect => { "rquery" | "words" | "words_phrase>" } ]
-  [, language_tag> = value]
-  [, enhance_query = { TRU>E | FALSE }]
-  [, dictionary = value]
+  [, dialect => { "rquery" | "words" | "words_phrase" } ]
+  [, language_tag => value]
+  [, enhance_query => { TRUE | FALSE }]
+  [, dictionary => value]
 )
 ```
 
@@ -517,7 +517,7 @@ The following query is like the previous ones. However, if `Description` contain
 ```
 SELECT a.AlbumId, a.Description
 FROM Albums a
-WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classic albums', enhance>_query = TRUE);
+WHERE a.SingerId = 1 AND SEARCH(a.DescriptionTokens, 'classic albums', enhance_query => TRUE);
 
 /*---------------------------+
  | AlbumId | Description     |
@@ -615,7 +615,7 @@ SELECT
 FROM
   Albums a
 WHERE
-  SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic', min>_ngrams=1);
+  SEARCH_NGRAMS(a.DescriptionSubstrTokens, 'clasic', min_ngrams=>1);
 
 /*---------------------------+
  | AlbumId | Description     |
@@ -724,7 +724,7 @@ CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionSubstrTokens)
 PARTITION BY SingerId;
 
 INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 1, 'rock album');
-INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 2, ';classical album');
+INSERT INTO Albums (SingerId, AlbumId, Description) VALUES (1, 2, 'classical album');
 ```
 
 The following query searches the column called `Description` for a token called `ssic` . If this token is found for singer ID `1` , the matching rows are returned.
@@ -769,7 +769,7 @@ SELECT
 FROM
   Albums a
 WHERE
-  a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_sear>ch_type='word_prefix');
+  a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_search_type=>'word_prefix');
 
 /*---------------------------+
  | AlbumId | Description     |
@@ -787,7 +787,7 @@ SELECT
 FROM
   Albums a
 WHERE
-  a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_sear>ch_type='value_prefix');
+  a.SingerId = 1 AND SEARCH_SUBSTRING(a.DescriptionSubstrTokens, 'al', relative_search_type=>'value_prefix');
 
 /*---------------------------+
  | AlbumId | Description     |
@@ -865,7 +865,7 @@ The `JSON` value has this format and definitions:
         },
       ],
       "snippet": json_string,
-      "source_begin";: json_number,
+      "source_begin": json_number,
       "source_end": json_number
     }
   ]
@@ -1028,8 +1028,8 @@ TOKENIZE_FULLTEXT(
   value_to_tokenize
   [, language_tag => value ]
   [, content_type => { "text/plain" | "text/html" } ]
- > [, token_category = { "small" | "medium" | ">large" | "title" } ]
-  [, remove_diacritics = { TRUE | FALSE }]
+  [, token_category => { "small" | "medium" | "large" | "title" } ]
+  [, remove_diacritics => { TRUE | FALSE }]
 )
 ```
 
@@ -1140,7 +1140,7 @@ CREATE SEARCH INDEX AlbumsIndex ON Albums(MetadataTokens);
 INSERT INTO Albums (SingerId, AlbumId, Metadata)
   VALUES (1, 1, JSON '{"AvailableFormats": ["vinyl", "cd"]}'),
          (1, 2, JSON '{"ReissueDate": "1999-07-13", "MultiDiscCount": 2}'),
-         (1, 3, JSON &#39;{"RegionalReleases": [{"Region": "Japan", "ReleaseDate": "2025-01-05"}]}');
+         (1, 3, JSON '{"RegionalReleases": [{"Region": "Japan", "ReleaseDate": "2025-01-05"}]}');
 ```
 
 The following queries perform equality comparisons, containment checks, and existence checks on the `Metadata` column. The query optimizer might choose to accelerate these conditions using `AlbumsIndex` and `MetadataTokens` .
@@ -1251,7 +1251,7 @@ CREATE TABLE Albums (
 
 CREATE SEARCH INDEX AlbumsIndex ON Albums(DescriptionNgramTokens);
 
-INSERT INTO Albums (AlbumId, Description) VALUES (1, 'Heavy Metal&#39;);
+INSERT INTO Albums (AlbumId, Description) VALUES (1, 'Heavy Metal');
 ```
 
 To query an n-gram `TOKENLIST` column, see the [SEARCH_NGRAMS](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#search_ngrams) function.
@@ -1261,13 +1261,13 @@ To query an n-gram `TOKENLIST` column, see the [SEARCH_NGRAMS](https://docs.clou
 ```
 TOKENIZE_NUMBER(
   value_to_tokenize,
-  [, comparison_type => { "all" | "equality" >} ]
-  [, algorithm = { "logtree" | "prefixtre>e" | "flo>atingpoint" } ]
-  [, m>in = value ]
-  [, max = v>alue ]
+  [, comparison_type => { "all" | "equality" } ]
+  [, algorithm => { "logtree" | "prefixtree" | "floatingpoint" } ]
+  [, min => value ]
+  [, max => value ]
   [, granularity => value ]
-  [, tree_base = value ]
-  [, precision = value ]
+  [, tree_base => value ]
+  [, precision => value ]
 )
 ```
 
@@ -1400,8 +1400,8 @@ TOKENIZE_SUBSTRING(
   [, ngram_size_max => value ]
   [, relative_search_types => value ]
   [, content_type => { "text/plain" | "text/html" } ]
-  [, short_token>s_only_for_anchors = {TRUE | FALSE } ]
-  [,> remove_diacritics = { TRUE | FALSE } ]
+  [, short_tokens_only_for_anchors => {TRUE | FALSE } ]
+  [, remove_diacritics => { TRUE | FALSE } ]
 )
 ```
 
@@ -1525,7 +1525,7 @@ CREATE SEARCH INDEX AlbumsIndex ON Albums(SingerNameTokens, AlbumNameTokens, Sin
 -- The INSERT statement below generates SingerOrAlbumNameTokens by concatenating
 -- all the tokens in SingerNameTokens and AlbumNameTokens.
 INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (1, 1, 'Alice Trentor', 'Go Go Go');
-INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (2, 1, 'Catalina Smith';, 'Alice Wonderland');
+INSERT INTO Albums (SingerId, AlbumId, SingerName, AlbumName) VALUES (2, 1, 'Catalina Smith', 'Alice Wonderland');
 ```
 
 The following query searches for a token `alice` in the `SingerOrAlbumNameColumnTokens` . The rows that match `alice` in either `SingerNameTokens` or `AlbumNameTokens` are returned.

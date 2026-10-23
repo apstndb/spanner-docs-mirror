@@ -10,7 +10,7 @@ data_source: docs.cloud.google.com
 >
 > This feature is subject to the "Pre-GA Offerings Terms" in the General Service Terms section of the [Service Specific Terms](https://docs.cloud.google.com/terms/service-terms#1) . Pre-GA features are available "as is" and might have limited support. For more information, see the [launch stage descriptions](https://cloud.google.com/products/#product-launch-stages) .
 
-This page describes how saved queries work in Spanner .
+To store, reuse, and share frequently run database statements without rewriting them for each session, you can use saved queries in Spanner .
 
 You can use Spanner Studio to create, save, and manage SQL scripts as saved queries. The saved queries capability is available only in the console; you cannot run or manage saved queries through an API or other means.
 

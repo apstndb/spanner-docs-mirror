@@ -206,6 +206,8 @@ Authentication tokens aren't recommended for client use because the tokens gener
 
 ## What's next
 
+- [Replicate data from Spanner to Spanner Omni](https://docs.cloud.google.com/spanner-omni/replicate-data) .
+
 - [Use client libraries with Spanner Omni](https://docs.cloud.google.com/spanner-omni/client-library-overview) .
 
 - [Use the Java client library to connect to Spanner Omni](https://docs.cloud.google.com/spanner-omni/java) .

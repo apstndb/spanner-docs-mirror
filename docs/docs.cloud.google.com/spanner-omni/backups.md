@@ -18,6 +18,8 @@ For scheduled backups, the `versionTime` is the time you choose when you create 
 
 For example, suppose you create a backup schedule with a frequency of `0 7 * * * UTC` (every day at 7:00 AM UTC). This means that for each backup, the `versionTime` is 7:00 AM UTC and the `createTime` is a timestamp within the four-hour window between 7:00 AM UTC and 11:00 AM UTC.
 
+Spanner Omni backups can be restored only into Spanner Omni deployments. You can't restore a managed Spanner backup into Spanner Omni, or restore a Spanner Omni backup into managed Spanner. To transfer data between Spanner and Spanner Omni, use change streams or export and import Avro files. For more information, see [Replicate data from Spanner to Spanner Omni](https://docs.cloud.google.com/spanner-omni/replicate-data) and [Import and export data](https://docs.cloud.google.com/spanner-omni/import-export-data) .
+
 ## Key features
 
 Spanner Omni backups provide data consistency, resilient external replication, and automated expiration.
@@ -49,12 +51,25 @@ spanner external-storages create EXTERNAL_STORAGE_ID \
 
 #### Create Cloud Storage external storage
 
-To create Cloud Storage external storage, run the following command:
+> **Note:** Each deployment can have only one external storage, and Spanner Omni stores all of the deployment's backups in it. To use a different Cloud Storage bucket, you must first [delete the existing external storage](https://docs.cloud.google.com/spanner-omni/backups#delete-external-storage) .
+
+Before you configure Cloud Storage external storage, ensure that you have these items:
+
+- A target Cloud Storage bucket in your Google Cloud project.
+- A Google Cloud service account granted the Storage Object Admin ( `roles/storage.objectAdmin` ) Identity and Access Management (IAM) role on the target bucket. For more information, see [IAM roles for Cloud Storage](https://docs.cloud.google.com/storage/docs/access-control/iam-roles) .
+- Authentication credentials configured in your Spanner Omni environment, such as a service account key file or credentials exchanged through Workload Identity Federation. For more information about authenticating from external environments, see [Configure Workload Identity Federation with AWS VMs](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-other-clouds) and [Configure Workload Identity Federation with Kubernetes](https://docs.cloud.google.com/iam/docs/workload-identity-federation-with-kubernetes) .
+
+To register your Cloud Storage bucket as external storage, run this command:
 
 ```
 spanner external-storages create EXTERNAL_STORAGE_ID \
-   --gcs-bucket-name=BUCKET_NAME
+  --gcs-bucket-name=BUCKET_NAME
 ```
+
+Replace the following:
+
+- `EXTERNAL_STORAGE_ID` : a unique identifier for the external storage configuration, for example, `gcp-gcs-backup-target` .
+- `BUCKET_NAME` : the name of your target Cloud Storage bucket.
 
 #### Create Amazon S3-compatible external storage
 
@@ -115,7 +130,7 @@ A Spanner Omni backup doesn't include the following information:
 
 - Any modifications to the data or schema after the `versionTime` .
 
-- Identity and Access Management (IAM) policies.
+- IAM policies.
 
 - Change stream data records. Although the change streams schema is stored, the change stream data should be streamed and consumed at about the same time as the changes it describes.
 
@@ -176,29 +191,40 @@ spanner backups update-metadata BACKUP_NAME \
 
 #### Import backup
 
-If you accidentally delete a deployment, you can import backups from it if you did not delete the backup files from external storage.
+To recover a database in another Spanner Omni deployment—for example, to recover between Spanner Omni deployments or if you delete the original deployment—you can import backups if the backup files remain in external storage:
 
-1.  Create external storage in the new deployment that uses the same Amazon S3 or Cloud Storage bucket from the original deployment.
+> **Caution:** Importing a backup doesn't copy the backup files. The imported backup and the source backup reference the same files in external storage. When either backup is deleted or expires, Spanner Omni deletes the files, and the other backup can no longer be restored. If the original deployment still exists, don't delete the source backup or let it expire until the database that you restore in the new deployment is in the `READY` state.
+
+1.  Create external storage in the new deployment that uses the same Amazon S3 or Cloud Storage bucket as the original deployment, for example:
 
     ```
     spanner external-storages create EXTERNAL_STORAGE_ID \
       --gcs-bucket-name=BUCKET_NAME
     ```
 
-2.  List the backup descriptors in the external storage.
+2.  List the backup descriptors in the external storage:
 
     ```
     spanner external-storages backup-descriptors list EXTERNAL_STORAGE_ID
     ```
 
-3.  Select the backup descriptor and import it into the new deployment.
+3.  Import the backup metadata into the new deployment:
 
     ```
     spanner backups import BACKUP_NAME \
-     --external-storage EXTERNAL_STORAGE_ID \
-     --backup-descriptor BACKUP_DESCRIPTOR \
-     --retention-period 24h
+      --external-storage=EXTERNAL_STORAGE_ID \
+      --backup-descriptor=BACKUP_DESCRIPTOR \
+      --retention-period=RETENTION_PERIOD
     ```
+
+    Replace the following:
+
+    - `BACKUP_NAME` : a name for the imported backup.
+    - `EXTERNAL_STORAGE_ID` : the ID of your external storage configuration.
+    - `BACKUP_DESCRIPTOR` : the descriptor ID returned in the previous step.
+    - `RETENTION_PERIOD` : the duration to retain the backup, for example, `24h` or `30d` .
+
+After you import the backup metadata, you can restore the backup into a new database in the deployment. For more information, see [Restore a Spanner Omni backup](https://docs.cloud.google.com/spanner-omni/restores) .
 
 ## Backup schedules
 
@@ -291,3 +317,8 @@ Conversely, a backup's storage can be larger than the database's storage, depend
 For similar reasons, when you restore a database from a backup, its storage can be larger than the database's storage. This might occur if a large set of data was deleted and compacted after the backup was created. Therefore, the backup size depends on when the backup was created and the subsequent operations on the database.
 
 No formula predicts a backup's size relative to the live database. For a database with a high rate of writes (a *hot database* ), the backup is likely smaller than the live database. However, in some situations, the backup size can be larger.
+
+## What's next
+
+- [Restore a Spanner Omni backup](https://docs.cloud.google.com/spanner-omni/restores)
+- [Replicate data from Spanner to Spanner Omni](https://docs.cloud.google.com/spanner-omni/replicate-data)

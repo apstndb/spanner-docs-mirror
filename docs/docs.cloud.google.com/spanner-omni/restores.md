@@ -88,3 +88,8 @@ spanner databases restore \
   --source-backup=BACKUP_NAME \
   --async
 ```
+
+## What's next
+
+- [Create and manage Spanner Omni backups](https://docs.cloud.google.com/spanner-omni/backups)
+- [Replicate data from Spanner to Spanner Omni](https://docs.cloud.google.com/spanner-omni/replicate-data)
