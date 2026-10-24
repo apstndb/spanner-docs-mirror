@@ -230,7 +230,7 @@ https://docs.cloud.google.com/spanner/docs/dc-integration	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/deadline-exceeded	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/directed-reads	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/django-orm	2026-10-07T09:39:47Z
-https://docs.cloud.google.com/spanner/docs/dml-best-practices	2026-10-07T09:39:47Z
+https://docs.cloud.google.com/spanner/docs/dml-best-practices	2026-10-23T19:40:06Z
 https://docs.cloud.google.com/spanner/docs/dml-partitioned	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/dml-tasks	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/dml-versus-mutations	2026-10-07T09:39:47Z
@@ -374,7 +374,7 @@ https://docs.cloud.google.com/spanner/docs/manage-data-using-console	2026-10-07T
 https://docs.cloud.google.com/spanner/docs/managed-autoscaler	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/manual-data-compaction	2026-10-14T19:24:59Z
 https://docs.cloud.google.com/spanner/docs/media	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/metrics	2026-10-15T13:37:48Z
+https://docs.cloud.google.com/spanner/docs/metrics	2026-10-23T13:31:25Z
 https://docs.cloud.google.com/spanner/docs/migrate-mysql-schema	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/migrate-spanner-pg-to-pg-database	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/migrating-dynamodb-to-cloud-spanner	2026-10-07T09:39:33Z
@@ -864,7 +864,7 @@ https://docs.cloud.google.com/spanner/docs/spanner-cli	2026-10-07T09:40:03Z
 https://docs.cloud.google.com/spanner/docs/spanner-cli-commands	2026-10-07T09:40:03Z
 https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints	2026-10-06T17:11:33Z
 https://docs.cloud.google.com/spanner/docs/sql-best-practices	2026-10-07T09:40:03Z
-https://docs.cloud.google.com/spanner/docs/statement-timeout	2026-10-07T09:40:03Z
+https://docs.cloud.google.com/spanner/docs/statement-timeout	2026-10-23T08:18:29Z
 https://docs.cloud.google.com/spanner/docs/storage-utilization	2026-10-07T09:40:03Z
 https://docs.cloud.google.com/spanner/docs/storing-numeric-data	2026-10-07T09:40:03Z
 https://docs.cloud.google.com/spanner/docs/structs	2026-10-07T09:40:03Z

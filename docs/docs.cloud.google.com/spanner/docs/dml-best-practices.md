@@ -56,8 +56,6 @@ Spanner buffers insertions, updates, and deletions performed using DML statement
 
 Avoid using both DML statements and mutations in the same transaction. If you use both in the same transaction, you need to account for the order of execution in your client library code. If a transaction contains both DML statements and mutations in the same request, Spanner executes the DML statements before the mutations.
 
-For operations that are only supported using mutations, you might want to combine DML statements and mutations in the same transaction—for example, [`insert_or_update`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Mutation) .
-
 If you use both, the buffer writes only at the very end of the transaction.
 
 ## Use the `PENDING_COMMIT_TIMESTAMP` function to write commit timestamps
