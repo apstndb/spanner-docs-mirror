@@ -10,21 +10,25 @@ data_source: docs.cloud.google.com
 
 ## Overview
 
-This page provides concepts about query execution plans and how they are used by Spanner to perform queries in a distributed environment. To learn how to retrieve an execution plan for a specific query using the Google Cloud console, see [Understand how Spanner executes queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#how-execute-queries) . You can also view sampled historic query plans and compare the performance of a query over time for certain queries. To learn more, see [Sampled query plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans#sampled-plans) .
+This page explains the concepts behind query execution plans and how Spanner uses them to perform queries in a distributed environment. To learn how to retrieve an execution plan for a specific query using the Google Cloud console, see [Understand how Spanner executes queries](https://docs.cloud.google.com/spanner/docs/sql-best-practices#how-execute-queries) . You can also view sampled historical query plans to compare query performance over time. To learn more, see [Sampled query plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans#sampled-plans) .
 
-Spanner uses declarative SQL statements to query its databases. SQL statements define *what* the user wants without specifying *how* to obtain the results. A *query execution plan* is the set of steps for how the results are obtained. For a given SQL statement, there may be multiple ways to obtain the results. The Spanner [query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) evaluates different execution plans and chooses the one it considers to be most efficient. Spanner then uses the execution plan to retrieve the results. Execution plans support GoogleSQL-dialect databases and PostgreSQL-dialect databases.
+Spanner uses declarative SQL statements to query its databases. SQL statements define *what* the user wants without specifying *how* to obtain the results. A *query execution plan* is the set of steps for how the results are obtained. For a given SQL statement, there may be multiple ways to obtain the results. The Spanner query optimizer evaluates different execution plans and chooses the most efficient one. Spanner then uses the execution plan to retrieve the results. Execution plans support GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
-Conceptually, an execution plan is a tree of relational operators. Each operator reads rows from its input(s) and produces output rows. The result of the operator at the root of the execution is returned as the result of the SQL query.
+For more information about the query optimizer, see [Query optimizer overview](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) .
 
-As an example, this query:
+Conceptually, an execution plan is a tree of relational operators. Each operator reads rows from its inputs and produces output rows. The result of the operator at the root of the execution is returned as the result of the SQL query.
+
+As an example, consider the following query:
 
 ```
 SELECT s.SongName FROM Songs AS s;
 ```
 
-results in a query execution plan that can be visualized as:
+This query results in a query execution plan that can be visualized as:
 
 ![Example query execution plan](https://docs.cloud.google.com/static/spanner/docs/images/query-execution-1.png)
+
+In this example, Spanner executes the query plan top-down, and data flows bottom-up. The [`distributed union`](https://docs.cloud.google.com/spanner/docs/query-operators-distributed#distributed-union) operator executes first. The dashed blue lines indicate that this operator can make a remote call. Whether locally or remotely, it invokes the [`serialize result`](https://docs.cloud.google.com/spanner/docs/query-operators-unary#serialize_result) operator and continues down the tree. When the [`table scan`](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) operator produces a row, it immediately returns control to the `serialize result` operator. This process continues until the query scans all rows.
 
 The queries and execution plans on this page are based on the following database schema:
 
@@ -108,12 +112,27 @@ VALUES (2, 1, 1, "Let's Get Back Together", 182, "COUNTRY"),
 
 > **Note:** You can run queries and retrieve execution plans even if the tables have no data.
 
-Obtaining efficient execution plans is challenging because Spanner divides data into [*splits*](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) . Splits can move independently from each other and get assigned to different servers, which could be in different physical locations. To evaluate execution plans over the distributed data, Spanner uses execution based on:
+Obtaining efficient execution plans is challenging because Spanner divides data into [*splits*](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#database-splits) . Splits can move independently from each other, and Spanner can assign them to different servers, which might be in different physical locations. To evaluate execution plans over distributed data, Spanner performs the following tasks:
 
-- local execution of *subplans* in servers that contain the data
-- orchestration and aggregation of multiple remote executions with aggressive distribution pruning
+- Runs *subplans* locally on servers that store the data.
+- Orchestrates and aggregates multiple remote executions with aggressive distribution pruning.
 
-Spanner uses the primitive operator [`distributed union`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , along with its variants [`distributed cross apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-cross-apply) and [`distributed outer apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-outer-apply) , to enable this model.
+To enable this model, Spanner uses the [`distributed union`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) operator, along with its [`distributed cross apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-cross-apply) and [`distributed outer apply`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-outer-apply) variants.
+
+## How Spanner executes queries
+
+Conceptually, query execution flows from top to bottom, and query results flow from bottom to top. The following diagram shows this pattern:
+
+![Conceptual query plan](https://docs.cloud.google.com/static/spanner/docs/images/conceptual_query_plan.svg)
+
+Spanner compiles a SQL query into an execution plan. To minimize the number of hops to the queried data, Spanner chooses an initial *root* server and sends the plan to this server. The root server performs the following actions:
+
+- Initiates the remote execution of subplans, if necessary.
+- Waits for results from the remote executions.
+- Handles any remaining local execution steps, such as aggregating results.
+- Returns the query results.
+
+A remote server that receives a subplan acts as a root server for its subplan, following the same model as the topmost root server. This execution model results in a tree of remote executions.
 
 ## Key performance metrics
 
@@ -126,40 +145,29 @@ The Spanner Studio query plan visualizer displays summary metrics for query exec
 
 ## Sampled query plans
 
-Spanner sampled query plans allow you to view samples of historic query plans and compare the performance of a query over time. Not all queries have sampled query plans available. Only queries that consume higher CPU might be sampled. The data retention for Spanner query plan samples is 30 days. You can find query plan samples on the [Query insights](https://docs.cloud.google.com/spanner/docs/using-query-insights) page of the Google Cloud console. For instructions, see [View sampled query plans](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer#view-sampled-queries) .
+Spanner sampled query plans let you view samples of historical query plans and compare the performance of a query over time. Sampled query plans aren't available for all queries. Spanner might sample only queries that consume significant CPU. Spanner retains query plan samples for 30 days. To find query plan samples on the [Query insights](https://docs.cloud.google.com/spanner/docs/using-query-insights) page of the Google Cloud console, see [View sampled query plans](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer#view-sampled-queries) .
 
 The anatomy of a sampled query plan is the same as a regular query execution plan. For more information on how to understand visual plans and use them to debug your queries, see [A tour of the query plan visualizer](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer#visual-plan-tour) .
 
-#### Common use cases for sampled query plans:
+### Common use cases for sampled query plans
 
-Some common use cases for sampled query plans include:
+Common use cases for sampled query plans include the following:
 
-- Observe query plan changes due to [schema changes](https://docs.cloud.google.com/spanner/docs/schema-updates) (for example, adding or removing an index).
-- Observe query plan changes due to an [optimizer version update](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) .
-- Observe query plan changes due to [new optimizer statistics](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) , which are collected every three days automatically or performed manually using the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) command.
+- Observing query plan changes because of [schema changes](https://docs.cloud.google.com/spanner/docs/schema-updates) (for example, adding or removing an index).
+- Observing query plan changes because of an [optimizer version update](https://docs.cloud.google.com/spanner/docs/query-optimizer/versions) .
+- Observing query plan changes because of [new optimizer statistics](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer#list-statistics-packages) . Spanner collects these statistics automatically every three days, or you can update them manually using the [`ANALYZE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#analyze-statistics) command.
 
-If the performance of a query shows significant difference over time or if you want to improve the performance of a query, see [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) to construct optimized query statements that help Spanner find efficient execution plans.
+If query performance varies significantly over time, or if you want to improve performance, then see [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) to construct optimized query statements that help Spanner find efficient execution plans.
 
-## Life of a query
+## Common patterns
 
-A SQL query in Spanner is first compiled into an execution plan, then it is sent to an initial *root* server for execution. The root server is chosen so as to minimize the number of hops to reach the data being queried. The root server then:
-
-- initiates remote execution of subplans (if necessary)
-- waits for results from the remote executions
-- handles any remaining local execution steps such as aggregating results
-- returns results for the query
-
-Remote servers that receive a subplan act as a "root" server for their subplan, following the same model as the topmost root server. The result is a tree of remote executions. Conceptually, query execution flows from top to bottom, and query results are returned from bottom to top.The following diagram shows this pattern:
-
-![Conceptual query plan](https://docs.cloud.google.com/static/spanner/docs/images/conceptual_query_plan.svg)
-
-The following examples illustrate this pattern in more detail.
+The following examples illustrate common patterns in Spanner execution plans.
 
 ### Aggregate queries
 
-An aggregate query implements `GROUP BY` queries.
+An aggregate query implements `GROUP BY` logic.
 
-For example, using this query:
+For example, the following query calculates song counts by singer:
 
 ```
 SELECT s.SingerId, COUNT(*) AS SongCount
@@ -183,25 +191,26 @@ Conceptually, this is the execution plan:
 
 ![Aggregate query execution plan](https://docs.cloud.google.com/static/spanner/docs/images/aggregate-query-plan.png)
 
-Spanner sends the execution plan to a root server that coordinates the query execution and performs the remote distribution of subplans.
+Spanner sends the execution plan to a root server that coordinates the query execution and distributes subplans remotely.
 
-This execution plan starts with a [*distributed union*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , which distributes subplans to remote servers whose splits satisfy `SingerId < 100` . After the scan on individual splits completes, the *stream aggregate* operator aggregates rows to get the counts for each `SingerId` . The *serialize result* operator then serializes the result. Finally, the *distributed union* combines all results together and returns the query results.
+This execution plan starts with a `distributed union` operator that distributes subplans to remote servers whose splits satisfy `SingerId < 100` . After the scan on individual splits completes, the `stream aggregate` operator aggregates rows to get the counts for each `SingerId` . The `serialize result` operator then serializes the result. Finally, the `distributed union` combines all results and returns the query results.
 
-You can learn more about aggregates at [aggregate operator](https://docs.cloud.google.com/spanner/docs/query-execution-operators#aggregate) .
+For more information about aggregates, see [Aggregate operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators#aggregate) .
 
 ### Co-located join queries
 
-[Interleaved](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) tables are physically stored with their rows of related tables co-located. A *co-located join* is a join between interleaved tables. Co-located joins can offer performance benefits over joins that require indexes or back joins.
+In [interleaved](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#create-interleaved-tables) tables, Spanner physically stores related rows together. A *co-located join* is a join between interleaved tables. Co-located joins can improve performance compared to joins that require indexes or back joins.
 
-For example, using this query:
+For example, consider the following query:
 
 ```
 SELECT al.AlbumTitle, so.SongName
 FROM Albums AS al, Songs AS so
-WHERE al.SingerId = so.SingerId AND al.AlbumId = so.AlbumId;
+WHERE al.SingerId = so.SingerId AND
+      al.AlbumId = so.AlbumId;
 ```
 
-(This query assumes that `Songs` is interleaved in `Albums` .)
+This query assumes that `Songs` is interleaved in `Albums` .
 
 These are the results:
 
@@ -225,25 +234,35 @@ This is the execution plan:
 
 ![Co-located join query execution plan](https://docs.cloud.google.com/static/spanner/docs/images/co-located-query-plan.png)
 
-This execution plan starts with a [*distributed union*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-union) , which distributes subplans to remote servers that have splits of the table `Albums` . Because `Songs` is an interleaved table of `Albums` , each remote server is able to execute the entire subplan on each remote server without requiring a join to a different server.
+This execution plan starts with a `distributed union` operator that distributes subplans to remote servers, which contain splits of the `Albums` table. Because `Songs` is interleaved in `Albums` , each remote server executes the entire subplan locally without performing a join across different servers.
 
-The subplans contain a [*cross apply*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#cross-apply) . Each cross apply performs a *table* [*scan*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#scan) on table `Albums` to retrieve `SingerId` , `AlbumId` , and `AlbumTitle` . The cross apply then maps output from the table scan to output from an *index scan* on index `SongsBySingerAlbumSongNameDesc` , subject to a [filter](https://docs.cloud.google.com/spanner/docs/query-execution-operators#filter) of the `SingerId` in the index matching the `SingerId` from the table scan output. Each cross apply sends its results to a [*serialize result*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#serialize_result) operator which serializes the `AlbumTitle` and `SongName` data and returns results to the local *distributed unions* . The distributed union aggregates results from the local distributed unions and returns them as the query result.
+The subplans contain a `cross apply` operator. Each `cross apply` operator performs a [`table scan`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#scan) on the `Albums` table to retrieve `SingerId` , `AlbumId` , and `AlbumTitle` . The `cross apply` operator then maps the output from the table scan to the output from an index scan on the `SongsBySingerAlbumSongNameDesc` index. This index is subject to a [filter](https://docs.cloud.google.com/spanner/docs/query-execution-operators#filter) , which requires that the `SingerId` in the index matches the `SingerId` from the table scan output. Each `cross apply` operator sends its results to a [`serialize result`](https://docs.cloud.google.com/spanner/docs/query-execution-operators#serialize_result) operator, which serializes the `AlbumTitle` and `SongName` data and returns the results to the local distributed unions. The distributed union aggregates results from the local distributed unions and returns them as the query result.
 
 ### Index and back join queries
 
-The example above used a join on two tables, one interleaved in the other. Execution plans are more complex and less efficient when two tables, or a table and an index, are not interleaved.
+The previous example uses a join on two tables, where one table is interleaved in the other. If two tables, or a table and an index, aren't interleaved, then execution plans are more complex and less efficient.
 
 Consider an index created with the following command:
 
 ```
-CREATE INDEX SongsBySongName ON Songs(SongName)
+CREATE INDEX SongsBySongName ON Songs(SongName);
 ```
 
-Use this index in this query:
+To use this index in a query, select one of the following database dialect options:
+
+### GoogleSQL
 
 ```
 SELECT s.SongName, s.Duration
 FROM Songs@{force_index=SongsBySongName} AS s
+WHERE STARTS_WITH(s.SongName, "B");
+```
+
+### PostgreSQL
+
+```
+SELECT s.SongName, s.Duration
+FROM Songs /*@ force_index=SongsBySongName */ AS s
 WHERE STARTS_WITH(s.SongName, "B");
 ```
 
@@ -261,13 +280,15 @@ This is the execution plan:
 
 ![Back join query execution plan](https://docs.cloud.google.com/static/spanner/docs/images/back-join-query-plan.png)
 
-The resulting execution plan is complicated because the index `SongsBySongName` does not contain column `Duration` . To obtain the `Duration` value, Spanner needs to *back join* the indexed results to the table `Songs` . This is a join but it is not co-located because the `Songs` table and the global index `SongsBySongName` are not interleaved. The resulting execution plan is more complex than the co-located join example because Spanner performs optimizations to speed up the execution if data isn't co-located.
+The resulting execution plan is complex because the `SongsBySongName` index doesn't contain the `Duration` column. To obtain the `Duration` value, Spanner back joins the indexed results to the `Songs` table. This is a join, but it isn't co-located because the `Songs` table and the `SongsBySongName` global index aren't interleaved. If data isn't co-located, then Spanner performs optimizations to speed up the execution. These optimizations make the execution plan more complex than the previous co-located join example.
 
-The top operator is a [*distributed cross apply*](https://docs.cloud.google.com/spanner/docs/query-execution-operators#distributed-cross-apply) . This input side of this operator are batches of rows from the index `SongsBySongName` that satisfy the predicate `STARTS_WITH(s.SongName, "B")` . The distributed cross apply then maps these batches to remote servers whose splits contain the `Duration` data. The remote servers use a *table scan* to retrieve the `Duration` column. The table scan uses the filter `Condition:($Songs_key_TrackId' = $batched_Songs_key_TrackId)` , which joins `TrackId` from the `Songs` table to `TrackId` of the rows that were batched from the index `SongsBySongName` .
+The top operator is a `distributed cross apply` . The input side of this operator receives batches of rows from the `SongsBySongName` index that satisfy the `STARTS_WITH(s.SongName, "B")` predicate. The `distributed cross apply` operator then maps these batches to remote servers that contain splits with the `Duration` data. To retrieve the `Duration` column, the remote servers perform a table scan. This scan uses the `Condition:($Songs_key_TrackId' = $batched_Songs_key_TrackId)` filter condition, which joins `TrackId` from the `Songs` table to the `TrackId` columns of the rows batched from the `SongsBySongName` index.
 
-The results are aggregated into the final query answer. In turn, the input side of the distributed cross apply contains a distributed union/local distributed union pair to evaluate rows from the index that satisfy the `STARTS_WITH` predicate.
+Spanner aggregates the results into the final query answer. In turn, the input side of the `distributed cross apply` operator contains a `distributed union` or `local distributed union` pair to evaluate rows from the index that satisfy the `STARTS_WITH` predicate.
 
 Consider a slightly different query that doesn't select the `s.Duration` column:
+
+### GoogleSQL
 
 ```
 SELECT s.SongName
@@ -275,16 +296,48 @@ FROM Songs@{force_index=SongsBySongName} AS s
 WHERE STARTS_WITH(s.SongName, "B");
 ```
 
-This query is able to fully leverage the index as shown in this execution plan:
+### PostgreSQL
+
+```
+SELECT s.SongName
+FROM Songs /*@ force_index=SongsBySongName */ AS s
+WHERE STARTS_WITH(s.SongName, "B");
+```
+
+The following execution plan shows that this query fully uses the index:
 
 ![Simpler query execution plan](https://docs.cloud.google.com/static/spanner/docs/images/index-query-plan.png)
 
-The execution plan doesn't require a back join because all the columns requested by the query are present in the index.
+The execution plan doesn't require a back join because the index contains all of the columns that the query requests.
+
+### Sequential scan versus scattered seeks
+
+Reading a contiguous range of rows is significantly faster than reading the same number of scattered rows.
+
+For example, the following query sums the duration of songs from a specified set of singers. This query performs seeks for each specified singer ID. To see how many seeks the query performed, see the [Seek count](https://docs.cloud.google.com/spanner/docs/query-execution-operators#scan) statistic.
+
+```
+SELECT SUM(Duration)
+FROM Songs
+WHERE SingerId IN (1, 3, 9, 10, 15);
+```
+
+However, if you structure the query to read a contiguous sequence of singer IDs, then you can improve performance by performing a sequential read of the `Songs` table. The `Songs` table contains `SingerId` as part of its primary key.
+
+```
+SELECT SUM(Duration)
+FROM Songs
+WHERE SingerId BETWEEN 1 AND 5;
+```
+
+This difference is relevant when you choose a join method and when you make schema design decisions, such as choosing a primary key. For more information about choosing a join method, see [How joins interact with scans](https://docs.cloud.google.com/spanner/docs/query-tuning#how-joins-interact-with-scans) .
+
+### Sharing distributed unions
+
+Every table or index in a query must have a corresponding distributed operator. This operator is either `distributed union` or a `distributed apply` . If two tables or indexes are interleaved in the same parent, then the query optimizer might use a single `distributed union` operator for both tables or indexes.
 
 ## What's next
 
-- Learn about [Query execution operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators)
-
-- Learn about the Spanner [query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview)
-
-- Learn how to [Manage the query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer)
+- Learn about [query execution operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators) .
+- Learn about the Spanner [query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) .
+- Learn how to [manage the query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/manage-query-optimizer) .

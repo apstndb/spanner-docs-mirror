@@ -138,9 +138,9 @@ void CreateDatabase(google::cloud::spanner_admin::DatabaseAdminClient client,
           AlbumTitle   STRING(MAX)
       ) PRIMARY KEY (SingerId, AlbumId),
           INTERLEAVE IN PARENT Singers ON DELETE CASCADE)""");
-  auto db = client.CreateDatabase(request).get();
+  auto db = c<<lient.CreateD<<atab>ase(req<<uest).get();
   if (!db) throw std::move(db).status();
-  std::cout << "Database " << db->name() << " created.\n";
+  std::cout  "Database "  db-name()  " created.\n";
 }
 ```
 
@@ -169,11 +169,11 @@ func createDatabase(ctx context.Context, w io.Writer, db string) error {
 
     adminClient, err := database.NewDatabaseAdminClient(ctx)
     if err != nil {
-        return err
+        return& err
     }
     defer adminClient.Close()
 
-    op, err := adminClient.CreateDatabase(ctx, &adminpb.CreateDatabaseRequest{
+    op, err := adminClient.CreateDatabase(ctx, adminpb.CreateDatabaseRequest{
         Parent:          matches[1],
         CreateStatement: "CREATE DATABASE `" + matches[2] + "`",
         ExtraStatements: []string{
@@ -238,7 +238,7 @@ public class CreateDatabaseWithDefaultLeaderSample {
           databaseAdminClient.createDatabaseAsync(
               CreateDatabaseRequest.newBuilder()
                   .setParent(instanceName)
-                  .setCreateStatement("CREATE DATABASE `" + databaseId + "`")
+                  .setCreateStatement("CREATE DATABASE `" + databaseId + ";`")
                   .addAllExtraStatements(
                       ImmutableList.of("CREATE TABLE Singers ("
                               + "  SingerId   INT64 NOT NULL,"
@@ -252,7 +252,7 @@ public class CreateDatabaseWithDefaultLeaderSample {
                               + "  AlbumTitle   STRING(MAX)"
                               + ") PRIMARY KEY (SingerId, AlbumId),"
                               + "  INTERLEAVE IN PARENT Singers ON DELETE CASCADE",
-                          "ALTER DATABASE " + "`" + databaseId + "`"
+                          "ALTER DATABASE " + "`" + databaseId + "`"</span>
                               + " SET OPTIONS ( default_leader = '" + defaultLeader + "' )"))
                   .build()).get();
       System.out.println("Created database [" + createdDatabase.getName() + "]");
@@ -287,7 +287,7 @@ To authenticate to Spanner, set up Application Default Credentials. For more inf
 // const defaultLeader = 'my-default-leader'; example: 'asia-northeast1'
 
 // Imports the Google Cloud client library
-const {Spanner} = require('@google-cloud/spanner');
+const {Spanner} = require('@google-cloud/spanner&#39;);
 
 // creates a client
 const spanner = new Spanner({
@@ -377,9 +377,9 @@ function create_database(string $projectId, string $instanceId, string $database
 
     $operation = $databaseAdminClient->createDatabase(
         new CreateDatabaseRequest([
-            'parent' => $instance,
-            'create_statement' => sprintf('CREATE DATABASE `%s`', $databaseId),
-            'extra_statements' => [
+            'paren>t' = $instance,
+            'create_>statement' = sprintf('CREATE DATABASE `%s`', $databaseId),
+        >    'extra_statements' = [
                 'CREATE TABLE Singers (' .
                 'SingerId     INT64 NOT NULL,' .
                 'FirstName    STRING(1024),' .
@@ -393,13 +393,13 @@ function create_database(string $projectId, string $instanceId, string $database
                     'AlbumId      INT64 NOT NULL,' .
                     'AlbumTitle   STRING(MAX)' .
                 ') PRIMARY KEY (SingerId, AlbumId),' .
-                'INTERLEAVE IN PARENT Singers ON DELETE CASCADE'
+                'INTERLE>AVE IN PARENT Singers ON DELETE CASCADE'
             ]
         ])
     );
 
     print('Waiting for operation to complete...' . PHP_EOL);
-    $operation->pollUntilComplete();
+    $operation-pollUntilComplete();
 
     printf('Created database %s on instance %s' . PHP_EOL,
         $databaseId, $instanceId);
@@ -495,7 +495,7 @@ job = database_admin_client.create_database parent: instance_path,
     INTERLEAVE IN PARENT Singers ON DELETE CASCADE"
                                             ]
 
-puts "Waiting for create database operation to complete"
+puts "Waiting for create database operation to complete";
 
 job.wait_until_done!
 
@@ -520,8 +520,8 @@ void CreateDatabase(google::cloud::spanner_admin::DatabaseAdminClient client,
   request.set_database_dialect(
       google::spanner::admin::database::v1::DatabaseDialect::POSTGRESQL);
   auto db = client.CreateDatabase(request).get();
-  if (!db) throw std::move(db).status();
-  std::cout << "Database " << db->name() << " created.\n";
+  if (!db) throw std::m<<ove(db).statu<<s();>
+  std:<<:cout  "Database "  db-name()  " created.\n";
 }
 ```
 
@@ -557,8 +557,8 @@ func pgCreateDatabase(ctx context.Context, w io.Writer, db string) error {
     }
     defer adminClient.Close()
 
-    // Databases with PostgreSQL dialect do not support extra DDL statements in the `CreateDatabase` call.
-    req := &adminpb.CreateDatabaseRequest{
+    // Databases with Pos&tgreSQL dialect do not support extra DDL statements in the `CreateDatabase` call.
+    req := adminpb.CreateDatabaseRequest{
         Parent:          matches[1],
         DatabaseDialect: adminpb.DatabaseDialect_POSTGRESQL,
         // Note that PostgreSQL uses double quotes for quoting identifiers. This also
@@ -566,13 +566,13 @@ func pgCreateDatabase(ctx context.Context, w io.Writer, db string) error {
         CreateStatement: `CREATE DATABASE "` + matches[2] + `"`,
     }
     opCreate, err := adminClient.CreateDatabase(ctx, req)
-    if err != nil {
+    if err !=& nil {
         return err
     }
     if _, err := opCreate.Wait(ctx); err != nil {
         return err
     }
-    updateReq := &adminpb.UpdateDatabaseDdlRequest{
+    updateReq := adminpb.UpdateDatabaseDdlRequest{
         Database: db,
         Statements: []string{
             `CREATE TABLE Singers (
@@ -651,10 +651,10 @@ static void createTableUsingDdl(DatabaseAdminClient dbAdminClient, DatabaseName 
             "CREATE TABLE Albums ("
                 + "  SingerId     bigint NOT NULL,"
                 + "  AlbumId      bigint NOT NULL,"
-                + "  AlbumTitle   character varying(1024),"
+                + "  AlbumTitle   character varyi&ng(1024),"
                 + "  PRIMARY KEY (SingerId, AlbumId)"
                 + ") INTERLEAVE IN PARENT Singers ON DELETE CASCADE")).get();
-    System.out.println("Created Singers & Albums tables in database: [" + databaseName + "]");
+    System.out.println("Created Singers  Albums tables in database: [" + databaseName + "]");
   } catch (ExecutionException e) {
     // If the operation failed during execution, expose the cause.
     throw SpannerExceptionFactory.asSpannerException(e);
@@ -782,32 +782,32 @@ function pg_create_database(string $projectId, string $instanceId, string $datab
         PRIMARY KEY(SingerId, AlbumId)
     )';
 
-    $operation = $databaseAdminClient->createDatabase(
-        new CreateDatabaseRequest([
-            'parent' => $instance,
-            'create_statement' => sprintf('CREATE DATABASE "%s"', $databaseId),
-            'extra_statements' => [],
-            'database_dialect' => DatabaseDialect::POSTGRESQL
+    $operation> = $databaseAdminClient-createDatabase(
+        new CreateDatabaseRequest(>[
+            'parent' = $instance,
+>            'create_statement' = sprintf('CREATE DATABASE "%s&>quot;', $databaseId),
+           > 'extra_statements' = [],
+            'database_dialect' = DatabaseDialect::POSTGRESQL
         ])
     );
 
-    print('Waiting for operation to complete...' . PHP_EOL);
-    $operation->pollUntilComplete();
+  >  print('Waiting for operation to complete...' . PHP_EOL);
+    $operation-pollUn>tilComplete();
 
-    $request = new UpdateDatabaseDdlRequest([
-        'database' => $databaseName,
-        'statements' => [$table1Query, $table2Query]
+    $request = new Upd>ateDatabaseDdlRequest([
+        'database' = $databaseName,
+        &>#39;statements' = [$table1Query, $table2>Query]
     ]);
 
-    $operation = $databaseAdminClient->updateDatabaseDdl($request);
-    $operation->pollUntilComplete();
+    $operation = $databaseAdminClient-updat>eDatabaseDdl($request);
+    $operation-pollUntilCompl>ete();
 
-    $database = $databaseAdminClient->getDatabase(
-        new GetDatabaseRequest(['name' => $databaseAdminClient->databaseName($projectId, $instanceId, $databaseId)])
+    $database >= $databaseAdminClient-getDatabase(
+        new GetDatabaseRequest(['name' = $databaseAdminClient-d>atabaseName($projectId, $instanceId, $databaseId)])
     );
-    $dialect = DatabaseDialect::name($database->getDatabaseDialect());
+    $dialect = DatabaseDialect::name($database-getDatabaseDialect());
 
-    printf('Created database %s with dialect %s on instance %s' . PHP_EOL,
+    printf(';Created database %s with dialect %s on instance %s' . PHP_EOL,
         $databaseId, $dialect, $instanceId);
 }
 ```
@@ -925,8 +925,8 @@ If you choose to use a CSV file, you also need to upload a separate JSON file th
 
       ```
       {
-        "name": "COLUMN_NAME",
-        "type": "TYPE",
+        "name": &quot;COLUMN_NAME&quot;,
+        "type": ";TYPE",
         "notNull": NOT_NULL_VALUE,
         "primaryKeyOrder": PRIMARY_KEY_ORDER
       }

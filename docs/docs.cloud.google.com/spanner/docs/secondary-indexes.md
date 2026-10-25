@@ -515,7 +515,7 @@ When you use SQL to query a Spanner table, Spanner automatically uses any indexe
 
 > **Note:** After you make significant changes to the data or schema of your database, [constructing a new statistics package](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview#construct-statistics-package) can improve the query optimizer's automatic index selection.
 
-In a few cases, Spanner might choose an index that causes query latency to increase. If you've followed the [troubleshooting steps for performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions) and confirmed that it makes sense to try a different index for the query, you can specify the index as part of your query.
+In a few cases, Spanner might choose an index that causes query latency to increase. If you follow the \[troubleshooting steps for performance regressions\]\[troubleshooting-query-performance-regressions\] and decide to try a different index for the query, then you can specify the index as part of your query.
 
 To specify an index in a SQL statement, use the [`FORCE_INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#table-hints) hint to provide an *index directive* . Index directives use the following syntax:
 

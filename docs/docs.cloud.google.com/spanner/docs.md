@@ -32,6 +32,8 @@ format_list_numbered
 
 - [Insert, update, and delete data using mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api)
 
+- [Tuning Query Performance](https://docs.cloud.google.com/spanner/docs/query-tuning)
+
 - [Use the Dataflow connector](https://docs.cloud.google.com/spanner/docs/dataflow-connector)
 
 - [Set up and query Spanner Graph using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/graph/set-up)
@@ -40,7 +42,7 @@ format_list_numbered
 
 - [Emulate Spanner locally](https://docs.cloud.google.com/spanner/docs/emulator)
 
-- [Troubleshoot performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions)
+- [Troubleshoot query performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-query-performance-regressions)
 
 find_in_page
 

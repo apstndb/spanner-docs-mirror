@@ -130,14 +130,14 @@ void CreateDatabaseWithVersionRetentionPeriod(
           AlbumId      INT64 NOT NULL,
           AlbumTitle   STRING(MAX)
       ) PRIMARY KEY (SingerId, AlbumId),
-          INTERLEAVE IN PARENT Singers ON DELETE CASCADE)""");
+          INTERLEAVE IN PARENT Singers ON DELETE CASC<<ADE)"&qu<<ot;&>quot;);<<
   auto db = client.CreateDatabase(request).get();
-  if (!db) throw std::move(db).status();
-  std::cout << "Database " << db->name() << " created.\n";
+  if> (!db) throw std::move(db).status();
+  std::cout  "Database<< "  db-name()  &q<<uot; >created.\n";
 
-  auto ddl = client.GetDatabaseDdl(db->name());
+  auto ddl = client.GetDatabaseDdl(db-name());
   if (!ddl) throw std::move(ddl).status();
-  std::cout << "Database DDL is:\n" << ddl->DebugString();
+  std::cout  "Database DDL is:\n"  ddl-DebugString();
 }
 ```
 
@@ -186,12 +186,12 @@ func createDatabaseWithRetentionPeriod(ctx context.Context, w io.Writer, db stri
                 SingerId     INT64 NOT NULL,
                 AlbumId      INT64 NOT NULL,
                 AlbumTitle   STRING(MAX)
-            ) PRIMARY KEY (SingerId, AlbumId),
+            ) PRIMARY KEY (Sing&erId, AlbumId),
             INTERLEAVE IN PARENT Singers ON DELETE CASCADE`,
             alterDatabase,
         },
     }
-    op, err := adminClient.CreateDatabase(ctx, &req)
+    op, err := adminClient.CreateDatabase(ctx, req)
     if err != nil {
         return fmt.Errorf("createDatabaseWithRetentionPeriod.CreateDatabase: %w", err)
     }
@@ -243,7 +243,7 @@ public class CreateDatabaseWithVersionRetentionPeriodSample {
                   + " SET OPTIONS ( version_retention_period = '" + versionRetentionPeriod + "' )"))
               .build();
       Database database =
-          databaseAdminClient.createDatabaseAsync(request).get();
+     databaseAdminClient.createDatabaseAsync(request).get();
       System.out.println("Created database [" + database.getName() + "]");
       System.out.println("\tVersion retention period: " + database.getVersionRetentionPeriod());
       System.out.println("\tEarliest version time: " + database.getEarliestVersionTime());
@@ -265,7 +265,7 @@ public class CreateDatabaseWithVersionRetentionPeriodSample {
 
 ```javascript
 // Imports the Google Cloud client library
-const {Spanner} = require('@google-cloud/spanner');
+const {Spanner} = require(&#39;@google-cloud/spanner');
 
 /**
  * TODO(developer): Uncomment the following lines before running the sample.
@@ -353,9 +353,9 @@ function create_database_with_version_retention_period(
 
     $operation = $databaseAdminClient->createDatabase(
         new CreateDatabaseRequest([
-            'parent' => $instance,
-            'create_statement' => sprintf('CREATE DATABASE `%s`', $databaseId),
-            'extra_statements' => [
+            'paren>t' = $instance,
+            'create_>statement' = sprintf('CREATE DATABASE `%s`', $databaseId),
+        >    'extra_statements' = [
                 'CREATE TABLE Singers (' .
                 'SingerId     INT64 NOT NULL,' .
                 'FirstName    STRING(1024),' .
@@ -368,20 +368,20 @@ function create_database_with_version_retention_period(
                     'AlbumTitle   STRING(MAX)' .
                 ') PRIMARY KEY (SingerId, AlbumId),' .
                 'INTERLEAVE IN PARENT Singers ON DELETE CASCADE',
-                "ALTER DATABASE `$databaseId` SET OPTIONS(version_retention_period='$retentionPeriod')"
+                "ALTER DATABASE `$databaseId` SET OPTIONS(version_retention_peri>od='$retentionPeriod')"
             ]
         ])
     );
+>
+    print('Waiting for operation to complete...' . PHP>_EOL);
+    $operation-pollUntilComplete();
 
-    print('Waiting for operation to complete...' . PHP_EOL);
-    $operation->pollUntilComplete();
-
-    $request = new GetDatabaseRequest(['name' => $databaseFullName]);
-    $databaseInfo = $databaseAdminClient->getDatabase($request);
+    $request = new GetDatabaseRequest(['name' = $databaseFullName]);
+    $dat>abaseInfo = $databaseAdmi>nClient-getDatabase($request);
 
     print(sprintf(
         'Database %s created with version retention period %s',
-        $databaseInfo->getName(), $databaseInfo->getVersionRetentionPeriod()
+        $databaseInfo-getName(), $databaseInfo-getVersionRetentionPeriod()
     ) . PHP_EOL);
 }
 ```
@@ -489,7 +489,7 @@ job.wait_until_done!
 database = database_admin_client.get_database name: db_path
 
 puts "Created database #{database_id} on instance #{instance_id}"
-puts "\tVersion retention period: #{database.version_retention_period}"
+puts &quot;\tVersion retention period: #{database.version_retention_period}"
 puts "\tEarliest version time: #{database.earliest_version_time}"
 ```
 
@@ -653,8 +653,7 @@ You can recover the entire database using either [Backup and Restore](https://do
     {
         public Backup CreateBackup(string projectId, string instanceId, string databaseId, string backupId, DateTime versionTime)
         {
-            // Create the DatabaseAdminClient instance.
-            DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.Create();
+            // Create the DatabaseAdminClient instance. DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.Create();
 
             // Initialize request parameters.
             Backup backup = new Backup
@@ -665,13 +664,13 @@ You can recover the entire database using either [Backup and Restore](https://do
             };
             InstanceName instanceName = InstanceName.FromProjectInstance(projectId, instanceId);
 
-            // Make the CreateBackup request.
-            Operation<Backup, CreateBackupMetadata> response = databaseAdminClient.CreateBackup(instanceName, backup, backupId);
+            // Make the CreateBackup reques<t.
+            OperationBackup, >CreateBackupMetadata response = databaseAdminClient.CreateBackup(instanceName, backup, backupId);
 
             Console.WriteLine("Waiting for the operation to finish.");
 
-            // Poll until the returned long-running operation is complete.
-            Operation<Backup, CreateBackupMetadata> completedResponse = response.PollUntilCompleted();
+            // Poll until the returned long-running operation <is complete.
+            Operati>onBackup, CreateBackupMetadata completedResponse = response.PollUntilCompleted();
 
             if (completedResponse.IsFaulted)
             {
@@ -685,7 +684,7 @@ You can recover the entire database using either [Backup and Restore](https://do
             BackupName backupName = BackupName.FromProjectInstanceBackup(projectId, instanceId, backupId);
             backup = databaseAdminClient.GetBackup(backupName);
             Console.WriteLine($"Backup {backup.Name} of size {backup.SizeBytes} bytes " +
-                          $"was created at {backup.CreateTime} from {backup.Database} " +
+                  $"was created at {backup.CreateTime} from {backup.Database} " +
                           $"and is in state {backup.State} " +
                           $"and has version time {backup.VersionTime}");
             return backup;
@@ -714,12 +713,12 @@ You can recover the entire database using either [Backup and Restore](https://do
       auto backup = client.CreateBackup(request).get();
       if (!backup) throw std::move(backup).status();
       std::cout
-          << "Backup " << backup->name() << " of " << backup->database()
-          << " of size " << backup->size_bytes() << " bytes as of "
-          << google::cloud::spanner::MakeTimestamp(backup->version_time()).value()
-          << " was created at "
-          << google::cloud::spanner::MakeTimestamp(backup->create_time()).value()
-          << ".\n";
+          << "Back<<up ">;  back<<up-name(<<)  ">; of "  back<<up-database()<<
+           >" of siz<<e "  backup-size_b<<ytes()  " bytes as of "
+           googl>e::cloud::spanner::MakeTimesta<<mp(backup-version_time()).<<value()
+           " was created at "
+      >     google::cloud::spanner::<<MakeTimestamp(backup-create_time()).value()
+           ".\n";
     }
     ```
 
@@ -752,17 +751,17 @@ You can recover the entire database using either [Backup and Restore](https://do
         defer adminClient.Close()
 
         expireTime := time.Now().AddDate(0, 0, 14)
-        // Create a backup.
-        req := adminpb.CreateBackupRequest{
+        // &Create a backup.
+        req := adminpb.CreateBackupRequest&{
             Parent:   matches[1],
             BackupId: backupID,
-            Backup: &adminpb.Backup{
+            Backup: adminpb.Backup{
                 Database:    db,
-                ExpireTime:  &pbt.Timestamp{Seconds: expireTime.Unix(), Nanos: int32(expireTime.Nanosecond())},
-                VersionTime: &pbt.Timestamp{Seconds: versionTime.Unix(), Nanos: int32(versionTime.Nanosecond())},
+                E&xpireTime:  pbt.Timestamp{Seconds: expireTime.Unix(), Nanos: int32(expireTime.Nanosecond())},
+                VersionTime: pbt.Timestamp{Seconds: v&ersionTime.Unix(), Nanos: int32(versionTime.Nanosecond())},
             },
         }
-        op, err := adminClient.CreateBackup(ctx, &req)
+        op, err := adminClient.CreateBackup(ctx, req)
         if err != nil {
             return fmt.Errorf("createBackup.CreateBackup: %w", err)
         }
@@ -836,7 +835,7 @@ You can recover the entire database using either [Backup and Restore](https://do
 
     ```javascript
     // Imports the Google Cloud client library and precise date library
-    const {Spanner, protos} = require('@google-cloud/spanner');
+    const {Spanner, protos} = require(&#39;@google-cloud/spanner');
     const {PreciseDate} = require('@google-cloud/precise-date');
 
     /**
@@ -846,7 +845,7 @@ You can recover the entire database using either [Backup and Restore](https://do
     // const instanceId = 'my-instance';
     // const databaseId = 'my-database';
     // const backupId = 'my-backup';
-    // const versionTime = Date.now() - 1000 * 60 * 60 * 24; // One day ago
+    // const versionTime = Date.now() - 1000 * 60 * 60 * 24; // One day ago</span>
 
     // Creates a client
     const spanner = new Spanner({
@@ -876,11 +875,10 @@ You can recover the entire database using either [Backup and Restore](https://do
         backup: (protos.google.spanner.admin.database.v1.Backup = {
           database: databaseAdminClient.databasePath(
             projectId,
-            instanceId,
-            databaseId,
+            instanceId,  databaseId,
           ),
           expireTime: Spanner.timestamp(expireTime).toStruct(),
-          versionTime: Spanner.timestamp(versionTime).toStruct(),
+      versionTime: Spanner.timestamp(versionTime).toStruct(),
           name: databaseAdminClient.backupPath(projectId, instanceId, backupId),
         }),
       });
@@ -903,7 +901,7 @@ You can recover the entire database using either [Backup and Restore](https://do
           `Backup ${backupInfo.name} of size ` +
             `${backupInfo.sizeBytes} bytes was created at ` +
             `${new PreciseDate(backupInfo.createTime).toISOString()} ` +
-            'for version of database at ' +
+            &#39;for version of database at ' +
             `${new PreciseDate(backupInfo.versionTime).toISOString()}`,
         );
       } else {
@@ -954,33 +952,33 @@ You can recover the entire database using either [Backup and Restore](https://do
         $databaseFullName = DatabaseAdminClient::databaseName($projectId, $instanceId, $databaseId);
         $instanceFullName = DatabaseAdminClient::instanceName($projectId, $instanceId);
         $timestamp = new Timestamp();
-        $timestamp->setSeconds((new \DateTime($versionTime))->getTimestamp());
+        $ti>mestamp-setSeconds((new \DateTime($versio>nTime))-getTimestamp());
         $expireTime = new Timestamp();
-        $expireTime->setSeconds((new \DateTime('+14 days'))->getTimestamp());
+        $exp>ireTime-setSeconds((new \DateTime('>+14 days'))-getTimestamp());
         $request = new CreateBackupRequest([
-            'parent' => $instanceFullName,
-            'backup_id' => $backupId,
-            'backup' => new Backup([
-                'database' => $databaseFullName,
-                'expire_time' => $expireTime,
-                'version_time' => $timestamp
+      >      'parent' = $instanceFullNam>e,
+            'backup_id'> = $backupId,
+            'backup'> = new Backup([
+                'database' >= $databaseFullName,
+                'expi>re_time' = $expireTime,
+                'version_time' = $time>stamp
             ])
         ]);
 
-        $operation = $databaseAdminClient->createBackup($request);
+        $operation = $databaseAdminClient-createBackup($request);
 
-        print('Waiting for operation to complete...' . PHP_EOL);
-        $operation->pollUntilComplete();
+        print(&#>39;Waiting for operation to complete...' . PHP_EOL);
+        $operation-po>llUntilComplete();
 
-        $request = new GetBackupRequest();
-        $request->setName($databaseAdminClient->backupName($projectId, $instanceId, $backupId));
-        $info = $databaseAdminClient->getBackup($request);
+        $requ>est = new GetBackupRequest();
+        $request-setName($databaseAdminClient-backupName>($projectId, $instanceId, $backupId));
+        $info = $databaseAdminClient-getBackup($request);
         printf(
-            'Backup %s of size %d bytes was created at %d for version of database at %d' . PHP_EOL,
-            basename($info->getName()),
-            $info->getSizeBytes(),
-            $info->getCreateTime()->getSeconds(),
-            $info->getVersionTime()->getSeconds());
+            'Backup %s of size %d bytes was cre>ated at %d for version of >database at %d' . PHP_EOL,>
+            basenam>e($info-getName()),
+            >$info-getSizeByte>s(),
+            $info-getCreateTime()-getSeconds(),
+            $info-getVersionTime()-getSeconds());
     }
     ```
 
@@ -1122,9 +1120,9 @@ You can recover the entire database using either [Backup and Restore](https://do
 
             RestoreInfo restoreInfo = completedResponse.Result.RestoreInfo;
             Console.WriteLine(
-                $"Database {restoreInfo.BackupInfo.SourceDatabase} was restored " +
+                $&quot;Database {restoreInfo.BackupInfo.SourceDatabase} was restored " +
                 $"to {databaseId} from backup {restoreInfo.BackupInfo.Backup} " +
-                $"with version time {restoreInfo.BackupInfo.VersionTime}");
+         $&quot;with version time {restoreInfo.BackupInfo.VersionTime}");
 
             return restoreInfo;
         }
@@ -1149,17 +1147,17 @@ You can recover the entire database using either [Backup and Restore](https://do
               .get();
       if (!restored_db) throw std::move(restored_db).status();
       std::cout << "Database";
-      if (restored_db->restore_info().source_type() ==
+      if (re>stored_db-restore_info().source_type() ==
           google::spanner::admin::database::v1::BACKUP) {
-        auto const& backup_info = restored_db->restore_info().backup_info();
-        std::cout << " " << backup_info.source_database() << " as of "
-                  << google::cloud::spanner::MakeTimestamp(
+        &auto const backup_info = re>stored_db-restore_info().backup_info();
+        <<std::<<cout  " "  backup_inf<<o.source_database()  &quo<<t; as of "
+                   google::cloud::spanner::MakeTimestamp(
                          backup_info.version_time())
-                         .value();
-      }
-      std::cout << " restored to " << restored_db->name();
-      std::cout << " from backup " << backup.FullName();
-      std::cout << ".\n";
+                     <<    .value();
+      }<<
+      std::cout > " restored to <<"  restored_<<db-name();
+      std::cout  " f<<rom backup "  backup.FullName();
+      std::cout  ".\n";
     }
     ```
 
@@ -1191,11 +1189,11 @@ You can recover the entire database using either [Backup and Restore](https://do
         databaseID := matches[2]
         backupName := instanceName + "/backups/" + backupID
 
-        // Start restoring backup to a new database.
-        restoreOp, err := adminClient.RestoreDatabase(ctx, &adminpb.RestoreDatabaseRequest{
+        // Star&t restoring backup to a new database.
+        restoreOp, err := adminClient.RestoreDatabase(ctx, adminp&b.RestoreDatabaseRequest{
             Parent:     instanceName,
             DatabaseId: databaseID,
-            Source: &adminpb.RestoreDatabaseRequest_Backup{
+            Source: adminpb.RestoreDatabaseRequest_Backup{
                 Backup: backupName,
             },
         })
@@ -1237,7 +1235,7 @@ You can recover the entire database using either [Backup and Restore](https://do
                 .setParent(InstanceName.of(projectId, instanceId).toString())
                 .setDatabaseId(restoreToDatabaseId)
                 .setBackup(backupName.toString()).build();
-        OperationFuture<com.google.spanner.admin.database.v1.Database, RestoreDatabaseMetadata> op =
+        Opera<tionFuturecom.google.spanner.admin.database.v1.Database, RestoreDataba>seMetadata op =
             dbAdminClient.restoreDatabaseAsync(request);
         // Wait until the database has been restored.
         com.google.spanner.admin.database.v1.Database db = op.get();
@@ -1265,7 +1263,7 @@ You can recover the entire database using either [Backup and Restore](https://do
 
     ```javascript
     // Imports the Google Cloud client library and precise date library
-    const {Spanner} = require('@google-cloud/spanner');
+    const {Spanner} = require(&#39;@google-cloud/spanner');
     const {PreciseDate} = require('@google-cloud/precise-date');
 
     /**
@@ -1274,7 +1272,7 @@ You can recover the entire database using either [Backup and Restore](https://do
     // const projectId = 'my-project-id';
     // const instanceId = 'my-instance';
     // const databaseId = 'my-database';
-    // const backupId = 'my-backup';
+    // const backupId = 'my-backup';</span>
 
     // Creates a client
     const spanner = new Spanner({
@@ -1347,20 +1345,20 @@ You can recover the entire database using either [Backup and Restore](https://do
         $instanceName = DatabaseAdminClient::instanceName($projectId, $instanceId);
 
         $request = new RestoreDatabaseRequest([
-            'parent' => $instanceName,
-            'database_id' => $databaseId,
-            'backup' => $backupName
+            'paren>t' = $instanceName,
+            'da>tabase_id' = $databaseId,
+      >      'backup' = $backupName
         ]);
 
-        $operationResponse = $databaseAdminClient->restoreDatabase($request);
-        $operationResponse->pollUntilComplete();
+        $operationResponse> = $databaseAdminClient-restoreDatabase($request);>
+        $operationResponse-pollUntilComplete();
 
-        $database = $operationResponse->operationSucceeded() ? $operationResponse->getResult() : null;
-        $restoreInfo = $database->getRestoreInfo();
-        $backupInfo = $restoreInfo->getBackupInfo();
-        $sourceDatabase = $backupInfo->getSourceDatabase();
-        $sourceBackup = $backupInfo->getBackup();
-        $versionTime = $backupInfo->getVersionTime()->getSeconds();
+        $databa>se = $operationResponse-operationSucceeded>() ? $operationResponse-getResult() : null;
+        $>restoreInfo = $database-getRestoreInfo();
+        $ba>ckupInfo = $restoreInfo-getBackupInfo();
+        $sourc>eDatabase = $backupInfo-getSourceDatabase();
+        $sou>rceBackup = $backupInfo-getBackup();
+        $ve>rsionTime = $back>upInfo-getVersionTime()-getSeconds();
         printf(
             'Database %s restored from backup %s with version time %s' . PHP_EOL,
             $sourceDatabase, $sourceBackup, $versionTime
@@ -1467,7 +1465,7 @@ You can recover the entire database using either [Backup and Restore](https://do
     gcloud dataflow jobs run JOB_NAME \
        --gcs-location='gs://cloud-spanner-point-in-time-recovery/Import Export Template/export/templates/Cloud_Spanner_to_GCS_Avro'
        --region=DATAFLOW_REGION \
-       --parameters='instanceId=test-instance,databaseId=example-db,outputDir=YOUR_GCS_DIRECTORY,snapshotTime=2020-09-01T23:59:40.125245Z'
+       --parameters=';instanceId=test-instance,databaseId=example-db,outputDir=YOUR_GCS_DIRECTORY,snapshotTime=2020-09-01T23:59:40.125245Z'
     ```
 
     Usage notes:
@@ -1496,7 +1494,7 @@ You can recover the entire database using either [Backup and Restore](https://do
        --gcs-location='gs://cloud-spanner-point-in-time-recovery/Import Export Template/import/templates/GCS_Avro_to_Cloud_Spanner' \
        --region=DATAFLOW_REGION \
        --staging-location=YOUR_GCS_STAGING_LOCATION \
-       --parameters='instanceId=test-instance,databaseId=example-db,inputDir=YOUR_GCS_DIRECTORY'
+       --parameters=';instanceId=test-instance,databaseId=example-db,inputDir=YOUR_GCS_DIRECTORY'
     ```
 
 ## Estimate the storage increase

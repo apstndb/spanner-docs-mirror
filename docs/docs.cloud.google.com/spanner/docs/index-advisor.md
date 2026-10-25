@@ -111,4 +111,4 @@ To apply the index advisor's recommendation, copy and run the index advisor's DD
 
 - Learn more [SQL best practices](https://docs.cloud.google.com/spanner/docs/sql-best-practices) .
 
-- Learn how to [Troubleshoot performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions) .
+- Learn how to [Troubleshoot query performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-query-performance-regressions) .

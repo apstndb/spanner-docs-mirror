@@ -6,7 +6,7 @@ description: Follow SQL best practices for Spanner to write efficient and perfor
 data_source: docs.cloud.google.com
 ---
 
-As described in [Query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) , SQL compiler transforms a SQL statement into a query execution plan, which is used to obtain the results of the query. This page describes best practices for constructing SQL statements to help Spanner find efficient execution plans.
+As described in [Query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) , SQL compiler transforms a SQL statement into a query execution plan, which is used to obtain the results of the query. This page describes best practices for constructing SQL statements to help Spanner find efficient execution plans. Refer to the \[Query Tuning\]\[query_tuning\] Guide for assistance in improving query performance.
 
 The example SQL statements shown in this page use the following sample schema:
 
@@ -100,7 +100,7 @@ You can also view samples of historic query plans and compare the performance of
 
 ## Use secondary indexes
 
-Like other relational databases, Spanner offers secondary indexes, which you can use to retrieve data using either a SQL statement or Spanner's read interface. The more common way to fetch data from an index is to use the Spanner Studio. Using a secondary index in a SQL query lets you specify *how* you want Spanner to obtain the results. Specifying a secondary index can speed up query execution.
+Like other relational databases, Spanner offers secondary indexes, which you can use to retrieve data using either a SQL statement or Spanner's read interface. Using a secondary index in a SQL query lets you specify *how* you want Spanner to obtain the results. Specifying a secondary index can speed up query execution.
 
 For example, suppose you wanted to fetch the IDs of all the singers with a specific last name. One way to write such a SQL query is:
 
@@ -120,7 +120,7 @@ CREATE INDEX SingersByLastName ON Singers (LastName);
 
 Because the secondary index `SingersByLastName` contains the indexed table column `LastName` and the primary key column `SingerId` , Spanner can fetch all the data from the much smaller index table instead of scanning the full `Singers` table.
 
-In this scenario, Spanner automatically uses the secondary index `SingersByLastName` when executing the query (as long as three days have passed since database creation; see [A note about new databases](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions#a_note_about_new_databases) ). However, it's best to explicitly tell Spanner to use that index by specifying an [index directive](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index_directive) in the `FROM` clause:
+In this scenario, Spanner automatically uses the secondary index `SingersByLastName` when executing the query (as long as three days have passed since database creation; see [A note about new databases](https://docs.cloud.google.com/spanner/docs/troubleshooting-query-performance-regressions#a_note_about_new_databases) ). However, it's best to explicitly tell Spanner to use that index by specifying an [index directive](https://docs.cloud.google.com/spanner/docs/secondary-indexes#index_directive) in the `FROM` clause:
 
 ### GoogleSQL
 
@@ -234,214 +234,6 @@ Although secondary indexes can speed up common queries, adding secondary indexes
 
 For the complete reference on secondary indexes, refer to [Secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) .
 
-## Optimize scans
-
-Certain Spanner queries might benefit from using a batch-oriented processing method when scanning data rather than the more common row-oriented processing method. Processing scans in batches is a more efficient way to process large volumes of data all at once, and it allows queries to achieve lower CPU utilization and latency.
-
-The Spanner scan operation always starts execution in the row-oriented method. During this time, Spanner collects several runtime metrics. Then, Spanner applies a set of heuristics based on the result of these metrics to determine the optimal scan method. When appropriate, Spanner switches to a batch-oriented processing method to help improve scan throughput and performance.
-
-### Common uses cases
-
-Queries with the following characteristics generally benefit from the use of batch-oriented processing:
-
-- Large scans over infrequently updated data.
-- Scans with predicates on fixed width columns.
-- Scans with large seek counts. (A seek uses an index to retrieve records.)
-
-### Use cases without performance gains
-
-Not all queries benefit from batch-oriented processing. The following query types perform better with row-oriented scan processing:
-
-- Point lookup queries: queries that only fetch one row.
-- Small scan queries: table scans that only scan a few rows unless they have large seek counts.
-- Queries that use `LIMIT` .
-- Queries that read high churn data: queries in which more than \~10% of the data read is frequently updated.
-- Queries with rows containing large values: large value rows are those containing values larger than 32,000 bytes (pre-compression) in a single column.
-
-### Check the scan method used by a query
-
-To check if your query uses batch-oriented processing, row-oriented processing, or is automatically switching between the two scan methods:
-
-1.  Go to the Spanner **Instances** page in the Google Cloud console.
-
-2.  Click the name of the instance with the query that you want to investigate.
-
-3.  Under the Databases table, click the database with the query that you want to investigate.
-
-4.  In the Navigation menu, click **Spanner Studio** .
-
-5.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
-
-6.  When the query editor appears, write your query.
-
-7.  Click **Run** .
-
-    Spanner runs the query and shows the results.
-
-8.  Click the **Explanation** tab below the query editor.
-
-    Spanner shows a [query execution plan visualizer](https://docs.cloud.google.com/spanner/docs/query-execution-plans) . Each card on the graph represents an iterator.
-
-9.  Click the **Table scan** iterator card to open an information panel.
-
-    The information panel shows contextual information about the selected scan. The scan method is shown on this card. **Automatic** indicates that Spanner determines the scanning method. Other possible values include **Batch** for batch-oriented processing and **Row** for row-oriented processing.
-
-    ![A table scan card shows the scan method as Automatic](https://docs.cloud.google.com/static/spanner/docs/images/automatic-table-scan.png)
-
-### Enforce the scan method used by a query
-
-To optimize query performance, Spanner chooses the optimal scan method for your query. We recommend that you use this default scan method. However, there might be scenarios where you might want to enforce a specific type of scan method.
-
-#### Enforce batch-oriented scanning
-
-You can enforce batch-oriented scanning at the table level and statement level.
-
-To enforce the batch-oriented scan method at the table level, use a table hint in your query:
-
-### GoogleSQL
-
-```
-SELECT ...
-FROM (t1@{SCAN_METHOD=BATCH} JOIN t2 ON ...)
-WHERE ...
-```
-
-### PostgreSQL
-
-```
-SELECT ...
-FROM (t1/*@ scan_method=batch */ JOIN t2 on ...)
-WHERE ...
-```
-
-To enforce the batch-oriented scan method at the statement level, use a statement hint in your query:
-
-### GoogleSQL
-
-```
-@{SCAN_METHOD=BATCH}
-SELECT ...
-FROM ...
-WHERE ...
-```
-
-### PostgreSQL
-
-```
-/*@ scan_method=batch */
-SELECT ...
-FROM ...
-WHERE ...
-```
-
-#### Disable automatic scanning and enforce row-oriented scanning
-
-Although we don't recommend disabling the automatic scanning method set by Spanner, you might decide to disable it and use the row-oriented scanning method for troubleshooting purposes, such as diagnosing latency.
-
-To disable the automatic scan method and enforce row processing at the table level, use a table hint in your query:
-
-### GoogleSQL
-
-```
-SELECT ...
-FROM (t1@{SCAN_METHOD=ROW} JOIN t2 ON ...)
-WHERE ...
-```
-
-### PostgreSQL
-
-```
-SELECT ...
-FROM (t1/*@ scan_method=row */ JOIN t2 on ...)
-WHERE ...
-```
-
-To disable the automatic scan method and enforce row processing at the statement level, use a statement hint in your query:
-
-### GoogleSQL
-
-```
-@{SCAN_METHOD=ROW}
-SELECT ...
-FROM ...
-WHERE ...
-```
-
-### PostgreSQL
-
-```
-/*@ scan_method=row */
-SELECT ...
-FROM ...
-WHERE ...
-```
-
-## Optimize query execution
-
-In addition to [optimizing scans](https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-scans) , you can also optimize query execution by enforcing the execution method at the statement level. This only works for some operators, and it is independent from the scan method, which is only used by the scan operator.
-
-By default, most operators execute in the row-oriented method, which processes data one row at a time. Vectorized operators execute in the batch-oriented method to help improve execution throughput and performance. These operators process data one block at a time. When an operator needs to process many rows, the batch-oriented execution method is usually more efficient.
-
-### Execution method versus scan method
-
-The query execution method is independent from the query scan method. You can set one, both, or neither of these methods in your query hint.
-
-The query execution method refers to the way query operators process intermediate results and how the operators interact with each other, whereas the scan method refers to the way the scan operator interacts with Spanner's storage layer.
-
-### Enforce the execution method used by the query
-
-To optimize query performance, Spanner chooses the optimal execution method for your query based on various heuristics. We recommend that you use this default execution method. However, there might be scenarios where you might want to enforce a specific type of execution method.
-
-You can enforce your execution method at the statement level. The `EXECUTION_METHOD` is a query hint rather than a directive. Ultimately, the query optimizer decides which method to use for each individual operator.
-
-To enforce the batch-oriented execution method at the statement level, use a statement hint in your query:
-
-### GoogleSQL
-
-```
-@{EXECUTION_METHOD=BATCH}
-SELECT ...
-FROM ...
-WHERE ...
-```
-
-### PostgreSQL
-
-```
-/*@ execution_method=batch */
-SELECT ...
-FROM ...
-WHERE ...
-```
-
-Although we don't recommend disabling the automatic execution method set by Spanner, you might decide to disable it and use the row-oriented execution method for troubleshooting purposes, such as diagnosing latency.
-
-To disable the automatic execution method and enforce the row-oriented execution method at the statement level, use a statement hint in your query:
-
-### GoogleSQL
-
-```
-@{EXECUTION_METHOD=ROW}
-SELECT ...
-FROM ...
-WHERE ...
-```
-
-### PostgreSQL
-
-```
-/*@ execution_method=row */
-SELECT ...
-FROM ...
-WHERE ...
-```
-
-### Check which execution method is enabled
-
-Not all Spanner operators support both batch-oriented and row-oriented execution methods. For each operator, the [query execution plan visualizer](https://docs.cloud.google.com/spanner/docs/query-execution-plans) shows the execution method in the iterator card. If the execution method is batch-oriented, it shows **Batch** . If it's row-oriented, it shows **Row** .
-
-If the operators in your query execute by using different execution methods, the execution method adapters [DataBlockToRowAdapter](https://docs.cloud.google.com/spanner/docs/query-execution-operators#datablocktorowadapter) and [RowToDataBlockAdapter](https://docs.cloud.google.com/spanner/docs/query-execution-operators#rowtodatablockadapter) appear between the operators to show the change in execution method.
-
 ## Optimize range key lookups
 
 A common use of a SQL query is to read multiple rows from Spanner based on a list of known keys.
@@ -473,6 +265,8 @@ The following best practices help you write efficient queries when fetching data
   - The array [UNNEST](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest) operator flattens an input array into rows of elements.
 
   - The query parameter, which is `@KeyList` for GoogleSQL and `$1` for PostgreSQL, can speed up your query as discussed in the [preceding best practice](https://docs.cloud.google.com/spanner/docs/sql-best-practices#use_query_parameters_to_speed_up_frequently_executed_queries) .
+
+  - It is better to use an UNNEST with a single parameter, rather than OR with multiple parameters.
 
 - If the list of keys is adjacent and within a range, specify the lower and higher limits of the key range in the `WHERE` clause.
 
@@ -506,12 +300,17 @@ Join operations can be expensive because they can significantly increase the num
 
 - If possible, join data in interleaved tables by primary key. For example:
 
-  ```
-  SELECT s.FirstName, a.ReleaseDate
-  FROM Singers AS s JOIN Albums AS a ON s.SingerId = a.SingerId;
-  ```
+```
+SELECT s.FirstName, a.ReleaseDate
+FROM Singers AS s JOIN Albums AS a ON s.SingerId = a.SingerId;
+```
 
-  The rows in the interleaved table `Albums` are physically stored in the same splits as the parent row in `Singers` , as discussed in [Schema and Data Model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) . Therefore, joins can be completed locally without sending lots of data across the network.
+```
+The rows in the interleaved table `Albums` are physically
+stored in the same splits as the parent row in `Singers`, as discussed in
+[Schema and Data Model](/spanner/docs/schema-and-data-model). Therefore, joins can be
+completed locally without sending lots of data across the network.
+```
 
 - Use the join directive if you want to force the order of the join. For example:
 
@@ -553,7 +352,7 @@ Join operations can be expensive because they can significantly increase the num
   ON a.SingerId = a.SingerId
   ```
 
-- If you're using a `HASH JOIN` or `APPLY JOIN` and if you have a `WHERE` clause that is highly selective on one side of your `JOIN` , put the table that produces the smallest number of rows as the first table in the `FROM` clause of the join. This structure helps because in `HASH JOIN` , Spanner always picks the left-hand side table as build and the right-hand side table as probe. Similarly, for `APPLY JOIN` , Spanner picks the left-hand side table as outer and the right-hand side table as inner. See more about these join types: [Hash join](https://docs.cloud.google.com/spanner/docs/query-execution-operators#hash-join) and [Apply join](https://docs.cloud.google.com/spanner/docs/query-execution-operators#cross-apply) .
+- If you're using a `HASH JOIN` or `APPLY JOIN` and if you have a `WHERE` clause that is highly selective on one side of your `JOIN` , put the table that produces the smallest number of rows as the first table in the `FROM` clause of the join. This structure helps because in `HASH JOIN` , Spanner always picks the left-hand side table as build and the right-hand side table as probe. Similarly, for `APPLY JOIN` , Spanner picks the left-hand side table as outer and the right-hand side table as inner. See more about these join types: \[Hash join\]\[hash_join\] and \[Apply join\]\[apply_join\].
 
 - For queries that are critical for your workload, specify the most performant join method and join order in your SQL statements for more consistent performance.
 

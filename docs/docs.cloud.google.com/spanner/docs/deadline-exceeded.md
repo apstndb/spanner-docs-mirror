@@ -166,5 +166,5 @@ If you're still seeing a `DEADLINE_EXCEEDED` error after you've completed the tr
 You can also refer to the following troubleshooting resources:
 
 - [Examine latency in a Spanner component with OpenTelemetry](https://docs.cloud.google.com/spanner/docs/capture-visualize-latency)
-- [Troubleshoot performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-performance-regressions)
+- [Troubleshoot query performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-query-performance-regressions)
 - [Analyze running queries in Spanner to help diagnose performance issues](https://medium.com/@rghetia/analyze-running-queries-in-cloud-spanner-to-help-diagnose-performance-issues-4d8d85ccc21a)
