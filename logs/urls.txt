@@ -203,7 +203,7 @@ https://docs.cloud.google.com/spanner/docs/connect-gke-cluster	2026-10-07T09:39:
 https://docs.cloud.google.com/spanner/docs/cpu-utilization	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-configurations	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-data-placements	2026-10-07T09:39:47Z
-https://docs.cloud.google.com/spanner/docs/create-manage-databases	2026-10-25T01:09:54Z
+https://docs.cloud.google.com/spanner/docs/create-manage-databases	2026-10-26T03:50:29Z
 https://docs.cloud.google.com/spanner/docs/create-manage-instances	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-partitions	2026-10-07T09:39:47Z
@@ -903,7 +903,7 @@ https://docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-googlesql	202
 https://docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-postgresql	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-oss-jdbc	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-oss-r2dbc	2026-10-07T09:43:42Z
-https://docs.cloud.google.com/spanner/docs/use-pitr	2026-10-25T01:17:49Z
+https://docs.cloud.google.com/spanner/docs/use-pitr	2026-10-26T03:48:33Z
 https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation	2026-10-01T01:32:44Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read	2026-10-01T01:32:44Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-serializable	2026-10-01T01:32:44Z
