@@ -896,16 +896,13 @@ RETURN
 ```
 quantified_path_primary:
   path_primary
-  { fixed_quantifier | bounded_quantifier | symbol_quantifier }
-
-symbol_quantifier:
-  "*" | "+"
+  { fixed_quantifier | bounded_quantifier }
 
 fixed_quantifier:
   "{" bound "}"
 
 bounded_quantifier:
-  "{" [ lower_bound ], [ upper_bound ] "}"
+  "{" [ lower_bound ], upper_bound "}"
 ```
 
 #### Description
@@ -930,13 +927,7 @@ You can access a group variable as an array. Its graph elements are preserved in
 
   - `lower_bound` : A non-negative integer that represents the minimum number of times that the path pattern portion must repeat. If a lower bound isn't provided, 0 is used by default.
 
-  - `upper_bound` : A positive integer that represents the maximum number of times that the path pattern portion can repeat. If an upper bound is specified, it must be equal to or greater than `lower_bound` . If an upper bound isn't specified, the path quantification is unbounded.
-
-- `symbol_quantifier` : A symbol that indicates that the path quantification is unbounded.
-
-  - `*` : An asterisk is equivalent to `{0, }` , meaning zero or more repetitions.
-
-  - `+` : A plus sign is equivalent to `{1, }` , meaning one or more repetitions.
+  - `upper_bound` : A positive integer that represents the maximum number of times that the path pattern portion can repeat. If an upper bound is specified, it must be equal to or greater than `lower_bound` .
 
 #### Details
 
@@ -957,36 +948,6 @@ You can access a group variable as an array. Its graph elements are preserved in
   The path length of a node is 0. The path length of an edge is 1.
 
 - A quantified path pattern with `bounded_quantifier` matches paths of any length between the lower and the upper bound. This is equivalent to unioning match results from multiple quantified path patterns with `fixed_quantifier` , one for each number between the lower bound and upper bound.
-
-- Unbounded path quantification is allowed only when the query can guarantee that the path-finding algorithm terminates, even if there are cycles in the graph. Otherwise, an analysis time error occurs. For example, you must use unbounded path quantification with only the following path search prefixes:
-
-  - **Selective path search prefixes** : For example, `ANY` , `ANY SHORTEST` , or `ANY CHEAPEST` .
-
-    The following example shows a bounded quantifier without an upper bound used with the path search prefix `ANY SHORTEST` :
-
-    ```
-    MATCH ANY SHORTEST (a)-[e]->{1, }(b)
-    ```
-
-    The following example shows a `*` quantifier used with the path search prefix `ANY CHEAPEST` :
-
-    ```
-    MATCH ANY CHEAPEST (a)(-[e]->)*(b)
-    ```
-
-  - **Restrictive path modes** : For example, `TRAIL` , `ACYCLIC` , or `SIMPLE` . These modes prevent paths from repeating nodes or edges.
-
-    The following example shows a `+` quantifier used with the path search prefix `ACYCLIC` :
-
-    ```
-    MATCH ACYCLIC (a)-[e]->+(b)
-    ```
-
-    The following example shows a bounded quantifier without an upper bound used with the path search prefix `TRAIL` :
-
-    ```
-    MATCH TRAIL ((a)-[e]->(b)){0, }
-    ```
 
 - Quantification is allowed on an edge or subpath. When quantifying an edge, the edge pattern is canonicalized into a subpath.
 
@@ -1156,28 +1117,6 @@ RETURN
  | 7              | 16             | 1              | 300          |
  | 7              | 20             | 2              | 600          |
  +-----------------------------------------------------------------*/
-```
-
-The following query uses a restrictive path mode together with unbounded path quantification:
-
-```
-GRAPH FinGraph
-MATCH TRAIL (a)->{2,}(b)
-RETURN DISTINCT a.id AS src_id, b.id AS dest_id
-ORDER BY src_id, dest_id
-
-/*------------------+
- | src_id | dest_id |
- +------------------+
- | 7      | 7       |
- | 7      | 16      |
- | 7      | 20      |
- | 16     | 7       |
- | 16     | 16      |
- | 20     | 7       |
- | 20     | 16      |
- | 20     | 20      |
- +------------------*/
 ```
 
 ## Label expression

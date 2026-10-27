@@ -156,6 +156,39 @@ PRIMARY KEY (OrderID)
 
 The previous statement contains a foreign key constraint with an `ON DELETE CASCADE` clause. The `CustomerID` column is a foreign key that references the `CustomerID` field in the `Customers` table. This means that each `CustomerID` value in the `Orders` table must also exist in the `Customers` table. If someone tries to delete a row from the `Customers` table, all of the rows in the `Orders` table that reference the deleted `CustomerID` value are also deleted in the same transaction.
 
+Similarly, you can use the `ON DELETE SET NULL` action to set the referencing columns to `NULL` instead of deleting the referencing rows. To use `ON DELETE SET NULL` , the referencing columns must be nullable (that is, not marked `NOT NULL` ). They can't be part of the referencing table's primary key or generated columns.
+
+For details on how `ON DELETE SET NULL` and `ON DELETE CASCADE` compare in mutations, reads, and cascading behavior, see [Resource usage for foreign key delete actions](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#fk-delete-action-resource-usage) .
+
+The following `CREATE TABLE` DDL statement for the `Orders` table includes a foreign key constraint that references the `Customers` table with an `ON DELETE SET NULL` action. In this example, `CustomerID` in the `Orders` table is nullable.
+
+### GoogleSQL
+
+```
+CREATE TABLE Orders (
+OrderID INT64 NOT NULL,
+CustomerID INT64,
+Quantity INT64 NOT NULL,
+ProductID INT64 NOT NULL,
+CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID)
+  REFERENCES Customers (CustomerID) ON DELETE SET NULL
+) PRIMARY KEY (OrderID);
+```
+
+### PostgreSQL
+
+```
+CREATE TABLE Orders (
+OrderID BIGINT NOT NULL,
+CustomerID BIGINT,
+Quantity BIGINT NOT NULL,
+ProductID BIGINT NOT NULL,
+CONSTRAINT FK_CustomerOrder FOREIGN KEY (CustomerID)
+  REFERENCES Customers (CustomerID) ON DELETE SET NULL,
+PRIMARY KEY (OrderID)
+);
+```
+
 > **Note:** If you don't specify a foreign key action, the default action is `NO ACTION` . This means that if someone tries to delete a row from the `Customers` table, and there are rows in the `Orders` table that reference the deleted `CustomerID` value, the delete operation fails with a foreign key constraint violation error.
 
 ## Add a foreign key with a delete action to a table
@@ -168,7 +201,7 @@ ALTER TABLE Orders
     REFERENCES Products (ProductID) ON DELETE CASCADE;
 ```
 
-Deleting a row from the `Products` table deletes all of the rows in the `Orders` table that reference the deleted `ProductID` value.
+Deleting a row from the `Products` table deletes all of the rows in the `Orders` table that reference the deleted `ProductID` value. You can also use `ON DELETE SET NULL` in an `ALTER TABLE` statement if the referencing column is nullable, isn't part of the primary key, and isn't a generated column.
 
 > **Note:** Adding or dropping a foreign key action on an existing foreign key constraint isn't supported. You need to add a new foreign key constraint with an action. For more information, see [Long-running schema changes](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to#long-running-schema-changes) .
 

@@ -678,7 +678,8 @@ and table_constraint is:
     [ CONSTRAINT constraint_name ]
     { CHECK ( expression ) |
       FOREIGN KEY ( column_name [, ... ] ) REFERENCES  ref_table  ( ref_column [, ... ] )
-        [ ON DELETE { CASCADE | NO ACTION } ] [ { ENFORCED | NOT ENFORCED } ]
+        [ ON DELETE { CASCADE | SET NULL | NO ACTION } ] [ { ENFORCED | NOT ENFORCED } ]
+
     }
 
 and synonym_definition is:
@@ -917,7 +918,7 @@ For more details, see [Schema and data model](https://docs.cloud.google.com/span
 
 - For more information, see [Creating and managing check constraints](https://docs.cloud.google.com/spanner/docs/check-constraint/how-to) .
 
-`FOREIGN KEY (` ***`column_name`*** `[, ... ] ) REFERENCES` ***`ref_table`*** `(` ***`ref_column`*** `[, ... ] [ ON DELETE { CASCADE | NO ACTION } ] [ { ENFORCED | NOT ENFORCED } ] )`
+`FOREIGN KEY (` ***`column_name`*** `[, ... ] ) REFERENCES` ***`ref_table`*** `(` ***`ref_column`*** `[, ... ] [ ON DELETE { CASCADE | SET NULL | NO ACTION } ] [ { ENFORCED | NOT ENFORCED } ] )`
 
 - Use this clause to define a foreign key constraint. A foreign key is defined on the *referencing* table of the relationship, and it references the *referenced* table. The foreign key columns of the two tables are called the *referencing* and *referenced* columns, and their row values are the keys.
 
@@ -932,6 +933,8 @@ For more details, see [Schema and data model](https://docs.cloud.google.com/span
 - The referencing and referenced columns must have matching types and they must support the equality operator ('='). The columns must also be indexable. Columns of type `ARRAY` are not allowed.
 
 - When you create a foreign key with the ON DELETE CASCADE action, deleting a row in the referenced table atomically deletes all rows from the referencing table that references the deleted row in the same transaction.
+
+- When you create a foreign key with the ON DELETE SET NULL action, deleting a row in the referenced table atomically sets the referencing columns to NULL for all rows in the referencing table that reference the deleted row in the same transaction.
 
 - If you don't specify a foreign key action, the default action is NO ACTION.
 
@@ -1023,7 +1026,8 @@ and table_constraint is:
     [ CONSTRAINT constraint_name ]
     { CHECK ( expression ) |
       FOREIGN KEY ( column_name [, ... ] ) REFERENCES ref_table ( ref_column [, ... ] )
-        [ ON DELETE { CASCADE | NO ACTION } ] [ { ENFORCED | NOT ENFORCED } ]
+        [ ON DELETE { CASCADE | SET NULL | NO ACTION } ] [ { ENFORCED | NOT ENFORCED } ]
+
     }
 
 and table_options_def is:

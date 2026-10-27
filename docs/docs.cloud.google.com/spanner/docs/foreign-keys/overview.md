@@ -283,7 +283,11 @@ For more examples of how to create and manage foreign keys, see [Create and mana
 
 Foreign key actions can be defined on enforced foreign keys only.
 
-Foreign key actions control what happens to the constrained column when the column it references is deleted or updated. Spanner supports the use of the `ON DELETE CASCADE` action. With the foreign key `ON DELETE CASCADE` action, when you delete a row that contains a referenced foreign key, all rows that reference that key are also deleted in the same transaction.
+Foreign key actions control what happens to the constrained column when the column it references is deleted or updated. Spanner supports the use of the `ON DELETE CASCADE` and `ON DELETE SET NULL` actions.
+
+With the `ON DELETE CASCADE` action, when you delete a row that is referenced by a foreign key, all rows that reference that key are also deleted in the same transaction.
+
+With the `ON DELETE SET NULL` action, when you delete a row that is referenced by a foreign key, the referencing columns in all rows that reference that key are set to `NULL` in the same transaction.
 
 You can add a foreign key with an action when you create your database using DDL. Use the [`CREATE TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) statement to add foreign keys with an action to a new table. Similarly, you can use the [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) statement to add a foreign key action to an existing table or to remove a foreign key action. The following is an example of how to create a new table with a foreign key action.
 
@@ -314,7 +318,9 @@ CONSTRAINT fkshoppingcartscustomers FOREIGN KEY (CustomerId, CustomerName)
 
 The following is a list of characteristics of foreign key actions in Spanner.
 
-- Foreign key actions are either `ON DELETE CASCADE` or `ON DELETE NO ACTION` .
+- Foreign key actions are `ON DELETE CASCADE` , `ON DELETE SET NULL` , or `ON DELETE NO ACTION` .
+
+- You can't use `ON DELETE SET NULL` on referencing columns that are part of the referencing table's primary key, marked `NOT NULL` , or generated columns.
 
 - You can query the [`INFORMATION_SCHEMA`](https://docs.cloud.google.com/spanner/docs/information-schema#referential-constraints) to find foreign key constraints that have an action.
 
@@ -338,9 +344,26 @@ Each transaction is evaluated for modifications that affect enforced foreign key
 
 When you delete a row from a referenced table, Spanner must delete all rows in the referencing tables that reference the deleted row. This can lead to a cascading effect, where a single delete operation results in thousands of other delete operations. Adding a foreign key constraint with delete cascade action to a table or creating a table with foreign key constraints with delete cascade action can slow down delete operations.
 
+### Long-running delete set null action
+
+When you delete a row from a referenced table, Spanner updates all rows in referencing tables that have an `ON DELETE SET NULL` action by setting the referencing columns to `NULL` . This can lead to a cascading effect, where a single delete operation results in thousands of update operations. Adding an `ON DELETE SET NULL` foreign key constraint to a table or creating a table with one can slow down delete operations.
+
 ### Mutation limit exceeded for foreign key delete cascade
 
 Deleting a large number of records using a foreign key delete cascade can impact performance. This is because each deleted record invokes the deletion of all records related to it. If you need to delete a large number of records using a foreign key delete cascade, explicitly delete the rows from the child tables before deleting the row from the parent tables. This prevents the transaction from failing due to the mutation limit.
+
+### Mutation limit exceeded for foreign key delete set null
+
+Deleting rows that trigger a large number of updates using a foreign key `ON DELETE SET NULL` action can impact performance. This is because each deleted row in the referenced table triggers the update of all rows that reference it in the referencing table. If you need to delete a row that triggers many updates using `ON DELETE SET NULL` , explicitly update the referencing rows to `NULL` or delete them before deleting the referenced row. This practice prevents the transaction from failing due to the mutation limit.
+
+### Resource usage for foreign key delete actions
+
+`ON DELETE CASCADE` and `ON DELETE SET NULL` have different resource and mutation costs depending on your schema:
+
+- **Base table mutations** : `ON DELETE SET NULL` updates individual columns, so each updated referencing row counts as multiple mutations (for the row key and each column set to `NULL` ). `ON DELETE CASCADE` counts as one mutation per deleted row, or one mutation per deleted key range when the referencing columns are a prefix of the referencing table's primary key.
+- **Index mutations** : Both actions use one delete mutation per row on the foreign key's backing index. For other secondary indexes on the referencing table, `ON DELETE SET NULL` only modifies indexes that include the referencing columns, while `ON DELETE CASCADE` deletes entries from every secondary index on the table.
+- **Reads** : `ON DELETE SET NULL` always reads the foreign key backing index to find matching rows. `ON DELETE CASCADE` can skip this read and delete a key range directly when the referencing columns are a prefix of the referencing table's primary key.
+- **Cascading** : `ON DELETE SET NULL` never cascades to interleaved child tables because primary key columns can't be set to `NULL` . It only triggers further actions if another foreign key references the updated column. `ON DELETE CASCADE` deletes the full referencing row, so it also cascades to any interleaved child tables with `ON DELETE CASCADE` and to downstream foreign keys.
 
 ### Comparison of enforced foreign keys and table interleaving
 

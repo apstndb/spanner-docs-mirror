@@ -527,7 +527,7 @@ This table contains one row about each `FOREIGN KEY` constraint.
 <tr class="odd">
 <td><code>DELETE_RULE</code></td>
 <td><code>STRING</code></td>
-<td>Either <code>CASCADE</code> or <code>NO ACTION</code> .</td>
+<td>Either <code>CASCADE</code> , <code>SET NULL</code> , or <code>NO ACTION</code> .</td>
 </tr>
 <tr class="even">
 <td><code>SPANNER_STATE</code></td>

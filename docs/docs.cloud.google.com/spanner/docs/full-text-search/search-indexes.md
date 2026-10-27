@@ -478,6 +478,8 @@ WHERE genre IS NOT NULL
 
 The query must specify the NULL filtering condition ( `Genre IS NOT NULL` for this example) in the `WHERE` clause. Otherwise, the Query Optimizer isn't able to use the search index. For more information, see [SQL query requirements](https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview#sql-query-requirements) .
 
+Using the `WHERE <column> IS NOT NULL` filter in the index definition ensures that only non-null values are indexed. This allows the query optimizer to use the index effectively for relevant queries, even if the `IS NOT NULL` condition isn't explicitly in the query's `WHERE` clause.
+
 Use NULL filtering on a generated column to exclude rows based on any arbitrary criteria. For more information, see [Create a partial index using a generated column](https://docs.cloud.google.com/spanner/docs/generated-column/how-to#create_a_partial_index_using_a_generated_column) .
 
 ## What's next

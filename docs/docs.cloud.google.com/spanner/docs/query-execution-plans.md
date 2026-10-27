@@ -310,6 +310,10 @@ The following execution plan shows that this query fully uses the index:
 
 The execution plan doesn't require a back join because the index contains all of the columns that the query requests.
 
+### Understanding query distribution
+
+The **Remote calls** statistic, found in the **Query** summary on the **Explanation** tab in the Console, reflects the number of calls made to other Spanner servers during query execution. While not a direct 1:1 count of unique data splits accessed, a higher number of remote calls often indicates that the query execution is more distributed, potentially spanning more servers and splits. This metric excludes calls within the same server. Monitoring this can help gauge the extent of query fanout.
+
 ### Sequential scan versus scattered seeks
 
 Reading a contiguous range of rows is significantly faster than reading the same number of scattered rows.

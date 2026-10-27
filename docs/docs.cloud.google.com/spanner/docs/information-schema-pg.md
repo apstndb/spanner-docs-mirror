@@ -1028,7 +1028,7 @@ This view contains one row about each `FOREIGN KEY` constraint. You can see only
 <tr class="odd">
 <td><code>delete_rule</code></td>
 <td><code>character varying</code></td>
-<td>The delete rule of the foreign key constraint. This value is either <code>CASCADE</code> or <code>NO ACTION</code> .</td>
+<td>The delete rule of the foreign key constraint. This value is either <code>CASCADE</code> , <code>SET NULL</code> , or <code>NO ACTION</code> .</td>
 </tr>
 <tr class="even">
 <td><code>spanner_state</code></td>
