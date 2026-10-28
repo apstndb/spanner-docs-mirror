@@ -4352,7 +4352,7 @@ JSON output: <code>[1,2,3]</code><br />
 <p>The object can contain zero or more key-value pairs. Each value is formatted according to its type.</p>
 <p>For <code>TO_JSON</code> , a field is included in the output string and any duplicates of this field are omitted.</p>
 <p>Anonymous fields are represented with <code>""</code> .</p>
-<p>Invalid UTF-8 field names might result in unparseable JSON. String values are escaped according to the JSON standard. Specifically, <code>"</code> , <code>\,</code> and the control characters from <code>U+0000</code> to <code>U+001F</code> are escaped.</p></td>
+<p>Invalid UTF-8 field names might result in unparsable JSON. String values are escaped according to the JSON standard. Specifically, <code>"</code> , <code>\,</code> and the control characters from <code>U+0000</code> to <code>U+001F</code> are escaped.</p></td>
 <td>SQL input: <code>STRUCT(12 AS purchases, TRUE AS inStock)</code><br />
 JSON output: <code>{"inStock": true,"purchases":12}</code><br />
 </td>
@@ -4363,7 +4363,7 @@ JSON output: <code>{"inStock": true,"purchases":12}</code><br />
 <p>The object can contain zero or more key-value pairs. Each value is formatted according to its type.</p>
 <p>Field names with underscores are converted to camel case in accordance with <a href="https://developers.google.com/protocol-buffers/docs/proto3#json">protobuf json conversion</a> . Field values are formatted according to <a href="https://developers.google.com/protocol-buffers/docs/proto3#json">protobuf json conversion</a> . If a <code>field_value</code> is a non-empty repeated field or submessage, the elements and fields are indented to the appropriate level.</p>
 <ul>
-<li>Field names that aren't valid UTF-8 might result in unparseable JSON.</li>
+<li>Field names that aren't valid UTF-8 might result in unparsable JSON.</li>
 <li>Field annotations are ignored.</li>
 <li>Repeated fields are represented as arrays.</li>
 <li>Submessages are formatted as values of PROTO type.</li>
@@ -4381,7 +4381,7 @@ JSON output: <code>{"purchases":12,"inStock": true}</code><br />
 <p>For <code>TO_JSON</code> , graph element (node or edge) objects are supported.</p>
 <ul>
 <li>The graph element identifier is only valid within the scope of the same query response and can't be used to correlate entities across different queries.</li>
-<li>Field names that aren't valid UTF-8 might result in unparseable JSON.</li>
+<li>Field names that aren't valid UTF-8 might result in unparsable JSON.</li>
 <li>The result may include internal key-value pairs that aren't defined by the users.</li>
 <li>The conversion can fail if the object contains values of unsupported types.</li>
 </ul></td>

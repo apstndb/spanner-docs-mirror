@@ -157,11 +157,11 @@ If you want to find the supertype for a set of input types, first determine the 
 
 **Examples**
 
-| Input types       | Common supertype | Returns   | Notes                                                                                                                     |
-|-------------------|------------------|-----------|---------------------------------------------------------------------------------------------------------------------------|
-| `INT64` `FLOAT32` | `FLOAT64`        | `FLOAT64` | If you apply supertyping to `INT64` and `FLOAT32` , supertyping succeeds because they they share a supertype, `FLOAT64` . |
-| `INT64` `FLOAT64` | `FLOAT64`        | `FLOAT64` | If you apply supertyping to `INT64` and `FLOAT64` , supertyping succeeds because they they share a supertype, `FLOAT64` . |
-| `INT64` `BOOL`    | None             | Error     | If you apply supertyping to `INT64` and `BOOL` , supertyping fails because they don't share a common supertype.           |
+| Input types       | Common supertype | Returns   | Notes                                                                                                                |
+|-------------------|------------------|-----------|----------------------------------------------------------------------------------------------------------------------|
+| `INT64` `FLOAT32` | `FLOAT64`        | `FLOAT64` | If you apply supertyping to `INT64` and `FLOAT32` , supertyping succeeds because they share a supertype, `FLOAT64` . |
+| `INT64` `FLOAT64` | `FLOAT64`        | `FLOAT64` | If you apply supertyping to `INT64` and `FLOAT64` , supertyping succeeds because they share a supertype, `FLOAT64` . |
+| `INT64` `BOOL`    | None             | Error     | If you apply supertyping to `INT64` and `BOOL` , supertyping fails because they don't share a common supertype.      |
 
 #### Exact and inexact types
 

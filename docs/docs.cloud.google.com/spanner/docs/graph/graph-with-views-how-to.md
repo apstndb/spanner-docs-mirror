@@ -39,6 +39,17 @@ To create a graph using views:
 
     For more information, see [Disabled key validation (any SQL query)](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#disabled-key-validation) .
 
+5.  Optional: If your views call a [remote function](https://docs.cloud.google.com/spanner/docs/cloud-run-remote-function) or have other volatile columns, add the `OPTIONS (allow_view_with_volatile_column = true)` clause to the `CREATE PROPERTY GRAPH` statement:
+
+    ```
+    CREATE PROPERTY GRAPH MyGraph
+      NODE TABLES (
+        AccountRemoteUdfView KEY(account_id)
+      ) OPTIONS (allow_view_with_volatile_column = true);
+    ```
+
+    For more information, see [Enable volatile columns when views use remote functions](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#allow-volatile-columns) .
+
 ## Example: Create a graph using views
 
 This example creates the following views over `Customer` and `Account` tables: `AsiaCustomer` , `AsiaBankAccount` , and `AsiaAccountsOwnership` . Then, the example uses these views to create the following in a graph:
@@ -161,6 +172,8 @@ CREATE PROPERTY GRAPH EngineeringGraph
 
 You can use views to define graph elements that require data transformations. A key benefit is that the view defines the transformation, so you don't need to maintain a separate table for the derived data.
 
+#### Unnest arrays to model edges
+
 For example, you can `UNNEST` data from an `ARRAY` column (or an array field within a `JSON` column) to model multiple edge relationships from a single row.
 
 In the following supply chain schema example, a `Parts` table stores a list of sub-components in a `dependent_parts` array. A view can use the `UNNEST` operator to transform each element of that array into distinct rows. This view can then serve as an edge table, letting you model a `PartDependsOnPart` edge to represent dependency relationships between parts.
@@ -190,6 +203,41 @@ CREATE PROPERTY GRAPH SupplyChainGraph
       SOURCE KEY (part_id) REFERENCES Parts(part_id)
       DESTINATION KEY (dependent_part_id) REFERENCES Parts(part_id)
   );
+```
+
+#### Compute properties with remote functions
+
+You can also use a [remote function](https://docs.cloud.google.com/spanner/docs/cloud-run-remote-function) in a view to compute derived properties for graph elements by setting `allow_view_with_volatile_column = true` in the `OPTIONS` clause of the `CREATE PROPERTY GRAPH` statement. For more information, see [Enable volatile columns when views use remote functions](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#allow-volatile-columns) .
+
+```
+-- Define a remote function.
+CREATE FUNCTION rudf_identity_func(x INT64)
+  RETURNS INT64 NOT DETERMINISTIC LANGUAGE REMOTE
+  OPTIONS (
+    endpoint = 'https://us-central1-project-id.cloudfunctions.net/my-func'
+  );
+
+-- Base table for accounts.
+CREATE TABLE Account (
+  account_id INT64 NOT NULL,
+  balance INT64
+) PRIMARY KEY (account_id);
+
+-- View that computes a property using the remote function.
+CREATE VIEW AccountRemoteUdfView SQL SECURITY INVOKER AS
+  SELECT
+    t.account_id,
+    t.balance,
+    rudf_identity_func(t.account_id) AS view_computed_prop
+  FROM Account AS t;
+
+-- Graph using the view requires allow_view_with_volatile_column = true.
+CREATE PROPERTY GRAPH AccountViewRemoteUdfGraph
+  NODE TABLES (
+    AccountRemoteUdfView KEY (account_id)
+      PROPERTIES (account_id, balance, view_computed_prop)
+  )
+  OPTIONS (allow_view_with_volatile_column = true);
 ```
 
 ### Example: Schemaless data transition

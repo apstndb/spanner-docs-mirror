@@ -47,8 +47,13 @@ To view columnar data storage metrics:
 
 `SPANNER_SYS.QUERY_STATS_TOP_*` tables have a column named `AVG_COLUMNAR_READ_SHARE` , which is an average percentage of bytes read from columnar storage out of total bytes read from both row-based and columnar storage. A high percentage is optimal, while a low percentage suggests that much of the data remains unconverted to columnar format.
 
+## Table sizes statistics
+
+The `SPANNER_SYS.TABLE_SIZES_STATS_1HOUR` table includes columns such as `COLUMNAR_USED_BYTES` and `COLUMNAR_COVERAGE_RATIO` that let you monitor the columnar storage size and the ratio of columnar-formatted data to total data for tables and indexes. For more information, see [Table sizes statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics) .
+
 ## What's next
 
 - Learn about [columnar engine](https://docs.cloud.google.com/spanner/docs/columnar-engine) .
 - Learn how to [enable columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine) .
 - Learn how to [query columnar data](https://docs.cloud.google.com/spanner/docs/query-columnar-data) .
+- Learn about [table sizes statistics](https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics) .

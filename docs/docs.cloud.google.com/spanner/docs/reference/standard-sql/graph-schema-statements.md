@@ -97,17 +97,27 @@ Creates a property graph.
 
 - `OPTIONS` : A list of options for the property graph.
 
-  For example, you can set the `validate_element_key_uniqueness` option to validate that the property graph's element keys are unique at schema creation time. Set this option to either `true` or `false` :
+  You can set the following options:
 
-  - `true` (default): Spanner validates at schema creation time that the element keys for each node or edge table are unique. The `KEY` clause columns must satisfy one of the following requirements:
+  - `validate_element_key_uniqueness` : Validates that the property graph's element keys are unique at schema creation time. Set this option to either `true` or `false` :
 
-  - **Tables** : Backed by a primary key or a unique index on the underlying table.
+    - `true` (default): Spanner validates at schema creation time that the element keys for each node or edge table are unique. The `KEY` clause columns must satisfy one of the following requirements:
 
-  - **Views** : The view query conforms to supported view query patterns to guarantee key uniqueness.
+      - **Tables** : Backed by a primary key or a unique index on the underlying table.
 
-  If uniqueness can't be verified, schema creation fails with an error.
+      - **Views** : The view query conforms to supported view query patterns to guarantee key uniqueness.
 
-  - `false` : Spanner doesn't validate element key uniqueness at schema creation time. This lets you define property graphs using columns that don't have an underlying uniqueness constraint. In this mode, you're responsible for ensuring that the `KEY` clause columns produce unique values for every node or edge row. If duplicate keys exist, queries might produce unexpected results or duplicate graph paths.
+      If uniqueness can't be verified, schema creation fails with an error.
+
+    - `false` : Spanner doesn't validate element key uniqueness at schema creation time. This lets you define property graphs using columns that don't have an underlying uniqueness constraint. In this mode, you're responsible for ensuring that the `KEY` clause columns produce unique values for every node or edge row. If duplicate keys exist, queries might produce unexpected results or duplicate graph paths.
+
+  - `allow_view_with_volatile_column` : Controls whether you can define a property graph on SQL views that have volatile columns. A view column is volatile if its expression calls a volatile function. A function is *volatile* if its return value can change even within a single statement execution with the same arguments, such as a remote function ( `LANGUAGE REMOTE` ) or built-in functions like `GENERATE_UUID` or `RAND` (for more information, see [Function volatility](https://docs.cloud.google.com/spanner/docs/concepts/function-volatility) ). Any volatility in the view definition body, such as in a `JOIN` condition or `WHERE` clause, also makes all projected columns in the view volatile. Set this option to `true` or `false` :
+
+    - `false` (default): Spanner doesn't let you define a property graph on views with volatile columns. If a view has a volatile column, schema creation fails with an error.
+
+    - `true` : Spanner lets you define a property graph on views with volatile columns.
+
+      > **Caution:** If you set `allow_view_with_volatile_column = true` , because volatile functions can return different results for the same inputs, queries on the property graph might produce non-deterministic or inconsistent results across or within query executions.
 
 ### Element definition
 

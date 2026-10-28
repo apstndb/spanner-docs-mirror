@@ -20,7 +20,7 @@ Views provide several advantages as an abstraction layer between tables and a gr
 
 - [**Row-level access control**](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#fine-grained-graph-access) . Apply [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) at the row-level to graph data using the security privileges of [definer's rights views](https://docs.cloud.google.com/spanner/docs/views#definer) . This ensures users can query only nodes and edges they are permitted to see.
 
-- **[Flexible data modeling](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#model-derived-graph)** . Use a view with a query to shape and transform relational data before creating a graph element. The view's query lets you filter rows, combine columns, or unnest repeated fields such as in an `ARRAY` .
+- **[Flexible data modeling](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#model-derived-graph)** . Use a view with a query to shape and transform relational data before creating a graph element. The view's query lets you filter rows, combine columns, unnest repeated fields such as in an `ARRAY` , or compute properties using [remote functions](https://docs.cloud.google.com/spanner/docs/cloud-run-remote-function) .
 
 - **[Transition from schemaless data to formalized data](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#schemaless-transition)** . Create views from [schemaless data](https://docs.cloud.google.com/spanner/docs/graph/manage-schemaless-data) to define node and edge types explicitly. This helps formalize the relationships in the data.
 
@@ -31,6 +31,8 @@ You must follow these requirements when you use views to create graph elements:
 - [Use the `KEY` clause when you specify a graph element](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#use-key-clause) .
 
 - [Ensure node and edge key uniqueness](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#graph-view-requirements) .
+
+- [Enable volatile columns when views use remote functions](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-overview#allow-volatile-columns) .
 
 ### Use the `KEY` clause when you specify a graph element
 
@@ -174,6 +176,14 @@ CREATE PROPERTY GRAPH OrderGraphTrusted
         customer_name)
   ) OPTIONS (validate_element_key_uniqueness = false);
 ```
+
+### Enable volatile columns when views use remote functions
+
+You can define a property graph on a view that calls a [remote function](https://docs.cloud.google.com/spanner/docs/cloud-run-remote-function) ( `LANGUAGE REMOTE` ) by setting `allow_view_with_volatile_column = true` in the `OPTIONS` clause of the `CREATE PROPERTY GRAPH` statement.
+
+By default, Spanner doesn't let you define a property graph on views with volatile columns ( `allow_view_with_volatile_column = false` ). A view column is volatile if its expression calls a volatile function. A function is [volatile](https://docs.cloud.google.com/spanner/docs/concepts/function-volatility) if its return value can change even within a single statement execution with the same arguments, such as a remote function ( `NOT DETERMINISTIC` ). Any volatility in a view's definition body, such as in a `JOIN` condition or `WHERE` clause, also makes all projected columns in the view volatile. For a code example, see [Compute properties with remote functions](https://docs.cloud.google.com/spanner/docs/graph/graph-with-views-how-to#remote-functions-views) .
+
+> **Caution:** If you set `allow_view_with_volatile_column = true` , because volatile functions can return different results for the same inputs, queries on the property graph might produce non-deterministic or inconsistent results across or within query executions.
 
 ## Considerations when using views
 

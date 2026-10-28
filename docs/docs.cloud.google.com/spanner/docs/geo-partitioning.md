@@ -89,7 +89,7 @@ The following limitations apply during the [Preview](https://cloud.google.com/pr
 
 ## Access control with IAM
 
-You need to have the `spanner.instancePartitions.create` , `spanner.instancePartitions.update` , and `spanner.instancePartitions.delete` permissions to create and manage instance partitions. If you only need to view the instance partitions, you need to have the `spanner.instancePartitions.list` or `spanner.instancePartitions.get` permission. For more information, see [IAM overview](https://docs.cloud.google.com/spanner/docs/iam) .
+You need to have the `spanner.instancePartitions.create` , `spanner.instancePartitions.update` , and `spanner.instancePartitions.delete` permissions to create and manage instance partitions. If you only need to view the instance partitions, you need to have the `spanner.instancePartitions.list` or `spanner.instancePartitions.get` permission. For more information, see [Identity and Access Management (IAM) overview](https://docs.cloud.google.com/spanner/docs/iam) .
 
 For information on how to grant Spanner IAM permissions, see [Apply IAM permissions](https://docs.cloud.google.com/spanner/docs/grant-permissions) .
 

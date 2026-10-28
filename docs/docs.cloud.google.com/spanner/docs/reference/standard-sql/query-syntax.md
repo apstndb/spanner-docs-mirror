@@ -1816,7 +1816,7 @@ The `WHERE` clause only references columns available via the `FROM` clause; it c
 
 **Examples**
 
-This query returns returns all rows from the [`Roster`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#roster_table) table where the `SchoolID` column has the value `52` :
+This query returns all rows from the [`Roster`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#roster_table) table where the `SchoolID` column has the value `52` :
 
 ```
 SELECT * FROM Roster

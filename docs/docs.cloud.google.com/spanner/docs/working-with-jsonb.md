@@ -48,6 +48,34 @@ The following restrictions apply with Spanner `JSONB` :
 - The maximum permitted size of the normalized storage format is 10 MB.
 - `JSONB` documents must be encoded in UTF-8. Transactions or queries with `JSONB` documents encoded in other formats return an error.
 
+## Comparison and sorting
+
+You can compare `JSONB` values for equality and ordering. You can also use `JSONB` values in a `GROUP BY` and `ORDER BY` clause.
+
+When comparing `JSONB` values of different types, the following relations apply:
+
+`Null (JSONB null)` \< `String` \< `Number` \< `Boolean` \< `Array` \< `Object`
+
+When comparing `JSONB` values of the same type, the following rules apply:
+
+- **Objects:** Objects with more key-value pairs are greater than objects with fewer pairs. If both objects have the same number of pairs, their key-value pairs are compared pairwise (keys first, then values) in the key order defined in [Specifications](https://docs.cloud.google.com/spanner/docs/working-with-jsonb#specs) . The first pair that differs determines the order.
+
+- **Arrays:** Arrays with more elements are greater than arrays with fewer elements. If both arrays have the same number of elements, elements are compared index by index from left to right. The first differing element determines the array order.
+
+- **Booleans:** `true` is greater than `false` .
+
+- **Numbers:** Compared mathematically using numeric value comparisons.
+
+- **Strings:** Compared lexicographically using standard string comparison rules.
+
+- **JSONB Nulls:** All `JSONB` `null` values are equal to each other and less than any other non-null JSON value. However, an edge case applies:
+
+  - An empty top-level array `[]` is considered smaller than a JSONB null. Since this only applies to top-level arrays, the following statements return true:
+
+    - `'[]'::jsonb < 'null'::jsonb`
+    - `'null'::jsonb < '[[]]'::jsonb`
+    - `'[null]'::jsonb < '[[]]'::jsonb`
+
 ## Create a table with JSONB columns
 
 You can add a `JSONB` column to a table when you create the table.
@@ -1353,8 +1381,6 @@ end
 ## Unsupported PostgreSQL JSONB features
 
 The following open source PostgreSQL `JSONB` features aren't supported on Spanner `JSONB` :
-
-- Ordering, comparison, and aggregation
 
 - PrimaryKey and ForeignKey
 
