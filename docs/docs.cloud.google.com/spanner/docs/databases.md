@@ -19,7 +19,7 @@ A database inherits properties from its parent instance, such as its configurati
 Properties that are set on the database are:
 
 - The [dialect](https://docs.cloud.google.com/spanner/docs/postgresql-interface#choosing_between_and) . Spanner supports GoogleSQL and PostgreSQL. All of the tables in a database must use the same dialect.
-- An [IAM policy](https://docs.cloud.google.com/spanner/docs/grant-permissions#database-level_permissions) . The access rules defined by this policy are applied to the tables and data inside the database.
+- An [Identity and Access Management (IAM) policy](https://docs.cloud.google.com/spanner/docs/grant-permissions#database-level_permissions) . The access rules defined by this policy are applied to the tables and data inside the database.
 - The type of encryption key to use. The default is a Google-owned and Google-managed encryption key; a [customer-managed encryption key](https://docs.cloud.google.com/spanner/docs/cmek) is also supported.
 - [Database deletion protection](https://docs.cloud.google.com/spanner/docs/prevent-database-deletion) to prevent accidental deletion of databases.
 - Database policies such as the default leader region, query optimizer version, query optimizer statistics package version, and version retention period, can be set or modified with DDL statements. See the DDL reference for [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) .

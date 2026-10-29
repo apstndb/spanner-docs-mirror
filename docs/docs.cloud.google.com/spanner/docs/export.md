@@ -50,7 +50,7 @@ To get the permissions that you need to export a database, ask your administrato
 
 > **Note:** The Spanner Database Admin role is only required for import jobs.
 
-To use the independent compute resources of Spanner Data Boost during an export, you also need the `spanner.databases.useDataBoost` IAM permission. For more information, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
+To use the independent compute resources of Spanner Data Boost during an export, you also need the `spanner.databases.useDataBoost` Identity and Access Management (IAM) permission. For more information, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
 
 ## Export a database
 
@@ -95,7 +95,7 @@ To export your Spanner database to a Cloud Storage bucket, follow these steps:
 
     This option does not affect the destination Cloud Storage bucket-level encryption. To enable CMEK for your Cloud Storage bucket, refer to [Use CMEK with Cloud Storage](https://docs.cloud.google.com/storage/docs/encryption/using-customer-managed-keys) .
 
-11. Optional: To export using Spanner Data Boost, select the **Use Spanner Data Boost** checkbox. For more information, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
+11. Optional: To export using Data Boost, select the **Use Spanner Data Boost** checkbox. For more information, see [Data Boost overview](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) .
 
 12. Select the checkbox under **Confirm charges** to acknowledge that there are charges in addition to those incurred by your existing Spanner instance.
 

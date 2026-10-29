@@ -73,7 +73,7 @@ gcloud spanner instances create test-instance --config=regional-us-central1 \
     --description="My Instance" --nodes=1
 ```
 
-In the command above, the instance name is set to `test-instance` and `--description` sets the display name of the instance. Both of these values must be unique within a Google Cloud Platform project.
+In the command above, the instance name is set to `test-instance` and `--description` sets the display name of the instance. Both of these values must be unique within a Google Cloud project.
 
 > **Note:** Use the instance ID, not the display name, when referring to an instance in `gcloud` commands.
 

@@ -2,11 +2,11 @@
 name: documents/docs.cloud.google.com/spanner/docs/dml-tasks
 uri: https://docs.cloud.google.com/spanner/docs/dml-tasks
 title: Insert, update, and delete data using data manipulation language (DML)
-description: Manage data in Spanner using DML statements with client libraries, the {{dynamic_data.site_values.cloud_name_short}} console, and Google Cloud CLI.
+description: Manage data in Spanner using DML statements with client libraries, the {{dynamic_data.site_values.cloud_name_short}} console, and gcloud CLI.
 data_source: docs.cloud.google.com
 ---
 
-This page describes how to insert, update, and delete Spanner data using Data Manipulation Language (DML) statements. You can run DML statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/dml-tasks#client-library-dml) , the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/modify-data) , and the [`gcloud`](https://docs.cloud.google.com/spanner/docs/modify-gcloud) command-line tool. You can run [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statements using the client libraries and the [`gcloud`](https://docs.cloud.google.com/spanner/docs/modify-gcloud) command-line tool.
+This page describes how to insert, update, and delete Spanner data using Data Manipulation Language (DML) statements. You can run DML statements using the [client libraries](https://docs.cloud.google.com/spanner/docs/dml-tasks#client-library-dml) , the [Google Cloud console](https://docs.cloud.google.com/spanner/docs/modify-data) , and the [Google Cloud CLI](https://docs.cloud.google.com/spanner/docs/modify-gcloud) . You can run [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) statements using the client libraries and the [gcloud CLI](https://docs.cloud.google.com/spanner/docs/modify-gcloud) .
 
 For the complete DML syntax reference, see [Data Manipulation Language syntax](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax) for GoogleSQL-dialect databases or [PostgreSQL data manipulation language](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax) for PostgreSQL-dialect databases
 
@@ -14,7 +14,7 @@ For the complete DML syntax reference, see [Data Manipulation Language syntax](h
 
 ## Use DML
 
-DML supports `INSERT` , `UPDATE` , and `DELETE` statements in the Google Cloud console, Google Cloud CLI, and client libraries.
+DML supports `INSERT` , `UPDATE` , and `DELETE` statements in the Google Cloud console, gcloud CLI, and client libraries.
 
 ### Locking
 
@@ -101,7 +101,7 @@ Use the following steps to execute a DML statement in the Google Cloud console.
 
 > **Note:** When you click **Run query** , the transaction commits automatically.
 
-### Execute statements with the Google Cloud CLI
+### Execute statements with the gcloud CLI
 
 To execute DML statements, use the `gcloud spanner databases execute-sql` command. The following example adds a new row to the `Singers` table.
 
@@ -3520,13 +3520,13 @@ end
 
 ### Get the query plan
 
-You can [retrieve a query plan](https://docs.cloud.google.com/spanner/docs/sql-best-practices#how-execute-queries) using the Google Cloud console, the client libraries, and the `gcloud` command-line tool.
+You can [retrieve a query plan](https://docs.cloud.google.com/spanner/docs/sql-best-practices#how-execute-queries) using the Google Cloud console, the client libraries, and the gcloud CLI.
 
 ## Use Partitioned DML
 
 [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) is designed for bulk updates and deletes, particularly periodic cleanup and backfilling.
 
-### Execute statements with the Google Cloud CLI
+### Execute statements with the gcloud CLI
 
 To execute a Partitioned DML statement, use the `gcloud spanner databases execute-sql` command with the `--enable-partitioned-dml` option. The following example updates rows in the `Albums` table.
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/databoost/databoost-quotas
 uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-quotas
 title: Monitor and manage Data Boost quota usage
-description: Understand the quotas and limits associated with using Spanner Spanner Data Boost for your data processing workloads.
+description: Understand the quotas and limits associated with using Spanner Data Boost for your data processing workloads.
 data_source: docs.cloud.google.com
 ---
 
@@ -104,7 +104,7 @@ If one principal is consistently exceeding the amount of Data Boost resources th
 
 - [Create a notification channel](https://cloud.google.com/monitoring/support/notification-options#creating_channels)
 
-- [Cloud Functions](https://cloud.google.com/functions)
+- [Cloud Run functions](https://cloud.google.com/functions)
 
 - [Remove database-level permissions](https://cloud.google.com/spanner/docs/grant-permissions#remove-iam-db-role)
 

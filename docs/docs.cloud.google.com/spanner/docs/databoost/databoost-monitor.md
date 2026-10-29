@@ -2,15 +2,15 @@
 name: documents/docs.cloud.google.com/spanner/docs/databoost/databoost-monitor
 uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-monitor
 title: Monitor Data Boost usage
-description: Monitor Spanner Spanner Data Boost performance and usage using metrics and logs in Cloud Monitoring.
+description: Monitor Spanner Data Boost performance and usage using metrics and logs in Monitoring.
 data_source: docs.cloud.google.com
 ---
 
 This page describes how to use Cloud Monitoring and Spanner audit logs to monitor and analyze Spanner Data Boost usage.
 
-Cloud Monitoring provides the ability to track total usage over time and to break down that usage by user. Spanner audit logs allow more flexible usage analysis, including providing metrics by user or by BigQuery job ID.
+Monitoring provides the ability to track total usage over time and to break down that usage by user. Spanner audit logs allow more flexible usage analysis, including providing metrics by user or by BigQuery job ID.
 
-## Use Cloud Monitoring to track Data Boost usage
+## Use Monitoring to track Data Boost usage
 
 Follow these steps to track overall Data Boost usage:
 
@@ -40,9 +40,9 @@ Follow these steps to track overall Data Boost usage:
 
 ## Use audit logs to analyze Data Boost usage
 
-Spanner audit logs allow more flexible analysis of Data Boost usage. In addition to the ability to break down usage over time by instance or principal as with Cloud Monitoring, Spanner audit logs, if enabled and available, allow breaking down usage over time by database or BigQuery job ID.
+Spanner audit logs allow more flexible analysis of Data Boost usage. In addition to the ability to break down usage over time by instance or principal as with Monitoring, Spanner audit logs, if enabled and available, allow breaking down usage over time by database or BigQuery job ID.
 
-Enabling audit logs can incur extra charges. For information about Logging pricing, see [Google Cloud Observability pricing: Cloud Logging](https://cloud.google.com/stackdriver/pricing#logging-costs) .
+Enabling audit logs can incur extra charges. For information about Cloud Logging pricing, see [Google Cloud Observability pricing: Logging](https://cloud.google.com/stackdriver/pricing#logging-costs) .
 
 ### Enable Data Boost usage audit logs
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/fgac-privileges
 uri: https://docs.cloud.google.com/spanner/docs/fgac-privileges
 title: Fine-grained access control privileges
-description: Understand the privileges used in Spanner FGAC, such as SELECT, INSERT, UPDATE, DELETE, and EXECUTE.
+description: Understand the privileges used in Spanner fine-grained access control, such as SELECT, INSERT, UPDATE, DELETE, and EXECUTE.
 data_source: docs.cloud.google.com
 ---
 
@@ -51,7 +51,7 @@ Allows the role to read or query from a table, view, change stream, sequence, or
 
   Suppose that the database role `Analyst` performs the query `SELECT * FROM AlbumsBudget` . The role only needs `SELECT` privilege on the view. It doesn't need the `SELECT` privilege on the three referenced columns or on the `Albums` table.
 
-- After granting `SELECT` on a subset of columns for a table, the FGAC user can no longer use `SELECT *` on that table. Queries on that table must name all columns to be included.
+- After granting `SELECT` on a subset of columns for a table, the fine-grained access control user can no longer use `SELECT *` on that table. Queries on that table must name all columns to be included.
 
 - `SELECT` granted on a generated column doesn't grant `SELECT` on the underlying base columns.
 

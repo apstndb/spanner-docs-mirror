@@ -420,7 +420,7 @@ In pipe syntax, the `WHERE` operator also replaces the [`HAVING` clause](https:/
 ```
 -- Aggregation with grouping
 |> AGGREGATE [aggregate_expression [[AS] alias] [, ...]]
-   GROUP BY groupable_items [[AS] alias] [, ...]
+   GROUP BY groupable_item [[AS] alias] [, ...]
 ```
 
 ```
@@ -441,9 +441,14 @@ With the `GROUP BY` clause, the `AGGREGATE` operator performs aggregation with g
 
 The `AGGREGATE` expression list corresponds to the aggregated expressions in a `SELECT` list in standard syntax. Each expression in the `AGGREGATE` list must include an aggregate function. Aggregate expressions can also include scalar expressions (for example, `sqrt(SUM(x*x))` ). Column aliases can be assigned using the [`AS` operator](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax#as_pipe_operator) .
 
-The `GROUP BY` clause in the `AGGREGATE` operator corresponds to the `GROUP BY` clause in standard syntax. Unlike in standard syntax, aliases can be assigned to `GROUP BY` items.
+**Grouping**
 
-The output columns from the `AGGREGATE` operator include all grouping columns first, followed by all aggregate columns, using their assigned aliases as the column names.
+The `GROUP BY` clause in the `AGGREGATE` operator corresponds to the [`GROUP BY` clause](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#group_by_clause) in standard syntax, with the following differences:
+
+- Unlike in standard syntax, you can't use a column ordinal (such as `GROUP BY 1, 2` ) or an alias from the `AGGREGATE` expression list. Each `groupable_item` must be a [groupable](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#data_type_properties) expression evaluated on the input table.
+- Unlike in standard syntax, you can assign a column alias ( `[AS] alias` ) to a standalone `groupable_item` in the `GROUP BY` clause.
+
+The output columns from the `AGGREGATE` operator include all grouping columns first, followed by all aggregate columns, using their assigned or implicit aliases as the column names.
 
 Unlike in standard syntax, grouping expressions aren't repeated across `SELECT` and `GROUP BY` clauses. In pipe syntax, the grouping expressions are listed once, in the `GROUP BY` clause, and are automatically included as output columns for the `AGGREGATE` operator.
 
@@ -519,7 +524,7 @@ The `AGGREGATE` operator supports a shorthand ordering syntax, which is equivale
 order_suffix: {ASC | DESC}
 ```
 
-The `GROUP AND ORDER BY` clause is equivalent to an `ORDER BY` clause on all `groupable_items` . By default, each `groupable_item` is sorted in ascending order with `NULL` values first. Other ordering suffixes like `DESC` can be used for other orders.
+The `GROUP AND ORDER BY` clause is equivalent to an `ORDER BY` clause on all `groupable_item` s. By default, each `groupable_item` is sorted in ascending order with `NULL` values first. Other ordering suffixes like `DESC` can be used for other orders.
 
 Without the `GROUP AND ORDER BY` clause, the `ASC` or `DESC` suffixes can be added on individual columns in the `GROUP BY` list or `AGGREGATE` list or both.
 

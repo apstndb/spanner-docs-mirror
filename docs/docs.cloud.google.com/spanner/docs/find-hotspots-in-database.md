@@ -28,9 +28,9 @@ Data retention policies for the Hotspot insights charts and the TopN splits tabl
 
 ## Required roles
 
-You might need different IAM roles and permissions, depending on whether you are an IAM user or a fine-grained access control user.
+You might need different Identity and Access Management (IAM) roles and permissions, depending on whether you are an IAM user or a fine-grained access control user.
 
-### Identity and Access Management (IAM) user
+### IAM user
 
 To get the permissions that you need to view the **Hotspot insights** page, ask your administrator to grant you the following IAM roles on the instance:
 
@@ -77,7 +77,7 @@ The dashboard includes the following elements:
 - **Time range filter** : filters the peak splits CPU usage by 1-minute increments up to a total of 6 hours.
 - **TopN splits table** : displays the list of top splits sorted by split CPU usage scores.
 
-![The Hotspot Insights dashboard in Spanner, showing a graph of peak split CPU usage, a database selector, a time range filter, and a table of the top N hot splits.](https://docs.cloud.google.com/static/spanner/docs/images/hotspot-insights.png)
+![The Hotspot insights dashboard in Spanner, showing a graph of peak split CPU usage, a database selector, a time range filter, and a table of the top N hot splits.](https://docs.cloud.google.com/static/spanner/docs/images/hotspot-insights.png)
 
 **Understanding data in the TopN Splits Table:** The **TopN splits** table populates data from the underlying `SPANNER_SYS.SPLIT_STATS_TOP_*` tables based on the time range you select. For more information, see [Hot split statistics data retention](https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics#data-retention) .
 

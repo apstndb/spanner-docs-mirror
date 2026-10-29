@@ -40,7 +40,7 @@ You can create an instance with the Google Cloud console, the [Google Cloud CLI]
 
 9.  Select a configuration location from the drop-down.
 
-10. Optional: To add a read-only replica to a Spanner base configuration, first [create a custom instance configuration using the Google Cloud CLI](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#gcloud_2) . Adding optional read-only replicas to a base configuration is available in the [Enterprise edition and Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview#features) .
+10. Optional: To add a read-only replica to a Spanner base configuration, first [create a custom instance configuration using the gcloud CLI](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#gcloud_2) . Adding optional read-only replicas to a base configuration is available in the [Enterprise edition and Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview#features) .
 
 11. Click **Continue** .
 
@@ -2241,7 +2241,7 @@ For instructions on how to move your instance from any instance configuration to
 
 > **Warning:** Deleting an instance permanently removes the instance and all its databases. You can't undo this later. Also, you can't create another free trial instance once you've deleted your first free trial instance. You can create one free trial instance per project lifecycle.
 
-You can delete an instance with the Google Cloud console or the [Google Cloud CLI](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) .
+You can delete an instance with the Google Cloud console or the [gcloud CLI](https://docs.cloud.google.com/spanner/docs/gcloud-spanner) .
 
 If you want to delete an instance that has one or more databases with deletion protection enabled, you must first [disable the deletion protection](https://docs.cloud.google.com/spanner/docs/prevent-database-deletion#disable) on all databases in that instance before you can delete the instance.
 
@@ -2272,5 +2272,5 @@ Spanner is a fully managed database service which oversees its own underlying ta
 ## What's next
 
 - Learn how to insert, update, and delete data with [Data Manipulation Language (DML)](https://docs.cloud.google.com/spanner/docs/dml-tasks) or the [gcloud CLI](https://docs.cloud.google.com/spanner/docs/modify-gcloud) .
-- Grant [Identity and Access Management roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) for the instance and its databases.
+- Grant [Identity and Access Management (IAM) roles](https://docs.cloud.google.com/spanner/docs/grant-permissions) for the instance and its databases.
 - Understand how to [design a Spanner schema](https://docs.cloud.google.com/spanner/docs/schema-design) .

@@ -499,7 +499,7 @@ To list your instance partitions, use [`gcloud spanner instance-partitions list`
 gcloud spanner instance-partitions list --instance=INSTANCE_ID
 ```
 
-The gcloud CLI prints a list of your Spanner instance partitions, along with each instance partition's ID, display name, configuration, and compute capacity.
+The Google Cloud CLI prints a list of your Spanner instance partitions, along with each instance partition's ID, display name, configuration, and compute capacity.
 
 ## Edit an instance partition
 

@@ -2,13 +2,13 @@
 name: documents/docs.cloud.google.com/spanner/docs/emulator
 uri: https://docs.cloud.google.com/spanner/docs/emulator
 title: Emulate Spanner locally
-description: Develop and test applications locally using the Spanner emulator. Run it via the Google Cloud CLI or Docker.
+description: Develop and test applications locally using the Spanner emulator. Run it via the gcloud CLI or Docker.
 data_source: docs.cloud.google.com
 ---
 
-The [gcloud CLI](https://docs.cloud.google.com/sdk) provides a local, in-memory emulator to develop and test your applications. Because the emulator stores data only in memory, it loses all state, including data, schema, and configs, on restart. The emulator offers the same APIs as the Spanner production service and serves local development and testing, not production deployments.
+The [Google Cloud CLI](https://docs.cloud.google.com/sdk) provides a local, in-memory emulator to develop and test your applications. Because the emulator stores data only in memory, it loses all state, including data, schema, and configs, on restart. The emulator offers the same APIs as the Spanner production service and serves local development and testing, not production deployments.
 
-The emulator supports both the GoogleSQL and PostgreSQL dialects. It supports all languages of the [client libraries](https://docs.cloud.google.com/spanner/docs/emulator#client-libraries) . You can also use the emulator with the [Google Cloud CLI](https://docs.cloud.google.com/sdk/gcloud) and [REST APIs](https://docs.cloud.google.com/spanner/docs/reference/rest) .
+The emulator supports both the GoogleSQL and PostgreSQL dialects. It supports all languages of the [client libraries](https://docs.cloud.google.com/spanner/docs/emulator#client-libraries) . You can also use the emulator with the [gcloud CLI](https://docs.cloud.google.com/sdk/gcloud) and [REST APIs](https://docs.cloud.google.com/spanner/docs/reference/rest) .
 
 The emulator is also available as an open source project in [GitHub](https://github.com/GoogleCloudPlatform/cloud-spanner-emulator) .
 
@@ -46,7 +46,7 @@ Choose the way that is appropriate for your application development and test wor
 
 ### Run the emulator using gcloud CLI
 
-To run the emulator using the Google Cloud CLI:
+To run the emulator using the gcloud CLI:
 
 1.  Install the `cloud-spanner-emulator` component:
 

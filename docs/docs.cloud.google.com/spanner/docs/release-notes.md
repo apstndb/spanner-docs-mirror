@@ -12,6 +12,14 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## October 27, 2026
+
+Feature
+
+Spanner supports the `ON DELETE SET NULL` foreign key action for GoogleSQL and PostgreSQL dialects. Use `ON DELETE SET NULL` when you delete a referenced row to set the referencing columns to `NULL` .
+
+For more information, see [Foreign key actions](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview#how-to-define-foreign-key-action) and [Create and manage foreign key relationships](https://docs.cloud.google.com/spanner/docs/foreign-keys/how-to) .
+
 ## October 20, 2026
 
 Feature

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/databoost/databoost-applications
 uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-applications
 title: Use Data Boost in your applications
-description: Explore various application use cases for Spanner Spanner Data Boost, such as data export, ETL, and federated queries.
+description: Explore various application use cases for Spanner Data Boost, such as data export, ETL, and federated queries.
 data_source: docs.cloud.google.com
 ---
 

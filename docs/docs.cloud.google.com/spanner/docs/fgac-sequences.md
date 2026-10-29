@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/fgac-sequences
 uri: https://docs.cloud.google.com/spanner/docs/fgac-sequences
 title: Fine-grained access control for sequences
-description: Control access to sequences in Spanner using FGAC, granting USAGE privilege to database roles.
+description: Control access to sequences in Spanner using fine-grained access control, granting USAGE privilege to database roles.
 data_source: docs.cloud.google.com
 ---
 

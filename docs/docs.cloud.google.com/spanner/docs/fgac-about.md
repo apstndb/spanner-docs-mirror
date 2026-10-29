@@ -2,11 +2,11 @@
 name: documents/docs.cloud.google.com/spanner/docs/fgac-about
 uri: https://docs.cloud.google.com/spanner/docs/fgac-about
 title: Fine-grained access control overview
-description: Use FGAC in Spanner to define table and column-level permissions using roles.
+description: Use fine-grained access control in Spanner to define table and column-level permissions using roles.
 data_source: docs.cloud.google.com
 ---
 
-Spanner fine-grained access control combines the benefits of [Identity and Access Management](https://docs.cloud.google.com/iam/docs) (IAM) with SQL role-based access control. With fine-grained access control, you define database roles, grant privileges to the roles, and create IAM policies to grant permissions on database roles to IAM principals. This page describes how to use fine-grained access control with Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
+Spanner fine-grained access control combines the benefits of [Identity and Access Management (IAM)](https://docs.cloud.google.com/iam/docs) with SQL role-based access control. With fine-grained access control, you define database roles, grant privileges to the roles, and create IAM policies to grant permissions on database roles to IAM principals. This page describes how to use fine-grained access control with Spanner for GoogleSQL-dialect databases and PostgreSQL-dialect databases.
 
 As an administrator, you must enable fine-grained access control for individual IAM principals. Principals for whom fine-grained access control is enabled ("fine-grained access control users") must assume a database role to access Spanner resources.
 

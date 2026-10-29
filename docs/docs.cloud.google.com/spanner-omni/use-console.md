@@ -76,7 +76,7 @@ This section lists details for your deployment:
 
 - **Deployment ID** : A unique identifier for your current Spanner Omni deployment. You specify this ID when you create the deployment.
 
-- **Database version** : The specific version of the Spanner Omni software that you are running (for example, `2026.r4-lts` ).
+- **Database version** : The specific version of the Spanner Omni software that you are running (for example, `2026.r4-lts.1` ).
 
 - **Edition** : The edition of Spanner Omni license installed on the deployment.
 

@@ -10,7 +10,7 @@ This page defines the characteristics, constraints, and intended use of the thre
 
 ### `public` system role
 
-- All fine-grained access control users have IAM membership in `public` by default.
+- All fine-grained access control users have Identity and Access Management (IAM) membership in `public` by default.
 
 - All database roles inherit privileges from this role.
 

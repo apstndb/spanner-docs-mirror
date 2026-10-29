@@ -16,7 +16,7 @@ This page describes how you can create and manage split points in your database.
 
   You might also be able to get this permission with [custom roles](https://docs.cloud.google.com/iam/docs/creating-custom-roles) or other [predefined roles](https://docs.cloud.google.com/iam/docs/roles-overview#predefined) .
 
-- The gcloud CLI examples on this page make the following assumptions:
+- The Google Cloud CLI examples on this page make the following assumptions:
 
   - You've set up [gcloud CLI](https://docs.cloud.google.com/sdk/docs) for use with Spanner. If you're new to using gcloud CLI with Spanner, see [Create and query a database using the gcloud CLI](https://docs.cloud.google.com/spanner/docs/getting-started/gcloud) .
 
@@ -30,11 +30,11 @@ This page describes how you can create and manage split points in your database.
 
 ## Create split points
 
-You can create split points using the Google Cloud CLI or the REST APIs.
+You can create split points using the gcloud CLI or the REST APIs.
 
 ### gcloud
 
-If you want to create split points using the Google Cloud CLI, you need to create a file that contains all the splits and supply the path in the gcloud CLI command. The file must not exceed the API limit of 100 points per API request. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/docs/pre-splitting-overview#quotas-limits) .
+If you want to create split points using the gcloud CLI, you need to create a file that contains all the splits and supply the path in the gcloud CLI command. The file must not exceed the API limit of 100 points per API request. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/docs/pre-splitting-overview#quotas-limits) .
 
 The file must use the following format to specify the split points:
 
@@ -710,11 +710,11 @@ A response similar to the following appears:
 
 ## How to expire a split point
 
-You can set an expiration time for each split point you create. For more information, see [Split point expiration](https://docs.cloud.google.com/spanner/docs/pre-splitting-overview#expire) . You can expire split points using the Google Cloud CLI or the REST APIs.
+You can set an expiration time for each split point you create. For more information, see [Split point expiration](https://docs.cloud.google.com/spanner/docs/pre-splitting-overview#expire) . You can expire split points using the gcloud CLI or the REST APIs.
 
 ### gcloud
 
-If you want to expire split points the Google Cloud CLI, you need to create a file that contains all the splits you want to expire and supply its path using the `splits-file` parameter in the gcloud CLI command. The file must not exceed the API limit of 100 points per API request. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#split-point-limits) .
+If you want to expire split points the gcloud CLI, you need to create a file that contains all the splits you want to expire and supply its path using the `splits-file` parameter in the gcloud CLI command. The file must not exceed the API limit of 100 points per API request. For more information, see [Quotas and limits](https://docs.cloud.google.com/spanner/quotas#split-point-limits) .
 
 The file must use the following format to specify the split points:
 

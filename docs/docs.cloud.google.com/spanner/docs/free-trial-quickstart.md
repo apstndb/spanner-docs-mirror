@@ -66,7 +66,7 @@ On the **Create your free trial instance** page, do the following:
 
 4.  Click **Create free instance** .
 
-    After you create your free trial instance, Spanner creates a sample database for you to explore and familiarize yourself with Spanner features. For more information, see [Free trial instances overview](https://docs.cloud.google.com/spanner/docs/free-trial-instance) .
+    After you create your free trial instance, Spanner creates a sample database for you to explore and familiarize yourself with Spanner features. For more information, see [Spanner free trial instances overview](https://docs.cloud.google.com/spanner/docs/free-trial-instance) .
 
 ### gcloud
 
@@ -117,7 +117,7 @@ You can view the tables and data in the sample database. You can also access and
 
 Spanner also offers an open source [sample application](https://github.com/GoogleCloudPlatform/cloud-spanner-samples) to help you get started with the Spanner free trial instance. The sample application consists of a backend gRPC service backed by a Spanner database and a workload generator that drives traffic to the service.
 
-You can access the sample application by using the Google Cloud CLI.
+You can access the sample application by using the gcloud CLI.
 
 ### gcloud
 

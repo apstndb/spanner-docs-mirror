@@ -52,7 +52,7 @@ To get the permissions that you need to manage Spanner assets in Knowledge Catal
   - [Dataplex Catalog Admin](https://docs.cloud.google.com/iam/docs/roles-permissions/dataplex#dataplex.catalogAdmin) ( `roles/dataplex.catalogAdmin` )
 - Attach or modify aspects:
   - [Dataplex Catalog Editor](https://docs.cloud.google.com/iam/docs/roles-permissions/dataplex#dataplex.catalogEditor) ( `roles/dataplex.catalogEditor` )
-  - [Dataplex Entry and EntryLink Owner](https://docs.cloud.google.com/iam/docs/roles-permissions/dataplex#dataplex.entryOwner) ( `roles/dataplex.entryOwner` )
+  - [Knowledge Catalog Entry and EntryLink Owner](https://docs.cloud.google.com/iam/docs/roles-permissions/dataplex#dataplex.entryOwner) ( `roles/dataplex.entryOwner` )
   - [Dataplex Aspect Type User](https://docs.cloud.google.com/iam/docs/roles-permissions/dataplex#dataplex.aspectTypeUser) ( `roles/dataplex.aspectTypeUser` )
 
 For more information about granting roles, see [Manage access to projects, folders, and organizations](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) .
@@ -320,5 +320,5 @@ To import aspects for multiple entries in batch from Cloud Storage, run a [metad
 - Learn more about [metadata management in Knowledge Catalog](https://docs.cloud.google.com/knowledge-catalog/docs/metadata-overview) .
 - Learn how to [search for data assets in Knowledge Catalog](https://docs.cloud.google.com/knowledge-catalog/docs/search-assets) .
 - Learn how to [manage aspects and enrich metadata](https://docs.cloud.google.com/knowledge-catalog/docs/enrich-entries-metadata) .
-- Learn more about [Knowledge Catalog IAM roles](https://docs.cloud.google.com/knowledge-catalog/docs/iam-roles) and [permissions](https://docs.cloud.google.com/knowledge-catalog/docs/iam-permissions) .
+- Learn more about [Knowledge Catalog Identity and Access Management (IAM) roles](https://docs.cloud.google.com/knowledge-catalog/docs/iam-roles) and [permissions](https://docs.cloud.google.com/knowledge-catalog/docs/iam-permissions) .
 - Explore [Fine-grained access control in Spanner](https://docs.cloud.google.com/spanner/docs/fgac-about) .

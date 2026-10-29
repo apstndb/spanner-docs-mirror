@@ -28,14 +28,14 @@ Specify the exact version tag when pulling a container image.
 
 The following table lists the available container image versions.
 
-| Version tag   | Release date       |
-|---------------|--------------------|
-| `2026.r4-lts` | September 30, 2026 |
+| Version tag     | Release date     |
+|-----------------|------------------|
+| `2026.r4-lts.1` | October 28, 2026 |
 
-For example, to download the `spanner-omni` image for the 2026.r4-lts release, run the following command:
+For example, to download the `spanner-omni` image for the 2026.r4-lts.1 release, run the following command:
 
 ```
-docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r4-lts
+docker pull us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r4-lts.1
 ```
 
 ## Helm charts
@@ -74,26 +74,26 @@ Each release is in a folder named after the version tag.
 
 The following table lists the available Spanner Omni server and component packages.
 
-| Filename                                              | Description                                                                     |
-|-------------------------------------------------------|---------------------------------------------------------------------------------|
-| `spanner-omni-2026.r4-lts-linux-x86_64.tar.gz`        | Spanner Omni server, Spanner Omni CLI, and Spanner Omni console for Linux (x86) |
-| `spanner-omni-server-2026.r4-lts-linux-x86_64.tar.gz` | Spanner Omni server and Spanner Omni CLI for Linux (x86)                        |
-| `spanner-omni-ui-2026.r4-lts-linux-x86_64.tar.gz`     | Spanner Omni console for Linux (x86)                                            |
+| Filename                                                | Description                                                                     |
+|---------------------------------------------------------|---------------------------------------------------------------------------------|
+| `spanner-omni-2026.r4-lts.1-linux-x86_64.tar.gz`        | Spanner Omni server, Spanner Omni CLI, and Spanner Omni console for Linux (x86) |
+| `spanner-omni-server-2026.r4-lts.1-linux-x86_64.tar.gz` | Spanner Omni server and Spanner Omni CLI for Linux (x86)                        |
+| `spanner-omni-ui-2026.r4-lts.1-linux-x86_64.tar.gz`     | Spanner Omni console for Linux (x86)                                            |
 
 ### Spanner Omni CLI binaries
 
 The following table lists the available Spanner Omni CLI binaries.
 
-| Filename                                            | Description                           |
-|-----------------------------------------------------|---------------------------------------|
-| `spanner-omni-cli-2026.r4-lts-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
-| `spanner-omni-cli-2026.r4-lts-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
-| `spanner-omni-cli-2026.r4-lts-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
-| `spanner-omni-cli-2026.r4-lts-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
+| Filename                                              | Description                           |
+|-------------------------------------------------------|---------------------------------------|
+| `spanner-omni-cli-2026.r4-lts.1-darwin-arm.tar.gz`    | Spanner Omni CLI, Mac (M1, M2 and M3) |
+| `spanner-omni-cli-2026.r4-lts.1-darwin-x86_64.tar.gz` | Spanner Omni CLI for Mac (x86)        |
+| `spanner-omni-cli-2026.r4-lts.1-linux-arm.tar.gz`     | Spanner Omni CLI for Linux (ARM)      |
+| `spanner-omni-cli-2026.r4-lts.1-linux-x86_64.tar.gz`  | Spanner Omni CLI for Linux (x86)      |
 
 For example, to download the current version of the Spanner Omni CLI for Linux (x86), run the following command:
 
 ```
 # Download CLI for Linux (x86)
-curl -O https://storage.googleapis.com/spanner-omni/2026.r4-lts/spanner-omni-cli-2026.r4-lts-linux-x86_64.tar.gz
+curl -O https://storage.googleapis.com/spanner-omni/2026.r4-lts.1/spanner-omni-cli-2026.r4-lts.1-linux-x86_64.tar.gz
 ```

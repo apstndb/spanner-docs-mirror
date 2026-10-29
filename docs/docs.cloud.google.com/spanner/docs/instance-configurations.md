@@ -6,14 +6,14 @@ description: Choose the appropriate Spanner instance configuration (regional, mu
 data_source: docs.cloud.google.com
 ---
 
-This page describes the different types of instance configurations available in Spanner, and the differences and trade-offs between them.
+This document describes regional, dual-region, and multi-region instance configurations in Spanner, and compares the [trade-offs](https://docs.cloud.google.com/spanner/docs/instance-configurations#tradeoffs) , replication topologies, and available locations for each configuration type. An *instance configuration* defines the geographic placement and replication topology of the databases in your instance. Choosing the right configuration lets you balance availability, read and write latency, cost, and data residency requirements for your workload.
 
 ## Instance configurations
 
-A Spanner instance configuration defines the geographic placement and replication of the databases in that instance. When you create an instance, you must configure it as either *regional* , *dual-region* , or *multi-region* . You make this choice by selecting an instance configuration, which determines where your data is stored for that instance:
+When you create a Spanner instance, you must configure it as *regional* , *dual-region* , or *multi-region* . You make this choice by selecting an instance configuration, which determines where your data is stored for that instance:
 
-- [Regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional-configurations) : all resources reside within a single Google Cloud region.
-- [Dual-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) : all resources span two regions and reside within a single country (available in the [Spanner Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) ).
+- [Regional configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional-configurations) : all the resources reside within a single Google Cloud region
+- [Dual-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#dual-region-configurations) : all resources span two regions and reside within a single country (available in the [Spanner Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) )
 - [Multi-region configurations](https://docs.cloud.google.com/spanner/docs/instance-configurations#multi-region-configurations) : all resources span more than two regions (available in the [Enterprise Plus edition](https://docs.cloud.google.com/spanner/docs/editions-overview) ).
 
 For more information about region-specific considerations, see [Geography and regions](https://docs.cloud.google.com/docs/geography-and-regions#regions_and_zones) .
@@ -24,9 +24,9 @@ You can [move your instance](https://docs.cloud.google.com/spanner/docs/instance
 
 ## Regional configurations
 
-Google Cloud services are available in [locations](https://docs.cloud.google.com/about/locations) across North America, South America, Europe, Asia, and Australia. If your users and services are located within a single region, choose a regional instance configuration for the lowest-latency reads and writes.
+Google Cloud services are available in [locations](https://docs.cloud.google.com/about/locations) across North America, South America, Europe, Asia, Australia, the Middle East, and Africa. If your users and services are located within a single region, choose a regional instance configuration for the lowest-latency reads and writes.
 
-For any base regional configuration, Spanner maintains three [read-write replicas](https://docs.cloud.google.com/spanner/docs/replication#read-write) , each within a different Google Cloud [zone](https://docs.cloud.google.com/docs/geography-and-regions) in that region. Each read-write replica contains a full copy of your operational database that can serve read-write and read-only requests. Spanner uses replicas in different zones so that if a single-zone failure occurs, your database remains available.
+For any base regional configuration, Spanner maintains three [read-write replicas](https://docs.cloud.google.com/spanner/docs/replication#read-write) , each within a different Google Cloud [zone](https://docs.cloud.google.com/docs/geography-and-regions) in that region. Each read-write replica contains a full copy of your operational database that is able to serve read-write and read-only requests. Spanner uses replicas in different zones so that if a single-zone failure occurs, your database remains available.
 
 ### Available configurations
 
@@ -96,11 +96,11 @@ For optimal performance, follow these best practices:
 - [Design a schema](https://docs.cloud.google.com/spanner/docs/schema-design) that prevents hotspots and other performance issues.
 - Place critical compute resources within the same region as your Spanner instance.
 - Provision enough [compute capacity](https://docs.cloud.google.com/spanner/docs/compute-capacity) to keep high-priority total CPU utilization under 65%.
-- For information about the amount of throughput per Spanner node, see [Performance for regional configurations](https://docs.cloud.google.com/spanner/docs/performance) .
+- For information about the amount of throughput per Spanner node, see [Performance for regional configurations](https://docs.cloud.google.com/spanner/docs/performance#regional-performance) .
 
 ## Dual-region configurations
 
-> **Note:** Dual-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
 Dual-region configurations let you replicate the database's data in multiple zones across two regions in a single country, as defined by the instance configuration.
 
@@ -110,7 +110,7 @@ Dual-region configurations do the following:
 - Meet data residency requirements.
 - Provide higher availability and SLAs than regional configurations.
 
-Spanner offers dual-region configurations in Australia, Germany, India, and Japan.
+Spanner offers dual-region configurations in Australia, Canada, Germany, India, and Japan.
 
 For information about the amount of throughput per Spanner node, see [Performance for dual-region configurations](https://docs.cloud.google.com/spanner/docs/performance#dual-region-performance) .
 
@@ -178,22 +178,30 @@ Failover and failback best practices include:
 
 You can't create a custom dual-region instance configuration, and you can't add read-only replicas to a dual-region instance configuration.
 
+### Performance best practices for dual-region configurations
+
+For optimal performance, follow these best practices:
+
+- [Design a schema](https://docs.cloud.google.com/spanner/docs/schema-design) that prevents hotspots and other performance issues.
+- For optimal write latency, place compute resources for write-heavy workloads within or close to the default leader region.
+- To avoid single-region dependency for your workloads, place critical compute resources in both regions of your dual-region configuration.
+- For information about the amount of throughput per Spanner node, see [Performance for dual-region configurations](https://docs.cloud.google.com/spanner/docs/performance#dual-region-performance) .
+
 ## Multi-region configurations
 
-> **Note:** Multi-region configurations are available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+> **Note:** This feature is available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
 
-Spanner regional configurations replicate data between multiple zones within a single region. However, a regional configuration might not be optimal if:
+Spanner base regional configurations replicate data between multiple zones within a single region. However, a base regional configuration might not be optimal if:
 
 - Your application often needs to read data from multiple geographic locations (for example, to serve data to users in both North America and Asia).
 - Your writes originate from a different location than your reads (for example, if you have large write workloads in North America and large read workloads in Europe).
 
-Multi-region configurations can:
+While you can add optional read-only replicas in other regions to a [custom regional configuration](https://docs.cloud.google.com/spanner/docs/instance-configurations#regional-replication) to serve low-latency stale reads in these scenarios, multi-region configurations can also:
 
-- Serve writes from multiple regions.
-- Maintain availability in the case of regional failures.
+- Maintain write availability across read-write regions with automatic leader failover during regional disruptions.
 - Provide higher availability and SLAs than regional configurations.
 
-Multi-region configurations let you replicate your databases in multiple zones across multiple regions, as defined by the instance configuration. Each multi-region configuration contains two read-write regions. A read-write region contains two read-write replicas located in separate zones. These replicas let you read data with lower latency from multiple locations close to or within the regions in the configuration.
+Multi-region configurations let you replicate your databases in multiple zones across multiple regions, as defined by the instance configuration. Most base multi-region configurations contain two read-write regions, each with two read-write replicas in separate zones, and one witness region. The exception is the `asia2` configuration, which has no witness region and instead contains three read-write regions: two regions with two read-write replicas each, and a third region with one read-write replica. These read-write replicas let you read data with lower latency from multiple locations close to or within the regions in the configuration.
 
 There are trade-offs though, because in a multi-region configuration, the quorum (read-write) replicas are spread across more than one region. You might notice additional network latency when these replicas communicate with each other to form a write quorum. Reads don't require a quorum. The result is that your application achieves faster reads in more places at the cost of a small increase in write latency. For more information, see [The role of replicas in writes and reads](https://docs.cloud.google.com/spanner/docs/replication#role-of-replicas) .
 
@@ -242,11 +250,11 @@ Spanner offers the following base multi-region instance configurations. To reque
 
 - *2RW+1W* : two read-write replicas and one witness replica in the region.
 
-- *1-OR* : one optional replica. You can create a custom instance configuration and add one optional read-only replica. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
+- *1-OR* : one optional replica. You can create a custom regional or multi-region instance configuration and add one optional read-only replica. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
 
-- *2-OR* : up to two optional replicas. You can create a custom instance configuration and add one or two optional read-only replicas. Where possible, consider adding two optional replicas to help maintain low read latency. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
+- *2-OR* : up to two optional replicas. You can create a custom regional or multi-region instance configuration and add one or two optional read-only replicas. Where possible, consider adding two optional replicas to help maintain low read latency. For more information, see [Create a custom instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) .
 
-- *A* : This instance configuration is restricted with an allow-list. To get access, reach out to your Technical Account Manager.
+- *A* : This instance configuration is restricted with an allowlist. To get access, contact your Technical Account Manager.
 
 The resource location of a multi-region configuration defines its disaster recovery zone guarantee. While this location sets the overall boundary for all data throughout its lifecycle, the data itself is only stored at rest within your selected replica locations.
 
@@ -258,11 +266,11 @@ Multi-region instances offer these primary benefits:
 
 - **Data distribution** : Spanner automatically replicates your data between regions with strong consistency. This lets you store your data where it's used, which can reduce latency and improve the user experience.
 
-- **External consistency** : Even though Spanner replicates across geographically distant locations, you can still use Spanner as if it were a database running on a single machine. Transactions are serializable, and the order of transactions within the database is the same as the order in which clients observe the transactions to have been committed. External consistency is a stronger property than "strong consistency", which is offered by some other products. For more information, see [TrueTime and external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) .
+- **External consistency** : Even though Spanner replicates across geographically distant locations, you can still use Spanner as if it were a database running on a single machine. Transactions are serializable, and the order of transactions within the database is the same as the order in which clients observe the transactions to have been committed. External consistency is a stronger property than "strong consistency," which is offered by some other products. Read more about this property in [TrueTime and external consistency](https://docs.cloud.google.com/spanner/docs/true-time-external-consistency) .
 
 ### Replication
 
-Each base multi-region configuration contains two regions that are designated as **read-write regions** , each of which contains two read-write replicas. One of these read-write regions is designated as the *default leader region* , which means that it contains your database's leader replicas. Spanner also places a witness replica in a third region called a **witness region** .
+Most base multi-region configurations contain two regions that are designated as **read-write regions** , each of which contains two read-write replicas. One of these read-write regions is designated as the *default leader region* , which means that it contains your database's leader replicas. Spanner also places a witness replica in a third region called a **witness region** . The exception is the `asia2` configuration, which places a fifth read-write replica in a third read-write region instead of using a witness region.
 
 Each time a client issues a mutation to your database, a write quorum forms, consisting of one of the replicas from the default leader region and any two of the additional four voting replicas. (The quorum could be formed by replicas from two or three of the regions that make up your configuration, depending on which other replicas participate in the vote.) In addition to these five voting replicas, some base multi-region configurations contain read-only replicas for serving low-latency reads. The regions that contain read-only replicas are called **read-only regions** .
 
@@ -270,7 +278,7 @@ In general, the voting regions in a multi-region configuration are placed geogra
 
 You can [create a custom multi-region instance configuration](https://docs.cloud.google.com/spanner/docs/create-manage-configurations#create-configuration) with optional read-only replicas. Any custom read-only replicas you create can't be included in write quorums and don't function as a standalone disaster recovery (DR) solution. Instance availability is determined by the quorum of voting replicas. If the Spanner instance goes offline, the read-only replicas also go offline shortly afterward and can't serve reads, including stale reads. You can add locations listed under the Optional Region column as optional read-only replicas. If your preferred read-only replica location isn't listed, you can [request a new optional read-only replica region](https://docs.google.com/forms/d/e/1FAIpQLSfw9Rj4p4KA8oLu7MhIpSyPRd-4qxqazwsFZIY-_tkNrpWFcw/viewform) . For more information, see [Read-only replicas](https://docs.cloud.google.com/spanner/docs/replication#read-only) .
 
-> **Note:** For more information about how Spanner replicates data and the roles of different replica types in reads and writes, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
+> **Note:** if you are interested in more detailed information about how data is replicated in Spanner, and about the different types of replicas and their roles in reads and writes, see [Replication](https://docs.cloud.google.com/spanner/docs/replication) .
 
 ### Performance best practices for multi-region configurations
 
@@ -285,19 +293,21 @@ For optimal performance, follow these best practices:
 
 ## Move an instance
 
-You can move your Spanner instance from any instance configuration to any other instance configuration, including between regional and multi-region configurations. Moving your instance doesn't cause downtime, and Spanner continues to provide the usual [transaction guarantees](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_properties) , including strong consistency, during the move.
+You can move your Spanner instance from any instance configuration to any other instance configuration, including between regional, dual-region, and multi-region configurations. Moving your instance doesn't cause downtime, and Spanner continues to provide the usual [transaction guarantees](https://docs.cloud.google.com/spanner/docs/transactions#rw_transaction_properties) , including strong consistency, during the move.
 
 For more information about moving a Spanner instance, see [Move an instance](https://docs.cloud.google.com/spanner/docs/move-instance) .
 
 ## Configure the default leader region
 
-You can change the default leader region for any Spanner database in a dual-region or multi-region instance to place the leader closer to connecting clients and reduce application latency. The leader region handles all database writes, so if most of your write traffic comes from one geographic region, you can move the leader region there. Updating the default leader region is cheap, doesn't involve any data moves, and takes a few minutes to take effect.
+To change the location of your database's default leader region to be closer to connecting clients to reduce application latency, you can change the leader region for any Spanner instance that uses a dual-region or multi-region configuration. For instructions on changing the location of the leader region, see [Change the leader region of a database](https://docs.cloud.google.com/spanner/docs/modifying-leader-region#changing_the_leader_region_of_a_db) . The only regions eligible to become the default leader region for your database are the read-write regions in your [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) configuration.
+
+The leader region is responsible for handling all database writes, therefore if most of your traffic comes from one geographic region, you can move it to that region to reduce latency. Updating the default leader region is a metadata operation that doesn't move data between regions. The new value takes a few minutes to take effect.
 
 The only regions eligible to become the default leader region for your database are the read-write regions in your [dual-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-dual) or [multi-region](https://docs.cloud.google.com/spanner/docs/instance-configurations#available-configurations-multi-region) configuration. For instructions, see [Change the leader region of a database](https://docs.cloud.google.com/spanner/docs/modifying-leader-region#changing_the_leader_region_of_a_db) .
 
 > **Note:** In the event that the default leader region fails or isn't available, Spanner automatically places your database's leader replicas in the second read-write region of your instance configuration, ensuring high availability and no impact to your application.
 
-Changing the default leader region is a [schema change](https://docs.cloud.google.com/spanner/docs/schema-updates) , which uses a long-running operation. If needed, you can [Get the status of the long-running operation](https://docs.cloud.google.com/spanner/docs/manage-long-running-operations#get_the_status_of_a_long-running_database_operation) .
+Changing the default leader region is a [schema change](https://docs.cloud.google.com/spanner/docs/schema-updates) , which uses a long-running operation. If needed, you can [check the progress of the long-running operation](https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations#check_the_progress_of_a_long-running_schema_update_operation) .
 
 ## Trade-offs: regional versus dual-region versus multi-region configurations
 

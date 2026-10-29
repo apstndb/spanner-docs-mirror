@@ -66,7 +66,7 @@ In VM deployments, download and extract the target release package, and then use
 
     Replace the following:
 
-    - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r4-lts` .
+    - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r4-lts.1` .
     - `EXTRACT_DIR` : The directory where you extract the release package, for example, `/tmp/target_spanner/` .
 
 3.  Initiate rollout preparation by running the `rollouts prepare` command from the extracted CLI:
@@ -104,7 +104,7 @@ In Helm deployments, schema preparation depends on whether you run a multi-serve
 
   - `POD_NAME` : The name of the server pod, for example, `spanner-a-0` .
   - `NAMESPACE` : The Kubernetes namespace of the deployment, for example, `spanner-ns` .
-  - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r4-lts` .
+  - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r4-lts.1` .
 
 ### Standalone Kubernetes
 
@@ -152,7 +152,7 @@ If you deploy Spanner Omni on Kubernetes without Helm, run a standalone Kubernet
     Replace the following:
 
     - `NAMESPACE` : The Kubernetes namespace of the deployment, for example, `spanner-ns` .
-    - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r4-lts` .
+    - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r4-lts.1` .
     - `ROOT_SERVER_ENDPOINT` : The endpoint of an active root server pod, for example, `spanner-a-0.pod.spanner-ns` .
 
 2.  Apply the manifest to run the preparation job:
@@ -271,7 +271,7 @@ Replace the following:
 
 - `CHART_VERSION` : The target Helm chart version, for example, `1.0.0` .
 - `NAMESPACE` : The Kubernetes namespace of the deployment, for example, `spanner-ns` .
-- `TARGET_VERSION` : The target container image tag, for example, `2026.r4-lts` .
+- `TARGET_VERSION` : The target container image tag, for example, `2026.r4-lts.1` .
 
 ### Standalone Kubernetes
 

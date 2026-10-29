@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/fgac-change-streams
 uri: https://docs.cloud.google.com/spanner/docs/fgac-change-streams
 title: Fine-grained access control for change streams
-description: Control access to Spanner change streams using FGAC and grant EXECUTE privilege on table-valued functions.
+description: Control access to Spanner change streams using fine-grained access control and grant EXECUTE privilege on table-valued functions.
 data_source: docs.cloud.google.com
 ---
 
@@ -90,7 +90,7 @@ Row filtering also applies to the following metadata views for change stream rea
 
 ## Caveats
 
-- Change streams use a metadata database to maintain internal state. The metadata database can be the same as or different from the application database. We recommend that you use a different database. However, for fine-grained access control users, the metadata database can't be the same as the application database. This is because the IAM principal that runs the Dataflow job needs read or write access at the database level for the metadata database. This would override the fine-grained access control privileges that were configured for the application database.
+- Change streams use a metadata database to maintain internal state. The metadata database can be the same as or different from the application database. We recommend that you use a different database. However, for fine-grained access control users, the metadata database can't be the same as the application database. This is because the Identity and Access Management (IAM) principal that runs the Dataflow job needs read or write access at the database level for the metadata database. This would override the fine-grained access control privileges that were configured for the application database.
 
   For more information, see [Consider a separate metadata database](https://docs.cloud.google.com/spanner/docs/change-streams/manage#why-metadata) .
 

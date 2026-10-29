@@ -33,7 +33,7 @@ If the on-demand rates change after you purchase a commitment, your commitment f
 
 Spanner CUDs automatically apply to your spending on Spanner compute capacity (as measured in nodes or processing units) across projects. This flexibility helps you achieve a high utilization rate of your commitment across regions and projects without manual intervention, saving you time and money.
 
-Spanner CUDs don't apply to your spending on Spanner storage, backup, Data Boost, or outbound data transfer.
+Spanner CUDs don't apply to your spending on Spanner storage, backup, Data Boost for Spanner, or outbound data transfer.
 
 For a list of applicable SKUs, see [Spanner CUD Eligible SKUs](https://cloud.google.com/skus/sku-groups/cloud-spanner-cud-eligible-skus) .
 
@@ -69,7 +69,7 @@ Use the [Spanner pricing page](https://cloud.google.com/spanner/pricing) to get 
 
 Based on the results, you can make a commitment amount of `$24.48` per hour to achieve the 20% discount and see the total savings over 1 year:
 
-- Total 1-year committment savings: On-demand cost per month \$22,338 - 1-year commitment cost per month \$17,870.40 = \$4467.60 \* 12 months = **\$53,611.20** .
+- Total 1-year commitment savings: On-demand cost per month \$22,338 - 1-year commitment cost per month \$17,870.40 = \$4467.60 \* 12 months = **\$53,611.20** .
 
 ### Calculate the 3-year commitment cost and discount
 
@@ -82,7 +82,7 @@ Use the [Spanner pricing page](https://cloud.google.com/spanner/pricing) to get 
 
 Based on the results, you can make a commitment amount of `$18.36` per hour to achieve the 40% discount and see the total savings over 3 years:
 
-- Total 3-year committment savings: On-demand cost per month \$22,338 - 3-year commitment cost per month \$13,402.80 = \$8935.20 \* 36 months = **\$321,667.20** .
+- Total 3-year commitment savings: On-demand cost per month \$22,338 - 3-year commitment cost per month \$13,402.80 = \$8935.20 \* 36 months = **\$321,667.20** .
 
 ## Recommendations for choosing a commitment
 

@@ -76,7 +76,7 @@ If you create a locality group without a tiered storage policy, the locality gro
 
 ### gcloud
 
-To create a locality group with the gcloud CLI command, use [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To create a locality group with the Google Cloud CLI command, use [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, you can run the following to create a locality group, `separate_storage` , that stores columns in a separate file than the data for the rest of the columns:
 

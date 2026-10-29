@@ -1745,7 +1745,7 @@ and queue_option is:
 
 `Payload`
 
-- The required payload column containing the message content. The column must be named `Payload` (case-insensitive) and defined as `NOT NULL` . The `Payload` column cannot be part of the primary key.
+- The required payload column containing the message content. The column must be named `Payload` or `payload` and defined as `NOT NULL` . The `Payload` column cannot be part of the primary key.
 
 ***`payload_type`***
 

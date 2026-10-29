@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries
 uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries
 title: Run federated queries with Data Boost
-description: Run high-performance, serverless queries on Spanner using Spanner Data Boost from BigQuery or Dataflow.
+description: Run high-performance, serverless queries on Spanner using Data Boost from BigQuery or Dataflow.
 data_source: docs.cloud.google.com
 ---
 
@@ -23,7 +23,7 @@ Before you can run federated queries with Data Boost, you need to complete the f
 
 - [Enable the BigQuery connection API](https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries#enable-bqconnect-API) .
 
-- [Grant the required IAM permissions](https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries#grant-databoost-perms) .
+- [Grant the required Identity and Access Management (IAM) permissions](https://docs.cloud.google.com/spanner/docs/databoost/databoost-run-queries#grant-databoost-perms) .
 
 ### Create a Spanner instance and database
 
@@ -46,9 +46,9 @@ For more information, see [BigQuery connection API](https://docs.cloud.google.co
 A principal must be granted the following permissions to run federated queries with Data Boost:
 
 - `spanner.instances.get` - lets you get the configuration of an instance.
-- `spanner.databases.useDataBoost` - lets you use the [Spanner Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) compute resources to process [partitioned queries](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) .
+- `spanner.databases.useDataBoost` - lets you use the [Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) compute resources to process [partitioned queries](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) .
 
-For more information about Spanner permissions, see [Identity and Access Management (IAM) permissions](https://docs.cloud.google.com/spanner/docs/iam#permissions) .
+For more information about Spanner permissions, see [IAM permissions](https://docs.cloud.google.com/spanner/docs/iam#permissions) .
 
 To grant these required permissions, we recommend that you use the `Cloud Spanner Database Reader With DataBoost` ( `roles/spanner.databaseReaderWithDataBoost` ) IAM role. You can add that role to any principal that needs to run federated queries with Data Boost. To learn more about predefined roles in Spanner, see [Predefined roles](https://docs.cloud.google.com/spanner/docs/iam#roles) . To learn how to create a custom IAM role, see [Create a custom role](https://docs.cloud.google.com/iam/docs/creating-custom-roles#creating) .
 

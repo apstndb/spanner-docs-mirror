@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/databoost/databoost-export
 uri: https://docs.cloud.google.com/spanner/docs/databoost/databoost-export
 title: Export data with Data Boost
-description: Export data from Spanner using Spanner Data Boost with Dataflow for high-performance, serverless offline access.
+description: Export data from Spanner using Data Boost with Dataflow for high-performance, serverless offline access.
 data_source: docs.cloud.google.com
 ---
 
