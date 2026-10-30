@@ -236,7 +236,7 @@ https://docs.cloud.google.com/spanner/docs/dml-tasks	2026-10-28T23:59:56Z
 https://docs.cloud.google.com/spanner/docs/dml-versus-mutations	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/drivers-overview	2026-10-28T23:59:56Z
 https://docs.cloud.google.com/spanner/docs/editions-overview	2026-10-28T23:59:56Z
-https://docs.cloud.google.com/spanner/docs/emulator	2026-10-28T23:59:56Z
+https://docs.cloud.google.com/spanner/docs/emulator	2026-10-29T20:50:16Z
 https://docs.cloud.google.com/spanner/docs/encryption-in-transit	2026-10-28T23:59:56Z
 https://docs.cloud.google.com/spanner/docs/endpoints	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/error-codes	2026-10-07T09:39:47Z
@@ -266,8 +266,8 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-resu
 https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes	2026-10-26T14:30:56Z
+https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search	2026-10-29T22:25:55Z
+https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes	2026-10-29T16:16:06Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-vs-secondary-index	2026-10-07T09:41:07Z
@@ -335,7 +335,7 @@ https://docs.cloud.google.com/spanner/docs/index-geo-partitioning	2026-10-07T09:
 https://docs.cloud.google.com/spanner/docs/information-schema	2026-10-27T05:00:12Z
 https://docs.cloud.google.com/spanner/docs/information-schema-pg	2026-10-27T05:00:12Z
 https://docs.cloud.google.com/spanner/docs/install-mysql-functions	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-10-29T00:31:35Z
+https://docs.cloud.google.com/spanner/docs/instance-configurations	2026-10-29T22:07:31Z
 https://docs.cloud.google.com/spanner/docs/instances	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/integrate-google-cloud-platform	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/introspection	2026-10-07T09:40:19Z
@@ -864,7 +864,7 @@ https://docs.cloud.google.com/spanner/docs/signal-capture-overview	2026-10-07T09
 https://docs.cloud.google.com/spanner/docs/spanner-ai-overview	2026-10-07T09:40:03Z
 https://docs.cloud.google.com/spanner/docs/spanner-cli	2026-10-07T09:40:03Z
 https://docs.cloud.google.com/spanner/docs/spanner-cli-commands	2026-10-07T09:40:03Z
-https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints	2026-10-06T17:11:33Z
+https://docs.cloud.google.com/spanner/docs/spanner-custom-constraints	2026-10-29T16:56:38Z
 https://docs.cloud.google.com/spanner/docs/sql-best-practices	2026-10-24T22:45:57Z
 https://docs.cloud.google.com/spanner/docs/statement-timeout	2026-10-23T08:18:29Z
 https://docs.cloud.google.com/spanner/docs/storage-utilization	2026-10-07T09:40:03Z

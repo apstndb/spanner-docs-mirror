@@ -196,7 +196,7 @@ The following table lists the versions of the [client libraries](https://docs.cl
 | Python         | [v1.15.0+](https://github.com/googleapis/google-cloud-python/releases) |
 | Ruby           | [v1.13.0+](https://github.com/googleapis/google-cloud-ruby/releases)   |
 
-### Additional instructions for C
+### Additional instructions for C#
 
 For the C# client library, specify the [`emulatordetection`](https://docs.cloud.google.com/dotnet/docs/reference/Google.Api.Gax/latest/Google.Api.Gax.EmulatorDetection) option in the [connection string](https://docs.cloud.google.com/dotnet/docs/reference/Google.Cloud.Spanner.Data/latest/connection_string) . Unlike the other client libraries, C# ignores the `SPANNER_EMULATOR_HOST` environment variable by default. The following example shows the connection string:
 

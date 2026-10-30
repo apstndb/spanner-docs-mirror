@@ -452,6 +452,8 @@ A timestamp is often used to determine the sort order. A common practice is to u
 
 Applications usually retrieve the newest data first using a search index that's sorted in descending order.
 
+Because the sort order column is part of the `docid` key in the underlying secondary index and token indexes, whenever its value changes in the base table, Spanner must rewrite the corresponding secondary index row and all associated token index rows, which incurs write overhead. If the sort order value changes frequently, consider omitting that column from `ORDER BY` or using a less granular value. For example, if an `UpdateTime` column is updated every few seconds, you can use a generated column that buckets the timestamp to the hour, such as `UpdateTimeHours INT64 AS (UNIX_SECONDS(TIMESTAMP_TRUNC(UpdateTime, HOUR))) STORED` (or `updatetimehours bigint GENERATED ALWAYS AS (EXTRACT(EPOCH FROM updatetime - '1970-01-01Z'::timestamptz)::bigint / 3600) STORED` in PostgreSQL).
+
 ## NULL-filtered search indexes
 
 Search indexes can use the `WHERE `` column_name `` IS NOT NULL` syntax to exclude base table rows. NULL filtering can apply to partitioning keys, sort order columns, and stored columns. NULL filtering on stored array columns isn't allowed.

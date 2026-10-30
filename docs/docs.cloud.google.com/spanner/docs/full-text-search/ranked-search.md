@@ -178,6 +178,8 @@ The scorer algorithm is updated periodically. Each release bundles a set of scor
 
 You can set the default scorer version for your database, or you can specify a version for a specific query.
 
+If you don't specify a scorer version for your database or query, the default scorer version updates automatically when a later version is released.
+
 ### Set the database's default scorer version
 
 You can set the default version of the scorer algorithm for your database. This option determines which version of the scoring algorithm Spanner uses when the `SCORE` function is called without an explicit `version` score option.
