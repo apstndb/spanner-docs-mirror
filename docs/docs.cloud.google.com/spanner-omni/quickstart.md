@@ -23,7 +23,7 @@ To set up and run a Spanner Omni container, follow these steps:
 2.  Start the Spanner Omni server:
 
     ```
-    docker run -d --network host --name spanneromni -v "spanner:/spanner" us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r4-lts.1 start-single-server
+    docker run -d --network host --name spanneromni -v "spanner:/spanner" us-docker.pkg.dev/spanner-omni/images/spanner-omni:2026.r5 start-single-server
     ```
 
     The `--network host` flag opens the ports for Spanner Omni on the host machine. The following table describes the ports used by Spanner Omni:

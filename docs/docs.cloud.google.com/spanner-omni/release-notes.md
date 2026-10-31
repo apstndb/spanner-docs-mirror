@@ -10,6 +10,12 @@ This page documents production updates to Spanner Omni. Check this page for anno
 
 You can see the latest product updates for all of Google Cloud on the [Google Cloud](https://docs.cloud.google.com/release-notes) page, browse and filter all release notes in the [Google Cloud console](https://console.cloud.google.com/release-notes) , or programmatically access release notes in [BigQuery](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=google_cloud_release_notes&t=release_notes&page=table) .
 
+## October 28, 2026
+
+Fixed
+
+Spanner Omni patch release `2026.r4-lts.1` is available. This patch includes security and other critical bug fixes.
+
 ## September 30, 2026
 
 Feature

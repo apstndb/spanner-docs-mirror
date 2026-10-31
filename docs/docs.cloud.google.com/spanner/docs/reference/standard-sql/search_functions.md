@@ -158,6 +158,8 @@ Calculates a relevance score of a `TOKENLIST` for a full-text search query. The 
 
 The scorer algorithm is periodically updated. After a short evaluation period, the default behavior updates to the newest version. You are encouraged to leave the version unspecified so that your database can benefit from improvements to the scorer algorithm. However, you can set the version number in the `options` argument to retain old behavior. You can also use the `score_version` database option to set the default scorer version for your database. If the `version` parameter is present in a request, it overrides the `score_version` setting.
 
+When the scorer version updates, raw score values and the relative ranking order of search results can change. Paginated queries in flight at the moment of a version switch (where an earlier page uses one version and a later page uses another) might also experience a one-time discontinuity, such as dropped or repeated results; pagination started after the switch is consistent. Because scorer version updates are infrequent and any pagination discontinuity is transient, no action is needed for most applications. If necessary, you can use the `score_version` database option or the `version` parameter in the `SCORE` function's `options` argument to adopt a later version on your own schedule or temporarily retain an earlier version. However, leaving a version permanently pinned prevents your database from automatically receiving future scorer improvements.
+
 - **2** (2025-08):
 
   - When `enhance_query` is true, hits on synonyms are now demoted based on confidence in the synonym's accuracy.
