@@ -131,7 +131,7 @@ https://docs.cloud.google.com/spanner-omni/pgadapter	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/prometheus-alerts	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/python	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/quickstart	2026-10-30T23:31:37Z
-https://docs.cloud.google.com/spanner-omni/release-notes	2026-10-30T23:31:37Z
+https://docs.cloud.google.com/spanner-omni/release-notes	2026-10-31T21:40:02Z
 https://docs.cloud.google.com/spanner-omni/replicate-data	2026-10-22T17:11:49Z
 https://docs.cloud.google.com/spanner-omni/resources	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/restores	2026-10-22T17:11:49Z
@@ -204,7 +204,7 @@ https://docs.cloud.google.com/spanner/docs/cpu-utilization	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-configurations	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-data-placements	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-databases	2026-10-29T00:26:59Z
-https://docs.cloud.google.com/spanner/docs/create-manage-instances	2026-10-29T00:26:59Z
+https://docs.cloud.google.com/spanner/docs/create-manage-instances	2026-10-31T21:37:58Z
 https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups	2026-10-29T00:26:59Z
 https://docs.cloud.google.com/spanner/docs/create-manage-partitions	2026-10-29T00:26:59Z
 https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries	2026-10-23T06:22:23Z
@@ -282,7 +282,7 @@ https://docs.cloud.google.com/spanner/docs/getting-started/csharp	2026-10-01T01:
 https://docs.cloud.google.com/spanner/docs/getting-started/database_sql	2026-10-01T01:25:14Z
 https://docs.cloud.google.com/spanner/docs/getting-started/gcloud	2026-10-28T23:23:13Z
 https://docs.cloud.google.com/spanner/docs/getting-started/go	2026-10-01T01:25:14Z
-https://docs.cloud.google.com/spanner/docs/getting-started/java	2026-09-19T08:28:27Z
+https://docs.cloud.google.com/spanner/docs/getting-started/java	2026-10-31T21:40:02Z
 https://docs.cloud.google.com/spanner/docs/getting-started/jdbc	2026-10-01T01:25:14Z
 https://docs.cloud.google.com/spanner/docs/getting-started/nodejs	2026-10-01T01:25:14Z
 https://docs.cloud.google.com/spanner/docs/getting-started/pgadapter	2026-10-01T01:23:43Z
@@ -474,7 +474,7 @@ https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/node-centr
 https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/node-similarity/pairwise-node-similarity	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/overview	2026-10-01T01:24:09Z
 https://docs.cloud.google.com/spanner/docs/reference/graph-algorithms/traversal/shortest-paths	2026-10-01T01:24:09Z
-https://docs.cloud.google.com/spanner/docs/reference/libraries	2026-10-01T01:24:09Z
+https://docs.cloud.google.com/spanner/docs/reference/libraries	2026-10-31T21:38:15Z
 https://docs.cloud.google.com/spanner/docs/reference/mcp	2026-10-01T01:23:43Z
 https://docs.cloud.google.com/spanner/docs/reference/mcp/databaseinsights/mcp	2026-04-16T16:08:44Z
 https://docs.cloud.google.com/spanner/docs/reference/mcp/databaseinsights/mcp/tools_list/get_system_metrics	2026-04-16T16:08:44Z
@@ -888,7 +888,7 @@ https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl	2026-10-07T09:42
 https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-active-record	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-ado-net	2026-10-07T09:43:42Z
-https://docs.cloud.google.com/spanner/docs/use-cmek	2026-10-07T09:43:42Z
+https://docs.cloud.google.com/spanner/docs/use-cmek	2026-10-31T21:41:43Z
 https://docs.cloud.google.com/spanner/docs/use-database-insights-mcp	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-entity-framework	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-golang-database-sql	2026-10-07T09:43:42Z

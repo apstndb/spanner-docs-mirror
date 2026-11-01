@@ -32,6 +32,58 @@ In particular, make sure that you run [`gcloud auth application-default login`](
 
 ## Prepare your local Java environment
 
+To get started using Spanner in your own application, add the client library to your project dependencies:
+
+> **Note:** If your application uses the Spring Framework, a [Spring Data module](https://docs.cloud.google.com/spanner/docs/adding-spring) is also available.
+
+If you are using [Maven](https://maven.apache.org/) , add the following to your `pom.xml` file. For more information about BOMs, see [The Google Cloud Platform Libraries BOM](https://cloud.google.com/java/docs/bom) .
+
+```java
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>libraries-bom</artifactId>
+      <version>26.90.0</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+
+<dependencies>
+  <dependency>
+    <groupId>com.google.cloud</groupId>
+    <artifactId>google-cloud-spanner</artifactId>
+  </dependency>
+</dependencies>
+```
+
+If you are using [Gradle](https://gradle.org/) , add the following to your dependencies:
+
+```java
+implementation platform('com.google.cloud:libraries-bom:26.90.0')
+
+implementation 'com.google.cloud:google-cloud-spanner'
+```
+
+If you are using [sbt](https://www.scala-sbt.org/) , add the following to your dependencies:
+
+```java
+libraryDependencies += "com.google.cloud" % "google-cloud-spanner" % "6.125.0"
+```
+
+If you're using Visual Studio Code or IntelliJ, you can add client libraries to your project using the following IDE plugins:
+
+- [Cloud Code for VS Code](https://docs.cloud.google.com/code/docs/vscode/client-libraries)
+- [Cloud Code for IntelliJ](https://docs.cloud.google.com/code/docs/intellij/client-libraries)
+
+The plugins provide additional functionality, such as key management for service accounts. Refer to each plugin's documentation for details.
+
+> **Note:** Cloud Java client libraries do not currently support Android.
+
+Alternatively, if you want to run the sample application used in this tutorial, follow these steps to prepare your local environment:
+
 1.  Install the following on your development machine if they are not already installed:
 
     - Java 8 JDK ( [download](http://openjdk.java.net/) ).
