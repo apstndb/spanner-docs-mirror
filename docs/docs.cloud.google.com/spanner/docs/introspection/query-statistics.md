@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/introspection/query-statistics
 uri: https://docs.cloud.google.com/spanner/docs/introspection/query-statistics
 title: Query statistics
-description: Analyze query statistics in Spanner to identify frequently executed or high-latency queries for optimization.
+description: Analyze query statistics in Spanner to identify high-latency or frequently executed queries and optimize database performance.
 data_source: docs.cloud.google.com
 ---
 
@@ -304,15 +304,64 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <td></td>
 </tr>
 <tr class="even">
+<td><code>AVG_COLUMNAR_READ_SHARE</code></td>
+<td><code>FLOAT64</code></td>
+<td><p>The average percentage of bytes read from columnar storage out of total bytes read from both row-based and columnar storage, expressed as a fraction between 0 and 1.</p>
+<p>Use this statistic to monitor columnar engine usage in queries. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine">Monitor columnar engine performance</a> .</p></td>
+<td></td>
+</tr>
+<tr class="odd">
 <td><code>QUERY_OPTIMIZER_VERSIONS</code></td>
 <td><code>ARRAY&lt;INT64&gt;</code></td>
 <td><p>The versions of the query optimizer used for the queries in this time window.</p></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>STATISTICS_PACKAGE_NAMES</code></td>
 <td><code>ARRAY&lt;STRING&gt;</code></td>
 <td><p>The names of the statistics packages used for the queries in this time window.</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>CPU_SECONDS_DISTRIBUTION</code></td>
+<td><code>ARRAY&lt;STRUCT&gt;</code></td>
+<td><p>A histogram of the CPU time that Spanner spent across all operations to execute the query. Values are measured in seconds.</p>
+<blockquote>
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>CPU_SECONDS_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
+<p>The array has the following structure:<br />
+<code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code></p>
+<p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
+<p>To calculate CPU second percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>CPU_SECONDS_DISTRIBUTION_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#cpu-seconds-distribution-1"><code>CPU_SECONDS_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#cpu-seconds-distribution-1"><code>CPU_SECONDS_DISTRIBUTION</code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>To calculate CPU second percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function.</p></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>ROW_SCANNED_DISTRIBUTION</code></td>
+<td><code>ARRAY&lt;STRUCT&gt;</code></td>
+<td><p>A histogram of the number of rows scanned by the query, excluding deleted values.</p>
+<blockquote>
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>ROW_SCANNED_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
+<p>The array has the following structure:<br />
+<code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code></p>
+<p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
+<p>To calculate percentiles for rows scanned from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>ROW_SCANNED_DISTRIBUTION_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#row-scanned-distribution-1"><code>ROW_SCANNED_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#row-scanned-distribution-1"><code>ROW_SCANNED_DISTRIBUTION</code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>To calculate percentiles for rows scanned from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function.</p></td>
 <td></td>
 </tr>
 </tbody>
@@ -464,6 +513,50 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <p>To calculate the percentile latency from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#example-percentile-latency">Find the 99th percentile latency for queries using the <code>LATENCY_DISTRIBUTION_JSON_STRING</code> column</a> .</p>
 <p>For more information, see <a href="https://docs.cloud.google.com/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
 </tr>
+<tr class="odd">
+<td><code>AVG_COLUMNAR_READ_SHARE</code></td>
+<td><code>FLOAT64</code></td>
+<td><p>The average percentage of bytes read from columnar storage out of total bytes read from both row-based and columnar storage, expressed as a fraction between 0 and 1.</p>
+<p>Use this statistic to monitor columnar engine usage in queries. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/monitor-columnar-engine">Monitor columnar engine performance</a> .</p></td>
+</tr>
+<tr class="even">
+<td><code>CPU_SECONDS_DISTRIBUTION</code></td>
+<td><code>ARRAY&lt;STRUCT&gt;</code></td>
+<td><p>A histogram of the CPU time that Spanner spent across all operations to execute the query. Values are measured in seconds.</p>
+<blockquote>
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>CPU_SECONDS_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
+<p>The array has the following structure:<br />
+<code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code></p>
+<p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
+<p>To calculate CPU second percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="odd">
+<td><code>CPU_SECONDS_DISTRIBUTION_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#cpu-seconds-distribution-2"><code>CPU_SECONDS_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#cpu-seconds-distribution-2"><code>CPU_SECONDS_DISTRIBUTION</code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>To calculate CPU second percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="even">
+<td><code>ROW_SCANNED_DISTRIBUTION</code></td>
+<td><code>ARRAY&lt;STRUCT&gt;</code></td>
+<td><p>A histogram of the number of rows scanned by the query, excluding deleted values.</p>
+<blockquote>
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>ROW_SCANNED_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
+<p>The array has the following structure:<br />
+<code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code></p>
+<p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
+<p>To calculate percentiles for rows scanned from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="odd">
+<td><code>ROW_SCANNED_DISTRIBUTION_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#row-scanned-distribution-2"><code>ROW_SCANNED_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/query-statistics#row-scanned-distribution-2"><code>ROW_SCANNED_DISTRIBUTION</code></a> column.</p>
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
+<p>To calculate percentiles for rows scanned from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function.</p></td>
+</tr>
 </tbody>
 </table>
 
@@ -545,7 +638,7 @@ SELECT interval_end,
 FROM spanner_sys.query_stats_total_minute
 WHERE interval_end =
   (SELECT MAX(interval_end)
-   FROM spanner_sys.query_stats_top_minute);
+   FROM spanner_sys.query_stats_total_minute);
 ```
 
 ### Find the average latency for a query

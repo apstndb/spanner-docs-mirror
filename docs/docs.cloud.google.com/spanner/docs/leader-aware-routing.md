@@ -38,6 +38,13 @@ Leader-aware routing is enabled by default in the Spanner client libraries.
 
 We recommend processing your read-write requests with leader-aware routing enabled. You can disable it to compare performance differences.
 
+### Leader-aware routing with geo-partitioning
+
+When you use [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) to partition your database across multiple data placements, Spanner evaluates all instance configurations used by your database's placements—including the default placement—when routing requests. Spanner selects a [Cloud Spanner API frontend](https://docs.cloud.google.com/spanner/docs/latency-points#spanner-api-requests) colocated with the placement region nearest to the client. This selection is independent of whether that placement or its data is used in a particular transaction. Spanner routes read-write transactions as follows:
+
+- **With leader-aware routing enabled** : Each placement has its own leader region (or default leader region for dual-region and multi-region configurations). Spanner routes read-write transactions to the Cloud Spanner API frontend in the leader region that's closest to the client.
+- **With leader-aware routing disabled** : Spanner routes read-write transactions to the Cloud Spanner API frontend in the closest serving region across all of your database's placements.
+
 ### Enable leader-aware routing
 
 You can use the Spanner client libraries to enable leader-aware routing manually.

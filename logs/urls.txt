@@ -345,7 +345,7 @@ https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics	20
 https://docs.cloud.google.com/spanner/docs/introspection/investigate-cpu-utilization	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics	2026-10-10T21:26:50Z
 https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries	2026-10-07T09:39:54Z
-https://docs.cloud.google.com/spanner/docs/introspection/query-statistics	2026-10-07T09:39:54Z
+https://docs.cloud.google.com/spanner/docs/introspection/query-statistics	2026-11-02T20:33:09Z
 https://docs.cloud.google.com/spanner/docs/introspection/read-statistics	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics	2026-10-27T21:34:32Z
@@ -366,7 +366,7 @@ https://docs.cloud.google.com/spanner/docs/langchain	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/latency-metrics	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/latency-points	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/launch-checklist	2026-10-14T19:25:09Z
-https://docs.cloud.google.com/spanner/docs/leader-aware-routing	2026-10-07T09:39:33Z
+https://docs.cloud.google.com/spanner/docs/leader-aware-routing	2026-11-02T23:55:26Z
 https://docs.cloud.google.com/spanner/docs/llama-index	2026-10-01T01:22:58Z
 https://docs.cloud.google.com/spanner/docs/load-sample-data	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/manage-and-observe-long-running-operations	2026-10-07T09:39:33Z
