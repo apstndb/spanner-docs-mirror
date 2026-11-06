@@ -2735,3 +2735,81 @@ def spanner_postgresql_drop_sequence project_id:, instance_id:, database_id:
   puts "Altered Customers table to drop DEFAULT from CustomerId column and dropped the Seq sequence"
 end
 ```
+
+## Using sequences with geo-partitioning
+
+You can use Spanner sequences to auto-generate primary keys for placement and interleaved tables. This functionality is independent of the table's underlying structure (standard or geo-partitioned). For additional information, see the article [Simplifying best practices at scale with auto-generated keys in Spanner](https://cloud.google.com/blog/products/databases/announcing-support-for-auto-generated-keys-in-spanner) .
+
+If you're using geo-partitioning, we recommend using UUIDs instead of sequences if the tail latency of inserts is a concern for your application. For more information about latency, see [Latency](https://docs.cloud.google.com/spanner/docs/sequence-tasks#latency) in this document. While Spanner sequences are ideal for migrating existing schemas or application code, UUID keys are recommended for applications due to their interoperability and flexibility.
+
+The process for applying sequences is the same for standard and geo-partitioned tables. To demonstrate how sequences can facilitate automatic column generation using geo-partitioning, consider the following example:
+
+### Example
+
+Spanner supports only bit-reversed sequences, which prevent hotspots when assigning key parts.
+
+The following example creates a sequence called `UserIdSequence` , creates a table called `Locations` with a placement key, and creates a child table called `Users` interleaved in `Locations` where the `UserId` column uses the sequence for its default value:
+
+### GoogleSQL
+
+```
+-- Sequence for generating unique UserIds
+CREATE SEQUENCE UserIdSequence
+OPTIONS (
+  sequence_kind = 'bit_reversed_positive'
+);
+
+CREATE TABLE Locations (
+  Location STRING(MAX) NOT NULL PLACEMENT KEY
+) PRIMARY KEY (Location);
+
+CREATE TABLE Users (
+  Location STRING(MAX) NOT NULL,
+  UserId   INT64 NOT NULL DEFAULT (GET_NEXT_SEQUENCE_VALUE(SEQUENCE UserIdSequence)),
+  Name     STRING(MAX),
+  Email    STRING(MAX)
+) PRIMARY KEY (Location, UserId),
+  INTERLEAVE IN PARENT Locations ON DELETE CASCADE;
+```
+
+### PostgreSQL
+
+```
+-- Sequence for generating unique UserIds
+CREATE SEQUENCE UserIdSequence BIT_REVERSED_POSITIVE;
+
+CREATE TABLE Locations (
+  Location varchar(1024) NOT NULL PLACEMENT KEY,
+  PRIMARY KEY (Location)
+);
+
+CREATE TABLE Users (
+  Location varchar(1024) NOT NULL,
+  UserId   bigint NOT NULL DEFAULT nextval('UserIdSequence'),
+  Name     text,
+  Email    text,
+  PRIMARY KEY (Location, UserId)
+) INTERLEAVE IN PARENT Locations ON DELETE CASCADE;
+```
+
+When you insert a row without specifying `UserId` , Spanner gets the next unique value from `UserIdSequence` and uses it for `UserId` . You can also use the `THEN RETURN` clause (GoogleSQL) or `RETURNING` clause (PostgreSQL) in the `INSERT` statement to retrieve the generated `UserId` :
+
+### GoogleSQL
+
+```
+INSERT INTO Users (Location, Name, Email)
+VALUES ('us', 'John Doe', 'john@example.com')
+THEN RETURN UserId;
+```
+
+### PostgreSQL
+
+```
+INSERT INTO Users (Location, Name, Email)
+VALUES ('us', 'John Doe', 'john@example.com')
+RETURNING UserId;
+```
+
+### Latency
+
+When you insert values into geo-partitioned tables using sequences, you might cause high tail latency because of occasional coordination with system tables in the default placement, which stores the sequence counter. The exact tail latency increase depends on the distance between the client and the default partition, which might be hundreds of milliseconds (for example, if the client is in Europe and the default partition is in the US).

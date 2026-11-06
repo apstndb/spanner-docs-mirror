@@ -91,7 +91,7 @@ If you use Maven, add the following dependency to your `pom.xml` file:
 <dependency>
   <groupId>com.google.cloud</groupId>
   <artifactId>google-cloud-spanner-pgadapter</artifactId>
-  <version>0.56.1</version>
+  <version>0.56.2</version>
 </dependency>
 ```
 

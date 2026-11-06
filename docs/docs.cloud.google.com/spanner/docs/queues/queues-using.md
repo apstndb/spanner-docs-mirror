@@ -147,7 +147,7 @@ Your client code should iterate through the results using a streaming query. Eac
 
 ## Receive messages in a batch
 
-To increase throughput by processing multiple messages together, you can receive messages in batches by specifying the `max_batch_size` argument:
+To increase throughput by processing multiple messages together, you can receive messages in batches by specifying the `max_batch_size` argument. If you omit `max_batch_size` or set it to `NULL` , the default value is `30` :
 
 ### GoogleSQL
 
