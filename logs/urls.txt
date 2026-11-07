@@ -262,11 +262,11 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/fuzzy-search	2026-10
 https://docs.cloud.google.com/spanner/docs/full-text-search/json-indexes	2026-10-13T01:17:55Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/mix-full-text-and-non-text-queries	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/numeric-indexes	2026-10-26T14:30:56Z
-https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results	2026-10-07T09:41:07Z
+https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results	2026-11-06T19:35:31Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search	2026-10-29T22:25:55Z
+https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search	2026-11-06T19:35:31Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes	2026-10-29T16:16:06Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement	2026-10-07T09:41:07Z

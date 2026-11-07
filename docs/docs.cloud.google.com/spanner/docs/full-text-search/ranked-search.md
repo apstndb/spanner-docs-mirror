@@ -180,6 +180,8 @@ You can set the default scorer version for your database, or you can specify a v
 
 If you don't specify a scorer version for your database or query, the default scorer version updates automatically when a later version is released.
 
+If you paginate ranked search results, scorer version changes can cause skipped or repeated rows across pages. For more information, see [Paginate ranked search results](https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results#paginate_ranked_search_results) .
+
 ### Set the database's default scorer version
 
 You can set the default version of the scorer algorithm for your database. This option determines which version of the scoring algorithm Spanner uses when the `SCORE` function is called without an explicit `version` score option.
