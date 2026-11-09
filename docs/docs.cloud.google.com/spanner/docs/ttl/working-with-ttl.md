@@ -228,7 +228,7 @@ CREATE TABLE Customers (
 ) PRIMARY KEY (CustomerID);
 ```
 
-For more information, see [DEFAULT (expression)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language.md#spanner-default-clause) .
+For more information, see [DEFAULT (expression)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#spanner-default-clause) .
 
 ### PostgreSQL
 

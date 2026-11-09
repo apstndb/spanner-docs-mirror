@@ -844,7 +844,6 @@ https://docs.cloud.google.com/spanner/docs/samples/spanner-update-graph-data-wit
 https://docs.cloud.google.com/spanner/docs/samples/spanner-write-data-for-struct-queries	2026-10-01T01:24:24Z
 https://docs.cloud.google.com/spanner/docs/saved-queries	2026-10-23T06:22:23Z
 https://docs.cloud.google.com/spanner/docs/schema-and-data-model	2026-10-07T09:40:03Z
-https://docs.cloud.google.com/spanner/docs/schema-design	2026-10-07T09:40:03Z
 https://docs.cloud.google.com/spanner/docs/schema-drop-protection	2026-10-01T01:24:59Z
 https://docs.cloud.google.com/spanner/docs/schema-migration	2026-10-07T09:40:03Z
 https://docs.cloud.google.com/spanner/docs/schema-updates	2026-10-07T09:40:03Z
@@ -884,7 +883,7 @@ https://docs.cloud.google.com/spanner/docs/troubleshooting-query-performance-reg
 https://docs.cloud.google.com/spanner/docs/true-time-external-consistency	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/ttl	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/ttl/monitoring-and-metrics	2026-10-07T09:42:01Z
-https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl	2026-10-07T09:42:01Z
+https://docs.cloud.google.com/spanner/docs/ttl/working-with-ttl	2026-11-09T04:32:15Z
 https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-active-record	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-ado-net	2026-10-07T09:43:42Z
