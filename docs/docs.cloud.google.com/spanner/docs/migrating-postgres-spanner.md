@@ -42,12 +42,12 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 <tbody>
 <tr class="odd">
 <td><code>Bigint</code>
-<code>int8</code></td>
+<p><code>int8</code></p></td>
 <td><code>INT64</code></td>
 </tr>
 <tr class="even">
 <td><code>Bigserial</code>
-<code>serial8</code></td>
+<p><code>serial8</code></p></td>
 <td><code>INT64</code>
 <blockquote>
 <strong>Note:</strong> There is no auto-increment capability in Spanner.
@@ -59,12 +59,12 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 </tr>
 <tr class="even">
 <td><code>bit varying [ (n) ]</code>
-<code>varbit [ (n) ]</code></td>
+<p><code>varbit [ (n) ]</code></p></td>
 <td><code>ARRAY&lt;BOOL&gt;</code></td>
 </tr>
 <tr class="odd">
 <td><code>Boolean</code>
-<code>bool</code></td>
+<p><code>bool</code></p></td>
 <td><code>BOOL</code></td>
 </tr>
 <tr class="even">
@@ -77,12 +77,12 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 </tr>
 <tr class="even">
 <td><code>character [ (n) ]</code>
-<code>char [ (n) ]</code></td>
+<p><code>char [ (n) ]</code></p></td>
 <td><code>STRING</code></td>
 </tr>
 <tr class="odd">
 <td><code>character varying [ (n) ]</code>
-<code>varchar [ (n) ]</code></td>
+<p><code>varchar [ (n) ]</code></p></td>
 <td><code>STRING</code></td>
 </tr>
 <tr class="even">
@@ -99,7 +99,7 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 </tr>
 <tr class="odd">
 <td><code>double precision</code>
-<code>float8</code></td>
+<p><code>float8</code></p></td>
 <td><code>FLOAT64</code></td>
 </tr>
 <tr class="even">
@@ -108,8 +108,8 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 </tr>
 <tr class="odd">
 <td><code>Integer</code>
-<code>int</code>
-<code>int4</code></td>
+<p><code>int</code></p>
+<p><code>int4</code></p></td>
 <td><code>INT64</code></td>
 </tr>
 <tr class="even">
@@ -142,7 +142,7 @@ The following table describes how [PostgreSQL data types](https://www.postgresql
 </tr>
 <tr class="odd">
 <td><code>numeric [ (p, s) ]</code>
-<code>decimal [ (p, s) ]</code></td>
+<p><code>decimal [ (p, s) ]</code></p></td>
 <td>In PostgreSQL, the <code>NUMERIC</code> and <code>DECIMAL</code> data types support up to 2 <sup>17</sup> digits of precision and 2 <sup>14</sup> -1 of scale, as defined in the column declaration.<br />
 <br />
 The Spanner <code>NUMERIC</code> data type supports up to 38 digits of precision and 9 decimal digits of scale.<br />
@@ -167,22 +167,22 @@ If you require greater precision, see <a href="https://docs.cloud.google.com/spa
 </tr>
 <tr class="even">
 <td><code>Real</code>
-<code>float4</code></td>
+<p><code>float4</code></p></td>
 <td><code>FLOAT64</code></td>
 </tr>
 <tr class="odd">
 <td><code>Smallint</code>
-<code>int2</code></td>
+<p><code>int2</code></p></td>
 <td><code>INT64</code></td>
 </tr>
 <tr class="even">
 <td><code>Smallserial</code>
-<code>serial2</code></td>
+<p><code>serial2</code></p></td>
 <td><code>INT64</code></td>
 </tr>
 <tr class="odd">
 <td><code>Serial</code>
-<code>serial4</code></td>
+<p><code>serial4</code></p></td>
 <td><code>INT64</code></td>
 </tr>
 <tr class="even">
@@ -195,7 +195,7 @@ If you require greater precision, see <a href="https://docs.cloud.google.com/spa
 </tr>
 <tr class="even">
 <td><code>time [ (p) ] with time zone</code>
-<code>timetz</code></td>
+<p><code>timetz</code></p></td>
 <td><code>STRING</code> , using <code>HH:MM:SS.sss+ZZZZ</code> notation. Alternately, this can be broken up into two columns, one of type <code>TIMESTAMP</code> and another one holding the timezone.</td>
 </tr>
 <tr class="odd">
@@ -204,7 +204,7 @@ If you require greater precision, see <a href="https://docs.cloud.google.com/spa
 </tr>
 <tr class="even">
 <td><code>timestamp [ (p) ] with time zone</code>
-<code>timestamptz</code></td>
+<p><code>timestamptz</code></p></td>
 <td><code>TIMESTAMP</code></td>
 </tr>
 <tr class="odd">

@@ -35,7 +35,7 @@ The examples all use `EUCLIDEAN_DISTANCE()` . You can also use `COSINE_DISTANCE(
 
 ### Example 1: KNN search
 
-Consider a `Documents` table that has a column ( `DocEmbedding` ) of precomputed text embeddings from the `DocContents` bytes column.
+Consider a `Documents` table that has a column ( `DocEmbedding` ) of precomputed text embeddings from the `DocContents` bytes column. Specifying the vector length on `DocEmbedding` isn't required for KNN queries, but it's [recommended](https://docs.cloud.google.com/spanner/docs/vector-search-best-practices#annotate-embedding-column) to optimize scan performance and let you create a [vector index](https://docs.cloud.google.com/spanner/docs/vector-indexes) later. Omit the vector length if the column stores vectors of varying dimensions.
 
 ### GoogleSQL
 
@@ -45,7 +45,7 @@ UserId       INT64 NOT NULL,
 DocId        INT64 NOT NULL,
 Author       STRING(1024),
 DocContents  BYTES(MAX),
-DocEmbedding ARRAY<FLOAT32>
+DocEmbedding ARRAY<FLOAT32>(vector_length=>4)
 ) PRIMARY KEY (UserId, DocId);
 ```
 
@@ -57,7 +57,7 @@ UserId       bigint NOT NULL,
 DocId        bigint NOT NULL,
 Author       varchar(1024),
 DocContents  bytea,
-DocEmbedding float4[],
+DocEmbedding float4[] VECTOR LENGTH 4,
 PRIMARY KEY  (UserId, DocId)
 );
 ```

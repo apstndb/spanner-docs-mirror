@@ -41,7 +41,7 @@ For a detailed list of limitations, see the [approximate distance function refer
 
 **Examples**
 
-Consider a `Documents` table that has a `DocEmbedding` column of precomputed text embeddings from the `DocContents` bytes column, and a `NullableDocEmbedding` column populated from other sources that might be null.
+Consider a `Documents` table that has a `DocEmbedding` column of precomputed text embeddings from the `DocContents` bytes column, and a `NullableDocEmbedding` column populated from other sources that might be null. Both embedding columns specify a vector length of `3` , which is required to [create a vector index](https://docs.cloud.google.com/spanner/docs/vector-indexes#create-vector-index) for ANN search.
 
 ### GoogleSQL
 
@@ -51,8 +51,8 @@ CREATE TABLE Documents (
   DocId        INT64 NOT NULL,
   Author       STRING(1024),
   DocContents  BYTES(MAX),
-  DocEmbedding ARRAY<FLOAT32> NOT NULL,
-  NullableDocEmbedding ARRAY<FLOAT32>,
+  DocEmbedding ARRAY<FLOAT32>(vector_length=>3) NOT NULL,
+  NullableDocEmbedding ARRAY<FLOAT32>(vector_length=>3),
   WordCount    INT64
 ) PRIMARY KEY (UserId, DocId);
 ```
@@ -65,8 +65,8 @@ CREATE TABLE documents (
   doc_id       bigint not null,
   author       varchar(1024),
   doc_contents bytea,
-  doc_embedding float4[] not null,
-  nullable_doc_embedding float4[],
+  doc_embedding float4[] VECTOR LENGTH 3 not null,
+  nullable_doc_embedding float4[] VECTOR LENGTH 3,
   word_count   bigint,
   PRIMARY KEY (user_id, doc_id)
 );

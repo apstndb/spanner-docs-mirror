@@ -114,31 +114,33 @@ Replace the following:
 
 ## Update the source table to include additional columns to store the embeddings
 
-Next, update the source table schema to include an additional column of the data type `ARRAY<FLOAT32>` to store the generated embeddings:
+Next, update the source table schema to add an embedding column. Specifying the vector length is optional for storing embeddings, [recommended for KNN search performance](https://docs.cloud.google.com/spanner/docs/vector-search-best-practices#annotate-embedding-column) , and required for [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) . Omit the vector length if the column stores vectors of varying dimensions:
 
 ### GoogleSQL
 
 ```
 ALTER TABLE TABLE_NAME
-ADD COLUMN EMBEDDING_COLUMN_NAME ARRAY<FLOAT32>;
+ADD COLUMN EMBEDDING_COLUMN_NAME ARRAY<FLOAT32>(vector_length=>VECTOR_LENGTH);
 ```
 
 Replace the following:
 
 - `TABLE_NAME` : the name of the source table
 - `EMBEDDING_COLUMN_NAME` : the name of the column in which you want to add generated embeddings
+- `VECTOR_LENGTH` : the output dimension of the embedding model, such as `768` or `3072`
 
 ### PostgreSQL
 
 ```
 ALTER TABLE TABLE_NAME
-ADD COLUMN EMBEDDING_COLUMN_NAME real[];
+ADD COLUMN EMBEDDING_COLUMN_NAME real[] VECTOR LENGTH VECTOR_LENGTH;
 ```
 
 Replace the following:
 
 - `TABLE_NAME` : the name of the source table
 - `EMBEDDING_COLUMN_NAME` : the name of the column in which you want to add generated embeddings
+- `VECTOR_LENGTH` : the output dimension of the embedding model, such as `768` or `3072`
 
 For example, using the `products` table example, run:
 
@@ -146,14 +148,14 @@ For example, using the `products` table example, run:
 
 ```
 ALTER TABLE Products
-ADD COLUMN desc_embed ARRAY<FLOAT32>;
+ADD COLUMN desc_embed ARRAY<FLOAT32>(vector_length=>768);
 ```
 
 ### PostgreSQL
 
 ```
 ALTER TABLE Products
-ADD COLUMN desc_embed real[];
+ADD COLUMN desc_embed real[] VECTOR LENGTH 768;
 ```
 
 You can add another column to manage the version of the embedding model.

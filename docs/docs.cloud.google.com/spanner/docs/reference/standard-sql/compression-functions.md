@@ -21,7 +21,7 @@ Compression functions compress or decompress bytes or string values using the Zs
 ## `ZSTD_COMPRESS`
 
 ```
-ZSTD_COMPRESS(string_or_bytes_value, level => 3)
+ZSTD_COMPRESS(string_or_bytes_value [, [ level => ] 3])
 ```
 
 **Description**
@@ -31,7 +31,7 @@ Compresses `STRING` or `BYTES` input into `BYTES` output using the Zstandard (Zs
 Arguments:
 
 - `string_or_bytes_value` : The SQL value to compress.
-- `level` : Optional. The Zstd compression level. The default is 3. You can set `level` to an integer value between -5 and 22. A higher value results in a better compression ratio at the cost of slower performance.
+- `level` : The Zstd compression level. The default is 3. You can set `level` to an integer value between -5 and 22. A higher value results in a better compression ratio at the cost of slower performance. If `level` is `NULL` , this function returns `NULL` .
 
 **Return type**
 
@@ -74,7 +74,7 @@ SELECT ZSTD_COMPRESS(NULL) AS result;
 ## `ZSTD_DECOMPRESS_TO_BYTES`
 
 ```
-ZSTD_DECOMPRESS_TO_BYTES(bytes_value, size_limit => 1024 * 1024 * 1024)
+ZSTD_DECOMPRESS_TO_BYTES(bytes_value [, size_limit => 1024 * 1024 * 1024])
 ```
 
 **Description**
@@ -83,8 +83,8 @@ Decompresses `BYTES` input into `BYTES` using the Zstandard (Zstd) lossless data
 
 Arguments:
 
-- `bytes_value` : The bytes to decompress.
-- `size_limit` : Optional. The size limit of returned decompressed bytes. The default value is one GiB. You can set this limit to a lower value to minimize the risk of `ZSTD_DECOMPRESS_TO_BYTES` causing server memory issues.
+- `bytes_value` : The bytes to decompress. Must be a valid Zstd frame whose header includes the uncompressed content size (which `ZSTD_COMPRESS` always writes).
+- `size_limit` : The size limit of returned decompressed bytes. The default value is one GiB. You can set this limit to a lower value to minimize the risk of `ZSTD_DECOMPRESS_TO_BYTES` causing server memory issues. If `size_limit` is `NULL` , this function returns `NULL` .
 
 **Return type**
 
@@ -125,7 +125,7 @@ SELECT ZSTD_DECOMPRESS_TO_BYTES(NULL) AS result;
 ## `ZSTD_DECOMPRESS_TO_STRING`
 
 ```
-ZSTD_DECOMPRESS_TO_STRING(bytes_value, size_limit => 1024 * 1024 * 1024)
+ZSTD_DECOMPRESS_TO_STRING(bytes_value [, size_limit => 1024 * 1024 * 1024])
 ```
 
 **Description**
@@ -134,8 +134,8 @@ Decompress `BYTES` input into `STRING` output using the Zstandard (Zstd) lossles
 
 Arguments:
 
-- `bytes_value` : The bytes to decompress.
-- `size_limit` : Optional. The size limit of returned decompressed string. The default value is one GiB. You can set this limit to a lower value to minimize the risk of `ZSTD_DECOMPRESS_TO_STRING` causing server memory issues.
+- `bytes_value` : The bytes to decompress. Must be a valid Zstd frame whose header includes the uncompressed content size (which `ZSTD_COMPRESS` always writes).
+- `size_limit` : The size limit of returned decompressed string. The default value is one GiB. You can set this limit to a lower value to minimize the risk of `ZSTD_DECOMPRESS_TO_STRING` causing server memory issues. If `size_limit` is `NULL` , this function returns `NULL` .
 
 **Return type**
 

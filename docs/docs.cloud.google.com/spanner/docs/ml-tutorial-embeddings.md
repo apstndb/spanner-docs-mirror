@@ -124,13 +124,13 @@ LIMIT 5;
 
 After generating the embeddings in a read-only transaction, store them in Spanner so they can be managed with your operational data. To store the embeddings, use a [read-write transaction](https://docs.cloud.google.com/spanner/docs/samples/spanner-read-write-transaction) .
 
-For workloads that are less performance sensitive, you can generate and insert embeddings with the following SQL in a read-write transaction:
+For workloads that are less performance sensitive, you can generate and insert embeddings with the following SQL in a read-write transaction. Specifying `vector_length` is optional for storing embeddings, [recommended for KNN search](https://docs.cloud.google.com/spanner/docs/vector-search-best-practices#annotate-embedding-column) , and required for [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) . Replace `VECTOR_LENGTH` with your model's output dimension, such as `3072` or `768` , or omit `vector_length` if the column stores vectors of varying dimensions:
 
 ```
 CREATE TABLE Products(
   id INT64 NOT NULL,
   description STRING(MAX),
-  embeddings ARRAY<FLOAT32>,
+  embeddings ARRAY<FLOAT32>(vector_length=>VECTOR_LENGTH),
 ) PRIMARY KEY(id);
 ```
 
@@ -230,13 +230,13 @@ Replace the following:
 
 After generating the embeddings in a read-only transaction, store them in Spanner so they can be managed with your operational data. To store the embeddings, use a [read-write transaction](https://docs.cloud.google.com/spanner/docs/samples/spanner-read-write-transaction) .
 
-For workloads that are less performance sensitive, you can generate and insert embeddings with the following SQL in a read-write transaction:
+For workloads that are less performance sensitive, you can generate and insert embeddings with the following SQL in a read-write transaction. Specifying `VECTOR LENGTH` is optional for storing embeddings, [recommended for KNN search](https://docs.cloud.google.com/spanner/docs/vector-search-best-practices#annotate-embedding-column) , and required for [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) . Replace `VECTOR_LENGTH` with your model's output dimension, such as `3072` or `768` , or omit `VECTOR LENGTH` if the column stores vectors of varying dimensions:
 
 ```
 CREATE TABLE Products (
   id INT8 NOT NULL,
   description TEXT,
-  embeddings REAL[],
+  embeddings REAL[] VECTOR LENGTH VECTOR_LENGTH,
   PRIMARY KEY(id)
 );
 ```

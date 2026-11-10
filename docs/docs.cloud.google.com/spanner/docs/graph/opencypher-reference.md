@@ -503,18 +503,12 @@ Node and Edge</td>
 </tr>
 <tr class="even">
 <td>Node and Edge</td>
-<td><code>.</code><br />
-<br />
-property reference</td>
+<td><code>. property reference</code></td>
 <td><code>.</code></td>
 </tr>
 <tr class="odd">
-<td><code>[]</code><br />
-<br />
-dynamic property reference<br />
-
-<pre data-fenced=""><code>MATCH (n)
-RETURN n[n.name]</code></pre></td>
+<td><code>[] dynamic property reference </code>
+<pre data-fenced=""><code>MATCH (n) RETURN n[n.name]</code></pre></td>
 <td>Not supported.</td>
 <td></td>
 </tr>
@@ -596,7 +590,7 @@ function or expression<br />
 <td></td>
 </tr>
 <tr class="even">
-<td><code>count</code> &lt;</td>
+<td><code>count</code></td>
 <td><code>COUNT</code></td>
 <td></td>
 </tr>

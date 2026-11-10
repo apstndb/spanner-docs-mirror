@@ -792,6 +792,68 @@ FROM   spanner_sys.query_stats_top_hour
 WHERE  text LIKE "select x from table where x=@foo;";
 ```
 
+### Find the 99th percentile latency in the last hour for a query fingerprint
+
+`SPANNER_SYS.DISTRIBUTION_AGG` is an aggregate function that merges multiple distribution values across rows into a single distribution of the same type. You can use `SPANNER_SYS.DISTRIBUTION_AGG` to merge the 1-minute buckets from the last hour into a single distribution, and then use `SPANNER_SYS.DISTRIBUTION_PERCENTILE` to compute the percentile:
+
+### GoogleSQL
+
+```
+SELECT
+  IF(latency_dist IS NOT NULL,
+    SPANNER_SYS.DISTRIBUTION_PERCENTILE(latency_dist, 99.0),
+    NULL) AS p99_latency_last_hour
+FROM (
+  SELECT
+    -- Aggregate distribution structs by checking the COUNT field directly
+    SPANNER_SYS.DISTRIBUTION_AGG(
+      IF(
+        T.LATENCY_DISTRIBUTION[SAFE_OFFSET(0)].COUNT > 0,
+        T.LATENCY_DISTRIBUTION[SAFE_OFFSET(0)],
+        NULL
+      )
+    ) AS latency_dist
+  FROM
+    SPANNER_SYS.QUERY_STATS_TOP_MINUTE AS T
+  WHERE
+    T.INTERVAL_END > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 1 HOUR)
+    AND T.INTERVAL_END <= CURRENT_TIMESTAMP()
+    AND T.TEXT_FINGERPRINT = query-fingerprint
+);
+```
+
+Replace ` query-fingerprint ` with a query fingerprint.
+
+### PostgreSQL
+
+```
+SELECT
+  CASE
+    WHEN latency_dist IS NOT NULL
+      THEN SPANNER_SYS.DISTRIBUTION_PERCENTILE(latency_dist, 99.0)
+    ELSE NULL
+  END AS p99_latency_last_hour
+FROM (
+  SELECT
+    -- Aggregate distribution JSON strings by checking the COUNT field
+    SPANNER_SYS.DISTRIBUTION_AGG(
+      CASE
+        WHEN T.LATENCY_DISTRIBUTION_JSON_STRING::jsonb ->> 'COUNT' != '0'
+          THEN T.LATENCY_DISTRIBUTION_JSON_STRING
+        ELSE NULL
+      END
+    ) AS latency_dist
+  FROM
+    SPANNER_SYS.QUERY_STATS_TOP_MINUTE AS T
+  WHERE
+    T.INTERVAL_END > spanner.timestamptz_subtract(now(), '1 HOUR')
+    AND T.INTERVAL_END <= now()
+    AND T.TEXT_FINGERPRINT = query-fingerprint
+) AS agg;
+```
+
+Replace ` query-fingerprint ` with a query fingerprint.
+
 ## Troubleshoot high CPU usage or elevated query latency with query statistics
 
 Query statistics are useful when you need to investigate high CPU usage on your Spanner database or when you are just trying to understand the CPU- heavy query shapes on your database. Inspecting queries that use significant amounts of database resources gives Spanner users a potential way to reduce operational costs and possibly improve general system latencies.
