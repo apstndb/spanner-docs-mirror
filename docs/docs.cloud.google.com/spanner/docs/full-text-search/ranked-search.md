@@ -178,6 +178,8 @@ The scorer algorithm is updated periodically. Each release bundles a set of scor
 
 You can set the default scorer version for your database, or you can specify a version for a specific query.
 
+Databases created after April 2026 default to scorer version 2. Databases created before April 2026 default to version 1 until Spanner migrates them to the latest version. Databases created during April 2026, while version 2 was rolling out, might use either version.
+
 If you don't specify a scorer version for your database or query, the default scorer version updates automatically when a later version is released.
 
 If you paginate ranked search results, scorer version changes can cause skipped or repeated rows across pages. For more information, see [Paginate ranked search results](https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-results#paginate_ranked_search_results) .

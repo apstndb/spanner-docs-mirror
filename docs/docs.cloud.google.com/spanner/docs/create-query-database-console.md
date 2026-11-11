@@ -36,23 +36,27 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 3.  On the **Spanner** page, click **Create a provisioned instance** .
 
-    If you've used Spanner before, you'll see the Spanner **Instances** page instead of the product page. Click **Create instance** .
+    If you've used Spanner before, you see the Spanner **Instances** page instead of the product page. Click **Create instance** .
 
-4.  In the **Name your instance** page, enter an instance name, such as **Test Instance** .
+4.  In the **Select an edition** section, select **Standard** , and then click **Continue** .
 
-5.  The instance ID is automatically entered based on the instance name, for example, as **test-instance** . Change it, if required. Click **Continue** .
+5.  In the **Name your instance** section, enter an **Instance name** , such as `Test Instance` .
 
-6.  In the **Configure your instance** page, retain the default option **Regional** and select a configuration from the drop-down menu.
+    The **Instance ID** is automatically populated based on the instance name, for example, `test-instance` . Change it if required, and then click **Continue** .
+
+6.  In the **Configure your instance** section, for **Choose a configuration** , retain the default option **Regional** and select a configuration location from the drop-down menu.
 
     Your instance configuration determines the geographic location where your instances are stored and replicated.
 
 7.  Click **Continue** .
 
-8.  In the **Allocate compute capacity** page, select **Processing units (PUs)** and retain the default value of 1000 processing units.
+8.  In the **Configure compute capacity** section, for **Select unit** , select **Processing units (PUs)** . For **Choose a scaling mode** , retain **Manual allocation** and the default **Quantity** of `1000` processing units.
 
-9.  Click **Create** .
+9.  Optional: In the **Backups** section, clear the **Enable default backup schedules** checkbox if you don't want default backup schedules created for this test instance.
 
-    The Google Cloud console displays the **Overview** page for the instance you created.
+10. Click **Create** .
+
+    The Google Cloud console displays the **Overview** page for the instance that you created.
 
 ## Create a database
 
@@ -60,17 +64,13 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 2.  Click the instance you created, for example **Test Instance** .
 
-3.  In the instance Overview page that opens, click **Create database** .
+3.  In the instance **Overview** page that opens, click **Create database** .
 
 4.  For the database name, enter a name, such as **example-db** .
 
 5.  Select a database dialect.
 
-    For information about support for PostgreSQL and for guidance for choosing a dialect, see [PostgreSQL interface](https://docs.cloud.google.com/spanner/docs/postgresql-interface) . If you selected GoogleSQL, you'll define the schema in the **Define your schema** text field in the next section of this quickstart.
-
-    Your database creation page now looks like this:
-
-    ![The updated database creation window.](https://docs.cloud.google.com/static/spanner/docs/images/qs_create_database.png)
+    For information about support for PostgreSQL and for guidance for choosing a dialect, see [PostgreSQL interface](https://docs.cloud.google.com/spanner/docs/postgresql-interface) . Leave the **Define your schema (optional)** section blank. You define the schema in **Spanner Studio** in the next section of this quickstart.
 
 6.  Click **Create** .
 
@@ -78,13 +78,10 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 ## Create a schema for your database
 
-> **Note:** Spanner Studio (formerly labeled **Query** in the Google Cloud console) supports SQL, DML, and DDL operations in a single editor. For more information, see [Manage your data using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/manage-data-using-console) .
-
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
-
-3.  Enter:
+2.  In the **Spanner Studio** page, click add **New tab** or use the **Untitled query** tab, and then enter one of the following queries,  
+    depending on the dialect of your database:
 
     ### GoogleSQL
 
@@ -93,7 +90,6 @@ When you first use Spanner, you must create an instance, which is an allocation 
       SingerId   INT64 NOT NULL,
       FirstName  STRING(1024),
       LastName   STRING(1024),
-      SingerInfo BYTES(MAX),
       BirthDate  DATE
     ) PRIMARY KEY(SingerId);
     ```
@@ -102,27 +98,16 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
     ```
     CREATE TABLE Singers (
-      BirthDate  TIMESTAMPTZ,
       SingerId   BIGINT PRIMARY KEY,
       FirstName  VARCHAR(1024),
       LastName   VARCHAR(1024),
-      SingerInfo BYTEA
+      BirthDate  TIMESTAMPTZ
     );
     ```
 
-4.  Click play_circle **Run** .
+3.  Click play_circle **Run** .
 
-    The Google Cloud console returns to the database **Overview** page and shows that **Schema updates** are underway. When the update is complete, the page looks like this:
-
-    ### GoogleSQL
-
-    ![The updated overview page.](https://docs.cloud.google.com/static/spanner/docs/images/create_schema.png)
-
-    ### PostgreSQL
-
-    ![The updated overview page.](https://docs.cloud.google.com/static/spanner/docs/images/create_schema_pg.png)
-
-    Notice that PostgreSQL converts the table name to lowercase.
+    Spanner runs the statement. When finished, the **Results** tab displays **Update completed** .
 
 ## Insert and modify data
 
@@ -130,71 +115,11 @@ The Google Cloud console provides an interface for inserting, editing, and delet
 
 ### Insert data
 
-1.  In the list of tables on the database **Overview** page, click the Singers table.
+1.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Insert data** .
 
-    The Google Cloud console displays the Singers table's **Schema** page.
+    Spanner opens a new query tab in **Spanner Studio** that contains a template `INSERT` statement.
 
-2.  In the navigation menu, click **Data** to display the Singers table's **Data** page.
-
-3.  Click **Insert** .
-
-    The Google Cloud console displays the Singers table's Spanner Studio page with a new query tab that contains the `INSERT` statement that you edit to insert a row in the Singers table and view the result of that insertion:
-
-    ### GoogleSQL
-
-    ```
-     -- Add new values in the VALUES clause in order of the column list.
-     -- Each value must be type compatible with its associated column.
-    INSERT INTO
-     Singers (SingerId,
-       FirstName,
-       LastName,
-       SingerInfo,
-       BirthDate)
-    VALUES
-     (<SingerId>, -- type: INT64
-       <FirstName>, -- type: STRING(1024)
-       <LastName>, -- type: STRING(1024)
-       <SingerInfo>, -- type: BYTES(MAX)
-       <BirthDate> -- type: DATE
-       )
-    THEN RETURN
-     SingerId,
-     FirstName,
-     LastName,
-     SingerInfo,
-     BirthDate;
-    ```
-
-    ### PostgreSQL
-
-    ```
-      -- Add new values in the VALUES clause in order of the column list.
-      -- Each value must be type compatible with its associated column.
-    INSERT INTO
-      singers (singerid,
-        firstname,
-        lastname,
-        singerinfo,
-        birthdate)
-    VALUES
-      (<singerid>, -- type: bigint
-        <firstname>, -- type: character varying
-        <lastname>, -- type: character varying
-        <singerinfo>, -- type: bytea
-        <birthdate> -- type: timestamp with time zone
-        );
-    THEN RETURN
-       singerid,
-       firstname,
-       lastname,
-       singerinfo,
-       birthdate;
-    ```
-
-    Notice that PostgreSQL converts the column names to all lower case.
-
-4.  Edit the `INSERT` statement's `VALUES` clause.
+2.  Edit the template `INSERT` statement's `VALUES` clause to insert a row in the `Singers` table and view the result of that insertion:
 
     ### GoogleSQL
 
@@ -203,22 +128,19 @@ The Google Cloud console provides an interface for inserting, editing, and delet
       -- Each value must be type compatible with its associated column.
     INSERT INTO
       Singers (SingerId,
-        BirthDate,
         FirstName,
         LastName,
-        SingerInfo)
+        BirthDate)
     VALUES
       (1, -- type: INT64
-        NULL, -- type: DATE
         'Marc', -- type: STRING(1024)
         'Richards', -- type: STRING(1024)
-        NULL -- type: BYTES(MAX)
+        NULL -- type: DATE
         )
     THEN RETURN
       SingerId,
       FirstName,
       LastName,
-      SingerInfo,
       BirthDate;
     ```
 
@@ -229,314 +151,219 @@ The Google Cloud console provides an interface for inserting, editing, and delet
       -- Each value must be type compatible with its associated column.
     INSERT INTO
       singers (singerid,
-        birthdate,
         firstname,
         lastname,
-        singerinfo)
+        birthdate)
     VALUES
       (1, -- type: bigint
-        NULL, -- type: timestamp with time zone
         'Marc', -- type: character varying
         'Richards', -- type: character varying
-        NULL -- type: bytea
-        );
-    THEN RETURN
-       singerid,
-       firstname,
-       lastname,
-       singerinfo,
-       birthdate;
-    ```
-
-5.  Click play_circle **Run** .
-
-    Spanner runs the statements. When finished, the **Results** tab shows that the statement inserted one row:
-
-    ### GoogleSQL
-
-    ![The updated Singers table data with one row.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_one_row.png)
-
-    ### PostgreSQL
-
-    ![The updated Singers table data with one row.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_one_row_pg.png)
-
-6.  In the Explorer, click more_vert **View actions** next to the **Singers** table, and then click **Insert data** .
-
-7.  Edit the `INSERT` statement's `VALUES` clause and the `SELECT` statement's `WHERE` clause:
-
-    ### GoogleSQL
-
-    ```
-      -- Add new values in the VALUES clause in order of the column list.
-      -- Each value must be type compatible with its associated column.
-    INSERT INTO
-      Singers (SingerId,
-        BirthDate,
-        FirstName,
-        LastName,
-        SingerInfo)
-    VALUES
-      (2, -- type: INT64
-        NULL, -- type: DATE
-        'Catalina', -- type: STRING(1024)
-        'Smith', -- type: STRING(1024)
-        NULL -- type: BYTES(MAX)
+        NULL -- type: timestamp with time zone
         )
-      -- Change values in the WHERE condition to match the inserted row.
-    SELECT
-      *
-    FROM
-      Singers
-    WHERE
-      SingerId=2;
+    RETURNING
+      singerid,
+      firstname,
+      lastname,
+      birthdate;
     ```
 
-    ### PostgreSQL
-
-    ```
-      -- Add new values in the VALUES clause in order of the column list.
-      -- Each value must be type compatible with its associated column.
-    INSERT INTO
-      singers (singerid,
-        birthdate,
-        firstname,
-        lastname,
-        singerinfo)
-    VALUES
-      (2, -- type: bigint
-        NULL, -- type: timestamp with time zone
-        'Catalina', -- type: character varying
-        'Smith', -- type: character varying
-        NULL -- type: bytea
-        );
-      -- Change values in the WHERE condition to match the inserted row.
-    SELECT
-      *
-    FROM
-      singers
-    WHERE
-      singerid=2;
-    ```
-
-8.  Click play_circle **Run** .
-
-    After Spanner runs the statements, the **Results** tab shows that the statement inserted one row.
-
-9.  In the Explorer, click more_vert **View actions** next to the **Singers** table, and then click **Preview Data** .
-
-10. Click play_circle **Run** . The Singers table now has two rows:
-
-    ### GoogleSQL
-
-    ![The updated Singers table data with two rows.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_two_rows.png)
-
-    ### PostgreSQL
-
-    ![The updated Singers table data with two rows.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_two_rows_pg.png)
-
-You can also insert empty string values when you enter data.
-
-1.  Click **Insert** to add a row.
-
-    Spanner again displays the Singers table's **Spanner Studio** page with a new query tab that contains the same `INSERT` and `SELECT` statements.
-
-2.  Edit the template `INSERT` statement's `VALUES` clause and `SELECT` statement's `WHERE` clause:
-
-    ### GoogleSQL
-
-    ```
-      -- Add new values in the VALUES clause in order of the column list.
-      -- Each value must be type compatible with its associated column.
-    INSERT INTO
-      Singers (SingerId,
-        BirthDate,
-        FirstName,
-        LastName,
-        SingerInfo)
-    VALUES
-      (3, -- type: INT64
-        NULL, -- type: DATE
-        'Kena', -- type: STRING(1024)
-        '', -- type: STRING(1024)
-        NULL -- type: BYTES(MAX)
-        );
-      -- Change values in the WHERE condition to match the inserted row.
-    SELECT
-      *
-    FROM
-      Singers
-    WHERE
-      SingerId=3;
-    ```
-
-    ### PostgreSQL
-
-    ```
-      -- Add new values in the VALUES clause in order of the column list.
-      -- Each value must be type compatible with its associated column.
-    INSERT INTO
-      singers (singerid,
-        birthdate,
-        firstname,
-        lastname,
-        singerinfo)
-    VALUES
-      (3, -- type: bigint
-        NULL, -- type: timestamp with time zone
-        'Kena', -- type: character varying
-        '', -- type: character varying
-        NULL -- type: bytea
-        );
-      -- Change values in the WHERE condition to match the inserted row.
-    SELECT
-      *
-    FROM
-      singers
-    WHERE
-      singerid=3;
-    ```
-
-    Notice that the value provided for the last name column is an empty string, `''` , not a `NULL` value.
+    Notice that PostgreSQL converts the column names to all lowercase.
 
 3.  Click play_circle **Run** .
 
-    After Spanner runs the statements, the **Results** tab shows that the statement inserted one row.
+    Spanner runs the statement. When finished, the **Results** tab displays **1 row inserted** and the data of the inserted row.
 
-4.  In the Explorer, click more_vert **View actions** next to the **Singers** table, and then click **Preview Data** .
+4.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Insert data** .
 
-5.  Click play_circle **Run** . The `Singers` table now has three rows, and the row with the primary key value of `3` has an empty string in the `LastName` column:
+5.  Edit the `INSERT` statement's `VALUES` clause:
 
     ### GoogleSQL
 
-    ![The updated Singers table data with three rows.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_three_rows.png)
+    ```
+      -- Add new values in the VALUES clause in order of the column list.
+      -- Each value must be type compatible with its associated column.
+    INSERT INTO
+      Singers (SingerId,
+        FirstName,
+        LastName,
+        BirthDate)
+    VALUES
+      (2, -- type: INT64
+        'Catalina', -- type: STRING(1024)
+        'Smith', -- type: STRING(1024)
+        NULL -- type: DATE
+        )
+    THEN RETURN
+      SingerId,
+      FirstName,
+      LastName,
+      BirthDate;
+    ```
 
     ### PostgreSQL
 
-    ![The updated Singers table data with three rows.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_three_rows_pg.png)
+    ```
+      -- Add new values in the VALUES clause in order of the column list.
+      -- Each value must be type compatible with its associated column.
+    INSERT INTO
+      singers (singerid,
+        firstname,
+        lastname,
+        birthdate)
+    VALUES
+      (2, -- type: bigint
+        'Catalina', -- type: character varying
+        'Smith', -- type: character varying
+        NULL -- type: timestamp with time zone
+        )
+    RETURNING
+      singerid,
+      firstname,
+      lastname,
+      birthdate;
+    ```
+
+6.  Click play_circle **Run** .
+
+    Spanner runs the statement. When finished, the **Results** tab displays **1 row inserted** and the data of the inserted row.
+
+7.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Preview data** .
+
+8.  Click play_circle **Run** . The **Results** tab displays the two rows in the `Singers` table.
+
+You can also insert empty string values when you enter data.
+
+1.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Insert data** .
+
+    Spanner opens a new query tab in **Spanner Studio** that contains the template `INSERT` statement.
+
+2.  Edit the template `INSERT` statement's `VALUES` clause:
+
+    ### GoogleSQL
+
+    ```
+      -- Add new values in the VALUES clause in order of the column list.
+      -- Each value must be type compatible with its associated column.
+    INSERT INTO
+      Singers (SingerId,
+        FirstName,
+        LastName,
+        BirthDate)
+    VALUES
+      (3, -- type: INT64
+        'Kena', -- type: STRING(1024)
+        '', -- type: STRING(1024)
+        NULL -- type: DATE
+        )
+    THEN RETURN
+      SingerId,
+      FirstName,
+      LastName,
+      BirthDate;
+    ```
+
+    ### PostgreSQL
+
+    ```
+      -- Add new values in the VALUES clause in order of the column list.
+      -- Each value must be type compatible with its associated column.
+    INSERT INTO
+      singers (singerid,
+        firstname,
+        lastname,
+        birthdate)
+    VALUES
+      (3, -- type: bigint
+        'Kena', -- type: character varying
+        '', -- type: character varying
+        NULL -- type: timestamp with time zone
+        )
+    RETURNING
+      singerid,
+      firstname,
+      lastname,
+      birthdate;
+    ```
+
+3.  Click play_circle **Run** .
+
+    Spanner runs the statement. When finished, the **Results** tab displays **1 row inserted** and the data of the inserted row.
+
+    Notice that the value provided for the last name column is an empty string, `''` , not a `NULL` value.
+
+4.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Preview data** .
+
+5.  Click play_circle **Run** . The **Results** tab displays the three rows in the `Singers` table, and the row with the primary key value of `3` has an empty string in the `LastName` column.
 
 ### Edit data
 
-1.  On the Singers table's **Data** page, select the checkbox on the row with the primary key value of `3` , and then click **Edit** .
-
-    The Spanner displays the **Spanner Studio** page with a new tab containing template `UPDATE` and `SET` statements that you can edit. Note that the `WHERE` clauses of both statements indicate that the row to update is the one with the primary key value of `3` .
+1.  Click add **New tab** to create a new query tab, and then enter the following `UPDATE` statement to update the birth date for the row with the primary key value of `3` :
 
     ### GoogleSQL
 
     ```
-      -- Change values in the SET clause to update the row where the WHERE condition is true.
-    UPDATE
-      Singers
-    SET
-      BirthDate='',
-      FirstName='Kena',
-      LastName='',
-      SingerInfo=''
-    WHERE
-      SingerId=3;
-    SELECT
-      *
-    FROM
-      Singers
-    WHERE
-      SingerId=3;
-    ```
-
-    ### PostgreSQL
-
-    ```
-      -- Change values in the SET clause to update the row where the WHERE condition is true.
-    UPDATE
-      singers
-    SET
-      birthdate=NULL,
-      firstname='Kena',
-      lastname='',
-      singerinfo=NULL
-    WHERE
-      singerid='3';
-    SELECT
-      *
-    FROM
-      singers
-    WHERE
-      singerid='3';
-    ```
-
-2.  Edit the `UPDATE` statement's `SET` clause to update only the birth date:
-
-    ### GoogleSQL
-
-    ```
-      -- Change values in the SET clause to update the row where the WHERE condition is true.
     UPDATE
       Singers
     SET
       BirthDate='1961-04-01'
     WHERE
-      SingerId=3;
-    SELECT
-      *
-    FROM
-      Singers
-    WHERE
-      SingerId=3;
+      SingerId=3
+    THEN RETURN
+      SingerId,
+      FirstName,
+      LastName,
+      BirthDate;
     ```
 
     ### PostgreSQL
 
     ```
-      -- Change values in the SET clause to update the row where the WHERE condition is true.
     UPDATE
       singers
     SET
       birthdate='1961-04-01 00:00:00 -8:00'
     WHERE
-      singerid='3';
-    SELECT
-      *
-    FROM
-      singers
-    WHERE
-      singerid='3';
+      singerid=3
+    RETURNING
+      singerid,
+      firstname,
+      lastname,
+      birthdate;
     ```
 
-3.  Click play_circle **Run** .
+2.  Click play_circle **Run** .
 
-    Spanner runs the statements. When finished, the **Results** tab shows that the first statement updated one row.
+    Spanner runs the statement. When finished, the **Results** tab displays **1 row updated** and the data of the updated row.
 
-4.  In the Explorer, click more_vert **View actions** next to the **Singers** table, and then click **Preview Data** .
+3.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Preview data** .
 
-5.  Click play_circle **Run** . The updated row now has a value for the birth date.
-
-    ### GoogleSQL
-
-    ![The updated Singers table data with an updated row.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_edit.png)
-
-    ### PostgreSQL
-
-    ![The updated Singers table data with an updated row.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_edit_pg.png)
+4.  Click play_circle **Run** . The **Results** tab displays the rows in the `Singers` table, where the updated row now has a value for the birth date.
 
 ### Delete data
 
-1.  On the Singers table's **Data** page, select the checkbox on the row with `2` in the first column, and then click **Delete** .
-
-2.  In the dialog that appears, click **Confirm** .
-
-    The Singers table now has two rows:
+1.  Click add **New tab** to create a new query tab, and then enter the following `DELETE` statement to delete the row with the primary key value of `2` :
 
     ### GoogleSQL
 
-    ![The updated Singers table data with two rows; the row for SingerId 2 is gone.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_delete.png)
+    ```
+    DELETE FROM Singers
+    WHERE SingerId = 2;
+    ```
 
     ### PostgreSQL
 
-    ![The updated Singers table data with two rows; the row for SingerId 2 is gone.](https://docs.cloud.google.com/static/spanner/docs/images/singers_table_delete_pg.png)
+    ```
+    DELETE FROM singers
+    WHERE singerid = 2;
+    ```
+
+2.  Click play_circle **Run** .
+
+    Spanner runs the statement. When finished, the **Results** tab displays **1 row deleted** . The `Singers` table now has two rows.
 
 ## Run a query in the Google Cloud console
 
-1.  On the database **Overview** page, click **Spanner Studio** in the navigation menu.
-
-2.  Click **New tab** to create a new query tab. Then, enter the following query in the query editor:
+1.  Click add **New tab** to create a new query tab. Then, enter the following query in the query editor:
 
     ### GoogleSQL
 
@@ -550,17 +377,9 @@ You can also insert empty string values when you enter data.
     SELECT * FROM singers;
     ```
 
-3.  Click play_circle **Run** .
+2.  Click play_circle **Run** .
 
-    Spanner runs the query. When finished, the **Results** tab displays the result of your query:
-
-    ### GoogleSQL
-
-    ![The query results.](https://docs.cloud.google.com/static/spanner/docs/images/query_results.png)
-
-    ### PostgreSQL
-
-    ![The query results.](https://docs.cloud.google.com/static/spanner/docs/images/query_results_pg.png)
+    Spanner runs the query. When finished, the **Results** tab displays the result of your query.
 
 Congratulations! You've successfully created a Spanner database and executed a SQL statement by using the query editor!
 

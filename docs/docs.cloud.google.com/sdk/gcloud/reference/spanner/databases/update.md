@@ -99,6 +99,24 @@ Run `$ `[`gcloud help`](https://docs.cloud.google.com/sdk/gcloud/reference) for 
 
 NOTES
 
+When updating encryption with `--kms-keys` or `--clear-kms-keys` , the update operation completes after the new encryption configuration is recorded. Existing data is then re-encrypted in the background, which can take several hours. Do not disable or destroy the previous KMS key(s) until re-encryption finishes.
+
+Backups are not re-encrypted. Each backup keeps using the KMS key it was created with; keep that key until those backups are deleted or expire, or they can't be restored.
+
+To wait until background re-encryption finishes, run:
+
+```
+gcloud alpha spanner databases wait-for-reencryption DATABASE --instance=INSTANCE (--kms-keys="KEY1,KEY2" | --clear-kms-keys)
+```
+
+Or check progress manually with:
+
+```
+gcloud spanner databases describe DATABASE --instance=INSTANCE --format="value(encryptionConfig,encryptionInfo)"
+```
+
+and wait until `encryptionInfo` lists only the target encryption key(s) (or only `GOOGLE_DEFAULT_ENCRYPTION` for `--clear-kms-keys` ). When transitioning from Google-managed encryption to CMEK, both checks report completion after the new key(s) are in use, which may be before all existing data has been re-encrypted.
+
 These variants are also available:
 
 ```

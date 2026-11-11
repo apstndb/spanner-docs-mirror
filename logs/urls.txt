@@ -45,7 +45,7 @@ https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/set-iam-pol
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/splits	2026-05-27T16:46:48Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/splits/add	2026-05-27T16:47:33Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/splits/list	2026-05-27T16:46:50Z
-https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/update	2026-05-27T16:48:42Z
+https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/update	2026-11-10T17:26:21Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs	2026-05-27T16:48:03Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs/create	2026-05-27T16:48:52Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/instance-configs/delete	2026-05-27T16:48:31Z
@@ -209,8 +209,8 @@ https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups	2026-10
 https://docs.cloud.google.com/spanner/docs/create-manage-partitions	2026-10-29T00:26:59Z
 https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries	2026-10-23T06:22:23Z
 https://docs.cloud.google.com/spanner/docs/create-manage-split-points	2026-10-29T00:26:59Z
-https://docs.cloud.google.com/spanner/docs/create-manage-views	2026-10-07T09:39:47Z
-https://docs.cloud.google.com/spanner/docs/create-query-database-console	2026-10-07T09:39:47Z
+https://docs.cloud.google.com/spanner/docs/create-manage-views	2026-11-10T22:00:52Z
+https://docs.cloud.google.com/spanner/docs/create-query-database-console	2026-11-10T18:05:54Z
 https://docs.cloud.google.com/spanner/docs/cuds	2026-10-29T00:26:59Z
 https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/cutover-fallback	2026-10-12T21:46:24Z
@@ -266,7 +266,7 @@ https://docs.cloud.google.com/spanner/docs/full-text-search/paginate-search-resu
 https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/pattern-matching-function-acceleration	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/query-overview	2026-10-07T09:41:07Z
-https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search	2026-11-06T19:35:31Z
+https://docs.cloud.google.com/spanner/docs/full-text-search/ranked-search	2026-11-10T22:10:16Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes	2026-10-29T16:16:06Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-multiple-columns	2026-10-07T09:41:07Z
 https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement	2026-10-07T09:41:07Z
@@ -413,6 +413,7 @@ https://docs.cloud.google.com/spanner/docs/non-relational/overview	2026-10-07T09
 https://docs.cloud.google.com/spanner/docs/open-source-jdbc	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/optimize-schema-performance	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/org-policy-violations	2026-10-07T09:39:39Z
+https://docs.cloud.google.com/spanner/docs/parameterized-views	2026-11-10T22:00:52Z
 https://docs.cloud.google.com/spanner/docs/partners/looker	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/performance	2026-10-24T22:46:36Z
 https://docs.cloud.google.com/spanner/docs/pg-jdbc-connect	2026-11-05T17:28:28Z
@@ -452,7 +453,7 @@ https://docs.cloud.google.com/spanner/docs/query-optimizer/version-statistics	20
 https://docs.cloud.google.com/spanner/docs/query-optimizer/versions	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/query-plan-visualizer-overview	2026-10-24T22:45:44Z
 https://docs.cloud.google.com/spanner/docs/query-tuning	2026-10-24T22:45:57Z
-https://docs.cloud.google.com/spanner/docs/querydata	2026-10-12T21:03:27Z
+https://docs.cloud.google.com/spanner/docs/querydata	2026-11-10T12:58:08Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-at-most-once	2026-11-09T04:31:17Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-examples	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-overview	2026-10-21T23:12:09Z
@@ -734,7 +735,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-lan
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-10-28T00:26:28Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-10-29T22:25:55Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-11-10T22:10:16Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/security_functions	2026-10-06T21:47:46Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sketches	2026-10-20T16:01:44Z
@@ -745,7 +746,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/subqueries	202
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/region-types	2026-10-10T21:27:56Z
-https://docs.cloud.google.com/spanner/docs/release-notes	2026-11-05T17:28:36Z
+https://docs.cloud.google.com/spanner/docs/release-notes	2026-11-10T22:01:48Z
 https://docs.cloud.google.com/spanner/docs/replication	2026-10-10T21:27:56Z
 https://docs.cloud.google.com/spanner/docs/resources	2026-10-01T01:24:59Z
 https://docs.cloud.google.com/spanner/docs/rest-endpoints	2026-10-07T09:40:03Z
@@ -903,6 +904,7 @@ https://docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-googlesql	202
 https://docs.cloud.google.com/spanner/docs/use-mybatis-spring-boot-postgresql	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-oss-jdbc	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/use-oss-r2dbc	2026-10-07T09:43:42Z
+https://docs.cloud.google.com/spanner/docs/use-parameterized-views	2026-11-10T22:00:52Z
 https://docs.cloud.google.com/spanner/docs/use-pitr	2026-10-26T03:48:33Z
 https://docs.cloud.google.com/spanner/docs/use-repeatable-read-isolation	2026-10-01T01:32:44Z
 https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read	2026-10-01T01:32:44Z
@@ -924,7 +926,7 @@ https://docs.cloud.google.com/spanner/docs/vector-search-embeddings	2026-10-07T0
 https://docs.cloud.google.com/spanner/docs/vector-search-overview	2026-11-09T04:43:23Z
 https://docs.cloud.google.com/spanner/docs/vector-search-tutorial	2026-10-07T09:43:42Z
 https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics	2026-10-07T09:43:42Z
-https://docs.cloud.google.com/spanner/docs/views	2026-10-07T09:43:42Z
+https://docs.cloud.google.com/spanner/docs/views	2026-11-10T22:00:52Z
 https://docs.cloud.google.com/spanner/docs/whitepapers	2026-10-01T01:32:44Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-query	2026-10-07T09:42:01Z
 https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes	2026-10-07T09:42:01Z

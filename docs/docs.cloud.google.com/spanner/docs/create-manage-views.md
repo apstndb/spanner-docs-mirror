@@ -73,6 +73,24 @@ The virtual table created when the `SingerNames` view is used in a query has two
 
 While this definition of the `SingerNames` view is valid, it does not abide by the best practice of casting data types to ensure stability across schema changes, as described in the next section.
 
+### Create a parameterized view
+
+To create [parameterized views](https://docs.cloud.google.com/spanner/docs/parameterized-views) , include the `SECURE_CONTEXT()` function in the `WHERE` clause of the `SELECT` statement.
+
+In the following example, the parameterized view grants the application user access to the `SingerId` , `FirstName` , and `LastName` columns from the `Singers` table. The view limits the results to rows where `UserID` matches a required parameter, `app_end_userid` .
+
+```
+CREATE VIEW SingerNames
+  SQL SECURITY DEFINER
+  AS SELECT
+   Singers.SingerId AS SingerId,
+   Singers.FirstName || ' ' || Singers.LastName AS Name
+  FROM Singers
+  WHERE UserID = CAST(SECURE_CONTEXT('app_end_userid'), INT64);
+```
+
+To use the parameterized view, you must have the `SELECT` privilege on a view. For more information, see [Grant and revoke access to a view](https://docs.cloud.google.com/spanner/docs/create-manage-views#grant-revoke-access) .
+
 ### Best practices when creating views
 
 To minimize the need to update a view's definition, explicitly cast the data type of all table columns in the query that defines the view. When you do so, the view's definition can remain valid across schema changes to a column's type.
@@ -169,6 +187,10 @@ In the following example, a user with the Analyst database role wants to query t
 SELECT COUNT(SingerID) as SingerCount
 FROM SingerNames;
 ```
+
+#### Query a parameterized view
+
+You query [parameterized views](https://docs.cloud.google.com/spanner/docs/parameterized-views) in the same way as other views. The view filters data to pass application-level context safely based on its secure parameters (for example, user ID).
 
 ## Replace a view
 

@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/querydata
 uri: https://docs.cloud.google.com/spanner/docs/querydata
 title: Query database in natural language with QueryData
-description: A managed, mission-critical, globally consistent and scalable relational database service.
+description: Use QueryData to query Spanner databases using natural language.
 data_source: docs.cloud.google.com
 ---
 
@@ -14,7 +14,7 @@ QueryData lets you interact with the data in your database using conversational 
 
 ## Context sets
 
-A context set is a collection of database-specific information that enables QueryData to generate queries with high accuracy.
+A context set is a collection of database-specific information that enables QueryData to generate queries with high accuracy. A context set includes templates, facets, and value searches that help QueryData understand your database schema and the business logic of your applications.
 
 To learn more, see:
 

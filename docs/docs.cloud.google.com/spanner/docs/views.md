@@ -26,6 +26,12 @@ In Spanner, you can create a view as either an *invoker's rights view* or a *def
 | Permissions required to create the view | To create, grant, and revoke access to either view types, you must have database-level `spanner.database.updateDdl` permission.                                                                                                                                                |                                                                                                                                                                                                                                                                                                                                                                                                |
 | Privileges required to query the view   | A database role needs privileges to the view and all its underlying schema objects to query the view.                                                                                                                                                                          | A database role needs privileges to the view (and only the view) to query the view.                                                                                                                                                                                                                                                                                                            |
 
+### Parameterized views
+
+A *parameterized view* enhances standard views to offer stronger data protection, particularly in applications using AI agents or large language models (LLMs). Its primary purpose is to securely inject parameters, such as user identity, directly into the view's definition. This type of view requires the [definer's rights view](https://docs.cloud.google.com/spanner/docs/views#definer) security model, which lets Spanner dynamically enforce row-level security based on the querying user.
+
+For more information, see [Parameterized views overview](https://docs.cloud.google.com/spanner/docs/parameterized-views) .
+
 ## Benefits of views
 
 Views offer several benefits over including the queries they define in the application logic.

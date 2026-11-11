@@ -146,7 +146,7 @@ Calculates a relevance score of a `TOKENLIST` for a full-text search query. The 
 
   - `token_category_weights` : A multiplier for each HTML category. The available categories are: `small` , `medium` , `large` , `title` .
 
-  - `version` : A distinct release of the Scorer that bundles a specific set of active features and default parameter values. The available versions are: `1` , `2` , and the default is `1` . For example: `options=> JSON '{"version": 2}'`
+  - `version` : A distinct release of the Scorer that bundles a specific set of active features and default parameter values. The available versions are `1` and `2` . If unspecified, the database's default scorer version is used; see [Versions](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions#score_versions) . For example: `options=> JSON '{"version": 2}'`
 
 **Details**
 
@@ -158,6 +158,8 @@ Calculates a relevance score of a `TOKENLIST` for a full-text search query. The 
 
 The scorer algorithm is periodically updated. After a short evaluation period, the default behavior updates to the newest version. You are encouraged to leave the version unspecified so that your database can benefit from improvements to the scorer algorithm. However, you can set the version number in the `options` argument to retain old behavior. You can also use the `score_version` database option to set the default scorer version for your database. If the `version` parameter is present in a request, it overrides the `score_version` setting.
 
+Databases created after April 2026 default to version 2. Databases created before April 2026 default to version 1 until Spanner migrates them to the latest version. Databases created during April 2026, while version 2 was rolling out, might use either version.
+
 When the scorer version updates, raw score values and the relative ranking order of search results can change. Paginated queries in flight at the moment of a version switch (where an earlier page uses one version and a later page uses another) might also experience a one-time discontinuity, such as dropped or repeated results; pagination started after the switch is consistent. Because scorer version updates are infrequent and any pagination discontinuity is transient, no action is needed for most applications. If necessary, you can use the `score_version` database option or the `version` parameter in the `SCORE` function's `options` argument to adopt a later version on your own schedule or temporarily retain an earlier version. However, leaving a version permanently pinned prevents your database from automatically receiving future scorer improvements.
 
 - **2** (2025-08):
@@ -167,7 +169,7 @@ When the scorer version updates, raw score values and the relative ranking order
   - Fixed an issue where documents with exactly one hit for a query term received a lower score than intended.
   - Fixed an issue where query terms under an "OR" were not weighted correctly, especially when `enhance_query` was used.
 
-- **1** ( *Default* ): The initial version.
+- **1** : The initial version.
 
 **Return type**
 

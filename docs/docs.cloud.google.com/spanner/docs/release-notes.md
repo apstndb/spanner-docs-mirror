@@ -12,6 +12,14 @@ You can see the latest product updates for all of Google Cloud on the [Google Cl
 
 To get the latest product updates delivered to you, add the URL of this page to your [feed reader](https://wikipedia.org/wiki/Comparison_of_feed_aggregators) , or add the [feed URL](https://docs.cloud.google.com/feeds/spanner-release-notes.xml) directly.
 
+## November 10, 2026
+
+Feature
+
+Spanner [parameterized views](https://docs.cloud.google.com/spanner/docs/parameterized-views) are now generally available ( [GA](https://docs.cloud.google.com/products#product-launch-stages) ). Parameterized views let you dynamically filter data based on session context parameters passed with queries, helping you isolate tenant data and restrict data access in AI agent and LLM applications.
+
+For more information, see [Create a parameterized view](https://docs.cloud.google.com/spanner/docs/create-manage-views#create-parameterized-view) and [Use parameterized views](https://docs.cloud.google.com/spanner/docs/use-parameterized-views) .
+
 ## October 30, 2026
 
 Feature
