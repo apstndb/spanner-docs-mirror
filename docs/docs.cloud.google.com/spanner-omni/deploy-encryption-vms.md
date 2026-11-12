@@ -36,31 +36,45 @@ You need to create three sets of certificates:
 | Server certificates | Server certificates help protect inter-server communication.                                                       |
 | Client certificates | End users or applications use client certificates to establish their identity and trust with Spanner Omni servers. |
 
-A Certification Authority (CA) issues these certificates. Spanner Omni provides tools to create a CA and all three types of certificates. Perform the following steps on one of your machines.
+A certificate authority (CA) issues these certificates. Spanner Omni provides tools to create a CA and all three types of certificates. Perform the following steps on one of your machines.
 
 You can create these certificates on your workstation using the Spanner Omni CLI and then transfer the certificate files to each Spanner Omni server. For more information, see the [Quickstart using the Spanner Omni CLI](https://docs.cloud.google.com/spanner-omni/cli-quickstart) .
 
 To generate certificates, you must complete the following steps:
 
-- [Create a Certification Authority (CA)](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#create-ca)
+- [Create certificate authorities](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#create-ca)
 - [Generate server certificates](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#generate-server-certs)
 - [Generate client certificates](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms#generate-client-certs)
 
-### Create a Certification Authority (CA)
+### Create certificate authorities
 
-This authority is the root CA for all client and server certificates you generate in the following steps.
+You must create two separate certificate authorities (CAs) to isolate internal inter-server communication from external client and API communication:
 
-```
-spanner certificates create-ca --ca-certificate-directory=certs
-```
+- **Internal server CA ( `ca.crt` )** : issues server certificates ( `server.crt` ) used exclusively for internal mTLS communication between Spanner Omni servers.
+- **API and client CA ( `ca-api.crt` )** : issues the API server certificate ( `api.crt` ) and client mTLS certificates ( `client.crt` ). Alternatively, you can use an externally trusted CA for the API and client certificates.
 
-The `certs` directory contains the CA certificate. Create a copy of this certificate to use as a CA for API certificates.
+> **Caution:** Keep the internal server CA ( `ca.crt` ) separate from the API and client CA ( `ca-api.crt` ). Don't sign client certificates with the internal server CA ( `ca.crt` ), because Spanner Omni servers trust certificates signed by `ca.crt` for internal inter-server communication.
 
-```
-cp certs/ca.crt certs/ca-api.crt
-```
+1.  Create the internal server CA for inter-server communication:
 
-The directory `$HOME/.spanner/private-keys` contains the private key for the CA. Back up and secure this directory. A user with access to the private key can sign arbitrary certificates that clients trusting the self-signed CA trust. Although you can use the same CA for all certificates, it is mandatory that API certificates and client certificates use the same CA. Optionally, you can create an additional CA (or use an externally trusted CA) for the API certificates. Make sure you use the right CA in the following steps while creating certificates. This document uses the same CA for all certificate types.
+    ```
+    spanner certificates create-ca --ca-certificate-directory=certs
+    ```
+
+    This command creates the internal server CA certificate ( `certs/ca.crt` ) and writes its private key to `$HOME/.spanner/private-keys/ca.key` .
+
+2.  Create a separate CA for the API and client certificates, and copy its CA certificate to `certs/ca-api.crt` :
+
+    ```
+    spanner certificates create-ca \
+        --ca-certificate-directory=api-certs \
+        --ca-private-key-directory=$HOME/.spanner/api-private-keys
+    cp api-certs/ca.crt certs/ca-api.crt
+    ```
+
+    These commands create the API and client CA certificate ( `api-certs/ca.crt` , copied to `certs/ca-api.crt` ) and write its private key to `$HOME/.spanner/api-private-keys/ca.key` .
+
+Back up and secure both `$HOME/.spanner/private-keys` and `$HOME/.spanner/api-private-keys` . A user with access to these private keys can sign arbitrary certificates that the deployment trusts.
 
 ### Generate server certificates
 
@@ -76,25 +90,34 @@ This setup provides more flexible management of these certificates, like a certi
 
 Spanner Omni servers use server certificates to encrypt communication with each other (inter-server communication).
 
-Create the server certificate by running the following. Replace ` SERVER_LIST ` with a comma separated list of names of Spanner servers or suffixes.
+Create the server certificate:
 
 ```
 SERVER_NAMES=SERVER_LIST
 spanner certificates create-server --hostnames=${SERVER_NAMES} --ca-certificate-directory certs --output-directory certs
 ```
 
+Replace ` SERVER_LIST ` with a comma-separated list of names of Spanner servers or suffixes.
+
 This command creates two files, `server.crt` and `server.key` , in the `certs` directory.
 
 #### Create the API certificate
 
-API certificates encrypt communication from systems interacting with the deployment. Using separate certificates for the API and inter-server communication lets you manage and rotate each type independently.
+API certificates encrypt communication from systems interacting with the deployment. Using separate certificates and CAs for the API and inter-server communication lets you isolate trust domains and rotate each type independently.
 
-Create the API certificate by running the following. Replace ` LB_DNS ` with the DNS of the load balancer.
+Create the API certificate using the API CA:
 
 ```
 SERVER_NAMES=LB_DNS
-spanner certificates create-server --filename-prefix=api --hostnames=${SERVER_NAMES} --ca-certificate-directory certs --output-directory certs
+spanner certificates create-server \
+    --filename-prefix=api \
+    --hostnames=${SERVER_NAMES} \
+    --ca-certificate-directory=api-certs \
+    --ca-private-key-directory=$HOME/.spanner/api-private-keys \
+    --output-directory=certs
 ```
+
+Replace ` LB_DNS ` with the DNS hostname of the load balancer.
 
 This command creates two more files, `api.crt` and `api.key` , in the `certs` directory. If required, you can use an externally trusted CA for the API certificates.
 
@@ -110,11 +133,16 @@ scp -r certs REMOTE_HOST:SPANNER_DIR/certs
 
 You can use client certificates to authenticate users and applications in Spanner. Client certificates enable mTLS between the client and server.
 
-Client certificates must be signed by the same CA as the API certificate and must contain a username for authorization. This example uses the `admin` user, which is the default user for each database. For more information about users, roles, and authentication options, see [Authentication and authorization in Spanner Omni](https://docs.cloud.google.com/spanner-omni/authentication) .
+Sign client certificates with the API and client CA ( `api-certs/ca.crt` , which matches `certs/ca-api.crt` ) and include a username for authorization. Don't sign client certificates with the internal server CA ( `certs/ca.crt` ). This example uses the `admin` user, which is the default user for each database. For more information about users, roles, and authentication options, see [Authentication and authorization in Spanner Omni](https://docs.cloud.google.com/spanner-omni/authentication) .
+
+Create the client certificate:
 
 ```
 USERNAME=admin
-spanner certificates create-client $USERNAME --output-directory clientcerts --ca-certificate-directory certs
+spanner certificates create-client $USERNAME \
+    --output-directory=clientcerts \
+    --ca-certificate-directory=api-certs \
+    --ca-private-key-directory=$HOME/.spanner/api-private-keys
 ```
 
 This command creates `client.crt` and `client.key` files in the `clientcerts` directory. Send these files to any machine that connects to servers of the deployment.
@@ -124,8 +152,9 @@ If you plan to use the client certificates with the Java client library, you mus
 ```
 USERNAME=admin
 spanner certificates create-client $USERNAME \
-    --output-directory clientcerts \
-    --ca-certificate-directory certs \
+    --output-directory=clientcerts \
+    --ca-certificate-directory=api-certs \
+    --ca-private-key-directory=$HOME/.spanner/api-private-keys \
     --generate-pkcs8-key
 ```
 

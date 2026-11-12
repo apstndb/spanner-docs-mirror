@@ -95,8 +95,8 @@ https://docs.cloud.google.com/spanner-omni/client-library-overview	2026-10-01T16
 https://docs.cloud.google.com/spanner-omni/create-helm-configuration	2026-10-30T23:31:37Z
 https://docs.cloud.google.com/spanner-omni/create-split-points	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/debezium	2026-10-01T16:55:26Z
-https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes	2026-10-20T22:20:26Z
-https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms	2026-10-20T22:20:26Z
+https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes	2026-11-11T18:32:43Z
+https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms	2026-11-11T18:32:43Z
 https://docs.cloud.google.com/spanner-omni/deploy-multi-cluster-on-kubernetes	2026-10-30T23:31:37Z
 https://docs.cloud.google.com/spanner-omni/deploy-on-kubernetes	2026-10-30T23:31:37Z
 https://docs.cloud.google.com/spanner-omni/deploy-on-vms	2026-10-01T16:55:26Z
@@ -453,7 +453,7 @@ https://docs.cloud.google.com/spanner/docs/query-optimizer/version-statistics	20
 https://docs.cloud.google.com/spanner/docs/query-optimizer/versions	2026-10-07T09:39:54Z
 https://docs.cloud.google.com/spanner/docs/query-plan-visualizer-overview	2026-10-24T22:45:44Z
 https://docs.cloud.google.com/spanner/docs/query-tuning	2026-10-24T22:45:57Z
-https://docs.cloud.google.com/spanner/docs/querydata	2026-11-10T12:58:08Z
+https://docs.cloud.google.com/spanner/docs/querydata	2026-11-11T18:40:35Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-at-most-once	2026-11-09T04:31:17Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-examples	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/queues/queues-overview	2026-10-21T23:12:09Z
@@ -514,7 +514,7 @@ https://docs.cloud.google.com/spanner/docs/reference/postgresql/operators	2026-1
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/overview	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-tables	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/pg-system-catalog-views	2026-10-07T09:40:30Z
-https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax	2026-10-07T09:40:30Z
+https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax	2026-11-11T17:21:51Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/stored-procedures-pg	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/postgresql/subqueries	2026-10-07T09:40:30Z
 https://docs.cloud.google.com/spanner/docs/reference/rest	2025-12-12T16:30:02Z
@@ -734,7 +734,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/pipe-syntax-gu
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/procedural-language	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol_buffer_functions	2026-10-01T01:23:56Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-10-28T00:26:28Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax	2026-11-11T17:21:51Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/search_functions	2026-11-10T22:10:16Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/security_functions	2026-10-06T21:47:46Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/sequence_functions	2026-10-01T01:23:56Z

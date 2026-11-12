@@ -3025,7 +3025,9 @@ The following query statement hints are supported:
 <td><code>USE_ADDITIONAL_PARALLELISM</code></td>
 <td><code>TRUE</code><br />
 | <code>FALSE</code> (default)</td>
-<td>If <code>TRUE</code> , the execution engine favors using more parallelism when possible. Because this can reduce resources available to other operations, you may want to avoid this hint if you run latency-sensitive operations on the same instance.</td>
+<td><p>If <code>TRUE</code> , the execution engine favors using more parallelism when possible.</p>
+<p>Because this hint can reduce the resources available to other operations, if you run latency-sensitive operations on the same instance, avoid using this hint or send the query with a lower <a href="https://docs.cloud.google.com/spanner/docs/cpu-utilization#task-priority">request priority</a> (such as medium or low).</p>
+<p>For more information about tuning query parallelism, see <a href="https://docs.cloud.google.com/spanner/docs/query-tuning#increase_parallelism">Increase parallelism</a> .</p></td>
 </tr>
 <tr class="even">
 <td><code>OPTIMIZER_VERSION</code></td>
