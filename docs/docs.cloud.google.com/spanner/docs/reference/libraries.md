@@ -2,7 +2,7 @@
 name: documents/docs.cloud.google.com/spanner/docs/reference/libraries
 uri: https://docs.cloud.google.com/spanner/docs/reference/libraries
 title: Spanner client libraries
-description: Start writing code for Spanner in C#, Python, Java, Go, Node.js, PHP, Ruby, C++.
+description: Start writing code for Spanner in C#, Python, Java, Go, Node.js, PHP, Ruby, C++, Rust.
 data_source: docs.cloud.google.com
 ---
 
@@ -10,7 +10,7 @@ This page shows how to get started with the Cloud Client Libraries for the Cloud
 
 Read more about the Cloud Client Libraries and the older Google API Client Libraries in [Client libraries explained](https://docs.cloud.google.com/apis/docs/client-libraries-explained) .
 
-Spanner provides client libraries for popular programming languages, including C++, C#, Go, Java, Node.js, PHP, Python, and Ruby. The client libraries connect to the Spanner service using gRPC over a TLS-encrypted HTTP/2 connection, so you don't need to manually configure SSL or TLS.
+Spanner provides client libraries for popular programming languages, including C++, C#, Go, Java, Node.js, PHP, Python, Ruby, and Rust. The client libraries connect to the Spanner service using gRPC over a TLS-encrypted HTTP/2 connection, so you don't need to manually configure SSL or TLS.
 
 The Spanner client libraries are supported on Compute Engine, App Engine flexible environment, Google Kubernetes Engine, and Cloud Run functions. The Spanner client library for Java is also supported on App Engine standard environment with Java 8.
 
@@ -129,6 +129,15 @@ gem install google-cloud-spanner
 ```
 
 For more information, see [Setting Up a Ruby Development Environment](https://docs.cloud.google.com/ruby/docs/setup) .
+
+### Rust
+
+```
+cargo add google-cloud-spanner
+cargo add tokio --features full
+```
+
+For more information, see [Get started with Rust](https://docs.cloud.google.com/rust/docs/quickstart) .
 
 ## Set up authentication
 
@@ -443,6 +452,26 @@ results.rows.each do |row|
 end
 ```
 
+### Rust
+
+```rust
+use google_cloud_spanner::client::{DatabaseClient, Spanner};
+use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+
+pub async fn sample(database_name: &str) -> anyhow::Result<(DatabaseClient, DatabaseAdmin)> {
+    // The builder automatically handles SPANNER_EMULATOR_HOST if set in the environment.
+    let client = Spanner::builder().build().await?;
+
+    // Creates a client that can be used to execute queries and transactions on a specific database.
+    let database_client = client.database_client(database_name).build().await?;
+
+    // Creates a client that can be used to execute DDL and other administrative operations on databases.
+    let admin_client = client.database_admin_builder().build().await?;
+
+    Ok((database_client, admin_client))
+}
+```
+
 ## Use the client library for administrator operations
 
 The following list contains links to all the administrator operations you can use in the Spanner client library:
@@ -556,6 +585,17 @@ The following list contains links to more resources related to the client librar
 - [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Bruby%5D)
 - [Source code](https://github.com/googleapis/google-cloud-ruby)
 - [Getting started in Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby)
+
+### Rust
+
+The following list contains links to more resources related to the client library for Rust:
+
+- [API reference](https://docs.rs/google-cloud-spanner/latest/google_cloud_spanner/)
+- [Client libraries best practices](https://docs.cloud.google.com/apis/docs/client-libraries-best-practices)
+- [Issue tracker](https://github.com/googleapis/google-cloud-rust/issues)
+- [`google-cloud-spanner` on Stack Overflow](https://stackoverflow.com/search?q=%5Bgoogle-cloud-spanner%5D+%5Brust%5D)
+- [Source code](https://github.com/googleapis/google-cloud-rust)
+- [Getting started in Rust](https://docs.cloud.google.com/spanner/docs/getting-started/rust)
 
 ## Additional client libraries
 

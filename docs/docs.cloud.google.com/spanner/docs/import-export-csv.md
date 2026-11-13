@@ -191,7 +191,7 @@ We recommend that you create secondary indexes, foreign keys, and change streams
 
 ### Step 4: Run a Dataflow import job using gcloud
 
-To start your import job, follow the instructions for using the Google Cloud CLI to run a job with the [Cloud Storage Text to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcs_text_to_cloud_spanner) .
+To start your import job, follow the instructions for using the gcloud CLI to run a job with the [Cloud Storage Text to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcs_text_to_cloud_spanner) .
 
 After you have started an import job, you can [see details about the job](https://docs.cloud.google.com/spanner/docs/import-export-csv#view-job-details) in the Google Cloud console.
 

@@ -1758,6 +1758,28 @@ This view contains all constraints belonging to tables that the current user has
 </tbody>
 </table>
 
+### `table_options`
+
+This row-filtered view lists only the options that are explicitly set on tables in the `LOCALITY GROUP` , `COLUMNAR POLICY` , or `WITH` clause of a [`CREATE TABLE`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) or [`ALTER TABLE`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) statement, except `locality_group` when set to `default` . Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see options only for tables that meet either of the following requirements:
+
+- Any of the `SELECT` , `INSERT` , `UPDATE` , or `DELETE` fine-grained access control privileges are granted on the table to the current database role, to roles of which the current database role is a member, or to `public` .
+- Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on any column of the table to the current database role, to roles of which the current database role is a member, or to `public` .
+
+The valid values for `option_name` include the following:
+
+- `locality_group` : specifies the [locality group](https://docs.cloud.google.com/spanner/docs/schema-and-data-model#locality-groups) of the table, such as for [tiered storage](https://docs.cloud.google.com/spanner/docs/tiered-storage) . This view lists `locality_group` only when the table uses a locality group other than `default` .
+- `columnar_policy` : specifies the [columnar engine](https://docs.cloud.google.com/spanner/docs/configure-columnar-engine) policy of the table.
+- `fulltext_dictionary_table` and `fulltext_dictionary_staleness` : specify options for full-text search [custom dictionaries](https://docs.cloud.google.com/spanner/docs/full-text-search/search-query-enhancement#custom-dictionaries) .
+
+| Column name     | Type                | Description                                                                                                                                  |
+|-----------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| `table_catalog` | `character varying` | The database name.                                                                                                                           |
+| `table_schema`  | `character varying` | The schema name of the table. The name is `public` for the default schema and contains a value for named schemas. This column is never null. |
+| `table_name`    | `character varying` | The name of the table.                                                                                                                       |
+| `option_name`   | `character varying` | A SQL identifier that uniquely identifies the option.                                                                                        |
+| `option_type`   | `character varying` | The data type of the table option.                                                                                                           |
+| `option_value`  | `character varying` | The value of the table option. This column is never null.                                                                                    |
+
 ### `table_privileges`
 
 This row-filtered view lists all fine-grained access control privileges granted on all tables and views to any database role, including `public` . Principals that have database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see only privileges granted on tables and views to the current database role, to roles of which the current database role is a member, or to `public` .
@@ -1972,6 +1994,23 @@ ORDER BY
 ```
 
 Return information about each index in the default schema in the current database: \`\`\`postgresql SELECT t.table_name, t.index_name, t.parent_table_name FROM information_schema.indexes AS t WHERE t.table_schema = 'public' AND t.index_type != 'PRIMARY_KEY' ORDER BY t.table_schema, t.table_name, t.index_name
+
+Return all explicitly set table options in the database:
+
+```
+SELECT
+  t.table_schema,
+  t.table_name,
+  t.option_name,
+  t.option_type,
+  t.option_value
+FROM
+  information_schema.table_options AS t
+ORDER BY
+  t.table_schema,
+  t.table_name,
+  t.option_name
+```
 
 Return columns that use non-default options in the default schema:
 

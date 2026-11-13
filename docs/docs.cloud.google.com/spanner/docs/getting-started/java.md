@@ -115,7 +115,7 @@ See [Create an instance](https://docs.cloud.google.com/spanner/docs/create-manag
 
 - The Google Cloud CLI
 - The Google Cloud console
-- A client library (C++, C#, Go, Java, Node.js, PHP, Python, or Ruby)
+- A client library (C++, C#, Go, Java, Node.js, PHP, Python, Ruby, or Rust)
 
 ## Look through sample files
 

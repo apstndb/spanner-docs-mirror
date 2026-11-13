@@ -326,7 +326,7 @@ FROM Singers
 LIMIT 10;
 ```
 
-This hint might saturate the CPU on a given split. If the query is long running, send it with medium request priority to avoid increasing latency for other high-priority queries.
+This hint might saturate the CPU on a given split. If the query is long running, send it with a lower [request priority](https://docs.cloud.google.com/spanner/docs/cpu-utilization#task-priority) (such as medium or low) to avoid increasing latency for other high-priority queries.
 
 ## Optimize limits
 

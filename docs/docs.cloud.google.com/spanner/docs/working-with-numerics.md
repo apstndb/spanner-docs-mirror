@@ -40,6 +40,7 @@ To maintain the fidelity of `NUMERIC` values, each Spanner [client library](http
 | PHP      | custom [Numeric](https://googleapis.github.io/google-cloud-php/#/docs/google-cloud/v0.140.0/spanner/spannerclient?method=numeric)                 |                                                                                                                                    |
 | Python   | [Decimal](https://docs.python.org/3/library/decimal.html)                                                                                         | [Decimal](https://docs.python.org/3/library/decimal.html) with custom annotation                                                   |
 | Ruby     | [BigDecimal](https://ruby-doc.org/stdlib-2.5.1/libdoc/bigdecimal/rdoc/BigDecimal.html)                                                            |                                                                                                                                    |
+| Rust     | [Decimal](https://docs.rs/rust_decimal/latest/rust_decimal/struct.Decimal.html)                                                                   |                                                                                                                                    |
 
 Three client libraries, C++, C# and PHP have each implemented a custom type to represent Spanner SQL's `NUMERIC` type. All other libraries use an existing type.
 

@@ -87,7 +87,7 @@ To import Avro files from a non-Spanner database to Spanner, follow these steps:
 
 1.  Create target tables and define the schema for your Spanner database.
 2.  Create a `spanner-export.json` file in your Cloud Storage bucket.
-3.  Run a Dataflow import job using gcloud CLI.
+3.  Run a Dataflow import job using Google Cloud CLI.
 
 ### Step 1: Create the schema for your Spanner database
 
@@ -158,7 +158,7 @@ If the dialect element is omitted, the dialect defaults to `GOOGLE_STANDARD_SQL`
 
 ### Step 3: Run a Dataflow import job using gcloud CLI
 
-To start your import job, follow the instructions for using the Google Cloud CLI to run a job with the [Avro to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) .
+To start your import job, follow the instructions for using the gcloud CLI to run a job with the [Avro to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcsavrotocloudspanner) .
 
 After you have started an import job, you can [see details about the job](https://docs.cloud.google.com/spanner/docs/import-non-spanner#view-dataflow-ui) in the Google Cloud console.
 

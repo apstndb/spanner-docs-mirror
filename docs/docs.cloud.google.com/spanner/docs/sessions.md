@@ -432,7 +432,7 @@ Multiplexed sessions let you create a large number of concurrent requests on a s
 
 Multiplexed sessions are supported in the following:
 
-- The C++, Go, Java, Node.js, PHP, Python, and Ruby [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
+- The C++, Go, Java, Node.js, PHP, Python, Ruby, and Rust [client libraries](https://docs.cloud.google.com/spanner/docs/reference/libraries) .
 
 - Spanner ecosystem tools that depend on the mentioned client Libraries, such as PGAdapter, JDBC, Hibernate, database/sql driver, dbAPI driver and GORM.
 
