@@ -402,6 +402,7 @@ https://docs.cloud.google.com/spanner/docs/monitoring-cloud	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/monitoring-console	2026-10-07T09:39:39Z
 https://docs.cloud.google.com/spanner/docs/move-instance	2026-10-23T09:34:41Z
 https://docs.cloud.google.com/spanner/docs/mysql-configure-fallback	2026-10-12T21:46:24Z
+https://docs.cloud.google.com/spanner/docs/mysql-fallback	2026-11-12T13:52:51Z
 https://docs.cloud.google.com/spanner/docs/mysql-live-data-migration	2026-10-12T21:46:24Z
 https://docs.cloud.google.com/spanner/docs/mysql-perform-cutover	2026-10-12T21:46:24Z
 https://docs.cloud.google.com/spanner/docs/named-schemas	2026-10-07T09:39:39Z

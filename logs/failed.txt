@@ -1,2 +1,1 @@
-200 https://docs.cloud.google.com/spanner/docs/mysql-fallback
 404 https://docs.cloud.google.com/spanner/docs/getting-started/rust
