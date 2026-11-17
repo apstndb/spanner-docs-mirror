@@ -122,14 +122,19 @@ For each locality group, this table lists the name and options that are set on t
 <td><code>STRING</code></td>
 <td>The name of the locality group option. The valid options are:
 <ul>
-<li><code>STORAGE</code> : defines the storage type for the locality group.</li>
-<li><code>SSD_TO_HDD_SPILL_TIMESPAN</code> : defines how long data is stored in SSD storage before it moves to HDD storage.</li>
+<li><code>storage</code> : defines the storage type for the locality group.</li>
+<li><code>ssd_to_hdd_spill_timespan</code> : defines how long data is stored in SSD storage before it moves to HDD storage.</li>
 </ul></td>
 </tr>
 <tr class="odd">
 <td><code>OPTION_VALUE</code></td>
 <td><code>STRING</code></td>
-<td>The value of the locality group option. For <code>STORAGE</code> , this is either <code>ssd</code> or <code>hdd</code> . For <code>SSD_TO_HDD_SPILL_TIMESPAN</code> , this is the amount of time that data must be stored in SSD before it's moved to HDD storage. For example, <code>10d</code> is 10 days. The minimum amount of time you can set is one hour.</td>
+<td>The value of the locality group option. For <code>storage</code> , this is either <code>ssd</code> or <code>hdd</code> . For <code>ssd_to_hdd_spill_timespan</code> , this is the amount of time that data must be stored in SSD before it's moved to HDD storage. For example, <code>10d</code> is 10 days. The minimum amount of time you can set is one hour.</td>
+</tr>
+<tr class="even">
+<td><code>IS_INHERITED</code></td>
+<td><code>BOOL</code></td>
+<td>Indicates whether the value of the locality group option is inherited instead of explicitly set. For <code>storage</code> , the value is <code>TRUE</code> if the storage type isn't explicitly set on the locality group. In that case, the locality group uses the storage type of the <code>default</code> locality group, or the default storage type of the instance if the <code>default</code> locality group isn't altered. The value is <code>FALSE</code> if the storage type is explicitly set in the <code>OPTIONS</code> clause of the <code>CREATE LOCALITY GROUP</code> or <code>ALTER LOCALITY GROUP</code> statement. For <code>ssd_to_hdd_spill_timespan</code> , the value is always <code>NULL</code> .</td>
 </tr>
 </tbody>
 </table>
@@ -759,22 +764,100 @@ This row-filtered table lists the columns in an index. Principals with database-
 | `IS_NULLABLE`      | `STRING` | A string that indicates whether the column is nullable. In accordance with the SQL standard, the string is either `YES` or `NO` , rather than a Boolean value.                                                                                                                              |
 | `SPANNER_TYPE`     | `STRING` | The [data type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#allowable-types) of the column.                                                                                                                                                                |
 
+### `INDEX_OPTIONS`
+
+This table lists the options of search indexes, vector indexes, and secondary indexes. The rows in this table are filtered in the same way as the rows in the [`INDEXES`](https://docs.cloud.google.com/spanner/docs/information-schema#indexes) table.
+
+The options that are listed depend on the type of the index:
+
+- For [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) , all options that are explicitly set in the `OPTIONS` clause of the `CREATE SEARCH INDEX` statement, for example, `sort_order_sharding` .
+- For [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) , all options that are explicitly set in the `OPTIONS` clause of the `CREATE VECTOR INDEX` statement, for example, `distance_type` , `tree_depth` , `num_leaves` , and `num_branches` . This table also lists the `system_optimized_tree_depth` , `system_optimized_num_leaves` , and `system_optimized_num_branches` options, which show the parameter values that Spanner uses for the index. For more information, see [Vector index best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) .
+- For secondary indexes, the `locality_group` option (only if the index uses a [locality group](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups) other than `default` ) and the `columnar_policy` option (only if it's set).
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="header">
+<th>Column name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+
+<tr class="odd">
+<td><code>TABLE_CATALOG</code></td>
+<td><code>STRING</code></td>
+<td>The name of the catalog. Always an empty string.</td>
+</tr>
+<tr class="even">
+<td><code>TABLE_SCHEMA</code></td>
+<td><code>STRING</code></td>
+<td>The name of the schema. The name is empty for the default schema and non-empty for other schemas. This column is never null.</td>
+</tr>
+<tr class="odd">
+<td><code>TABLE_NAME</code></td>
+<td><code>STRING</code></td>
+<td>The name of the table that the index is defined on.</td>
+</tr>
+<tr class="even">
+<td><code>INDEX_NAME</code></td>
+<td><code>STRING</code></td>
+<td>The name of the index.</td>
+</tr>
+<tr class="odd">
+<td><code>INDEX_TYPE</code></td>
+<td><code>STRING</code></td>
+<td>The type of the index. The value is one of the following:
+<ul>
+<li><code>SEARCH</code> : a search index.</li>
+<li><code>VECTOR</code> : a vector index.</li>
+<li><code>INDEX</code> : a secondary index.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><code>OPTION_NAME</code></td>
+<td><code>STRING</code></td>
+<td>A SQL identifier that uniquely identifies the option. This identifier is the key of the <code>OPTIONS</code> clause in DDL.</td>
+</tr>
+<tr class="odd">
+<td><code>OPTION_TYPE</code></td>
+<td><code>STRING</code></td>
+<td>A data type name that is the type of this option value.</td>
+</tr>
+<tr class="even">
+<td><code>OPTION_VALUE</code></td>
+<td><code>STRING</code></td>
+<td>A SQL literal describing the value of this option. The value of this column must be parsable as part of a query. This column is never null.</td>
+</tr>
+</tbody>
+</table>
+
 ### `COLUMN_OPTIONS`
 
-This row-filtered table lists lists the column options in a table. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see options only for columns that meet either of the following requirements:
+This row-filtered table lists the column options in a table. Principals with database-level IAM permissions and principals who have been granted access to the `spanner_info_reader` system role or to members of that role can see all rows in this view. All other principals can see options only for columns that meet either of the following requirements:
 
 - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are directly granted on the column to the current database role, to roles of which the current database role is a member, or to `public` .
 - Any of the `SELECT` , `INSERT` , or `UPDATE` fine-grained access control privileges are granted on the table that contains the column to the current database role, to roles of which the current database role is a member, or to `public` .
 
-| Column name     | Type     | Description                                                                                                                                                                                                                     |
-|-----------------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `TABLE_CATALOG` | `STRING` | The name of the catalog. Always an empty string.                                                                                                                                                                                |
-| `TABLE_SCHEMA`  | `STRING` | The name of the schema. The name is empty for the default schema and non-empty for other schemas (for example, the `INFORMATION_SCHEMA` itself). This column is never null.                                                     |
-| `TABLE_NAME`    | `STRING` | The name of the table.                                                                                                                                                                                                          |
-| `COLUMN_NAME`   | `STRING` | The name of the column.                                                                                                                                                                                                         |
-| `OPTION_NAME`   | `STRING` | A SQL identifier that uniquely identifies the option. This identifier is the key of the `OPTIONS` clause in DDL.                                                                                                                |
-| `OPTION_TYPE`   | `STRING` | A data type name that is the type of this option value.                                                                                                                                                                         |
-| `OPTION_VALUE`  | `STRING` | A SQL literal describing the value of this option. The value of this column must be parsable as part of a query. The expression resulting from parsing the value must be castable to `OPTION_TYPE` . This column is never null. |
+The valid values for `OPTION_NAME` include:
+
+- `allow_commit_timestamp` : listed for columns that [allow commit timestamps](https://docs.cloud.google.com/spanner/docs/commit-timestamp) .
+- `locality_group` : the [locality group](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups) that stores the column. This option is listed for every column, including columns that are stored in the `default` locality group. Use the `IS_INHERITED` column to check whether the locality group is explicitly set on the column or inherited from the table.
+- `cassandra_type` : the Cassandra data type of the column, for tables that are used with the [Cassandra interface](https://docs.cloud.google.com/spanner/docs/non-relational/cassandra-overview) .
+
+| Column name     | Type     | Description                                                                                                                                                                                                                                                                                                                                                                                         |
+|-----------------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `TABLE_CATALOG` | `STRING` | The name of the catalog. Always an empty string.                                                                                                                                                                                                                                                                                                                                                    |
+| `TABLE_SCHEMA`  | `STRING` | The name of the schema. The name is empty for the default schema and non-empty for other schemas (for example, the `INFORMATION_SCHEMA` itself). This column is never null.                                                                                                                                                                                                                         |
+| `TABLE_NAME`    | `STRING` | The name of the table.                                                                                                                                                                                                                                                                                                                                                                              |
+| `COLUMN_NAME`   | `STRING` | The name of the column.                                                                                                                                                                                                                                                                                                                                                                             |
+| `OPTION_NAME`   | `STRING` | A SQL identifier that uniquely identifies the option. This identifier is the key of the `OPTIONS` clause in DDL.                                                                                                                                                                                                                                                                                    |
+| `OPTION_TYPE`   | `STRING` | A data type name that is the type of this option value.                                                                                                                                                                                                                                                                                                                                             |
+| `OPTION_VALUE`  | `STRING` | A SQL literal describing the value of this option. The value of this column must be parsable as part of a query. The expression resulting from parsing the value must be castable to `OPTION_TYPE` . This column is never null.                                                                                                                                                                     |
+| `IS_INHERITED`  | `BOOL`   | Indicates whether the column option is inherited instead of explicitly set on the column. For the `locality_group` option, the value is `TRUE` if the column inherits the locality group of its table instead of setting it explicitly. The value is `FALSE` if the locality group is explicitly set in the `OPTIONS` clause of the column definition. For all other options, the value is `NULL` . |
 
 ### `SEQUENCES`
 

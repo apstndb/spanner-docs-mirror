@@ -535,7 +535,7 @@ To check whether your query uses batch-oriented processing, row-oriented process
 
 4.  In the Spanner navigation menu, click **Spanner Studio** .
 
-5.  Click add **New SQL editor tab** or add **New tab** .
+5.  Click **New SQL editor tab** or **New tab** .
 
 6.  In the query editor, enter your query.
 

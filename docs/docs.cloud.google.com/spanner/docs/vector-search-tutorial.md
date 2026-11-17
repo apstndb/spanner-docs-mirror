@@ -131,7 +131,7 @@ The following example demonstrates how to register an Agent Platform [text embed
 
 1.  In the database **Overview** page, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+2.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 3.  Enter:
 

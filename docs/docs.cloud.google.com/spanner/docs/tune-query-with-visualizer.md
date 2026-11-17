@@ -44,7 +44,7 @@ The Spanner Studio page provides query tabs that let you type or paste SQL query
 
 ![**Figure 7.** Annotated query editor page.](https://docs.cloud.google.com/static/spanner/docs/images/console/annotated-query-editor.png)
 
-1.  The *tab bar* shows the query tabs you have open. To create a new tab, click add **New tab** .
+1.  The *tab bar* shows the query tabs you have open. To create a new tab, click **New tab** .
 
     You can also use Gemini Code Assist to get AI-powered assistance. For more information, see [Write SQL with Gemini assistance](https://docs.cloud.google.com/spanner/docs/write-sql-gemini) .
 

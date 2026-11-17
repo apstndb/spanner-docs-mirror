@@ -62,15 +62,15 @@ Changes to the system insights dashboard are non-destructive, and can be reset b
 
 ### Modify the dashboard
 
-To modify the dashboard, click edit **Customize dashboards** . The following options are available to you:
+To modify the dashboard, click **Customize dashboards** . The following options are available to you:
 
-- **Add a widget:** In the dashboard toolbar, click add **Add widget** , select the widget you want to add, and then configure it.
-- **Edit a widget:** Hover over a widget to show its toolbar, then click edit **Edit** . You can change the widget's type and customize the data it displays.
-- **Clone a widget:** Hover over a widget to show its toolbar, click more_vert **More chart options** , then **Clone widget** .
-- **Delete a widget:** Hover over a widget to show its toolbar, click more_vert **More chart options** , then **Delete widget** .
+- **Add a widget:** In the dashboard toolbar, click **Add widget** , select the widget you want to add, and then configure it.
+- **Edit a widget:** Hover over a widget to show its toolbar, then click **Edit** . You can change the widget's type and customize the data it displays.
+- **Clone a widget:** Hover over a widget to show its toolbar, click **More chart options** , then **Clone widget** .
+- **Delete a widget:** Hover over a widget to show its toolbar, click **More chart options** , then **Delete widget** .
 - **Change the layout:** You can drag widgets to reposition them and drag their corners to resize them.
 - **Name the custom view:** You can set the custom view name in the **Custom view name** box.
-- **Save the dashboard:** You can save the custom view by clicking save **Save** . You can also quit without saving by clicking **Exit edit mode** .
+- **Save the dashboard:** You can save the custom view by clicking **Save** . You can also quit without saving by clicking **Exit edit mode** .
 
 ## System insights scorecards, charts, and metrics
 
@@ -97,15 +97,15 @@ The toolbar on each chart provides the following standard options. Some elements
 
 - To zoom into a particular section of a chart, drag your pointer across the section that you want to view. This action sets a custom time range, which you can adjust or revert with the time range filter.
 
-- To view a description of the chart and its data, click *help* .
+- To view a description of the chart and its data, click .
 
-- To view the filters and groupings that are applied to the chart, click *info* .
+- To view the filters and groupings that are applied to the chart, click .
 
-- To create an alert based on the chart's data, click *add_alert* .
+- To create an alert based on the chart's data, click .
 
-- To explore the data in the chart, click *query_stats* .
+- To explore the data in the chart, click .
 
-- To view additional chart options, click *more_vert* **More chart options** .
+- To view additional chart options, click **More chart options** .
 
   - To view a chart in full-screen mode, click **View in full screen** . You can exit full screen by clicking **Cancel** or pressing <span class="kbd"> Esc </span> .
 
@@ -150,9 +150,9 @@ It shows an orange bar in the timeline when there is a service disruption. You c
 <br />
 To failover and failback manually, see <a href="https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum">Change dual-region quorum</a> .</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -168,9 +168,9 @@ For dual-region or multi-region instances, metrics are grouped by the region and
 <a href="https://docs.cloud.google.com/spanner/docs/cpu-utilization#task-priority">Learn more about high-priority tasks</a> .<br />
 <a href="https://docs.cloud.google.com/spanner/docs/cpu-utilization">Learn more about CPU utilization.</a></td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -181,9 +181,9 @@ CPU utilization by region<br />
 <a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/cpu/utilization_by_priority</a></td>
 <td>Utilization of CPU in the selected instance or database, grouped by region.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -194,9 +194,9 @@ CPU utilization by database<br />
 <a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/cpu/utilization_by_priority</a></td>
 <td>Utilization of CPU in the selected instance, grouped by database and region.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -207,9 +207,9 @@ CPU utilization by user/system<br />
 <a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/cpu/utilization_by_priority</a></td>
 <td>Utilization of CPU in the selected instance or database, grouped by user and system tasks, and by priority.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -224,9 +224,9 @@ You can further filter by priority of the tasks using the option list.<br />
 <br />
 For dual-region or multi-region instances, metrics in the line chart show the mean percentage among regions.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -237,9 +237,9 @@ CPU utilization (rolling 24-hour average)<br />
 <td><br />
 A rolling average of total <a href="https://docs.cloud.google.com/spanner/docs/cpu-utilization">CPU Spanner utilization</a> , as a percentage of the instance's CPU resources, for each database. Each data point is an average for the previous 24 hours.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -252,9 +252,9 @@ The amount of time that Spanner took to handle a read or write request. This mea
 <br />
 You can view latency metrics for the 50th and 99th percentile latencies by using the option list.</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -267,9 +267,9 @@ The amount of time that Spanner took to handle a read or write request, grouped 
 <br />
 You can view metrics for the 50th and 99th percentile latency by using the view list on this chart.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -282,9 +282,9 @@ The amount of time that Spanner took to handle a request, grouped by Spanner API
 <br />
 You can view metrics for the 50th and 99th percentile latencies by using the view list on this chart.</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -300,9 +300,9 @@ The major difference between the Latency chart and the Transaction latency chart
 <br />
 You can view metrics for the 50th and 99th percentile latencies by using the view list on this chart.</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -317,9 +317,9 @@ The major difference between the Latency chart and the Transaction latency by da
 <br />
 You can view metrics for the 50th and 99th percentile latencies by using the view list on this chart.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -333,9 +333,9 @@ The amount of time that Spanner took to process a transaction.<br />
 <br />
 The major difference between the Latency chart and the Transaction latency by API method chart is that the Transaction latency by API method chart lets you see the leader involvement for the read-only type. Reads which involve the leader might experience higher latency. You can use this chart to evaluate if you should use stale reads without communicating with the leader, assuming the <a href="https://docs.cloud.google.com/spanner/docs/timestamp-bounds">timestamp bound</a> is at least 15 seconds. For read-write transactions, the leader is always involved in the transaction so the data shown on the chart always include the time it took for the request to reach the leader and receive a response. The location corresponds to the region of the <a href="https://docs.cloud.google.com/spanner/docs/latency-points#spanner-api-requests/">Cloud Spanner API frontend</a> .</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -355,9 +355,9 @@ You can choose which operations to view in this chart:<br />
 <li>Errors on the Spanner server (grouped by read and write)</li>
 </ul></td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -377,9 +377,9 @@ You can choose which operations to view in this chart:<br />
 <li>Errors on the Spanner server (grouped by read and write)</li>
 </ul></td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -390,9 +390,9 @@ Operations per second by API method<br />
 <td><br />
 The number of operations that Spanner performed per second, grouped by Spanner API method</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -409,9 +409,9 @@ Read throughput includes requests and responses for methods in the <a href="http
 <br />
 Write throughput includes requests and responses to commit data through the <a href="https://docs.cloud.google.com/spanner/docs/modify-mutation-api">mutation API</a> . It excludes requests and responses for DML statements.</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -428,9 +428,9 @@ Read throughput includes requests and responses for methods in the <a href="http
 <br />
 Write throughput includes requests and responses to commit data through the <a href="https://docs.cloud.google.com/spanner/docs/modify-mutation-api">mutation API</a> . It excludes requests and responses for DML statements.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -447,9 +447,9 @@ Read throughput includes requests and responses for methods in the <a href="http
 <br />
 Write throughput includes requests and responses to commit data through the <a href="https://docs.cloud.google.com/spanner/docs/modify-mutation-api">mutation API</a> . It excludes requests and responses for DML statements.</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -460,9 +460,9 @@ New connections<br />
 <td><br />
 The average rate of new active connections established with the database, in connections per minute.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -473,9 +473,9 @@ Bytes read/scanned<br />
 <td><br />
 The average rate of data bytes read or scanned from the database, in bytes per minute.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -486,9 +486,9 @@ Bytes returned<br />
 <td><br />
 The average rate of data bytes returned by the database, in bytes per minute.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -499,9 +499,9 @@ Bytes written<br />
 <td><br />
 The average rate of data bytes written to the database, in bytes per minute.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -512,9 +512,9 @@ DML throughput (insert)<br />
 <td><br />
 The average rate of insert DML rows executed, in rows per minute.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -525,9 +525,9 @@ DML throughput (update)<br />
 <td><br />
 The average rate of update DML rows executed, in rows per minute.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -538,9 +538,9 @@ DML throughput (delete)<br />
 <td><br />
 The average rate of delete DML rows executed, in rows per minute.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -551,9 +551,9 @@ Total storage<br />
 <td><br />
 The amount of data that is stored in the database. This value is measured in binary bytes, such as KiB, MiB, or GiB.</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -564,9 +564,9 @@ Total database storage by database<br />
 <td><br />
 The amount of data that is stored in the instance, grouped by database. This value is measured in binary bytes, such as KiB, MiB, or GiB.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -577,9 +577,9 @@ Total backup storage<br />
 <td><br />
 The amount of data that is stored in the backups that are associated with the database. This value is measured in binary bytes, such as KiB, MiB, or GiB.</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -592,9 +592,9 @@ Lock wait time for a transaction is the time needed to acquire a lock on a resou
 <br />
 Total lock wait time for <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics">lock</a> conflicts is recorded for the entire database.</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -607,9 +607,9 @@ Lock wait time for a transaction is the time needed to acquire a lock on a resou
 <br />
 Total lock wait time for <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics">lock</a> conflicts is recorded for the entire instance.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -620,9 +620,9 @@ Total backup storage by database<br />
 <td><br />
 The amount of data that is stored in the backups that are associated with the instance, grouped by database. This value is measured in binary bytes, such as KiB, MiB, or GiB.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -634,9 +634,9 @@ Compute capacity<br />
 <td><br />
 The <a href="https://docs.cloud.google.com/spanner/docs/compute-capacity">compute capacity</a> is the amount of processing units or nodes available in an instance. You can choose to display the capacity in processing units or in nodes.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>close</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -654,9 +654,9 @@ Note that if a database was recently created or a leader region was recently mod
 <br />
 This chart is only available for dual-region and multi-region instances.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -666,9 +666,9 @@ Peak split CPU usage score<br />
 <a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">instance/peak_split_peak</a></td>
 <td>The maximum peak split CPU usage observed across all splits in a database. This metric shows the percentage of the processing unit resources that are being used on a split. A percentage of over 50% is a warm split, which means that the split is using half of the host server's processing unit resources. A percentage of 100% is a hot split, which is a split that's using the majority of the host server's processing unit resources. Spanner uses load-based splitting to resolve hotspots and balance the load. However, Spanner might not be able to balance the load, even after multiple attempts at splitting, due to problematic patterns in the application. Hence, hotspots that lasts for at least 10 minutes might need further troubleshooting and could potentially require application changes. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/hot-split-statistics">Find hotspots in splits</a> .</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -682,9 +682,9 @@ Count of remote service calls, grouped by the service and response codes.<br />
 <br />
 Responds with an HTTP response code, such as 200 or 500.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -698,9 +698,9 @@ The latency of the remote service calls, grouped by service.<br />
 <br />
 You can view latency metrics for the 50th and 99th percentile latencies by using the option list.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -714,9 +714,9 @@ Count of rows processed by a remote service, grouped by the servicer and respons
 <br />
 Responds with an HTTP response code, such as 200 or 500.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -730,9 +730,9 @@ Count of rows processed by a remote service, grouped by the service and response
 <br />
 You can view latency metrics for the 50th and 99th percentile latencies by using the option list.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -750,9 +750,9 @@ Direction refers to traffic being sent or received.<br />
 <br />
 You can view metrics for the 50th and 99th percentile of network bytes exchange by using the option list.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -763,9 +763,9 @@ Micro service calls<br />
 <a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">query_stat/total/remote_service_calls_count</a></td>
 <td>Number of micro service calls, grouped by micro service and response code.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -776,9 +776,9 @@ Latency: Micro service calls<br />
 <a href="https://docs.cloud.google.com/monitoring/api/metrics_gcp_p_z#gcp-spanner">query_stat/total/remote_service_calls_latencies</a></td>
 <td>Latencies of micro service calls, grouped by micro service.</td>
 <td><br />
-<em>done</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -791,9 +791,9 @@ The amount of data that is stored in the instance or database, grouped by tables
 <br />
 This chart obtains its data by querying <code>SPANNER_SYS.TABLE_SIZES_STATS_1HOUR</code> . For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/table-sizes-statistics">Table sizes statistics</a> .</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="even">
 <td><br />
@@ -805,9 +805,9 @@ Most-used tables by operations<br />
 The 15 most used tables and indexes in the instance or database, determined by the number of read or write or delete operations.<br />
 This chart obtains its data by querying the table operations statistics tables. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics">Table operations statistics</a> .</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 <tr class="odd">
 <td><br />
@@ -819,9 +819,9 @@ Least-used tables by operations<br />
 The 15 least used tables and indexes in the instance or database, determined by the number of read or write or delete operations.<br />
 This chart obtains its data by querying the table operations statistics tables. For more information, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/table-operations-statistics">Table operations statistics</a> .</td>
 <td><br />
-<em>close</em></td>
+</td>
 <td><br />
-<em>done</em></td>
+</td>
 </tr>
 </tbody>
 </table>

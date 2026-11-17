@@ -1031,7 +1031,7 @@ For information about schema updates, see [Make schema updates](https://docs.clo
 
 4.  Click **Spanner Studio** .
 
-5.  Click add **New tab** or use the empty editor tab. Then, enter the DDL statements to apply.
+5.  Click **New tab** or use the empty editor tab. Then, enter the DDL statements to apply.
 
 6.  Click **Run** to apply the updates. If there are errors in your DDL, the Google Cloud console returns an error and the database is not altered.
 

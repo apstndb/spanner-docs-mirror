@@ -12,8 +12,6 @@ Spanner Omni is a self-managed version of Spanner that you can run in your own e
 
 [Go to the Spanner Omni product page for more.](https://cloud.google.com/products/spanner/omni)
 
-follow_the_signs
-
 ### Get started
 
 - [Spanner Omni overview](https://docs.cloud.google.com/spanner-omni/overview)
@@ -31,8 +29,6 @@ follow_the_signs
 - [Create a secure deployment on VMs](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms)
 
 - [Create a secure deployment on Kubernetes](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes)
-
-info
 
 ### Resources
 

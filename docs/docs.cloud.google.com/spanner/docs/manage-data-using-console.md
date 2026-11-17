@@ -63,18 +63,18 @@ To structure, modify, or query your data, follow these steps:
 
     - To compose your own query, follow these steps:
 
-      1.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
+      1.  Open a new tab by clicking **New SQL editor tab** or **New tab** .
       2.  When the query editor appears, write your query.
 
     - To compose a query starting with a template, follow these steps:
 
-      1.  In the **Explorer** pane, next to a database object, click more_vert **View actions** . One or more available actions appear.
+      1.  In the **Explorer** pane, next to a database object, click **View actions** . One or more available actions appear.
       2.  Click an action. The query editor populates with a template.
       3.  Replace any placeholders in the template.
 
 6.  Click **Run** . The results of your query appear in the **Results** table.
 
-7.  Optionally, click download **Export** to export your query results. It provides the following options:
+7.  Optionally, click **Export** to export your query results. It provides the following options:
 
     - Download CSV
     - Download JSON
@@ -95,4 +95,4 @@ Spanner automatically detects opportunities to apply [schema design best practic
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-Schema design recommendations are shown under the home Home tab.
+Schema design recommendations are shown under the Home tab.

@@ -66,7 +66,7 @@ By default, a node displays its first property. If you want a node to display a 
 
 2.  In the schema visualization, click a node of the type you want to update.
 
-3.  In the detail panel that appears for the selected node, click tune **Node display options** .
+3.  In the detail panel that appears for the selected node, click **Node display options** .
 
 4.  Click a color, or enter a custom [hex color code](https://htmlcolorcodes.com/) . All nodes in your query results that are of the type of node you selected display with the color you choose.
 
@@ -110,7 +110,7 @@ You can see a visualization of a Spanner Graph schema in the Google Cloud consol
 
   4.  In the navigation menu, click **Spanner Studio** . The **Object explorer** pane displays a list of the objects in your database.
 
-  5.  Click more_vert **View actions** on a graph, then click **View schema** .
+  5.  Click **View actions** on a graph, then click **View schema** .
 
 ## Troubleshoot Spanner Graph visualizations
 

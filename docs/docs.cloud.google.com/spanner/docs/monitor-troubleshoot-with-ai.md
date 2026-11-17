@@ -44,11 +44,11 @@ To use Gemini Cloud Assist with Spanner, do the following:
 
 2.  To open the **Overview** page of an instance, click the instance name.
 
-3.  To open the **[Cloud Assist panel](https://docs.cloud.google.com/cloud-assist/chat-panel)** , click auto_awesome **Open or close Gemini Cloud Assist chat** .
+3.  To open the **[Cloud Assist panel](https://docs.cloud.google.com/cloud-assist/chat-panel)** , click **Open or close Gemini Cloud Assist chat** .
 
 4.  In the **Cloud Assist panel** , enter a prompt that describes the information that you're interested in.
 
-5.  After you enter the prompt, click send **Send prompt** .
+5.  After you enter the prompt, click **Send prompt** .
 
     Gemini returns a response to your prompt based on information from the last hour.
 

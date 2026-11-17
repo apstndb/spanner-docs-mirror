@@ -69,7 +69,7 @@ To generate SQL in Spanner with Gemini assistance, follow these steps:
 
 4.  In the navigation pane, click **Spanner Studio** . The **Explorer** pane displays a list of objects in your database.
 
-5.  To query your database, click the add **New tab** . Make sure that [SQL generation is enabled](https://docs.cloud.google.com/spanner/docs/write-sql-gemini#before-you-begin) .
+5.  To query your database, click the **New tab** . Make sure that [SQL generation is enabled](https://docs.cloud.google.com/spanner/docs/write-sql-gemini#before-you-begin) .
 
 6.  To generate SQL, type a comment in the query editor starting with `--` followed by a [single-line comment](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/lexical#comments) , and then press `Return` .
 
@@ -109,7 +109,7 @@ You can use Gemini in Spanner to explain SQL queries in natural language. This e
 
 4.  In the navigation pane, click **Spanner Studio** .
 
-5.  To query your database, click the add **New tab** .
+5.  To query your database, click the **New tab** .
 
 6.  In the query editor, paste the query.
 

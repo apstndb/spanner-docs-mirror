@@ -466,7 +466,7 @@ After you create your database, you can add data to it. This section shows you h
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the editor tab.
 
 2.  Copy and paste the following graph data insert statements into the nodes and edges.
 
@@ -887,7 +887,7 @@ After inserting data into your graph, you can query it to find patterns and rela
 
 1.  On the database **Overview** page, click **Spanner Studio** in the navigation menu.
 
-2.  On the **Spanner Studio** page, click add **New tab** or use the editor tab.
+2.  On the **Spanner Studio** page, click **New tab** or use the editor tab.
 
 3.  Enter the following query in the query editor. The query finds everyone that Dana transferred money to, and the amount of those transfers.
 

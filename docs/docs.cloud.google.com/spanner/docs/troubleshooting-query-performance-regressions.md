@@ -102,7 +102,7 @@ To find out what index Spanner is using to process a query, view the [query exec
 
 2.  Click the name of the instance you want to query.
 
-3.  In the navigation menu, select the database you want to query, and then click search **Spanner Studio** .
+3.  In the navigation menu, select the database you want to query, and then click **Spanner Studio** .
 
 4.  Enter the query to test.
 
@@ -207,7 +207,7 @@ To test the updated query in the Google Cloud console, follow these steps:
 
 2.  Click the name of the instance you want to query.
 
-3.  In the navigation menu, click the database you want to query, and then click search **Spanner Studio** .
+3.  In the navigation menu, click the database you want to query, and then click **Spanner Studio** .
 
 4.  Enter the query to test, including the `FORCE_INDEX` directive, and click **Run query** .
 

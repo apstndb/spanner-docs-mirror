@@ -29,7 +29,7 @@ The `CREATE SCHEMA` command ( [GoogleSQL](https://docs.cloud.google.com/spanner/
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
+5.  Open a new tab by clicking **New SQL editor tab** or **New tab** .
 
 6.  In the **Editor** tab, enter your DDL.
 
@@ -153,7 +153,7 @@ To access an object in a named schema, you must have usage permission on the nam
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
+5.  Open a new tab by clicking **New SQL editor tab** or **New tab** .
 
 6.  In the **Editor** tab, enter your DDL.
 
@@ -215,7 +215,7 @@ By default, all users and roles have the `USAGE` permission on the default schem
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
+5.  Open a new tab by clicking **New SQL editor tab** or **New tab** .
 
 6.  In the **Editor** tab, enter your DDL.
 
@@ -247,7 +247,7 @@ You can revoke the default fine-grained access control permissions on the defaul
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
+5.  Open a new tab by clicking **New SQL editor tab** or **New tab** .
 
 6.  In the **Editor** tab, enter your DDL.
 
@@ -286,7 +286,7 @@ You can revoke the default fine-grained access control permissions on the defaul
 1.  Select an instance from the list.
 2.  Select a database.
 3.  In the navigation menu, click **Spanner Studio** .
-4.  In the **Explorer** pane, click the arrow_right toggle node to expand the *Schemas* drop-down list.
+4.  In the **Explorer** pane, click the toggle node to expand the *Schemas* drop-down list.
 
 Alternatively, you can use SQL to view all schemas in the `information_schema.schemata` table.
 
@@ -324,7 +324,7 @@ The `DROP SCHEMA` command ( [GoogleSQL](https://docs.cloud.google.com/spanner/do
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
+5.  Open a new tab by clicking **New SQL editor tab** or **New tab** .
 
 6.  In the **Editor** tab, enter your DDL.
 

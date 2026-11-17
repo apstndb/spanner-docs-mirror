@@ -249,7 +249,7 @@ You can create a custom Cloud Monitoring dashboard to display and monitor metric
 
 1.  Download the [`cassandra-adapter-dashboard.json`](https://docs.cloud.google.com/static/spanner/docs/non-relational/cassandra-adapter-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
 
-2.  In the Google Cloud console, go to the dashboard **Dashboards** page:
+2.  In the Google Cloud console, go to the **Dashboards** page:
 
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 

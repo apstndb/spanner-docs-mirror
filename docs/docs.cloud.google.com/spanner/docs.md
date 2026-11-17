@@ -14,8 +14,6 @@ Spanner is a fully managed, mission-critical database service that brings togeth
 
 Not sure what database option is right for you? Learn more about our [database services](https://cloud.google.com/products/databases/) .
 
-format_list_numbered
-
 ### Guides
 
 - [Quickstart: Create and query a database by using the Google Cloud console](https://docs.cloud.google.com/spanner/docs/create-query-database-console)
@@ -44,8 +42,6 @@ format_list_numbered
 
 - [Troubleshoot query performance regressions](https://docs.cloud.google.com/spanner/docs/troubleshooting-query-performance-regressions)
 
-find_in_page
-
 ### Reference
 
 - [Client libraries and drivers](https://docs.cloud.google.com/spanner/docs/reference/libraries)
@@ -65,8 +61,6 @@ find_in_page
 - [Query execution operators](https://docs.cloud.google.com/spanner/docs/query-execution-operators)
 
 - [gcloud command-line tool](https://docs.cloud.google.com/sdk/gcloud/reference/spanner)
-
-info
 
 ### Resources
 

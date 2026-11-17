@@ -32,7 +32,7 @@ Major compactions run as background operations. However, if your instance has co
 
 3.  In the navigation menu, click **Spanner Studio** .
 
-4.  Open a new tab by clicking add **New SQL editor tab** or add **New tab** .
+4.  Open a new tab by clicking **New SQL editor tab** or **New tab** .
 
 5.  Run one of the following commands to start compaction, based on your database dialect:
 

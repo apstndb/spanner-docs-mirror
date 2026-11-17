@@ -34,7 +34,7 @@ Values associated with each color are defined in the legend to the left of the *
 
 Keep in mind that for most metrics, Key Visualizer identifies which values are "high" and "low" based entirely on your usage of that database. For example, if you perform 20 reads per second in a specific row range and 1 read per second in other row ranges, Key Visualizer will use a bright color for that specific row range, even though 20 reads per second is a low number for Spanner.
 
-To adjust the colors that are used for different values, use the **+ / -** buttons on either side of the **Adjust Brightness** *brightness_6* icon. When you increase the brightness, you lower the range of values that each color represents; when you lower the brightness, you increase the range of values.
+To adjust the colors that are used for different values, use the **+ / -** buttons on either side of the **Adjust Brightness** icon. When you increase the brightness, you lower the range of values that each color represents; when you lower the brightness, you increase the range of values.
 
 ## Zooming in on time periods and row key ranges
 
@@ -43,10 +43,10 @@ When you open a heatmap, it displays values for the entire time period included 
 There are several ways to zoom in or out:
 
 - Scroll up or down within the heatmap.
-- Click the **Rectangular Zoom** *crop* button, then click and drag to select an area to enlarge.
+- Click the **Rectangular Zoom** button, then click and drag to select an area to enlarge.
 - Press and hold the `Shift` key, then click and drag to select an area to enlarge.
 - Return to the previous area of the heatmap by pressing the `Backspace` or `Delete` key.
-- Zoom out to view the entire table by clicking the **Reset Zoom** *zoom_out_map* button or pressing the `R` key.
+- Zoom out to view the entire table by clicking the **Reset Zoom** button or pressing the `R` key.
 
 ## Pinning details about a metric
 

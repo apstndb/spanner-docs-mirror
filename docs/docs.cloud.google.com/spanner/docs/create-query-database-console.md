@@ -80,7 +80,7 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the **Untitled query** tab, and then enter one of the following queries,  
+2.  In the **Spanner Studio** page, click **New tab** or use the **Untitled query** tab, and then enter one of the following queries,  
     depending on the dialect of your database:
 
     ### GoogleSQL
@@ -105,7 +105,7 @@ When you first use Spanner, you must create an instance, which is an allocation 
     );
     ```
 
-3.  Click play_circle **Run** .
+3.  Click **Run** .
 
     Spanner runs the statement. When finished, the **Results** tab displays **Update completed** .
 
@@ -115,7 +115,7 @@ The Google Cloud console provides an interface for inserting, editing, and delet
 
 ### Insert data
 
-1.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Insert data** .
+1.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Insert data** .
 
     Spanner opens a new query tab in **Spanner Studio** that contains a template `INSERT` statement.
 
@@ -169,11 +169,11 @@ The Google Cloud console provides an interface for inserting, editing, and delet
 
     Notice that PostgreSQL converts the column names to all lowercase.
 
-3.  Click play_circle **Run** .
+3.  Click **Run** .
 
     Spanner runs the statement. When finished, the **Results** tab displays **1 row inserted** and the data of the inserted row.
 
-4.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Insert data** .
+4.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Insert data** .
 
 5.  Edit the `INSERT` statement's `VALUES` clause:
 
@@ -223,17 +223,17 @@ The Google Cloud console provides an interface for inserting, editing, and delet
       birthdate;
     ```
 
-6.  Click play_circle **Run** .
+6.  Click **Run** .
 
     Spanner runs the statement. When finished, the **Results** tab displays **1 row inserted** and the data of the inserted row.
 
-7.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Preview data** .
+7.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Preview data** .
 
-8.  Click play_circle **Run** . The **Results** tab displays the two rows in the `Singers` table.
+8.  Click **Run** . The **Results** tab displays the two rows in the `Singers` table.
 
 You can also insert empty string values when you enter data.
 
-1.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Insert data** .
+1.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Insert data** .
 
     Spanner opens a new query tab in **Spanner Studio** that contains the template `INSERT` statement.
 
@@ -285,19 +285,19 @@ You can also insert empty string values when you enter data.
       birthdate;
     ```
 
-3.  Click play_circle **Run** .
+3.  Click **Run** .
 
     Spanner runs the statement. When finished, the **Results** tab displays **1 row inserted** and the data of the inserted row.
 
     Notice that the value provided for the last name column is an empty string, `''` , not a `NULL` value.
 
-4.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Preview data** .
+4.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Preview data** .
 
-5.  Click play_circle **Run** . The **Results** tab displays the three rows in the `Singers` table, and the row with the primary key value of `3` has an empty string in the `LastName` column.
+5.  Click **Run** . The **Results** tab displays the three rows in the `Singers` table, and the row with the primary key value of `3` has an empty string in the `LastName` column.
 
 ### Edit data
 
-1.  Click add **New tab** to create a new query tab, and then enter the following `UPDATE` statement to update the birth date for the row with the primary key value of `3` :
+1.  Click **New tab** to create a new query tab, and then enter the following `UPDATE` statement to update the birth date for the row with the primary key value of `3` :
 
     ### GoogleSQL
 
@@ -331,17 +331,17 @@ You can also insert empty string values when you enter data.
       birthdate;
     ```
 
-2.  Click play_circle **Run** .
+2.  Click **Run** .
 
     Spanner runs the statement. When finished, the **Results** tab displays **1 row updated** and the data of the updated row.
 
-3.  In the **Explorer** pane, click more_vert **View actions** for the **Singers** table, and then click **Preview data** .
+3.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Preview data** .
 
-4.  Click play_circle **Run** . The **Results** tab displays the rows in the `Singers` table, where the updated row now has a value for the birth date.
+4.  Click **Run** . The **Results** tab displays the rows in the `Singers` table, where the updated row now has a value for the birth date.
 
 ### Delete data
 
-1.  Click add **New tab** to create a new query tab, and then enter the following `DELETE` statement to delete the row with the primary key value of `2` :
+1.  Click **New tab** to create a new query tab, and then enter the following `DELETE` statement to delete the row with the primary key value of `2` :
 
     ### GoogleSQL
 
@@ -357,13 +357,13 @@ You can also insert empty string values when you enter data.
     WHERE singerid = 2;
     ```
 
-2.  Click play_circle **Run** .
+2.  Click **Run** .
 
     Spanner runs the statement. When finished, the **Results** tab displays **1 row deleted** . The `Singers` table now has two rows.
 
 ## Run a query in the Google Cloud console
 
-1.  Click add **New tab** to create a new query tab. Then, enter the following query in the query editor:
+1.  Click **New tab** to create a new query tab. Then, enter the following query in the query editor:
 
     ### GoogleSQL
 
@@ -377,7 +377,7 @@ You can also insert empty string values when you enter data.
     SELECT * FROM singers;
     ```
 
-2.  Click play_circle **Run** .
+2.  Click **Run** .
 
     Spanner runs the query. When finished, the **Results** tab displays the result of your query.
 
@@ -395,7 +395,7 @@ To avoid incurring additional charges to your Google Cloud account, delete the d
 
 3.  Click the name of the database that you want to delete, for example, **example-db** .
 
-4.  In the **Database details** page, click *delete* **Delete database** .
+4.  In the **Database details** page, click **Delete database** .
 
 5.  Confirm that you want to delete the database by entering the database name and clicking **Delete** .
 
@@ -405,7 +405,7 @@ To avoid incurring additional charges to your Google Cloud account, delete the d
 
 2.  Click the name of the instance that you want to delete, for example, **Test Instance** .
 
-3.  Click *delete* **Delete instance** .
+3.  Click **Delete instance** .
 
 4.  Confirm that you want to delete the instance by entering the instance name and clicking **Delete** .
 

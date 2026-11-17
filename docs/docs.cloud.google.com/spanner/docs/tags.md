@@ -44,7 +44,7 @@ After you create your tag key-value pairs, you can create a tag binding and atta
 
 2.  Select the checkbox next to the instance for which you would like to attach a tag.
 
-3.  Click label_important **Tags** .
+3.  Click **Tags** .
 
 4.  If your organization doesn't appear in the **Tags** panel, click **Select scope** . Select your organization and click **Open** .
 
@@ -54,7 +54,7 @@ After you create your tag key-value pairs, you can create a tag binding and atta
 
 7.  In the **Value** field, select the value for the tag you want to attach from the list. You can filter the list by typing keywords.
 
-8.  If you want to attach more tags, click add **Add Tag** , and select the key and value for each.
+8.  If you want to attach more tags, click **Add Tag** , and select the key and value for each.
 
 9.  Click **Save** .
 
@@ -180,9 +180,9 @@ When removing a tag key or value definition, ensure the tag is detached from the
 
 2.  Select the checkbox next to the instance for which you would like to delete a tag binding.
 
-3.  Click label_important **Tags** .
+3.  Click **Tags** .
 
-4.  In the Tags panel, next to the tag you want to detach, click delete **Delete item** .
+4.  In the Tags panel, next to the tag you want to detach, click **Delete item** .
 
 5.  Click **Save** .
 

@@ -88,7 +88,12 @@ To learn more about monitoring your Spanner resources, see [Monitor instances wi
 
 ### Information schema
 
-`INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS` contains the list of locality groups and options in your Spanner database. It includes information for the `default` locality group. For more information, see [`locality_group_options` for GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema) and [`locality_group_options` for PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema-pg) .
+`INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS` contains the list of locality groups and options in your Spanner database. It includes information for the `default` locality group. The `IS_INHERITED` column indicates whether the storage type of a locality group is explicitly set or inherited. For more information, see [`locality_group_options` for GoogleSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema#locality-group-options) and [`locality_group_options` for PostgreSQL-dialect databases](https://docs.cloud.google.com/spanner/docs/information-schema-pg#locality-group-options) .
+
+To see which locality group stores each table, index, and column, query the `TABLE_OPTIONS` , `INDEX_OPTIONS` , and `COLUMN_OPTIONS` tables. Tables and indexes that don't have a `locality_group` row in `TABLE_OPTIONS` or `INDEX_OPTIONS` use the `default` locality group. In `COLUMN_OPTIONS` , the `IS_INHERITED` column indicates whether the locality group is explicitly set on the column or inherited from the table. For more information, see the following:
+
+- GoogleSQL-dialect databases: [`TABLE_OPTIONS`](https://docs.cloud.google.com/spanner/docs/information-schema#table-options) , [`INDEX_OPTIONS`](https://docs.cloud.google.com/spanner/docs/information-schema#index-options) , and [`COLUMN_OPTIONS`](https://docs.cloud.google.com/spanner/docs/information-schema#column-options) .
+- PostgreSQL-dialect databases: [`table_options`](https://docs.cloud.google.com/spanner/docs/information-schema-pg#table-options) , [`index_options`](https://docs.cloud.google.com/spanner/docs/information-schema-pg#index-options) , and [`column_options`](https://docs.cloud.google.com/spanner/docs/information-schema-pg#column_options) .
 
 ### Built-in statistics tables
 

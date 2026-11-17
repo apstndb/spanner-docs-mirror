@@ -96,7 +96,7 @@ To create a custom constraint, do the following:
 
 1.  In the Google Cloud console, go to the **Organization policies** page.
 2.  From the project picker, select the project that you want to set the organization policy for.
-3.  Click add **Custom constraint** .
+3.  Click **Custom constraint** .
 4.  In the **Display name** box, enter a human-readable name for the constraint. This name is used in error messages and can be used for identification and debugging. Don't use personally identifiable information (PII) or sensitive data in display names because this name could be exposed in error messages. This field can contain up to 200 characters.
 5.  In the **Constraint ID** box, enter the ID that you want for your new custom constraint. A custom constraint can only contain letters (including upper and lowercase) or numbers, for example `custom.spannerDatabase` . This field can contain up to 70 characters, not counting the prefix ( `custom.` ), for example, `organizations/123456789/customConstraints/custom` . Don't include PII or sensitive data in your constraint ID, because it could be exposed in error messages.
 6.  In the **Description** box, enter a human-readable description of the constraint. This description is used as an error message when the policy is violated. Include details about why the policy violation occurred and how to resolve the policy violation. Don't include PII or sensitive data in your description, because it could be exposed in error messages. This field can contain up to 2000 characters.
@@ -105,7 +105,7 @@ To create a custom constraint, do the following:
 
 To see supported methods for each service, find the service in [Services that support custom constraints](https://docs.cloud.google.com/organization-policy/reference/custom-constraint-supported-services) .
 
-1.  To define a condition, click edit **Edit condition** .
+1.  To define a condition, click **Edit condition** .
     1.  In the **Add condition** panel, create a CEL condition that refers to a supported service resource, for example, `resource.autopilot.enabled == false` . This field can contain up to 1,500 characters. For details about CEL usage, see [Common Expression Language](https://docs.cloud.google.com/resource-manager/docs/organization-policy/creating-managing-custom-constraints#common_expression_language) . For more information about the service resources you can use in your custom constraints, see [Custom constraint supported services](https://docs.cloud.google.com/resource-manager/docs/organization-policy/custom-constraint-supported-services) .
     2.  Click **Save** .
 2.  Under **Action** , select whether to allow or deny the evaluated method if the condition is met.

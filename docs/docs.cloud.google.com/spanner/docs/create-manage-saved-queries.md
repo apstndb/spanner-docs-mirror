@@ -96,7 +96,7 @@ To create a saved query, follow these steps:
 2.  Select the instance in which you want to create a saved query.
 3.  Select the database in which you want to create a saved query.
 4.  In the navigation menu, click **Spanner Studio** .
-5.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+5.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 6.  In the query editor, enter a SQL query.
 7.  Click **Save** .
 8.  In the **Save query** dialog, enter a name for the saved query.
@@ -107,7 +107,7 @@ To create a saved query, follow these steps:
 To open a saved query as a new query, follow these steps:
 
 1.  In the **Explorer** pane on the **Spanner Studio** page, navigate to the **Queries** section.
-2.  Click a saved query to open it in a new editor tab. Optionally, you can click more_vert **View actions** next to a saved query. Then, click **Open query** to open it in a new editor tab.
+2.  Click a saved query to open it in a new editor tab. Optionally, you can click **View actions** next to a saved query. Then, click **Open query** to open it in a new editor tab.
 3.  Click **Run** .
 
 ## Update a saved query
@@ -115,7 +115,7 @@ To open a saved query as a new query, follow these steps:
 To update an existing saved query, follow these steps:
 
 1.  In the **Explorer** pane on the **Spanner Studio** page, navigate to the **Queries** section.
-2.  Click a saved query to open it in a new editor tab. Optionally, you can click more_vert **View actions** next to a saved query. Then, click **Open query** to open it in a new editor tab.
+2.  Click a saved query to open it in a new editor tab. Optionally, you can click **View actions** next to a saved query. Then, click **Open query** to open it in a new editor tab.
 3.  Modify the query.
 4.  To save the modified query, click **Save** .
 
@@ -132,7 +132,7 @@ To view a list of all saved queries in your project, follow these steps:
 
 4.  In the **Explorer** pane on the **Spanner Studio** page, navigate to the **Queries** section.
 
-5.  Click more_vert **View actions** next to a saved query. Then, click **Manage queries** .
+5.  Click **View actions** next to a saved query. Then, click **Manage queries** .
 
     The **Saved queries** page opens. This page lists all the saved queries in this project, including saved queries for other Google Cloud products.
 
@@ -143,13 +143,13 @@ You can search, filter, view, and delete queries on the **Saved queries** page. 
 You can delete a saved query from the **Spanner Studio** page or on the **Saved queries** page in the Google Cloud console.
 
 1.  In the **Explorer** pane on the **Spanner Studio** page, navigate to the **Queries** section.
-2.  Click more_vert **View actions** next to the saved query that you want to delete. Then, to delete the saved query, click **Delete query** .
+2.  Click **View actions** next to the saved query that you want to delete. Then, to delete the saved query, click **Delete query** .
 3.  In the **Delete query** dialog, click **Delete** .
 
 You can also delete a saved query on the **Saved queries** page. To delete a saved query on the **Saved queries** page, follow these steps:
 
 1.  Navigate to the [**Saved queries**](https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries#view-and-manage) page.
-2.  Click more_vert **View actions** next to the saved query that you want to delete.
+2.  Click **View actions** next to the saved query that you want to delete.
 3.  Click **Delete query** to delete the saved query.
 4.  In the **Delete query** dialog, click **Delete** .
 

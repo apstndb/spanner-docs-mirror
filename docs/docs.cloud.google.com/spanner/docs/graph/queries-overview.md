@@ -28,7 +28,7 @@ The following steps show you how to run a query in the Google Cloud console. The
 
 3.  Under **Databases** , click the database named `example-db` .
 
-4.  Open the **Spanner Studio** , then click add **New tab** or use the editor tab.
+4.  Open the **Spanner Studio** , then click **New tab** or use the editor tab.
 
 5.  Enter a query into the query editor.
 

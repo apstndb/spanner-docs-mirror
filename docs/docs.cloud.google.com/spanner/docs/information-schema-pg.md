@@ -205,17 +205,20 @@ This view lists all the generated columns that depend on another base column in 
 
 ### `column_options`
 
-This view lists all the options defined for the referenced table columns of a foreign key constraint. The view contains only those columns in the reference table that the current user has access to (by way of being the owner or granted privileges).
+This view lists the options that are set on the columns of the tables in the database. The view contains only the columns of tables that the current user has access to (by way of being the owner or granted privileges).
 
-| Column name     | Type                | Description                                                                                                                                                                                                    |
-|-----------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `table_catalog` | `character varying` | The database name.                                                                                                                                                                                             |
-| `table_schema`  | `character varying` | The name of the schema that contains the foreign table. The name is `public` for the default schema and non-empty for other schemas (for example, the `information_schema` itself). This column is never null. |
-| `table_name`    | `character varying` | The name of the foreign table.                                                                                                                                                                                 |
-| `column_name`   | `character varying` | The name of the column.                                                                                                                                                                                        |
-| `option_name`   | `character varying` | A SQL identifier that uniquely identifies the option. This identifier is the key of the `OPTIONS` clause in DDL.                                                                                               |
-| `option_value`  | `character varying` | A SQL literal describing the value of this option. The value of this column is parsable as part of a query.                                                                                                    |
-| `option_type`   | `character varying` | A data type name that is the type of this option value.                                                                                                                                                        |
+The valid values for `option_name` include `locality_group` , which is the [locality group](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups) that stores the column. This option is listed for every column, including columns that are stored in the `default` locality group. Use the `is_inherited` column to check whether the locality group is explicitly set on the column or inherited from the table.
+
+| Column name     | Type                | Description                                                                                                                                                                                                                                                                                                                                                                |
+|-----------------|---------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `table_catalog` | `character varying` | The database name.                                                                                                                                                                                                                                                                                                                                                         |
+| `table_schema`  | `character varying` | The name of the schema that contains the foreign table. The name is `public` for the default schema and non-empty for other schemas (for example, the `information_schema` itself). This column is never null.                                                                                                                                                             |
+| `table_name`    | `character varying` | The name of the foreign table.                                                                                                                                                                                                                                                                                                                                             |
+| `column_name`   | `character varying` | The name of the column.                                                                                                                                                                                                                                                                                                                                                    |
+| `option_name`   | `character varying` | A SQL identifier that uniquely identifies the option. This identifier is the key of the `OPTIONS` clause in DDL.                                                                                                                                                                                                                                                           |
+| `option_value`  | `character varying` | A SQL literal describing the value of this option. The value of this column is parsable as part of a query.                                                                                                                                                                                                                                                                |
+| `option_type`   | `character varying` | A data type name that is the type of this option value.                                                                                                                                                                                                                                                                                                                    |
+| `is_inherited`  | `character varying` | A string that indicates whether the column option is inherited instead of explicitly set on the column. For the `locality_group` option, the value is `YES` if the column inherits the locality group of its table instead of setting it explicitly. The value is `NO` if the locality group is explicitly set on the column. For all other options, the value is `NULL` . |
 
 ### `column_privileges`
 
@@ -579,6 +582,77 @@ This view lists the columns in an index.
 | `is_nullable`      | `character varying` | A string that indicates whether the column is nullable. In accordance with the SQL standard, the string is either `YES` or `NO` , rather than a Boolean value.                                                                                                                              |
 | `spanner_type`     | `character varying` | A string holding the DDL-compatible type of the column.                                                                                                                                                                                                                                     |
 
+### `index_options`
+
+This view lists the options of search indexes, vector indexes, and secondary indexes. The view contains only the indexes that the current user has access to.
+
+The options that are listed depend on the type of the index:
+
+- For [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) , all options that are explicitly set in the `WITH` clause of the `CREATE SEARCH INDEX` statement, for example, `sort_order_sharding` .
+- For [vector indexes](https://docs.cloud.google.com/spanner/docs/vector-indexes) , all options that are explicitly set in the `WITH` clause of the `CREATE INDEX` statement, for example, `distance_type` , `tree_depth` , `num_leaves` , and `num_branches` . This view also lists the `system_optimized_tree_depth` , `system_optimized_num_leaves` , and `system_optimized_num_branches` options, which show the parameter values that Spanner uses for the index. For more information, see [Vector index best practices](https://docs.cloud.google.com/spanner/docs/vector-index-best-practices) .
+- For secondary indexes, the `locality_group` option (only if the index uses a [locality group](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups) other than `default` ) and the `columnar_policy` option (only if it's set).
+
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<tbody>
+<tr class="header">
+<th>Column name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+
+<tr class="odd">
+<td><code>table_catalog</code></td>
+<td><code>character varying</code></td>
+<td>The database name.</td>
+</tr>
+<tr class="even">
+<td><code>table_schema</code></td>
+<td><code>character varying</code></td>
+<td>The name of the schema that contains the index. The default value is <code>public</code> .</td>
+</tr>
+<tr class="odd">
+<td><code>table_name</code></td>
+<td><code>character varying</code></td>
+<td>The name of the table that the index is defined on.</td>
+</tr>
+<tr class="even">
+<td><code>index_name</code></td>
+<td><code>character varying</code></td>
+<td>The name of the index.</td>
+</tr>
+<tr class="odd">
+<td><code>index_type</code></td>
+<td><code>character varying</code></td>
+<td>The type of the index. The value is one of the following:
+<ul>
+<li><code>SEARCH</code> : a search index.</li>
+<li><code>ScaNN</code> : a vector index.</li>
+<li><code>INDEX</code> : a secondary index.</li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><code>option_name</code></td>
+<td><code>character varying</code></td>
+<td>A SQL identifier that uniquely identifies the option. This identifier is the key of the <code>WITH</code> clause in DDL.</td>
+</tr>
+<tr class="odd">
+<td><code>option_type</code></td>
+<td><code>character varying</code></td>
+<td>A data type name that is the type of this option value.</td>
+</tr>
+<tr class="even">
+<td><code>option_value</code></td>
+<td><code>character varying</code></td>
+<td>A SQL literal describing the value of this option. The value of this column is parsable as part of a query.</td>
+</tr>
+</tbody>
+</table>
+
 ### `indexes`
 
 This view lists the indexes in a schema.
@@ -885,7 +959,7 @@ This table lists the placements in the database.
 | `placement_name` | `character varying` | The name of the placement.                                                                                                                                     |
 | `is_default`     | `character varying` | A string that indicates whether the column is nullable. In accordance with the SQL standard, the string is either `YES` or `NO` , rather than a Boolean value. |
 
-### `placement-options`
+### `placement_options`
 
 For each placement, this table lists the options that are set on the placement in the `OPTIONS` clause of the [`CREATE PLACEMENT`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) statement.
 
@@ -929,7 +1003,7 @@ For each placement, this table lists the options that are set on the placement i
 </tbody>
 </table>
 
-### `locality-group-options`
+### `locality_group_options`
 
 For each locality group, this table lists the name and options that are set on the locality group in the `OPTIONS` clause of the [`CREATE LOCALITY GROUP`](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-locality-group) statement.
 
@@ -964,6 +1038,11 @@ For each locality group, this table lists the name and options that are set on t
 <td><code>option_value</code></td>
 <td><code>character varying</code></td>
 <td>The value of the locality group option. For <code>storage</code> , this is either <code>ssd</code> or <code>hdd</code> . For <code>ssd_to_hdd_spill_timespan</code> , this is the amount of time that data must be stored in SSD before it's moved to HDD storage. For example, <code>10d</code> is 10 days. The minimum amount of time you can set is one hour.</td>
+</tr>
+<tr class="even">
+<td><code>is_inherited</code></td>
+<td><code>character varying</code></td>
+<td>A string that indicates whether the value of the locality group option is inherited instead of explicitly set. For <code>storage</code> , the value is <code>YES</code> if the storage type isn't explicitly set on the locality group. In that case, the locality group uses the storage type of the <code>default</code> locality group, or the default storage type of the instance if the <code>default</code> locality group isn't altered. The value is <code>NO</code> if the storage type is explicitly set in the <code>OPTIONS</code> clause of the <code>CREATE LOCALITY GROUP</code> or <code>ALTER LOCALITY GROUP</code> statement. For <code>ssd_to_hdd_spill_timespan</code> , the value is always <code>NULL</code> .</td>
 </tr>
 </tbody>
 </table>

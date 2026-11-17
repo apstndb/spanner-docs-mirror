@@ -3110,6 +3110,13 @@ The following query statement hints are supported:
 <p>Setting this hint to <code>ON</code> converts all literals in the SQL statement to parameters.</p>
 <p>Setting this hint to <code>OFF</code> preserves all SQL literals and doesn't convert them into parameters. The query is compiled separately for each distinct set of literal values.</p></td>
 </tr>
+<tr class="odd">
+<td><code>RANDOMIZE_QUERY_ROOT</code></td>
+<td><code>TRUE</code><br />
+| <code>FALSE</code> (default)</td>
+<td>If <code>TRUE</code> , directs Spanner to route the query for execution to a random Spanner query coordinator server instead of using the <a href="https://cloud.google.com/blog/topics/developers-practitioners/behind-the-scenes-of-cloud-spanners-executequery-request">location hint computed by the PrepareQuery</a> .
+<p>For high-fanout queries, the default location hint is evaluated using the first split or element based on some order. This forces the server hosting that first split to consistently act as the root query coordinator, which can cause hotspotting. <code>RANDOMIZE_QUERY_ROOT</code> alleviates this by bypassing the location hint and picking a random query coordinator server instead, distributing load more evenly.</p></td>
+</tr>
 </tbody>
 </table>
 

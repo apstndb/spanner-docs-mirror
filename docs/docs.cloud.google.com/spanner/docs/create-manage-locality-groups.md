@@ -26,7 +26,7 @@ If you create a locality group without a tiered storage policy, the locality gro
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+5.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 6.  Enter the `CREATE LOCALITY GROUP` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_locality_group) .
 
@@ -140,7 +140,7 @@ To create an age-based locality group, use the `CREATE LOCALITY GROUP` DDL state
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `CREATE LOCALITY GROUP` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_locality_group) .
 
@@ -196,7 +196,7 @@ The default tiered storage policy is that all data is stored on SSD storage. You
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `ALTER LOCALITY GROUP` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_locality_group) .
 
@@ -244,7 +244,7 @@ You can set a table-level tiered storage policy for your data that overrides the
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `CREATE TABLE` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) .
 
@@ -311,7 +311,7 @@ You can set a column-level override tiered storage policy for your data.
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `CREATE TABLE` DDL statement with a column-level override tiered storage policy using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) .
 
@@ -379,7 +379,7 @@ You can set a secondary index-level override tiered storage policy for your data
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `CREATE INDEX` DDL statement with a secondary index-level override tiered storage policy using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-index) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-index) .
 
@@ -431,7 +431,7 @@ You can set a column-level locality group for your data even if the locality gro
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `CREATE TABLE` DDL statement that assigns the column to a locality group using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) .
 
@@ -551,7 +551,7 @@ You can alter the locality group used by a table by setting a new or different l
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `ALTER TABLE` DDL statement that changes the locality group used by the table using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) .
 
@@ -599,7 +599,7 @@ You can alter the locality group used by a table's column by setting the localit
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `ALTER TABLE` DDL statement that changes the locality group used by the table using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_table) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_table) .
 
@@ -653,7 +653,7 @@ You can change the storage option of a locality group from SSD to HDD or HDD to 
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `ALTER LOCALITY GROUP` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_locality_group) .
 
@@ -701,7 +701,7 @@ You can change the age-based policy of a locality group by extending or shorteni
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `ALTER LOCALITY GROUP` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter_locality_group) .
 
@@ -749,7 +749,7 @@ You can't delete a locality group if it contains data. You must first move all d
 
 ### Console
 
-1.  On the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+1.  On the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 2.  Enter the `DROP LOCALITY GROUP` DDL statement using [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop_locality_group) or [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop_locality_group) .
 

@@ -98,7 +98,7 @@ For edges created from existing tables, Spanner does not generate DDL statements
 
 You can load an existing property graph into Spanner Studio to update its structure.
 
-1.  In the object explorer, find the graph you want to edit and choose **View/modify visually** from the more_vert **More options** menu.
+1.  In the object explorer, find the graph you want to edit and choose **View/modify visually** from the **More options** menu.
 2.  Add new nodes or edges from scratch or mapped from existing tables.
 3.  Update the properties of existing nodes and edges. You can use available columns from the underlying tables, or add new properties and the corresponding columns are automatically added to the underlying table.
 4.  Remove nodes or edges from the graph definition.

@@ -65,7 +65,7 @@ After you [create your Spanner instance partitions](https://docs.cloud.google.co
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+5.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 6.  Enter the `CREATE PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement.
 
@@ -125,7 +125,7 @@ If you don't set a leader region, your placement uses the default leader region 
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+5.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 6.  Enter the `CREATE PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create-placement) ) DDL statement.
 
@@ -179,7 +179,7 @@ Before you drop a placement, you must remove all row data from the placement. Af
 
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+2.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 3.  Enter the `DROP PLACEMENT` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop-placement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop-placement) ) DDL statement.
 
@@ -243,7 +243,7 @@ You can cancel a `DROP PLACEMENT` operation anytime before the long-running oper
 
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+2.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 3.  Enter the `CREATE TABLE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#create_table) ) DDL statement.
 
@@ -308,7 +308,7 @@ Before you delete a table with a placement key, you must first:
 
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+2.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 3.  Enter the `DROP TABLE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#drop_table) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#drop-table) ) DDL statement.
 
@@ -336,7 +336,7 @@ gcloud spanner databases ddl update example-db \
 
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+2.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 3.  Enter the `INSERT INTO` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-statement) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#insert-statement) ) DDL statement.
 
@@ -364,7 +364,7 @@ gcloud spanner rows insert --table=Singers --database=example-db \
 
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+2.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 3.  Use [DML](https://docs.cloud.google.com/spanner/docs/dml-tasks) or [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) to update data in a placement table.
 
@@ -395,7 +395,7 @@ gcloud spanner rows update --table=Singers --database=example-db \
 
 2.  In the navigation menu, click **Spanner Studio** .
 
-3.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+3.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 4.  Use [DML](https://docs.cloud.google.com/spanner/docs/dml-tasks) or [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) to move data to the new instance partition.
 
@@ -424,7 +424,7 @@ gcloud spanner rows update --table=Singers --database=example-db \
 
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+2.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 3.  Use [DML](https://docs.cloud.google.com/spanner/docs/dml-tasks) or [mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api) to delete data.
 
@@ -452,7 +452,7 @@ gcloud spanner rows delete --table=Singers --database=example-db \
 
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+2.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 3.  Run your query.
 

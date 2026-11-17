@@ -77,7 +77,7 @@ To view the edition feature usage metric in the Google Cloud console, follow the
 
     The table lists each higher-tier edition feature that is being used by your instance and database.
 
-    Optionally, you can click view_column **Column display options** to display or hide columns to display in the table. The `name` column should generally be ignored in favor of `instance_id` , `instance_config` , `database` and `feature` .
+    Optionally, you can click **Column display options** to display or hide columns to display in the table. The `name` column should generally be ignored in favor of `instance_id` , `instance_config` , `database` and `feature` .
 
 To see a full list of Google Cloud metrics, see [Google Cloud metrics](https://docs.cloud.google.com/monitoring/api/metrics_gcp) .
 

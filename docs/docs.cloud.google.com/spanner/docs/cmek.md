@@ -92,7 +92,7 @@ You can use the [Spanner CMEK Keys](https://docs.cloud.google.com/monitoring/api
 
 To create an alerting policy, do the following:
 
-1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
+1.  In the Google Cloud console, go to the **Alerting** page:
 
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 

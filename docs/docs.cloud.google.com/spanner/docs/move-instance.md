@@ -180,7 +180,7 @@ If your instance meets these pre-move guidelines, the move typically completes w
 
 2.  Select the instance that you want to move.
 
-3.  On the Instance overview page, next to **Configuration** , click edit **Move instance to a new configuration** .
+3.  On the Instance overview page, next to **Configuration** , click **Move instance to a new configuration** .
 
 4.  On the **Move database to new configuration** pane, select the new instance configuration for your instance.
 
@@ -303,7 +303,7 @@ The **Total storage** and **Total database storage by databases** graphs in the 
 
 1.  Download the [`move-instance-dashboard.json`](https://docs.cloud.google.com/static/spanner/docs/move-instance-dashboard.json) file. This file has the information needed to populate a custom dashboard in Monitoring.
 
-2.  In the Google Cloud console, go to the dashboard **Dashboards** page:
+2.  In the Google Cloud console, go to the **Dashboards** page:
 
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 

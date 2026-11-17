@@ -76,7 +76,7 @@ To create a database role and grant fine-grained access privileges to it, follow
 
         > **Note:** Use the same case for schema object names that you used when you created the objects. For example, if you created a table named `Customers` , you must use the name `Customers` (with a capital C) in the `GRANT` statement.
 
-        You can use a DDL template for the `GRANT` statement. In the **Explorer** pane, navigate to the role for which you want to grant privileges. Click more_vert **View actions** and select the type of privilege you want to grant access to for this role. The `GRANT` template statement populates in a new editor tab.
+        You can use a DDL template for the `GRANT` statement. In the **Explorer** pane, navigate to the role for which you want to grant privileges. Click **View actions** and select the type of privilege you want to grant access to for this role. The `GRANT` template statement populates in a new editor tab.
 
 6.  Click **Submit** .
 
@@ -1670,7 +1670,7 @@ To drop a database role, follow these steps:
     REVOKE SELECT, INSERT, UPDATE ON TABLE employees, contractors FROM hr_manager;
     ```
 
-    You can use a DDL template for the `REVOKE` statement. In the **Explorer** pane, navigate to the role for which you want to revoke privilege. Click more_vert **View actions** and select the type of privilege you want to revoke access for this role. The `REVOKE` template statement populates in a new editor tab.
+    You can use a DDL template for the `REVOKE` statement. In the **Explorer** pane, navigate to the role for which you want to revoke privilege. Click **View actions** and select the type of privilege you want to revoke access for this role. The `REVOKE` template statement populates in a new editor tab.
 
 3.  Delete any IAM conditions associated with the role.
 

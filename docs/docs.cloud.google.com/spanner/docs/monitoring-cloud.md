@@ -82,7 +82,7 @@ To add latency metrics to the chart, follow these steps:
 
 To add CPU utilization metrics to the chart, follow these steps:
 
-1.  Click **add Add metric** .
+1.  Click **Add metric** .
 2.  In the **Find resource type and metric** box, enter the value `spanner.googleapis.com/instance/cpu/utilization` , then click the row that appears below the box.
 3.  In the **Filter** box, enter the value `instance_id` , then enter the instance ID you want to examine and click **Apply** .
 4.  In the **Aggregator** drop-down list, click **max** .
@@ -105,7 +105,7 @@ To create an alerting policy that triggers when your high priority cpu utilizati
 
 To create an alerting policy, do the following:
 
-1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
+1.  In the Google Cloud console, go to the **Alerting** page:
 
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
@@ -161,7 +161,7 @@ To create an alerting policy that triggers when the 24 hour rolling average of y
 
 To create an alerting policy, do the following:
 
-1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
+1.  In the Google Cloud console, go to the **Alerting** page:
 
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 
@@ -216,7 +216,7 @@ To create an alerting policy that triggers when your storage for your [Spanner](
 
 To create an alerting policy, do the following:
 
-1.  In the Google Cloud console, go to the *notifications* **Alerting** page:
+1.  In the Google Cloud console, go to the **Alerting** page:
 
     If you use the search bar to find this page, then select the result whose subheading is **Monitoring** .
 

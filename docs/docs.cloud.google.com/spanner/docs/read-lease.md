@@ -106,7 +106,7 @@ To enable read leases when you create a new database, set the `read_lease_region
 
 7.  In the navigation menu, click **Spanner Studio** .
 
-8.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+8.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 9.  Enter the following `ALTER DATABASE` DDL statement.
 
@@ -183,7 +183,7 @@ To enable read lease when you update an existing database, set the `read_lease_r
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+5.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 6.  Enter the following `ALTER DATABASE` DDL statement.
 
@@ -265,7 +265,7 @@ To enable read lease when you create a new placement, use the `read_lease_region
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+5.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 6.  Enter the following `CREATE PLACEMENT` DDL statement.
 
@@ -353,7 +353,7 @@ To update and disable the feature on an existing database, set the `read_lease_r
 
 4.  In the navigation menu, click **Spanner Studio** .
 
-5.  In the **Spanner Studio** page, click add **New tab** or use the empty editor tab.
+5.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
 
 6.  Enter the following `ALTER DATABASE` DDL statement.
 
