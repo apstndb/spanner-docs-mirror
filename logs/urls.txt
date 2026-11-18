@@ -145,6 +145,7 @@ https://docs.cloud.google.com/spanner-omni/storage-utilization	2026-10-01T16:55:
 https://docs.cloud.google.com/spanner-omni/support	2026-10-15T18:58:44Z
 https://docs.cloud.google.com/spanner-omni/system-requirements	2026-10-01T16:55:26Z
 https://docs.cloud.google.com/spanner-omni/transaction-latency	2026-10-01T16:55:26Z
+https://docs.cloud.google.com/spanner-omni/true-time-external-consistency	2026-11-12T13:52:46Z
 https://docs.cloud.google.com/spanner-omni/upgrade-deployment	2026-10-30T23:31:37Z
 https://docs.cloud.google.com/spanner-omni/use-console	2026-10-30T23:31:37Z
 https://docs.cloud.google.com/spanner-omni/vector-search-overview	2026-10-01T16:55:26Z
