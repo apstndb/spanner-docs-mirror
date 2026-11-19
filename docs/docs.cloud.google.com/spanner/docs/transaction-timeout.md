@@ -6,13 +6,29 @@ description: Configure transaction timeouts in Spanner to prevent transactions f
 data_source: docs.cloud.google.com
 ---
 
-This page describes how to set a timeout for transactions using the Spanner client libraries. The transaction fails with a `DEADLINE_EXCEEDED` error if the transaction can't finish within the given timeout value.
+This page describes how to set a timeout for transactions by using the Spanner client libraries. The transaction fails with a `DEADLINE_EXCEEDED` error if the transaction can't finish within the given timeout value.
 
-You can set timeout values for transactions and for [RPC request statements](https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry) . Setting a longer timeout value for the transaction than the timeout value for the statement that is executed in the transaction doesn't increase the timeout for the statement, which is constrained by its own timeout value.
+If the timeout error occurs during the execution of the [`Commit`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Commit) request, it's still possible that the transaction was committed.
 
-Also, if the timeout error occurs during the execution of the [`Commit`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Spanner.Commit) request, it's still possible that the transaction was committed.
+## RPC timeouts and transaction retry loops
 
-You can set a transaction timeout using the Go, Java, Python, and Node.js client libraries.
+RPC timeouts and transaction timeouts limit different scopes of work:
+
+- An RPC timeout limits how long a single request, such as a query, a read, or a `Commit` request, can run. A transaction timeout that is longer than an RPC timeout doesn't extend the RPC timeout. For more information, see [Configure custom timeouts and retries](https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry) .
+- A transaction timeout limits the total time that the client library spends running a read-write transaction, including every attempt that the client library makes after Spanner aborts the transaction.
+
+When Spanner aborts a read-write transaction, the client library reruns the transaction function. Short RPC timeouts don't limit how long the client library keeps retrying an aborted transaction. If you don't set a transaction timeout, the default retry behavior depends on the client library:
+
+- **Java** : The transaction runner retries aborted transactions for up to 24 hours, with no limit on the number of attempts.
+- **Go** : The client library retries aborted transactions until the transaction commits, or until the `context.Context` object that you pass to the transaction reaches its deadline or is canceled.
+- **Node.js** : The client library stops retrying aborted transactions after 1 hour ( `3600000` milliseconds). To change this limit, set the `timeout` field in the `RunTransactionOptions` object that you pass to the `runTransaction` or `runTransactionAsync` method.
+- **Python** : The client library stops retrying aborted transactions after 30 seconds. To change this limit, pass the `timeout_secs` argument to the `run_in_transaction` method.
+
+In workloads with high lock contention, every retry attempt competes for the same locks, so a long retry loop can increase lock wait times for other transactions. To limit the total time that a transaction can run, set a transaction timeout as shown in the samples on this page.
+
+## Set a transaction timeout
+
+You can set a transaction timeout by using the Go, Java, Python, and Node.js client libraries.
 
 ### Go
 
@@ -253,3 +269,14 @@ def read_then_write(transaction):
 # configure transaction timeout to 60 seconds
 database.run_in_transaction(read_then_write, timeout_secs=60)
 ```
+
+### Set a timeout for asynchronous Java transactions
+
+The Java sample on this page uses a gRPC `Context` object with a deadline to set the transaction timeout. The gRPC `Context` object is attached to the current thread.
+
+When you run a transaction asynchronously by using the `AsyncRunner.runAsync()` method, the client library runs the transaction on the `Executor` object that you provide. The client library doesn't propagate the calling thread's `Context` object, including its deadline, to that executor. As a result, the transaction runs without the timeout and can keep retrying aborted attempts for up to 24 hours.
+
+To apply the timeout to an asynchronous transaction, do one of the following:
+
+- Wrap the executor by calling the `Context.currentContextExecutor(executor)` method while the `Context` object that has the deadline is current, and pass the wrapped executor to the `runAsync()` method.
+- Use the `AsyncTransactionManager` or `TransactionManager` interface instead of the `AsyncRunner` interface. With a transaction manager, you write the retry loop yourself and can stop retrying when your timeout expires.

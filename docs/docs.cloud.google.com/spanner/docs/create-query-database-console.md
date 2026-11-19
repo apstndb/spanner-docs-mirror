@@ -22,39 +22,37 @@ For information on the cost of using Spanner, see [Pricing](https://docs.cloud.g
 
 ## Before you begin
 
-1.  Optional: The Spanner API should be auto-enabled. If not, enable it manually:
+1.  Optional: The Cloud Spanner API is enabled automatically when you create a Spanner instance. If it isn't, enable it manually:
 
 2.  To get the permissions that you need to create instances and databases, ask your administrator to grant you the Cloud Spanner Admin (roles/spanner.admin) IAM role on your project.
 
 ## Create an instance with the Google Cloud console
 
-When you first use Spanner, you must create an instance, which is an allocation of resources that are used by Spanner databases in that instance.
+When you first use Spanner, you must create an instance, which is an allocation of resources that Spanner databases use in that instance.
 
 1.  In the Google Cloud console, go to the **Spanner** page.
 
-2.  Select or create a Google Cloud project if you haven't done so already.
-
-3.  On the **Spanner** page, click **Create a provisioned instance** .
+2.  On the **Spanner** page, click **Create a provisioned instance** .
 
     If you've used Spanner before, you see the Spanner **Instances** page instead of the product page. Click **Create instance** .
 
-4.  In the **Select an edition** section, select **Standard** , and then click **Continue** .
+3.  In the **Select an edition** section, select **Standard** , and then click **Continue** .
 
-5.  In the **Name your instance** section, enter an **Instance name** , such as `Test Instance` .
+4.  In the **Name your instance** section, enter an **Instance name** , such as `Test Instance` .
 
-    The **Instance ID** is automatically populated based on the instance name, for example, `test-instance` . Change it if required, and then click **Continue** .
+    Spanner populates the **Instance ID** based on the instance name, for example, `test-instance` . Change the **Instance ID** if required, and then click **Continue** .
 
-6.  In the **Configure your instance** section, for **Choose a configuration** , retain the default option **Regional** and select a configuration location from the drop-down menu.
+5.  In the **Configure your instance** section, for **Choose a configuration** , retain the default option **Regional** and select a configuration location from the drop-down menu.
 
-    Your instance configuration determines the geographic location where your instances are stored and replicated.
+    Your instance configuration determines the geographic location where Spanner stores and replicates your instances.
 
-7.  Click **Continue** .
+6.  Click **Continue** .
 
-8.  In the **Configure compute capacity** section, for **Select unit** , select **Processing units (PUs)** . For **Choose a scaling mode** , retain **Manual allocation** and the default **Quantity** of `1000` processing units.
+7.  In the **Configure compute capacity** section, for **Select unit** , select **Processing units (PUs)** . For **Choose a scaling mode** , retain **Manual allocation** and the default **Quantity** of `1000` processing units.
 
-9.  Optional: In the **Backups** section, clear the **Enable default backup schedules** checkbox if you don't want default backup schedules created for this test instance.
+8.  Optional: In the **Backups** section, clear the **Enable default backup schedules** checkbox if you don't want default backup schedules created for this test instance.
 
-10. Click **Create** .
+9.  Click **Create** .
 
     The Google Cloud console displays the **Overview** page for the instance that you created.
 
@@ -64,9 +62,9 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 2.  Click the instance you created, for example **Test Instance** .
 
-3.  In the instance **Overview** page that opens, click **Create database** .
+3.  On the instance **Overview** page that opens, click **Create database** .
 
-4.  For the database name, enter a name, such as **example-db** .
+4.  For the database name, enter a name, such as `example-db` .
 
 5.  Select a database dialect.
 
@@ -80,8 +78,7 @@ When you first use Spanner, you must create an instance, which is an allocation 
 
 1.  In the navigation menu, click **Spanner Studio** .
 
-2.  In the **Spanner Studio** page, click **New tab** or use the **Untitled query** tab, and then enter one of the following queries,  
-    depending on the dialect of your database:
+2.  On the **Spanner Studio** page, click **New tab** or use the **Untitled query** tab, and then enter one of the following queries, depending on the dialect of your database:
 
     ### GoogleSQL
 
@@ -225,13 +222,15 @@ The Google Cloud console provides an interface for inserting, editing, and delet
 
 6.  Click **Run** .
 
-    Spanner runs the statement. When finished, the **Results** tab displays **1 row inserted** and the data of the inserted row.
+    Spanner runs the statement. When execution completes, the **Results** tab displays **1 row inserted** and the data of the inserted row.
 
 7.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Preview data** .
 
-8.  Click **Run** . The **Results** tab displays the two rows in the `Singers` table.
+8.  Click **Run** .
 
-You can also insert empty string values when you enter data.
+    The **Results** tab displays the two rows in the `Singers` table.
+
+You can also insert empty strings into string columns.
 
 1.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Insert data** .
 
@@ -287,17 +286,19 @@ You can also insert empty string values when you enter data.
 
 3.  Click **Run** .
 
-    Spanner runs the statement. When finished, the **Results** tab displays **1 row inserted** and the data of the inserted row.
+    Spanner runs the statement. When execution completes, the **Results** tab displays **1 row inserted** and the data of the inserted row.
 
-    Notice that the value provided for the last name column is an empty string, `''` , not a `NULL` value.
+    Notice that the value provided for the `LastName` column is an empty string, `''` , not a `NULL` value.
 
 4.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Preview data** .
 
-5.  Click **Run** . The **Results** tab displays the three rows in the `Singers` table, and the row with the primary key value of `3` has an empty string in the `LastName` column.
+5.  Click **Run** .
+
+    The **Results** tab displays the three rows in the `Singers` table. The row with the primary key value of `3` contains an empty string in the `LastName` column.
 
 ### Edit data
 
-1.  Click **New tab** to create a new query tab, and then enter the following `UPDATE` statement to update the birth date for the row with the primary key value of `3` :
+1.  To update the birth date for the row with the primary key value of `3` , click **New tab** , and then enter the following `UPDATE` statement:
 
     ### GoogleSQL
 
@@ -333,15 +334,17 @@ You can also insert empty string values when you enter data.
 
 2.  Click **Run** .
 
-    Spanner runs the statement. When finished, the **Results** tab displays **1 row updated** and the data of the updated row.
+    Spanner runs the statement. When execution completes, the **Results** tab displays **1 row updated** and the data of the updated row.
 
 3.  In the **Explorer** pane, click **View actions** for the **Singers** table, and then click **Preview data** .
 
-4.  Click **Run** . The **Results** tab displays the rows in the `Singers` table, where the updated row now has a value for the birth date.
+4.  Click **Run** .
+
+    The **Results** tab displays the rows in the `Singers` table, showing the updated birth date for singer `3` .
 
 ### Delete data
 
-1.  Click **New tab** to create a new query tab, and then enter the following `DELETE` statement to delete the row with the primary key value of `2` :
+1.  To delete the row with the primary key value of `2` , click **New tab** , and then enter the following `DELETE` statement:
 
     ### GoogleSQL
 
@@ -359,11 +362,11 @@ You can also insert empty string values when you enter data.
 
 2.  Click **Run** .
 
-    Spanner runs the statement. When finished, the **Results** tab displays **1 row deleted** . The `Singers` table now has two rows.
+    Spanner runs the statement. When execution completes, the **Results** tab displays **1 row deleted** . The `Singers` table contains two rows.
 
 ## Run a query in the Google Cloud console
 
-1.  Click **New tab** to create a new query tab. Then, enter the following query in the query editor:
+1.  Click **New tab** to open a new query tab, and then enter the following query in the query editor:
 
     ### GoogleSQL
 
@@ -381,11 +384,11 @@ You can also insert empty string values when you enter data.
 
     Spanner runs the query. When finished, the **Results** tab displays the result of your query.
 
-Congratulations! You've successfully created a Spanner database and executed a SQL statement by using the query editor!
+Congratulations. You successfully created a new database, defined a schema, inserted data, and ran a query in the Spanner query editor.
 
 ## Clean up
 
-To avoid incurring additional charges to your Google Cloud account, delete the database and instance. Disabling the Cloud Billing API doesn't stop charges. When you delete an instance, all databases in the instance are deleted.
+To avoid incurring additional charges to your Google Cloud account, delete the database and instance. Disabling the Cloud Billing API doesn't stop charges. When you delete an instance, Spanner deletes all databases in that instance.
 
 ### Delete the database
 
@@ -395,7 +398,7 @@ To avoid incurring additional charges to your Google Cloud account, delete the d
 
 3.  Click the name of the database that you want to delete, for example, **example-db** .
 
-4.  In the **Database details** page, click **Delete database** .
+4.  On the database **Overview** page, click **Delete database** .
 
 5.  Confirm that you want to delete the database by entering the database name and clicking **Delete** .
 
@@ -411,8 +414,8 @@ To avoid incurring additional charges to your Google Cloud account, delete the d
 
 ## What's next
 
-- Learn about [Instances](https://docs.cloud.google.com/spanner/docs/instances) .
-- Understand the Spanner [Schema and Data Model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
-- Learn more about [GoogleSQL Data Definition Language (DDL)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) .
-- Learn more about [Query Execution Plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) .
-- Learn how to use Spanner with [C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp) , [C#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp) , [Go](https://docs.cloud.google.com/spanner/docs/getting-started/go) , [Java](https://docs.cloud.google.com/spanner/docs/getting-started/java) , [Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs) , [PHP](https://docs.cloud.google.com/spanner/docs/getting-started/php) , [Python](https://docs.cloud.google.com/spanner/docs/getting-started/python) , [Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby) , [REST](https://docs.cloud.google.com/spanner/docs/getting-started/rest) , or [gcloud](https://docs.cloud.google.com/spanner/docs/getting-started/gcloud) .
+- Learn about [instances](https://docs.cloud.google.com/spanner/docs/instances) .
+- Understand the Spanner [schema and data model](https://docs.cloud.google.com/spanner/docs/schema-and-data-model) .
+- Learn more about [GoogleSQL data definition language (DDL)](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language) .
+- Learn more about [query execution plans](https://docs.cloud.google.com/spanner/docs/query-execution-plans) .
+- Learn how to use Spanner with [C++](https://docs.cloud.google.com/spanner/docs/getting-started/cpp) , [C#](https://docs.cloud.google.com/spanner/docs/getting-started/csharp) , [Go](https://docs.cloud.google.com/spanner/docs/getting-started/go) , [Java](https://docs.cloud.google.com/spanner/docs/getting-started/java) , [Node.js](https://docs.cloud.google.com/spanner/docs/getting-started/nodejs) , [PHP](https://docs.cloud.google.com/spanner/docs/getting-started/php) , [Python](https://docs.cloud.google.com/spanner/docs/getting-started/python) , [Ruby](https://docs.cloud.google.com/spanner/docs/getting-started/ruby) , [REST](https://docs.cloud.google.com/spanner/docs/getting-started/rest) , or [the Google Cloud CLI](https://docs.cloud.google.com/spanner/docs/getting-started/gcloud) .

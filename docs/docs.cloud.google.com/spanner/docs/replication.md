@@ -129,7 +129,7 @@ Client read requests might be executed at or require communicating with the lead
 
   - Strong read requests can go to any read-write or read-only replica. If the request goes to a non-leader replica, that replica must communicate with the leader in order to execute the read.
 
-  - Stale read requests go to the closest available read-only or read-write replica that's caught up to the timestamp of the request. This can be the leader replica if the leader is the closest replica to the client that issued the read request.
+  - Stale read requests go to the closest available read-only or read-write replica. That replica can be the leader replica if the leader is the closest replica to the client that issued the read request. If that replica isn't caught up to the timestamp of the request, it must communicate with the leader before it serves the read. Bounded staleness reads make this leader communication less likely. Spanner chooses a read timestamp that the replica can serve without blocking, unless the replica has fallen further behind than the staleness bound. For more information, see [Timestamp bounds](https://docs.cloud.google.com/spanner/docs/timestamp-bounds) .
 
 > ### Aside: Why read-only and witness replicas?
 >

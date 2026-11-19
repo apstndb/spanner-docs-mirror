@@ -538,6 +538,10 @@ FROM UNNEST(
 
 ### `UNNEST` and protocol buffers
 
+You can use `UNNEST` with an array of protocol buffers or with repeated fields contained inside a protocol buffer.
+
+#### Array of protocol buffers
+
 For an input array of protocol buffers, `UNNEST` returns a row for each protocol buffer, with a separate column for each field in the protocol buffer. The alias for each column is the name of the corresponding protocol buffer field.
 
 Example:
@@ -578,6 +582,101 @@ FROM UNNEST(
  +---------------------------------------------------------------------+
  | {album_name: "The Goldberg Variations" song: "Aria" song: "Var. 1"} |
  +---------------------------------------------------------------------*/
+```
+
+#### Repeated fields in a protocol buffer
+
+GoogleSQL represents repeated fields inside a protocol buffer as arrays. When querying a table with a protocol buffer column, you can unnest its repeated fields directly.
+
+Consider a table called `Music` with a protocol buffer column called `album` of type `googlesql.examples.music.Album` . In this table, `album` contains a repeated scalar `song` field and a single `singer` message field with a repeated `residence` message field (repeated residences, not repeated singers). Suppose `Music` contains two rows:
+
+- `'The Goldberg Variations'` , which has three `song` values ( `'Aria'` , `'Var. 1'` , `'Var. 2'` ) and a `singer` message with two `residence` values ( `'Seattle'` , `'USA'` and `'Eugene'` , `'USA'` ).
+- `'Mass in B Minor'` , which has an empty `song` field and no `singer` value.
+
+The following query unnests the repeated scalar `song` field:
+
+```
+-- Unnest a repeated scalar field (song)
+SELECT
+  Music.album.album_name,
+  song_title
+FROM
+  Music
+CROSS JOIN
+  UNNEST(Music.album.song) AS song_title;
+
+/*-------------------------+------------+
+ | album_name              | song_title |
+ +-------------------------+------------+
+ | The Goldberg Variations | Aria       |
+ | The Goldberg Variations | Var. 1     |
+ | The Goldberg Variations | Var. 2     |
+ +-------------------------+------------*/
+```
+
+When you unnest repeated message fields, you can access the fields of each nested protocol buffer message using the dot operator:
+
+```
+-- Unnest a repeated message field (residence in singer)
+SELECT
+  Music.album.album_name,
+  residence.city,
+  residence.country
+FROM
+  Music
+CROSS JOIN
+  UNNEST(Music.album.singer.residence) AS residence;
+
+/*-------------------------+---------+---------+
+ | album_name              | city    | country |
+ +-------------------------+---------+---------+
+ | The Goldberg Variations | Seattle | USA     |
+ | The Goldberg Variations | Eugene  | USA     |
+ +-------------------------+---------+---------*/
+```
+
+To include rows where the repeated field is empty or `NULL` (for example, when a parent message is unset), use `LEFT JOIN UNNEST` :
+
+```
+-- Preserve albums with no songs
+SELECT
+  Music.album.album_name,
+  song_title
+FROM
+  Music
+LEFT JOIN
+  UNNEST(Music.album.song) AS song_title;
+
+/*-------------------------+------------+
+ | album_name              | song_title |
+ +-------------------------+------------+
+ | The Goldberg Variations | Aria       |
+ | The Goldberg Variations | Var. 1     |
+ | The Goldberg Variations | Var. 2     |
+ | Mass in B Minor         | NULL       |
+ +-------------------------+------------*/
+```
+
+To return the zero-based index of each element in the repeated field, use `WITH OFFSET` :
+
+```
+-- Include the track number (offset) of each song
+SELECT
+  Music.album.album_name,
+  song_title,
+  offset
+FROM
+  Music
+CROSS JOIN
+  UNNEST(Music.album.song) AS song_title WITH OFFSET;
+
+/*-------------------------+------------+--------+
+ | album_name              | song_title | offset |
+ +-------------------------+------------+--------+
+ | The Goldberg Variations | Aria       | 0      |
+ | The Goldberg Variations | Var. 1     | 1      |
+ | The Goldberg Variations | Var. 2     | 2      |
+ +-------------------------+------------+--------*/
 ```
 
 ### Explicit and implicit `UNNEST`

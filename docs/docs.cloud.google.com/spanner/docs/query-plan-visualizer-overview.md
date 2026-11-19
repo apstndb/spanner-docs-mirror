@@ -125,6 +125,22 @@ The **Query summary** pane provides the following high-level execution metrics a
 - **Query optimizer version** : the version of the Spanner query optimizer used to compile the plan.
 - **Statistics package** : the optimizer statistics package used for cost-based optimization.
 
+### Statistics after a query restart
+
+While a query runs, Spanner might restart some or all of the query. For example, a restart can occur in the following situations:
+
+- A split moves to a different server during load balancing.
+- A server restarts during maintenance.
+- A client library resumes a streaming query after a transient error, such as a network error.
+
+A restart doesn't affect the query results, but it does affect the execution statistics.
+
+If a restart occurs, the statistics in the **Query summary** pane and on the operator cards include only the work done after the last restart. Work done before the restart isn't counted. As a result, any of these statistics, including **Rows returned** , **Rows scanned** , **CPU time** , and **Total elapsed time** , can be lower than the actual values for the query. For example, **Rows returned** can be lower than the number of rows that your application received, or **Rows scanned** can be lower than **Rows returned** .
+
+If you profile a query by using the API, you can check whether a restart affected the statistics. If a restart occurred, the [`queryStats`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetStats#FIELDS.query_stats) object in the result contains the `statistics_since_last_restart` field with a value of `true` . The field is omitted if no restart occurred.
+
+If a restart affected the statistics, run the query again. A later execution might complete without a restart and report complete statistics.
+
 ### Prominent operators
 
 The **Prominent operators** section highlights the most resource-intensive iterators in the query plan:

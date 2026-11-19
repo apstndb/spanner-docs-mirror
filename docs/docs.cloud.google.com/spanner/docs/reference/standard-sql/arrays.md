@@ -532,9 +532,25 @@ GROUP BY name;
 
 ### Querying repeated fields
 
-GoogleSQL represents a repeated field of a `PROTO` as an `ARRAY` . You can query this `ARRAY` using `UNNEST` and `INNER JOIN` .
+GoogleSQL represents a repeated field of a `PROTO` as an `ARRAY` . You can query this `ARRAY` using `UNNEST` and `CROSS JOIN` or `INNER JOIN` .
 
-The following example queries a table containing a column of type `PROTO` with the alias `album` and the repeated field `song` . All values of `song` for each `album` appear on the same row.
+**Example**
+
+Suppose a table called `Music` contains a protocol buffer column called `album` with a scalar `album_name` field and a repeated `song` field. You can unnest the repeated `song` field directly without constructing an array in the query:
+
+```
+SELECT
+  Music.album.album_name,
+  song_title
+FROM
+  Music
+CROSS JOIN
+  UNNEST(Music.album.song) AS song_title;
+```
+
+For more examples of querying repeated fields and nested messages inside protocol buffers (including `LEFT JOIN UNNEST` and `WITH OFFSET` ), see [Repeated fields in a protocol buffer](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#unnest_repeated_fields_proto) and the [Protocol buffers guide](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/protocol-buffers) .
+
+The following self-contained example constructs sample rows with a `WITH` clause and queries a table containing a column of type `PROTO` with the alias `album` and the repeated field `song` . All values of `song` for each `album` appear on the same row.
 
 **Example**
 

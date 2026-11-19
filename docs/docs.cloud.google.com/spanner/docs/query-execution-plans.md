@@ -143,6 +143,8 @@ The Spanner Studio query plan visualizer displays summary metrics for query exec
 | Total elapsed time | The total wall-clock time taken to execute the query.                                                                                                                                                          |
 | CPU time           | The total amount of CPU time spent across all servers involved in executing the query. Because some parts of query execution can proceed in parallel, the CPU time can be greater than the total elapsed time. |
 
+If a query restarts while it runs, these metrics include only the work done after the last restart. For more information, see [Statistics after a query restart](https://docs.cloud.google.com/spanner/docs/query-plan-visualizer-overview#query-restarts) .
+
 ## Sampled query plans
 
 Spanner sampled query plans let you view samples of historical query plans and compare the performance of a query over time. Sampled query plans aren't available for all queries. Spanner might sample only queries that consume significant CPU. Spanner retains query plan samples for 30 days. To find query plan samples on the [Query insights](https://docs.cloud.google.com/spanner/docs/using-query-insights) page of the Google Cloud console, see [View sampled query plans](https://docs.cloud.google.com/spanner/docs/tune-query-with-visualizer#view-sampled-queries) .
@@ -309,6 +311,21 @@ The following execution plan shows that this query fully uses the index:
 ![Simpler query execution plan](https://docs.cloud.google.com/static/spanner/docs/images/index-query-plan.png)
 
 The execution plan doesn't require a back join because the index contains all of the columns that the query requests.
+
+### Understanding seek and residual conditions
+
+When Spanner scans a table or index, the [scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#scan) and [filter scan](https://docs.cloud.google.com/spanner/docs/query-operators-leaf#filter_scan) operators in the query execution plan can show the following conditions, which indicate how efficiently Spanner reads the data:
+
+- **Seek condition** : A condition that Spanner uses to go directly to the matching rows. Because rows are sorted by key, seek conditions avoid reading rows that don't match.
+- **Residual condition** : A condition that Spanner evaluates after it reads each row. If a selective filter appears as a residual condition on a large scan, then the index key column order might be inefficient, causing Spanner to read many rows that it then discards.
+
+If a frequent, selective filter appears as a residual condition, consider reordering the key columns of the index or primary key so that columns compared with equality ( `=` ) come before columns compared with ranges. This lets Spanner evaluate the filter as a seek condition.
+
+### Identifying back joins
+
+When a query uses a secondary index (either chosen by the optimizer or forced with the `force_index` hint) but requests columns that are not stored in that index, Spanner performs a back join.
+
+In the query execution plan, this is represented by an `index scan` that feeds into a `cross apply` or `distributed cross apply` operator, which performs a `table scan` . For each batch of matching index rows, Spanner reads the missing columns from the base table. If the index matches a large number of rows, these base-table lookups can severely degrade query performance and increase latency. To avoid the back join, add the missing columns to the index's [`STORING` clause](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing-clause) ( `INCLUDE` clause in PostgreSQL-dialect databases). Stored columns use extra storage.
 
 ### Understanding query distribution
 

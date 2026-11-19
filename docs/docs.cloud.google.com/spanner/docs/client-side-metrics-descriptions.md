@@ -14,7 +14,11 @@ An attempt is a single RPC request from the client to Spanner. The client can ma
 
 An operation represents completion of all RPC requests, including all the attempts the client made to Spanner. An operation is completed when the client receives a response or exhausts all attempts.
 
-An RPC request first reaches the Global Front End (GFE) and then the Spanner API frontend (AFE). For more information, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .
+An RPC request first reaches the Google Front End (GFE) and then the Spanner API frontend (AFE). For more information, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .
+
+The client calculates the GFE latencies and AFE latencies metrics from timing information that the GFE and the AFE add to the response headers. If an attempt ends before the client receives response headers, the client doesn't record a GFE or AFE latency sample for that attempt. For example, this happens when the request deadline expires and the client returns a `DEADLINE_EXCEEDED` error. Instead, the client increments the corresponding connectivity error count metric. As a result, the GFE and AFE latency distributions include only attempts that received response headers and might look normal even when many attempts time out.
+
+The client records GFE metrics only for requests that go through the GFE. If a request uses DirectPath ( `directpath_used` is `true` ), the client doesn't record GFE latency or the GFE connectivity error count for that request.
 
 These metrics include `DISTRIBUTION` and `INT64` metric value types. For more information, see [Value types and metric kinds](https://docs.cloud.google.com/monitoring/api/v3/kinds-and-types) .
 
@@ -36,7 +40,7 @@ All client-side metrics have the following dimensions:
 
 ## AFE connectivity error count
 
-The AFE connectivity error count metric records the number of RPC requests that failed to reach the Spanner AFE.
+The AFE connectivity error count metric records the number of attempts for which the client didn't receive Spanner AFE timing information in the response headers. This happens, for example, when the request doesn't reach the AFE or when the attempt times out before the client receives response headers. The [AFE latencies](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#afe-latencies) metric doesn't record a sample for these attempts.
 
 The AFE connectivity error count metric has the following attributes:
 
@@ -46,6 +50,8 @@ The AFE connectivity error count metric has the following attributes:
 ## AFE latencies
 
 The AFE latencies metric measures the time in between the Spanner AFE receiving the RPC request from the client and Spanner AFE starts writing the response.
+
+The client calculates this value from timing information in the response headers. If an attempt ends before the client receives response headers, the client doesn't record a sample and increments the [AFE connectivity error count](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#afe-connectivity-error-count) metric instead.
 
 The AFE latencies metric has the following attributes:
 
@@ -63,7 +69,7 @@ The Attempt count metric has the following attributes:
 
 ## Attempt latencies
 
-The attempt latencies metric measures the duration it takes for a single RPC request to reach Spanner from the client. The `attempt_latencies` value is typically identical to the `operation_latencies` value. If the client receives transient errors, then the `operation_latencies` value is a sum of all the `attempt_latencies` values.
+The attempt latencies metric measures the duration of a single RPC attempt, from when the client sends the request until the attempt succeeds or fails. The `attempt_latencies` value is typically identical to the `operation_latencies` value. If the client receives transient errors, then the `operation_latencies` value is a sum of all the `attempt_latencies` values.
 
 The Attempt latencies metric has the following attributes:
 
@@ -72,7 +78,7 @@ The Attempt latencies metric has the following attributes:
 
 ## GFE connectivity error count
 
-The GFE connectivity error count metric records the number of RPC requests that failed to reach the GFE.
+The GFE connectivity error count metric records the number of attempts for which the client didn't receive GFE timing information in the response headers. This happens, for example, when the request doesn't reach the GFE or when the attempt times out before the client receives response headers. The [GFE latencies](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-latencies) metric doesn't record a sample for these attempts.
 
 The GFE connectivity error count metric has the following attributes:
 
@@ -81,7 +87,9 @@ The GFE connectivity error count metric has the following attributes:
 
 ## GFE latencies
 
-The GFE latencies metric measures the time in between the GFE receiving the RPC request from the client and when the GFE receives the first byte of the response. This metric does not account for the time taken for any TCP/SSL handshake.
+The GFE latencies metric measures the time in between the GFE receiving the RPC request from the client and when the GFE receives the first byte of the response. This metric doesn't include the time taken for any TCP or TLS handshake.
+
+The client calculates this value from timing information in the response headers. If an attempt ends before the client receives response headers, the client doesn't record a sample and increments the [GFE connectivity error count](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-connectivity-error-count) metric instead. If the GFE connectivity error count increases, GFE latencies that look normal don't mean that latency is low.
 
 The GFE latencies metric has the following attributes:
 

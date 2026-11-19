@@ -16,13 +16,15 @@ To learn how to use the `FOR UPDATE` clause, see the [GoogleSQL](https://docs.cl
 
 ## Why use the `FOR UPDATE` clause
 
-In databases with less strict isolation levels, the `FOR UPDATE` clause might be necessary to ensure that a concurrent transaction doesn't update data between reading the data and committing the transaction. Since Spanner enforces serializability by default, it's guaranteed that the transaction only commits successfully if the data accessed within the transaction isn't stale at commit time. Therefore, the `FOR UPDATE` clause isn't necessary to ensure transaction correctness in Spanner.
+In databases with less strict isolation levels, the `FOR UPDATE` clause might be necessary to ensure that a concurrent transaction doesn't update data between reading the data and committing the transaction. Under default [serializable isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable) , Spanner ensures that a transaction commits only if its accessed data is not stale at commit time. Therefore, the `FOR UPDATE` clause isn't necessary to ensure transaction correctness in serializable isolation.
 
 However, in use cases with high write contention, such as when multiple transactions are concurrently reading and writing to the same data, the simultaneous transactions might cause an increase in aborts. This is because when multiple, simultaneous transactions acquire shared locks, and then try to upgrade to exclusive locks, the transactions cause a deadlock. The deadlock permanently blocks the transactions because each is waiting for the other to release the resource that it needs. In order to make progress, Spanner aborts all but one of the transactions to resolve the deadlock. For more information, see [Locking](https://docs.cloud.google.com/spanner/docs/transactions#locking) .
 
 A transaction that uses the `FOR UPDATE` clause acquires the exclusive lock proactively and proceeds to execute, while other transactions wait their turn for the lock. Although Spanner might still limit throughput because the conflicting transactions can only be performed one at a time, but because Spanner is only making progress on one transaction, it saves time that would otherwise be spent aborting and retrying transactions.
 
 Therefore, if reducing the number of aborted transactions in a simultaneous write request scenario is important, then you can use the `FOR UPDATE` clause to reduce the overall number of aborts and increase workload execution efficiency.
+
+While serializable isolation uses `FOR UPDATE` primarily to reduce aborts from write contention, [repeatable read isolation](https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read) uses `FOR UPDATE` to prevent read-write conflicts and ensure transaction correctness. For more information, see [Use `SELECT FOR UPDATE` in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
 
 ## Comparison to the `LOCK_SCANNED_RANGES` hint
 
@@ -255,7 +257,7 @@ You can't use the `FOR UPDATE` clause [when defining a view](https://docs.cloud.
 
 The following `FOR UPDATE` use cases are unsupported:
 
-- **As a mutual exclusion mechanism for running code outside of Spanner:** Don't use locking in Spanner to ensure exclusive access to a resource outside of Spanner. Transactions might be aborted by Spanner, for example, if a transaction is retried, whether explicitly by application code or implicitly by client code, such as the [Spanner JDBC driver](https://docs.cloud.google.com/spanner/docs/use-oss-jdbc) , it's only guaranteed that the locks are held during the attempt that was committed.
+- **As a mutual exclusion mechanism for running code outside of Spanner:** Don't use locking in Spanner to ensure exclusive access to a resource outside of Spanner. Spanner might abort and retry a transaction, and it releases the locks when it aborts the transaction. For more information, see [Unsupported use cases](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read#unsupported-use-cases) in the repeatable read guide.
 - **In combination with the `LOCK_SCANNED_RANGES` hint:** You can't use both the `FOR UPDATE` clause and the `LOCK_SCANNED_RANGES` hint in the same query, or Spanner returns an error.
 - **In full-text search queries:** You can't use the `FOR UPDATE` clause in queries using [full-text search](https://docs.cloud.google.com/spanner/docs/full-text-search) indexes.
 - **In read-only transactions:** The `FOR UPDATE` clause is only valid in queries running within read-write transactions.
@@ -264,7 +266,7 @@ The following `FOR UPDATE` use cases are unsupported:
 ## What's Next
 
 - Learn how to use the `FOR UPDATE` clause in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#for_update_clause) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/query-syntax#for_update_clause) .
-- Learn how to [Use SELECT FOR UPDATE in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
+- Learn how to [use `SELECT FOR UPDATE` in repeatable read isolation](https://docs.cloud.google.com/spanner/docs/use-select-for-update-repeatable-read) .
 - Learn about the [`LOCK_SCANNED_RANGES` hint](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/query-syntax#hints) .
 - Learn about [Locking](https://docs.cloud.google.com/spanner/docs/transactions#locking) in Spanner.
 - Learn about Spanner [serializability](https://docs.cloud.google.com/spanner/docs/transactions#serializability_and_external_consistency) .

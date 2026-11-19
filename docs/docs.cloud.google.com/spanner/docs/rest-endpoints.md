@@ -14,4 +14,4 @@ The Spanner **REST global endpoint** is `https://spanner.googleapis.com` .
 
 The **REST regional endpoint** follows the format `https://spanner.<REGION>.rep.googleapis.com` . For example, if you want to enforce data guarantees in the regional instance configuration Dammam ( `me-central2` ), use `https://spanner.me-central2.rep.googleapis.com` as your regional endpoint. For more information, see [Global and regional service endpoints](https://docs.cloud.google.com/spanner/docs/endpoints) .
 
-Only `me-central2` is available as a possible regional endpoint.
+For a list of regions that support regional endpoints, see [Regions available for regional endpoints](https://docs.cloud.google.com/spanner/docs/endpoints#available-regional-endpoints) .

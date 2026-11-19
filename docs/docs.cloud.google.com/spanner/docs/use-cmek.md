@@ -1101,11 +1101,141 @@ puts "Database #{database_id} created with encryption key " \
      "#{database.encryption_config.kms_key_names}"
 ```
 
+## Change the database encryption configuration
+
+You can change the encryption configuration of an existing Spanner database in place without downtime using the gcloud CLI, the [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/patch) API, or the [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.UpdateDatabase) API. You can make the following encryption configuration changes on an existing database:
+
+- Enable CMEK on a database that uses Google-owned and Google-managed encryption key.
+- Change the Cloud KMS keys on a CMEK-enabled database, including switching between a multi-region key and multiple regional keys, or replacing one or more regional keys. Replacing any regional key re-encrypts all of the database's data, not only the data in that region.
+- Remove CMEK and revert a database to Google-owned and Google-managed encryption key.
+
+During background re-encryption, a small number of transactions might fail with a retryable `ABORTED` error. Spanner client libraries retry these transactions automatically. If you use the REST or RPC API directly, retry these transactions in your application.
+
+Switching from a single multi-region key to multiple regional keys changes how key revocation behaves. Disabling a single key, or disabling all regional keys at once, typically makes the database inaccessible within an hour. If you disable just a subset of regional keys, the database could take up to 24 hours to become inaccessible. For more information, see [Disable the key](https://docs.cloud.google.com/spanner/docs/use-cmek#disable) .
+
+> **Warning:** When you change a database's encryption configuration, Spanner re-encrypts existing data asynchronously in the background. Don't disable, revoke access to, or destroy the previous Cloud KMS keys until background re-encryption finishes. Doing so can cause the database to become unreadable (until the keys are restored), or stop re-encryption. Backups created before or during background re-encryption can use the previous keys. Check each backup's `encryptionInformation` , and keep those key versions enabled for as long as you need to restore from that backup. By default, a database restored from a backup uses the backup's encryption configuration. To restore with the new encryption configuration, specify it when you [restore from the backup](https://docs.cloud.google.com/spanner/docs/use-cmek#restore) .
+
+### Enable CMEK or change Cloud KMS keys
+
+To enable CMEK on an existing database or change the Cloud KMS keys on a CMEK-enabled database, complete the following steps:
+
+1.  Create your target Cloud KMS key or keys in the required locations and grant the [Cloud KMS CryptoKey Encrypter/Decrypter](https://docs.cloud.google.com/kms/docs/reference/permissions-and-roles#predefined) ( `roles/cloudkms.cryptoKeyEncrypterDecrypter` ) role on each target key to your project's Spanner service agent, as described in steps 1 and 2 of [Create a CMEK-enabled database](https://docs.cloud.google.com/spanner/docs/use-cmek#create-db) .
+
+2.  Update the database's encryption configuration:
+
+    ### gcloud
+
+    Run the [`gcloud spanner databases update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/update) command and specify the fully qualified resource names of your target Cloud KMS keys using the `--kms-keys` flag.
+
+    For a single-region or multi-region key:
+
+    ```
+    gcloud spanner databases update DATABASE \
+        --project=SPANNER_PROJECT_ID \
+        --instance=INSTANCE_ID \
+        --kms-keys="projects/KMS_PROJECT_ID/locations/KMS_KEY_LOCATION/keyRings/KMS_KEY_RING/cryptoKeys/KMS_KEY"
+    ```
+
+    For multiple regional keys in a custom, dual-region, or multi-region instance configuration, specify a comma-separated list containing the full set of required Cloud KMS key resource names for all regions in your instance configuration, even if you're only replacing a subset of the keys:
+
+    ```
+    gcloud spanner databases update DATABASE \
+        --project=SPANNER_PROJECT_ID \
+        --instance=INSTANCE_ID \
+        --kms-keys="projects/KMS_PROJECT_ID/locations/KMS_KEY_LOCATION_1/keyRings/KMS_KEY_RING_1/cryptoKeys/KMS_KEY_1,projects/KMS_PROJECT_ID/locations/KMS_KEY_LOCATION_2/keyRings/KMS_KEY_RING_2/cryptoKeys/KMS_KEY_2,projects/KMS_PROJECT_ID/locations/KMS_KEY_LOCATION_3/keyRings/KMS_KEY_RING_3/cryptoKeys/KMS_KEY_3"
+    ```
+
+    ### REST
+
+    Call the [`projects.instances.databases.patch`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/patch) method with `updateMask=encryption_config` and specify your target `encryptionConfig` .
+
+    For a single-region or multi-region key:
+
+    ```
+    PATCH https://spanner.googleapis.com/v1/projects/SPANNER_PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE?updateMask=encryption_config
+
+    {
+      "encryptionConfig": {
+        "kmsKeyNames": [
+          "projects/KMS_PROJECT_ID/locations/KMS_KEY_LOCATION/keyRings/KMS_KEY_RING/cryptoKeys/KMS_KEY"
+        ]
+      }
+    }
+    ```
+
+    For multiple regional keys in a custom, dual-region, or multi-region instance configuration, specify an array containing the full set of required Cloud KMS key resource names for all regions in your instance configuration, even if you're only replacing a subset of the keys:
+
+    ```
+    PATCH https://spanner.googleapis.com/v1/projects/SPANNER_PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE?updateMask=encryption_config
+
+    {
+      "encryptionConfig": {
+        "kmsKeyNames": [
+          "projects/KMS_PROJECT_ID/locations/KMS_KEY_LOCATION_1/keyRings/KMS_KEY_RING_1/cryptoKeys/KMS_KEY_1",
+          "projects/KMS_PROJECT_ID/locations/KMS_KEY_LOCATION_2/keyRings/KMS_KEY_RING_2/cryptoKeys/KMS_KEY_2",
+          "projects/KMS_PROJECT_ID/locations/KMS_KEY_LOCATION_3/keyRings/KMS_KEY_RING_3/cryptoKeys/KMS_KEY_3"
+        ]
+      }
+    }
+    ```
+
+3.  Wait until background re-encryption finishes before changing the database's encryption configuration again, or before disabling, revoking, or destroying any previous Cloud KMS keys. Also keep the keys if you might need them to restore from backups. To determine if background re-encryption is finished, see [Verify background re-encryption completion](https://docs.cloud.google.com/spanner/docs/use-cmek#verify-reencryption) .
+
+### Revert a database to Google-owned and Google-managed encryption key
+
+To remove CMEK from an existing database and revert it to Google-owned and Google-managed encryption key, complete the following steps:
+
+1.  Update the database's encryption configuration to clear its Cloud KMS keys:
+
+    ### gcloud
+
+    Run the [`gcloud spanner databases update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/update) command with the `--clear-kms-keys` flag:
+
+    ```
+    gcloud spanner databases update DATABASE \
+        --project=SPANNER_PROJECT_ID \
+        --instance=INSTANCE_ID \
+        --clear-kms-keys
+    ```
+
+    ### REST
+
+    Call the [`projects.instances.databases.patch`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/patch) method with `updateMask=encryption_config` and an empty `encryptionConfig` :
+
+    ```
+    PATCH https://spanner.googleapis.com/v1/projects/SPANNER_PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE?updateMask=encryption_config
+
+    {
+      "encryptionConfig": {}
+    }
+    ```
+
+2.  Wait until background re-encryption finishes before changing the database's encryption configuration again, or before disabling, revoking, or destroying any previous Cloud KMS keys. Also keep the keys if you might need them to restore from backups. To determine if background re-encryption is finished, see [Verify background re-encryption completion](https://docs.cloud.google.com/spanner/docs/use-cmek#verify-reencryption) .
+
+### Verify background re-encryption completion
+
+The database update operation completes when the new `encryptionConfig` is saved, while Spanner re-encrypts existing database data asynchronously in the background. Background re-encryption can take several hours. Changing or removing keys takes longer than adding CMEK, and larger databases can take longer.
+
+To check the status of background re-encryption, run the [`gcloud spanner databases describe`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/describe) command:
+
+```
+gcloud spanner databases describe DATABASE \
+    --project=SPANNER_PROJECT_ID \
+    --instance=INSTANCE_ID \
+    --format="yaml(encryptionConfig,encryptionInfo)"
+```
+
+Use the `encryptionInfo` output to determine whether background re-encryption is complete:
+
+- **Changing Cloud KMS keys:** While background re-encryption is in progress, `encryptionInfo` lists both the previous and updated Cloud KMS key versions. Re-encryption is complete when `encryptionInfo` lists only key versions that belong to the target keys in `encryptionConfig` . For databases with multiple regional keys, previous key versions leave `encryptionInfo` one region at a time, so wait until no entry references a previous key version.
+- **Reverting to Google-owned and Google-managed encryption key:** While background re-encryption is in progress, `encryptionInfo` continues to list the previous Cloud KMS key versions. Re-encryption is complete when `encryptionInfo` no longer lists any `CUSTOMER_MANAGED_ENCRYPTION` entries.
+- **Enabling CMEK on a database that used Google-owned and Google-managed encryption key:** `encryptionInfo` might be empty for a few minutes after the change. It then lists the new Cloud KMS key versions after they are in use, which might appear before all pre-existing data protected by Google-owned and Google-managed encryption key has finished re-encrypting in the background. `encryptionInfo` doesn't indicate when re-encryption of the pre-existing data finishes.
+
 ## View the key versions in use
 
 The database's [`encryption_info`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases#Database.FIELDS.encryption_info) field shows information about key versions.
 
-When a database's key version changes, the change isn't immediately propagated to `encryption_info` . There might be a delay before the change is reflected in this field.
+When a key version rotates in Cloud KMS, `encryption_info` updates once the new version is in use. When you change the database's [encryption configuration](https://docs.cloud.google.com/spanner/docs/use-cmek#change-encryption) , `encryption_info` lists the key versions still in use, which can include the previous key versions, until background re-encryption completes. For more information, see [Verify background re-encryption completion](https://docs.cloud.google.com/spanner/docs/use-cmek#verify-reencryption) .
 
 ### Console
 
@@ -1142,7 +1272,7 @@ encryptionInfo:
 
 ## Disable the key
 
-> **Warning:** We strongly recommend against disabling only a subset of keys in a CMEK-enabled database that uses multiple keys. It might cause uncertain behavior. It's better to disable all keys in the database.
+> **Warning:** We strongly recommend against disabling only a subset of keys in a CMEK-enabled database that uses multiple keys. Disabling only a subset of keys might cause uncertain behavior and can take up to 24 hours to make the database inaccessible. Instead, disable all keys used by the database.
 
 1.  Disable the key version(s) that are in use by following [these instructions](https://docs.cloud.google.com/kms/docs/enable-disable#disable) for each key version.
 
@@ -1181,6 +1311,8 @@ encryptionInfo:
 > **Note:** You can't use the Google Cloud console to specify multiple Cloud KMS keys when creating a backup in a custom, dual-region or multi-region instance configuration. You must use the gcloud CLI or client libraries to do so.
 
 You can use [Spanner backups](https://docs.cloud.google.com/spanner/docs/backup) to create backups of your databases. By default, Spanner backups created from a database use the same [encryption configuration](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#CreateBackupEncryptionConfig) as the database itself. You can optionally specify a different encryption configuration for a backup.
+
+If a database uses multiple regional Cloud KMS keys, its backups only list the keys for regions that store data. The witness region's key isn't listed because witness replicas don't store backup data.
 
 ### Console
 

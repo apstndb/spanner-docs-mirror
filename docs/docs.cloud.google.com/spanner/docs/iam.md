@@ -6,7 +6,7 @@ description: Control access to your Spanner resources using IAM, granting granul
 data_source: docs.cloud.google.com
 ---
 
-[Identity and Access Management](https://docs.cloud.google.com/iam/docs/overview) (IAM) lets you control user and group access to Spanner resources at the project, Spanner instance, and Spanner database levels. For example, you can specify that a user has full control of a specific database in a specific instance in your project, but cannot create, modify, or delete any instances in your project. Using access control with IAM lets you grant a permission to a user or group without having to modify each Spanner instance or database permission individually.
+[Identity and Access Management](https://docs.cloud.google.com/iam/docs/overview) (IAM) lets you control user and group access to Spanner resources at the project, Spanner instance, Spanner database, backup, and backup schedule levels. For example, you can specify that a user has full control of a specific database in a specific instance in your project, but cannot create, modify, or delete any instances in your project. Using access control with IAM lets you grant a permission to a user or group without having to modify each Spanner instance or database permission individually.
 
 This document focuses on the IAM *permissions* relevant to Spanner and the IAM *roles* that grant those permissions. For a detailed description of IAM and its features, see the [IAM](https://docs.cloud.google.com/iam/docs/overview) developer's guide. In particular, see the [Managing IAM policies](https://docs.cloud.google.com/iam/docs/granting-changing-revoking-access) section.
 
@@ -30,7 +30,10 @@ The following permissions apply to Spanner instance configurations. For more inf
 
 ### Instance configuration operations
 
-The following permissions apply to Spanner instance configuration operations. For more information, see the instance references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigOperations) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceConfigOperations) APIs.
+The following permissions apply to Spanner instance configuration operations. For more information, see the following API references:
+
+- REST: [`projects.instanceConfigOperations`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigOperations) and [`projects.instanceConfigs.operations`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instanceConfigs.operations)
+- RPC: [`ListInstanceConfigOperations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations) and [`Operations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations)
 
 | Instance configuration operation permission name | Description                                 |
 |--------------------------------------------------|---------------------------------------------|
@@ -43,19 +46,23 @@ The following permissions apply to Spanner instance configuration operations. Fo
 
 The following permissions apply to Spanner instances. For more information, see the instance references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.Instance) APIs.
 
-| Instance permission name         | Description                                   |
-|----------------------------------|-----------------------------------------------|
-| `spanner.instances.create`       | Create an instance.                           |
-| `spanner.instances.delete`       | Delete an instance.                           |
-| `spanner.instances.get`          | Get the configuration of a specific instance. |
-| `spanner.instances.getIamPolicy` | Get an instance's IAM Policy.                 |
-| `spanner.instances.list`         | List instances.                               |
-| `spanner.instances.setIamPolicy` | Set an instance's IAM Policy.                 |
-| `spanner.instances.update`       | Update an instance.                           |
+| Instance permission name              | Description                                                                     |
+|---------------------------------------|---------------------------------------------------------------------------------|
+| `spanner.instances.create`            | Create an instance.                                                             |
+| `spanner.instances.createTagBinding`  | Attach a [tag](https://docs.cloud.google.com/spanner/docs/tags) to an instance. |
+| `spanner.instances.delete`            | Delete an instance.                                                             |
+| `spanner.instances.deleteTagBinding`  | Detach a tag from an instance.                                                  |
+| `spanner.instances.get`               | Get the configuration of a specific instance.                                   |
+| `spanner.instances.getIamPolicy`      | Get an instance's IAM Policy.                                                   |
+| `spanner.instances.list`              | List instances.                                                                 |
+| `spanner.instances.listEffectiveTags` | List the tags that are attached to or inherited by an instance.                 |
+| `spanner.instances.listTagBindings`   | List the tags that are attached directly to an instance.                        |
+| `spanner.instances.setIamPolicy`      | Set an instance's IAM Policy.                                                   |
+| `spanner.instances.update`            | Update an instance.                                                             |
 
 ### Instance operations
 
-The following permissions apply to Spanner instance operations. For more information, see the instance references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceOperations) APIs.
+The following permissions apply to Spanner instance operations. For more information, see the instance references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.operations) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations) APIs.
 
 | Instance operation permission name  | Description                        |
 |-------------------------------------|------------------------------------|
@@ -68,7 +75,7 @@ The following permissions apply to Spanner instance operations. For more informa
 
 The following permissions apply to Spanner instance partitions. For more information, see the instance partition references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstancePartition) APIs.
 
-| Instance permission name            | Description                                             |
+| Instance partition permission name  | Description                                             |
 |-------------------------------------|---------------------------------------------------------|
 | `spanner.instancePartitions.create` | Create an instance partition.                           |
 | `spanner.instancePartitions.delete` | Delete an instance partition.                           |
@@ -78,7 +85,10 @@ The following permissions apply to Spanner instance partitions. For more informa
 
 ### Instance partition operations
 
-The following permissions apply to Spanner instance partition operations. For more information, see the instance partition references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions.operations) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#listinstancepartitionoperationsrequest) APIs.
+The following permissions apply to Spanner instance partition operations. For more information, see the following API references:
+
+- REST: [`projects.instances.instancePartitionOperations`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitionOperations) and [`projects.instances.instancePartitions.operations`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.instancePartitions.operations)
+- RPC: [`ListInstancePartitionOperations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations) and [`Operations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations)
 
 | Instance partition operation permission name | Description                                  |
 |----------------------------------------------|----------------------------------------------|
@@ -91,99 +101,32 @@ The following permissions apply to Spanner instance partition operations. For mo
 
 The following permissions apply to Spanner databases. For more information, see the database references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.Database) APIs.
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Database permission name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>spanner.databases.adapt</code></td>
-<td>Lets the <a href="https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.adapter.v1">Spanner Adapter API</a> interact directly with Spanner.</td>
-</tr>
-<tr class="even">
-<td><code>spanner.databases.beginOrRollbackReadWriteTransaction</code></td>
-<td>Begin or roll back a <a href="https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions">read-write transaction</a> on a Spanner database.</td>
-</tr>
-<tr class="odd">
-<td><code>spanner.databases.beginPartitionedDmlTransaction</code></td>
-<td>Execute an instance partitioned data manipulation language (DML) statement. For more information about instance partitioned queries, see <a href="https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel">Read data in parallel</a> .</td>
-</tr>
-<tr class="even">
-<td><code>spanner.databases.beginReadOnlyTransaction</code></td>
-<td>Begin a <a href="https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions">read-only transaction</a> on a Spanner database.</td>
-</tr>
-<tr class="odd">
-<td><code>spanner.databases.create</code></td>
-<td>Create a database.</td>
-</tr>
-<tr class="even">
-<td><code>spanner.databases.createBackup</code></td>
-<td>Create a backup from the database. Also requires <code>spanner.backups.create</code> to create the backup resource.</td>
-</tr>
-<tr class="odd">
-<td><code>spanner.databases.drop</code></td>
-<td>Drop a database.</td>
-</tr>
-<tr class="even">
-<td><code>spanner.databases.get</code></td>
-<td>Get a database's metadata.</td>
-</tr>
-<tr class="odd">
-<td><code>spanner.databases.getDdl</code></td>
-<td>Get a database's schema.</td>
-</tr>
-<tr class="even">
-<td><code>spanner.databases.getIamPolicy</code></td>
-<td>Get a database's IAM policy.</td>
-</tr>
-<tr class="odd">
-<td><code>spanner.databases.list</code></td>
-<td>List databases.</td>
-</tr>
-<tr class="even">
-<td><code>spanner.databases.read</code></td>
-<td>Read from a database using the read API.</td>
-</tr>
-<tr class="odd">
-<td><code>spanner.databases.select</code></td>
-<td>Execute a SQL select statement on a database.</td>
-</tr>
-<tr class="even">
-<td><code>spanner.databases.setIamPolicy</code></td>
-<td>Set a database's IAM policy.</td>
-</tr>
-<tr class="odd">
-<td><code>spanner.databases.update</code></td>
-<td>Update a database's metadata.
-<blockquote>
-Currently unavailable for IAM custom roles.
-</blockquote></td>
-</tr>
-<tr class="even">
-<td><code>spanner.databases.updateDdl</code></td>
-<td>Update a database's schema.</td>
-</tr>
-<tr class="odd">
-<td><code>spanner.databases.useDataBoost</code></td>
-<td>Use the compute resources of <a href="https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview">Spanner Data Boost</a> to process instance partitioned queries.</td>
-</tr>
-<tr class="even">
-<td><code>spanner.databases.useRoleBasedAccess</code></td>
-<td>Use <a href="https://docs.cloud.google.com/spanner/docs/fgac-about">fine-grained access control</a> .</td>
-</tr>
-<tr class="odd">
-<td><code>spanner.databases.write</code></td>
-<td>Write into a database.</td>
-</tr>
-</tbody>
-</table>
+| Database permission name                                | Description                                                                                                                                                                                                                                                                                                                      |
+|---------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `spanner.databases.adapt`                               | Lets the [Spanner Adapter API](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.adapter.v1) interact directly with Spanner. Also requires `spanner.sessions.create` to create an adapter session, and `spanner.databases.select` or `spanner.databases.write` to read or modify data through the adapter. |
+| `spanner.databases.addSplitPoints`                      | Add [split points](https://docs.cloud.google.com/spanner/docs/create-manage-split-points) to the tables and indexes of a database.                                                                                                                                                                                               |
+| `spanner.databases.beginOrRollbackReadWriteTransaction` | Begin or roll back a [read-write transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-write_transactions) on a Spanner database.                                                                                                                                                                            |
+| `spanner.databases.beginPartitionedDmlTransaction`      | Begin a [Partitioned DML](https://docs.cloud.google.com/spanner/docs/dml-partitioned) transaction on a Spanner database. Running the `UPDATE` or `DELETE` statement in the transaction also requires `spanner.databases.write` .                                                                                                 |
+| `spanner.databases.beginReadOnlyTransaction`            | Begin a [read-only transaction](https://docs.cloud.google.com/spanner/docs/transactions#read-only_transactions) on a Spanner database.                                                                                                                                                                                           |
+| `spanner.databases.changequorum`                        | Change the [quorum](https://docs.cloud.google.com/spanner/docs/change-dual-region-quorum) of a database in a dual-region instance configuration.                                                                                                                                                                                 |
+| `spanner.databases.create`                              | Create a database.                                                                                                                                                                                                                                                                                                               |
+| `spanner.databases.createBackup`                        | Create a backup from the database. Also requires `spanner.backups.create` to create the backup resource.                                                                                                                                                                                                                         |
+| `spanner.databases.drop`                                | Drop a database.                                                                                                                                                                                                                                                                                                                 |
+| `spanner.databases.get`                                 | Get a database's metadata.                                                                                                                                                                                                                                                                                                       |
+| `spanner.databases.getDdl`                              | Get a database's schema.                                                                                                                                                                                                                                                                                                         |
+| `spanner.databases.getIamPolicy`                        | Get a database's IAM policy.                                                                                                                                                                                                                                                                                                     |
+| `spanner.databases.list`                                | List databases.                                                                                                                                                                                                                                                                                                                  |
+| `spanner.databases.partitionQuery`                      | Partition a SQL query so that you can [read data in parallel](https://docs.cloud.google.com/spanner/docs/reads#read_data_in_parallel) .                                                                                                                                                                                          |
+| `spanner.databases.partitionRead`                       | Partition a read request so that you can read data in parallel.                                                                                                                                                                                                                                                                  |
+| `spanner.databases.read`                                | Read from a database using the read API.                                                                                                                                                                                                                                                                                         |
+| `spanner.databases.runGraphAlgorithms`                  | Run [graph algorithms](https://docs.cloud.google.com/spanner/docs/graph/graph-algorithms-overview) on a Spanner Graph database.                                                                                                                                                                                                  |
+| `spanner.databases.select`                              | Execute a SQL select statement on a database.                                                                                                                                                                                                                                                                                    |
+| `spanner.databases.setIamPolicy`                        | Set a database's IAM policy.                                                                                                                                                                                                                                                                                                     |
+| `spanner.databases.update`                              | Update a database's metadata.                                                                                                                                                                                                                                                                                                    |
+| `spanner.databases.updateDdl`                           | Update a database's schema.                                                                                                                                                                                                                                                                                                      |
+| `spanner.databases.useDataBoost`                        | Use the compute resources of [Spanner Data Boost](https://docs.cloud.google.com/spanner/docs/databoost/databoost-overview) to run partitioned queries and reads.                                                                                                                                                                 |
+| `spanner.databases.useRoleBasedAccess`                  | Use [fine-grained access control](https://docs.cloud.google.com/spanner/docs/fgac-about) .                                                                                                                                                                                                                                       |
+| `spanner.databases.write`                               | Write into a database.                                                                                                                                                                                                                                                                                                           |
 
 ### Database roles
 
@@ -196,7 +139,10 @@ The following permissions apply to Spanner database roles. For more information,
 
 ### Database operations
 
-The following permissions apply to Spanner database operations. For more information, see the database references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseOperations) APIs.
+The following permissions apply to Spanner database operations. For more information, see the following API references:
+
+- REST: [`projects.instances.databaseOperations`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databaseOperations) and [`projects.instances.databases.operations`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.operations)
+- RPC: [`ListDatabaseOperations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.ListDatabaseOperations) and [`Operations`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.longrunning#google.longrunning.Operations)
 
 | Database operation permission name  | Description                                    |
 |-------------------------------------|------------------------------------------------|
@@ -210,6 +156,7 @@ The following permissions apply to Spanner backups. For more information, see th
 
 | Backup permission name            | Description                                                                                                                      |
 |-----------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| `spanner.backups.copy`            | Copy a backup. Also requires `spanner.backups.create` on the destination instance.                                               |
 | `spanner.backups.create`          | Create a backup. Also requires `spanner.databases.createBackup` on the source database.                                          |
 | `spanner.backups.delete`          | Delete a backup.                                                                                                                 |
 | `spanner.backups.get`             | Get a backup.                                                                                                                    |
@@ -231,21 +178,23 @@ The following permissions apply to Spanner backup operations. For more informati
 
 ### Backup schedules
 
-The following permissions apply to Spanner backup schedules. For more information, see the database references for the [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups.operations) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1) APIs.
+The following permissions apply to Spanner backup schedules. For more information, see the backup schedule references for the [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.BackupSchedule) APIs.
 
-| Backup schedule permission name  | Description                                                                                      |
-|----------------------------------|--------------------------------------------------------------------------------------------------|
-| `spanner.backupSchedules.create` | Create a backup schedule. Also requires `spanner.databases.createBackup` on the source database. |
-| `spanner.backupSchedules.delete` | Delete a backup schedule.                                                                        |
-| `spanner.backupSchedules.get`    | Get a backup schedule.                                                                           |
-| `spanner.backupSchedules.list`   | List backup schedules.                                                                           |
-| `spanner.backupSchedules.update` | Update a backup schedule.                                                                        |
+| Backup schedule permission name        | Description                                                                                      |
+|----------------------------------------|--------------------------------------------------------------------------------------------------|
+| `spanner.backupSchedules.create`       | Create a backup schedule. Also requires `spanner.databases.createBackup` on the source database. |
+| `spanner.backupSchedules.delete`       | Delete a backup schedule.                                                                        |
+| `spanner.backupSchedules.get`          | Get a backup schedule.                                                                           |
+| `spanner.backupSchedules.getIamPolicy` | Get a backup schedule's IAM policy.                                                              |
+| `spanner.backupSchedules.list`         | List backup schedules.                                                                           |
+| `spanner.backupSchedules.setIamPolicy` | Set a backup schedule's IAM policy.                                                              |
+| `spanner.backupSchedules.update`       | Update a backup schedule.                                                                        |
 
 ### Sessions
 
 The following permissions apply to Spanner sessions. For more information, see the database references for [REST](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.sessions) and [RPC](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.Session) APIs.
 
-> **Note:** Sessions are an advanced concept that only apply to users of the REST API and those who are creating their own client libraries. Learn more in [Sessions](https://docs.cloud.google.com/spanner/docs/sessions) .
+> **Note:** The Spanner client libraries and the Google Cloud console create sessions for you, so reading or writing data requires `spanner.sessions.create` even if you don't manage sessions directly. Running `CALL cancel_query` to cancel a query also requires `spanner.sessions.delete` . You can't list or delete multiplexed sessions. For more information, see [Sessions](https://docs.cloud.google.com/spanner/docs/sessions) .
 
 | Session permission name   | Description       |
 |---------------------------|-------------------|
@@ -256,12 +205,7 @@ The following permissions apply to Spanner sessions. For more information, see t
 
 ## Predefined roles
 
-A predefined role is a bundle of one or more [permissions](https://docs.cloud.google.com/spanner/docs/iam#permissions) . For example, the predefined role `roles/spanner.databaseUser` contains the permissions `spanner.databases.read` and `spanner.databases.write` . There are two types of predefined roles for Spanner:
-
-- Person roles: Granted to users or groups, which allows them to perform actions on the resources in your project.
-- Machine roles: Granted to service accounts, which allows machines running as those service accounts to perform actions on the resources in your project.
-
-> **Note:** To avoid providing machines with unnecessarily broad permissions, don't grant person roles to service accounts.
+A predefined role is a bundle of one or more [permissions](https://docs.cloud.google.com/spanner/docs/iam#permissions) . For example, the predefined role `roles/spanner.databaseUser` includes permissions such as `spanner.databases.read` and `spanner.databases.write` .
 
 The following table lists the access control with IAM predefined roles, including a list of the permissions associated with each role:
 
@@ -960,7 +904,7 @@ Service agent roles should only be granted to [service agents](https://docs.clou
 </tbody>
 </table>
 
-> **Note:** When the assigned role is `spanner.databaseReader` , requests for a read-only transaction might occasionally fail with a permissions error. To resolve this problem, see [Manage the write-sessions fraction](https://docs.cloud.google.com/spanner/docs/sessions#write-sessions-fraction) .
+> **Note:** Some client libraries reserve a portion of their session pool for read-write transactions. If you use one of these client libraries and the principal has only the `roles/spanner.databaseReader` role, requests for a read-only transaction might occasionally fail with a permissions error. To resolve this problem, see [Manage the write-sessions fraction](https://docs.cloud.google.com/spanner/docs/sessions#write-sessions-fraction) .
 
 ### Basic roles
 
@@ -968,11 +912,11 @@ Basic roles are project-level roles that predate IAM. See [Basic roles](https://
 
 Although Spanner supports the following basic roles, you should use one of the predefined roles shown earlier whenever possible. Basic roles include broad permissions that apply to all of your Google Cloud resources; in contrast, Spanner's predefined roles include fine-grained permissions that apply only to Spanner.
 
-| Basic role     | Description                                                                                                      |
-|----------------|------------------------------------------------------------------------------------------------------------------|
-| `roles/editor` | Can do all that a `roles/viewer` can do. Can also create instances and databases and write data into a database. |
-| `roles/owner`  | Can do all that a `roles/editor` can do. Can also modify access to databases and instances.                      |
-| `roles/viewer` | Can list and get the metadata of schemas and instances. Can also read and query using SQL on a database.         |
+| Basic role     | Description                                                                                                                                                                                                                                         |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `roles/editor` | Can do all that a `roles/viewer` can do. Can also create, update, and delete Spanner resources, including custom instance configurations, instances, instance partitions, databases, backups, and backup schedules, and write data into a database. |
+| `roles/owner`  | Can do all that a `roles/editor` can do. Can also modify access to instances, databases, backups, and backup schedules, and attach or detach tags on instances.                                                                                     |
+| `roles/viewer` | Can list and get the metadata of schemas and instances. Can also read and query using SQL on a database.                                                                                                                                            |
 
 ## Custom roles
 
@@ -986,32 +930,38 @@ For most tasks, it's obvious which permissions you need to add to your custom ro
 
 However, when you're reading or writing data in a Spanner table, you need to add several different permissions to your custom role. The following table shows which permissions are required for reading and writing data.
 
-| Service account task           | Required permissions                                                                                                                  |
-|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| Create a backup                | `spanner.backups.create` `spanner.databases.createBackup`                                                                             |
-| Read data                      | `spanner.databases.select` `spanner.sessions.create` `spanner.sessions.delete`                                                        |
-| Restore a database             | `spanner.backups.restoreDatabase` `spanner.databases.create`                                                                          |
-| Insert, update, or delete data | `spanner.databases.beginOrRollbackReadWriteTransaction` `spanner.sessions.create` `spanner.sessions.delete` `spanner.databases.write` |
+| Service account task                        | Required permissions                                                                                                                                                                                                                          |
+|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Create a backup                             | `spanner.backups.create` `spanner.databases.createBackup`                                                                                                                                                                                     |
+| Read data using SQL queries                 | `spanner.databases.select` `spanner.sessions.create` `spanner.sessions.delete`                                                                                                                                                                |
+| Read data using the read API                | `spanner.databases.read` `spanner.sessions.create` `spanner.sessions.delete`                                                                                                                                                                  |
+| Read data in a read-only transaction        | `spanner.databases.beginReadOnlyTransaction` , plus the permissions to read data using SQL queries or the read API                                                                                                                            |
+| Read data in parallel                       | `spanner.databases.partitionQuery` or `spanner.databases.partitionRead` , plus the permissions to read data in a read-only transaction                                                                                                        |
+| Restore a database                          | `spanner.backups.restoreDatabase` `spanner.databases.create`                                                                                                                                                                                  |
+| Insert, update, or delete data              | `spanner.databases.beginOrRollbackReadWriteTransaction` `spanner.sessions.create` `spanner.sessions.delete` `spanner.databases.write` To read data in the same transaction, also add `spanner.databases.select` or `spanner.databases.read` . |
+| Update or delete data using Partitioned DML | `spanner.databases.beginPartitionedDmlTransaction` `spanner.databases.write` `spanner.sessions.create` `spanner.sessions.delete`                                                                                                              |
 
 ### Custom roles for Google Cloud console tasks
 
 To identify the list of permissions you need for a given task in the Google Cloud console, you determine the workflow for that task and compile the permissions for that workflow. For example, to view the data in a table, you would follow these steps in the Google Cloud console:
 
-| Step                              | Permissions                                                                        |
-|-----------------------------------|------------------------------------------------------------------------------------|
-| 1\. Access the project            | `resourcemanager.projects.get`                                                     |
-| 2\. View the list of instances    | `spanner.instances.list`                                                           |
-| 3\. Select an instance            | `spanner.instances.get`                                                            |
-| 4\. View the list of databases    | `spanner.databases.list`                                                           |
-| 5\. Select a database and a table | `spanner.databases.getDdl`                                                         |
-| 6\. View data in a table          | `spanner.databases.select` , `spanner.sessions.create` , `spanner.sessions.delete` |
+| Step                              | Permissions                                                                                                                        |
+|-----------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| 1\. Access the project            | `resourcemanager.projects.get`                                                                                                     |
+| 2\. View the list of instances    | `spanner.instances.list` , `spanner.instanceConfigs.list`                                                                          |
+| 3\. Select an instance            | `spanner.instances.get` , `spanner.instanceConfigs.list` , `spanner.databases.list`                                                |
+| 4\. View the list of databases    | `spanner.databases.list`                                                                                                           |
+| 5\. Select a database and a table | `spanner.databases.getDdl` , `spanner.databases.select` , `spanner.databases.beginReadOnlyTransaction` , `spanner.sessions.create` |
+| 6\. View data in a table          | `spanner.databases.select` , `spanner.databases.beginReadOnlyTransaction` , `spanner.sessions.create` , `spanner.sessions.delete`  |
 
 In this example, you need these permissions:
 
 - `resourcemanager.projects.get`
+- `spanner.databases.beginReadOnlyTransaction`
 - `spanner.databases.getDdl`
 - `spanner.databases.list`
 - `spanner.databases.select`
+- `spanner.instanceConfigs.list`
 - `spanner.instances.get`
 - `spanner.instances.list`
 - `spanner.sessions.create`
@@ -1023,31 +973,33 @@ The following table lists the permissions required for actions in the Google Clo
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
 | `spanner.databases.setIamPolicy`                                                                                                                                   | Add principals on the Permissions tab of the Database details page                           |
 | `spanner.instances.setIamPolicy`                                                                                                                                   | Add principals on the Permissions tab of the Instance page                                   |
+| `spanner.backups.setIamPolicy`                                                                                                                                     | Add principals to a backup from the permissions panel on the Backup/Restore page             |
 | `spanner.backups.create` `spanner.databases.createBackup` `spanner.databases.list` <sup>1</sup> `spanner.backupOperations.list` <sup>1</sup>                       | Create a backup                                                                              |
 | `spanner.backupSchedules.create` `spanner.databases.createBackup`                                                                                                  | Create a backup schedule                                                                     |
-| `spanner.databases.create`                                                                                                                                         | Create a database                                                                            |
-| `spanner.instancePartitions.list` `spanner.instancePartitionOperations.get` `spanner.instancePartitions.create`                                                    | Create an instance partition                                                                 |
+| `spanner.databases.create` `spanner.databases.get` `spanner.databaseOperations.get` `spanner.databaseOperations.list`                                              | Create a database                                                                            |
+| `spanner.instancePartitions.list` `spanner.instanceConfigs.list` `spanner.instancePartitionOperations.get` `spanner.instancePartitions.create`                     | Create an instance partition                                                                 |
 | `spanner.databaseOperations.get` `spanner.databaseOperations.list` `spanner.databases.updateDdl`                                                                   | Create a table Update a table schema                                                         |
 | `spanner.instanceConfigs.list` `spanner.instanceOperations.get` `spanner.instances.create`                                                                         | Create an instance                                                                           |
 | `spanner.backups.delete`                                                                                                                                           | Delete a backup                                                                              |
 | `spanner.backupSchedules.delete`                                                                                                                                   | Delete a backup schedule                                                                     |
 | `spanner.databases.drop`                                                                                                                                           | Delete a database                                                                            |
-| `spanner.instancePartitions.delete`                                                                                                                                | Delete an instance partition                                                                 |
+| `spanner.instancePartitions.list` `spanner.instancePartitionOperations.get` `spanner.instancePartitions.delete`                                                    | Delete an instance partition                                                                 |
 | `spanner.instances.delete`                                                                                                                                         | Delete an instance                                                                           |
-| `spanner.instancePartitionOperations.get` `spanner.instancePartitions.update`                                                                                      | Modify an instance partition                                                                 |
+| `spanner.instancePartitions.list` `spanner.instanceConfigs.list` `spanner.instancePartitionOperations.get` `spanner.instancePartitions.update`                     | Modify an instance partition                                                                 |
 | `spanner.instanceOperations.get` `spanner.instances.update`                                                                                                        | Modify an instance                                                                           |
 | `spanner.databases.beginOrRollbackReadWriteTransaction` `spanner.databases.select` `spanner.databases.write` `spanner.sessions.create` `spanner.sessions.delete`   | Modify data in a table                                                                       |
 | `spanner.instanceConfigs.list` `spanner.instances.get` `spanner.backups.get` `spanner.backups.restoreDatabase` `spanner.instances.list` `spanner.databases.create` | Restore a database from a backup                                                             |
-| `spanner.databases.get` `spanner.databases.getDdl`                                                                                                                 | Select a database from the database list and view the schema on the Database details page    |
-| `spanner.instances.get`                                                                                                                                            | Select an instance from the instance list to view the Instance Details page                  |
-| `spanner.backups.update`                                                                                                                                           | Update a backup                                                                              |
+| `spanner.databases.get` `spanner.databases.getDdl` `spanner.databases.select` `spanner.databases.beginReadOnlyTransaction` `spanner.sessions.create`               | Select a database from the database list and view the schema on the Database details page    |
+| `spanner.instances.get` `spanner.instanceConfigs.list` `spanner.databases.list`                                                                                    | Select an instance from the instance list to view the Instance Details page                  |
+| `spanner.backups.get` `spanner.backups.update`                                                                                                                     | Update a backup                                                                              |
 | `spanner.backupSchedules.update`                                                                                                                                   | Update a backup schedule                                                                     |
-| `spanner.databases.select` `spanner.sessions.create` `spanner.sessions.delete`                                                                                     | View data in the Data tab of the Database details page Create and run a query                |
+| `spanner.databases.select` `spanner.databases.beginReadOnlyTransaction` `spanner.sessions.create` `spanner.sessions.delete`                                        | View data in the Data tab of the Database details page Create and run a query                |
 | `spanner.backups.list` `spanner.backups.get`                                                                                                                       | View the Backup/Restore page                                                                 |
 | `monitoring.metricDescriptors.get` `monitoring.metricDescriptors.list` `monitoring.timeSeries.list` `spanner.instances.get`                                        | View the graphs in the Monitor tab on the Instance details page or the Database details page |
 | `spanner.backupOperations.list`                                                                                                                                    | View the list of backup operations                                                           |
 | `spanner.databases.list`                                                                                                                                           | View the list of databases on the Instance details page                                      |
-| `resourcemanager.projects.get` `spanner.instances.list`                                                                                                            | View the list of instances on the Instances page                                             |
+| `resourcemanager.projects.get` `spanner.instances.list` `spanner.instanceConfigs.list`                                                                             | View the list of instances on the Instances page                                             |
+| `spanner.backups.getIamPolicy`                                                                                                                                     | View the list of principals for a backup in the permissions panel on the Backup/Restore page |
 | `spanner.databaseOperations.list`                                                                                                                                  | View the list of restore operations                                                          |
 | `spanner.databases.getIamPolicy`                                                                                                                                   | View the list on the Permissions tab of the Database details page                            |
 | `spanner.instances.getIamPolicy`                                                                                                                                   | View the list on the Permissions tab of the Instance page                                    |
@@ -1056,15 +1008,15 @@ The following table lists the permissions required for actions in the Google Clo
 
 ## Spanner IAM policy management
 
-You can get, set, and test IAM policies using the REST or RPC APIs on Spanner instance, database, and backup resources.
+You can get, set, and test IAM policies using the REST or RPC APIs on Spanner instance, database, backup, and backup schedule resources. You can also test permissions on database roles.
 
 ### Instances
 
-| REST API                                                                                                                                      | RPC API                                                                                                                                                                       |
-|-----------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [`projects.instances.getIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/getIamPolicy)             | [`GetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.GetIamPolicy)       |
-| [`projects.instances.setIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/setIamPolicy)             | [`SetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.SetIamPolicy)       |
-| [`projects.instances.testIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/testIamPermissions) | [`TestIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.GetIamPolicy) |
+| REST API                                                                                                                                      | RPC API                                                                                                                                                                             |
+|-----------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`projects.instances.getIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/getIamPolicy)             | [`GetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.GetIamPolicy)             |
+| [`projects.instances.setIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/setIamPolicy)             | [`SetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.SetIamPolicy)             |
+| [`projects.instances.testIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances/testIamPermissions) | [`TestIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.instance.v1#google.spanner.admin.instance.v1.InstanceAdmin.TestIamPermissions) |
 
 ### Databases
 
@@ -1081,6 +1033,22 @@ You can get, set, and test IAM policies using the REST or RPC APIs on Spanner in
 | [`projects.instances.backups.getIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/getIamPolicy)             | [`GetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.GetIamPolicy)             |
 | [`projects.instances.backups.setIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/setIamPolicy)             | [`SetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.SetIamPolicy)             |
 | [`projects.instances.backups.testIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/testIamPermissions) | [`TestIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.TestIamPermissions) |
+
+### Backup schedules
+
+| REST API                                                                                                                                                                                          | RPC API                                                                                                                                                                             |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`projects.instances.databases.backupSchedules.getIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules/getIamPolicy)             | [`GetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.GetIamPolicy)             |
+| [`projects.instances.databases.backupSchedules.setIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules/setIamPolicy)             | [`SetIamPolicy`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.SetIamPolicy)             |
+| [`projects.instances.databases.backupSchedules.testIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.backupSchedules/testIamPermissions) | [`TestIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.TestIamPermissions) |
+
+### Database roles
+
+Database roles support testing permissions only. You can't get or set an IAM policy on a database role.
+
+| REST API                                                                                                                                                                                      | RPC API                                                                                                                                                                             |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`projects.instances.databases.databaseRoles.testIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases.databaseRoles/testIamPermissions) | [`TestIamPermissions`](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.admin.database.v1#google.spanner.admin.database.v1.DatabaseAdmin.TestIamPermissions) |
 
 ## What's next
 

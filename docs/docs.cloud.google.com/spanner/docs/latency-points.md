@@ -58,13 +58,15 @@ For more information, see [View and manage client-side metrics](https://docs.clo
 
 ## GFE latency
 
-Google Front End (GFE) latency is the length of time (in milliseconds) between when the Google network receives a remote procedure call from the client and when the GFE receives the first byte of the response. This latency doesn't include any TCP/SSL handshake.
+Google Front End (GFE) latency is the length of time (in milliseconds) between when the Google network receives a remote procedure call from the client and when the GFE receives the first byte of the response. This latency doesn't include any TCP or TLS handshake.
 
 ![Spanner architecture diagram for GFE latency.](https://docs.cloud.google.com/static/spanner/docs/images/google-front-end-latency.png)
 
 Every response from Spanner (REST or gRPC) includes a header that contains the total time between the GFE and the backend (the Spanner service) for the request and the response. This helps to differentiate better the source of the latency between the client and the GFE.
 
 The [`spanner.googleapis.com/client/gfe_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-latencies) metric captures and exposes GFE latency for Spanner requests.
+
+The client reads GFE latency from the response headers. If a request fails or times out before the client receives them (for example, with a `DEADLINE_EXCEEDED` error), the client doesn't record GFE latency and increments the [`spanner.googleapis.com/client/gfe_connectivity_error_count`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-connectivity-error-count) metric instead. When you troubleshoot timeouts, check this metric and the [`spanner.googleapis.com/client/attempt_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#attempt-latencies) metric in addition to GFE latency. If the GFE connectivity error count increases, requests are failing before the client receives response headers, even if GFE latency looks normal. In this case, the latency can come from anywhere between the client and the Spanner backend.
 
 For more information, see [View and manage client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) .
 

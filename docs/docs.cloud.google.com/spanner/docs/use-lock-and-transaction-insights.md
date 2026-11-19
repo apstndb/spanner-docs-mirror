@@ -90,7 +90,7 @@ To confirm a spike in write latencies at the 99th percentile, follow these steps
 
 ![A graph showing write latencies at 99th percentile](https://docs.cloud.google.com/static/spanner/docs/images/monitoring-latency.png)
 
-If you observe that CPU utilization is not spiking and errors spike in operations per second, it's probable that latency spikes are due to the lock contentions.
+Before you investigate lock contention, check the CPU utilization charts on the same dashboard. High total or [high-priority CPU utilization](https://docs.cloud.google.com/spanner/docs/cpu-utilization#task-priority) slows transactions, so they hold their locks longer. [Hotspotting](https://docs.cloud.google.com/spanner/docs/find-hotspots-in-database) has the same effect on the overloaded server. This increases lock wait times and the number of transactions that Spanner aborts to [prevent deadlocks](https://docs.cloud.google.com/spanner/docs/transactions#deadlock_detection) . If CPU utilization isn't spiking, the database isn't hotspotting, and errors spike in operations per second, latency spikes are probably due to lock contention.
 
 ## Check for lock contention issues using Lock insights
 

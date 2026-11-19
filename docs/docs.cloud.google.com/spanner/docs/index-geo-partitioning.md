@@ -6,6 +6,8 @@ description: Understand best practices for choosing indexes when using Spanner g
 data_source: docs.cloud.google.com
 ---
 
+> **Note:** This feature is available with the Spanner Enterprise Plus edition. For more information, see the [Spanner editions overview](https://docs.cloud.google.com/spanner/docs/editions-overview) .
+
 Spanner offers several types of indexes for improving query performance. Choosing the correct index type for your schema and query patterns is critical, especially for databases that use geo-partitioning. This page describes the benefits of different index types and best practices for selecting and using Spanner indexes with geo-partitioning.
 
 ## Index types
@@ -93,7 +95,7 @@ When you query data in a read-write transaction, you must specify the primary ke
 -- The location (the index key prefix) must be specified
 SELECT *
 FROM customer
-WHERE location= @location AND email= @email;
+WHERE location = @location AND email = @email;
 ```
 
 ### PostgreSQL
@@ -102,10 +104,10 @@ WHERE location= @location AND email= @email;
 -- The location (the index key prefix) must be specified
 SELECT *
 FROM customer
-WHERE location= @location AND email= @email;
+WHERE location = @location AND email = @email;
 ```
 
-For information about optimization that doesn't require you to specify the location, see [Use global unique index with local or remote index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#use-global-unique) .
+For information about optimization that doesn't require you to specify the location, see [Global unique index with a local or remote index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#use-global-unique) .
 
 A local index is also useful when the placement table is entity based and you want to index data within a particular entity or sub-entity. For example:
 
@@ -160,16 +162,17 @@ INTERLEAVE IN customer;
 
 A remote index interleaves index data under a table that isn't an ancestor in the indexed table's interleaving hierarchy. The primary key types must match the types of corresponding index columns, but the names can be different.
 
-Using geo-partitioning, you can only interleave a remote index under the automatically-managed root placement table. This table contains one row for each placement in your database.
+Using geo-partitioning, you can only interleave a remote index under the automatically managed root placement table. When you enable the root placement table database option ( `auto_managed_root_placement_table_name` ), Spanner creates an internal table and populates it with one row for each placement in your database. You can use this table as an interleave root for placement table indexes so that index entries use the same placement as their corresponding rows. Doing so lets Spanner perform index lookups that are local to the partition instead of fetching index entries from regions that are farther away.
 
 Remote indexes have the following characteristics:
 
-- They are particularly useful when your table's primary key isn't prefixed using a placement key but you want to geographically colocate partitions of the index according to the placement key.
+- They store index data in the instance partition the same as local indexes.
+- They are particularly useful when your table's primary key isn't prefixed using a placement key, such as when an entity ID is the primary key, and you want to geographically colocate partitions of the index according to the placement key.
 - They only support indexing columns in the placement table, and not in any columns in the interleaved child tables.
 
-To use remote indexes with geo-partitioning, create the root placement table by setting the `auto_managed_root_placement_table_name` option in the `ALTER DATABASE` DDL statement.
+To use remote indexes with geo-partitioning, enable the root placement table database option and create a remote index interleaved in that table:
 
-1.  Use the `ALTER DATABASE DDL` statement to create a root placement table.
+1.  Use the `ALTER DATABASE` DDL statement to set the `auto_managed_root_placement_table_name` option and create a root placement table. You must set this option in an `ALTER DATABASE` statement after creating the database. After you set this option, you can't rename or disable the root placement table.
 
     ### GoogleSQL
 
@@ -183,21 +186,21 @@ To use remote indexes with geo-partitioning, create the root placement table by 
     - ` DATABASE_NAME ` : The name of your database.
     - ` TABLE_NAME ` : The name of the table to create. We recommend using the name `root_placement_table` .
 
-    For example, the following command creates a table called `root_placement_table` .
+    For example, the following statement creates a table called `root_placement_table` :
 
     ```
     ALTER DATABASE example_db SET OPTIONS
       (auto_managed_root_placement_table_name='root_placement_table');
     ```
 
-    After you create the root placement table, Spanner creates an internal table and automatically inserts and deletes rows when you create or drop placement. The following is an example of a system-defined placement table that is created by Spanner, where the example table name is set to `root_placement_table` . (Don't run this example.)
+    After you create the root placement table, Spanner creates an internal table with the following definition and automatically inserts and deletes rows when you create or drop a placement. You don't need to create this table yourself.
 
     ```
-    // Automatically generated after you run the previous example.
-    // Don't put this in your schema explicitly.
+    -- This table is automatically created and populated with one row per placement.
+    -- Don't run this statement.
     CREATE TABLE root_placement_table (
-    location STRING(MAX) NOT NULL PLACEMENT KEY
-    ) PRIMARY KEY(location);
+      location STRING(MAX) NOT NULL PLACEMENT KEY
+    ) PRIMARY KEY (location);
     ```
 
     ### PostgreSQL
@@ -210,34 +213,34 @@ To use remote indexes with geo-partitioning, create the root placement table by 
     Replace the following:
 
     - ` DATABASE_NAME ` : The name of your database.
-    - ` TABLE_NAME ` : The name of the table to create.
+    - ` TABLE_NAME ` : The name of the table to create. We recommend using the name `root_placement_table` .
 
-    For example, to create a `root_placement_table` table that is used as an interleave root, run:
+    For example, the following statement creates a table called `root_placement_table` :
 
     ```
     ALTER DATABASE example_db SET
       spanner.auto_managed_root_placement_table_name='root_placement_table';
     ```
 
-    After you create the root placement table, Spanner creates an internal table and automatically inserts and deletes rows when you create or drop placement. The following is an example of a system-defined placement table that is created by Spanner, where the example table name is set to `root_placement_table` . (Don't run this example.)
+    After you create the root placement table, Spanner creates an internal table with the following definition and automatically inserts and deletes rows when you create or drop a placement. You don't need to create this table yourself.
 
     ```
-    // Automatically generated after you run the previous example.
-    // Don't put this in your schema explicitly.
+    -- This table is automatically created and populated with one row per placement.
+    -- Don't run this statement.
     CREATE TABLE root_placement_table (
       location varchar NOT NULL PLACEMENT KEY,
       PRIMARY KEY (location)
     );
     ```
 
-2.  Create a remote index interleaved under the automatically-managed `root_placement_table` table.
+2.  Create a remote index interleaved under the automatically managed `root_placement_table` table. When you define the index on the placement key column and the column that you want to index, you must list the placement key column first.
 
     ### GoogleSQL
 
     ```
     -- Create a customer table with a primary key that is not the location
     CREATE TABLE customer (
-      customerId INT64 NOT NULL ,
+      customerId INT64 NOT NULL,
       email STRING(MAX),
       webcookie STRING(64),
       location STRING(MAX) NOT NULL PLACEMENT KEY,
@@ -259,61 +262,59 @@ To use remote indexes with geo-partitioning, create the root placement table by 
       location varchar NOT NULL PLACEMENT KEY
     );
 
-    -- Creates a remote index on the customer table
+    -- Create a remote index on the customer table
     CREATE INDEX idx_customer_email_remote ON customer(location, email)
     INTERLEAVE IN root_placement_table;
     ```
 
-3.  When you query data in a read-write transaction, specify the key prefix of the index in the query predicate so that a full table scan isn't required. For example:
+3.  When you query data in a read-write transaction or when the placement location is known at query time, specify the key prefix of the index (the placement key column) in the query predicate so that a full table scan isn't required. If the client is in the same region as one of the replicas of the specified placement, the query executes with partition-local data access. For example:
 
     ### GoogleSQL
 
     ```
-    -- Specify the location (the index key prefix) in query
+    -- Specify the location (the index key prefix) in the query
     SELECT *
     FROM customer
-    WHERE location= @location AND email= @email;
+    WHERE location = @location AND email = @email;
     ```
-
-    For information about optimization that doesn't require you to specify the location, see the section [Global unique index with local or remote index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#use-global-unique)
 
     ### PostgreSQL
 
     ```
-    -- Specify the location (the index key prefix) in query
+    -- Specify the location (the index key prefix) in the query
     SELECT *
     FROM customer
-    WHERE location= @location AND email= @email;
+    WHERE location = @location AND email = @email;
     ```
 
-    For information about optimization that doesn't require you to specify the location, see the section [Global unique index with local or remote index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#use-global-unique) .
+    If the placement location is unknown at query time and the indexed column is unique across placements, you can combine a global unique index with a remote index so that you don't need to specify the location in the `WHERE` clause. For more information, see [Global unique index with a local or remote index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#use-global-unique) .
 
 ## Optimizations for global unique indexes
 
-When you use a global unique index, Spanner may trigger query latency improvements with heuristics-based optimizations in the following use cases:
+When you use a global unique index, Spanner might trigger query latency improvements with heuristics-based optimizations in the following use cases:
 
 - When you use a global unique index with a local or remote index
 - When you use a global unique index with partial primary keys
 
-The following sections describe how Spanner may apply optimizations in each use case.
+The following sections describe how Spanner might apply optimizations in each use case.
 
 ### Global unique index with a local or remote index
 
-To improve local query latency, Spanner may initiate a heuristics-based optimization when a global unique index is combined with a local or remote index.
+To improve local query latency, Spanner might initiate a heuristics-based optimization when a global unique index is combined with a local or remote index.
 
 This optimization minimizes latency for intra-region queries — even when the location of geo-partitioned data is unspecified — by guessing that the placement is the same as where the client is located and bypassing the global index's default partition, or eliminating the necessity for filtered full table scans. Such an approach is particularly beneficial when clients predominantly access data that is stored within their own region.
 
-Using a mixture of different index types is helpful if intra-region query latency is the primary concern, and you can tolerate some increased write latency. Combining different index types also improves the performance of intra-region queries, even when you don't specify the location in your query.
+Using a mixture of different index types is helpful if intra-region query latency is the primary concern, and you can tolerate some increased write latency and additional storage costs for the global index. Combining different index types also improves the performance of intra-region queries, even when you don't specify the location in your query.
 
-This optimization requires that you create a global unique index and a corresponding local or remote index on the same column. The indexed data must be globally unique. Spanner applies this optimization to your query if the following are true:
+This optimization requires that you create a global unique index and a corresponding local or remote index on the same column. The indexed data must be globally unique, which provides a signal to the query optimizer that there is only one index entry for each unique value of the column. Spanner applies this optimization to your query if the following are true:
 
 - You don't know the primary key prefix and don't specify the location of the data.
 - Your request originates from the same region as the default leader of the data's placement, which contains the local or remote index shard.
 
 Spanner applies the optimization in the following ways:
 
-- If the optimization is triggered and the row is found in the local placement: Given the global unique index, Spanner doesn't need to search other locations. Your query has intra-region latency.
-- If the initial location search doesn't return a row: This indicates that it isn't an intra-region query. Spanner falls back to using the global index.
+- If the optimization is triggered and the row is found in the local placement: Given the global unique index, the query optimizer first evaluates the query using the local shard of the index and doesn't need to search other locations. Your query has intra-region latency.
+- If the initial location search doesn't return a row: This indicates that it isn't an intra-region query. The query optimizer falls back to consulting the global index.
 
 The following example creates a global unique index and local index:
 
@@ -354,7 +355,7 @@ Based on the previous example indexes, the following example query has intra-reg
 ```
 SELECT *
 FROM customer
-WHERE email= @email;
+WHERE email = @email;
 ```
 
 ### PostgreSQL
@@ -362,12 +363,12 @@ WHERE email= @email;
 ```
 SELECT *
 FROM customer
-WHERE email= @email;
+WHERE email = @email;
 ```
 
 ### Global unique index on partial primary keys
 
-Spanner can apply an optimization that is similar to the one that is detailed in [Use a global unique index with a local or remote index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#use-global-unique) when employing a global unique index on partial primary keys.
+Spanner can apply an optimization that is similar to the one that is detailed in [Global unique index with a local or remote index](https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#use-global-unique) when employing a global unique index on partial primary keys.
 
 The following example creates a `customer` interleaved in parent table `locations` , then creates a global unique index on the `customerId` column.
 
@@ -417,13 +418,13 @@ The optimization applies to queries like the following:
 ### GoogleSQL
 
 ```
-SELECT * FROM customer WHERE customerId= @customerId;
+SELECT * FROM customer WHERE customerId = @customerId;
 ```
 
 ### PostgreSQL
 
 ```
-SELECT * FROM customer WHERE customerId= @customerId;
+SELECT * FROM customer WHERE customerId = @customerId;
 ```
 
 If you don't create the global unique index, then this query might require a full table scan. If you're not using the global unique index, then you would need to add the location filter in your query to achieve good query latency:
@@ -431,18 +432,18 @@ If you don't create the global unique index, then this query might require a ful
 ### GoogleSQL
 
 ```
-SELECT * FROM customer WHERE location = @location AND customerId= @customerId;
+SELECT * FROM customer WHERE location = @location AND customerId = @customerId;
 ```
 
 ### PostgreSQL
 
 ```
-SELECT * FROM customer WHERE location = @location AND customerId= @customerId;
+SELECT * FROM customer WHERE location = @location AND customerId = @customerId;
 ```
 
 ## General guidelines for choosing an index type for optimal latency
 
-The type of index that you choose directly impacts query latency. The location of index data relative to table data is a primary factor in performance for geo-partitioned workloads.
+The type of index that you choose directly affects query latency. The location of index data relative to table data is a primary factor in performance for geo-partitioned workloads.
 
 This section describes how to choose between global, local, and remote indexes.
 
@@ -502,7 +503,7 @@ In cases where the location *isn't* always known in your queries, use one of the
 
   To achieve low-latency strong reads, create a remote index in addition to a global unique index.
 
-  With this combination, writes might incur cross-region latency, while queries with a specified location (with `WHERE location= @location` ) benefit from intra-region latency by using the remote index. For queries without a specified location, Spanner uses a heuristics-based optimization by first searching locally. If the data isn't found, it falls back to the global index.
+  With this combination, writes might incur cross-region latency, while queries with a specified location (with `WHERE location = @location` ) benefit from intra-region latency by using the remote index. For queries without a specified location, Spanner uses a heuristics-based optimization by first searching locally. If the data isn't found, it falls back to the global index.
 
   If you are using read lease regions and have a read-only replica of the default partition in the same region as your data, a remote index is unnecessary because the read lease regions already provide low strong read latency for reads of a global index.
 
@@ -532,7 +533,7 @@ When a `location` column serves as both the primary key and the placement key, y
   <tbody>
   <tr class="odd">
   <td>Query by partial primary key that is globally unique</td>
-  <td><p>Create a unique global index to enforce uniqueness. A local index is not needed because the primary key performs a similar function. The heuristics-based optimization applies. First, Spanner checks the full primary key with the local location before falling back to the global index.</p>
+  <td><p>Create a unique global index to enforce uniqueness. A local index isn't needed because the primary key performs a similar function. The heuristics-based optimization applies. First, Spanner checks the full primary key with the local location before falling back to the global index.</p>
   <p>For an example, see <a href="https://docs.cloud.google.com/spanner/docs/index-geo-partitioning#unique-index-partial-primary-key">Global unique index on partial primary keys</a> .</p></td>
   </tr>
   <tr class="even">

@@ -6,7 +6,7 @@ description: Identify the latency source in your Spanner requests by analyzing c
 data_source: docs.cloud.google.com
 ---
 
-This page shows you how to identify and troubleshoot latency issues in your Spanner components.To learn more about possible latency points in a Spanner request, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .
+This page shows you how to identify and troubleshoot latency issues in your Spanner components. To learn more about possible latency points in a Spanner request, see [Latency points in a Spanner request](https://docs.cloud.google.com/spanner/docs/latency-points) .
 
 You can measure and compare the request latencies between different components and the database to determine which component is causing the latency. These latencies include [End-to-end latency](https://docs.cloud.google.com/spanner/docs/latency-points#end-to-end-latency) , [Google Front End (GFE) latency](https://docs.cloud.google.com/spanner/docs/latency-points#google-front-end-latency) , [Spanner API request latency](https://docs.cloud.google.com/spanner/docs/latency-points#spanner-api-request-latency) , and [Query latency](https://docs.cloud.google.com/spanner/docs/latency-points#query-latency) .
 
@@ -25,9 +25,11 @@ You can measure and compare the request latencies between different components a
 
 3.  Check latency in Spanner components by viewing the [client-side metrics](https://docs.cloud.google.com/spanner/docs/view-manage-client-side-metrics) :
 
-    a\. Check end-to-end latency using the [`spanner.googleapis.com/client/operation_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#operation-latencies) metric.
+    1.  Check end-to-end latency using the [`spanner.googleapis.com/client/operation_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#operation-latencies) metric.
 
-    b\. Check [Google Front End](https://cloud.google.com//security/infrastructure/design#google-frontend-service.) (GFE) latency using the [`spanner.googleapis.com/client/gfe_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-latencies) metric.
+    2.  Check [Google Front End](https://docs.cloud.google.com/docs/security/infrastructure/design#google-frontend-service) (GFE) latency using the [`spanner.googleapis.com/client/gfe_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-latencies) metric.
+
+    3.  Check the GFE connectivity error count using the [`spanner.googleapis.com/client/gfe_connectivity_error_count`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#gfe-connectivity-error-count) metric, filtered to `status` = `DEADLINE_EXCEEDED` . GFE latency excludes attempts that time out before the client receives response headers. If this count increases, check whether [`spanner.googleapis.com/client/attempt_latencies`](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions#attempt-latencies) values approach your request deadline. For next steps, see [Troubleshoot deadline exceeded errors](https://docs.cloud.google.com/spanner/docs/deadline-exceeded) .
 
 4.  Check the following dimensions for [Spanner metrics](https://docs.cloud.google.com/spanner/docs/latency-metrics) :
 
@@ -39,7 +41,7 @@ You can measure and compare the request latencies between different components a
 
 5.  Check Spanner API request latency using the `spanner.googleapis.com/api/request_latencies` metric. For more information, see [Spanner metrics](https://docs.cloud.google.com/spanner/docs/metrics) .
 
-    If you have high end-to-end latency, but low GFE latency, and a low Spanner API request latency, the application code might have an issue. It could also indicate a networking issue between the client and regional GFE. If your application has a performance issue that causes some code paths to be slow, then the end-to-end latency for each API request might increase. There might also be an issue in the client computing infrastructure that was not detected in the previous step.
+    If you have high end-to-end latency, low GFE latency with no increase in the GFE connectivity error count (see step 3), and low Spanner API request latency, the application code might have an issue. It could also indicate a networking issue between the client and regional GFE. If your application has a performance issue that causes some code paths to be slow, then the end-to-end latency for each API request might increase. There might also be an issue in the client computing infrastructure that was not detected in the previous step.
 
     If you have a high GFE latency, but a low Spanner API request latency, it might have one of the following causes:
 
@@ -47,17 +49,15 @@ You can measure and compare the request latencies between different components a
 
     - There's an issue at the GFE layer. Check the [Google Cloud Status Dashboard](https://status.cloud.google.com/) to see if there are any ongoing networking issues in your region. If there aren't any issues, then open a support case and include this information so that support engineers can help with troubleshooting the GFE.
 
-6.  [Check the CPU utilization of the instance](https://docs.cloud.google.com/spanner/docs/cpu-utilization) . If the CPU utilization of the instance is above the recommended level, you should manually add more nodes, or set up auto scaling. For more information, see [Autoscaling overview](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) .
+6.  [Check the CPU utilization of the instance](https://docs.cloud.google.com/spanner/docs/cpu-utilization) . If the CPU utilization of the instance is above the recommended level, manually add more nodes or set up autoscaling. For more information, see [Autoscaling overview](https://docs.cloud.google.com/spanner/docs/autoscaling-overview) .
 
-7.  Observe and troubleshoot potential hotspots or unbalanced access patterns using [Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer) and try to roll back any application code changes that strongly correlate with the issue timeframe.
-
-    > **Note:** We recommend you follow [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) to ensure your access is balanced across Spanner computing resources.
+7.  Observe and troubleshoot potential hotspots or unbalanced access patterns using [Key Visualizer](https://docs.cloud.google.com/spanner/docs/key-visualizer) and try to roll back any application code changes that strongly correlate with the issue timeframe. To balance access across Spanner computing resources, follow the [Schema design best practices](https://docs.cloud.google.com/spanner/docs/schema-design) .
 
 8.  Check any traffic pattern changes.
 
 9.  Check [Query insights](https://docs.cloud.google.com/spanner/docs/using-query-insights) and [Transaction insights](https://docs.cloud.google.com/spanner/docs/use-lock-and-transaction-insights) to see if there might be any query or transaction performance bottlenecks.
 
-10. Use procedures in [Oldest active queries](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries) to see any expense queries that might cause a performance bottleneck and cancel the queries as needed.
+10. Use procedures in [Oldest active queries](https://docs.cloud.google.com/spanner/docs/introspection/oldest-active-queries) to see any expensive queries that might cause a performance bottleneck and cancel the queries as needed.
 
 11. Use procedures in the troubleshooting sections in the following topics to troubleshoot the issue further using Spanner introspection tools:
 

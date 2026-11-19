@@ -102,7 +102,7 @@ These tables have the following properties:
 <tr class="even">
 <td><code>READ_COLUMNS</code></td>
 <td><code>ARRAY&lt;STRING&gt;</code></td>
-<td>The set of columns that were read by the transaction.</td>
+<td>The set of columns that the transaction read. This set can include columns that your application didn't read directly, such as columns that Spanner reads to maintain secondary indexes and change streams.</td>
 </tr>
 <tr class="odd">
 <td><code>WRITE_CONSTRUCTIVE_COLUMNS</code></td>
@@ -152,45 +152,49 @@ For change streams, if the transaction involved writes to columns and tables wat
 <td>Total number of transaction attempts initiated with the <a href="https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable"><code>SERIALIZABLE</code> isolation level</a> and <code>OPTIMISTIC</code> locking. It's a subset of <code>ATTEMPT_COUNT</code> .</td>
 </tr>
 <tr class="even">
+<td><code>REPEATABLE_READ_PESSIMISTIC_TXN_COUNT</code></td>
+<td><code>INT64</code></td>
+<td>Total number of transaction attempts initiated with the <a href="https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read"><code>REPEATABLE READ</code> isolation level</a> and <code>PESSIMISTIC</code> locking. It's a subset of <code>ATTEMPT_COUNT</code> .</td>
+</tr>
+<tr class="odd">
 <td><code>REPEATABLE_READ_OPTIMISTIC_TXN_COUNT</code></td>
 <td><code>INT64</code></td>
 <td>Total number of transaction attempts initiated with the <a href="https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read"><code>REPEATABLE READ</code> isolation level</a> and <code>OPTIMISTIC</code> locking. It's a subset of <code>ATTEMPT_COUNT</code> .</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>AVG_PARTICIPANTS</code></td>
 <td><code>FLOAT64</code></td>
 <td>Average number of participants in each commit attempt. To learn more about participants, see <a href="https://docs.cloud.google.com/spanner/docs/whitepapers/life-of-reads-and-writes">Life of Spanner Reads &amp; Writes</a> .</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>AVG_TOTAL_LATENCY_SECONDS</code></td>
 <td><code>FLOAT64</code></td>
-<td>Average seconds taken from the first operation of the transaction to commit/abort.</td>
+<td>Average seconds taken from the first operation of the transaction to the commit or abort time. This average includes only attempts that call the transaction's <code>commit</code> method.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>AVG_COMMIT_LATENCY_SECONDS</code></td>
 <td><code>FLOAT64</code></td>
 <td>Average seconds taken to perform the commit operation.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>AVG_BYTES</code></td>
 <td><code>FLOAT64</code></td>
 <td>Average number of bytes written by the transaction.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>TOTAL_LATENCY_DISTRIBUTION</code></td>
 <td><code>ARRAY&lt;STRUCT&gt;</code></td>
-<td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time, for all attempts of a transaction.</p>
+<td><p>A histogram of the total latency of each transaction attempt that calls the <code>commit</code> method, which is the same set of attempts that <code>COMMIT_ATTEMPT_COUNT</code> counts. Total latency is the time from the start of the attempt's first transactional operation to its commit or abort time. The values are measured in seconds.</p>
 <blockquote>
 <strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>TOTAL_LATENCY_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
 </blockquote>
-<p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
 <p>The array contains a single element and has the following type:<br />
 <code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code><br />
 For more information about the values, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
 <p>To calculate the percentile latency from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#example-percentile-latency">Find the 99th percentile latency for transactions</a> .</p>
 <p>For more information, see <a href="https://docs.cloud.google.com/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>OPERATIONS_BY_TABLE</code></td>
 <td><code>ARRAY&lt;STRUCT&gt;</code></td>
 <td><p>Impact of <code>INSERT</code> or <code>UPDATE</code> operations by the transaction on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
@@ -201,17 +205,15 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <p>Specify the array as follows:<br />
 <code>ARRAY&lt;STRUCT&lt; TABLE STRING(MAX), INSERT_OR_UPDATE_COUNT INT64, INSERT_OR_UPDATE_BYTES INT64&gt;&gt;</code></p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>TOTAL_LATENCY_DISTRIBUTION_JSON_STRING</code></td>
 <td><code>STRING</code></td>
-<td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time, for all attempts of a transaction.</p>
-<p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#latency-distribution"><code>TOTAL_LATENCY_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in <code>TOTAL_LATENCY_DISTRIBUTION</code> .</p>
-<p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#latency-distribution"><code>TOTAL_LATENCY_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in <code>TOTAL_LATENCY_DISTRIBUTION</code> .</p>
 <p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases. This column contains the <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> .</p>
 <p>To calculate the percentile latency from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#example-percentile-latency">Find the 99th percentile latency for transactions using the <code>TOTAL_LATENCY_DISTRIBUTION_JSON_STRING</code></a> column.</p>
 <p>For more information, see <a href="https://docs.cloud.google.com/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>OPERATIONS_BY_TABLE_JSON_STRING</code></td>
 <td><code>STRING</code></td>
 <td><p>Impact of <code>INSERT</code> or <code>UPDATE</code> operations by the transaction on a per-table basis. This is indicated by the number of times that rows are affected and the number of bytes that are written.</p>
@@ -219,7 +221,7 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
 <p>This column helps visualize the load on tables and provides insights into the rate at which a transaction writes to tables.</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>COMMIT_LATENCY_DISTRIBUTION</code></td>
 <td><code>ARRAY&lt;STRUCT&gt;</code></td>
 <td><p>A histogram of the number of seconds taken to perform the commit operation.</p>
@@ -231,14 +233,14 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
 <p>To calculate commit latency percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>COMMIT_LATENCY_DISTRIBUTION_JSON_STRING</code></td>
 <td><code>STRING</code></td>
 <td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#commit-latency-distribution-1"><code>COMMIT_LATENCY_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#commit-latency-distribution-1"><code>COMMIT_LATENCY_DISTRIBUTION</code></a> column.</p>
 <p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p>
 <p>To calculate commit latency percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function.</p></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>PARTICIPANTS_DISTRIBUTION</code></td>
 <td><code>ARRAY&lt;STRUCT&gt;</code></td>
 <td><p>A histogram of the number of participants in each commit attempt.</p>
@@ -250,7 +252,7 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <p>For more information about the value types, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
 <p>To calculate participant percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>PARTICIPANTS_DISTRIBUTION_JSON_STRING</code></td>
 <td><code>STRING</code></td>
 <td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#participants-distribution-1"><code>PARTICIPANTS_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#participants-distribution-1"><code>PARTICIPANTS_DISTRIBUTION</code></a> column.</p>
@@ -448,6 +450,16 @@ Aggregate statistics tables have the following properties:
 <td>Total number of transaction attempts initiated with the <a href="https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable"><code>SERIALIZABLE</code> isolation level</a> and <code>PESSIMISTIC</code> locking. It's a subset of <code>ATTEMPT_COUNT</code> .</td>
 </tr>
 <tr class="even">
+<td><code>SERIALIZABLE_OPTIMISTIC_TXN_COUNT</code></td>
+<td><code>INT64</code></td>
+<td>Total number of transaction attempts initiated with the <a href="https://docs.cloud.google.com/spanner/docs/isolation-levels#serializable"><code>SERIALIZABLE</code> isolation level</a> and <code>OPTIMISTIC</code> locking. It's a subset of <code>ATTEMPT_COUNT</code> .</td>
+</tr>
+<tr class="odd">
+<td><code>REPEATABLE_READ_PESSIMISTIC_TXN_COUNT</code></td>
+<td><code>INT64</code></td>
+<td>Total number of transaction attempts initiated with the <a href="https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read"><code>REPEATABLE READ</code> isolation level</a> and <code>PESSIMISTIC</code> locking. It's a subset of <code>ATTEMPT_COUNT</code> .</td>
+</tr>
+<tr class="even">
 <td><code>REPEATABLE_READ_OPTIMISTIC_TXN_COUNT</code></td>
 <td><code>INT64</code></td>
 <td>Total number of transaction attempts initiated with the <a href="https://docs.cloud.google.com/spanner/docs/isolation-levels#repeatable-read"><code>REPEATABLE READ</code> isolation level</a> and <code>OPTIMISTIC</code> locking. It's a subset of <code>ATTEMPT_COUNT</code> .</td>
@@ -460,7 +472,7 @@ Aggregate statistics tables have the following properties:
 <tr class="even">
 <td><code>AVG_TOTAL_LATENCY_SECONDS</code></td>
 <td><code>FLOAT64</code></td>
-<td>Average seconds taken from the first operation of the transaction to commit/abort.</td>
+<td>Average seconds taken from the first operation of the transaction to the commit or abort time. This average includes only attempts that call the transaction's <code>commit</code> method.</td>
 </tr>
 <tr class="odd">
 <td><code>AVG_COMMIT_LATENCY_SECONDS</code></td>
@@ -475,11 +487,10 @@ Aggregate statistics tables have the following properties:
 <tr class="odd">
 <td><code>TOTAL_LATENCY_DISTRIBUTION</code></td>
 <td><code>ARRAY&lt;STRUCT&gt;</code></td>
-<td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time for all transaction attempts.</p>
+<td><p>A histogram of the total latency of each transaction attempt that calls the <code>commit</code> method, which is the same set of attempts that <code>COMMIT_ATTEMPT_COUNT</code> counts. Total latency is the time from the start of the attempt's first transactional operation to its commit or abort time. The values are measured in seconds.</p>
 <blockquote>
 <strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>TOTAL_LATENCY_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
 </blockquote>
-<p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
 <p>The array contains a single element and has the following type:<br />
 <code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code><br />
 For more information about the values, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
@@ -500,9 +511,7 @@ For more information about the values, see <a href="https://docs.cloud.google.co
 <tr class="odd">
 <td><code>TOTAL_LATENCY_DISTRIBUTION_JSON_STRING</code></td>
 <td><code>STRING</code></td>
-<td><p>A histogram of the total commit latency, which is the time from the first transactional operation start time to the commit or abort time, for all attempts of a transaction.</p>
-<p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#latency-distribution"><code>TOTAL_LATENCY_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in <code>TOTAL_LATENCY_DISTRIBUTION</code> .</p>
-<p>If a transaction aborts multiple times and then successfully commits, latency is measured for each attempt until the final successful commit. The values are measured in seconds.</p>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#latency-distribution"><code>TOTAL_LATENCY_DISTRIBUTION</code></a> statistic. The JSON string is a JSON object with the same structure as the STRUCT defined in <code>TOTAL_LATENCY_DISTRIBUTION</code> .</p>
 <p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases. This column contains the <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> .</p>
 <p>To calculate the percentile latency from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution_json_string, n FLOAT64)</code> function, which returns the estimated <em>n</em> th percentile. For a related example, see <a href="https://docs.cloud.google.com/spanner/docs/introspection/transaction-statistics#example-percentile-latency">Find the 99th percentile latency for transactions using the <code>TOTAL_LATENCY_DISTRIBUTION_JSON_STRING</code></a> column.</p>
 <p>For more information, see <a href="https://docs.cloud.google.com/monitoring/api/v3/distribution-metrics">Percentiles and distribution-valued metrics</a> .</p></td>
@@ -620,7 +629,7 @@ WHERE interval_end =
 ORDER BY interval_end;
 ```
 
-For PostgreSQL-dialect databases, use the `TOTAL_LATENCY_JSON_DISTRIBUTION_JSON_STRING` column instead:
+For PostgreSQL-dialect databases, use the `TOTAL_LATENCY_DISTRIBUTION_JSON_STRING` column instead:
 
 ```
 SELECT interval_end, avg_total_latency_seconds,

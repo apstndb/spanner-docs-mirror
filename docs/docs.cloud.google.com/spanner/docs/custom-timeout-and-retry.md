@@ -20,6 +20,8 @@ If you decide to change the timeout, set it to the actual amount of time that th
 
 > **Note:** Never set a timeout that is shorter than the actual time that the application is configured to wait. Short timeouts cause your application to retry the operation more frequently than necessary.
 
+> **Note:** The settings on this page apply to individual RPCs. They don't control how the client library retries a read-write transaction that Spanner aborts. That retry loop can run much longer than any RPC timeout. To limit it, see [Configure transaction timeout](https://docs.cloud.google.com/spanner/docs/transaction-timeout#rpc-timeouts-and-retry-loops) .
+
 Don't configure a retry policy that is more aggressive than the default, because too many retries might overload the backend and throttle your requests.
 
 A retry policy is defined in each snippet, with the following characteristics:

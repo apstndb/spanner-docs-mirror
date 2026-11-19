@@ -13,6 +13,8 @@ This page describes how to export data from Spanner to CSV files or import data 
 
 The process uses [Dataflow](https://docs.cloud.google.com/dataflow) . You can export data from Spanner to a [Cloud Storage](https://docs.cloud.google.com/storage) bucket, or you can import data into Spanner from a Cloud Storage bucket that contains a JSON manifest file and a set of CSV files.
 
+The Spanner **Import/Export** page in the Google Cloud console works with Avro files. To import or export CSV files, run the Dataflow templates described on this page, either from the Dataflow **Create job from template** page or with the Google Cloud CLI.
+
 > **Note:** To explore Spanner using a 90-day free trial instance, see [Create a Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-trial-quickstart) .
 
 ## Before you begin
@@ -57,7 +59,56 @@ To get the permissions that you need to export a database, ask your administrato
 
 ## Export Spanner data to CSV files
 
-To export data from Spanner to CSV files in Cloud Storage, follow the instructions for using the Google Cloud CLI to run a job with the [Spanner to Cloud Storage Text template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-cloud-storage) .
+To export data from Spanner to CSV files in Cloud Storage, run the [Spanner to Cloud Storage Text template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-cloud-storage) using the Google Cloud console or the gcloud CLI. Each job exports a single table. To export multiple tables in one job, [export the database to Avro](https://docs.cloud.google.com/spanner/docs/export) .
+
+### Console
+
+1.  In the Google Cloud console, go to the Dataflow **Create job from template** page.
+
+2.  In the **Job name** field, enter a unique job name. To see the job on the database's **Import/Export** page, use the format `cloud-spanner-export-INSTANCE_ID-DATABASE_ID` .
+
+3.  Optional: From the **Regional endpoint** menu, select a region for the job. To avoid outbound data transfer charges, [choose a region](https://docs.cloud.google.com/spanner/docs/import-export-csv#choose-region) that overlaps with your bucket's location.
+
+4.  From the **Dataflow template** menu, select **Cloud Spanner to Text Files on Cloud Storage** under **Process Data in Bulk (batch)** .
+
+5.  Enter the required parameters:
+
+    - **Spanner Table** : the table to export.
+    - **Read data from Cloud Spanner Project Id** : the ID of the project that contains the Spanner database.
+    - **Read data from Cloud Spanner Instance** : your Spanner instance ID.
+    - **Read data from Cloud Spanner Database** : your Spanner database ID.
+    - **Output file directory in Cloud Storage** : the Cloud Storage path prefix for the output files, for example, `gs://my-bucket/export/` .
+
+6.  Click **Run job** .
+
+For optional parameters and template details, see [Spanner to Cloud Storage Text template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-spanner-to-cloud-storage) .
+
+### gcloud
+
+Run the following command:
+
+```
+gcloud dataflow jobs run JOB_NAME \
+    --gcs-location=gs://dataflow-templates/latest/Spanner_to_GCS_Text \
+    --region=REGION \
+    --parameters \
+spannerProjectId=SPANNER_PROJECT_ID,\
+spannerInstanceId=INSTANCE_ID,\
+spannerDatabaseId=DATABASE_ID,\
+spannerTable=TABLE_NAME,\
+textWritePrefix=gs://BUCKET_NAME/OUTPUT_PREFIX/
+```
+
+Replace the following:
+
+- `JOB_NAME` : a unique name for your Dataflow job. To see the job on the database's **Import/Export** page, use the format `cloud-spanner-export-INSTANCE_ID-DATABASE_ID` .
+- `REGION` : the region for the Dataflow job.
+- `SPANNER_PROJECT_ID` : the ID of the project that contains the Spanner database.
+- `INSTANCE_ID` : your Spanner instance ID.
+- `DATABASE_ID` : your Spanner database ID.
+- `TABLE_NAME` : the Spanner table to export.
+- `BUCKET_NAME` : your Cloud Storage bucket name.
+- `OUTPUT_PREFIX` : the Cloud Storage path prefix for the exported CSV files.
 
 You can also refer to the information in this page about [optimizing slow jobs](https://docs.cloud.google.com/spanner/docs/import-export-csv#optimize-slow) , and [factors affecting job performance](https://docs.cloud.google.com/spanner/docs/import-export-csv#performance-factors) .
 
@@ -100,7 +151,7 @@ JSON
 
 ### PostgreSQL
 
-```
+```postgresql
 boolean
 bigint
 double precision
@@ -189,11 +240,55 @@ Before you run your import, you must create the target tables in your Spanner da
 
 We recommend that you create secondary indexes, foreign keys, and change streams after you import your data into Spanner, not when you initially create the table. If your table already contains these structures, then we recommend dropping them and re-creating them after you import your data.
 
-### Step 4: Run a Dataflow import job using gcloud
+### Step 4: Run a Dataflow import job
 
-To start your import job, follow the instructions for using the gcloud CLI to run a job with the [Cloud Storage Text to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided-batch#gcs_text_to_cloud_spanner) .
+Before you run the import job, review the [pipeline requirements](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner#pipeline_requirements) . For example, the destination table must already exist.
 
-After you have started an import job, you can [see details about the job](https://docs.cloud.google.com/spanner/docs/import-export-csv#view-job-details) in the Google Cloud console.
+To start your import job, run the [Cloud Storage Text to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) using the Google Cloud console or the gcloud CLI.
+
+### Console
+
+1.  In the Google Cloud console, go to the Dataflow **Create job from template** page.
+
+2.  In the **Job name** field, enter a unique job name. To see the job on the database's **Import/Export** page, use the format `cloud-spanner-import-INSTANCE_ID-DATABASE_ID` .
+
+3.  Optional: From the **Regional endpoint** menu, select a region for the job. To avoid outbound data transfer charges, [choose a region](https://docs.cloud.google.com/spanner/docs/import-export-csv#choose-region) that overlaps with your bucket's location.
+
+4.  From the **Dataflow template** menu, select **Text Files on Cloud Storage to Cloud Spanner** under **Process Data in Bulk (batch)** .
+
+5.  Enter the required parameters:
+
+    - **Cloud Spanner instance ID** : your Spanner instance ID.
+    - **Cloud Spanner database ID** : your Spanner database ID.
+    - **Text Import Manifest file** : the Cloud Storage path to your manifest file, for example, `gs://my-bucket/import_manifests/manifest.json` .
+
+6.  Click **Run job** .
+
+For optional parameters and template details, see [Cloud Storage Text to Spanner template](https://docs.cloud.google.com/dataflow/docs/guides/templates/provided/cloud-storage-to-cloud-spanner) .
+
+### gcloud
+
+Run the following command:
+
+```
+gcloud dataflow jobs run JOB_NAME \
+    --gcs-location=gs://dataflow-templates/latest/GCS_Text_to_Cloud_Spanner \
+    --region=REGION \
+    --parameters \
+instanceId=INSTANCE_ID,\
+databaseId=DATABASE_ID,\
+importManifest=MANIFEST_PATH
+```
+
+Replace the following:
+
+- `JOB_NAME` : a unique name for your Dataflow job. To see the job on the database's **Import/Export** page, use the format `cloud-spanner-import-INSTANCE_ID-DATABASE_ID` .
+- `REGION` : the region for the Dataflow job.
+- `INSTANCE_ID` : your Spanner instance ID.
+- `DATABASE_ID` : your Spanner database ID.
+- `MANIFEST_PATH` : the Cloud Storage path to your manifest file, for example, `gs://my-bucket/import_manifests/manifest.json` .
+
+After you have started an import job, you can [see details about the job](https://docs.cloud.google.com/spanner/docs/import-export-csv#dataflow-job-details) in the Google Cloud console.
 
 After the import job is finished, add any necessary [secondary indexes](https://docs.cloud.google.com/spanner/docs/secondary-indexes) , [foreign keys](https://docs.cloud.google.com/spanner/docs/foreign-keys/overview) , and [change streams](https://docs.cloud.google.com/spanner/docs/change-streams) .
 

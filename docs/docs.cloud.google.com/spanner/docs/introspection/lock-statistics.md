@@ -8,7 +8,7 @@ data_source: docs.cloud.google.com
 
 This document describes how to use Spanner lock statistics built-in tables to identify the row keys and table columns that caused transaction lock conflicts in your database during a specific time period. You can retrieve statistics from these `SPANNER_SYS.LOCK_STATS*` tables using SQL statements.
 
-If your transactions use [optimistic concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) , then lock statistics aren't available because locks aren't acquired during the execution of the transaction.
+Transactions that use [optimistic concurrency control](https://docs.cloud.google.com/spanner/docs/concurrency-control) don't acquire locks while they execute reads and queries. Instead, they acquire locks at commit time, so lock statistics for these transactions include only conflicts that occur during the commit.
 
 [Video](https://www.youtube.com/watch?v=Ou3WNOkXjYc)
 
@@ -109,6 +109,24 @@ All lock requests that contributed to lock conflicts are sampled uniformly at ra
 <td><code>SAMPLE_LOCK_REQUESTS_JSON_STRING</code></td>
 <td><code>STRING</code></td>
 <td>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#sample-lock-requests"><code>SAMPLE_LOCK_REQUESTS</code></a> column. The JSON string is a JSON object with the same structure as the STRUCT defined in the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#sample-lock-requests"><code>SAMPLE_LOCK_REQUESTS</code></a> column.
+<p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p></td>
+</tr>
+<tr class="even">
+<td><code>LOCK_WAIT_DISTRIBUTION</code></td>
+<td><code>ARRAY&lt;STRUCT&gt;</code></td>
+<td><p>A histogram of the individual lock wait times for lock conflicts recorded in the row key range. Unlike the other latency columns in these tables, the values in this column are in microseconds. To convert them to seconds, divide by 1,000,000.</p>
+<blockquote>
+<strong>PostgreSQL interface note:</strong> PostgreSQL-dialect databases don't support this column. Use the <code>LOCK_WAIT_DISTRIBUTION_JSON_STRING</code> column instead for PostgreSQL-dialect databases.
+</blockquote>
+<p>The array contains a single element and has the following type:<br />
+<code>ARRAY&lt;STRUCT&lt; COUNT INT64, MEAN FLOAT64, SUM_OF_SQUARED_DEVIATION FLOAT64, NUM_FINITE_BUCKETS INT64, GROWTH_FACTOR FLOAT64, SCALE FLOAT64, BUCKET_COUNTS ARRAY&lt;INT64&gt;&gt;&gt;</code></p>
+<p>For more information about the values, see <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#Distribution">Distribution</a> and <a href="https://docs.cloud.google.com/monitoring/api/ref_v3/rest/v3/TypedValue#exponential">Exponential</a> .</p>
+<p>To calculate lock wait time percentiles from the distribution, use the <code>SPANNER_SYS.DISTRIBUTION_PERCENTILE(distribution, n FLOAT64)</code> function.</p></td>
+</tr>
+<tr class="odd">
+<td><code>LOCK_WAIT_DISTRIBUTION_JSON_STRING</code></td>
+<td><code>STRING</code></td>
+<td><p>A JSON-compatible string representation of the <a href="https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#lock-wait-distribution"><code>LOCK_WAIT_DISTRIBUTION</code></a> column. The JSON string is a JSON object with the same structure as the STRUCT in that column. Like the <code>LOCK_WAIT_DISTRIBUTION</code> column, this column's values are in microseconds.</p>
 <p>This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.</p></td>
 </tr>
 </tbody>
@@ -226,10 +244,12 @@ Aggregate statistics tables have the following properties:
 
 > **Note:** An increase in total lock wait time without corresponding entries in the [topN queries table](https://docs.cloud.google.com/spanner/docs/using-query-insights) , might be caused by locks from internal Spanner system tables (for example, for session management operations).
 
-| Column name               | Type        | Description                                                                           |
-|---------------------------|-------------|---------------------------------------------------------------------------------------|
-| `INTERVAL_END`            | `TIMESTAMP` | End of the time interval in which the lock conflict occurred.                         |
-| `TOTAL_LOCK_WAIT_SECONDS` | `FLOAT64`   | Total lock wait time for lock conflicts recorded for the entire database, in seconds. |
+| Column name                          | Type            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+|--------------------------------------|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `INTERVAL_END`                       | `TIMESTAMP`     | End of the time interval in which the lock conflict occurred.                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `TOTAL_LOCK_WAIT_SECONDS`            | `FLOAT64`       | Total lock wait time for lock conflicts recorded for the entire database, in seconds.                                                                                                                                                                                                                                                                                                                                                                                   |
+| `LOCK_WAIT_DISTRIBUTION`             | `ARRAY<STRUCT>` | A histogram of the individual lock wait times for lock conflicts recorded for the entire database, in microseconds, not seconds. The structure is the same as the [`LOCK_WAIT_DISTRIBUTION`](https://docs.cloud.google.com/spanner/docs/introspection/lock-statistics#lock-wait-distribution) column in the `SPANNER_SYS.LOCK_STATS_TOP_*` tables. PostgreSQL-dialect databases don't support this column. Use the `LOCK_WAIT_DISTRIBUTION_JSON_STRING` column instead. |
+| `LOCK_WAIT_DISTRIBUTION_JSON_STRING` | `STRING`        | A JSON-compatible string representation of the `LOCK_WAIT_DISTRIBUTION` column. Its values are in microseconds. This column is supported in GoogleSQL-dialect and PostgreSQL-dialect databases.                                                                                                                                                                                                                                                                         |
 
 ### Example queries
 

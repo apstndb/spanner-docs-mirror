@@ -50,7 +50,7 @@ Some exceptions apply. The following types of data are protected by Google defau
 
 In Spanner, there are three layers of encryption. Data at rest is broken into subfile chunks for storage, and each chunk is encrypted at the storage level with an individual encryption key. The key used to encrypt the data in a chunk is called a data encryption key (DEK). Because of the high volume of keys at Google, and the need for low latency and high availability, these keys are stored near the data that they encrypt. The DEKs are encrypted with (or wrapped by) a key encryption key (KEK). Finally, each KEK is encrypted with your CMEK.
 
-When you [rotate the CMEK key](https://docs.cloud.google.com/kms/docs/key-rotation) , Spanner re-encrypts only the intermediate KEKs with the latest primary version of the CMEK key. After the re-encryption finishes, disabling or deleting the earlier versions of the CMEK key won't disable access to the database. You can also [view the key versions](https://docs.cloud.google.com/spanner/docs/use-cmek#versions) that are being used to protect a database.
+When you [rotate the CMEK key](https://docs.cloud.google.com/kms/docs/key-rotation) , Spanner re-encrypts only the intermediate KEKs with the latest primary version of the CMEK key. After the re-encryption finishes, disabling or deleting the earlier versions of the CMEK key won't disable access to the database. You can also [view the key versions](https://docs.cloud.google.com/spanner/docs/use-cmek#versions) that are being used to protect a database, or [change the database encryption configuration](https://docs.cloud.google.com/spanner/docs/cmek#change-encryption) to use different Cloud KMS keys or a Google-owned and Google-managed encryption key.
 
 ### With CMEK
 
@@ -62,11 +62,23 @@ When you [rotate the CMEK key](https://docs.cloud.google.com/kms/docs/key-rotati
 
 ## Enable CMEK
 
-To use CMEK for Spanner databases, you must create a new database and specify the Cloud KMS key at the time of [database creation](https://docs.cloud.google.com/spanner/docs/use-cmek#create-db) . Spanner is able to access the key on your behalf after you grant the [Cloud KMS CryptoKey Encrypter/Decrypter](https://docs.cloud.google.com/kms/docs/reference/permissions-and-roles#predefined) ( `roles/cloudkms.cryptoKeyEncrypterDecrypter` ) role to a Google-managed [Spanner service account](https://docs.cloud.google.com/iam/docs/service-account-types#google-managed) . For detailed instructions, see [Secure a database with CMEK](https://docs.cloud.google.com/spanner/docs/use-cmek) .
+You can enable CMEK for a Spanner database by [creating the database](https://docs.cloud.google.com/spanner/docs/use-cmek#create-db) or by [updating an existing database](https://docs.cloud.google.com/spanner/docs/use-cmek#change-encryption) . Spanner is able to access the key on your behalf after you grant the [Cloud KMS CryptoKey Encrypter/Decrypter](https://docs.cloud.google.com/kms/docs/reference/permissions-and-roles#predefined) ( `roles/cloudkms.cryptoKeyEncrypterDecrypter` ) role to a Google-managed [Spanner service account](https://docs.cloud.google.com/iam/docs/service-account-types#google-managed) . For detailed instructions, see [Secure a database with CMEK](https://docs.cloud.google.com/spanner/docs/use-cmek) .
 
 Spanner's [data access APIs](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1) , such as those that are used to manage sessions and execute transactions on data, are exactly the same for both CMEK and Google-owned and Google-managed encryption keys. Applications don't need to specify keys or encryption configurations when reading or writing data. All encryption is handled by the service.
 
-> **Note:** After you enable CMEK in your Spanner database, you can't change its encryption configuration unless you [back up and restore](https://docs.cloud.google.com/spanner/docs/cmek#backup) the database, or [export then import](https://docs.cloud.google.com/spanner/docs/import-export-overview) the database back to Spanner.
+### Change the database encryption configuration
+
+You can change the encryption configuration of an existing Spanner database in place, without downtime. The following encryption configuration options are supported:
+
+- Enable CMEK on an existing database that uses a Google-owned and Google-managed encryption key.
+- Change the Cloud KMS keys on a CMEK-enabled database, including switching between a multi-region key and multiple regional keys, or replacing one or more regional keys.
+- Remove CMEK and revert a database to a Google-owned and Google-managed encryption key.
+
+When you update a database's encryption configuration, Spanner updates the database's `encryption_config` field and re-encrypts existing database data in the background. Background re-encryption can take several hours to complete. While background re-encryption is in progress, the database's `encryption_info` field lists the key versions still in use, which can include the previous keys. For more information, see [Verify background re-encryption completion](https://docs.cloud.google.com/spanner/docs/use-cmek#verify-reencryption) .
+
+During background re-encryption, a small number of transactions might fail with a retryable `ABORTED` error. Spanner client libraries retry these transactions automatically.
+
+This process doesn't re-encrypt backups. Backups created before or during re-encryption can still use the previous keys, so keep those keys until you no longer need those backups. For more information, see [Change the database encryption configuration](https://docs.cloud.google.com/spanner/docs/use-cmek#change-encryption) .
 
 ## Manage keys
 
@@ -191,13 +203,13 @@ For more considerations when using external keys, see the [Cloud External Key Ma
 
 ## Back up and restore
 
-You can use CMEK or Google-owned and Google-managed encryption keys to protect Spanner [backups](https://docs.cloud.google.com/spanner/docs/backup) . By default, a backup uses the same [encryption configuration](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#CreateBackupEncryptionConfig) as its database, but you can override this behavior by specifying a different encryption configuration when creating the backup. If the backup is CMEK-enabled, it is encrypted using the primary version of the KMS key at the time of backup creation. Once the backup is created, its key and key version can't be modified, even if the KMS key is rotated. For more information, see [Back up a database](https://docs.cloud.google.com/spanner/docs/use-cmek#backup) .
+You can use CMEK or Google-owned and Google-managed encryption keys to protect Spanner [backups](https://docs.cloud.google.com/spanner/docs/backup) . By default, a backup uses the same [encryption configuration](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.backups/create#CreateBackupEncryptionConfig) as its database, but you can override this behavior by specifying a different encryption configuration when creating the backup. If the backup is CMEK-enabled, it is encrypted using the primary version of the KMS key at the time of backup creation. Once the backup is created, its key and key version can't be modified, even if the KMS key is rotated or the database's encryption configuration is changed. For more information, see [Back up a database](https://docs.cloud.google.com/spanner/docs/use-cmek#backup) .
 
 When you [restore](https://docs.cloud.google.com/spanner/docs/backup/restore-backup-overview) a database from a backup, by default, the restored database uses the same [encryption configuration](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/projects.instances.databases/restore#RestoreDatabaseEncryptionConfig) as the backup. You can override this behavior by specifying a different encryption configuration when restoring the database. To restore a CMEK-enabled backup, both the key and key version that was used to encrypt the backup must be available. For more information, see [Restore from a backup](https://docs.cloud.google.com/spanner/docs/use-cmek#restore) .
 
 You can perform backup operations such as create, copy, and restore on a database encrypted with multiple regional keys.
 
-All backups created by [backup schedules](https://docs.cloud.google.com/spanner/docs/backup/create-manage-backup-schedules) can be protected by CMEK or Google-owned and Google-managed encryption keys.
+All backups created by [backup schedules](https://docs.cloud.google.com/spanner/docs/backup/create-manage-backup-schedules) can be protected by CMEK or Google-owned and Google-managed encryption keys. If you change the encryption configuration of a database whose incremental backup schedule inherits that encryption, Spanner creates a new full backup with the updated configuration and starts a new incremental backup chain.
 
 ## Geo-partitioning
 
