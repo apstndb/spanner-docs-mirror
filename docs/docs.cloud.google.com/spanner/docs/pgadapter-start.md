@@ -15,6 +15,7 @@ You can start PGAdapter in the following ways:
 - On Cloud Run
 - Using PGAdapter as a sidecar proxy (for example, in a Kubernetes cluster)
 - In-process with your Java application
+- Using Spanner PG Connector ( `spgc` ) to run PostgreSQL command-line tools
 
 ## Before you begin
 
@@ -27,7 +28,7 @@ For more information, see:
 
 ## Choose a method for running PGAdapter
 
-You can start PGAdapter as a standalone process, within a Docker container, on Cloud Run, or in-process with your Java application. When you start PGAdapter, you specify the project, Spanner instance ID, and database to connect to. You can also specify the path for a JSON-formatted credentials file (key file).
+You can start PGAdapter as a standalone process, within a Docker container, on Cloud Run, in-process with your Java application, or using Spanner PG Connector ( `spgc` ). When you start PGAdapter, you specify the project, Spanner instance ID, and database to connect to. You can also specify the path for a JSON-formatted credentials file (key file).
 
 ### Standalone
 
@@ -297,6 +298,128 @@ return new PGAdapter(server);
 ```
 
 The PGAdapter GitHub repository contains a [full sample application](https://github.com/GoogleCloudPlatform/pgadapter/blob/-/samples/java/jdbc) .
+
+### Spanner PG Connector (spgc)
+
+`spanner-pg-connector` (aliased as `spgc` ) is a standalone CLI wrapper for running PostgreSQL command-line tools (such as `psql` or `pg_dump` ) against Spanner. It bundles PGAdapter and a minimal Java runtime, so you don't need Java or Docker installed locally. When you run a command, `spgc` starts PGAdapter in the background on a dynamically assigned `localhost` port and sets `PGHOST` and `PGPORT` . It then runs your PostgreSQL client command and stops PGAdapter when the command exits.
+
+> **Note:** `spgc` doesn't bundle the PostgreSQL client tool (for example, `psql` ). Install the client tool and add it to your `PATH` .
+
+#### Install `spgc` using the installer script
+
+By default, the installer downloads the latest release into `~/.spanner-pg-connector` and adds that directory to your `PATH` .
+
+To install `spgc` on Linux ( `x86_64` ) or macOS ( `aarch64` or `x86_64` ), run the following command:
+
+```
+curl -fsSL https://raw.githubusercontent.com/GoogleCloudPlatform/pgadapter/postgresql-dialect/spanner-pg-connector/install.sh | sh
+```
+
+To install `spgc` on Windows ( `x86_64` , PowerShell), run the following command:
+
+```
+irm https://raw.githubusercontent.com/GoogleCloudPlatform/pgadapter/postgresql-dialect/spanner-pg-connector/install.ps1 | iex
+```
+
+To customize the installation on Linux or macOS with `VERSION` and `INSTALL_DIR` , run the following command:
+
+```
+curl -fsSL https://raw.githubusercontent.com/GoogleCloudPlatform/pgadapter/postgresql-dialect/spanner-pg-connector/install.sh \
+  | VERSION=VERSION INSTALL_DIR="INSTALL_DIR" sh
+```
+
+To customize the installation on Windows (PowerShell) with `VERSION` and `INSTALL_DIR` , run the following command:
+
+```
+$env:VERSION = "VERSION"; $env:INSTALL_DIR = "INSTALL_DIR"; irm https://raw.githubusercontent.com/GoogleCloudPlatform/pgadapter/postgresql-dialect/spanner-pg-connector/install.ps1 | iex
+```
+
+#### Install `spgc` manually (without the installer script)
+
+You can also download and extract the release archive directly from Artifact Registry, then add the extracted directory to your `PATH` . The archive includes both `spanner-pg-connector` and `spgc` .
+
+To install `spgc` manually on Linux or macOS, run the following commands (set `PLATFORM` to `linux-x64` , `mac-aarch64` , or `mac-x64` ):
+
+```
+VERSION=VERSION
+PLATFORM=PLATFORM # linux-x64, mac-aarch64, or mac-x64
+INSTALL_DIR="INSTALL_DIR"
+mkdir -p "${INSTALL_DIR}"
+curl -fsSL "https://artifactregistry.googleapis.com/v1/projects/cloud-spanner-pg-adapter/locations/us/repositories/spanner-pg-connector/files/spanner-pg-connector:${VERSION}:spanner-pg-connector-${PLATFORM}.tar.gz:download?alt=media" \
+  | tar -xz -C "${INSTALL_DIR}"
+export PATH="${INSTALL_DIR}:$PATH"
+```
+
+To install `spgc` manually on Windows (PowerShell), run the following commands:
+
+```
+$Version = "VERSION"
+$InstallDir = "INSTALL_DIR"
+$ZipPath = Join-Path $env:TEMP "spanner-pg-connector-windows-x64.zip"
+New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
+Invoke-RestMethod -Uri "https://artifactregistry.googleapis.com/v1/projects/cloud-spanner-pg-adapter/locations/us/repositories/spanner-pg-connector/files/spanner-pg-connector:${Version}:spanner-pg-connector-windows-x64.zip:download?alt=media" -OutFile $ZipPath
+Expand-Archive -Path $ZipPath -DestinationPath $InstallDir -Force
+$env:PATH = "$env:PATH;$InstallDir"
+```
+
+To keep `spgc` on your `PATH` across terminal sessions, add the installation directory to your shell profile (such as `~/.bashrc` or `~/.zshrc` on Linux and macOS) or your user `Path` environment variable on Windows.
+
+To verify the installation, check the `spgc` version:
+
+```
+spgc --version
+```
+
+#### Authentication
+
+`spgc` doesn't require a PostgreSQL username or password between the client tool and the local PGAdapter proxy. To authenticate with Spanner, `spgc` uses Google Cloud [Application Default Credentials (ADC)](https://docs.cloud.google.com/docs/authentication/application-default-credentials) in the following order:
+
+1.  **`GOOGLE_APPLICATION_CREDENTIALS` environment variable** : points to a service account key or credentials JSON file.
+2.  **User credentials from the Google Cloud CLI** : run `gcloud auth application-default login` to set up these credentials.
+3.  **Attached service account** : `spgc` uses the attached service account when you run it on Google Cloud environments such as Compute Engine, Cloud Shell, Cloud Workstations, Cloud Run, or Workload Identity Federation for GKE.
+
+When you connect to the [Spanner emulator](https://docs.cloud.google.com/spanner/docs/emulator) ( `SPANNER_EMULATOR_HOST` ), `spgc` disables authentication.
+
+#### Usage and environment variables
+
+Pass the client command and its arguments directly to `spgc` (or `spanner-pg-connector` ):
+
+```
+spgc psql -d "projects/PROJECT_ID/instances/INSTANCE_ID/databases/DATABASE_ID"
+```
+
+You can also configure the project, instance, default database, or emulator using environment variables:
+
+`GOOGLE_CLOUD_PROJECT`  
+Google Cloud project ID.
+
+`SPANNER_INSTANCE`  
+Spanner instance ID.
+
+`SPANNER_DATABASE`  
+Default Spanner database ID. `spgc` uses this value if the command doesn't specify `-d` , `--dbname` , or `--database` .
+
+`SPANNER_EMULATOR_HOST`  
+If set, connects to the Spanner emulator at `HOST `` : `` PORT` (for example, `localhost:9010` ) instead of Spanner. Unset this variable when you connect to Spanner.
+
+`GOOGLE_APPLICATION_CREDENTIALS`  
+Optional path to a Google Cloud credentials JSON file.
+
+The following examples show how to run `spgc` with environment variables:
+
+```
+export GOOGLE_CLOUD_PROJECT=PROJECT_ID
+export SPANNER_INSTANCE=INSTANCE_ID
+
+# Start an interactive psql session
+spgc psql -d DATABASE_ID
+
+# Run a single query
+spgc psql -d DATABASE_ID -c "SELECT 1"
+
+# Connect to the Spanner emulator
+SPANNER_EMULATOR_HOST=localhost:9010 spgc psql -d test-database
+```
 
 ## Resource allocation guidance for the PGAdapter sidecar proxy
 

@@ -8,6 +8,8 @@ data_source: docs.cloud.google.com
 
 `psql` is the command-line front end to PostgreSQL. This page describes the `psql` commands that the PostgreSQL interface for Spanner supports. To learn how to connect with `psql` see [Connecting psql to a PostgreSQL-dialect database](https://docs.cloud.google.com/spanner/docs/psql-connect) .
 
+> **Note:** The examples on this page connect to a running PGAdapter instance using `psql -h localhost` . Alternatively, use [Spanner PG Connector ( `spgc` )](https://docs.cloud.google.com/spanner/docs/psql-connect#connect-spgc) to run these commands without starting a separate PGAdapter process first. Replace `psql -h localhost` with `spgc psql -d `` DATABASE_ID` and omit `-h` and `-p` .
+
 ## Meta-commands
 
 The PostgreSQL interface supports the following `psql` meta-commands categories:
@@ -151,10 +153,16 @@ The default for `FORMAT` is `text` .
 
 ### Examples
 
-This example imports data from the text-formatted file named `mydata.txt` into table `mytable` . PGAdapter must be running. For more information, see [Starting PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
+This example imports data from the text-formatted file named `mydata.txt` into table `mytable` . Start PGAdapter (see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) ), or run `psql` using [Spanner PG Connector ( `spgc` )](https://docs.cloud.google.com/spanner/docs/psql-connect#connect-spgc) :
 
 ```
 cat mydata.txt | psql -h localhost -c "COPY mytable FROM STDIN;"
+```
+
+To run the same import using `spgc` , run the following command:
+
+```
+cat mydata.txt | spgc psql -d DATABASE_ID -c "COPY mytable FROM STDIN;"
 ```
 
 In this next example, `mydata.csv` is in CSV format and its first row is a header with comma-separated column names.

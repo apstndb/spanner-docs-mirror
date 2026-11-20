@@ -108,6 +108,8 @@ REVOKE EXECUTE ON FUNCTION spanner.renewlease_QUEUE_NAME FROM ROLE_NAME;
 
 Calling `RENEWLEASE_ `` QUEUE_NAME `` ()` requires only `EXECUTE` on the TVF; it does not require `SELECT` on the queue.
 
+In PostgreSQL-dialect databases, `spanner.` is a required prefix of the queue TVF name, not a schema. Always use the `spanner.` prefix when you call a queue TVF or grant privileges on it, for example `spanner.receive_ `` QUEUE_NAME` . You can't use the `public.` prefix instead. For bulk grants, queue TVFs belong to the `public` schema, so bulk grants on the `public` schema include them. In GoogleSQL-dialect databases, bulk grants on all table functions in the default schema include queue TVFs. For details, see [Caveats and considerations](https://docs.cloud.google.com/spanner/docs/fgac-queues#caveats-and-considerations) .
+
 For more information about receiving messages and extending leases, see [Use queues](https://docs.cloud.google.com/spanner/docs/queues/queues-using) .
 
 ## Grants for querying queues directly
@@ -273,6 +275,22 @@ The system role `spanner_info_reader` and its members always see an unfiltered `
   - If a role with only `EXECUTE` on the TVF attempts to run `SELECT * FROM `` QUEUE_NAME` , Spanner returns an error stating that the role does not have required privileges on queue `QUEUE_NAME` .
 
 - **Difference from change streams** : Unlike change streams (which require both `SELECT` on the stream and `EXECUTE` on the read function), queue message consumers require only `EXECUTE` on the `RECEIVE` TVF. They don't require `SELECT` on the queue itself.
+
+- **PostgreSQL `spanner.` prefix and bulk grants** : In PostgreSQL-dialect databases, `spanner.` in `spanner.receive_ `` QUEUE_NAME` and `spanner.renewlease_ `` QUEUE_NAME` is a required prefix of the function name, not a schema. You must use this prefix when you call a queue TVF or grant privileges on it; the `public.` prefix doesn't work. For privileges, these functions belong to the `public` schema. As a result:
+
+  - `GRANT` and `REVOKE` statements on `ALL FUNCTIONS IN SCHEMA public` or `ALL ROUTINES IN SCHEMA public` apply to all existing queue TVFs, along with other table-valued functions such as change stream read functions. Like other bulk grants, these statements don't apply to queues that you create later.
+  - `GRANT` and `REVOKE` statements on `ALL FUNCTIONS IN SCHEMA spanner` fail with a `` Schema `spanner` not found `` error because `spanner` isn't a schema.
+
+  To limit a role to specific queues, grant `EXECUTE` on each queue TVF individually instead of granting on all functions in the `public` schema.
+
+- **GoogleSQL bulk grants on queue TVFs** : In GoogleSQL-dialect databases, queues and their TVFs always belong to the default schema because you can't create queues in named schemas. For more information, see [Limitations](https://docs.cloud.google.com/spanner/docs/queues/queues-overview#limitations) . As a result:
+
+  - `GRANT` and `REVOKE` statements on `ALL TABLE FUNCTIONS IN SCHEMA DEFAULT` apply to all existing queue TVFs, along with other table-valued functions such as change stream read functions. Like other bulk grants, these statements don't apply to queues that you create later.
+  - `GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA DEFAULT` applies only to user-defined functions and doesn't include queue TVFs.
+
+  To limit a role to specific queues, grant `EXECUTE` on each queue TVF individually instead of granting on all table functions in the default schema.
+
+- **Case-sensitive queue TVF names in GoogleSQL** : Although GoogleSQL-dialect databases resolve identifiers in queries without regard to case, queue TVF names in `GRANT` and `REVOKE` statements are case-sensitive. Use the uppercase `RECEIVE_` or `RENEWLEASE_` prefix followed by the queue name exactly as you wrote it in the `CREATE QUEUE` statement. For example, for a queue named `OrdersQueue` , use `RECEIVE_OrdersQueue` and `RENEWLEASE_OrdersQueue` . Both the prefix and the queue name must match. If either part differs in case, for example `receive_OrdersQueue` or `RECEIVE_ordersqueue` , the statement fails with a `TABLE_FUNCTION not found` error.
 
 - **Column-level privileges not supported** : Unlike tables, Spanner does not support column-level privileges on queues (such as `GRANT SELECT ( `` COLUMN_NAME `` ) ON QUEUE` ). Privileges must be granted on the queue object as a whole because queues include internal system metadata columns.
 

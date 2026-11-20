@@ -91,9 +91,13 @@ If you use Maven, add the following dependency to your `pom.xml` file:
 <dependency>
   <groupId>com.google.cloud</groupId>
   <artifactId>google-cloud-spanner-pgadapter</artifactId>
-  <version>0.56.2</version>
+  <version>0.56.4</version>
 </dependency>
 ```
+
+## Use Spanner PG Connector ( `spgc` )
+
+To run PostgreSQL command-line tools such as `psql` or `pg_dump` without installing Java or Docker, use `spanner-pg-connector` (aliased as `spgc` ). `spgc` bundles PGAdapter and a minimal Java runtime. For installation and usage instructions, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start#spgc) .
 
 ## What's next
 

@@ -162,6 +162,16 @@ docker run \
 
 This starts PGAdapter with an embedded Spanner emulator. This embedded emulator automatically creates any Spanner instance or database that you connect to without the need to manually create them beforehand.
 
+### Spanner PG Connector (spgc)
+
+If you're only running PostgreSQL command-line tools such as `psql` , you can [install `spanner-pg-connector` ( `spgc` )](https://docs.cloud.google.com/spanner/docs/pgadapter-start#spgc) instead of starting a persistent PGAdapter server. `spgc` bundles PGAdapter and a minimal Java runtime. It starts and stops PGAdapter in the background for each command:
+
+```
+export GOOGLE_CLOUD_PROJECT=PROJECT_ID
+export SPANNER_INSTANCE=test-instance
+spgc psql -d example-db
+```
+
 We recommend that you run PGAdapter in production as either a side-car container or as an in-process dependency. For more information on deploying PGAdapter in production, see [Choose a method for running PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start#run-pgadapter) .
 
 ## Create a database

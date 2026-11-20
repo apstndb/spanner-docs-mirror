@@ -52,9 +52,20 @@ With your locality groups defined, when you create your tables, you can set the 
 The following behaviors apply when using tiered storage:
 
 - **Storage tiers are applied at the cell level** : Age-based tiered storage policies apply to individual cells within a row, based on the cell's commit timestamp. Data is moved to HDD storage if its commit timestamp is older than the specified duration. A single row can therefore have some data on SSD and some on HDD, depending on when each cell was last updated.
+
 - **Interleaved tables are independent** : Locality group settings and tiered storage policies aren't inherited by interleaved child tables. You must apply these settings to each table individually.
+
 - **Read operations don't affect data aging** : Reading data from a table doesn't reset its age or prevent it from being moved to HDD. Only a write operation that updates the data resets its commit timestamp and keeps it in SSD storage.
+
 - **Moving data from HDD back to SSD** : When you update data stored on HDD, Spanner writes the new version of the data directly to SSD storage. The previous version of the data on HDD is marked as obsolete and is cleaned up later by a background compaction process. You can [manually trigger a major compaction](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) to clean it up faster. This ensures that updates to cold data immediately benefit from SSD performance for subsequent reads of the new data.
+
+- **Keeping row-existence metadata on SSD for insert-heavy tables** : Spanner stores metadata in the table's locality group to track whether each row exists, and reads this metadata during primary-key uniqueness checks. Setting an age-based or HDD locality group at the database or table level places this metadata on HDD storage either directly or after the spill timespan. To keep uniqueness checks on SSD, assign the table to an SSD-only locality group, and assign only large non-key columns to the age-based or HDD locality group. If the table uses the `default` locality group, verify in [`INFORMATION_SCHEMA.LOCALITY_GROUP_OPTIONS`](https://docs.cloud.google.com/spanner/docs/tiered-storage#information-schema) that for `default` , the `storage` option has an `OPTION_VALUE` of `ssd` and the `ssd_to_hdd_spill_timespan` option has an `OPTION_VALUE` of `NULL` . After you move a table to SSD, existing row-existence metadata moves during the next major compaction, as described in the preceding bullet.
+
+- **Write operations and uniqueness checks on cold data** : Write operations that check whether keys already exist read from HDD storage when target keys aren't cached in memory. Such reads can increase commit latency and [`instance/disk_load`](https://docs.cloud.google.com/spanner/docs/tiered-storage#metrics) . The impact is largest on interleaved child tables, where Spanner doesn't maintain existence filters to skip HDD reads for non-existent keys.
+
+  - **Operations that check existence** : `INSERT` statements and `Insert` mutations, `INSERT OR IGNORE` statements, `ON CONFLICT DO NOTHING` statements, `ON CONFLICT DO UPDATE` statements that don't qualify as full-row primary-key writes without a read operation, and writes that maintain HDD or age-based tiered secondary indexes. For example, `ON CONFLICT DO UPDATE` statements check existence if they target a `UNIQUE` index, include a `WHERE` clause, omit columns, or set columns to expressions other than `EXCLUDED` .
+  - **Operations that skip the existence check** : Full-row [`INSERT OR UPDATE`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-or-update) statements and full-row [`InsertOrUpdate` mutations](https://docs.cloud.google.com/spanner/docs/modify-mutation-api#insert-new-rows) write to SSD without checking whether the target key already exists. The same applies to full-row primary-key `ON CONFLICT DO UPDATE` statements in [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax#insert-on-conflict-do-update) and [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/dml-syntax#on_conflict_clause) that set every column, including the primary key columns, to the corresponding `EXCLUDED` value without a `WHERE` clause.
+  - **Other HDD reads during writes** : Even operations that skip the existence check can read uncached data or metadata from HDD storage when Spanner maintains secondary indexes, foreign keys, or change streams, evaluates a `THEN RETURN` or `RETURNING` clause, or checks whether a parent row exists for an interleaved child table.
 
 ## Back up and restore
 
@@ -72,7 +83,7 @@ You can use [Spanner Data Boost](https://docs.cloud.google.com/spanner/docs/data
 
 The following observability features are available for tiered storage.
 
-### Cloud Monitoring metrics
+### Monitoring metrics
 
 Spanner provides the following metrics to help you monitor your tiered storage usage and data using Cloud Monitoring:
 
@@ -84,7 +95,7 @@ Spanner provides the following metrics to help you monitor your tiered storage u
 
 If you have existing queries that filter existing metrics by `storage_class:ssd` , you must remove the filter to see your HDD usage.
 
-To learn more about monitoring your Spanner resources, see [Monitor instances with system insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) and [Monitor instances with Cloud Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
+To learn more about monitoring your Spanner resources, see [Monitor instances with system insights](https://docs.cloud.google.com/spanner/docs/monitoring-console) and [Monitor instances with Monitoring](https://docs.cloud.google.com/spanner/docs/monitoring-cloud) .
 
 ### Information schema
 

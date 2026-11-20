@@ -12,7 +12,7 @@ A text embedding is a vector representation of text data, and they are used in m
 
 With the Agent Platform text embeddings API, you can create a text embedding with [Generative AI](https://docs.cloud.google.com/gemini-enterprise-agent-platform/overview) . In this tutorial, you use the Agent Platform text embedding model to generate text embeddings for the data stored in Spanner.
 
-To learn more about text embeddings and supported models, see [Get text embeddings](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings) .
+To learn which models and endpoint locations work with Spanner, see [Supported models and endpoint locations](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings#choose-model-location) . For more information about text embeddings, see [Get text embeddings](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings) .
 
 ## Objective
 
@@ -31,6 +31,32 @@ This tutorial uses billable components of Google Cloud, including:
 For more information about Spanner costs, see the [Spanner pricing](https://docs.cloud.google.com/products/gemini-enterprise-agent-platform/pricing) page.
 
 For more information about Agent Platform costs, see the [Agent Platform pricing](https://cloud.google.com/products/gemini-enterprise-agent-platform/pricing) page.
+
+## Supported models and endpoint locations
+
+In your endpoint path, specify a text embedding model that uses the Agent Platform `predict` API and a location where Agent Platform serves that model. Spanner doesn't host embedding models or keep its own list of supported models. Instead, the `ML.PREDICT` function in GoogleSQL and the `spanner.ML_PREDICT_ROW` function in PostgreSQL send each embedding request to the `predict` API at the endpoint path that you specify.
+
+In the endpoint path, Spanner accepts regional locations such as `us-central1` or `europe-west1` , the `us` and `eu` multi-region locations, and the `global` location. The model, not Spanner, determines which of these locations work. Your Spanner instance configuration doesn't restrict the endpoint location. To reduce latency, choose an endpoint in the same region as your Spanner instance, or on the same continent for multi-region instances.
+
+If the endpoint is in a different region than the Spanner server that runs the query, you pay for [data transfer between regions](https://docs.cloud.google.com/spanner/docs/ml#pricing) .
+
+The following table lists the Agent Platform publisher model IDs that use the `predict` API. Use the publisher model ID in the `publishers/google/models/` segment of the endpoint path.
+
+| Publisher model ID                | Output dimensions |
+|-----------------------------------|-------------------|
+| `gemini-embedding-001`            | Up to 3,072       |
+| `text-embedding-005`              | Up to 768         |
+| `text-multilingual-embedding-002` | Up to 768         |
+
+All of these models are served at regional locations only, such as `us-central1` or `europe-west1` . None of them support the `us` , `eu` , or `global` locations. For the full list of regions, see [Google model endpoint locations](https://docs.cloud.google.com/gemini-enterprise-agent-platform/resources/locations#google-models) and select a regional tab such as **United States** or **Europe** . On that page, `gemini-embedding-001` appears as **Gemini Embedding** , and `text-embedding-005` and `text-multilingual-embedding-002` appear under **Embeddings for Text** .
+
+In GoogleSQL, the name that you give the model in the `CREATE MODEL` statement is a Spanner schema identifier that is separate from the publisher model ID.
+
+Before you choose a model, check its availability and retirement date in [Model versions and lifecycle](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions) .
+
+The `ML.PREDICT` and `spanner.ML_PREDICT_ROW` functions require a model that uses the `predict` API. The `gemini-embedding-2` model uses the `embedContent` API instead, so you can't use it with these functions. This model is also served only at the `global` , `us` , and `eu` locations. Use `gemini-embedding-001` instead.
+
+In GoogleSQL, the `CREATE MODEL` statement doesn't verify publisher `predict` endpoints when you register the model. In PostgreSQL, the `spanner.ML_PREDICT_ROW` function doesn't register a model. In both dialects, a model ID, version, or location that Agent Platform doesn't serve fails at query time with a `NOT_FOUND` error. In GoogleSQL, an `OUTPUT` clause that doesn't match the response fails with an `INVALID_ARGUMENT` error. After you register or choose a model, run a test query to confirm that the model and location work. For more information, see [Troubleshoot Spanner Agent Platform integration](https://docs.cloud.google.com/spanner/docs/ml-troubleshoot) .
 
 ## Generate and store text embeddings
 
@@ -56,19 +82,20 @@ OUTPUT(
       values ARRAY<FLOAT64>>
 )
 REMOTE OPTIONS (
-  endpoint = '//aiplatform.googleapis.com/projects/PROJECT/locations/LOCATION/publishers/google/models/$MODEL_NAME'
+  endpoint = '//aiplatform.googleapis.com/projects/PROJECT/locations/LOCATION/publishers/google/models/PUBLISHER_MODEL_ID'
 );
 ```
 
 Replace the following:
 
-- `MODEL_NAME` : the name of the Agent Platform text embedding model
+- `MODEL_NAME` : the name of the model in your Spanner schema, such as `EmbeddingsModel`
 - `PROJECT` : the project hosting the Agent Platform endpoint
 - `LOCATION` : the location of the Agent Platform endpoint
+- `PUBLISHER_MODEL_ID` : the publisher model ID from [Supported models and endpoint locations](https://docs.cloud.google.com/spanner/docs/ml-tutorial-embeddings#choose-model-location) , such as `gemini-embedding-001`
 
 Spanner grants appropriate permissions automatically. If it doesn't, review the [model endpoint access control](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#model_endpoint_access_control) .
 
-Schema discovery and validation is not available for Generative AI models. You are required to provide `INPUT` and `OUTPUT` clauses which match against the models schema. For the full schema of the text embedding model, see [Get text embeddings](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/embeddings/get-text-embeddings) .
+Schema discovery and validation is not available for Generative AI models. You must provide `INPUT` and `OUTPUT` clauses that match the model's schema. The text embeddings API returns each prediction as an object with an `embeddings` field, which contains a `statistics` object and a `values` array. The preceding `OUTPUT` clause therefore declares the `embeddings` column as a `STRUCT` (with `values` and optional `statistics` ), not as an `ARRAY<FLOAT64>` type. The `values` field holds the embedding vector, so the queries in this tutorial select `embeddings.values` . If the `OUTPUT` clause doesn't match the response, the `ML.PREDICT` call fails at query time with an `INVALID_ARGUMENT` error. For the response format, see [Text embeddings API](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/text-embeddings-api#response_body) .
 
 **Generate text embeddings**
 
@@ -162,6 +189,8 @@ Replace the following:
 - `PROJECT` : the project hosting the Agent Platform endpoint
 - `LOCATION` : the location of the Agent Platform endpoint
 - `MODEL_NAME` : the name of the Agent Platform text embedding model
+
+The `spanner.ML_PREDICT_ROW` function returns a `JSONB` object with a `predictions` array. Each element in `predictions` has an `embeddings` object that contains a `statistics` object and a `values` array. In the examples in this tutorial, the `->` operators extract the embedding vector from the `predictions[0].embeddings.values` path. For the response format, see [Text embeddings API](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/models/text-embeddings-api#response_body) .
 
 To generate embeddings for data stored in a table, use the following SQL:
 

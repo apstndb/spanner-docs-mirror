@@ -1,1 +1,2 @@
+200 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/delete
 404 https://docs.cloud.google.com/spanner/docs/getting-started/rust

@@ -307,7 +307,7 @@ gcloud spanner databases ddl update example-db \
 
 ### Set a column-level override tiered storage policy
 
-You can set a column-level override tiered storage policy for your data.
+You can set a column-level override tiered storage policy for your data. For each `INSERT` , Spanner checks row-existence metadata stored in the table's locality group to enforce primary-key uniqueness. On insert-heavy tables, to keep these checks on SSD while tiering large non-key columns, assign the table to an SSD-only locality group and assign only the large columns to an age-based or HDD locality group. For details, including how to confirm that the `default` locality group is SSD-only, see [Key behavior details](https://docs.cloud.google.com/spanner/docs/tiered-storage#behavior-details) .
 
 ### Console
 
@@ -375,7 +375,7 @@ gcloud spanner databases ddl update example-db \
 
 ### Set a secondary index-level override tiered storage policy
 
-You can set a secondary index-level override tiered storage policy for your data.
+You can set a secondary index-level override tiered storage policy for your data. A secondary index's locality group applies to the entire index, including its keys, row-existence metadata, and any stored columns ( `STORING` columns in GoogleSQL or `INCLUDE` columns in PostgreSQL). You can't set separate locality groups on individual stored columns. To avoid reading from HDD storage during index maintenance and uniqueness checks, assign `UNIQUE` or write-intensive secondary indexes to an SSD-only locality group.
 
 ### Console
 
@@ -529,7 +529,7 @@ For more information, see [Create an age-based policy for a locality group](http
 
 ### Move data from HDD to SSD storage
 
-To move data from HDD to SSD storage, you can [change the storage option](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#change-storage-option) of an existing locality group or [alter the locality group used by the table](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#alter-table-locality-group) . Spanner moves data during its normal compaction cycle, which typically occurs over the course of seven days. If you're loading data and updating your locality group using one of the following `ALTER` DDL statements, then you must wait up to seven days for the change to the locality group to complete:
+To move data from HDD to SSD storage, you can [change the storage option](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#change-storage-option) of an existing locality group, [alter the locality group used by a table](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#alter-table-locality-group) , or [alter the locality group used by a column](https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups#alter-column-locality-group) . Spanner moves data during its normal compaction cycle, which typically occurs over the course of seven days. If you're loading data and updating your locality group using one of the following `ALTER` DDL statements, you must wait up to seven days for the change to complete:
 
 ### GoogleSQL
 
@@ -542,6 +542,8 @@ To move data from HDD to SSD storage, you can [change the storage option](https:
 - `ALTER TABLE ... SET LOCALITY GROUP ...`
 - `ALTER TABLE ... ALTER COLUMN ... SET LOCALITY GROUP ...`
 - `ALTER INDEX ... SET LOCALITY GROUP ...`
+
+To migrate existing data faster, [manually trigger a major compaction](https://docs.cloud.google.com/spanner/docs/manual-data-compaction) by running `CALL compact_all()` in GoogleSQL or `CALL spanner.compact_all()` in PostgreSQL.
 
 The waiting period isn't applicable if you're creating a new table, column, or index, and adding the locality group as part of the `CREATE` or `ADD COLUMN` syntax.
 
@@ -640,7 +642,7 @@ gcloud spanner databases ddl update example-db \
 ```
 gcloud spanner databases ddl update example-db \
   --instance=test-instance \
-  --ddl="ALTER TABLE Singers ALTER COLUMN SET LOCALITY GROUP spill_to_hdd;"
+  --ddl="ALTER TABLE Singers ALTER COLUMN LastName SET LOCALITY GROUP spill_to_hdd;"
 ```
 
 ## Alter a locality group

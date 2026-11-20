@@ -22,7 +22,7 @@ PGAdapter supports basic and extended query modes, and any data type that the Po
 
 PGAdapter supports standard PostgreSQL drivers, ORMs, and client tools, including:
 
-- **Command-line tools** : [`psql`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psql.md) (versions 11 through 14) and [JetBrains IDEs](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/intellij.md) (such as DataGrip).
+- **Command-line tools** : [`psql`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psql.md) (versions 11 through 14), `pg_dump` , and [JetBrains IDEs](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/intellij.md) (such as DataGrip).
 - **Java/JVM** : [JDBC](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/jdbc.md) (version 42.x and higher), [R2DBC](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/java/r2dbc) , [Hibernate](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/java/hibernate) , and [Spring Data JPA](https://github.com/GoogleCloudPlatform/pgadapter/tree/master/samples/java/spring-data-jpa) .
 - **Go** : [`pgx`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/pgx.md) (version 4.15 and higher) and [`gorm`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/gorm.md) .
 - **Python** : [`psycopg2`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psycopg2.md) , [`psycopg3`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/psycopg3.md) , [`SQLAlchemy`](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/sqlalchemy.md) , and [Python ADBC](https://github.com/GoogleCloudPlatform/pgadapter/blob/master/docs/adbc.md) .
@@ -40,6 +40,7 @@ You can run PGAdapter by using one of the following methods:
 - **Cloud Run** : PGAdapter can be deployed as a sidecar proxy on Cloud Run.
 - **Sidecar proxy** : a typical use as a sidecar proxy is in a Kubernetes cluster.
 - **In-process** : your Java application code can use the supplied JAR file to create and start a PGAdapter instance.
+- **Spanner PG Connector ( `spgc` )** : `spanner-pg-connector` (aliased as `spgc` ) is a standalone CLI wrapper for running PostgreSQL command-line tools such as `psql` and `pg_dump` . It bundles PGAdapter and a minimal Java runtime, so you don't need Java or Docker installed locally. When you run a command, `spgc` starts and stops PGAdapter in the background.
 
 For details about these methods, see [Start PGAdapter](https://docs.cloud.google.com/spanner/docs/pgadapter-start) .
 
