@@ -1,2 +1,2 @@
-200 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/delete
+200 https://docs.cloud.google.com/spanner/docs/queues/queues-in-order
 404 https://docs.cloud.google.com/spanner/docs/getting-started/rust

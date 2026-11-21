@@ -14,6 +14,7 @@ https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups	2026-05-27T16
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/add-iam-policy-binding	2026-05-27T16:47:36Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/copy	2026-05-27T16:48:04Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/create	2026-05-27T16:48:15Z
+https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/delete	2026-05-27T16:47:00Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/describe	2026-05-27T16:47:25Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/get-iam-policy	2026-05-27T16:46:19Z
 https://docs.cloud.google.com/sdk/gcloud/reference/spanner/backups/list	2026-05-27T16:46:58Z
@@ -201,7 +202,7 @@ https://docs.cloud.google.com/spanner/docs/configure-virtual-machine-instance	20
 https://docs.cloud.google.com/spanner/docs/connect-gke-cluster	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/cpu-utilization	2026-10-07T09:39:47Z
 https://docs.cloud.google.com/spanner/docs/create-manage-configurations	2026-10-07T09:39:47Z
-https://docs.cloud.google.com/spanner/docs/create-manage-data-placements	2026-11-12T13:52:50Z
+https://docs.cloud.google.com/spanner/docs/create-manage-data-placements	2026-11-20T17:04:08Z
 https://docs.cloud.google.com/spanner/docs/create-manage-databases	2026-11-12T13:52:50Z
 https://docs.cloud.google.com/spanner/docs/create-manage-instances	2026-10-31T21:37:58Z
 https://docs.cloud.google.com/spanner/docs/create-manage-locality-groups	2026-11-19T18:43:30Z
@@ -746,7 +747,7 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/timestamp_func
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/region-types	2026-10-10T21:27:56Z
 https://docs.cloud.google.com/spanner/docs/release-notes	2026-11-10T22:01:48Z
-https://docs.cloud.google.com/spanner/docs/replication	2026-11-18T21:19:14Z
+https://docs.cloud.google.com/spanner/docs/replication	2026-11-20T17:06:50Z
 https://docs.cloud.google.com/spanner/docs/resources	2026-10-01T01:24:59Z
 https://docs.cloud.google.com/spanner/docs/rest-endpoints	2026-11-18T00:33:06Z
 https://docs.cloud.google.com/spanner/docs/samples	2026-10-01T01:23:43Z

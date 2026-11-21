@@ -36,19 +36,84 @@ The `per_placement_routing_metadata` option determines where routing metadata re
 
 > **Note:** Setting this option fails if there are already existing data placements.
 
-To set `per_placement_routing_metadata` in the Google Cloud console, update this option in your database schema. For information about how to update a schema, see [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
-
 The `per_placement_routing_metadata` option accepts boolean values. If this option is `TRUE` , then routing metadata resides in the same instance partition as the data. If `FALSE` , then routing metadata resides in the default instance partition.
 
-The following example shows a GoogleSQL `ALTER DATABASE` command to set this option:
+To set the `per_placement_routing_metadata` option, update your database schema. For information about other ways to update a schema, such as client libraries or the REST and RPC APIs, see [Make schema updates](https://docs.cloud.google.com/spanner/docs/schema-updates) .
+
+Select one of the following options:
+
+### Console
+
+1.  In the Google Cloud console, go to the **Instances** page.
+
+2.  Select the instance with user-created instance partitions.
+
+3.  Select the database where you want to set routing metadata.
+
+4.  In the navigation menu, click **Spanner Studio** .
+
+5.  In the **Spanner Studio** page, click **New tab** or use the empty editor tab.
+
+6.  Enter the `ALTER DATABASE` ( [GoogleSQL](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#alter-database) , [PostgreSQL](https://docs.cloud.google.com/spanner/docs/reference/postgresql/data-definition-language#alter-database) ) DDL statement:
+
+    ### GoogleSQL
+
+    ```
+    ALTER DATABASE `DATABASE_NAME`
+      SET OPTIONS (per_placement_routing_metadata = METADATA_BOOLEAN);
+    ```
+
+    Replace the following:
+
+    - `DATABASE_NAME` : the name of your database.
+    - `METADATA_BOOLEAN` : the `per_placement_routing_metadata` value. If `TRUE` , then routing metadata resides in the same instance partition as the data. If `FALSE` , then routing metadata resides in the default instance partition.
+
+    ### PostgreSQL
+
+    ```
+    ALTER DATABASE "DATABASE_NAME"
+      SET spanner.per_placement_routing_metadata = METADATA_BOOLEAN;
+    ```
+
+    Replace the following:
+
+    - `DATABASE_NAME` : the name of your database.
+    - `METADATA_BOOLEAN` : the `per_placement_routing_metadata` value. If `TRUE` , then routing metadata resides in the same instance partition as the data. If `FALSE` , then routing metadata resides in the default instance partition.
+
+7.  Click **Run** .
+
+### gcloud
+
+To set the `per_placement_routing_metadata` option with the Google Cloud CLI, use [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) :
+
+### GoogleSQL
 
 ```
-ALTER DATABASE DATABASE_NAME SET OPTIONS ( per_placement_routing_metadata = METADATA_BOOLEAN)
+gcloud spanner databases ddl update DATABASE_NAME \
+    --instance=INSTANCE_ID \
+    --ddl='ALTER DATABASE `DATABASE_NAME`
+      SET OPTIONS (per_placement_routing_metadata = METADATA_BOOLEAN)'
 ```
 
 Replace the following:
 
 - `DATABASE_NAME` : the name of your database.
+- `INSTANCE_ID` : the ID of your Spanner instance.
+- `METADATA_BOOLEAN` : the `per_placement_routing_metadata` value. If `TRUE` , then routing metadata resides in the same instance partition as the data. If `FALSE` , then routing metadata resides in the default instance partition.
+
+### PostgreSQL
+
+```
+gcloud spanner databases ddl update DATABASE_NAME \
+    --instance=INSTANCE_ID \
+    --ddl='ALTER DATABASE "DATABASE_NAME"
+      SET spanner.per_placement_routing_metadata = METADATA_BOOLEAN'
+```
+
+Replace the following:
+
+- `DATABASE_NAME` : the name of your database.
+- `INSTANCE_ID` : the ID of your Spanner instance.
 - `METADATA_BOOLEAN` : the `per_placement_routing_metadata` value. If `TRUE` , then routing metadata resides in the same instance partition as the data. If `FALSE` , then routing metadata resides in the default instance partition.
 
 ## Create a data placement
@@ -89,7 +154,7 @@ After you [create your Spanner instance partitions](https://docs.cloud.google.co
 
 ### gcloud
 
-To create a placement with the Google Cloud CLI command, use [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
+To create a placement with the gcloud CLI command, use [`gcloud spanner databases ddl update`](https://docs.cloud.google.com/sdk/gcloud/reference/spanner/databases/ddl/update) .
 
 For example, create a placement in the instance partition `europe-partition` :
 

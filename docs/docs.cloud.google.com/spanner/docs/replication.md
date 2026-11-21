@@ -81,6 +81,8 @@ Read-only replicas only support reads, but not writes. These replicas don't vote
 
   Strong reads might require a round trip to the leader replica. The round trip is just for negotiating the timestamp, not shipping the actual data from the leader. The timestamp negotiation is a CPU efficient operation at the leader, and typically the data is already en-route. This communication is handled automatically by the system.
 
+  If you use [geo-partitioning](https://docs.cloud.google.com/spanner/docs/geo-partitioning) with multiple data placements, Spanner evaluates all instance configurations used by your database's placements and dynamically routes read-only requests to the closest available serving replica to the client, independent of the specific data in your query.
+
   For more information about stale and strong reads, see the [In reads section](https://docs.cloud.google.com/spanner/docs/replication#role-in-reads) .
 
 #### Optional read-only replicas
