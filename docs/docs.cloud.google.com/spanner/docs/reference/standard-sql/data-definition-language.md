@@ -1483,9 +1483,10 @@ Use the `CREATE SEARCH INDEX` statement to define search indexes. For more infor
 ```
 CREATE SEARCH INDEX index_name
 ON table_name ( token_column_list )
-[ storing_clause ] [ partition_clause ]
-[ orderby_clause ] [ where_clause ]
-[ interleave_clause ] [ options_clause ]
+[ unnest_key_list ] [ storing_clause ]
+[ partition_clause ] [ orderby_clause ]
+[ where_clause ] [ interleave_clause ]
+[ options_clause ]
 
 where index_name is:
     {a—z|A—Z}[{a—z|A—Z|0—9|_}+]
@@ -1493,11 +1494,20 @@ where index_name is:
 and token_column_list is:
     column_name [, ...]
 
+and unnest_key_list is:
+    unnest_clause [, ...]
+
+and unnest_clause is:
+    UNNEST ( column_name ) AS unnested_element_alias
+
 and storing_clause is:
     STORING ( column_name [, ...] )
 
 and partition_clause is:
-    PARTITION BY column_name [, ...]
+    PARTITION BY partition_key [, ...]
+
+and partition_key is:
+    { column_name | unnested_element_alias }
 
 and orderby_clause is:
     ORDER BY column_name [ {ASC | DESC} ]
@@ -1530,13 +1540,17 @@ You can use `CREATE SEARCH INDEX` to create search indexes for `TOKENLIST` colum
 
 - A list of `TOKENLIST` columns to be indexed for search.
 
+`UNNEST`
+
+- Unnests an `ARRAY` column of scalar types so its elements can be referenced in the `PARTITION BY` clause using `unnested_element_alias` .
+
 `STORING`
 
 - Provides a mechanism for duplicating data from the table into the search index. This is the same as `STORING` in secondary indexes. For more information, see [`STORING` clause](https://docs.cloud.google.com/spanner/docs/secondary-indexes#storing_clause) .
 
 `PARTITION BY`
 
-- A list of columns to partition the search index by. Partition columns subdivide the index into smaller units, one for each unique partition. Queries can only search within a single partition at a time. Queries against partitioned indexes are generally more efficient than queries against unpartitioned indexes because only splits from a single partition need to be read.
+- A list of `partition_key` values to partition the search index by. A `partition_key` can be a column or the alias of an unnested element defined by the `unnest_clause` . Partition keys subdivide the index into smaller units, one for each unique partition. Queries can only search within a single partition at a time. Queries against partitioned indexes are generally more efficient than queries against unpartitioned indexes because only splits from a single partition need to be read.
 
 `ORDER BY`
 

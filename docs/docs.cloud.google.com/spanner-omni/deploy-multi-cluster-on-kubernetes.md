@@ -121,6 +121,10 @@ OMNI_ENDPOINT=spanner.spanner-ns-usw1,spanner.spanner-ns-usw2,spanner.spanner-ns
 Spanner Omni CLI certificates create-server --filename-prefix=api --hostnames=${OMNI_ENDPOINT} --ca-certificate-directory certs --output-directory certs
 ```
 
+#### Create the trace collector CA and certificate
+
+If you export traces to a remote trace collector, including the Jaeger collector that the Helm chart installs with `monitoring.enabled=true` , create a trace collector CA ( `certs/ca-otlp.crt` ) and a collector certificate ( `otlp-certs/collector.crt` and `otlp-certs/collector.key` ). For more information, see [Create certificate authorities](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes#create-ca) and [Create the trace collector certificate](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes#create-collector-cert) . For the Jaeger collector that the Helm chart installs, use `jaeger.monitoring.svc.cluster.local` as the collector hostname.
+
 ### Push the certificates to each Kubernetes cluster
 
 For each cluster, create the namespace and a generic secret that contains the certificates.
@@ -141,6 +145,41 @@ kubectl create secret generic tls-certs \
   --context <var>CONTEXT</var>
 ```
 
+If you created a trace collector CA, include `ca-otlp.crt` in the secret instead:
+
+```
+# Repeat for each context (for example, ctx-usw1, ctx-usw2, ctx-usw3)
+# Replace NAMESPACE with the appropriate namespace for each region
+
+kubectl create namespace <var>NAMESPACE</var> --context <var>CONTEXT</var>
+kubectl create secret generic tls-certs \
+  --from-file=ca.crt="certs/ca.crt" \
+  --from-file=ca-api.crt="certs/ca-api.crt" \
+  --from-file=ca-otlp.crt="certs/ca-otlp.crt" \
+  --from-file=server.crt="certs/server.crt" \
+  --from-file=server.key="certs/server.key" \
+  --from-file=api.crt="certs/api.crt" \
+  --from-file=api.key="certs/api.key" \
+  -n <var>NAMESPACE</var> \
+  --context <var>CONTEXT</var>
+```
+
+### Create the administrator password secret
+
+Starting with Helm chart version 2.0.0, when you create a deployment with TLS encryption, `helm install` fails unless `deployment.adminPasswordSecret` names a Kubernetes secret that contains the initial `admin` user password under the `password` key. For each cluster, create the secret, and set `deployment.adminPasswordSecret` in your Helm configuration file or with `--set deployment.adminPasswordSecret=spanner-admin-password` :
+
+```
+# Repeat for each context (for example, ctx-usw1, ctx-usw2, ctx-usw3)
+# Replace NAMESPACE with the appropriate namespace for each region
+
+kubectl create secret generic spanner-admin-password \
+  --from-file=password=admin_password.txt \
+  -n <var>NAMESPACE</var> \
+  --context <var>CONTEXT</var>
+```
+
+For the password requirements and how to create `admin_password.txt` , see [Push the certificates, wrapper keyset, and administrator password to the Kubernetes cluster](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes#push-certs) .
+
 ## Install a Helm chart for each cluster
 
 Create a Helm configuration. For more information, see [Create a Helm configuration](https://docs.cloud.google.com/spanner-omni/create-helm-configuration) .
@@ -153,6 +192,15 @@ Before you install Helm for each cluster, create the monitoring namespace on the
 kubectl create namespace monitoring --context ctx-usw1
 ```
 
+In a deployment with TLS encryption, also push the trace collector certificate to a TLS secret named `jaeger-tls` in the monitoring namespace of that cluster:
+
+```
+kubectl create secret tls jaeger-tls -n monitoring --context ctx-usw1 \
+  --cert=otlp-certs/collector.crt --key=otlp-certs/collector.key
+```
+
+Starting with Helm chart version 2.0.0, in deployments with TLS encryption, the Jaeger collector serves TLS by default, and `helm install` fails if this secret doesn't exist. Only the servers in the cluster where you install the chart with `monitoring.enabled=true` export traces to this Jaeger collector. Servers in the other clusters export traces only if you set `deployment.traceExporterEndpoint` for them. For more information, see [Export traces over TLS](https://docs.cloud.google.com/spanner-omni/monitoring-overview#export-traces-tls) .
+
 ### Helm chart install command examples
 
 The following commands install a Helm chart on clusters. In each command, ` PATH_TO_HELM_CONFIG_FILE ` is the path to the Helm chart configuration YAML file that you created for your deployment.
@@ -160,7 +208,7 @@ The following commands install a Helm chart on clusters. In each command, ` PATH
 #### Install a chart in `us-west1` with monitoring enabled
 
 ```
-helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.1.0 \
+helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 2.0.0 \
   -f PATH_TO_HELM_CONFIG_FILE \
   --namespace spanner-ns-usw1 \
   --set currentLocation=us-west1 \
@@ -172,7 +220,7 @@ helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/
 #### Install a chart in `us-west2` without monitoring
 
 ```
-helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.1.0 \
+helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 2.0.0 \
   -f  PATH_TO_HELM_CONFIG_FILE \
   --namespace spanner-ns-usw2 \
   --set currentLocation=us-west2 \
@@ -183,7 +231,7 @@ helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/
 #### Install a chart in `us-west3` without monitoring
 
 ```
-helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 1.1.0 \
+helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni --version 2.0.0 \
   -f  PATH_TO_HELM_CONFIG_FILE \
   --namespace spanner-ns-usw3 \
   --set currentLocation=us-west3 \

@@ -44,6 +44,7 @@ You must create two separate certificate authorities (CAs) to isolate internal i
 
 - **Internal server CA ( `ca.crt` )** : issues server certificates ( `server.crt` ) used exclusively for internal mTLS communication between Spanner Omni servers.
 - **API and client CA ( `ca-api.crt` )** : issues the API server certificate ( `api.crt` ) and client mTLS certificates ( `client.crt` ). Alternatively, you can use an externally trusted CA or your organization's CA for the API and client certificates.
+- **Trace collector CA ( `ca-otlp.crt` )** : verifies the TLS certificate of a remote trace collector. You need this CA only if you export traces to a remote collector, including the Jaeger collector that the Helm chart installs with `monitoring.enabled=true` .
 
 > **Caution:** Keep the internal server CA ( `ca.crt` ) separate from the API and client CA ( `ca-api.crt` ). Don't sign client certificates with the internal server CA ( `ca.crt` ), because Spanner Omni servers trust certificates signed by `ca.crt` for internal inter-server communication.
 
@@ -66,7 +67,20 @@ You must create two separate certificate authorities (CAs) to isolate internal i
 
     These commands create the API and client CA certificate ( `api-certs/ca.crt` , copied to `certs/ca-api.crt` ) and write its private key to `$HOME/.spanner/api-private-keys/ca.key` .
 
-Back up and secure both `$HOME/.spanner/private-keys` and `$HOME/.spanner/api-private-keys` . Users with access to these private keys can sign arbitrary certificates that the deployment trusts.
+3.  If you export traces to a remote trace collector, including the Jaeger collector that the Helm chart installs with `monitoring.enabled=true` , create a separate CA for the trace collector, and copy its CA certificate to `certs/ca-otlp.crt` :
+
+    ```
+    ./google/spanner/bin/spanner certificates create-ca \
+        --ca-certificate-directory=otlp-certs \
+        --ca-private-key-directory=$HOME/.spanner/otlp-private-keys
+    cp otlp-certs/ca.crt certs/ca-otlp.crt
+    ```
+
+    These commands create the trace collector CA certificate ( `otlp-certs/ca.crt` , copied to `certs/ca-otlp.crt` ) and write its private key to `$HOME/.spanner/otlp-private-keys/ca.key` . Servers use `ca-otlp.crt` only to verify the collector. Alternatively, you can use the CA that issued your collector's existing certificate as `ca-otlp.crt` .
+
+    Don't use the internal server CA ( `ca.crt` ) as `ca-otlp.crt` , and don't issue the collector's certificate with it. Servers accept clients that present a certificate issued by `ca.crt` , so a collector with such a certificate could call internal services.
+
+Back up and secure `$HOME/.spanner/private-keys` , `$HOME/.spanner/api-private-keys` , and, if you created a trace collector CA, `$HOME/.spanner/otlp-private-keys` . Users with access to these private keys can sign arbitrary certificates that the deployment trusts.
 
 ### 2. Generate server certificates
 
@@ -105,6 +119,23 @@ OMNI_ENDPOINT=spanner.NAMESPACE.svc
 ```
 
 This command creates `api.crt` and `api.key` in the `certs` directory. If necessary, use an externally trusted CA for the API certificates.
+
+#### Create the trace collector certificate
+
+If you created a trace collector CA, create the collector's TLS certificate using the trace collector CA:
+
+```
+./google/spanner/bin/spanner certificates create-server \
+    --filename-prefix=collector \
+    --hostnames=COLLECTOR_HOST \
+    --ca-certificate-directory=otlp-certs \
+    --ca-private-key-directory=$HOME/.spanner/otlp-private-keys \
+    --output-directory=otlp-certs
+```
+
+Replace ` COLLECTOR_HOST ` with the hostname of the collector in the trace exporter endpoint. For the Jaeger collector that the Helm chart installs with `monitoring.enabled=true` , use `jaeger.monitoring.svc.cluster.local` . If the endpoint uses an IP address, such as the node IP address of a DaemonSet collector, specify the IP address; `--hostnames` adds IP addresses to the certificate as IP subject alternative names.
+
+This command creates `collector.crt` and `collector.key` in the `otlp-certs` directory. Use them to enable TLS on the collector, as described in [Export traces over TLS](https://docs.cloud.google.com/spanner-omni/monitoring-overview#export-traces-tls) . For the Jaeger collector that the Helm chart installs, push them to the `jaeger-tls` secret in [Step 2](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes#push-certs) . Servers don't need these files, so don't add them to the `tls-certs` secret.
 
 ### 3. Generate client certificates
 
@@ -170,7 +201,31 @@ Run the following commands to create the namespace and push the certificates, wr
       -n NAMESPACE
     ```
 
-3.  Push the wrapper keyset to a secret ( `wrapper-key` ), which is mounted at `/spanner/kms` in each server pod:
+    If you created a trace collector CA, include `ca-otlp.crt` in the secret instead. Each server pod reads `ca-otlp.crt` from the `tls-certs` secret, which is mounted at `/spanner/tls` :
+
+    ```
+    kubectl create secret generic tls-certs \
+      --from-file=ca.crt="certs/ca.crt" \
+      --from-file=ca-api.crt="certs/ca-api.crt" \
+      --from-file=ca-otlp.crt="certs/ca-otlp.crt" \
+      --from-file=server.crt="certs/server.crt" \
+      --from-file=server.key="certs/server.key" \
+      --from-file=api.crt="certs/api.crt" \
+      --from-file=api.key="certs/api.key" \
+      -n NAMESPACE
+    ```
+
+3.  If you install the Helm chart with `monitoring.enabled=true` , as in [Step 3](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes#create-secure-deployment) , push the trace collector certificate to a TLS secret named `jaeger-tls` in the `monitoring` namespace:
+
+    ```
+    kubectl create namespace monitoring
+    kubectl create secret tls jaeger-tls -n monitoring \
+      --cert=otlp-certs/collector.crt --key=otlp-certs/collector.key
+    ```
+
+    Starting with Helm chart version 2.0.0, in deployments with TLS encryption, the Jaeger collector serves TLS by default, and `helm install` fails if this secret doesn't exist. For more information, see [Export traces over TLS](https://docs.cloud.google.com/spanner-omni/monitoring-overview#export-traces-tls) .
+
+4.  Push the wrapper keyset to a secret ( `wrapper-key` ), which is mounted at `/spanner/kms` in each server pod:
 
     ```
     kubectl create secret generic wrapper-key \
@@ -178,7 +233,7 @@ Run the following commands to create the namespace and push the certificates, wr
       -n NAMESPACE
     ```
 
-4.  Create a password file containing the password for the default `admin` user, with restricted permissions (readable only by its owner, permissions 600):
+5.  Create a password file containing the password for the default `admin` user, with restricted permissions (readable only by its owner, permissions 600):
 
     ```
     printf '%s' 'PASSWORD' > admin_password.txt
@@ -193,7 +248,7 @@ Run the following commands to create the namespace and push the certificates, wr
     - At least one number.
     - At least one special character.
 
-5.  Create a secret for the administrator password:
+6.  Create a secret for the administrator password:
 
     ```
     kubectl create secret generic spanner-admin-password \
@@ -228,8 +283,6 @@ deployment:
 Run the following command to create the deployment:
 
 ```
-kubectl create ns monitoring
-
 helm upgrade --install spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-omni \
   --version VERSION \
   --set global.platform=gke \
@@ -378,6 +431,8 @@ kubectl get service prometheus-service -n monitoring
 # Grafana service details. Default port is 3000.
 kubectl get service grafana -n monitoring
 ```
+
+> **Caution:** In a deployment with TLS encryption, servers export traces to remote collectors, including the Jaeger collector that the Helm chart installs with `monitoring.enabled=true` , only over TLS. To keep receiving traces, follow the steps in [Export traces over TLS](https://docs.cloud.google.com/spanner-omni/monitoring-overview#export-traces-tls) .
 
 ## What's next
 

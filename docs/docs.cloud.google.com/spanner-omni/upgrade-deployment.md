@@ -66,7 +66,7 @@ In VM deployments, download and extract the target release package, and then use
 
     Replace the following:
 
-    - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r5` .
+    - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r5.2` .
     - `EXTRACT_DIR` : The directory where you extract the release package, for example, `/tmp/target_spanner/` .
 
 3.  Initiate rollout preparation by running the `rollouts prepare` command from the extracted CLI:
@@ -104,7 +104,7 @@ In Helm deployments, schema preparation depends on whether you run a multi-serve
 
   - `POD_NAME` : The name of the server pod, for example, `spanner-a-0` .
   - `NAMESPACE` : The Kubernetes namespace of the deployment, for example, `spanner-ns` .
-  - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r5` .
+  - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r5.2` .
 
 ### Standalone Kubernetes
 
@@ -152,7 +152,7 @@ If you deploy Spanner Omni on Kubernetes without Helm, run a standalone Kubernet
     Replace the following:
 
     - `NAMESPACE` : The Kubernetes namespace of the deployment, for example, `spanner-ns` .
-    - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r5` .
+    - `TARGET_VERSION` : The target version to upgrade to, for example, `2026.r5.2` .
     - `ROOT_SERVER_ENDPOINT` : The endpoint of an active root server pod, for example, `spanner-a-0.pod.spanner-ns` .
 
 2.  Apply the manifest to run the preparation job:
@@ -240,6 +240,8 @@ In VM deployments, update the `spanner_server` binary across all VMs using a rol
 
 In Helm deployments, run `helm upgrade` while preserving your existing configuration values by passing `--reuse-values` or providing a values file:
 
+> **Caution:** Helm chart version 2.0.0 is a major version that requires Spanner Omni release `2026.r4-lts.3` or later. With earlier releases, use Helm chart version 1.x. In a deployment with TLS encryption that uses the Jaeger collector that the Helm chart installs with `monitoring.enabled=true` , the Jaeger collector serves TLS by default, and `helm upgrade` fails if the `jaeger-tls` secret doesn't exist. Before you upgrade to Helm chart version 2.0.0, create the `jaeger-tls` secret and add `ca-otlp.crt` to the `tls-certs` secret. For more information, see [Export traces over TLS](https://docs.cloud.google.com/spanner-omni/monitoring-overview#export-traces-tls) and [Upgrading to chart 2.0.0](https://github.com/GoogleCloudPlatform/spanner-omni#upgrading-to-chart-200) . Helm chart version 2.0.0 also requires `deployment.adminPasswordSecret` when you create a new deployment with TLS encryption, but not when you upgrade an existing deployment. For more information, see [Push the certificates, wrapper keyset, and administrator password to the Kubernetes cluster](https://docs.cloud.google.com/spanner-omni/deploy-encryption-kubernetes#push-certs) .
+
 - **Multi-server deployments (Production / HA)** :
 
   ```
@@ -269,9 +271,9 @@ In Helm deployments, run `helm upgrade` while preserving your existing configura
 
 Replace the following:
 
-- `CHART_VERSION` : The target Helm chart version, for example, `1.1.0` .
+- `CHART_VERSION` : The target Helm chart version, for example, `2.0.0` .
 - `NAMESPACE` : The Kubernetes namespace of the deployment, for example, `spanner-ns` .
-- `TARGET_VERSION` : The target container image tag, for example, `2026.r5` .
+- `TARGET_VERSION` : The target container image tag, for example, `2026.r5.2` .
 
 ### Standalone Kubernetes
 
@@ -439,7 +441,7 @@ helm upgrade spanner-omni oci://us-docker.pkg.dev/spanner-omni/charts/spanner-om
 
 Replace the following:
 
-- `CHART_VERSION` : The Helm chart version, for example, `1.1.0` .
+- `CHART_VERSION` : The Helm chart version that you used with `SOURCE_VERSION` . Helm chart version 2.0.0 requires Spanner Omni release `2026.r4-lts.3` or later. To roll back to an earlier release, use Helm chart version 1.x.
 - `NAMESPACE` : The Kubernetes namespace of the deployment, for example, `spanner-ns` .
 - `SOURCE_VERSION` : The earlier container image tag to revert to, for example, `2026.r2-beta.3` .
 

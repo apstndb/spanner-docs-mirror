@@ -1,2 +1,1 @@
-200 https://docs.cloud.google.com/spanner/docs/queues/queues-in-order
 404 https://docs.cloud.google.com/spanner/docs/getting-started/rust

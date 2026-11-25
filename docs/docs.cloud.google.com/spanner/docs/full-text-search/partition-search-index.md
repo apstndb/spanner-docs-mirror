@@ -10,6 +10,8 @@ data_source: docs.cloud.google.com
 
 Spanner supports both unpartitioned and partitioned [search indexes](https://docs.cloud.google.com/spanner/docs/full-text-search/search-indexes) . This page describes how to create a partitioned search index in Spanner.
 
+## Overview
+
 An unpartitioned index is created when the `PARTITION BY` clause is omitted in the index definition. In an unpartitioned index, a query needs to read from all the index splits. This limits the potential scalability of full-text search queries.
 
 Partitioned indexes, on the other hand, subdivide the index into smaller units, one for each unique partition. Queries can only search within a single partition at a time, specified by an equality condition in the `WHERE` clause. Queries against partitioned indexes are generally more efficient than queries against unpartitioned indexes because Spanner only needs to read data for a single partition. Partitioning the search index is analogous to the key prefix of a secondary index.
@@ -56,7 +58,7 @@ ON albums(albumtitle_tokens)
 PARTITION BY singerid;
 ```
 
-The following query selects the `AlbumsIndexBySingerId` index because it only searches data for a single singer. This type of query typically uses fewer resources.
+To use a partitioned search index, a search query must specify `WHERE` conditions on all `PARTITION BY` columns. The following query selects the `AlbumsIndexBySingerId` index because it only searches data for a single singer:
 
 ### GoogleSQL
 
@@ -99,6 +101,125 @@ WHERE spanner.search(albumtitle_tokens, 'piano concerto 1')
 The general recommendation is to use the finest granularity of partitioning that's practical and appropriate for the query. For example, if the application queries an email mailbox where each query is restricted to a specific mailbox, partition the search index on the mailbox ID. However, if the query needs to search through all mailboxes, an unpartitioned index is a better fit.
 
 Certain applications might require multiple partitioning strategies to accommodate their specific search requirements. For example, an inventory management system might need to support queries filtered by product type or manufacturer. Additionally, some applications might need multiple presorts, such as sorting by creation or modification time. In these scenarios, it's recommended that you create multiple search indexes, each optimized for the corresponding queries. The Spanner [query optimizer](https://docs.cloud.google.com/spanner/docs/query-optimizer/overview) automatically selects an index for each query.
+
+## Partition by scalar values
+
+You can partition a search index by column values in the base table. In the [Overview](https://docs.cloud.google.com/spanner/docs/full-text-search/partition-search-index#overview) example, the search index `AlbumsIndexBySingerId` is partitioned by the `SingerId` column. You can also partition a search index by multiple columns:
+
+### GoogleSQL
+
+```
+CREATE SEARCH INDEX AlbumsIndexBySingerAndRelease
+ON Albums(AlbumTitle_Tokens)
+PARTITION BY SingerId, ReleaseTimestamp;
+```
+
+### PostgreSQL
+
+```
+CREATE SEARCH INDEX albumsindexbysingerandrelease
+ON albums(albumtitle_tokens)
+PARTITION BY singerid, releasetimestamp;
+```
+
+## Partition by repeated values
+
+> **Note:** The examples in this section are intended for GoogleSQL. PostgreSQL doesn't support search indexes partitioned by repeated values.
+
+In addition to partitioning by scalar values, Spanner also supports search indexes that are partitioned by repeated values, such as an array of scalar values.
+
+To create a search index partitioned by repeated values, you must specify the `UNNEST` clause in the [`CREATE SEARCH INDEX`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language#create-search-index) statement. The `UNNEST` clause indicates that the search index is partitioned by each element in the repeated value, rather than the repeated value itself.
+
+Like indexes partitioned by scalar values, a query must have `WHERE` conditions that specify values for all `PARTITION BY` columns. You can specify the conditions using the [`ARRAY_INCLUDES`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes) , [`ARRAY_INCLUDES_ANY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes_any) , or [`ARRAY_INCLUDES_ALL`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes_all) functions in GoogleSQL.
+
+Using the GoogleSQL [`ARRAY_INCLUDES_ANY`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_includes_any) function might result in searching across multiple partitions, which might not yield the best performance.
+
+### Partition by array columns
+
+You can partition a search index by an array column. For example, consider the following `Albums` table schema with the `Tracks` array column:
+
+```
+  CREATE TABLE Albums (
+    AlbumId STRING(MAX) NOT NULL,
+    SingerId STRING(MAX) NOT NULL,
+    ReleaseTimestamp INT64 NOT NULL,
+    AlbumTitle STRING(MAX),
+    AlbumTitle_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(AlbumTitle)) HIDDEN,
+    Tracks ARRAY<STRING(MAX)>
+  ) PRIMARY KEY(SingerId, AlbumId);
+```
+
+You can create a search index on `AlbumTitle_Tokens` partitioned by the `Tracks` column:
+
+```
+  CREATE SEARCH INDEX AlbumsByTracks
+  ON Albums(AlbumTitle_Tokens)
+  UNNEST (Tracks) AS Track
+  PARTITION BY Track;
+```
+
+The following query uses the `AlbumsByTracks` search index:
+
+```
+  SELECT AlbumId
+  FROM Albums
+  WHERE ARRAY_INCLUDES(Tracks, 'first')
+  AND SEARCH(AlbumTitle_Tokens, 'happy')
+```
+
+### Partition by repeated proto fields
+
+In GoogleSQL, you can use [generated columns](https://docs.cloud.google.com/spanner/docs/generated-column/how-to) and the [`ARRAY_TRANSFORM`](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/array_functions#array_transform) function to partition a search index by repeated fields in protocol buffers stored in `PROTO` columns.
+
+For example, suppose you have the following definition of the `googlesql.example.SingerInfo` protocol buffer:
+
+```
+package googlesql.example;
+
+message SingerInfo {
+  optional string    nationality = 1;
+  repeated Residence residence   = 2;
+
+  message Residence {
+    required int64  start_year   = 1;
+    optional int64  end_year     = 2;
+    optional string city         = 3;
+    optional string country      = 4;
+  }
+}
+```
+
+To partition a search index on a `Singers` table by the `city` field of the repeated `residence` field in `SingerInfo` , first create a `STORED` generated column `ResidenceCities` using `ARRAY_TRANSFORM` :
+
+```
+CREATE PROTO BUNDLE (googlesql.example.SingerInfo, googlesql.example.SingerInfo.Residence);
+
+CREATE TABLE Singers (
+  SingerId INT64 NOT NULL,
+  FirstName STRING(MAX),
+  FirstName_Tokens TOKENLIST AS (TOKENIZE_FULLTEXT(FirstName)) HIDDEN,
+  SingerInfo googlesql.example.SingerInfo,
+  ResidenceCities ARRAY<STRING(MAX)> AS (ARRAY_TRANSFORM(SingerInfo.residence, r -> r.city)) STORED
+) PRIMARY KEY (SingerId);
+```
+
+Then create a search index partitioned by `ResidenceCities` :
+
+```
+CREATE SEARCH INDEX SingersByResidenceCity
+ON Singers(FirstName_Tokens)
+UNNEST(ResidenceCities) AS City
+PARTITION BY City;
+```
+
+The following query uses the `SingersByResidenceCity` search index:
+
+```
+SELECT SingerId, FirstName
+FROM Singers
+WHERE ARRAY_INCLUDES(ResidenceCities, 'Seattle')
+AND SEARCH(FirstName_Tokens, 'John')
+```
 
 ## What's next
 

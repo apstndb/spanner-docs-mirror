@@ -6,11 +6,15 @@ description: Use common patterns and code examples for Spanner queues, including
 data_source: docs.cloud.google.com
 ---
 
-This document provides architectural patterns and code examples for common messaging scenarios using Spanner queues. You can use these patterns to trigger asynchronous work after transactions commit, schedule delayed or recurring tasks, manage large message payloads with out-of-band storage, coordinate multi-event workflows, and checkpoint or extend leases for long-running background jobs.
+This document provides architectural patterns and code examples for common messaging scenarios using Spanner queues. You can use these patterns to trigger asynchronous work after transactions commit, schedule delayed or recurring tasks, manage large message payloads with out-of-band storage, coordinate multi-event workflows, checkpoint or extend leases for long-running background jobs, and process messages in order per entity.
 
 ## Exactly-once processing and at-most-once acknowledgment
 
 The various considerations and solutions for exactly-once processing and at-most-once acknowledgment are described in more detail on the [Exactly-once processing and at-most-once acknowledgment](https://docs.cloud.google.com/spanner/docs/queues/queues-at-most-once) page.
+
+## Process messages in order per entity
+
+The considerations and patterns for processing messages in order per entity are described in more detail on the [Process messages in order per entity](https://docs.cloud.google.com/spanner/docs/queues/queues-in-order) page.
 
 ## Perform work after a transaction commits
 
@@ -635,4 +639,5 @@ This approach allows your application to precisely manage backoff schedules and 
 
 - Learn how to [use Spanner queues, including best practices and monitoring](https://docs.cloud.google.com/spanner/docs/queues/queues-using) .
 - Learn about [exactly-once processing and at-most-once acknowledgment](https://docs.cloud.google.com/spanner/docs/queues/queues-at-most-once) .
+- Learn how to [process messages in order per entity](https://docs.cloud.google.com/spanner/docs/queues/queues-in-order) .
 - Configure access control with [fine-grained access control for queues](https://docs.cloud.google.com/spanner/docs/fgac-queues) .

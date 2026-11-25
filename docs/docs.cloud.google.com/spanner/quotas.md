@@ -203,7 +203,7 @@ A [Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-
 | Value                                                                                                                                  | Limit                |
 |----------------------------------------------------------------------------------------------------------------------------------------|----------------------|
 | Columns in a `GROUP BY` clause                                                                                                         | 1,000                |
-| Values in an `IN` operator                                                                                                             | 10,000               |
+| Values in an `IN` operator <sup>[11](https://docs.cloud.google.com/spanner/quotas#note11)</sup>                                        | 10,000               |
 | Function calls                                                                                                                         | 1,000                |
 | Joins                                                                                                                                  | 20                   |
 | Nested function calls                                                                                                                  | 75                   |
@@ -211,7 +211,7 @@ A [Spanner free trial instance](https://docs.cloud.google.com/spanner/docs/free-
 | Nested subquery expressions                                                                                                            | 25                   |
 | Nested subselect statements                                                                                                            | 60                   |
 | Joins produced by a graph query                                                                                                        | 100                  |
-| Parameters                                                                                                                             | 950                  |
+| Parameters                                                                                                                             | 10,000               |
 | Query statement length                                                                                                                 | 1 million characters |
 | `STRUCT` fields                                                                                                                        | 1,000                |
 | Subquery expression children                                                                                                           | 50                   |
@@ -324,3 +324,5 @@ Change streams don't add any mutations that count towards this limit.
 For example, if you have a table with 2 primary key columns and 1 generated column, inserting a single row (by providing values for the 2 primary key columns) counts as 5 mutations:
 
 - 2 (for the explicitly written columns) + 1 (for the generated column) + 2 (for the primary keys).
+
+11\. This limit applies to values that you list explicitly in an `IN` operator, such as `IN (1, 2, 3)` , or in a PostgreSQL array constructor, such as `= ANY(ARRAY[1, 2, 3])` . This limit doesn't apply to a bound array parameter, such as `IN UNNEST(@array_param)` (GoogleSQL) or `= ANY($1)` (PostgreSQL). The array counts as one parameter toward the [Parameters limit](https://docs.cloud.google.com/spanner/quotas#query-limits) , and Spanner expands its elements at runtime. The [request size limit](https://docs.cloud.google.com/spanner/quotas#request-limits) bounds the number of array elements. For more information, see [Optimize range key lookups](https://docs.cloud.google.com/spanner/docs/sql-best-practices#optimize-range-lookups) .

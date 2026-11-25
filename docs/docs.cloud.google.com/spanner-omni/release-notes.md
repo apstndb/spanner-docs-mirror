@@ -10,6 +10,24 @@ This page documents production updates to Spanner Omni. Check this page for anno
 
 You can see the latest product updates for all of Google Cloud on the [Google Cloud](https://docs.cloud.google.com/release-notes) page, browse and filter all release notes in the [Google Cloud console](https://console.cloud.google.com/release-notes) , or programmatically access release notes in [BigQuery](https://console.cloud.google.com/bigquery?p=bigquery-public-data&d=google_cloud_release_notes&t=release_notes&page=table) .
 
+## November 20, 2026
+
+Breaking
+
+Starting with Spanner Omni patch release `2026.r4-lts.3` , servers in a deployment with TLS encryption export traces to a remote trace collector only over TLS. Previously, servers sent traces to remote collectors in plaintext.
+
+This change affects deployments with TLS encryption that export traces to a collector that isn't reached through a Unix domain socket. This includes collectors on `localhost` , a loopback IP address, or the Kubernetes node IP address, and the Jaeger collector that the Helm chart installs with `monitoring.enabled=true` . On VMs, you set the collector with the `SPANNER_TRACE_EXPORTER_ENDPOINT` environment variable. On Kubernetes, you set it with the `deployment.traceExporterEndpoint` Helm value, or the Helm chart sets it to its Jaeger collector. These deployments stop exporting traces, and the `opentelemetry_dropped_spans` metric counts the dropped traces.
+
+To continue exporting traces, enable TLS on the collector, add the CA certificate that issued the collector's certificate as `ca-otlp.crt` (to the server certificate directory on VMs, or to the `tls-certs` secret on Kubernetes), and restart the servers.
+
+For the Jaeger collector that the Helm chart installs, use Helm chart version 2.0.0 or later, and create a `jaeger-tls` secret with the collector's certificate and key in the `monitoring` namespace. Helm chart version 2.0.0 is a breaking change:
+
+- In deployments with TLS encryption, the Jaeger collector serves TLS by default, and `helm install` and `helm upgrade` fail if the `jaeger-tls` secret doesn't exist.
+- When you create a new deployment with TLS encryption, `helm install` fails unless `deployment.adminPasswordSecret` names a Kubernetes secret that contains the initial `admin` user password. Upgrades of existing deployments don't need this secret.
+- Helm chart version 2.0.0 requires Spanner Omni release `2026.r4-lts.3` or later. With earlier releases, use Helm chart version 1.x.
+
+For more information, see [Export traces over TLS](https://docs.cloud.google.com/spanner-omni/monitoring-overview#export-traces-tls) and [Upgrade a deployment](https://docs.cloud.google.com/spanner-omni/upgrade-deployment) .
+
 ## October 29, 2026
 
 Feature

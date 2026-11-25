@@ -78,6 +78,8 @@ Say goodbye to data inconsistencies and the complexities of managing them. Spann
 
 Trust your data to a secure and compliant platform with Spanner. Enjoy centralized administration and control with [Database Center](https://cloud.google.com/database-center/docs/overview), simplifying your cloud database management. Spanner offers enterprise-grade security and controls, including data encryption at rest and in transit, granular access management through [Identity and Access Management (IAM)](https://cloud.google.com/spanner/docs/iam), and compliance with industry standards. Protect your data further with robust [backup](https://cloud.google.com/spanner/docs/backup) and restore capabilities, including [point-in-time recovery](https://cloud.google.com/spanner/docs/pitr) for operational peace of mind.
 
+[analyst report dsfhgjtggdfs sdffgh](https://cloud.google.com/%27%27)
+
 Database comparison
 
 | Database attribute | Other Relational DB                                  | Other Non-relational DB        | Spanner                                                      |

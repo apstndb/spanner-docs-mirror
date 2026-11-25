@@ -285,6 +285,8 @@ Configure alerts using the Grafana UI or configuration files. For example, you c
 
 Collect distributed tracing information in OTLP format and visualize it with tools like [Jaeger](https://www.jaegertracing.io/) .
 
+> **Note:** In a [deployment with TLS encryption](https://docs.cloud.google.com/spanner-omni/deploy-encryption-vms) , servers export traces to a remote collector only over TLS. For more information, see [Export traces over TLS](https://docs.cloud.google.com/spanner-omni/monitoring-overview#export-traces-tls) .
+
 1.  Set up an OTLP-compatible trace collector. For Jaeger:
 
     ```

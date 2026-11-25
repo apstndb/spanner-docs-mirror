@@ -52,6 +52,7 @@ You must create two separate certificate authorities (CAs) to isolate internal i
 
 - **Internal server CA ( `ca.crt` )** : issues server certificates ( `server.crt` ) used exclusively for internal mTLS communication between Spanner Omni servers.
 - **API and client CA ( `ca-api.crt` )** : issues the API server certificate ( `api.crt` ) and client mTLS certificates ( `client.crt` ). Alternatively, you can use an externally trusted CA for the API and client certificates.
+- **Optional: Trace collector CA ( `ca-otlp.crt` )** : verifies the TLS certificate of a remote trace collector. You need this CA only if you export traces to a remote collector.
 
 > **Caution:** Keep the internal server CA ( `ca.crt` ) separate from the API and client CA ( `ca-api.crt` ). Don't sign client certificates with the internal server CA ( `ca.crt` ), because Spanner Omni servers trust certificates signed by `ca.crt` for internal inter-server communication.
 
@@ -74,7 +75,20 @@ You must create two separate certificate authorities (CAs) to isolate internal i
 
     These commands create the API and client CA certificate ( `api-certs/ca.crt` , copied to `certs/ca-api.crt` ) and write its private key to `$HOME/.spanner/api-private-keys/ca.key` .
 
-Back up and secure both `$HOME/.spanner/private-keys` and `$HOME/.spanner/api-private-keys` . A user with access to these private keys can sign arbitrary certificates that the deployment trusts.
+3.  Optional: If you export traces to a remote trace collector, create a separate CA for the trace collector, and copy its CA certificate to `certs/ca-otlp.crt` :
+
+    ```
+    spanner certificates create-ca \
+        --ca-certificate-directory=otlp-certs \
+        --ca-private-key-directory=$HOME/.spanner/otlp-private-keys
+    cp otlp-certs/ca.crt certs/ca-otlp.crt
+    ```
+
+    These commands create the trace collector CA certificate ( `otlp-certs/ca.crt` , copied to `certs/ca-otlp.crt` ) and write its private key to `$HOME/.spanner/otlp-private-keys/ca.key` . Servers use `ca-otlp.crt` only to verify the collector. Alternatively, you can use the CA that issued your collector's existing certificate as `ca-otlp.crt` .
+
+    Don't use the internal server CA ( `ca.crt` ) as `ca-otlp.crt` , and don't issue the collector's certificate with it. Servers accept clients that present a certificate issued by `ca.crt` , so a collector with such a certificate could call internal services.
+
+Back up and secure `$HOME/.spanner/private-keys` , `$HOME/.spanner/api-private-keys` , and, if you created a trace collector CA, `$HOME/.spanner/otlp-private-keys` . A user with access to these private keys can sign arbitrary certificates that the deployment trusts.
 
 ### Generate server certificates
 
@@ -120,6 +134,23 @@ spanner certificates create-server \
 Replace ` LB_DNS ` with the DNS hostname of the load balancer.
 
 This command creates two more files, `api.crt` and `api.key` , in the `certs` directory. If required, you can use an externally trusted CA for the API certificates.
+
+#### Optional: Create the trace collector certificate
+
+If you created a trace collector CA, create the collector's TLS certificate using the trace collector CA:
+
+```
+spanner certificates create-server \
+    --filename-prefix=collector \
+    --hostnames=COLLECTOR_HOST \
+    --ca-certificate-directory=otlp-certs \
+    --ca-private-key-directory=$HOME/.spanner/otlp-private-keys \
+    --output-directory=otlp-certs
+```
+
+Replace ` COLLECTOR_HOST ` with the hostname of the collector in the trace exporter endpoint. If the endpoint uses an IP address, specify the IP address; `--hostnames` adds IP addresses to the certificate as IP subject alternative names.
+
+This command creates `collector.crt` and `collector.key` in the `otlp-certs` directory. Use them to enable TLS on the collector, as described in [Export traces over TLS](https://docs.cloud.google.com/spanner-omni/monitoring-overview#export-traces-tls) . Servers don't need these files, so don't copy them to the `certs` directory.
 
 #### Distribute the certificates to all servers
 
