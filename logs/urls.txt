@@ -210,7 +210,7 @@ https://docs.cloud.google.com/spanner/docs/create-manage-partitions	2026-10-29T0
 https://docs.cloud.google.com/spanner/docs/create-manage-saved-queries	2026-11-12T13:52:50Z
 https://docs.cloud.google.com/spanner/docs/create-manage-split-points	2026-10-29T00:26:59Z
 https://docs.cloud.google.com/spanner/docs/create-manage-views	2026-11-10T22:00:52Z
-https://docs.cloud.google.com/spanner/docs/create-query-database-console	2026-11-18T00:27:37Z
+https://docs.cloud.google.com/spanner/docs/create-query-database-console	2026-11-25T23:58:49Z
 https://docs.cloud.google.com/spanner/docs/cuds	2026-10-29T00:26:59Z
 https://docs.cloud.google.com/spanner/docs/custom-timeout-and-retry	2026-11-18T21:22:40Z
 https://docs.cloud.google.com/spanner/docs/cutover-fallback	2026-10-12T21:46:24Z
@@ -364,7 +364,7 @@ https://docs.cloud.google.com/spanner/docs/labels	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/labs	2026-11-12T13:52:49Z
 https://docs.cloud.google.com/spanner/docs/langchain	2026-10-07T09:39:33Z
 https://docs.cloud.google.com/spanner/docs/latency-metrics	2026-10-07T09:39:33Z
-https://docs.cloud.google.com/spanner/docs/latency-points	2026-11-17T17:51:58Z
+https://docs.cloud.google.com/spanner/docs/latency-points	2026-11-25T17:26:20Z
 https://docs.cloud.google.com/spanner/docs/launch-checklist	2026-10-14T19:25:09Z
 https://docs.cloud.google.com/spanner/docs/leader-aware-routing	2026-11-02T23:55:26Z
 https://docs.cloud.google.com/spanner/docs/llama-index	2026-10-01T01:22:58Z
@@ -701,8 +701,8 @@ https://docs.cloud.google.com/spanner/docs/reference/standard-sql/compression-fu
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conditional_expressions	2026-10-08T18:27:29Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_functions	2026-10-10T21:29:04Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/conversion_rules	2026-10-28T00:26:28Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language	2026-11-24T20:11:35Z
-https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types	2026-10-08T19:54:18Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-definition-language	2026-11-25T20:53:36Z
+https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types	2026-11-26T01:25:07Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/date_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/debugging_functions	2026-10-01T01:23:56Z
 https://docs.cloud.google.com/spanner/docs/reference/standard-sql/dml-syntax	2026-10-01T01:23:56Z

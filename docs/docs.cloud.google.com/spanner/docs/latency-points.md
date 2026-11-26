@@ -34,7 +34,10 @@ Application traffic that meets certain criteria can be routed directly to Spanne
 
 - Running on Compute Engine or Google Kubernetes Engine.
 - Use the [**global endpoint**](https://docs.cloud.google.com/spanner/docs/endpoints) .
-- In a network configured with routes and firewall rules that allow egress traffic to reach `34.126.0.0/18` and `2001:4860:8040::/42` .
+- In a network configured with routes and firewall rules that allow egress traffic to reach the following destinations:
+  - Your network has routes and firewall rules that allow any IPv4 egress traffic to reach `34.126.0.0/18` and any IPv6 egress traffic to reach `2001:4860:8040::/42` . Don't restrict the destination ports in firewall rules for these ranges, because direct connectivity doesn't use a fixed port.
+  - `spanner.googleapis.com` and `directpath-pa.googleapis.com` on TCP port
+  - The client library uses these endpoints for route lookups, server discovery, and fallback to the GFE.
 - Uses the client library versions:
   - **Java** : 6.111.0 or later.
   - **Go** : 1.88.0 or later.
@@ -42,7 +45,11 @@ Application traffic that meets certain criteria can be routed directly to Spanne
 
 This feature can be enabled by setting the `GOOGLE_SPANNER_ENABLE_DIRECT_ACCESS` environment variable to `true` or through your client library configuration ( [`setEnableDirectAccess(true)`](https://docs.cloud.google.com/java/docs/reference/google-cloud-spanner/latest/com.google.cloud.spanner.SpannerOptions.Builder#com_google_cloud_spanner_SpannerOptions_Builder_setEnableDirectAccess_boolean_) in Java, [`ClientConfig.EnableDirectAccess`](https://docs.cloud.google.com/go/docs/reference/cloud.google.com/go/spanner/latest#cloud_google_com_go_spanner_ClientConfig) in Go, or connection property `enableDirectAccess=true` in the [JDBC driver](https://docs.cloud.google.com/spanner/docs/getting-started/jdbc) ).
 
-To verify if Spanner direct connectivity is being used, monitor the usage labels in your [client-side metrics](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions) .
+Direct connectivity supports both IPv4 and IPv6. If your Compute Engine VMs or GKE nodes have only IPv4 addresses, then the client library connects over IPv4 automatically. You don't need to enable IPv6 on your Virtual Private Cloud network or GKE cluster. If IPv6 is available, the client library uses it.
+
+The direct connectivity IP ranges support VPC Service Controls, so your service perimeters also apply to direct connectivity traffic. For more information, see [Direct connectivity to APIs and services](https://docs.cloud.google.com/vpc-service-controls/docs/set-up-private-connectivity#direct-connectivity) .
+
+To verify whether requests use direct connectivity, check the `directpath_used` dimension in your [client-side metrics](https://docs.cloud.google.com/spanner/docs/client-side-metrics-descriptions) . A value of `true` means that the request was sent directly to Spanner. If `directpath_enabled` is `true` but `directpath_used` is `false` , the request used the standard path through the GFE.
 
 ## End-to-end latency
 

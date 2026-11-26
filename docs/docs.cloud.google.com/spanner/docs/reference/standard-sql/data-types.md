@@ -984,13 +984,13 @@ A timestamp value represents an absolute point in time, independent of any time 
 
 A timestamp is typically represented internally as the number of elapsed nanoseconds since a fixed initial point in time.
 
-Note that a timestamp itself doesn't have a time zone; it represents the same instant in time globally. However, the *display* of a timestamp for human readability usually includes a Gregorian date, a time, and a time zone, in an implementation-dependent format. For example, the displayed values "2020-01-01 00:00:00 UTC", "2019-12-31 19:00:00 America/New_York", and "2020-01-01 05:30:00 Asia/Kolkata" all represent the same instant in time and therefore represent the same timestamp value.
+A timestamp itself doesn't have a time zone. It represents the same instant in time globally. However, the *display* of a timestamp for human readability usually includes a Gregorian date, a time, and a time zone, in an implementation-dependent format. For example, the displayed values "2020-01-01 00:00:00 UTC", "2019-12-31 19:00:00 America/New_York", and "2020-01-01 05:30:00 Asia/Kolkata" all represent the same instant in time and therefore represent the same timestamp value.
 
-- To represent a Gregorian date as it might appear on a calendar (a civil date), use a [date](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) value.
+To represent a Gregorian date as it might appear on a calendar (a civil date), use a [date](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#date_type) value.
 
-##### Canonical format
+### Canonical format
 
-#### For Rest and RPC APIs
+#### For REST and RPC APIs
 
 Follow the rules for encoding to and decoding from JSON values as described in [TypeCode (RPC)](https://docs.cloud.google.com/spanner/docs/reference/rest/v1/ResultSetMetadata#TypeCode) and [TypeCode (REST)](https://docs.cloud.google.com/spanner/docs/reference/rpc/google.spanner.v1#google.spanner.v1.TypeCode) . In particular, the timestamp value must end with an uppercase literal "Z" to specify Zulu time (UTC-0).
 
@@ -1037,7 +1037,7 @@ time_part:
 - `[M]M` : One or two digit minutes (valid values from 00 to 59).
 - `[S]S` : One or two digit seconds (valid values from 00 to 60).
 - `[.F]` : Up to nine fractional digits (nanosecond precision).
-- `[time_zone]` : String representing the time zone. When a time zone isn't explicitly specified, the default time zone, America/Los_Angeles, is used. For details, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
+- `[time_zone]` : String representing the time zone. When a time zone isn't explicitly specified, Spanner uses the database's default time zone ( `America/Los_Angeles` unless you [set a different default time zone](https://docs.cloud.google.com/spanner/docs/set-default-time-zone) ). For more information, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
 - `[time_zone_offset]` : String representing the offset from the Coordinated Universal Time (UTC) time zone. For details, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
 - `[utc_time_zone]` : String representing the Coordinated Universal Time (UTC), usually the letter `Z` or `z` . For details, see [time zones](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#time_zones) .
 
@@ -1050,7 +1050,7 @@ A time zone is used when converting from a civil date or time (as might appear o
 Time zones are represented by strings in one of these canonical formats:
 
 - Offset from Coordinated Universal Time (UTC), or the letter `Z` or `z` for UTC.
-- Time zone name from the [tz database](http://www.iana.org/time-zones) .
+- Time zone name from the [tz database](https://www.iana.org/time-zones) .
 
 The following timestamps are identical because the time zone offset for `America/Los_Angeles` is `-08` for the specified date and time.
 
@@ -1062,7 +1062,7 @@ SELECT UNIX_MILLIS(TIMESTAMP '2008-12-25 15:30:00 America/Los_Angeles') AS milli
 SELECT UNIX_MILLIS(TIMESTAMP '2008-12-25 15:30:00-08:00') AS millis;
 ```
 
-#### Specify Coordinated Universal Time (UTC)
+#### Coordinated Universal Time (UTC)
 
 You can specify UTC using the following suffix:
 
@@ -1073,12 +1073,12 @@ You can specify UTC using the following suffix:
 You can also specify UTC using the following time zone name:
 
 ```
-{Etc/UTC}
+Etc/UTC
 ```
 
-The `Z` suffix is a placeholder that implies UTC when converting an [RFC 3339-format](https://datatracker.ietf.org/doc/html/rfc3339#page-10) value to a `TIMESTAMP` value. The value `Z` isn't a valid time zone for functions that accept a time zone. If you're specifying a time zone, or you're unsure of the format to use to specify UTC, we recommend using the `Etc/UTC` time zone name.
+The `Z` suffix is a placeholder that implies UTC when converting an [RFC 3339-format](https://datatracker.ietf.org/doc/html/rfc3339#page-10) value to a `TIMESTAMP` value. The value `Z` isn't a valid time zone for functions that accept a time zone. If you're specifying a time zone, or you're unsure of the format to use to specify UTC, use the `Etc/UTC` time zone name.
 
-The `Z` suffix isn't case sensitive. When using the `Z` suffix, no space is allowed between the `Z` and the rest of the timestamp. The following are examples of using the `Z` suffix and the `Etc/UTC` time zone name:
+In SQL timestamp literals, the `Z` suffix isn't case sensitive, unlike in the [REST and RPC APIs](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#for_rest_and_rpc_apis) , which require an uppercase `Z` . When using the `Z` suffix, no space is allowed between the `Z` and the rest of the timestamp. The following are examples of using the `Z` suffix and the `Etc/UTC` time zone name:
 
 ```
 SELECT TIMESTAMP '2014-09-27T12:30:00.45Z'
@@ -1086,7 +1086,7 @@ SELECT TIMESTAMP '2014-09-27 12:30:00.45z'
 SELECT TIMESTAMP '2014-09-27T12:30:00.45 Etc/UTC'
 ```
 
-#### Specify an offset from Coordinated Universal Time (UTC)
+#### Offset from Coordinated Universal Time (UTC)
 
 You can specify the offset from UTC using the following format:
 
@@ -1118,7 +1118,7 @@ Format:
 tz_identifier
 ```
 
-A time zone name is a tz identifier from the [tz database](http://www.iana.org/time-zones) . For a less comprehensive but simpler reference, see the [List of tz database time zones](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones) on Wikipedia.
+A time zone name is a tz identifier from the [tz database](https://www.iana.org/time-zones) . For a less comprehensive but simpler reference, see the [List of tz database time zones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) on Wikipedia.
 
 Examples:
 
@@ -1135,13 +1135,13 @@ When using a time zone name, a space is required between the name and the rest o
 2014-09-27 12:30:00.45 America/Los_Angeles
 ```
 
-Note that not all time zone names are interchangeable even if they do happen to report the same time during a given part of the year. For example, `America/Los_Angeles` reports the same time as `UTC-7:00` during daylight saving time (DST), but reports the same time as `UTC-8:00` outside of DST.
+Not all time zone names are interchangeable even if they happen to report the same time during a given part of the year. For example, `America/Los_Angeles` reports the same time as `UTC-7:00` during daylight saving time (DST), but reports the same time as `UTC-8:00` outside of DST.
 
-If a time zone isn't specified, the default time zone value is used.
+If a time zone isn't specified, Spanner uses the database's default time zone. For details, see [Set the default time zone of a database](https://docs.cloud.google.com/spanner/docs/set-default-time-zone) .
 
 #### Leap seconds
 
-A timestamp is simply an offset from 1970-01-01 00:00:00 UTC, assuming there are exactly 60 seconds per minute. Leap seconds aren't represented as part of a stored timestamp.
+A timestamp is an offset from 1970-01-01 00:00:00 UTC, assuming there are exactly 60 seconds per minute. Leap seconds aren't represented as part of a stored timestamp.
 
 If the input contains values that use ":60" in the seconds field to represent a leap second, that leap second isn't preserved when converting to a timestamp value. Instead that value is interpreted as a timestamp with ":00" in the seconds field of the following minute.
 
@@ -1149,7 +1149,7 @@ Leap seconds don't affect timestamp computations. All timestamp computations are
 
 #### Daylight saving time
 
-A timestamp is unaffected by daylight saving time (DST) because it represents a point in time. When you display a timestamp as a civil time, with a timezone that observes DST, the following rules apply:
+A timestamp is unaffected by daylight saving time (DST) because it represents a point in time. When you display a timestamp as a civil time, with a time zone that observes DST, the following rules apply:
 
 - During the transition from standard time to DST, one hour is skipped. A civil time from the skipped hour is treated the same as if it were written an hour later. For example, in the `America/Los_Angeles` time zone, the hour between 2 AM and 3 AM on March 10, 2024 is skipped on a clock. The times 2:30 AM and 3:30 AM on that date are treated as the same point in time:
 
@@ -1165,7 +1165,7 @@ A timestamp is unaffected by daylight saving time (DST) because it represents a 
    +------------------------------+------------------------------*/
   ```
 
-- When there's ambiguity in how to represent a civil time in a particular timezone because of DST, the later time is chosen:
+- When there's ambiguity in how to represent a civil time in a particular time zone because of DST, the later time is chosen:
 
   ```
   SELECT

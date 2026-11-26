@@ -152,6 +152,7 @@ The syntax for using a scalar type in DDL is:
   | BYTES( length )
   | DATE
   | TIMESTAMP
+  | UUID
 }
 
 length:
@@ -220,6 +221,18 @@ Notes:
 - A timestamp with nanosecond precision.
 - Timezone-independent, over the range \[ `0001-01-01 00:00:00` to `10000-01-01 00:00:00` \].
 - For more information and to see the canonical format, see [Data Types](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#timestamp_type) .
+
+#### UUID
+
+The `UUID` data type stores a universally unique identifier (UUID) as defined by [RFC 9562](https://datatracker.ietf.org/doc/html/rfc9562) .
+
+The following properties apply to `UUID` columns:
+
+- Each `UUID` value uses 16 bytes (128 bits) of storage, excluding [per-cell storage overhead](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#storage_size_for_data_types) .
+- `UUID` columns are valid key columns for primary keys, foreign keys, and secondary indexes.
+- To automatically generate UUID version 4 values when inserting rows, you can specify `DEFAULT (NEW_UUID())` in the column definition. For more information, see the [`NEW_UUID()` function](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/utility-functions#new_uuid) .
+
+For canonical format, casting, and comparison rules, see [UUID type](https://docs.cloud.google.com/spanner/docs/reference/standard-sql/data-types#uuid_type) . For primary key schema design guidance, see [Use a universally unique identifier (UUID)](https://docs.cloud.google.com/spanner/docs/schema-design#uuid_primary_key) .
 
 ### Arrays
 
